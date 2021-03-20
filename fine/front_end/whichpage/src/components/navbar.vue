@@ -1,7 +1,4 @@
 <template>
-<<<<<<< HEAD
-    <div id="navbar"></div>
-=======
     <div id="navbar">
         <div id="logo">
             <img id="nav_logo" src="../assets/logo.png" alt="" />
@@ -23,7 +20,6 @@
             </div>
         </div>
     </div>
->>>>>>> 601a432201010e426ed20ffda1d88124684c8e41
 </template>
 
 <script>
