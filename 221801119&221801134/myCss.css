@@ -1,4 +1,4 @@
-/*å¯¼èˆªæ */
+/*µ¼º½À¸*/
 a{background-color:transparent;text-decoration:none;color:inherit}
 .subnav-ul{display:flex;list-style:none;height:60px;margin:0}
 .metabar{position:fixed;top:0;left:0;right:0;z-index:9;background-color:#fff;height:60px;border-bottom:1px solid rgba(0,0,0,.1)}
@@ -16,7 +16,7 @@ a{background-color:transparent;text-decoration:none;color:inherit}
 .metabarItem.active svg,.metabarItem:hover svg{fill:#4370f5}
 .metabarItem svg{margin-right:6px}
 
-/*ç™»å½•æ¡†*/
+/*µÇÂ¼¿ò*/
 .login{
     position:absolute;
     left:55%;
@@ -37,7 +37,6 @@ input[type=text], select {
     border-radius: 4px;
     box-sizing: border-box;
 }
-
 input[type=submit] {
     width: 80%;
     background-color: #686f72;
@@ -48,7 +47,22 @@ input[type=submit] {
     border-radius: 4px;
     cursor: pointer;
 }
-
 input[type=submit]:hover {
     background-color: #45a049;
+}
+
+/*¶¯Ì¬·ÖÎö*/
+#analysis_container {
+	width: 1550px;	
+	display:flex;
+}
+#analysis_left_container {
+	width: 900px;
+	height: 600px;
+	margin: 40px auto;
+}
+#analysis_right_container {
+	width: 550px;
+	height: 600px;
+	margin: 40px auto;
 }
