@@ -52,3 +52,56 @@ input[type=submit] {
 input[type=submit]:hover {
     background-color: #45a049;
 }
+
+#box{
+    margin-top: 2%;
+    margin-left: 14%;
+    font-family: 'Microsoft YaHei';
+    font-size: 14px;
+}
+
+#box input{
+    width: 260px;
+    border: 1px solid #e2e2e2;
+    margin: 1% auto;
+    height: 40px;
+    float: left;
+    background-image: url(搜索.png);
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position:5px center;
+    padding:0 0 0 40px;
+}
+
+#search{
+    width: 70px;
+    height: 40px;
+    float: left;
+    margin: 1% auto;
+    background: #303030;
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+}
+
+#box select{
+    width: 15%;
+    float: left;
+    margin:1% auto;
+}
+
+ .mainPaper{
+     position: absolute;
+     left: 14%;
+     top: 25%;
+     width: 60%;
+     height: 500px;
+ }
+.paper{
+    margin: 1%;
+    float: left;
+    background-color: #fffdfd;
+    height: 200px;
+    width: 90%;
+}
