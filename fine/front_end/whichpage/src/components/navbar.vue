@@ -6,17 +6,17 @@
         <div>
             <div id="nav_button">
                 <div class="nav_button_item">
-					<i class="iconfont icon-home"></i>
-					<span>首页</span>
-				</div>
+                    <i class="iconfont icon-home"></i>
+                    <span>首页</span>
+                </div>
                 <div class="nav_button_item">
-					<i class="iconfont icon-insert"></i>
-					<span>论文导入</span>
-				</div>
+                    <i class="iconfont icon-insert"></i>
+                    <span>论文导入</span>
+                </div>
                 <div class="nav_button_item">
-					<i class="iconfont icon-data"></i>
-					<span>本站聚焦</span>
-				</div>
+                    <i class="iconfont icon-data"></i>
+                    <span>本站聚焦</span>
+                </div>
             </div>
         </div>
     </div>
@@ -62,33 +62,33 @@ export default {
 }
 
 #nav_button {
-	display: flex;
-	height: 100%;
-	margin-right: 100px;
-	align-items: center;
+    display: flex;
+    height: 100%;
+    margin-right: 100px;
+    align-items: center;
 }
 
 .nav_button_item {
-	display: flex;
-	/* border: 1px red solid; */
-	height: 100%;
+    display: flex;
+    /* border: 1px red solid; */
+    height: 100%;
     color: #003333;
-	font-size: 24px;
-	font-weight: bold;
-	margin: 0 20px;
-	padding: 0 30px;
-	justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 20px;
+    padding: 0 30px;
+    justify-content: center;
     align-items: center;
 }
 
 .nav_button_item:hover {
-	background-color: #FCFDF5;
-	cursor: pointer;
+    background-color: #fcfdf5;
+    cursor: pointer;
 }
 
 .iconfont {
-	/* border: 1px red solid; */
-	font-size: 24px;
-	margin-right: 5px;
+    /* border: 1px red solid; */
+    font-size: 24px;
+    margin-right: 5px;
 }
 </style>
