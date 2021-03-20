@@ -5,9 +5,11 @@ Vue.use(VueRouter)
 
 // 引入组件
 const home = () => import('../components/home.vue')
-const listpage = () => import('../components/listpage.vue')
 const hotpage = () => import('../components/hotpage.vue')
 const insertpage = () => import('../components/insertpage.vue')
+const listpage = () => import('../components/home_detail/listpage.vue')
+const detailpage = () => import('../components/home_detail/detailpage.vue')
+const editpage = () => import('../components/home_detail/editpage.vue')
 
 const router = new VueRouter({
     mode: 'history',
@@ -32,6 +34,16 @@ const router = new VueRouter({
                     path: 'insertpage',
                     component: insertpage,
                     name: 'insertpage',
+                },
+                {
+                    path: 'detailpage',
+                    component: detailpage,
+                    name: 'detailpage',
+                },
+                {
+                    path: 'editpage',
+                    component: editpage,
+                    name: 'editpage',
                 }
             ]
         },
