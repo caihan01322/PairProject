@@ -15,9 +15,13 @@ const router = new VueRouter({
     routes: [
         {
             path: '/',
+            redirect: { name: 'home' },
+        },
+        {
+            path: '/home',
             component: home,
             name: 'home',
-            redirect: { name: 'home' },
+            redirect: { name: 'listpage' },
             children: [
                 {
                     path: 'listpage',

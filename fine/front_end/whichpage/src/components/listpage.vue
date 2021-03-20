@@ -16,5 +16,6 @@ export default {
 
 <style scoped>
 #list_page {
+    border: 1px red solid;
 }
 </style>

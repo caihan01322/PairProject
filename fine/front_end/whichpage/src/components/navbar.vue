@@ -1,21 +1,20 @@
 <template>
-  <div id="navbar">
-  </div>
+    <div id="navbar"></div>
 </template>
 
 <script>
 export default {
-  name: "Navbar",
+    name: "Navbar",
 
-  data() {
-    return {
-      //参数数据
-    };
-  },
+    data() {
+        return {
+            //参数数据
+        };
+    },
 
-  methods: {
-    //函数
-  },
+    methods: {
+        //函数
+    },
 };
 </script>
 

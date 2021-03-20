@@ -1,12 +1,20 @@
 <template>
     <div id="home">
         <router-view></router-view>
+
+        <toplist></toplist>
     </div>
 </template>
 
 <script>
+import toplist from "../components/toplist";
+
 export default {
     name: "Home",
+
+    components: {
+        toplist,
+    },
 
     data() {
         return {
@@ -22,6 +30,9 @@ export default {
 
 <style scoped>
 #home {
-    border: 1px red solid;
+    /* border: 1px red solid; */
+    display: flex;
+    justify-content: space-between;
+    height: 90%;
 }
 </style>
