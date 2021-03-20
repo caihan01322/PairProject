@@ -22,7 +22,6 @@ export default {
     margin: 0;
     padding: 0;
     position: relative;
-    background-color: #fcfdf5;
 }
 
 html,
@@ -34,5 +33,6 @@ body {
 #app {
     height: 100%;
     width: 100%;
+    background-color: #fcfdf5;
 }
 </style>

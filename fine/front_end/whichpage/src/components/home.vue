@@ -33,6 +33,7 @@ export default {
     /* border: 1px red solid; */
     display: flex;
     justify-content: space-between;
+    align-items: center;
     height: 90%;
 }
 </style>
