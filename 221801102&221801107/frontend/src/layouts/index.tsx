@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { IRouteComponentProps } from 'umi';
+import { IRouteComponentProps, Link, history } from 'umi';
 import { Menu, Layout as ALayout, Avatar, Dropdown, Button } from 'antd';
 import { LogoutOutlined, FolderOutlined } from '@ant-design/icons';
 import styles from './index.less';
@@ -18,11 +18,14 @@ const Layout = ({ children }: IRouteComponentProps) => {
 
   // mock
   const isLogin = false;
+  const selectKey = history.location.pathname;
 
   return (
     <ALayout>
       <Header>
-        <div className={styles.logo} />
+        <Link to="/">
+          <div className={styles.logo} />
+        </Link>
         {isLogin && (
           <Dropdown overlay={AvatarSetting}>
             <Avatar className={styles.avatar} size={'small'} />
@@ -33,8 +36,10 @@ const Layout = ({ children }: IRouteComponentProps) => {
             登录
           </Button>
         )}
-        <Menu theme="dark" mode="horizontal">
-          <Menu.Item key="1">数据统计</Menu.Item>
+        <Menu theme="dark" mode="horizontal" selectedKeys={[selectKey]}>
+          <Menu.Item key="/statistic">
+            <Link to="/statistic">数据统计</Link>
+          </Menu.Item>
         </Menu>
       </Header>
       <Content>{children}</Content>
