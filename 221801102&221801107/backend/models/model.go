@@ -1,7 +1,7 @@
 package models
 
 import (
-	"221801102/conf"
+	"backend/conf"
 	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

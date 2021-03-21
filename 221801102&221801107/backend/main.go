@@ -1,9 +1,9 @@
 package main
 
 import (
-	"221801102/conf"
-	_ "221801102/models" // initialize database
-	"221801102/routers"
+	"backend/conf"
+	_ "backend/models" // initialize database
+	"backend/routers"
 	"fmt"
 	"log"
 	"net/http"

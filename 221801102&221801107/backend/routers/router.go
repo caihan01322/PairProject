@@ -1,8 +1,8 @@
 package routers
 
 import (
-	"221801102/conf"
-	"221801102/routers/api"
+	"backend/conf"
+	"backend/routers/api"
 	"github.com/gin-gonic/gin"
 )
 
