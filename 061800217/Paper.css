@@ -31,6 +31,11 @@ div {
     top: 59px;
     z-index: 3;
 }
+#face img{
+    vertical-align: middle;
+ margin: 0 auto;
+ padding: 40% 30%;
+}
 #personInf{
     position: absolute;
     left: 30px;
@@ -40,15 +45,26 @@ div {
     width: 258px;
     height: 493px;
     z-index: 1;
-
 }
-#name, #history{
-    margin: 100px auto;    
+#name{
+    margin: 100px auto 0px auto;    
     text-align: center;
 }
-p
-{margin:  12px;
-padding: 0;}
+#history{
+    text-align: center;
+}
+#history ul li{
+    list-style: none;
+    margin-top: 3px;
+    text-align: center;
+}
+#historyTit{
+    text-align: left;
+    margin-left: 33px;
+}
+#name p{
+    margin:  12px;
+    padding: 0;}
 #nav, #footer {
     height: 61px;
     background-color: #353D48;
@@ -60,7 +76,7 @@ padding: 0;}
     padding-left: 90px;
     padding-top: 11px;
 }
-input.navButton, input.footerButton{
+input.nav-button, input.footer-button{
     background-color: #353D48;
     border-color: #353D48;
     border-bottom-style: none;
@@ -90,11 +106,11 @@ input#loginOut{
    border-top: 1px solid;   
    border-color: #EAE9E9;
 }
-input.footerButton{
+input.footer-button{
     font-size: 14px;
     padding-left: 76px;
 }
-input.footerButton#indexButton{
+input.footer-button#indexButton{
     padding-left: 225px;
 }
 #copyright{
