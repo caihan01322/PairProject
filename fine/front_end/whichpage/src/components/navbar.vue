@@ -5,15 +5,15 @@
         </div>
         <div>
             <div id="nav_button">
-                <div class="nav_button_item">
+                <div class="nav_button_item" @click="go_home">
                     <i class="iconfont icon-home"></i>
                     <span>首页</span>
                 </div>
-                <div class="nav_button_item">
+                <div class="nav_button_item" @click="go_insert">
                     <i class="iconfont icon-insert"></i>
                     <span>论文导入</span>
                 </div>
-                <div class="nav_button_item">
+                <div class="nav_button_item" @click="go_hot">
                     <i class="iconfont icon-data"></i>
                     <span>本站聚焦</span>
                 </div>
@@ -33,7 +33,17 @@ export default {
     },
 
     methods: {
-        //函数
+        go_home() {
+            this.$router.push({ name: "listpage" });
+        },
+
+        go_insert() {
+            this.$router.push({ name: "insertpage" });
+        },
+
+        go_hot() {
+            this.$router.push({ name: "hotpage" });
+        },
     },
 };
 </script>

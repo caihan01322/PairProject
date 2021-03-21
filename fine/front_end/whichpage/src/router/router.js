@@ -36,12 +36,12 @@ const router = new VueRouter({
                     name: 'insertpage',
                 },
                 {
-                    path: 'detailpage',
+                    path: 'detailpage/:isbn',
                     component: detailpage,
                     name: 'detailpage',
                 },
                 {
-                    path: 'editpage',
+                    path: 'editpage/:isbn',
                     component: editpage,
                     name: 'editpage',
                 }

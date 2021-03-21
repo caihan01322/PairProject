@@ -91,15 +91,34 @@ export default {
 </style>
 
 <style>
-.el-table td,
-.el-table th.is-leaf {
-    border-bottom: 1px #033 solid;
+.el-table th,
+.el-table tr {
     color: #033;
-    font-weight: bold;
+    background-color: #9ecca4;
 }
 
 .el-table__empty-block {
     background-color: #fcfdf5;
 }
 
+.el-table--striped .el-table__body tr.el-table__row--striped td {
+    background-color: #9ecca4;
+}
+
+.el-table td,
+.el-table th.is-leaf {
+    border-bottom: 1px #033 solid;
+}
+
+.el-table__header-wrapper {
+    background-color: #9ecca4;
+}
+
+.el-table {
+    color: #033;
+}
+
+.el-table__row {
+    background-color: #fcfdf5 !important;
+}
 </style>
