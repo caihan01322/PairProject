@@ -7,18 +7,41 @@
                 clearable
             >
             </el-input>
-            <el-button plain>搜索 </el-button>
-            <el-button plain>文件导入</el-button>
+            <el-button plain @click="search_page">搜索</el-button>
+            <el-button plain @click="file_insert">文件导入</el-button>
         </div>
         <div class="list">
             <el-table :data="insert_data" stripe>
-                <el-table-column prop="num" label="论文编号" width="180">
+                <el-table-column
+                    prop="isbn"
+                    label="论文编号"
+                    width="100"
+                    align="center"
+                >
                 </el-table-column>
-                <el-table-column prop="name" label="论文题目" width="180">
+                <el-table-column
+                    prop="name"
+                    label="论文题目"
+                    width="280"
+                    align="center"
+                >
                 </el-table-column>
-                <el-table-column prop="key_name" label="关键词">
+                <el-table-column
+                    prop="tag"
+                    label="关键词"
+                    width="280"
+                    align="center"
+                >
                 </el-table-column>
-                <el-table-column prop="insert_button" label="按钮">
+                <el-table-column align="center">
+                    <template slot-scope="scope">
+                        <el-button
+                            class="insert_button"
+                            plain
+                            @click="insert_page(scope.row.isbn, $event)"
+                            >导入</el-button
+                        >
+                    </template>
                 </el-table-column>
             </el-table>
         </div>
@@ -32,11 +55,77 @@ export default {
     data() {
         return {
             page_name: "",
+            insert_data: [
+                {
+                    isbn: "19398261",
+                    name:
+                        "FaceForensics++: Learning to Detect Manipulated Facial Images",
+                    tag:
+                        "facial manipulation detection,Deep-Fakes,Face2Face,facial manipulations,random compression level,forgery datasets",
+                },
+                {
+                    isbn: "19398261",
+                    name:
+                        "FaceForensics++: Learning to Detect Manipulated Facial Images",
+                    tag:
+                        "facial manipulation detection,Deep-Fakes,Face2Face,facial manipulations,random compression level,forgery datasets",
+                },
+                {
+                    isbn: "19398261",
+                    name:
+                        "FaceForensics++: Learning to Detect Manipulated Facial Images",
+                    tag:
+                        "facial manipulation detection,Deep-Fakes,Face2Face,facial manipulations,random compression level,forgery datasets",
+                },
+                {
+                    isbn: "19398261",
+                    name:
+                        "FaceForensics++: Learning to Detect Manipulated Facial Images",
+                    tag:
+                        "facial manipulation detection,Deep-Fakes,Face2Face,facial manipulations,random compression level,forgery datasets",
+                },
+                {
+                    isbn: "19398261",
+                    name:
+                        "FaceForensics++: Learning to Detect Manipulated Facial Images",
+                    tag:
+                        "facial manipulation detection,Deep-Fakes,Face2Face,facial manipulations,random compression level,forgery datasets",
+                },
+                {
+                    isbn: "2016-05-03",
+                    name: "王小虎",
+                    tag: "上海市普陀区金沙江路 1516 弄",
+                },
+            ],
         };
     },
 
     methods: {
-        //函数
+        search_page(e) {
+            let target = e.target;
+            if (target.nodeName == "SPAN") {
+                target = target.parentNode;
+            }
+            target.blur();
+        },
+
+        file_insert(e) {
+            let target = e.target;
+            if (target.nodeName == "SPAN") {
+                target = target.parentNode;
+            }
+            target.blur();
+        },
+
+        insert_page(isbn, e) {
+            let target = e.target;
+            if (target.nodeName == "SPAN") {
+                target = target.parentNode;
+            }
+            target.blur();
+
+            console.log(isbn);
+        },
     },
 };
 </script>
@@ -84,9 +173,13 @@ export default {
 }
 
 .list {
-    width: 55%;
+    width: 70%;
     margin: 0 auto;
     margin-top: 5%;
+}
+
+.insert_button {
+    padding: 5% 10%;
 }
 </style>
 
@@ -120,5 +213,17 @@ export default {
 
 .el-table__row {
     background-color: #fcfdf5 !important;
+}
+
+.el-table__row:hover > td {
+    background-color: #fcfdf5 !important;
+}
+
+.el-table__row--striped:hover > td {
+    background-color: #9ecca4 !important;
+}
+
+.el-table .cell {
+    white-space: nowrap;
 }
 </style>
