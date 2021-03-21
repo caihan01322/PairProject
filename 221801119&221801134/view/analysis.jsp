@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0,user-scalable=no,minimal-ui">
     <title>动态分析</title>
-    <link rel='stylesheet' href='myCss.css' type='text/css'/>
+    <link rel='stylesheet' href='css/myCss.css' type='text/css'/>
+    <link rel='stylesheet' href='css/myCss2.css' type='text/css'/>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com.cn/highcharts/modules/exporting.js"></script>
