@@ -23,8 +23,8 @@ class DemoApplicationTests {
 
     @Test
     void contextLoads() throws IOException {
-        //putPapers("CVPR");
-        //putPapers("ICCV");
+        putPapers("CVPR");
+        putPapers("ICCV");
 
         putPapers("ECCV");
     }
@@ -38,7 +38,6 @@ class DemoApplicationTests {
             }else{//CVPR&ICCV
                 putDataIntoMysql1(path,publisher);
             }
-            break;
         }
     }
     public void putDataIntoMysql1(String path,String publisher) throws IOException {
