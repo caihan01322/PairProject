@@ -5,5 +5,5 @@ use think\Model;
 
 class Paper extends Model
 {
-    
+
 }

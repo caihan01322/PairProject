@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("button").click(function(){
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost/Pairprojcet/PairProject/PairProjectDemo/tp5/public/index.php/index/index/hello',
+                    success: function(data) {
+                        alert(data);
+                        $("p").text(data);
+                       }
+                });
+       });
+    });
+    </script>
+    <title>test</title>
+</head>
+<body>
+    <button type="button">click</button>
+    <p></p>
+    
+</body>
+</html>
