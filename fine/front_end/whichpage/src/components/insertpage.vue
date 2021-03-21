@@ -24,6 +24,7 @@
                     label="论文题目"
                     width="280"
                     align="center"
+                    show-overflow-tooltip
                 >
                 </el-table-column>
                 <el-table-column
@@ -31,6 +32,7 @@
                     label="关键词"
                     width="280"
                     align="center"
+                    show-overflow-tooltip
                 >
                 </el-table-column>
                 <el-table-column align="center">
