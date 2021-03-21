@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pair.dao.SqlMapper">
+    <insert id="insertPaper" parameterType="com.pair.pojo.paper_sql" >
+        insert into paper(pid,title,abs,publisher,publicationYear,doiLink)
+        values (#{pid},#{title},#{abs},#{publisher},#{publicationYear},#{doiLink});
+    </insert>
+    <insert id="insertPK" parameterType="String">
+        insert into paper_keyword(pid,kid)
+        values (#{pid},#{kid});
+    </insert>
+    <select id="selectKeyword" resultType="int">
+        select count(*) from keyword where keyword=#{keyword} and publisher=#{publisher};
+    </select>
+    <select id="selectKid" resultType="String">
+        select kid from keyword where keyword=#{keyword} and publisher=#{publisher};
+    </select>
+    <select id="selectNum" resultType="int">
+        select num from keyword where keyword=#{keyword} and publisher=#{publisher};
+    </select>
+    <update id="updateKeyword">
+        update keyword set num=#{num} where keyword=#{keyword} and publisher=#{publisher};
+    </update>
+    <insert id="insertKeyword">
+        insert into keyword(kid,keyword,publisher,num)
+        values(#{kid},#{keyword},#{publisher},#{num});
+    </insert>
+</mapper>
