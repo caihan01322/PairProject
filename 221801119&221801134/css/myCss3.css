@@ -1,4 +1,4 @@
-/*µ«¬ºøÚ*/
+/*ÁôªÂΩïÊ°Ü*/
 .login{
     position:absolute;
     left:55%;
@@ -35,21 +35,22 @@ input[type=submit]:hover {
     background-color: #45a049;
 }
 
-/*À—À˜øÚ*/
+/*ÊêúÁ¥¢Ê°Ü*/
 #box{
     margin-top: 2%;
-    margin-left: 14%;
     font-family: 'Microsoft YaHei';
     font-size: 14px;
 }
 
 #box input{
-    width: 260px;
+	position:relative;
+	left:5%;
+	top:10px;
+    width: 90%;
     border: 1px solid #e2e2e2;
-    margin: 1% auto;
     height: 40px;
     float: left;
-    background-image: url(../À—À˜.png);
+    background-image: url(../ÔøΩÔøΩÔøΩÔøΩ.png);
     background-repeat: no-repeat;
     background-size: 25px;
     background-position:5px center;
@@ -57,7 +58,10 @@ input[type=submit]:hover {
 }
 
 #search{
-    width: 70px;
+	position:relative;
+	left:5%;
+	top:-15px;
+    width: 25%;
     height: 40px;
     float: left;
     margin: 1% auto;
@@ -69,22 +73,55 @@ input[type=submit]:hover {
 }
 
 #box select{
-    width: 15%;
+	position:relative;
+	left:5%;
+	top:-15px;
+    width: 65%;
     float: left;
     margin:1% auto;
 }
 
+/*ËÆ∫ÊñáÂàóË°®*/
  .mainPaper{
      position: absolute;
-     left: 14%;
-     top: 25%;
+     left: 12%;
+     top: 7%;
      width: 60%;
-     height: 500px;
  }
 .paper{
     margin: 1%;
     float: left;
     background-color: #fffdfd;
-    height: 200px;
     width: 90%;
+    padding: 1.5% 2.5% 2% 2.5%;
+}
+
+.deleteImage{
+    position:relative;
+    left:81%;
+}
+
+.editImage{
+    position:relative;
+    left:80%;
+}
+
+.collectImage{
+    position:relative;
+    left:79%;
+}
+
+/*‰æßËæπÊ†è*/
+ .sider{
+     position: absolute;
+     left: 71%;
+     top: 19%;
+     width: 18%;
+ }
+ 
+ .siders{
+    margin: 1% 0 5% 0;
+    float: left;
+    background-color: #fffdfd;
+    width: 100%;
 }

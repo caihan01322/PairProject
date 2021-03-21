@@ -1,4 +1,5 @@
 <?php
+session_start();
 header("Content-type: text/html; charset=utf-8");
 $username = preg_replace("/\s|　/", "", $_POST['name']);
 $password =$_POST['password'];
@@ -19,7 +20,9 @@ if ($conn->connect_error){
     $result = $conn->query($sql);
     $number = mysqli_num_rows($result);
     if ($number) {
-        echo '<script>alert("登录成功！");window.location="../view/manage.php";</script>';
+        $row=$result ->fetch_assoc();
+        $_SESSION["userid"]=$row["userid"];
+        echo '<script>alert("登录成功！");window.location.href="../view/manage.php";</script>';
     } else {
         echo '<script>alert("用户名或密码错误！");history.go(-1);</script>';
     }
