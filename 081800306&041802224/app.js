@@ -6,7 +6,7 @@ app.use(async (ctx, next) => {
     ctx.response.body = 'index'
   } else if (ctx.request.path === '/content') { 
     ctx.response.status = 200
-    ctx.response.body = 'list'
+    ctx.response.body = 'xxxxxx'
   } else {
     ctx.throw(404, 'Not found') // 404
   }
