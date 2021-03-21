@@ -5,41 +5,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="Paper.css">
+    <link rel="shortcut icon" type="image/x-icon" href="antOutline-codepen-circle.svg">
     <title>Document</title>
 </head>
 <body>
     <div id="wrap">
         <div id="nav">  
             <embed id="sign" src="antOutline-codepen-circle.svg" type="image/svg+xml" >
-            <input class="navButton" id="findButton" type="button" value="论文检索" onclick="">
-            <input class="navButton" type="button" value="论文管理" onclick="">
-            <input class="navButton" type="button" value="论文分析" onclick="">
-            <input class="navButton" type="button" value="个人中心" onclick="">
-            <input class="navButton" id="loginOut" type="button" value="注 销" onclick="">
+            <input class="nav-button" id="findButton" type="button" value="论文检索" onclick="">
+            <input class="nav-button" type="button" value="论文管理" onclick="">
+            <input class="nav-button" type="button" value="论文分析" onclick="">
+            <input class="nav-button" type="button" value="个人中心" onclick="">
+            <input class="nav-button" id="loginOut" type="button" value="注 销" onclick="">
         </div>
 
         <div id="main">
             <div id="userInfo">
-                <div id="face"></div>
+                <div id="face">
+                    <img alt="头像">
+                </div>
                 <div id="personInf">
                     <div id="name">
                         <h2>昵称</h2>
                         <p>id:XXXXXX</p>
-                        <p>我的收藏：10</p>
-                        <p>我的分享：13</p>
+                        <p>我的收藏：<span id="myCol">10</span></p>
+                        <p>我的分享：<span id="myShare">13</span></p>
                     </div>
                     <div id="history">
-                        <h4>历史记录</h4>
+                        <h4 id="historyTit">历史记录</h4>
+                        <ul>
+                            <li>ICCV 论文题目（一）</li>
+                            <li>ICCV 论文题目（二）</li>
+                            <li>ICCV 论文题目（三）</li>
+                            <li>ICCV 论文题目（四）</li>
+                            <li>ICCV 论文题目（五）</li>
+                            <li>ICCV 论文题目（六）</li>
+                        </ul>
                     </div>
                 </div>
             </div>   
-            <div id="modular">b</div>    
+            <div id="modular"></div>    
         </div>
 
         <div id="footer">
-            <input class="footerButton" id="indexButton" type="button" value="首页官网" onclick="">
-            <input class="footerButton" type="button" value="关于我们" onclick="">
-            <input class="footerButton" type="button" value="联系我们" onclick="">
+            <input class="footer-button" id="indexButton" type="button" value="首页官网" onclick="">
+            <input class="footer-button" type="button" value="关于我们" onclick="">
+            <input class="footer-button" type="button" value="联系我们" onclick="">
             <span id="copyright">Copyright © 2020. All rights reserved.</span>
         </div>
     </div>
