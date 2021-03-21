@@ -1,13 +1,16 @@
 package conf
 
 import (
+	"golang.org/x/oauth2"
 	"gopkg.in/ini.v1"
 	"log"
 	"time"
 )
 
 var (
-	Cfg *ini.File
+	Cfg          *ini.File
+	OAuthCfg     *oauth2.Config
+	ServerSecret string
 
 	RunMode string // gin run mode
 
@@ -16,6 +19,14 @@ var (
 	WriteTimeOut time.Duration
 
 	PageSize int // pagination
+
+	scopes = []string{"repo"}
+)
+
+const (
+	githubAuthUrl  = "https://github.com/login/oauth/authorize"
+	githubTokenUrl = "https://github.com/login/oauth/access_token"
+	redirectUrl    = "http://localhost:8000/auth-callback"
 )
 
 func init() {
@@ -29,6 +40,24 @@ func init() {
 
 	LoadServer()
 	LoadApp()
+	LoadOAuth()
+}
+
+func LoadOAuth() {
+	sec, err := Cfg.GetSection("oauth")
+	if err != nil {
+		log.Fatalf("Fail to get section 'oauth': %v", err)
+	}
+	OAuthCfg = &oauth2.Config{
+		ClientID:     sec.Key("client_id").String(),
+		ClientSecret: sec.Key("client_secret").String(),
+		Endpoint: oauth2.Endpoint{
+			AuthURL:  githubAuthUrl,
+			TokenURL: githubTokenUrl,
+		},
+		RedirectURL: redirectUrl,
+		Scopes:      scopes,
+	}
 }
 
 func LoadApp() {
@@ -49,4 +78,5 @@ func LoadServer() {
 	HTTPPort = sec.Key("http_port").MustInt(80)
 	ReadTimeOut = time.Duration(sec.Key("read_timeout").MustInt(60)) * time.Second
 	WriteTimeOut = time.Duration(sec.Key("read_timeout").MustInt(60)) * time.Second
+	ServerSecret = sec.Key("server_secret").String()
 }

@@ -21,15 +21,6 @@ type Model struct {
 	UpdatedAt time.Time
 }
 
-// TODO test, delete it for dev
-type Tag struct {
-	Model
-	Name       string `json:"name"`
-	CreatedBy  string `json:"created_by"`
-	ModifiedBy string `json:"modified_by"`
-	State      int    `json:"state"`
-}
-
 // setting and migrate database
 func init() {
 	sec, err := conf.Cfg.GetSection("database")
@@ -61,7 +52,7 @@ func init() {
 		log.Fatalf("Unable to create database: %v", err)
 	}
 
-	err = db.AutoMigrate(&Tag{})
+	err = db.AutoMigrate()
 	if err != nil {
 		log.Println(err)
 	}
@@ -70,8 +61,8 @@ func init() {
 	if err != nil {
 		log.Println(err)
 	}
-	sqlDB.SetMaxIdleConns(10)
-	sqlDB.SetMaxOpenConns(100)
+	sqlDB.SetMaxIdleConns(sec.Key("max_idle").MustInt(10))
+	sqlDB.SetMaxOpenConns(sec.Key("max_open").MustInt(100))
 
 	if err != nil {
 		log.Println(err)
