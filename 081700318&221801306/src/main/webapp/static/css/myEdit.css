@@ -1,0 +1,19 @@
+.navbar-brand {
+  padding-right: 100px;
+}
+
+.main {
+  margin: auto auto;
+  width: 500px;
+  height: auto;
+  text-align: center;
+}
+
+.search-title {
+  font-size: 75px;
+  text-align: center;
+  margin-top: 40%;
+}
+.search-bar {
+  margin-top: 50px;
+}
