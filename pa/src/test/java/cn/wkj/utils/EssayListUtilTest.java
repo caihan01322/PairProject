@@ -39,4 +39,9 @@ public class EssayListUtilTest {
             System.out.println(essayList.get(i));
         }
     }
+
+    @Test
+    public void getEssayList() {
+        EssayListUtil.getEssayList();
+    }
 }

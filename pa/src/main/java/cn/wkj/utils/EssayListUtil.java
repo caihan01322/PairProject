@@ -53,7 +53,7 @@ public class EssayListUtil {
             }
         }
         for(int i = 0; i < 2; i++) {
-            String fileName = fileName_CVPR_ICCV[i];
+            String fileName = fileName_ECCV[i];
             File file = new File(fileName);
             File[] files = file.listFiles();
             for(int j = 0; j < files.length; j++) {
