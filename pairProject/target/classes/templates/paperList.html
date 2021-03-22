@@ -1,29 +1,95 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.min.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-table/bootstrap-table.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+
 </head>
 <body>
-<table border=1>
-    <tr>
-        <th>标题</th>
-        <th>摘要</th>
-        <th>会议名称</th>
-        <th>发布日期</th>
-        <th>关键词</th>
-        <th>原文链接</th>
-    </tr>
-    <div th:each="paper:${papers}">
-        <td><div th:text="${paper.getTitle()}"></div></td>
-        <td><div th:text="${paper.getAbs()}"></div></td>
-        <td><div th:text="${paper.getPublisher()}"></div></td>
-        <td><div th:text="${paper.getPublicationYear()}"></div></td>
-        <td><div th:each="keyword:${paper.getKeywords()}">
-            <div th:text="${keyword.getKeyword()}"></div>
-        </div></td>
-        <td><div th:text="${paper.getDoiLink()}"></div></td>
+
+
+<div class="container-fluid p-t-15" style="background: white">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <header class="card-header">
+                    <div class="callout callout-danger">
+                        论文
+                    </div>
+                </header>
+                <div class="card-body">
+                    <div id="toolbar" class="toolbar-btn-action" style="margin-bottom: 3%">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label class="sr-only" for="sname"></label>
+                                <input class="form-control mb-2 mr-sm-2" type="text" id="sname" name="sname"
+                                       placeholder="请输入学生姓名">
+                                <a class="btn btn-success" style="margin-left:20px;margin-top:-3px"
+                                   onclick="searchStudent()">
+                                    <i class="fa fa-search"></i> 查询
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                    <table id="studentTable" class="table table-bordered table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>标题</th>
+                            <th>摘要</th>
+                            <th>会议名称</th>
+                            <th>发布时间</th>
+                            <th>关键词</th>
+                            <th>原文链接</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <div th:each="paper:${papers}">
+                                <tr>
+                                <td><div th:text="${paper.getTitle()}"></div></td>
+                                <td><div th:text="${paper.getAbs()}"></div></td>
+                                <td><div th:text="${paper.getPublisher()}"></div></td>
+                                <td><div th:text="${paper.getPublicationYear()}"></div></td>
+                                <td><div th:each="keyword:${paper.getKeywords()}">
+                                    <div th:text="${keyword.getKeyword()}">
+                                    </div>
+                                </div></td>
+                                <td><div th:text="${paper.getDoiLink()}"></div></td>
+                                </tr>
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-</table>
+</div>
+
+
+<!--<div class="pager" style=" position:absolute; alignment: center">-->
+<!--    <ul class="pagination" style="display: inline ;alignment: center">-->
+<!--        <li class="page-item" style="display: inline" th:if="${pageInfo.pageNum!=1}">-->
+<!--            <a class="page-link" th:href="@{/paper(pageNum=1)}">首页</a></li>-->
+<!--        <li class="page-item" style="display: inline" th:if="${pageInfo.pageNum!=1}">-->
+<!--            <a class="page-link"-->
+<!--               th:href="@{/paper(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:${pageInfo.pages})}">上一页</a>-->
+<!--        </li>-->
+<!--        <li class="page-item" style="display: inline"><a class="page-link"><span-->
+<!--                th:text="第+${pageInfo.pageNum}+页"></span></a></li>-->
+<!--        <li class="page-item" style="display: inline" th:if="${pageInfo.pageNum != pageInfo.pages}">-->
+<!--            <a class="page-link"-->
+<!--               th:href="@{/paper(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>-->
+<!--        </li>-->
+<!--        <li class="page-item" style="display: inline" th:if="${pageInfo.pageNum != pageInfo.pages}">-->
+<!--            <a class="page-link" th:href="@{/paper(pageNum=${pageInfo.pages})}">尾页</a>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--    <li class="page-item"><a class="page-link"><span th:text="共+${pageInfo.pages}+页"></span></a></li>-->
+<!--</div>-->
+
 </body>
 </html>
