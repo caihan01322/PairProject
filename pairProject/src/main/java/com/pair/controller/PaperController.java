@@ -18,7 +18,7 @@ public class PaperController {
     @RequestMapping("/paperList")
     public String getPaperList(Model model){
         List<Paper> papers = paperMapper.selectAllPapers();
-        model.addAttribute("paper",papers);
+        model.addAttribute("papers",papers);
         return "paperList";
     }
 }

@@ -5,9 +5,25 @@
     <title>Title</title>
 </head>
 <body>
-<div th:text="${paper}">
-    
-</div>
-
+<table border=1>
+    <tr>
+        <th>标题</th>
+        <th>摘要</th>
+        <th>会议名称</th>
+        <th>发布日期</th>
+        <th>关键词</th>
+        <th>原文链接</th>
+    </tr>
+    <div th:each="paper:${papers}">
+        <td><div th:text="${paper.getTitle()}"></div></td>
+        <td><div th:text="${paper.getAbs()}"></div></td>
+        <td><div th:text="${paper.getPublisher()}"></div></td>
+        <td><div th:text="${paper.getPublicationYear()}"></div></td>
+        <td><div th:each="keyword:${paper.getKeywords()}">
+            <div th:text="${keyword.getKeyword()}"></div>
+        </div></td>
+        <td><div th:text="${paper.getDoiLink()}"></div></td>
+    </div>
+</table>
 </body>
 </html>
