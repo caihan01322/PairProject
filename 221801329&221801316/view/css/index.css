@@ -35,7 +35,7 @@
     height: 93%;
     border-style: solid;
     border-width: 1px;
-    border-color: rgb(180, 179, 179);
+    border-color: #efefef;
 }
 
 .main-panel {
@@ -43,9 +43,9 @@
     height: 93%;
     margin-left: 1%;
     margin-right: 1%;
-    border-style: solid;
+    /* border-style: solid;
     border-width: 1px;
-    border-color: rgb(180, 179, 179);
+    border-color: #efefef; */
     overflow: auto;
 }
 
@@ -109,7 +109,14 @@
     color: rgb(85, 85, 85);
 
 }
-
+.project-title {
+    text-align: center;
+    font-family: "微软雅黑 Bold", "微软雅黑 Regular", "微软雅黑, sans-serif";
+    font-weight: 700;
+    font-style: normal;
+    font-size: 20px;
+    color: rgb(85, 85, 85);
+}
 .menu-item {
     margin-left: 15%;
     width: 85%;
@@ -125,9 +132,10 @@
     width: 100%;
     min-height: 18%;
     height: auto;
-    border-style: solid;
-    border-width: 1px;
+    /* border-style: solid;
+    border-width: 1px; */
     display: block;
+    border-bottom: 1px solid #efefef;
 }
 
 .right-title {
@@ -177,6 +185,11 @@
     vertical-align: middle;
     margin-left: 3%;
     float: left;
+}
+
+#search-box{
+    border-left: 1px solid #efefef;
+    border-right: 1px solid #efefef;
 }
 
 .paper-list {
