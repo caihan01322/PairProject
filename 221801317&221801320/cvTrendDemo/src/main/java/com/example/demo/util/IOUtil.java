@@ -1,10 +1,10 @@
+package com.example.demo.util;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class IOUtil {
-
-
 
     /**
      * 读取file，把文件内容存在缓存中
