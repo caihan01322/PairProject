@@ -1,20 +1,20 @@
 package pojo;
 
 public class Paper {
-    int id;
+    int paperID;
     String title;
     String abstractContent;
     String year;
     String authors;
-    String meeyting;
+    String meeting;
     String link;
 
-    public int getId() {
-        return id;
+    public int getPaperID() {
+        return paperID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPaperID(int id) {
+        this.paperID = id;
     }
 
     public String getTitle() {
@@ -49,12 +49,12 @@ public class Paper {
         this.authors = authors;
     }
 
-    public String getMeeyting() {
-        return meeyting;
+    public String getMeeting() {
+        return meeting;
     }
 
-    public void setMeeyting(String meeyting) {
-        this.meeyting = meeyting;
+    public void setMeeting(String meeting) {
+        this.meeting = meeting;
     }
 
     public String getLink() {

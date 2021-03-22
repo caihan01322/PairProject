@@ -5,5 +5,8 @@
 
 <mapper namespace="com.example.demo.dao.PaperKeywordDao">
 
+    <insert id="add">
+        insert into keywordPaper (paperID,keyword,meeting,year,frequency) values (#{paperID},#{keyword},#{meeting},#{year},#{frequency})
+    </insert>
 
 </mapper>

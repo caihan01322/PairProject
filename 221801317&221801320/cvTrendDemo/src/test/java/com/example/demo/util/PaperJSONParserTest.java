@@ -29,7 +29,7 @@ public class PaperJSONParserTest {
 
     @Test
     public void testICCV() throws IOException {
-        String path = "/Users/sarisemac/Downloads/论文数据/ICCV（2001年至2019年，3196篇）/2001_A statistical approach to background subtraction for surveillance systems.json";
+        String path = "/Users/sarisemac/Downloads/论文数据/ICCV/2001_A statistical approach to background subtraction for surveillance systems.json";
         //PaperJSONParser.CVPR.getPaper("/Users/sarisemac/Downloads/论文数据/CVPR/2020_Local Non-Rigid Structure-From-Motion From Diffeomorphic Mappings.json");
         StringBuilder stringBuilder = new StringBuilder();
         IOUtil.readToBuffer(path,stringBuilder);

@@ -15,10 +15,10 @@ public enum PaperJSONParser  {
             JSONObject paperJSONObj = JSON.parseObject(json.substring(0,json.lastIndexOf(";")));
 
             //base info
-            paper.setMeeyting("CVPR");
+            paper.setMeeting("CVPR");
             paper.setTitle(paperJSONObj.getString("title"));
             paper.setAbstractContent(paperJSONObj.getString("abstract"));
-            paper.setYear(paperJSONObj.getString("publicationYear"));
+            paper.setYear(paperJSONObj.getString("publicationYear").trim());
             paper.setLink(paperJSONObj.getString("doiLink"));
 
             //author
@@ -36,19 +36,25 @@ public enum PaperJSONParser  {
     ECCV{
         @Override
         Paper getPaperByJSON(StringBuilder json) throws IOException {
-            Paper paper = new Paper();
-            JSONObject paperJSONObj = JSON.parseObject(json.toString());
+            try {
+                Paper paper = new Paper();
+                JSONObject paperJSONObj = JSON.parseObject(json.toString());
 
-            //base info
-            paper.setMeeyting("ECCV");
-            paper.setTitle(paperJSONObj.getString("论文名称"));
-            paper.setAbstractContent(paperJSONObj.getString("摘要"));
-            String publishTime = paperJSONObj.getString("发布时间");
-            paper.setYear(publishTime.substring(publishTime.length()-5,publishTime.length()));
-            paper.setLink(paperJSONObj.getString("原文链接"));
-            paper.setAuthors("暂无数据");
+                //base info
+                paper.setMeeting("ECCV");
+                paper.setTitle(paperJSONObj.getString("论文名称"));
+                paper.setAbstractContent(paperJSONObj.getString("摘要"));
+                String publishTime = paperJSONObj.getString("会议和年份").trim();
+                paper.setYear(publishTime.substring(publishTime.length()-4,publishTime.length()).trim());
+                paper.setLink(paperJSONObj.getString("原文链接").trim());
+                paper.setAuthors("empty");
 
-            return paper;
+                return paper;
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+            return null;
 
         }
     },
@@ -59,11 +65,11 @@ public enum PaperJSONParser  {
             JSONObject paperJSONObj = JSON.parseObject(json.substring(0,json.lastIndexOf(";")));
 
             //base info
-            paper.setMeeyting("ICCV");
+            paper.setMeeting("ICCV");
             paper.setTitle(paperJSONObj.getString("title"));
             paper.setAbstractContent(paperJSONObj.getString("abstract"));
-            paper.setYear(paperJSONObj.getString("publicationYear"));
-            paper.setLink(paperJSONObj.getString("doiLink"));
+            paper.setYear(paperJSONObj.getString("publicationYear").trim());
+            paper.setLink(paperJSONObj.getString("doiLink").trim());
 
             //author
             JSONArray authors = paperJSONObj.getJSONArray("authors");

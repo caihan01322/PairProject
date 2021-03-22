@@ -4,6 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.dao.PaperDao">
+    <insert id="add">
+        insert into paper (paperID,title,abstractContent,year,authors,meeting,link) values (#{paperID},#{title},#{abstractContent},#{year},#{authors},#{meeting},#{link})
+    </insert>
 
-
+    <select id="getID" resultType="int">
+        select paperID from paper where title=#{title} and meeting = #{meeting} and link=#{link} and year = #{year}
+    </select>
 </mapper>

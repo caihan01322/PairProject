@@ -11,5 +11,7 @@ public interface PaperDao {
     public List<Paper> list();
     public List<Paper> query(String keyword);
 
+    public int getID(Paper paper);
+
 
 }
