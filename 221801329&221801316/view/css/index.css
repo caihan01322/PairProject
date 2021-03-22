@@ -5,7 +5,8 @@
     margin: auto;
 }
 
-.left-bar,.right-bar {
+.left-bar,
+.right-bar {
     width: 20%;
     height: 780px;
     /* background-color: aqua; */
@@ -15,6 +16,7 @@
 .main-content {
     width: 60%;
     height: 780px;
+    /* overflow: auto; */
     /* background-color:black; */
     float: left;
 }
@@ -44,6 +46,30 @@
     border-style: solid;
     border-width: 1px;
     border-color: rgb(180, 179, 179);
+    overflow: auto;
+}
+
+.main-panel::-webkit-scrollbar {
+    width: 10px;
+}
+
+.main-panel::-webkit-scrollbar-track {
+    background: rgb(202, 202, 202);
+    border-radius: 2px;
+
+}
+
+.main-panel::-webkit-scrollbar-thumb {
+    background: rgb(131, 126, 126);
+    border-radius: 10px;
+}
+
+.main-panel::-webkit-scrollbar-thumb:hover {
+    background: #333;
+}
+
+.main-panel::-webkit-scrollbar-corner {
+    background: #179a16;
 }
 
 .project-title {
@@ -94,6 +120,7 @@
 .menu-item-img {
     float: left;
 }
+
 .my-keyword {
     width: 100%;
     min-height: 18%;
@@ -102,6 +129,7 @@
     border-width: 1px;
     display: block;
 }
+
 .right-title {
     margin-top: 20px;
     margin-left: 6%;
@@ -149,4 +177,27 @@
     vertical-align: middle;
     margin-left: 3%;
     float: left;
+}
+
+.paper-list {
+    margin-top: 20px;
+    margin-left: 5%;
+    width: 90%;
+    text-align: left;
+    /* background-color: aqua; */
+    /* border-radius: 2px; */
+    border-bottom: 1px solid #efefef;
+    font-size: 15px;
+}
+
+.paper-title {
+    outline: 0;
+    color: #06c;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.paper-author {
+    color: #666;
+    font-size: 15px;
 }
