@@ -57,6 +57,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+        <!--分页-->
+        <!-- 分页 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.12</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -83,6 +90,10 @@
                     <include>**/*.xml</include>
                     <include>**/*.properties</include>
                 </includes>
+            </resource>
+
+            <resource>
+                <directory>src/main/resources</directory>
             </resource>
         </resources>
     </build>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>jQCloud Example</title>
+
+    <script type="text/javascript" src="jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="jqcloud-1.0.4.js"></script>
+    <link rel="stylesheet" type="text/css" href="jqcloud.css"/>
+
+</head>
+
+<body>
+<!-- You should explicitly specify the dimensions of the container element -->
+<h1>标签云展示</h1>
+<div id="words" style="width: 550px; height: 350px;"></div>
+
+<div th:each="kw : ${kws}">
+    <p th:text="${kw}"></p>
+</div>
+
+
+<script type="text/javascript">
+
+
+    var
+        word_array = [
+            {text: "[[${kw0}]]", weight: 10},
+            {text: "[[${kw1}]]", weight: 9},
+            {text: "[[${kw2}]]", weight: 8},
+            {text: "[[${kw3}]]", weight: 7},
+            {text: "[[${kw4}]]", weight: 6},
+            {text: "[[${kw5}]]", weight: 5},
+            {text: "[[${kw6}]]", weight: 4},
+            {text: "[[${kw7}]]", weight: 3},
+            {text: "[[${kw8}]]", weight: 2},
+            {text: "[[${kw9}]]", weight: 1},
+
+            // ...as many words as you want
+        ];
+    $(function () {
+        // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
+        $("#words").jQCloud(word_array);
+    });
+</script>
+</body>
+</html>

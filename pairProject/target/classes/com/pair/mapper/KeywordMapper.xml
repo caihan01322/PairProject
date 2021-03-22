@@ -19,4 +19,8 @@
         insert into keyword(kid,keyword,publisher,num)
         values(#{kid},#{keyword},#{publisher},#{num});
     </insert>
+
+    <select id="getKeyWords" resultType="String">
+        select keyword from pair.keyword order by num desc limit 10;
+    </select>
 </mapper>

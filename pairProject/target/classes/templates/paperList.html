@@ -68,28 +68,5 @@
         </div>
     </div>
 </div>
-
-
-<!--<div class="pager" style=" position:absolute; alignment: center">-->
-<!--    <ul class="pagination" style="display: inline ;alignment: center">-->
-<!--        <li class="page-item" style="display: inline" th:if="${pageInfo.pageNum!=1}">-->
-<!--            <a class="page-link" th:href="@{/paper(pageNum=1)}">首页</a></li>-->
-<!--        <li class="page-item" style="display: inline" th:if="${pageInfo.pageNum!=1}">-->
-<!--            <a class="page-link"-->
-<!--               th:href="@{/paper(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:${pageInfo.pages})}">上一页</a>-->
-<!--        </li>-->
-<!--        <li class="page-item" style="display: inline"><a class="page-link"><span-->
-<!--                th:text="第+${pageInfo.pageNum}+页"></span></a></li>-->
-<!--        <li class="page-item" style="display: inline" th:if="${pageInfo.pageNum != pageInfo.pages}">-->
-<!--            <a class="page-link"-->
-<!--               th:href="@{/paper(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>-->
-<!--        </li>-->
-<!--        <li class="page-item" style="display: inline" th:if="${pageInfo.pageNum != pageInfo.pages}">-->
-<!--            <a class="page-link" th:href="@{/paper(pageNum=${pageInfo.pages})}">尾页</a>-->
-<!--        </li>-->
-<!--    </ul>-->
-<!--    <li class="page-item"><a class="page-link"><span th:text="共+${pageInfo.pages}+页"></span></a></li>-->
-<!--</div>-->
-
 </body>
 </html>
