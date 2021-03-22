@@ -2,5 +2,22 @@ import json
 file_path = '1.json'
 with open(file_path , encoding = 'utf-8') as f:
     js = json.load(f)  
-    print(js)
+    #print(js)
     #js是转换后的字典
+    digest = js['摘要']
+    print(digest)
+    print('\n')
+    keyword = js['关键词']
+    print(keyword)
+    print('\n')
+    year = js['会议和年份']
+    print(year)
+    print('\n')
+
+    name = js['论文名称']
+    print(name)
+    print('\n')
+
+    link = js['原文链接']
+    print(link)
+    print('\n')
