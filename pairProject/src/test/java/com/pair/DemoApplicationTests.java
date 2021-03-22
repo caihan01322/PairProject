@@ -71,7 +71,7 @@ class DemoApplicationTests {
         String publicationYear = objects.getString("publicationYear");
         String doiLink = objects.getString("doiLink");
         String pid="pid_"+new Date().getTime();
-        paperMapper.insertPaper(new Paper(pid,title,abs,publisher,publicationYear,doiLink));
+        paperMapper.insertPaper(new Paper(pid,title,abs,publisher,publicationYear,doiLink,null));
         if(keywords!=null){
             for (String s : kwdList) {
                 String kid;
@@ -108,7 +108,7 @@ class DemoApplicationTests {
         String publicationYear = objects.getString("会议和年份").split(" ")[1];
         String doiLink = objects.getString("原文链接");
         String pid="pid_"+new Date().getTime();
-        paperMapper.insertPaper(new Paper(pid,title,abs,publisher,publicationYear,doiLink));
+        paperMapper.insertPaper(new Paper(pid,title,abs,publisher,publicationYear,doiLink,null));
         if(keywords!=null){
             for (String s : kwdList) {
                 String kid;

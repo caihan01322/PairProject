@@ -5,5 +5,5 @@ spring:
     username: root
     password: 123456
 mybatis:
-  type-aliases-package: com.jia.pojo
+  type-aliases-package: com.pair.pojo
   mapper-locations: classpath*:com/pair/mapper/*.xml

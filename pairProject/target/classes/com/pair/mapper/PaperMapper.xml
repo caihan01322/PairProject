@@ -3,11 +3,30 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pair.dao.PaperMapper">
-    <insert id="insertPaper" parameterType="com.pair.pojo.Paper" >
+    <insert id="insertPaper" parameterType="Paper" >
         insert into paper(pid,title,abs,publisher,publicationYear,doiLink)
         values (#{pid},#{title},#{abs},#{publisher},#{publicationYear},#{doiLink});
     </insert>
-    <select id="selectAllPapers" resultType="com.pair.pojo.Paper">
-        select * from paper;
+    <resultMap id="PaperKeyword" type="Paper">
+        <result property="pid" column="pid"/>
+        <result property="title" column="ptitle"/>
+        <result property="abs" column="pabs"/>
+        <result property="publisher" column="ppublisher"/>
+        <result property="publicationYear" column="pyear"/>
+        <result property="doiLink" column="plink"/>
+        <collection property="keywords" ofType="Keyword">
+            <result property="kid" column="kid"/>
+            <result property="keyword" column="kkey"/>
+            <result property="publisher" column="ppub"/>
+            <result property="num" column="pnum"/>
+        </collection>
+    </resultMap>
+    <select id="selectAllPapers" resultMap="PaperKeyword">
+        select p.pid pid,p.title ptitle,p.abs pabs,p.publisher ppublisher,
+        p.publicationYear pyear,p.doiLink plink,
+        k.kid kid,k.keyword kkey,k.publisher ppub,k.num pnum
+        from paper p
+        left join paper_keyword pk on p.pid=pk.pid
+        left join keyword k on pk.kid=k.kid;
     </select>
 </mapper>
