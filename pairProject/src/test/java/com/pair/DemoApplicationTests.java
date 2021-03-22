@@ -25,7 +25,6 @@ class DemoApplicationTests {
     void contextLoads() throws IOException {
         putPapers("CVPR");
         putPapers("ICCV");
-
         putPapers("ECCV");
     }
     public void putPapers(String publisher) throws IOException {
@@ -38,6 +37,7 @@ class DemoApplicationTests {
             }else{//CVPR&ICCV
                 putDataIntoMysql1(path,publisher);
             }
+            file1.delete();
         }
     }
     public void putDataIntoMysql1(String path,String publisher) throws IOException {
