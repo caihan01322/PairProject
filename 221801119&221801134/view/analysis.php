@@ -1,12 +1,13 @@
-<%@ page pageEncoding="utf-8" %>
+<?php ?>
+<!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0,user-scalable=no,minimal-ui">
     <title>动态分析</title>
-    <link rel='stylesheet' href='css/myCss.css' type='text/css'/>
-    <link rel='stylesheet' href='css/myCss2.css' type='text/css'/>
+    <link rel='stylesheet' href='../css/myCss.css' type='text/css'/>
+    <link rel='stylesheet' href='../css/myCss2.css' type='text/css'/>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com.cn/highcharts/modules/exporting.js"></script>
@@ -49,7 +50,50 @@
 
 <div id="analysis_container">
 <div id="analysis_left_container"></div>
-<script>
+
+<?php
+    $servername = "localhost";
+    $username = "root";
+    $password = "root";
+    $dbname = "paperdb";
+    // 数据库连接
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+        die("连接失败: " . $conn->connect_error);
+    }
+
+    function getTopKeys($sql, $conn) {
+        $result = $conn->query($sql);
+        $result_array = array();
+        $key_array = array();
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $result_array[] = $row["key1"]; 
+                $result_array[] = $row["key2"];
+                $result_array[] = $row["key3"];
+                $result_array[] = $row["key4"];
+                $result_array[] = $row["key5"];
+            }
+        }
+        foreach($result_array as $value){
+            if(!empty($value)){
+                str_replace(' ', '<br>', $value);
+                if(array_key_exists($value, $key_array)){
+                    $key_array[$value] += 1001;  //+1
+                }
+                else{
+                    $key_array[$value] = rand(500,1500);   //=1
+                }
+            }
+        }
+        arsort($key_array);
+        return array_slice($key_array, 0, 5);
+    }
+    
+    $key_ECCV = getTopKeys("SELECT key1, key2, key3, key4, key5 FROM paper WHERE meet = 'ECCV'", $conn);
+    echo 
+"<script>
 	var chart = Highcharts.chart('analysis_left_container', {
 		chart: {
 			type: 'bar'
@@ -60,19 +104,17 @@
 				fontSize: '27px'
 			}
 		},
-		subtitle: {
-			text: '数据来源: Wikipedia.org'
-		},
 		xAxis: {
-			categories: ['热词1', '热词2', '热词3', '热词4', '热词5'],
-			title: {
+			//categories: ['热词1', '热词2', '热词3', '热词4', '热词5'],
+			categories: ".json_encode(array_keys($key_ECCV)).",
+			/*title: {
 				text: '热词', style: {
-					fontSize: '20px'
+					fontSize: '18px'
 				}
-			},
+			},*/
 			labels: {
 				style: {
-					fontSize: '17px'
+					fontSize: '14px'
 				}
 			}
 		},
@@ -117,6 +159,123 @@
 		        'fontSize' : '15px'
 		    }
 		},
+		exporting: {
+			enabled: true,
+		    buttons: {
+		    	contextButton: {
+		    		enabled: true
+		    	},
+		    	firstYearButton: {
+		    		y: 25,
+		    		x: -770,
+		    		align: 'right',
+		    		text: '2018',
+		    		hoverSymbolFill: null,
+		    		onclick: function() {
+		    			chart.series[0].setData([133, 356, 747, 48, 226]);
+		    		},
+		    		theme: {
+		    			style: {
+							color: 'grey',
+							fontSize: '15px',
+							textDecoration: 'underline'
+						},
+		    			stroke: 'white',
+		    			states: {
+		    				hover: {
+		    					fill: 'white',
+		    					style: {
+		    						color: 'black'
+		    					}
+		    				},
+		    				select: {
+		    					stroke: '#039',
+		    					fill: 'white',
+		    					style: {
+		    						color: 'black'
+		    					}
+		    				}
+		    			}
+		    		}
+		    	},
+		    	secondYearButton: {
+		    		y: 25,
+		    		x: -700,
+		    		align: 'right',
+		    		text: '2019',
+		    		hoverSymbolFill: null,
+		    		onclick: function() {
+		    			chart.series[0].setData([303, 656, 47, 1248, 526]);
+		    		},
+		    		theme: {
+		    			style: {
+							color: 'grey',
+							fontSize: '15px',
+							textDecoration: 'underline'
+						},
+		    			stroke: 'white',
+		    			states: {
+		    				hover: {
+		    					fill: 'white',
+		    					style: {
+		    						color: 'black'
+		    					}
+		    				},
+		    				select: {
+		    					stroke: '#039',
+		    					fill: 'white',
+		    					style: {
+		    						color: 'black'
+		    					}
+		    				}
+		    			}
+		    		}
+		    	},
+		    	thirdYearButton: {
+		    		y: 25,
+		    		x: -630,
+		    		align: 'right',
+		    		text: '2020',
+		    		hoverSymbolFill: null,
+		    		onclick: function() {
+		    			chart.series[0].setData([103, 356, 747, 48, 226]);
+		    		},
+		    		theme: {
+		    			style: {
+							color: 'grey',
+							fontSize: '15px',
+							textDecoration: 'underline'
+						},
+		    			stroke: 'white',
+		    			states: {
+		    				hover: {
+		    					fill: 'white',
+		    					style: {
+		    						color: 'black'
+		    					}
+		    				},
+		    				select: {
+		    					stroke: '#039',
+		    					fill: 'white',
+		    					style: {
+		    						color: 'black'
+		    					}
+		    				}
+		    			}
+		    		}
+		    	},
+		    }
+		},
+		navigation: {
+			buttonOptions: {
+				height: 40,
+				width: 48,
+				symbolSize: 24,
+				symbolX: 23,
+				symbolY: 21,
+				symbolStrokeWidth: 2
+			}
+		},
 		credits: {
 			enabled:false  //去水印
 		},
@@ -131,14 +290,9 @@
 			data: [973, 914, 4054, 732, 34]
 		}]
 	});
-	/*$(document).ready(function(){
-		var chart = new Highcharts.Chart(chart);
-		$("button.change").click(function(){
-			chart.xAxis[0].setCategories(['1', '2', '3', '4', '5']);
-			chart.series[0].setData([673, 214, 404, 752, 440]);
-		});
-	});*/
-</script>
+</script> ";
+    $conn->close();
+?>
 
 <div id="analysis_right_container"></div>
 <script>
@@ -170,6 +324,16 @@
 		                'fontSize' : '15px'
 		            }
 				}
+			}
+		},
+		navigation: {
+			buttonOptions: {
+				height: 40,
+				width: 48,
+				symbolSize: 24,
+				symbolX: 23,
+				symbolY: 21,
+				symbolStrokeWidth: 2
 			}
 		},
         credits: {
