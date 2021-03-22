@@ -1,11 +1,17 @@
 <template>
     <div id="detail_page">
         <div id="back">
-            <el-button plain>返回</el-button>
+            <el-button plain @click="go_home">
+                <i class="iconfont icon-back"></i>
+                返回
+            </el-button>
         </div>
 
         <div id="edit">
-            <el-button plain>编辑</el-button>
+            <el-button plain @click="go_edit">
+                <i class="iconfont icon-edit"></i>
+                编辑
+            </el-button>
         </div>
 
         <div id="detail_part">
@@ -39,6 +45,7 @@ export default {
 
     data() {
         return {
+            isbn: this.$route.params.isbn,
             page_name:
                 "FaceForensics++: Learning to Detect Manipulated Facial Images",
             page_time: "2020.01.20",
@@ -50,7 +57,18 @@ export default {
         };
     },
 
-    methods: {},
+    methods: {
+        go_home() {
+            this.$router.push({ name: "listpage" });
+        },
+
+        go_edit() {
+            this.$router.push({
+                name: "editpage",
+                params: { isbn: this.isbn },
+            });
+        },
+    },
 };
 </script>
 
@@ -65,16 +83,29 @@ export default {
 #back > .el-button {
     margin: 5% 0 0 17%;
     border-bottom: 1px #033 solid;
+    padding: 12px 20px 12px 10px;
+    /* background-color: white; */
+    color: #033;
+    font-weight: bold;
 }
 
-#edit {
-    margin: 0 77.5%;
-    margin-bottom: 2%;
+#edit > .el-button {
+    /* border: 1px red solid;
+    box-sizing: border-box; */
+    margin-left: 77%;
+    padding: 12px 20px 12px 10px;
+    color: #033;
+    font-weight: bold;
+}
+
+.iconfont {
+    margin-right: 20%;
 }
 
 #detail_part {
     width: 67%;
-    height: 60%;
+    /* height: 60%;
+    overflow: auto; */
     color: #033;
     font-weight: bold;
     margin: 0 auto;
@@ -83,7 +114,7 @@ export default {
 .detail_item {
     display: flex;
     justify-content: space-between;
-    height: 13%;
+    height: 50px;
 }
 
 .list_title {
@@ -102,10 +133,9 @@ export default {
     border: 1px #033 solid;
     box-sizing: border-box;
     display: flex;
-    align-items: center;
     justify-content: center;
+    padding: 1%;
     width: 50%;
-    height: 100%;
     font-size: 16px;
     color: #033;
     overflow: auto;
@@ -127,11 +157,17 @@ export default {
 
 .page_abstract > .message_part {
     justify-content: flex-start;
+    text-align: left;
 }
 
 .el-button {
     background-color: #fcfdf5;
     border: 1px #fcfdf5 solid;
     border-radius: 0;
+}
+
+.el-button:hover {
+    border-color: #033;
+    border-radius: 10px;
 }
 </style>
