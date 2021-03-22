@@ -17,7 +17,8 @@ func JSON(c *gin.Context, statusCode int, code int, msg interface{}, data interf
 	if data == nil {
 		data = make(map[string]interface{})
 	}
-	c.JSON(statusCode, gin.H{
+	// TODO use JSON in release version
+	c.IndentedJSON(statusCode, gin.H{
 		"code": code,
 		"msg":  msg,
 		"data": data,
