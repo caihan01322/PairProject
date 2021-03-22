@@ -27,9 +27,9 @@ class DemoApplicationTests {
 
     @Test
     void contextLoads() throws IOException {
-        putPapers("CVPR");
-        putPapers("ICCV");
-        putPapers("ECCV");
+        //putPapers("CVPR");
+        //putPapers("ICCV");
+        //putPapers("ECCV");
     }
     public void putPapers(String publisher) throws IOException {
         File f = new File("C:\\Users\\WWJ20\\Desktop\\data\\"+publisher);
