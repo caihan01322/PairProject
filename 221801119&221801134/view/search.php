@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0,user-scalable=no,minimal-ui">
-    <title>论文管理</title>
+    <title>搜索结果</title>
     <link rel='stylesheet' href='../css/myCss.css' type='text/css'/>
     <link rel='stylesheet' href='../css/myCss3.css' type='text/css'/>
     <link rel='stylesheet' href='../css/myCss4.css' type='text/css'/>
@@ -57,27 +57,66 @@
     </header>
     </div>
 
-		
-        
+
+
+
 <div class="mainPaper">
-		<div class="paper" style="padding-top:0;padding-bottom:0">
-		<ol class="breadcrumb hidden-xs-down" style="margin:0 50% 0 0">
-            <li class="breadcrumb-item active">论文列表</li>
-        </ol>
-		</div>
     	<?php 
     	$conn = new mysqli('localhost','root','','paperdb');
+    	$searchname=$_POST['searchName'];
+    	$searchtype=$_POST["searchSelect"];
     	$userid=$_SESSION["userid"];
-    	$sql = "select * from userPaper where userid = '$userid' ";
+    	if($searchname==''){
+    	    echo '<script>alert("请输入搜索内容！");window.location="../view/manage.php";</script>';
+    	}
+    	if($searchtype==0){
+    	    echo '<script>alert("请选择搜素方式！");window.location="../view/manage.php";</script>';
+    	}
+    	$searchtypeName='';
+    	if($searchtype==1){ $searchtypeName='标题';}
+    	else if($searchtype==2){
+    	    $searchtypeName='编号';
+    	}
+    	else if($searchtype==3){
+    	    $searchtypeName='关键词';
+    	}
+    	else{
+    	    $searchtypeName='全部';
+    	}
+    	echo'
+		<div class="paper" style="padding-top:0;padding-bottom:0">
+		<ol class="breadcrumb hidden-xs-down" style="margin:0 50% 0 0">
+            <li class="breadcrumb-item active"><a href="manage.php">论文列表</a></li>
+                                    <li class="breadcrumb-item">搜索结果</li>
+                                    <li class="breadcrumb-item active">按'.$searchtypeName.'搜索：'.$searchname.'</li>
+        </ol>
+		</div>
+        ';
+    	$sql = "select * from userPaper where userid='$userid' " ;
     	$res = $conn->query($sql);
+    	$num=0;
     	if( $res->num_rows >0 ){
     	    while( $row= $res->fetch_assoc()){
     	        $pid=$row["pid"];
-    	        $sql="select * from paper where pid = '$pid' ";
+    	        if($searchtype==1){
+    	           $sql="select * from paper where title like '%$searchname%' and pid='$pid' " ; 
+    	        }
+    	        else if($searchtype==2){
+    	            $sql="select * from paper where pid like '%$searchname%' and pid='$pid' "; 
+    	        }
+                else if($searchtype==3){
+    	            $sql="select * from paper where (key1 like '%$searchname%' or key2 like '%$searchname%' or key3 like '%$searchname%' or key4 like '%$searchname%' or key5 like '%$searchname%') and pid='$pid' "; 
+    	        }
+    	        else{
+    	            $sql="select * from paper where (title like '%$searchname%' or pid like '%$searchname%' or key1 like '%$searchname%' or key2 like '%$searchname%' or key3 like '%$searchname%' or key4 like '%$searchname%' or key5 like '%$searchname%') and pid='$pid' "; 
+    	        }
     	        $result = $conn->query($sql);
+    	        
+    	        if($result->num_rows >0 ){
+    	        $num=1;
     	        $row2=$result->fetch_assoc();
     	        echo '
-    	               <div class="paper">
+                <div class="paper">
 	                        <div class="page-wrapper">
                             <div class="blog-title-area">  
                   <a href=""  style="float:right">
@@ -115,16 +154,19 @@
                         </div>
                     </div>
                 ';  
+
+    	        }
     	    }
-    	    echo '<div class="paper">没有更多了……</div>';
     	}
     	else{
-    	    echo '<div class="paper">暂无论文……</div>';
+    	    echo '<script>alert("无搜索结果，请重新输入！");window.location="../view/manage.php";</script>';
     	}
-
+    	if($num==0){
+    	    echo '<script>alert("无搜索结果，请重新输入！");window.location="../view/manage.php";</script>';
+    	}
     	?>
-   
 </div>
+
 <div class="sider">
 	<div class="siders">
 	
@@ -164,6 +206,5 @@
                 </div>           
 	</div>   
 </div>
-
 
 </body>

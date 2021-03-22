@@ -20,7 +20,7 @@ input[type=text], select {
     box-sizing: border-box;
 }
 
-input[type=submit] {
+.login #submitLogin{
     width: 80%;
     background-color: #686f72;
     color: white;
@@ -35,58 +35,12 @@ input[type=submit]:hover {
     background-color: #45a049;
 }
 
-/*搜索框*/
-#box{
-    margin-top: 2%;
-    font-family: 'Microsoft YaHei';
-    font-size: 14px;
-}
-
-#box input{
-	position:relative;
-	left:5%;
-	top:10px;
-    width: 90%;
-    border: 1px solid #e2e2e2;
-    height: 40px;
-    float: left;
-    background-image: url(../����.png);
-    background-repeat: no-repeat;
-    background-size: 25px;
-    background-position:5px center;
-    padding:0 0 0 40px;
-}
-
-#search{
-	position:relative;
-	left:5%;
-	top:-15px;
-    width: 25%;
-    height: 40px;
-    float: left;
-    margin: 1% auto;
-    background: #303030;
-    color: white;
-    text-align: center;
-    line-height: 40px;
-    cursor: pointer;
-}
-
-#box select{
-	position:relative;
-	left:5%;
-	top:-15px;
-    width: 65%;
-    float: left;
-    margin:1% auto;
-}
 
 /*论文列表*/
  .mainPaper{
-     position: absolute;
-     left: 12%;
-     top: 7%;
+ 	 margin:0 0.5% 0 10%;
      width: 60%;
+     float:left;
  }
 .paper{
     margin: 1%;
@@ -96,32 +50,52 @@ input[type=submit]:hover {
     padding: 1.5% 2.5% 2% 2.5%;
 }
 
-.deleteImage{
-    position:relative;
-    left:81%;
-}
-
-.editImage{
-    position:relative;
-    left:80%;
-}
-
-.collectImage{
-    position:relative;
-    left:79%;
-}
-
 /*侧边栏*/
  .sider{
-     position: absolute;
-     left: 71%;
-     top: 19%;
-     width: 18%;
+     float:left;
+     width: 20%;
  }
  
  .siders{
-    margin: 1% 0 5% 0;
+    margin:3%;
     float: left;
     background-color: #fffdfd;
-    width: 100%;
+    width: 90%;
+
+}
+
+.breadcrumb {
+  padding: 1rem 1rem;
+  list-style: none;
+  border-radius: 0.25rem;
+}
+
+.breadcrumb::after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+.breadcrumb-item {
+  float: left;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  display: inline-block;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  color: #ffacac;
+  content: "/";
+}
+
+.breadcrumb-item + .breadcrumb-item:hover::before {
+  text-decoration: underline;
+}
+
+.breadcrumb-item + .breadcrumb-item:hover::before {
+  text-decoration: none;
+}
+
+.breadcrumb-item.active {
+  color: #4a4a4a;
 }

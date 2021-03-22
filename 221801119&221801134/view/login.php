@@ -54,7 +54,7 @@
             <label for="psw">密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
             <input type="text" id="password" name="password" placeholder="请输入密码"><br/>
 
-            <input type="submit" value="登录">
+            <input type="submit" value="登录" id="submitLogin">
             
         </form>
 
