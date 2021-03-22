@@ -1,23 +1,47 @@
+import pymysql
 import json
+import os
+
 file_path = '1.json'
 with open(file_path , encoding = 'utf-8') as f:
     js = json.load(f)  
     #print(js)
     #js是转换后的字典
     digest = js['摘要']
-    print(digest)
-    print('\n')
+    # print(digest)
+    # print('\n')
+    digest = json.dumps(digest)
     keyword = js['关键词']
-    print(keyword)
-    print('\n')
+    # print(keyword)
+    # print('\n')
+    keyword = json.dumps(keyword)
     year = js['会议和年份']
-    print(year)
-    print('\n')
-
+    # print(year)
+    # print('\n')
+    year = json.dumps(year)
     name = js['论文名称']
-    print(name)
-    print('\n')
-
+    # print(name)
+    # print('\n')
+    name = json.dumps(name)
     link = js['原文链接']
-    print(link)
-    print('\n')
+    # print(link)
+    # print('\n')
+    link = json.dumps(link)
+
+conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='paper', charset='utf8')
+cursor = conn.cursor()
+sql="insert into papers values(%s,%s,%s,%s,%s)"
+row=cursor.execute(sql,(name,year,keyword,link,digest))
+print(row)
+conn.commit()
+cursor.close()
+
+# var1 = json.dumps(year)
+
+# conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='', db='java2e', charset='utf8')
+# cursor = conn.cursor()
+# sql="insert into user values(1,%s,'789')"
+# row=cursor.execute(sql,(var1))
+# print(row)
+# conn.commit()
+# cursor.close()
