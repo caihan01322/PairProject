@@ -21,6 +21,8 @@ var (
 	PageSize int // pagination
 
 	scopes = []string{"repo"}
+
+	LoginID uint
 )
 
 const (

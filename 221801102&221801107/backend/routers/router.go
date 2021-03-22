@@ -16,6 +16,8 @@ func InitRouter() *gin.Engine {
 	r.GET("/", api.Home)
 	r.GET("/auth", api.Auth)
 	r.GET("/auth-callback", api.Callback)
+
+	r.GET("/login", api.Login)
 	r.GET("/logout", api.Logout)
 	return r
 }

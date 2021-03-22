@@ -2,8 +2,9 @@ package api
 
 import (
 	"backend/conf"
+	"backend/pkg/e"
+	"backend/pkg/utils"
 	"context"
-	"crypto/rand"
 	"encoding/base64"
 	"encoding/gob"
 	"github.com/gin-gonic/gin"
@@ -12,6 +13,7 @@ import (
 	"github.com/mitchellh/mapstructure"
 	"golang.org/x/oauth2"
 	"log"
+	"math/rand"
 	"net/http"
 )
 
@@ -24,7 +26,7 @@ func init() {
 	gob.Register(&oauth2.Token{})
 }
 
-// index
+/***************** test ************/
 func Home(c *gin.Context) {
 	sess, err := store.Get(c.Request, authSessKey)
 	if err != nil {
@@ -55,7 +57,6 @@ func Home(c *gin.Context) {
 	c.HTML(http.StatusOK, "base", renderData)
 }
 
-// start auth
 func Auth(c *gin.Context) {
 	b := make([]byte, 15)
 	rand.Read(b)
@@ -72,62 +73,48 @@ func Auth(c *gin.Context) {
 	c.Redirect(302, url)
 }
 
-// auth callback
-func Callback(c *gin.Context) {
-	session, err := store.Get(c.Request, authSessKey)
-	if err != nil {
-		log.Println(err)
-		return
-	}
+func Callback(c *gin.Context) {}
 
-	ss := c.Query("state")
-	ss2 := session.Values["state"].(string)
-	if ss != ss2 {
-		log.Println("no state match; possible csrf OR cookies not enabled " + ss + " " + ss2)
-		return
-	}
-
-	code := c.Query("code")
-	token, err := conf.OAuthCfg.Exchange(context.Background(), code)
-	if err != nil {
-		log.Println("there was an issue getting your token " + err.Error())
-		return
-	}
-
-	if !token.Valid() {
-		log.Println("invalid token")
-		return
-	}
-
-	client := github.NewClient(conf.OAuthCfg.Client(context.Background(), token))
-
-	user, _, err := client.Users.Get(context.Background(), "")
-	if err != nil {
-		log.Println("error getting user")
-		return
-	}
-
-	session.Values["githubUserName"] = user.Name
-	session.Values["githubAccessToken"] = token
-	if err = session.Save(c.Request, c.Writer); err != nil {
-		log.Println("error saving token " + err.Error())
-	}
-
-	c.Redirect(http.StatusFound, "/")
-}
+/***************** test ************/
 
 func Logout(c *gin.Context) {
-	session, err := store.Get(c.Request, authSessKey)
-	if err != nil {
-		log.Println("logout fail " + err.Error())
-		return
-	}
+	session, _ := store.Get(c.Request, authSessKey)
 
-	// delete cookie session
+	// delete login info
 	session.Options.MaxAge = -1
-	if err = session.Save(c.Request, c.Writer); err != nil {
-		log.Println("error saving MaxAge" + err.Error())
+	session.Save(c.Request, c.Writer)
+
+	utils.JSONOK(c, e.Success, e.GetMsg(e.Success), nil)
+}
+
+func Login(c *gin.Context) {
+	code := e.Error
+	data := make(map[string]interface{})
+
+	authCode := c.Query("code")
+	token, err := conf.OAuthCfg.Exchange(context.Background(), authCode)
+	if err != nil {
+		log.Printf("there was an issue getting your token: %v\n", err)
+	} else if !token.Valid() {
+		log.Println("invalid token")
+	} else {
+		client := github.NewClient(conf.OAuthCfg.Client(context.Background(), token))
+		user, _, err := client.Users.Get(context.Background(), "")
+
+		if err != nil {
+			log.Printf("error getting user: %v\n", err)
+		} else {
+			code = e.Success
+			data = gin.H{
+				"name":   *user.Name,
+				"avatar": *user.AvatarURL,
+			}
+			// for auto login
+			session, _ := store.Get(c.Request, authSessKey)
+			session.Values["githubAccessToken"] = token
+			session.Save(c.Request, c.Writer)
+		}
 	}
 
-	c.Redirect(http.StatusFound, "/")
+	utils.JSONOK(c, code, e.GetMsg(code), data)
 }
