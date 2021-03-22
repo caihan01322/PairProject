@@ -10,6 +10,7 @@
             v-for="(item, index) in items"
             :key="index"
             :title="item.title"
+            @click="go_search(item.title)"
         >
             <span>{{ index + 1 }}. {{ item.title }}</span>
         </div>
@@ -40,7 +41,14 @@ export default {
     },
 
     methods: {
-        //函数
+        go_search(title) {
+            localStorage.setItem("tag", title);
+            if (this.$route.path != "/home/listpage") {
+                this.$router.push({ name: "listpage" });
+            } else {
+                this.$router.go(0);
+            }
+        },
     },
 };
 </script>

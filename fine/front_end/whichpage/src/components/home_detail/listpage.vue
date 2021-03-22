@@ -139,6 +139,14 @@ export default {
         };
     },
 
+    created() {
+        if (localStorage.getItem("tag")) {
+            this.page_tag = localStorage.getItem("tag");
+            this.search_page();
+            localStorage.removeItem("tag");
+        }
+    },
+
     watch: {
         now_page: {
             handler(newValue) {
@@ -160,12 +168,14 @@ export default {
     },
 
     methods: {
-        search_page(e) {
-            let target = e.target;
-            if (target.nodeName == "SPAN") {
-                target = target.parentNode;
-            }
-            target.blur();
+        search_page() {
+            // let target = e.target;
+            // if (target.nodeName == "SPAN") {
+            //     target = target.parentNode;
+            // }
+            // target.blur();
+
+            console.log("yeah!!");
         },
 
         go_detail(isbn) {
