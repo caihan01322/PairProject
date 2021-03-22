@@ -4,9 +4,11 @@ package com.pair;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.pair.dao.SqlMapper;
-import com.pair.pojo.keyword_sql;
-import com.pair.pojo.paper_sql;
+import com.pair.dao.KeywordMapper;
+import com.pair.dao.PaperKeywordMapper;
+import com.pair.dao.PaperMapper;
+import com.pair.pojo.Keyword;
+import com.pair.pojo.Paper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +21,9 @@ import java.util.*;
 @SpringBootTest
 class DemoApplicationTests {
     @Autowired
-    SqlMapper sqlMapper;
+    PaperMapper paperMapper;
+    KeywordMapper keywordMapper;
+    PaperKeywordMapper paperKeywordMapper;
 
     @Test
     void contextLoads() throws IOException {
@@ -67,18 +71,18 @@ class DemoApplicationTests {
         String publicationYear = objects.getString("publicationYear");
         String doiLink = objects.getString("doiLink");
         String pid="pid_"+new Date().getTime();
-        sqlMapper.insertPaper(new paper_sql(pid,title,abs,publisher,publicationYear,doiLink));
+        paperMapper.insertPaper(new Paper(pid,title,abs,publisher,publicationYear,doiLink));
         if(keywords!=null){
             for (String s : kwdList) {
                 String kid;
-                if(sqlMapper.selectKeyword(s,publisher)==0){
+                if(keywordMapper.selectKeyword(s,publisher)==0){
                     kid="kid_"+new Date().getTime();
-                    sqlMapper.insertKeyword(kid,s,publisher,1);
+                    keywordMapper.insertKeyword(kid,s,publisher,1);
                 }else{
-                    kid = sqlMapper.selectKid(s,publisher);
-                    sqlMapper.updateKeyword(new keyword_sql(kid,s,publisher,sqlMapper.selectNum(s,publisher)+1));
+                    kid = keywordMapper.selectKid(s,publisher);
+                    keywordMapper.updateKeyword(new Keyword(kid,s,publisher, keywordMapper.selectNum(s,publisher)+1));
                 }
-                sqlMapper.insertPK(pid,kid);
+                paperKeywordMapper.insertPK(pid,kid);
             }
         }
     }
@@ -104,18 +108,18 @@ class DemoApplicationTests {
         String publicationYear = objects.getString("会议和年份").split(" ")[1];
         String doiLink = objects.getString("原文链接");
         String pid="pid_"+new Date().getTime();
-        sqlMapper.insertPaper(new paper_sql(pid,title,abs,publisher,publicationYear,doiLink));
+        paperMapper.insertPaper(new Paper(pid,title,abs,publisher,publicationYear,doiLink));
         if(keywords!=null){
             for (String s : kwdList) {
                 String kid;
-                if(sqlMapper.selectKeyword(s,publisher)==0){
+                if(keywordMapper.selectKeyword(s,publisher)==0){
                     kid="kid_"+new Date().getTime();
-                    sqlMapper.insertKeyword(kid,s,publisher,1);
+                    keywordMapper.insertKeyword(kid,s,publisher,1);
                 }else{
-                    kid = sqlMapper.selectKid(s,publisher);
-                    sqlMapper.updateKeyword(new keyword_sql(kid,s,publisher,sqlMapper.selectNum(s,publisher)+1));
+                    kid = keywordMapper.selectKid(s,publisher);
+                    keywordMapper.updateKeyword(new Keyword(kid,s,publisher, keywordMapper.selectNum(s,publisher)+1));
                 }
-                sqlMapper.insertPK(pid,kid);
+                paperKeywordMapper.insertPK(pid,kid);
             }
         }
     }

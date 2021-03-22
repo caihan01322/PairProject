@@ -7,9 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class keyword_sql {
-    private String kid;
-    private String keyword;
+public class Paper {
+    private String pid;
+    private String title;
+    private String abs;
     private String publisher;
-    private int num;
+    private String publicationYear;
+    private String doiLink;
 }
