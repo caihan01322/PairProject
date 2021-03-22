@@ -39,6 +39,7 @@ body{
       height: 70px;
       background-color: #151728;
       position: relative;
+      cursor: pointer;;
   }
   #searchicon{
       width: 50px;
@@ -47,6 +48,7 @@ body{
      top: 50%;
      left: 50%;
      transform: translate(-50%,-50%);
+     cursor:pointer;
   }
   #fileicon{
     width: 70px;
