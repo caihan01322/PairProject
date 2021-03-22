@@ -16,7 +16,7 @@ var db *gorm.DB
 
 // base model with some universal fields
 type Model struct {
-	ID        uint `gorm:"primarykey"`
+	ID        uint `gorm:"primarykey" json:"-"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
@@ -71,49 +71,4 @@ func init() {
 		log.Println(err)
 	}
 
-}
-
-func Init() {
-	AddUser(map[string]interface{}{
-		"name":     "NOSAE",
-		"avatar":   "https://pic.cnblogs.com/avatar/2290847/20210205235119.png",
-		"GitHubID": int64(123),
-	})
-	AddUser(map[string]interface{}{
-		"name":     "huro",
-		"avatar":   "https://pic.cnblogs.com/avatar/2290847/20210205235119.png",
-		"GitHubID": int64(234),
-	})
-	AddPaper(map[string]interface{}{
-		"title":       "title1",
-		"contributor": "contributor1",
-		"code":        "code1",
-		"content":     "content1",
-		"link":        "link1",
-	})
-	AddPaper(map[string]interface{}{
-		"title":       "title2",
-		"contributor": "contributor2",
-		"code":        "code2",
-		"content":     "content2",
-		"link":        "link2",
-	})
-	AddPaper(map[string]interface{}{
-		"title":       "title3",
-		"contributor": "contributor3",
-		"code":        "code3",
-		"content":     "content3",
-		"link":        "link3",
-	})
-	user := User{}
-	db.First(&user)
-	var papers []Paper
-	db.Find(&papers)
-	AddUserFav(user, papers...)
-}
-
-func Clear() {
-	db.Delete(&User{}, "1 = 1")
-	db.Delete(&UserFav{}, "1 = 1")
-	db.Delete(&Paper{}, "1 = 1")
 }

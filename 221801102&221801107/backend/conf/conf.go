@@ -1,6 +1,7 @@
 package conf
 
 import (
+	"backend/models"
 	"golang.org/x/oauth2"
 	"gopkg.in/ini.v1"
 	"log"
@@ -22,7 +23,7 @@ var (
 
 	scopes = []string{"repo"}
 
-	LoginID uint
+	LoginUser models.User
 )
 
 const (

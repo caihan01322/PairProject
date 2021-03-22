@@ -12,14 +12,6 @@ type Paper struct {
 	Status int `json:"status" gorm:"-"`
 }
 
-func AddPaper(data map[string]interface{}) {
-	paper := &Paper{
-		Title:       data["title"].(string),
-		Contributor: data["contributor"].(string),
-		Code:        data["code"].(string),
-		Content:     data["content"].(string),
-		Link:        data["link"].(string),
-	}
-
+func AddPaper(paper *Paper) {
 	db.Create(&paper)
 }

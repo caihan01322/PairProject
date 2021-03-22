@@ -2,6 +2,7 @@ package api
 
 import (
 	"backend/conf"
+	"backend/models"
 	"backend/pkg/e"
 	"backend/pkg/utils"
 	"context"
@@ -89,7 +90,6 @@ func Logout(c *gin.Context) {
 
 func Login(c *gin.Context) {
 	code := e.Error
-	data := make(map[string]interface{})
 
 	authCode := c.Query("code")
 	token, err := conf.OAuthCfg.Exchange(context.Background(), authCode)
@@ -105,10 +105,20 @@ func Login(c *gin.Context) {
 			log.Printf("error getting user: %v\n", err)
 		} else {
 			code = e.Success
-			data = gin.H{
-				"name":   *user.Name,
-				"avatar": *user.AvatarURL,
+
+			// store user
+			u := models.GetUser(*user.ID)
+			if u != nil {
+				conf.LoginUser = *u
+			} else {
+				conf.LoginUser = models.User{
+					Name:     *user.Name,
+					Avatar:   *user.AvatarURL,
+					GitHubID: *user.ID,
+				}
+				models.AddUser(&conf.LoginUser)
 			}
+
 			// for auto login
 			session, _ := store.Get(c.Request, authSessKey)
 			session.Values["githubAccessToken"] = token
@@ -116,5 +126,5 @@ func Login(c *gin.Context) {
 		}
 	}
 
-	utils.JSONOK(c, code, e.GetMsg(code), data)
+	utils.JSONOK(c, code, e.GetMsg(code), conf.LoginUser)
 }

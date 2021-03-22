@@ -11,15 +11,16 @@ type UserFav struct {
 }
 
 func AddUserFav(user User, papers ...Paper) {
-	db.
-		Model(&user).
+	db.Model(&user).
 		Association("Papers").
 		Append(papers)
 }
 
-func GetUserFav(user *User) (papers []Paper) {
+func GetUserFav(user *User, offset, pageSize int) (papers []Paper) {
 	papers = []Paper{}
 	db.Model(user).
+		Offset(offset).
+		Limit(pageSize).
 		Association("Papers").
 		Find(&papers)
 	tempFav := &UserFav{}
@@ -30,6 +31,10 @@ func GetUserFav(user *User) (papers []Paper) {
 		papers[i].Content = tempFav.Content
 	}
 	return
+}
+
+func EditUserFav(fav *UserFav) {
+	db.Save(fav)
 }
 
 func (userFav *UserFav) AfterCreate(db *gorm.DB) (err error) {
