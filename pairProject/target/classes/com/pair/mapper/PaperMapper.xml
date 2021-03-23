@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pair.dao.PaperMapper">
-    <insert id="insertPaper" parameterType="Paper" >
+    <insert id="insertPaper" parameterType="Paper">
         insert into paper(pid,title,abs,publisher,publicationYear,doiLink)
         values (#{pid},#{title},#{abs},#{publisher},#{publicationYear},#{doiLink});
     </insert>
@@ -29,7 +29,8 @@
         left join paper_keyword pk on p.pid=pk.pid
         left join keyword k on pk.kid=k.kid
     </select>
-    <resultMap id="selectPaperByTitle" type="Paper">
+
+    <resultMap id="selectPaperByFuzzyMode" type="Paper">
         <result property="pid" column="pid"/>
         <result property="title" column="ptitle"/>
         <result property="abs" column="pabs"/>
@@ -43,40 +44,23 @@
             <result property="num" column="pnum"/>
         </collection>
     </resultMap>
-    <select id="selectPaperByTitle" resultMap="selectPaperByTitle">
+    <select id="selectPaperByFuzzyMode" parameterType="map" resultMap="selectPaperByFuzzyMode">
         select p.pid pid,p.title ptitle,p.abs pabs,p.publisher ppublisher,
         p.publicationYear pyear,p.doiLink plink,
         k.kid kid,k.keyword kkey,k.publisher ppub,k.num pnum
         from paper p
         left join paper_keyword pk on p.pid=pk.pid
         left join keyword k on pk.kid=k.kid
-        where title like '%${title}%';
-    </select>
-    <resultMap id="selectPaperByAbs" type="Paper">
-        <result property="pid" column="pid"/>
-        <result property="title" column="ptitle"/>
-        <result property="abs" column="pabs"/>
-        <result property="publisher" column="ppublisher"/>
-        <result property="publicationYear" column="pyear"/>
-        <result property="doiLink" column="plink"/>
-        <collection property="keywords" ofType="Keyword">
-            <result property="kid" column="kid"/>
-            <result property="keyword" column="kkey"/>
-            <result property="publisher" column="ppub"/>
-            <result property="num" column="pnum"/>
-        </collection>
-    </resultMap>
-    <select id="selectPaperByAbs" resultMap="selectPaperByAbs">
-        select p.pid pid,p.title ptitle,p.abs pabs,p.publisher ppublisher,
-        p.publicationYear pyear,p.doiLink plink,
-        k.kid kid,k.keyword kkey,k.publisher ppub,k.num pnum
-        from paper p
-        left join paper_keyword pk on p.pid=pk.pid
-        left join keyword k on pk.kid=k.kid
-        where abs like '%${abs}%';
+        <where>
+            <if test="title!=NULL">AND title LIKE "%"#{title}"%"</if>
+            <if test="abs!=NULL">AND abs LIKE "%"#{abs}"%"</if>
+            <if test="publisher!=NULL">AND p.publisher LIKE "%"#{publisher}"%"</if>
+            <if test="publicationYear!=NULL">AND publicationYear LIKE "%"#{publicationYear}"%"</if>
+            <if test="keyword!=NULL">AND keyword LIKE "%"#{keyword}"%"</if>
+        </where>
     </select>
 
-    <resultMap id="selectPaperByPublisher" type="Paper">
+    <resultMap id="selectPaperByPreciseMode" type="Paper">
         <result property="pid" column="pid"/>
         <result property="title" column="ptitle"/>
         <result property="abs" column="pabs"/>
@@ -90,62 +74,21 @@
             <result property="num" column="pnum"/>
         </collection>
     </resultMap>
-    <select id="selectPaperByPublisher" resultMap="selectPaperByPublisher">
+    <select id="selectPaperByPreciseMode" parameterType="map" resultMap="selectPaperByPreciseMode">
         select p.pid pid,p.title ptitle,p.abs pabs,p.publisher ppublisher,
         p.publicationYear pyear,p.doiLink plink,
         k.kid kid,k.keyword kkey,k.publisher ppub,k.num pnum
         from paper p
         left join paper_keyword pk on p.pid=pk.pid
         left join keyword k on pk.kid=k.kid
-        where p.publisher like '%${publisher}%';
+        <where>
+            <if test="title !=NULL">and title = #{title}</if>
+            <if test="abs !=NULL">and abs = #{abs}</if>
+            <if test="publisher !=NULL">and p.publisher = #{publisher}</if>
+            <if test="publicationYear !=NULL">and publicationYear = #{publicationYear}</if>
+            <if test="keyword !=NULL">and keyword = #{keyword}</if>
+        </where>
     </select>
 
-    <resultMap id="selectPaperByPublicationYear" type="Paper">
-        <result property="pid" column="pid"/>
-        <result property="title" column="ptitle"/>
-        <result property="abs" column="pabs"/>
-        <result property="publisher" column="ppublisher"/>
-        <result property="publicationYear" column="pyear"/>
-        <result property="doiLink" column="plink"/>
-        <collection property="keywords" ofType="Keyword">
-            <result property="kid" column="kid"/>
-            <result property="keyword" column="kkey"/>
-            <result property="publisher" column="ppub"/>
-            <result property="num" column="pnum"/>
-        </collection>
-    </resultMap>
-    <select id="selectPaperByPublicationYear" resultMap="selectPaperByPublicationYear">
-        select p.pid pid,p.title ptitle,p.abs pabs,p.publisher ppublisher,
-        p.publicationYear pyear,p.doiLink plink,
-        k.kid kid,k.keyword kkey,k.publisher ppub,k.num pnum
-        from paper p
-        left join paper_keyword pk on p.pid=pk.pid
-        left join keyword k on pk.kid=k.kid
-        where publicationYear like '%${publicationYear}%';
-    </select>
-
-    <resultMap id="selectPaperByKeyword" type="Paper">
-        <result property="pid" column="pid"/>
-        <result property="title" column="ptitle"/>
-        <result property="abs" column="pabs"/>
-        <result property="publisher" column="ppublisher"/>
-        <result property="publicationYear" column="pyear"/>
-        <result property="doiLink" column="plink"/>
-        <collection property="keywords" ofType="Keyword">
-            <result property="kid" column="kid"/>
-            <result property="keyword" column="kkey"/>
-            <result property="publisher" column="ppub"/>
-            <result property="num" column="pnum"/>
-        </collection>
-    </resultMap>
-    <select id="selectPaperByKeyword" resultMap="selectPaperByKeyword">
-        select p.pid pid,p.title ptitle,p.abs pabs,p.publisher ppublisher,
-        p.publicationYear pyear,p.doiLink plink,
-        k.kid kid,k.keyword kkey,k.publisher ppub,k.num pnum
-        from paper p
-        left join paper_keyword pk on p.pid=pk.pid
-        left join keyword k on pk.kid=k.kid
-        where keyword like '%${keyword}%';
-    </select>
 
 </mapper>

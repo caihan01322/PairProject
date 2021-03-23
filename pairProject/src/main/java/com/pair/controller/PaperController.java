@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class PaperController {
@@ -21,7 +23,6 @@ public class PaperController {
     PaperMapper paperMapper;
     @RequestMapping("/paperList")
     public String getPaperList(Model model){
-
         List<Paper> papers = paperMapper.selectAllPapers();
         model.addAttribute("papers",papers);
         return "paperList";
@@ -30,22 +31,16 @@ public class PaperController {
     public String paperSelect(HttpServletRequest request,Model model){
         String selectTerm=request.getParameter("selectTerm");
         String selectItem=request.getParameter("selectItem");
-        if(selectTerm.equals("title")){
-            List<Paper> papers = paperMapper.selectPaperByTitle(selectItem);
-            model.addAttribute("papers",papers);
-        }else if(selectTerm.equals("abs")){
-            List<Paper> papers = paperMapper.selectPaperByAbs(selectItem);
-            model.addAttribute("papers",papers);
-        }else if(selectTerm.equals("publisher")){
-            List<Paper> papers = paperMapper.selectPaperByPublisher(selectItem);
-            model.addAttribute("papers",papers);
-        }else if(selectTerm.equals("publicationYear")){
-            List<Paper> papers = paperMapper.selectPaperByPublicationYear(selectItem);
-            model.addAttribute("papers",papers);
-        }else{
-            List<Paper> papers = paperMapper.selectPaperByKeyword(selectItem);
-            model.addAttribute("papers",papers);
+        String selectMode=request.getParameter("selectMode");
+        Map<String,String> map=new HashMap<>();
+        map.put(selectTerm,selectItem);
+        List<Paper> papers;
+        if(selectMode.equals("fuzzy")){//模糊查询
+            papers = paperMapper.selectPaperByFuzzyMode(map);
+        }else {//精确查询
+            papers = paperMapper.selectPaperByPreciseMode(map);
         }
+        model.addAttribute("papers",papers);
         return "paperList";
     }
 }

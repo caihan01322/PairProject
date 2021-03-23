@@ -22,14 +22,18 @@ import java.util.*;
 class DemoApplicationTests {
     @Autowired
     PaperMapper paperMapper;
+
+    @Autowired
     KeywordMapper keywordMapper;
+
+    @Autowired
     PaperKeywordMapper paperKeywordMapper;
 
     @Test
     void contextLoads() throws IOException {
-        //putPapers("CVPR");
-        //putPapers("ICCV");
-        //putPapers("ECCV");
+        Map<String,String> params=new HashMap<>();
+        params.put("title","Spring");
+        System.out.println(paperMapper.selectPaperByPreciseMode(params).toString());
     }
     public void putPapers(String publisher) throws IOException {
         File f = new File("C:\\Users\\WWJ20\\Desktop\\data\\"+publisher);

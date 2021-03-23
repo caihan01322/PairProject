@@ -26,6 +26,10 @@
                 <div class="card-body">
                     <div id="toolbar" class="toolbar-btn-action" style="margin-bottom: 3%">
                         <form th:action="@{/paperSelect}" method="post">
+                            <select name="selectMode">
+                                <option value="fuzzy">模糊</option>
+                                <option value="precise">精确</option>
+                            </select>
                             <select name="selectTerm">
                                 <option value="title">标题</option>
                                 <option value="abs">摘要</option>
