@@ -27,5 +27,9 @@
     <select id="getKid" resultType="String" parameterType="String">
         select kid from pair.keyword where keyword=#{keyword}
     </select>
+    <delete id="deleteKeywordByPid">
+        delete from keyword k
+        where k.kid in(select pk.kid from paper_keyword pk where pk.pid=#{kid});
+    </delete>
 
 </mapper>

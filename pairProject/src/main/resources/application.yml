@@ -4,6 +4,10 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456
+  thymeleaf:
+    cache: false
 mybatis:
   type-aliases-package: com.pair.pojo
   mapper-locations: classpath*:com/pair/mapper/*.xml
+
+

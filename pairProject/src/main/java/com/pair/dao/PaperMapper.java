@@ -12,7 +12,12 @@ import java.util.Map;
 @Repository
 public interface PaperMapper {
     public void insertPaper(Paper paper_sql);
+
     public List<Paper> selectAllPapers();
-    public List<Paper> selectPaperByFuzzyMode(Map<String,String> map);//模糊查询
-    public List<Paper> selectPaperByPreciseMode(Map<String,String> map);//精确查询
+
+    public List<Paper> selectPaperByFuzzyMode(Map<String, String> map);//模糊查询
+
+    public List<Paper> selectPaperByPreciseMode(Map<String, String> map);//精确查询
+
+    public void deletePaperByPid(String pid);
 }

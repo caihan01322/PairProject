@@ -89,6 +89,9 @@
             <if test="keyword !=NULL">and keyword = #{keyword}</if>
         </where>
     </select>
+    <delete id="deletePaperByPid">
+        delete from paper where pid=#{pid};
+    </delete>
 
 
 </mapper>

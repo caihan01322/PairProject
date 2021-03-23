@@ -9,12 +9,19 @@ import java.util.List;
 @Mapper
 @Repository
 public interface KeywordMapper {
-    public int selectKeyword(String keyword,String publisher);
+    public int selectKeyword(String keyword, String publisher);
+
     public void updateKeyword(Keyword Keyword);
-    public void insertKeyword(String kid,String keyword,String publisher,int num);
-    public String selectKid(String keyword,String publisher);
-    public int selectNum(String keyword,String publisher);
+
+    public void insertKeyword(String kid, String keyword, String publisher, int num);
+
+    public String selectKid(String keyword, String publisher);
+
+    public int selectNum(String keyword, String publisher);
 
     public List<String> getKeyWords();
+
     public List<String> getKid(String keyword);
+
+    public void deleteKeywordByPid(String pid);
 }
