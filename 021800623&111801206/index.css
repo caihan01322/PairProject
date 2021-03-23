@@ -43,6 +43,18 @@ html,body{
     line-height: 46px;
     margin: 0 30px;
 }
+.btn_manage_active{
+    background-color: #599AEF;
+    display: inline-block;
+    color: #fff;
+    width: 103px;
+    height: 46px;
+    border-radius: 20px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 46px;
+    margin: 0 30px;
+}
 .btn_manage{
     display: inline-block;
     color: #fff;
@@ -55,6 +67,18 @@ html,body{
     margin: 0 30px;
 }
 .btn_analysis{
+    display: inline-block;
+    color: #fff;
+    width: 103px;
+    height: 46px;
+    border-radius: 20px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 46px;
+    margin: 0 30px;
+}
+.btn_analysis_active{
+    background-color: #599AEF;
     display: inline-block;
     color: #fff;
     width: 103px;
