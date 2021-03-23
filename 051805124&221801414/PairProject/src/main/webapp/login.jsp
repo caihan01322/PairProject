@@ -62,7 +62,7 @@
     <h1>论文信息平台</h1>
     <div>
         <div>
-            <form action="index.html" method="post">
+            <form action="douserlogin" method="post">
                 
                 <div id="divTop">
                 	<label for="user">账号：</label>
@@ -71,7 +71,7 @@
             
             	<div id="divTop">
             		<label for="pwd">密码：</label>
-                	<input type="password" name="pwd" placeholder="请输入密码" size="40" autocomplete />
+                	<input type="password" name="pwd" placeholder="请输入密码" size="40" />
             	</div>
             
                 <input id="button1" type="submit" value="立即登录"/>
@@ -79,7 +79,7 @@
             </form>
         </div>
         <div>
-        	<label>没有账号？去</label><label>注册</label>
+        	<label>没有账号？去</label><label><a href="register.jsp">注册</a></label>
         </div>
     </div>
 </div>
