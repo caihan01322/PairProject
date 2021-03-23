@@ -14,5 +14,7 @@ public interface KeywordMapper {
     public void insertKeyword(String kid,String keyword,String publisher,int num);
     public String selectKid(String keyword,String publisher);
     public int selectNum(String keyword,String publisher);
+
     public List<String> getKeyWords();
+    public List<String> getKid(String keyword);
 }

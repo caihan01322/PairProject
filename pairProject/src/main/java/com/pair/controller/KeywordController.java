@@ -5,6 +5,7 @@ import com.pair.dao.KeywordMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class KeywordController {
     @Autowired
     KeywordMapper keywordMapper;
 
-    @RequestMapping("/cloud")
+    @RequestMapping("/clouds")
     public String getKeyWords(Model model){
         List<String> keyWords = keywordMapper.getKeyWords();
         String kws[]=new String[10];
@@ -35,4 +36,13 @@ public class KeywordController {
 
         return "cloud";
     }
+
+    @RequestMapping("/getPapers/{keyword}")
+    public String getPapers(@PathVariable("keyword") String keyword){
+        List<String> kid = keywordMapper.getKid(keyword);
+        System.out.println(kid.toArray());
+
+        return "cloud";
+    }
+
 }
