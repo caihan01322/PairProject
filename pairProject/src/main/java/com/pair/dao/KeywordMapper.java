@@ -4,6 +4,8 @@ import com.pair.pojo.Keyword;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 public interface KeywordMapper {
     public int selectKeyword(String keyword,String publisher);
@@ -11,4 +13,5 @@ public interface KeywordMapper {
     public void insertKeyword(String kid,String keyword,String publisher,int num);
     public String selectKid(String keyword,String publisher);
     public int selectNum(String keyword,String publisher);
+    public List<String> getKeyWords();
 }

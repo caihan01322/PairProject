@@ -27,7 +27,7 @@
         k.kid kid,k.keyword kkey,k.publisher ppub,k.num pnum
         from paper p
         left join paper_keyword pk on p.pid=pk.pid
-        left join keyword k on pk.kid=k.kid;
+        left join keyword k on pk.kid=k.kid
     </select>
     <resultMap id="selectPaperByTitle" type="Paper">
         <result property="pid" column="pid"/>
