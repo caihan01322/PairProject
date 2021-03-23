@@ -1,7 +1,6 @@
 package conf
 
 import (
-	"backend/models"
 	"golang.org/x/oauth2"
 	"gopkg.in/ini.v1"
 	"log"
@@ -22,8 +21,6 @@ var (
 	PageSize int // pagination
 
 	scopes = []string{"repo"}
-
-	LoginUser models.User
 )
 
 const (

@@ -43,7 +43,7 @@ func init() {
 		Logger: logger.New(
 			log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
 			logger.Config{
-				LogLevel: logger.Error, // Log level
+				LogLevel: logger.Info, // Log level
 			},
 		),
 	})
@@ -55,7 +55,7 @@ func init() {
 	if err != nil {
 		log.Println(err)
 	}
-	err = db.AutoMigrate(&User{}, &Paper{})
+	err = db.AutoMigrate(&User{}, &Paper{}, &Word{}, &WordPoint{})
 	if err != nil {
 		log.Println(err)
 	}

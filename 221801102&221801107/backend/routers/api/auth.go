@@ -109,14 +109,14 @@ func Login(c *gin.Context) {
 			// store user
 			u := models.GetUser(*user.ID)
 			if u != nil {
-				conf.LoginUser = *u
+				models.LoginUser = *u
 			} else {
-				conf.LoginUser = models.User{
+				models.LoginUser = models.User{
 					Name:     *user.Name,
 					Avatar:   *user.AvatarURL,
 					GitHubID: *user.ID,
 				}
-				models.AddUser(&conf.LoginUser)
+				models.AddUser(&models.LoginUser)
 			}
 
 			// for auto login
@@ -126,5 +126,5 @@ func Login(c *gin.Context) {
 		}
 	}
 
-	utils.JSONOK(c, code, e.GetMsg(code), conf.LoginUser)
+	utils.JSONOK(c, code, e.GetMsg(code), models.LoginUser)
 }
