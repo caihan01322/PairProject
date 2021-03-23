@@ -65,3 +65,38 @@ html,body{
     line-height: 46px;
     margin: 0 30px;
 }
+.header{ 
+    height: 85px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.title{
+    font-size: 30px;
+    color: black;
+    margin-left: 50px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+.text_search{
+    width: 260px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 8px;
+    outline: none;
+    padding-left: 5px;
+}
+.btn_search{
+    background-color: #599AEF;
+    display: inline-block;
+    color: #fff;
+    width: 87px;
+    height: 35px;
+    border-radius: 8px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 35px;
+}
+.search{
+    line-height: 40px;
+    margin: 0 80px 0 20px;
+}
