@@ -6,15 +6,13 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
 public interface PaperMapper {
     public void insertPaper(Paper paper_sql);
     public List<Paper> selectAllPapers();
-    public List<Paper> selectPaperByTitle(String title);
-    public List<Paper> selectPaperByAbs(String abs);
-    public List<Paper> selectPaperByPublisher(String publisher);
-    public List<Paper> selectPaperByPublicationYear(String publicationYear);
-    public List<Paper> selectPaperByKeyword(String keyword);
+    public List<Paper> selectPaperByFuzzyMode(Map<String,String> map);//模糊查询
+    public List<Paper> selectPaperByPreciseMode(Map<String,String> map);//精确查询
 }
