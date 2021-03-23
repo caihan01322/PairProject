@@ -9,7 +9,6 @@ package com.topwordanalysis.databaseOperation.model;
 public class TopWord {
     private String academicNum;
     private String topWord;
-    private int times;
 
     public String getAcademicNum() {
         return academicNum;
@@ -27,11 +26,4 @@ public class TopWord {
         this.topWord = topWord;
     }
 
-    public int getTimes() {
-        return times;
-    }
-
-    public void setTimes(int times) {
-        this.times = times;
-    }
 }

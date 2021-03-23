@@ -11,12 +11,21 @@ package com.topwordanalysis.databaseOperation.model;
 
 
 public class Paper {
+    private String id;
     private String title;
     private String link;
     private String paperAbstract;
     private String academicNum;
     private String type;
     private int year;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
