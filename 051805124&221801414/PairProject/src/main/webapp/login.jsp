@@ -55,7 +55,7 @@
 </head>
 <body>
 <div id="one">
-	<img src="./login.png"  alt="登录" />
+	<img src="./ImageResources/login.png"  alt="登录" />
 </div>
 <div id="two">
     <h1>欢迎使用，</h1>

@@ -14,9 +14,12 @@
             <h1>论文信息平台</h1>
         </div>
         <div class="head2">
-            <a>管理员</a>
-            <a>修改密码</a>
-            <a>退出</a>
+        	<a><label>用户名</label></a>
+        	<a><img src="./ImageResources/user.png"/></a>
+        	<a><img src="./ImageResources/question.png"/></a>
+        	<a><img src="./ImageResources/bell.png" /></a>
+        	<a><img src="./ImageResources/link.png" /></a>
+            <a><img src="./ImageResources/redo.png" /></a>
         </div>
     </div>
 </div>
@@ -24,10 +27,10 @@
     <div>
         <div>
             <ul>
-                 <li class="icon"><a href="design.html"><i></i>论文爬取</a></li>
-                 <li class="icon"><a href="design.html"><i></i>论文管理</a></li>
-                 <li class="icon"><a href="design.html"><i></i>论文分析</a></li>
-                 <li class="icon"><a href="design.html"><i></i>背景知识</a></li>
+                 <li class="icon"><a href="design.html"><i><img src="./ImageResources/folderadd.png"></i>论文爬取</a></li>
+                 <li class="icon"><a href="design.html"><i><img src="./ImageResources/database.png"></i>论文管理</a></li>
+                 <li class="icon"><a href="design.html"><i><img src="./ImageResources/fund.png"></i>论文分析</a></li>
+                 <li class="icon"><a href="design.html"><i><img src="./ImageResources/read.png"></i>背景知识</a></li>
             </ul>
         </div>
     </div>
