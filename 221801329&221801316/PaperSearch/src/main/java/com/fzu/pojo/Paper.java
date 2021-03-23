@@ -7,6 +7,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class Paper {
+    Integer id;
     String title;
     String abstractContent;
     String meet;

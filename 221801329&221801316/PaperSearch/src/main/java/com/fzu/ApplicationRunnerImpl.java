@@ -4,17 +4,22 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import com.fzu.pojo.Paper;
+import com.fzu.service.PaperService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 @Component
 public class ApplicationRunnerImpl implements ApplicationRunner {
+    @Autowired
+    PaperService paperService;
     public List<Paper> cvprJsonParse() {
         List<Paper> paperList=new ArrayList<>();
         String dir=System.getProperty("user.dir");
@@ -154,8 +159,6 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
                 if(abstractContent.length()>=150){
                     abstractContent=abstractContent.substring(0,150);
                 }
-
-                System.out.println(i+" "+abstractContent);
                 String link=jsonObject.getString("原文链接");
                 String author="未知";
                 String meet="ECCV";
@@ -204,6 +207,26 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
     }
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        List<Paper> paperList=eccvJsonParse();
+        /*List<Paper> paperList=eccvJsonParse();
+        int i=0;
+        for (Paper paper : paperList) {
+            System.out.println(i+"   "+paper.toString());
+            i++;
+        }*/
+        Paper testPaper=new Paper();
+        testPaper.setTitle("test");
+        testPaper.setAbstractContent("testcontent");
+        testPaper.setYear(2020);
+        testPaper.setMeet("ECCV");
+        testPaper.setLink("wwww");
+        List<String> authors= new ArrayList<>();
+        authors.add("未知");
+        authors.add("ldy");
+        testPaper.setAuthor(authors);
+        List<String> keywords=new ArrayList<>();
+        keywords.add("keyword1");
+        keywords.add("keyword2");
+        testPaper.setKeywords(keywords);
+        paperService.uploadPaper(testPaper);
     }
 }
