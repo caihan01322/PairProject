@@ -38,6 +38,17 @@
             </ul>
         </div>
     </div>
+    <div>
+    	<div class="contentright">
+    		<select name="searchOption">
+				<option value="title">题目</option>
+				<option value="number">编号</option>
+				<option value="keyWord">关键词</option>
+			</select>
+            <input class="searchInput" type="text" name="searchContent" placeholder="请输入论文题目，编号或关键词等" size="40" />
+            <input class="searchBtn" id="button" type="submit" value="搜索"/>
+    	</div>
+    </div>
 </div>
 <div>
 	<div class="footer">

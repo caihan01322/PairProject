@@ -45,16 +45,60 @@
 	text-decoration:none;
 }
 .footer{
-	text-align:center;
+	text-align: center;
 }
 .contentleft{
-	width:15%;
+	width: 15%;
+	display: flex;
+	float: left;
 }
 .contentright{
-	width:80%;
+	width: 80%;
+	float: right;
+	padding: 20px
+}
+.contentright select{
+	border-color: #DCDCDC;
+	border-radius: 30px;
+	padding: 8px;
+}
+.contentright .searchInput{
+	width: 40%;	
+	height: 19px;
+	border-color: #DCDCDC;
+	border-radius: 30px;
+	padding: 8px;
+}
+.contentright .searchBtn{
+	background-color:transparent;
+    border-style:none;
+    color:#0080ff;
+    font-size: 15px;
+}
+.contentright p{
+	width: 65%;	
+    font-size: 14px;
+    float: left;
+}
+.contentright img{
+	float:right;
+}
+.contentright .imgCVPR{
+	width: 20%;
+	padding-top: 30px;
+	padding-right: 66px;
+}
+.contentright .imgICCV{
+	width: 25%;
+	padding-top: 30px;
+	padding-right: 50px;
+}
+.contentright .imgECCV{
+	width: 14%;
+	padding-right:90px;
 }
 .titleright{
-	list-style-type:none;
+	list-style-type: none;
 	padding: 10px;
 	margin-left: 10px;
 }
