@@ -5,16 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0,user-scalable=no,minimal-ui">
     <title>首页</title>
-<<<<<<< Updated upstream:221801119&221801134/view/index.html
-    <link rel='stylesheet' href='myCss.css' type='text/css'/>
-
-=======
     <link rel='stylesheet' href='../css/myCss.css' type='text/css'/>
->>>>>>> Stashed changes:221801119&221801134/view/index.php
+
 </head>
+
 <body style="background-color:#F8F8F8 ;">
 <div id="app" class="surface--content">
+
     <el-backtop></el-backtop>
+
     <header class="metabar">
         <div class="container u-flex">
             <!--
@@ -22,7 +21,7 @@
             -->
             <nav class="header-nav">
                 <ul class="subnav-ul">
-                    <li class="menu-item"><a  href="index.html"><b style="font-size: larger">首页</b></a></li>
+                    <li class="menu-item"><a  href="index.php"><b style="font-size: larger">首页</b></a></li>
                     <li class="menu-item"><a   data-id="37" data-adid="41" href="">论文导入</a></li>
                     <li class="menu-item"><a   data-id="37" data-adid="41" href="">论文管理</a></li>
                     <li class="menu-item"><a data-id="37" data-adid="41" href="">动态分析</a></li>
@@ -38,11 +37,12 @@
                     收藏夹</a>
                 </div>
                 <metabar-notice v-bind:noticenum="noticeNum" v-bind:islogin="islogin"></metabar-notice>
-                <div class="metabarItem u-flex u-paddingLeft20" ><a href="login.html" class="u-flex" title="上传" >
+                <div class="metabarItem u-flex u-paddingLeft20" ><a href="login.php" class="u-flex" title="上传" >
                     <span class="" >注册 | 登录</span></a>
                 </div>
             </div>
         </div>
     </header>
     <div/>
+
 </body>

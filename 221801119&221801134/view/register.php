@@ -5,12 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0,user-scalable=no,minimal-ui">
     <title>注册入口</title>
-    <link rel='stylesheet' href='myCss.css' type='text/css'/>
-
+    <link rel='stylesheet' href='../css/myCss.css' type='text/css'/>
+	<link rel='stylesheet' href='../css/myCss3.css' type='text/css'/>
 </head>
+
 <body style="background-color:#F8F8F8 ;">
 <div id="app" class="surface--content">
+
     <el-backtop></el-backtop>
+
     <header class="metabar">
         <div class="container u-flex">
             <!--
@@ -18,7 +21,7 @@
             -->
             <nav class="header-nav">
                 <ul class="subnav-ul">
-                    <li class="menu-item"><a  href="index.html">首页</a></li>
+                    <li class="menu-item"><a  href="index.php">首页</a></li>
                     <li class="menu-item"><a   data-id="37" data-adid="41" href="">论文导入</a></li>
                     <li class="menu-item"><a   data-id="37" data-adid="41" href="">论文管理</a></li>
                     <li class="menu-item"><a data-id="37" data-adid="41" href="">动态分析</a></li>
@@ -34,27 +37,29 @@
                     收藏夹</a>
                 </div>
                 <metabar-notice v-bind:noticenum="noticeNum" v-bind:islogin="islogin"></metabar-notice>
-                <div class="metabarItem u-flex u-paddingLeft20" ><a href="login.html" class="u-flex" title="上传" >
+                <div class="metabarItem u-flex u-paddingLeft20" ><a href="login.php" class="u-flex" title="上传" >
                     <span class="" ><b  style="font-size: larger">注册 | 登录</b> </span></a>
                 </div>
             </div>
         </div>
     </header>
     <div/>
+
     <div class="login">
         <p style="font-size: 25px;">注册</p>
         <HR style= " border: 1 dashed #987cb9" width ="80%" color =#987 cb 9 SIZE = 1>
-        <form action=""  style="padding-top: 11%" role="form">
+        <form action="../form/registerForm.php"  style="padding-top: 11%" role="form" method="post">
             <label for="fname" >用&nbsp;&nbsp;户&nbsp;&nbsp;名：</label>
             <input type="text" id="name" name="name" placeholder="请输入用户名"><br/>
             <label for="lname">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
-            <input type="text" id="psw" name="password" placeholder="请输入密码"><br/>
+            <input type="text" id="password1" name="password1" placeholder="请输入密码"><br/>
             <label for="lname">确认密码：</label>
-            <input type="text" id="psw" name="password" placeholder="请再次输入密码"><br/>
+            <input type="text" id="password2" name="password2" placeholder="请再次输入密码"><br/>
             <input type="submit" value="注册">
         </form>
+
         <div style="padding-top: 6%;" >
-            <a href="login.html">已有账号？返回登录</a>
+            <a href="login.php">已有账号？返回登录</a>
         </div>
     </div>
 </body>

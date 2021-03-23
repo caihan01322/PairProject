@@ -27,11 +27,11 @@ if ($conn->connect_error){
         echo '<script>alert("用户名已存在！");history.go(-1);</script>';
         exit(0);
     }
-
+    
     $sql="insert into user(username,password) values('$username','$password1')";
     if( $conn->query($sql) === TRUE )  {
         echo '<script>alert("注册成功！");window.location="../view/login.php";</script>';
     }
-
+       
 }
 ?>

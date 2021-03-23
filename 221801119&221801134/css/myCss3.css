@@ -20,7 +20,7 @@ input[type=text], select {
     box-sizing: border-box;
 }
 
-input[type=submit] {
+.login #submitLogin{
     width: 80%;
     background-color: #686f72;
     color: white;
@@ -35,56 +35,67 @@ input[type=submit]:hover {
     background-color: #45a049;
 }
 
-/*ËÑË÷¿ò*/
-#box{
-    margin-top: 2%;
-    margin-left: 14%;
-    font-family: 'Microsoft YaHei';
-    font-size: 14px;
-}
 
-#box input{
-    width: 260px;
-    border: 1px solid #e2e2e2;
-    margin: 1% auto;
-    height: 40px;
-    float: left;
-    background-image: url(../ËÑË÷.png);
-    background-repeat: no-repeat;
-    background-size: 25px;
-    background-position:5px center;
-    padding:0 0 0 40px;
-}
-
-#search{
-    width: 70px;
-    height: 40px;
-    float: left;
-    margin: 1% auto;
-    background: #303030;
-    color: white;
-    text-align: center;
-    line-height: 40px;
-    cursor: pointer;
-}
-
-#box select{
-    width: 15%;
-    float: left;
-    margin:1% auto;
-}
-
+/*论文列表*/
  .mainPaper{
-     position: absolute;
-     left: 14%;
-     top: 25%;
+ 	 margin:0 0.5% 0 10%;
      width: 60%;
-     height: 500px;
+     float:left;
  }
 .paper{
     margin: 1%;
     float: left;
     background-color: #fffdfd;
-    height: 200px;
     width: 90%;
+    padding: 1.5% 2.5% 2% 2.5%;
+}
+
+/*侧边栏*/
+ .sider{
+     float:left;
+     width: 20%;
+ }
+ 
+ .siders{
+    margin:3%;
+    float: left;
+    background-color: #fffdfd;
+    width: 90%;
+
+}
+
+.breadcrumb {
+  padding: 1rem 1rem;
+  list-style: none;
+  border-radius: 0.25rem;
+}
+
+.breadcrumb::after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+.breadcrumb-item {
+  float: left;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  display: inline-block;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  color: #ffacac;
+  content: "/";
+}
+
+.breadcrumb-item + .breadcrumb-item:hover::before {
+  text-decoration: underline;
+}
+
+.breadcrumb-item + .breadcrumb-item:hover::before {
+  text-decoration: none;
+}
+
+.breadcrumb-item.active {
+  color: #4a4a4a;
 }
