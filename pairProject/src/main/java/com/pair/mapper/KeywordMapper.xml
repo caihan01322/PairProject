@@ -40,4 +40,8 @@
         select keyword from pair.keyword where publisher="ECCV" limit 10
     </select>
 
+    <select id="getTop10Keyword" resultType="keyword" parameterType="String">
+        select * from pair.keyword where publisher=#{publisher} order by num desc limit 10
+    </select>
+
 </mapper>

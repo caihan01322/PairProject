@@ -1,40 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="/echarts.min.js"></script>
     <script src="/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-table/bootstrap-table.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 </head>
 <body>
 
-<div id="CVPR" style="width: 600px; height: 600px; background: #b8daff "></div>
+<form th:action="@{/top10}" method="post" style="margin-top: auto;margin-bottom: auto">
+    <select name="meeting" id="selections">
+        <option value="CVPR" >CVPR</option>
+        <option value="ICCV">ICCV</option>
+        <option value="ECCV">ECCV</option>
+    </select>
+    <input type="submit" value="确定"/>
+</form>
+
+<div id="title" style="width: 1300px; margin-right:auto;margin-left: auto;">
+    <h2 th:text="${title}"></h2>
+</div>
+<div id="linechart" style="width: 1300px; height: 600px; margin-right:auto;margin-left: auto;background: #e9ecef"></div>
+
 
 
 <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById('CVPR'));
+    var myChart = echarts.init(document.getElementById('linechart'));
 
     // 指定图表的配置项和数据
     var option = {
         title: {
-            text: 'CVPR'
+            text: ""
         },
         tooltip: {},
         legend: {
             data:['热度']
         },
         xAxis: {
-            data: ["[[${cvpr0}]]","[[${cvpr1}]]","[[${cvpr2}]]","[[${cvpr3}]]","[[${cvpr4}]]","[[${cvpr5}]]","[[${cvpr6}]]","[[${cvpr7}]]","[[${cvpr8}]]","[[${cvpr9}]]"],
+            data: ["[[${top5}]]","[[${top1}]]","[[${top6}]]","[[${top3}]]","[[${top4}]]","[[${top0}]]","[[${top2}]]","[[${top9}]]","[[${top8}]]","[[${top7}]]"],
             axisLabel: {
                 interval:0,
-                rotate:40
+                rotate:20
             }
         },
         yAxis: {},
         series: [{
             name: '热度',
             type: 'line',
-            data: [5, 20, 36, 10, 10, 20,23,32,45,36]
+            data: [parseInt("[[${num5}]]"), parseInt("[[${num1}]]"), parseInt("[[${num6}]]"), parseInt("[[${num3}]]"),
+                parseInt("[[${num4}]]"), parseInt("[[${num0}]]"),parseInt("[[${num2}]]"),parseInt("[[${num9}]]"),
+                parseInt("[[${num8}]]"),parseInt("[[${num7}]]")]
         }]
     };
 

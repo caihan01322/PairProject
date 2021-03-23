@@ -2,12 +2,14 @@ package com.pair.controller;
 
 
 import com.pair.dao.KeywordMapper;
+import com.pair.pojo.Keyword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -45,24 +47,42 @@ public class KeywordController {
         return "cloud";
     }
 
-    @RequestMapping("/cvpr")
-    public String getCVPR(Model model){
-        List<String> cvprKeyword = keywordMapper.getCVPRKeyword();
-        String cvprKeywords[]=new String[10];
-        for (int i = 0; i < cvprKeyword.size(); i++) {
-            cvprKeywords[i]=cvprKeyword.get(i);
+    @RequestMapping("/top10")
+    public String getTop10(HttpServletRequest request,Model model){
+        String publisher=request.getParameter("meeting");
+        if(publisher==null){
+            publisher="CVPR";
         }
-        System.out.println(cvprKeyword);
-        model.addAttribute("cvpr0",cvprKeywords[0]);
-        model.addAttribute("cvpr1",cvprKeywords[1]);
-        model.addAttribute("cvpr2",cvprKeywords[2]);
-        model.addAttribute("cvpr3",cvprKeywords[3]);
-        model.addAttribute("cvpr4",cvprKeywords[4]);
-        model.addAttribute("cvpr5",cvprKeywords[5]);
-        model.addAttribute("cvpr6",cvprKeywords[6]);
-        model.addAttribute("cvpr7",cvprKeywords[7]);
-        model.addAttribute("cvpr8",cvprKeywords[8]);
-        model.addAttribute("cvpr9",cvprKeywords[9]);
+        List<Keyword> top10Keyword = keywordMapper.getTop10Keyword(publisher);
+
+        String top10Keywords[]=new String[10];
+        int wordNums[]=new int[10];
+        for (int i = 0; i < top10Keyword.size(); i++) {
+            top10Keywords[i]=top10Keyword.get(i).getKeyword();
+            wordNums[i]=top10Keyword.get(i).getNum();
+        }
+        System.out.println(top10Keyword);
+        model.addAttribute("title",publisher);
+        model.addAttribute("top0",top10Keywords[0]);
+        model.addAttribute("num0",wordNums[0]);
+        model.addAttribute("top1",top10Keywords[1]);
+        model.addAttribute("num1",wordNums[1]);
+        model.addAttribute("top2",top10Keywords[2]);
+        model.addAttribute("num2",wordNums[2]);
+        model.addAttribute("top3",top10Keywords[3]);
+        model.addAttribute("num3",wordNums[3]);
+        model.addAttribute("top4",top10Keywords[4]);
+        model.addAttribute("num4",wordNums[4]);
+        model.addAttribute("top5",top10Keywords[5]);
+        model.addAttribute("num5",wordNums[5]);
+        model.addAttribute("top6",top10Keywords[6]);
+        model.addAttribute("num6",wordNums[6]);
+        model.addAttribute("top7",top10Keywords[7]);
+        model.addAttribute("num7",wordNums[7]);
+        model.addAttribute("top8",top10Keywords[8]);
+        model.addAttribute("num8",wordNums[8]);
+        model.addAttribute("top9",top10Keywords[9]);
+        model.addAttribute("num9",wordNums[9]);
         return "lineChart";
     }
 
