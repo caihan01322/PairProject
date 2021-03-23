@@ -23,9 +23,9 @@
             <nav class="header-nav">
                 <ul class="subnav-ul">
                     <li class="menu-item"><a  href="">首页</a></li>
-                    <li class="menu-item"><a   data-id="37" data-adid="41" href="">论文导入</a></li>
+                    <li class="menu-item"><a   data-id="37" data-adid="41" href="import.php">论文导入</a></li>
                     <li class="menu-item"><a   data-id="37" data-adid="41" href="manage.php"><b style="font-size: larger">论文管理</b></a></li>
-                    <li class="menu-item"><a data-id="37" data-adid="41" href="">动态分析</a></li>
+                    <li class="menu-item"><a data-id="37" data-adid="41" href="analysis.php">动态分析</a></li>
                 </ul>
             </nav>
             <div class="metabar__right u-flex">
@@ -55,7 +55,7 @@
             </div>
         </div>
     </header>
-    </div>
+ </div>
 
 		
         
@@ -68,7 +68,7 @@
     	<?php 
     	$conn = new mysqli('localhost','root','','paperdb');
     	$userid=$_SESSION["userid"];
-    	$sql = "select * from userPaper where userid = '$userid' ";
+    	$sql = "select * from userPaper where userid = '$userid' ORDER BY pid";
     	$res = $conn->query($sql);
     	if( $res->num_rows >0 ){
     	    while( $row= $res->fetch_assoc()){
@@ -80,7 +80,7 @@
     	               <div class="paper">
 	                        <div class="page-wrapper">
                             <div class="blog-title-area">  
-                  <a href=""  style="float:right">
+                  <a href=""  style="float:right" onclick="deleteButton(this)" id="'.$pid.'">
                     <svg t="1616311672560" class="icon" width="30" height="29"  viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2138" width="200" height="200"><path d="M799.2 874.4c0 34.4-28 62.4-62.368 62.4H287.2a62.496 62.496 0 0 1-62.4-62.4V212h574.4v662.4zM349.6 100c0-7.2 5.6-12.8 12.8-12.8h300c7.2 0 12.768 5.6 12.768 12.8v37.6H349.6V100z m636.8 37.6H749.6V100c0-48-39.2-87.2-87.2-87.2h-300a87.392 87.392 0 0 0-87.2 87.2v37.6H37.6C16.8 137.6 0 154.4 0 175.2s16.8 37.6 37.6 37.6h112v661.6A137.6 137.6 0 0 0 287.2 1012h449.6a137.6 137.6 0 0 0 137.6-137.6V212h112c20.8 0 37.6-16.8 37.6-37.6s-16.8-36.8-37.6-36.8zM512 824c20.8 0 37.6-16.8 37.6-37.6v-400c0-20.8-16.768-37.6-37.6-37.6-20.8 0-37.6 16.8-37.6 37.6v400c0 20.8 16.8 37.6 37.6 37.6m-175.2 0c20.8 0 37.6-16.8 37.6-37.6v-400c0-20.8-16.8-37.6-37.6-37.6s-37.6 16.8-37.6 37.6v400c0.8 20.8 17.6 37.6 37.6 37.6m350.4 0c20.8 0 37.632-16.8 37.632-37.6v-400c0-20.8-16.8-37.6-37.632-37.6-20.768 0-37.6 16.8-37.6 37.6v400c0 20.8 16.8 37.6 37.6 37.6" p-id="2139"></path></svg>
                 </a>          
                               <a href="" style="float:right">
@@ -92,11 +92,11 @@
                                 <br/><h3>'.$row2["title"].'</h3>
                                 <div class="blog-meta big-meta">
                                     <small><a href="marketing-single.html" title="">'.$pid.'</a></small>
-                                    <small><a href="marketing-single.html" title="">'.$row2["meet"].' '.$row2["myear"].'</a></small>
-                                    <small><a href="blog-author.html" title="">'.$row2["publish"].'</a></small>
+                                    <small><a href="marketing-single.html" title="">'.$row2["meeting"].' '.$row2["year"].'</a></small>
+                                    <small><a href="blog-author.html" title="">'.$row2["ptime"].'</a></small>
                                 </div>
                                 <div class="blog-meta big-meta">
-                                    <small><a href="#" title=""><i class="fa fa-eye"></i>原文链接：'.$row2["link"].'</a></small>
+                                    <small><a href="'.$row2["link"].'" title=""><i class="fa fa-eye"></i>原文链接：'.$row2["link"].'</a></small>
                                 </div>
                             <div class="blog-title-area">
                                 <div class="tag-cloud-single">
@@ -116,10 +116,10 @@
                     </div>
                 ';  
     	    }
-    	    echo '<div class="paper">没有更多了……</div>';
+    	    echo '<div class="paper" style="text-align:center;">没有更多了……</div>';
     	}
     	else{
-    	    echo '<div class="paper">暂无论文……</div>';
+    	    echo '<div class="paper" style="text-align:center;">暂无论文</div>';
     	}
 
     	?>
@@ -148,6 +148,7 @@
                 </div>
       </div>
         <div class="siders">
+        
 				<div style="padding:0 5% 2% 5%">
                             <h2 class="widget-title">Popular Categories</h2>
                             <div class="link-widget">
@@ -165,5 +166,16 @@
 	</div>   
 </div>
 
-
 </body>
+
+<script>
+function deleteButton(e){
+	window.event.returnValue=false;
+	var r=confirm("您确定删除这篇论文？");
+	if (r==false){
+		return;
+	}
+	var pid=e.id;
+	window.location.href="../form/delete.php? pid="+pid;
+}
+</script>
