@@ -114,7 +114,7 @@ export default {
 .detail_item {
     display: flex;
     justify-content: space-between;
-    height: 50px;
+    height: 40px;
 }
 
 .list_title {

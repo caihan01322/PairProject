@@ -86,6 +86,8 @@ export default {
                 },
                 tooltip: {
                     trigger: "item",
+                    show: true,
+                    transitionDuration: 0,
                 },
                 legend: {
                     orient: "vertical",
@@ -124,6 +126,8 @@ export default {
                 tooltip: {
                     confine: true,
                     enterable: true,
+                    show: true,
+                    transitionDuration: 0,
                 },
                 legend: {
                     orient: "vertical",
@@ -166,6 +170,8 @@ export default {
                 },
                 tooltip: {
                     trigger: "axis",
+                    show: true,
+                    transitionDuration: 0,
                 },
                 legend: {
                     data: ["CVPR", "ICCV", "ECCV"],
@@ -220,6 +226,7 @@ export default {
     box-sizing: border-box; */
     width: 100%;
     height: 90%;
+    overflow: hidden;
 }
 
 #chart_part {
