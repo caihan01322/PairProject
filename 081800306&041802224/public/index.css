@@ -1,3 +1,4 @@
+
 body{
     background-color: #2F3D60;
 }
@@ -58,4 +59,4 @@ body{
     top: 50%;
     right: 0;
     transform: translateY(-50%);
-}
+  }
