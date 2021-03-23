@@ -31,5 +31,21 @@
         delete from keyword k
         where k.kid in(select pk.kid from paper_keyword pk where pk.pid=#{kid});
     </delete>
+    
+    <select id="getCVPRKeyword" resultType="String">
+        select keyword from pair.keyword where publisher="CVPR" limit 10
+    </select>
+
+    <select id="getICCVKeyword" resultType="String">
+        select keyword from pair.keyword where publisher="ICCV" limit 10
+    </select>
+
+    <select id="getECCVKeyword" resultType="String">
+        select keyword from pair.keyword where publisher="ECCV" limit 10
+    </select>
+
+    <select id="getTop10Keyword" resultType="keyword" parameterType="String">
+        select * from pair.keyword where publisher=#{publisher} order by num desc limit 10
+    </select>
 
 </mapper>
