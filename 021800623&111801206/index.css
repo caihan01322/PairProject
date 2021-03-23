@@ -153,3 +153,63 @@ html,body{
     background-color: #599AEF;
     margin: 10px 0 20px 0;
 }
+#main{
+    width: 800px;
+    height:400px;
+    margin-left: 40px;
+}
+.btn_word_active{
+    background-color: #599AEF;
+    display: inline-block;
+    color: #fff;
+    width: 95px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid #A3D0FD;
+    text-decoration: none;
+    text-align: center;
+    line-height: 40px;
+    margin-top: 50px;
+    margin-left: 60px;
+}
+.btn_word{
+    display: inline-block;
+    color: #BEBEBE;
+    width: 95px;
+    height: 40px;
+    border-radius: 8px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 40px;
+    margin-top: 50px;
+    margin-left: 60px;
+    border: 1px solid #A3D0FD;
+}
+.btn_key_active{
+    background-color: #599AEF;
+    display: inline-block;
+    color: #fff;
+    width: 95px;
+    height: 40px;
+    border-radius: 8px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 40px;
+    margin-top: 20px;
+    border: 1px solid #A3D0FD;
+}
+.btn_key{
+    display: inline-block;
+    color: #BEBEBE;
+    width: 95px;
+    height: 40px;
+    border-radius: 8px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 40px;
+    margin-top: 20px;
+    border: 1px solid #A3D0FD;
+}
+.box2{
+    display: none;
+}

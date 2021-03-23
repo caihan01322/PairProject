@@ -16,9 +16,9 @@
             Paper管理平台
         </div>
         <div class="items">
-        <a class="btn_head">首页</a>
-        <a class="btn_manage">论文管理</a>
-        <a class="btn_analysis_active">论文分析</a>
+        <a class="btn_head" href="Head.jsp">首页</a>
+        <a class="btn_manage" href="Delete.jsp">论文管理</a>
+        <a class="btn_analysis_active" href="Analysis.jsp">论文分析</a>
         </div>
     </div>
 
