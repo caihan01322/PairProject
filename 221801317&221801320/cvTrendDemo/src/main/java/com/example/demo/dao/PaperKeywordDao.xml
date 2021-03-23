@@ -9,4 +9,25 @@
         insert into keywordPaper (paperID,keyword,meeting,year,frequency) values (#{paperID},#{keyword},#{meeting},#{year},#{frequency})
     </insert>
 
+    <delete id="deleteByID">
+        delete from keywordPaper where paperID = #{paperID};
+    </delete>
+
+<!--    返回近五年 前10热词列表-->
+    <resultMap id="hotWord" type="Keyword">
+        <result column="keyword" property="keyword"/>
+        <result column="year" property="year"/>
+        <result column="sum" property="frequency"/>
+    </resultMap>
+    <select id="getHotWordResentYear" resultMap="hotWord">
+        select keyword,sum(frequency) sum from keywordPaper where year in("2020","2019","2017","2018","2016")  group by keyword order by sum desc limit 10;
+    </select>
+
+
+<!--    得到某词的趋势-->
+    <select id="getWordTrend" resultMap="hotWord">
+        select keyword,year,sum(frequency) sum from keywordPaper where keyword = #{keyword} group by year ;
+    </select>
+
+
 </mapper>

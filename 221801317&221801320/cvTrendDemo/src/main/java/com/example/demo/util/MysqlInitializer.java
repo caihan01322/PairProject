@@ -4,7 +4,6 @@ import com.example.demo.pojo.PaperKeyword;
 import com.example.demo.service.PaperKeywordService;
 import com.example.demo.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pojo.Paper;
 
@@ -52,7 +51,7 @@ public class MysqlInitializer {
         }
     }
 
-    @RequestMapping("/initmysql")
+    //@RequestMapping("/initmysql")
     public void insertAllPaper(String meeting) throws IOException {
         PaperJSONParser jsonParser = PaperJSONParser.valueOf(meeting.trim().toUpperCase());
 

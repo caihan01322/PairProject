@@ -11,4 +11,16 @@
     <select id="getID" resultType="int">
         select paperID from paper where title=#{title} and meeting = #{meeting} and link=#{link} and year = #{year}
     </select>
+
+    <select id="query" resultType="Paper">
+        select * from paper where title like CONCAT('%',#{keyword},'%') or abstractContent like CONCAT('%',#{keyword},'%')
+    </select>
+
+    <select id="getPaperByKeyword" resultType="Paper">
+        select p.paperID ,title,p.year,authors,p.meeting,link,abstractContent from paper p join keywordPaper k on  p.paperID = k.paperID  where keyword = #{keyword};
+    </select>
+
+    <delete id="deleteByID">
+        delete from paper where paperID = #{paperID};
+    </delete>
 </mapper>
