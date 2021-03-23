@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -24,16 +25,16 @@
                 </header>
                 <div class="card-body">
                     <div id="toolbar" class="toolbar-btn-action" style="margin-bottom: 3%">
-                        <form class="form-inline">
-                            <div class="form-group">
-                                <label class="sr-only" for="sname"></label>
-                                <input class="form-control mb-2 mr-sm-2" type="text" id="sname" name="sname"
-                                       placeholder="请输入学生姓名">
-                                <a class="btn btn-success" style="margin-left:20px;margin-top:-3px"
-                                   onclick="searchStudent()">
-                                    <i class="fa fa-search"></i> 查询
-                                </a>
-                            </div>
+                        <form th:action="@{/paperSelect}" method="post">
+                            <select name="selectTerm">
+                                <option value="title">标题</option>
+                                <option value="abs">摘要</option>
+                                <option value="publisher">会议名称</option>
+                                <option value="publicationYear">发布年份</option>
+                                <option value="keyword">关键词</option>
+                            </select>
+                            <input type="text" name="selectItem"/>
+                            <input type="submit" value="提交"/>
                         </form>
                     </div>
                     <table id="studentTable" class="table table-bordered table-hover table-striped">
@@ -42,7 +43,7 @@
                             <th>标题</th>
                             <th>摘要</th>
                             <th>会议名称</th>
-                            <th>发布时间</th>
+                            <th>发布年份</th>
                             <th>关键词</th>
                             <th>原文链接</th>
                         </tr>

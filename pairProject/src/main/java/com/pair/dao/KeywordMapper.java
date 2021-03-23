@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Mapper
-@Repository
 public interface KeywordMapper {
     public int selectKeyword(String keyword,String publisher);
     public void updateKeyword(Keyword Keyword);
