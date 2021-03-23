@@ -1,0 +1,67 @@
+html,body{ 
+    margin: 0;
+    padding: 0;
+}
+.nav{ 
+        height: 75px;
+        background-color: black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+.logo{
+    font-size: 24px;
+    color: white;
+    margin-left: 60px;
+}
+.items .item{
+        color: aliceblue;
+        font-size: 28px;
+        line-height: 75px;
+        margin: 0 20px;
+    }
+.btn_head_active{
+    background-color: #599AEF;
+    display: inline-block;
+    color: #fff;
+    width: 103px;
+    height: 46px;
+    border-radius: 20px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 46px;
+    margin: 0 30px;
+}
+.btn_head{
+    display: inline-block;
+    color: #fff;
+    width: 103px;
+    height: 46px;
+    border-radius: 20px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 46px;
+    margin: 0 30px;
+}
+.btn_manage{
+    display: inline-block;
+    color: #fff;
+    width: 103px;
+    height: 46px;
+    border-radius: 20px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 46px;
+    margin: 0 30px;
+}
+.btn_analysis{
+    display: inline-block;
+    color: #fff;
+    width: 103px;
+    height: 46px;
+    border-radius: 20px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 46px;
+    margin: 0 30px;
+}
