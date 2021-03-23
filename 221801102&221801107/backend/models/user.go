@@ -1,7 +1,5 @@
 package models
 
-var LoginUser User
-
 type User struct {
 	Model
 	Name     string `json:"name"`

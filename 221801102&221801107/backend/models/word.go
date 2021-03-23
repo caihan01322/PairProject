@@ -1,9 +1,5 @@
 package models
 
-import (
-	"gorm.io/gorm"
-)
-
 type Word struct {
 	Model
 	Name        string      `json:"name"`
@@ -28,14 +24,8 @@ func GetWordCloud() (cloud []WordCloud) {
 }
 
 func GetWords(contributor string) (words []Word) {
-	var where *gorm.DB
-	if contributor == "" {
-		where = db
-	} else {
-		where = db.Where("contributor = ?", contributor)
-	}
-
-	where.Limit(10).
+	db.Where("contributor = ?", contributor).
+		Limit(10).
 		Order("value desc").
 		Find(&words)
 

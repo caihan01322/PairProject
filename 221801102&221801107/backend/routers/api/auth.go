@@ -3,14 +3,11 @@ package api
 import (
 	"backend/conf"
 	"backend/models"
-	"backend/pkg/e"
 	"backend/pkg/utils"
 	"context"
 	"encoding/base64"
-	"encoding/gob"
 	"github.com/gin-gonic/gin"
 	"github.com/google/go-github/v33/github"
-	"github.com/gorilla/sessions"
 	"github.com/mitchellh/mapstructure"
 	"golang.org/x/oauth2"
 	"log"
@@ -18,18 +15,9 @@ import (
 	"net/http"
 )
 
-var store *sessions.CookieStore
-
-const authSessKey = "auth_ses"
-
-func init() {
-	store = sessions.NewCookieStore([]byte(conf.ServerSecret))
-	gob.Register(&oauth2.Token{})
-}
-
 /***************** test ************/
 func Home(c *gin.Context) {
-	sess, err := store.Get(c.Request, authSessKey)
+	sess, err := conf.Store.Get(c.Request, conf.AuthSessKey)
 	if err != nil {
 		log.Println(err)
 		return
@@ -64,7 +52,7 @@ func Auth(c *gin.Context) {
 
 	state := base64.URLEncoding.EncodeToString(b)
 
-	sess, _ := store.Get(c.Request, authSessKey)
+	sess, _ := conf.Store.Get(c.Request, conf.AuthSessKey)
 	sess.Values["state"] = state
 	if err := sess.Save(c.Request, c.Writer); err != nil {
 		log.Println("error saving state " + err.Error())
@@ -79,17 +67,17 @@ func Callback(c *gin.Context) {}
 /***************** test ************/
 
 func Logout(c *gin.Context) {
-	session, _ := store.Get(c.Request, authSessKey)
+	session, _ := conf.Store.Get(c.Request, conf.AuthSessKey)
 
 	// delete login info
 	session.Options.MaxAge = -1
 	session.Save(c.Request, c.Writer)
 
-	utils.JSONOK(c, e.Success, e.GetMsg(e.Success), nil)
+	utils.JSONOK(c, http.StatusOK, http.StatusText(http.StatusOK), nil)
 }
 
 func Login(c *gin.Context) {
-	code := e.Error
+	code := http.StatusInternalServerError
 
 	authCode := c.Query("code")
 	token, err := conf.OAuthCfg.Exchange(context.Background(), authCode)
@@ -104,27 +92,28 @@ func Login(c *gin.Context) {
 		if err != nil {
 			log.Printf("error getting user: %v\n", err)
 		} else {
-			code = e.Success
+			code = http.StatusOK
 
-			// store user
+			// conf.Store user
 			u := models.GetUser(*user.ID)
-			if u != nil {
-				models.LoginUser = *u
-			} else {
-				models.LoginUser = models.User{
+			if u == nil {
+				u = &models.User{
 					Name:     *user.Name,
 					Avatar:   *user.AvatarURL,
 					GitHubID: *user.ID,
 				}
-				models.AddUser(&models.LoginUser)
+				models.AddUser(u)
 			}
 
 			// for auto login
-			session, _ := store.Get(c.Request, authSessKey)
+			session, _ := conf.Store.Get(c.Request, conf.AuthSessKey)
 			session.Values["githubAccessToken"] = token
+			session.Values["githubID"] = *user.ID
 			session.Save(c.Request, c.Writer)
+
+			utils.JSONOK(c, code, http.StatusText(code), *u)
+			return
 		}
 	}
-
-	utils.JSONOK(c, code, e.GetMsg(code), models.LoginUser)
+	utils.JSONOK(c, code, http.StatusText(code), nil)
 }

@@ -8,7 +8,7 @@ type WordPoint struct {
 	Model
 	Time   time.Time `json:"time"`
 	Value  int       `json:"value"`
-	WordID uint
+	WordID uint      `json:"-"`
 }
 
 const layoutUS = "Jan. 2006"

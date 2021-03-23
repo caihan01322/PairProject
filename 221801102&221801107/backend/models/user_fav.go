@@ -10,19 +10,32 @@ type UserFav struct {
 	Content string `json:"content"`
 }
 
-func AddUserFav(user User, papers ...Paper) {
-	db.Model(&user).
+func AddUserFav(user *User, paper *Paper) {
+	db.Model(user).
 		Association("Papers").
-		Append(papers)
+		Append(paper)
 }
 
-func GetUserFav(user *User, offset, pageSize int) (papers []Paper) {
+func DeleteUserFav(fav *UserFav) {
+	db.Delete(fav)
+}
+
+func GetUserFav(user *User, paper *Paper) (fav UserFav) {
+	db.Where("user_id = ? AND paper_id = ?", user.ID, paper.ID).
+		Find(&fav)
+	return
+}
+
+func GetUserFavs(user *User, offset, pageSize int) (papers []Paper, total int64) {
 	papers = []Paper{}
 	db.Model(user).
 		Offset(offset).
 		Limit(pageSize).
 		Association("Papers").
 		Find(&papers)
+	db.Model(&UserFav{}).
+		Where("user_id = ?", user.ID).
+		Count(&total)
 	tempFav := &UserFav{}
 	for i := range papers {
 		db.Find(tempFav, "user_id = ? AND paper_id = ?", user.ID, papers[i].ID)

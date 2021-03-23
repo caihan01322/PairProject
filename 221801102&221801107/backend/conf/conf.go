@@ -1,6 +1,8 @@
 package conf
 
 import (
+	"encoding/gob"
+	"github.com/gorilla/sessions"
 	"golang.org/x/oauth2"
 	"gopkg.in/ini.v1"
 	"log"
@@ -21,12 +23,15 @@ var (
 	PageSize int // pagination
 
 	scopes = []string{"repo"}
+
+	Store *sessions.CookieStore
 )
 
 const (
 	githubAuthUrl  = "https://github.com/login/oauth/authorize"
 	githubTokenUrl = "https://github.com/login/oauth/access_token"
 	redirectUrl    = "http://localhost:8000/auth-callback"
+	AuthSessKey    = "auth_ses"
 )
 
 func init() {
@@ -41,6 +46,9 @@ func init() {
 	LoadServer()
 	LoadApp()
 	LoadOAuth()
+
+	Store = sessions.NewCookieStore([]byte(ServerSecret))
+	gob.Register(&oauth2.Token{})
 }
 
 func LoadOAuth() {
