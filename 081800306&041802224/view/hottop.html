@@ -7,17 +7,91 @@
     <title>Document</title>
     <link rel="stylesheet" href="../public/index.css">
     <link rel="stylesheet" href="../public/base.css">
+    <link rel="stylesheet" href="../public/hottop.css">
+    <script type="text/javascript" src="../public/js/exporting.js"></script>
+    <script type="text/javascript" src="../public/js/highcharts.js"></script>
+    <script type="text/javascript" src="../public/js/highcharts-zh_CN.js"></script>
 </head>
 <body>
-        <div class="nav">
-                <div class="logo">
-            
-                </div>
-                <div class="items">
-                    <a class="item" href="">首页</a>
-                    <a class="item" href="">论文检索</a>
-                    <a class="item" href="">热度分析</a>
-                </div>
-            </div>
+    <div class="nav">
+        <div class="logo">
+    
+        </div>
+        <div class="items">
+            <a class="item" href="">首页</a>
+            <a class="item" href="">论文检索</a>
+            <a class="item" href="">热度分析</a>
+        </div>
+    </div>
+    <div id="container" style="width:400px;height:400px;-webkit-tap-highlight-color: transparent;position: relative;top: 50%;
+        left: 50%;transform: translate(-50%,0%);"></div>
+
+    <script>
+        Highcharts.chart('container', {
+	chart: {
+        backgroundColor: 'rgba(200, 200, 255,0.1)',
+		plotBackgroundColor:'rgba(200, 200, 255,0.1)',
+		plotBorderWidth: null,
+        plotShadow: false,
+        height: 300,
+        marginTop: 0,
+		type: 'pie'
+	},
+	title: {
+        text: '2018年1月浏览器市场份额',
+        color:'red',
+	},
+	tooltip: {
+		pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+	},
+	plotOptions: {
+		pie: {
+			allowPointSelect: true,
+			cursor: 'pointer',
+			dataLabels: {
+				enabled: true,
+				format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+				style: {
+					color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'white'
+				}
+			}
+		}
+	},
+	series: [{
+		name: 'Brands',
+		colorByPoint: true,
+		data: [{
+			name: 'Chrome',
+			y: 61.41,
+			sliced: true,
+			selected: true
+		}, {
+			name: 'Internet Explorer',
+			y: 11.84
+		}, {
+			name: 'Firefox',
+			y: 10.85
+		}, {
+			name: 'Edge',
+			y: 4.67
+		}, {
+			name: 'Safari',
+			y: 4.18
+		}, {
+			name: 'Sogou Explorer',
+			y: 1.64
+		}, {
+			name: 'Opera',
+			y: 1.6
+		}, {
+			name: 'QQ',
+			y: 1.2
+		}, {
+			name: 'Other',
+			y: 2.61
+		}]
+	}]
+});
+    </script>
 </body>
 </html>
