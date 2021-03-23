@@ -27,5 +27,17 @@
     <select id="getKid" resultType="String" parameterType="String">
         select kid from pair.keyword where keyword=#{keyword}
     </select>
+    
+    <select id="getCVPRKeyword" resultType="String">
+        select keyword from pair.keyword where publisher="CVPR" limit 10
+    </select>
+
+    <select id="getICCVKeyword" resultType="String">
+        select keyword from pair.keyword where publisher="ICCV" limit 10
+    </select>
+
+    <select id="getECCVKeyword" resultType="String">
+        select keyword from pair.keyword where publisher="ECCV" limit 10
+    </select>
 
 </mapper>

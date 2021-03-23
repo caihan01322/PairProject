@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/echarts.min.js"></script>
+    <script src="/jquery-3.5.1.js"></script>
+</head>
+<body>
+
+<div id="CVPR" style="width: 600px; height: 600px; background: #b8daff "></div>
+
+
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('CVPR'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: 'CVPR'
+        },
+        tooltip: {},
+        legend: {
+            data:['热度']
+        },
+        xAxis: {
+            data: ["[[${cvpr0}]]","[[${cvpr1}]]","[[${cvpr2}]]","[[${cvpr3}]]","[[${cvpr4}]]","[[${cvpr5}]]","[[${cvpr6}]]","[[${cvpr7}]]","[[${cvpr8}]]","[[${cvpr9}]]"],
+            axisLabel: {
+                interval:0,
+                rotate:40
+            }
+        },
+        yAxis: {},
+        series: [{
+            name: '热度',
+            type: 'line',
+            data: [5, 20, 36, 10, 10, 20,23,32,45,36]
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+
+</body>
+</html>

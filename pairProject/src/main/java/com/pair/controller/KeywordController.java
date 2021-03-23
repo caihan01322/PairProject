@@ -45,4 +45,25 @@ public class KeywordController {
         return "cloud";
     }
 
+    @RequestMapping("/cvpr")
+    public String getCVPR(Model model){
+        List<String> cvprKeyword = keywordMapper.getCVPRKeyword();
+        String cvprKeywords[]=new String[10];
+        for (int i = 0; i < cvprKeyword.size(); i++) {
+            cvprKeywords[i]=cvprKeyword.get(i);
+        }
+        System.out.println(cvprKeyword);
+        model.addAttribute("cvpr0",cvprKeywords[0]);
+        model.addAttribute("cvpr1",cvprKeywords[1]);
+        model.addAttribute("cvpr2",cvprKeywords[2]);
+        model.addAttribute("cvpr3",cvprKeywords[3]);
+        model.addAttribute("cvpr4",cvprKeywords[4]);
+        model.addAttribute("cvpr5",cvprKeywords[5]);
+        model.addAttribute("cvpr6",cvprKeywords[6]);
+        model.addAttribute("cvpr7",cvprKeywords[7]);
+        model.addAttribute("cvpr8",cvprKeywords[8]);
+        model.addAttribute("cvpr9",cvprKeywords[9]);
+        return "lineChart";
+    }
+
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Mapper
+@Repository
 public interface PaperMapper {
     public void insertPaper(Paper paper_sql);
     public List<Paper> selectAllPapers();

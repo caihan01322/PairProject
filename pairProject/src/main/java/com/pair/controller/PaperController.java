@@ -19,6 +19,7 @@ import java.util.List;
 public class PaperController {
     @Autowired
     PaperMapper paperMapper;
+
     @RequestMapping("/paperList")
     public String getPaperList(Model model){
 

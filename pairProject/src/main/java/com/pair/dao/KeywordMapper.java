@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Mapper
+@Repository
 public interface KeywordMapper {
     public int selectKeyword(String keyword,String publisher);
     public void updateKeyword(Keyword Keyword);
@@ -16,4 +17,7 @@ public interface KeywordMapper {
 
     public List<String> getKeyWords();
     public List<String> getKid(String keyword);
+    public List<String> getCVPRKeyword();
+    public List<String> getICCVKeyword();
+    public List<String> getECCVKeyword();
 }
