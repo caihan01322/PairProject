@@ -29,4 +29,123 @@
         left join paper_keyword pk on p.pid=pk.pid
         left join keyword k on pk.kid=k.kid;
     </select>
+    <resultMap id="selectPaperByTitle" type="Paper">
+        <result property="pid" column="pid"/>
+        <result property="title" column="ptitle"/>
+        <result property="abs" column="pabs"/>
+        <result property="publisher" column="ppublisher"/>
+        <result property="publicationYear" column="pyear"/>
+        <result property="doiLink" column="plink"/>
+        <collection property="keywords" ofType="Keyword">
+            <result property="kid" column="kid"/>
+            <result property="keyword" column="kkey"/>
+            <result property="publisher" column="ppub"/>
+            <result property="num" column="pnum"/>
+        </collection>
+    </resultMap>
+    <select id="selectPaperByTitle" resultMap="selectPaperByTitle">
+        select p.pid pid,p.title ptitle,p.abs pabs,p.publisher ppublisher,
+        p.publicationYear pyear,p.doiLink plink,
+        k.kid kid,k.keyword kkey,k.publisher ppub,k.num pnum
+        from paper p
+        left join paper_keyword pk on p.pid=pk.pid
+        left join keyword k on pk.kid=k.kid
+        where title like '%${title}%';
+    </select>
+    <resultMap id="selectPaperByAbs" type="Paper">
+        <result property="pid" column="pid"/>
+        <result property="title" column="ptitle"/>
+        <result property="abs" column="pabs"/>
+        <result property="publisher" column="ppublisher"/>
+        <result property="publicationYear" column="pyear"/>
+        <result property="doiLink" column="plink"/>
+        <collection property="keywords" ofType="Keyword">
+            <result property="kid" column="kid"/>
+            <result property="keyword" column="kkey"/>
+            <result property="publisher" column="ppub"/>
+            <result property="num" column="pnum"/>
+        </collection>
+    </resultMap>
+    <select id="selectPaperByAbs" resultMap="selectPaperByAbs">
+        select p.pid pid,p.title ptitle,p.abs pabs,p.publisher ppublisher,
+        p.publicationYear pyear,p.doiLink plink,
+        k.kid kid,k.keyword kkey,k.publisher ppub,k.num pnum
+        from paper p
+        left join paper_keyword pk on p.pid=pk.pid
+        left join keyword k on pk.kid=k.kid
+        where abs like '%${abs}%';
+    </select>
+
+    <resultMap id="selectPaperByPublisher" type="Paper">
+        <result property="pid" column="pid"/>
+        <result property="title" column="ptitle"/>
+        <result property="abs" column="pabs"/>
+        <result property="publisher" column="ppublisher"/>
+        <result property="publicationYear" column="pyear"/>
+        <result property="doiLink" column="plink"/>
+        <collection property="keywords" ofType="Keyword">
+            <result property="kid" column="kid"/>
+            <result property="keyword" column="kkey"/>
+            <result property="publisher" column="ppub"/>
+            <result property="num" column="pnum"/>
+        </collection>
+    </resultMap>
+    <select id="selectPaperByPublisher" resultMap="selectPaperByPublisher">
+        select p.pid pid,p.title ptitle,p.abs pabs,p.publisher ppublisher,
+        p.publicationYear pyear,p.doiLink plink,
+        k.kid kid,k.keyword kkey,k.publisher ppub,k.num pnum
+        from paper p
+        left join paper_keyword pk on p.pid=pk.pid
+        left join keyword k on pk.kid=k.kid
+        where p.publisher like '%${publisher}%';
+    </select>
+
+    <resultMap id="selectPaperByPublicationYear" type="Paper">
+        <result property="pid" column="pid"/>
+        <result property="title" column="ptitle"/>
+        <result property="abs" column="pabs"/>
+        <result property="publisher" column="ppublisher"/>
+        <result property="publicationYear" column="pyear"/>
+        <result property="doiLink" column="plink"/>
+        <collection property="keywords" ofType="Keyword">
+            <result property="kid" column="kid"/>
+            <result property="keyword" column="kkey"/>
+            <result property="publisher" column="ppub"/>
+            <result property="num" column="pnum"/>
+        </collection>
+    </resultMap>
+    <select id="selectPaperByPublicationYear" resultMap="selectPaperByPublicationYear">
+        select p.pid pid,p.title ptitle,p.abs pabs,p.publisher ppublisher,
+        p.publicationYear pyear,p.doiLink plink,
+        k.kid kid,k.keyword kkey,k.publisher ppub,k.num pnum
+        from paper p
+        left join paper_keyword pk on p.pid=pk.pid
+        left join keyword k on pk.kid=k.kid
+        where publicationYear like '%${publicationYear}%';
+    </select>
+
+    <resultMap id="selectPaperByKeyword" type="Paper">
+        <result property="pid" column="pid"/>
+        <result property="title" column="ptitle"/>
+        <result property="abs" column="pabs"/>
+        <result property="publisher" column="ppublisher"/>
+        <result property="publicationYear" column="pyear"/>
+        <result property="doiLink" column="plink"/>
+        <collection property="keywords" ofType="Keyword">
+            <result property="kid" column="kid"/>
+            <result property="keyword" column="kkey"/>
+            <result property="publisher" column="ppub"/>
+            <result property="num" column="pnum"/>
+        </collection>
+    </resultMap>
+    <select id="selectPaperByKeyword" resultMap="selectPaperByKeyword">
+        select p.pid pid,p.title ptitle,p.abs pabs,p.publisher ppublisher,
+        p.publicationYear pyear,p.doiLink plink,
+        k.kid kid,k.keyword kkey,k.publisher ppub,k.num pnum
+        from paper p
+        left join paper_keyword pk on p.pid=pk.pid
+        left join keyword k on pk.kid=k.kid
+        where keyword like '%${keyword}%';
+    </select>
+
 </mapper>

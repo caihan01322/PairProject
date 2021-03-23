@@ -5,7 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 @Mapper
-@Repository
 public interface KeywordMapper {
     public int selectKeyword(String keyword,String publisher);
     public void updateKeyword(Keyword Keyword);

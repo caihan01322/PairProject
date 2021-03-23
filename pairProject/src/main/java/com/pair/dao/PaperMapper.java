@@ -7,8 +7,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Mapper
-@Repository
 public interface PaperMapper {
     public void insertPaper(Paper paper_sql);
     public List<Paper> selectAllPapers();
+    public List<Paper> selectPaperByTitle(String title);
+    public List<Paper> selectPaperByAbs(String abs);
+    public List<Paper> selectPaperByPublisher(String publisher);
+    public List<Paper> selectPaperByPublicationYear(String publicationYear);
+    public List<Paper> selectPaperByKeyword(String keyword);
 }
