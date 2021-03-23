@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>首页</title>
+    <title>论文列表修改</title>
     <link rel="stylesheet" type="text/css" href="css/indexmain.css"/>
 </head>
 <body>
@@ -25,10 +25,14 @@
 </div>
 <div class="content">
     <div>
-        <div>
+        <div class="contentleft">
             <ul>
                  <li class="icon"><a href="index_one_add.jsp"><i><img src="./ImageResources/folderadd.png"></i>论文爬取</a></li>
-                 <li class="icon"><a href="index_two_edit.jsp"><i><img src="./ImageResources/database.png"></i>论文管理</a></li>
+                 <li class="icon">
+                 	<div><a href="index.jsp"><i><img src="./ImageResources/database.png"></i>论文管理</a></div>
+                 	<div class="titleright"><a href="index_two_edit.jsp">论文列表修改</a></div>
+                 	<div class="titleright"><a href="index_two_search.jsp">论文查找</a></div>
+                 </li>
                  <li class="icon"><a href="index_three_chart.jsp"><i><img src="./ImageResources/fund.png"></i>论文分析</a></li>
                  <li class="icon"><a href="index_four.jsp"><i><img src="./ImageResources/read.png"></i>背景知识</a></li>
             </ul>

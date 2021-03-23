@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>首页</title>
+    <title>背景知识</title>
     <link rel="stylesheet" type="text/css" href="css/indexmain.css"/>
 </head>
 <body>
@@ -25,7 +25,7 @@
 </div>
 <div class="content">
     <div>
-        <div>
+        <div class="contentleft">
             <ul>
                  <li class="icon"><a href="index_one_add.jsp"><i><img src="./ImageResources/folderadd.png"></i>论文爬取</a></li>
                  <li class="icon"><a href="index_two_edit.jsp"><i><img src="./ImageResources/database.png"></i>论文管理</a></li>
