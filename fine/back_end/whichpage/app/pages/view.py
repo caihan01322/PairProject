@@ -36,9 +36,10 @@ def searchPages(num):
     tag = re_dict.get('tag')
 
     pages = models.Page_list.query.filter(
-        Page_list.isbn.like('%{isbn}%'.format(isbn=isbn)),
-        Page_list.title.like('%{title}%'.format(title=title)),
-        Page_list.tag.like('%{tag}%'.format(tag=tag))).paginate(int(num), 6)
+        models.Page_list.isbn.like('%{isbn}%'.format(isbn=isbn)),
+        models.Page_list.title.like('%{title}%'.format(title=title)),
+        models.Page_list.tag.like('%{tag}%'.format(tag=tag))).paginate(
+            int(num), 6)
 
     result = {}
     data = []
@@ -73,8 +74,8 @@ def showPageDetail(isbn):
     data['title'] = page.title
     data['year'] = page.year
     data['link'] = page.link
-    data['tag'] = page
-    data['abstract'] = abstract
+    data['tag'] = page.tag
+    data['abstract'] = page.abstract
 
     return jsonify(errno=0, data=data)
 
@@ -95,9 +96,9 @@ def updatePageDetail(isbn):
 # 获取top10热词
 @pages.route('/tag/', methods=['GET'])
 def showTopTags():
-    result = models.Tag_list.query(fun.sum(
-        Tag_list.num).label('total_num')).group_by(Tag_list.name).order_by(
-            'total_num'.desc()).limit(10).all()
+    result = models.Tag_list.query(
+        func.sum(models.Tag_list.num).label('total_num')).group_by(
+            models.Tag_list.name).order_by('total_num'.desc()).limit(10).all()
     data = []
     for r in result.items:
         data.append(r.name)
@@ -108,9 +109,9 @@ def showTopTags():
 # 获取top5热词及其数量
 @pages.route('/tag/pie', methods=['GET'])
 def showTopTagsByPie():
-    result = models.Tag_list.query(fun.sum(
-        Tag_list.num).label('total_num')).group_by(Tag_list.name).order_by(
-            'total_num'.desc()).limit(5).all()
+    result = models.Tag_list.query(
+        func.sum(models.Tag_list.num).label('total_num')).group_by(
+            models.Tag_list.name).order_by('total_num'.desc()).limit(5).all()
     data = []
     for r in result.items:
         d = {}
@@ -119,3 +120,22 @@ def showTopTagsByPie():
         data.append(d)
 
     return jsonify(errno=0, data=data)
+
+
+# 获取近十年的年份以及本年热词的不同顶会数据
+@pages.route('/tag/line', methods=['GET'])
+def showTopTagsByLine():
+    y = models.Tag_list.query.with_entities(
+        models.Tag_list.year).distinct().limit(10).all()
+
+    result = {}
+    year = []
+    cv_data = []
+    ic_data = []
+    ec_data = []
+    for y in y.items:
+        year.append(y)
+
+    result['year'] = year
+
+    return jsonify(errno=0, data=result)
