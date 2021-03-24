@@ -144,6 +144,13 @@ export default {
             this.page_tag = localStorage.getItem("tag");
             this.search_page();
             localStorage.removeItem("tag");
+        } else {
+            this.$axios({
+                method: "get",
+                url: "",
+            }).then((re) => {
+                console.log(re);
+            });
         }
     },
 
@@ -174,6 +181,19 @@ export default {
             //     target = target.parentNode;
             // }
             // target.blur();
+            let data = {
+                isbn: this.page_isbn,
+                title: this.page_name,
+                tag: this.page_tag,
+            };
+
+            this.$axios({
+                method: "post",
+                url: "",
+                data: data,
+            }).then((re) => {
+                console.log(re);
+            });
 
             console.log("yeah!!");
         },
@@ -194,11 +214,16 @@ export default {
                 cancelButtonText: "取消",
                 type: "warning",
             }).then(() => {
-                console.log("delete!!");
-
-                this.$message({
-                    type: "success",
-                    message: "删除成功!",
+                this.$axios({
+                    method: "delete",
+                    url: ``,
+                }).then((re) => {
+                    if (re.data.error == 0) {
+                        this.$message({
+                            type: "success",
+                            message: "删除成功!",
+                        });
+                    }
                 });
             });
         },
@@ -211,6 +236,13 @@ export default {
             target.blur();
 
             this.now_page--;
+
+            this.$axios({
+                method: "get",
+                url: ``,
+            }).then((re) => {
+                console.log(re);
+            });
         },
 
         go_next(e) {
@@ -221,6 +253,13 @@ export default {
             target.blur();
 
             this.now_page++;
+
+            this.$axios({
+                method: "get",
+                url: ``,
+            }).then((re) => {
+                console.log(re);
+            });
         },
     },
 };

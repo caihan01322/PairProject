@@ -59,6 +59,15 @@ export default {
         };
     },
 
+    created() {
+        this.$axios({
+            method: "get",
+            url: ``,
+        }).then((re) => {
+            console.log(re);
+        });
+    },
+
     methods: {
         save_page(e) {
             let target = e.target;
@@ -67,11 +76,38 @@ export default {
             }
             target.blur();
 
-            // 进行数据库的保存
+            if (this.page_name == "" || this.page_link == "") {
+                this.$notify({
+                    title: "警告",
+                    message: "论文题目/论文链接不能为空！",
+                    type: "warning",
+                    duration: 2000,
+                    showClose: false,
+                });
 
-            this.$router.push({
-                name: "detailpage",
-                params: { isbn: this.page_isbn },
+                return;
+            }
+
+            let data = {
+                title: this.page_name,
+                link: this.page_link,
+            };
+            this.$axios({
+                method: "put",
+                url: ``,
+                data: data,
+            }).then((re) => {
+                console.log(re);
+
+                this.$message({
+                    message: "修改成功！",
+                    type: "success",
+                });
+
+                this.$router.push({
+                    name: "detailpage",
+                    params: { isbn: this.page_isbn },
+                });
             });
         },
     },
