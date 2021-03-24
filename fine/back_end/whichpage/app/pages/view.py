@@ -112,14 +112,20 @@ def showTopTagsByPie():
     result = models.Tag_list.query(
         func.sum(models.Tag_list.num).label('total_num')).group_by(
             models.Tag_list.name).order_by('total_num'.desc()).limit(5).all()
-    data = []
+    result = {}
+    pie_data = []
+    radar_data = []
     for r in result.items:
-        d = {}
-        d['value'] = r.total_num
-        d['name'] = r.name
-        data.append(d)
+        p = {}
+        ra = {}
+        p['value'] = r.total_num
+        p['name'] = r.name
+        ra['name'] = r.name
 
-    return jsonify(errno=0, data=data)
+        pie_data.append(d)
+        radar_data.append(ra)
+
+    return jsonify(errno=0, data=result)
 
 
 # 获取近十年的年份以及本年热词的不同顶会数据
@@ -128,6 +134,10 @@ def showTopTagsByLine():
     y = models.Tag_list.query.with_entities(
         models.Tag_list.year).distinct().limit(10).all()
 
+    hot_word = models.Tag_list.query(
+        func.sum(models.Tag_list.num).label('total_num')).group_by(
+            models.Tag_list.name).order_by('total_num'.desc()).limit(1).num
+
     result = {}
     year = []
     cv_data = []
@@ -135,7 +145,87 @@ def showTopTagsByLine():
     ec_data = []
     for y in y.items:
         year.append(y)
+        cv = models.Tag_list.query(
+            func.sum(models.Tag_list.num).label('total_num')).filter(
+                models.Tag_list.belong == "CVPR",
+                models.Tag_list.year == y,
+                models.Tag_list.name == hot_word,
+            ).total_num
+        cv_data.append(cv)
+
+        ic = models.Tag_list.query(
+            func.sum(models.Tag_list.num).label('total_num')).filter(
+                models.Tag_list.belong == "ICCV",
+                models.Tag_list.year == y,
+                models.Tag_list.name == hot_word,
+            ).total_num
+        ic_data.append(ic)
+
+        ec = models.Tag_list.query(
+            func.sum(models.Tag_list.num).label('total_num')).filter(
+                models.Tag_list.belong == "ECCV",
+                models.Tag_list.year == y,
+                models.Tag_list.name == hot_word,
+            ).total_num
+        ec_data.append(ec)
 
     result['year'] = year
+    result['cv_data'] = cv_data
+    result['ic_data'] = ic_data
+    result['ec_data'] = ec_data
+
+    return jsonify(errno=0, data=result)
+
+
+# 获取本年不同顶会top5热词数量
+@pages.route('tag/radar', methods=['GET'])
+def showTopTagsByRadar():
+    year = models.Tag_list.query.with_entities(
+        models.Tag_list.year).distinct().limit(1).year
+
+    word = models.Tag_list.query(
+        func.sum(models.Tag_list.num).label('total_num')).group_by(
+            models.Tag_list.name).order_by('total_num'.desc()).limit(5)
+
+    result = []
+    cv_data = {}
+    ic_data = {}
+    ec_data = {}
+    cv_data['name'] = 'CVPR'
+    ic_data['name'] = 'ICCV'
+    ec_data['name'] = 'ECCV'
+
+    cv = []
+    ic = []
+    ec = []
+    for w in word.items:
+        cv_num = models.Tag_list.query.filter(
+            models.Tag_list.belong == "CVPR",
+            models.Tag_list.year == year,
+            models.Tag_list.name == w,
+        ).num
+        cv.append(cv_num)
+
+        ic_num = models.Tag_list.query.filter(
+            models.Tag_list.belong == "ICCV",
+            models.Tag_list.year == year,
+            models.Tag_list.name == w,
+        ).num
+        ic.append(ic_num)
+
+        ec_num = models.Tag_list.query.filter(
+            models.Tag_list.belong == "ECCV",
+            models.Tag_list.year == year,
+            models.Tag_list.name == w,
+        ).num
+        ec.append(ec_num)
+
+    cv_data['value'] = cv
+    ic_data['value'] = ic
+    ec_data['value'] = ec
+
+    result['cv_data'] = cv_data
+    result['ic_data'] = ic_data
+    result['ec_data'] = ec_data
 
     return jsonify(errno=0, data=result)
