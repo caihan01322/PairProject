@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.practice.pair.pairproject.dao.PaperMapper">
+  <resultMap id="BaseResultMap" type="com.practice.pair.pairproject.pojo.Paper">
+    <constructor>
+      <idArg column="pid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="meeting" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="year" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="publicDate" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="link" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="authors" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="abstractContent" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    </constructor>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from paper
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.practice.pair.pairproject.pojo.Paper">
+    <selectKey keyProperty="pid" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into paper (meeting, "year", publicDate, 
+      title, link, authors, 
+      abstractContent)
+    values (#{meeting,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, #{publicDate,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR}, #{authors,jdbcType=VARCHAR}, 
+      #{abstractContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.practice.pair.pairproject.pojo.Paper">
+    update paper
+    set meeting = #{meeting,jdbcType=VARCHAR},
+      "year" = #{year,jdbcType=VARCHAR},
+      publicDate = #{publicDate,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      link = #{link,jdbcType=VARCHAR},
+      authors = #{authors,jdbcType=VARCHAR},
+      abstractContent = #{abstractContent,jdbcType=LONGVARCHAR}
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select pid, meeting, "year", publicDate, title, link, authors, abstractContent
+    from paper
+    where pid = #{pid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select pid, meeting, "year", publicDate, title, link, authors, abstractContent
+    from paper
+  </select>
+</mapper>

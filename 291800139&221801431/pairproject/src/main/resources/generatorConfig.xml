@@ -5,7 +5,9 @@
 <!-- 配置生成器 -->
 <generatorConfiguration>
 
-	<!-- <properties resource="mybatisGeneratorinit.properties"/> -->
+    <!-- 引入配置文件 -->
+    <properties resource="mybatisGeneratorinit.properties"/>
+
     <!--classPathEntry:数据库的JDBC驱动,换成你自己的驱动位置 可选 -->
 	<classPathEntry location="${jdbc_location}"/>
 
