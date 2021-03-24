@@ -94,4 +94,9 @@
     </delete>
 
 
+    <select id="getPapersByPid" resultType="paper" parameterType="String">
+        select * from pair.paper where pid=#{pid}
+    </select>
+
+
 </mapper>

@@ -2,7 +2,10 @@ package com.pair.controller;
 
 
 import com.pair.dao.KeywordMapper;
+import com.pair.dao.PaperKeywordMapper;
+import com.pair.dao.PaperMapper;
 import com.pair.pojo.Keyword;
+import com.pair.pojo.Paper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,13 +13,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class KeywordController {
 
     @Autowired
+    PaperMapper paperMapper;
+    @Autowired
     KeywordMapper keywordMapper;
+    @Autowired
+    PaperKeywordMapper paperKeywordMapper;
 
     @RequestMapping("/clouds")
     public String getKeyWords(Model model) {
@@ -40,11 +48,23 @@ public class KeywordController {
     }
 
     @RequestMapping("/getPapers/{keyword}")
-    public String getPapers(@PathVariable("keyword") String keyword) {
-        List<String> kid = keywordMapper.getKid(keyword);
-        System.out.println(kid.toArray());
+    public String getPapers(@PathVariable("keyword") String keyword,Model model) {
+        //根据关键词查找kid
+        List<String> kids = keywordMapper.getKid(keyword);
+        //根据kid查找对应pid
+        List<String> pids=new ArrayList<String>();
+        for (int i = 0; i < kids.size(); i++) {
+            List<String> pid = paperKeywordMapper.getPid(kids.get(i));
+            pids.addAll(pid);
+        }
+        //根据pid查找对应Paper
+        List<Paper> papers=new ArrayList<Paper>();
 
-        return "cloud";
+        for (int i = 0; i < pids.size(); i++) {
+            papers.add(paperMapper.getPapersByPid(pids.get(i)));
+        }
+        model.addAttribute("papers", papers);
+        return "paperList";
     }
 
     @RequestMapping("/top10")

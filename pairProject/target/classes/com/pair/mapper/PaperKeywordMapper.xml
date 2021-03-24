@@ -6,15 +6,16 @@
 
     <insert id="insertPK" parameterType="String">
         insert into paper_keyword(pid,kid)
-<<<<<<< HEAD
         values (#{pid},#{kid})
     </insert>
     <delete id="deletePKByPid" parameterType="String">
         delete from paper_keyword
         where pid=#{pid}
     </delete>
-=======
-        values (#{pid},#{kid});
-    </insert>
->>>>>>> a23f79ea8b5b57cef60d38eda30a14f6a968e395
+
+    <select id="getPid" parameterType="String" resultType="String">
+        select * from pair.paper_keyword
+        where kid=#{kid}
+    </select>
+
 </mapper>

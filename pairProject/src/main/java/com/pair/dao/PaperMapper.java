@@ -20,4 +20,6 @@ public interface PaperMapper {
     public List<Paper> selectPaperByPreciseMode(Map<String, String> map);//精确查询
 
     public void deletePaperByPid(String pid);
+
+    public Paper getPapersByPid(String pid);
 }

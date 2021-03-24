@@ -12,4 +12,10 @@
         delete from paper_keyword
         where pid=#{pid}
     </delete>
+
+    <select id="getPid" parameterType="String" resultType="String">
+        select * from pair.paper_keyword
+        where kid=#{kid}
+    </select>
+
 </mapper>
