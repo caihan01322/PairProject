@@ -44,9 +44,6 @@
                     </a>
                     <?php 
                     $conn = new mysqli('localhost','root','','paperdb');
-                    if(!isset($_SESSION["userid"])){
-                        echo '<script>alert("请先登录！");window.location.href="../view/login.php";</script>';
-                    }
                     $userid=$_SESSION["userid"];
                     $sql = "select * from user where userid = '$userid' ";
                     $result = $conn->query($sql);
@@ -101,7 +98,7 @@
                     <svg t="1616311672560" class="icon" width="30" height="29"  viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2138" width="200" height="200"><path d="M799.2 874.4c0 34.4-28 62.4-62.368 62.4H287.2a62.496 62.496 0 0 1-62.4-62.4V212h574.4v662.4zM349.6 100c0-7.2 5.6-12.8 12.8-12.8h300c7.2 0 12.768 5.6 12.768 12.8v37.6H349.6V100z m636.8 37.6H749.6V100c0-48-39.2-87.2-87.2-87.2h-300a87.392 87.392 0 0 0-87.2 87.2v37.6H37.6C16.8 137.6 0 154.4 0 175.2s16.8 37.6 37.6 37.6h112v661.6A137.6 137.6 0 0 0 287.2 1012h449.6a137.6 137.6 0 0 0 137.6-137.6V212h112c20.8 0 37.6-16.8 37.6-37.6s-16.8-36.8-37.6-36.8zM512 824c20.8 0 37.6-16.8 37.6-37.6v-400c0-20.8-16.768-37.6-37.6-37.6-20.8 0-37.6 16.8-37.6 37.6v400c0 20.8 16.8 37.6 37.6 37.6m-175.2 0c20.8 0 37.6-16.8 37.6-37.6v-400c0-20.8-16.8-37.6-37.6-37.6s-37.6 16.8-37.6 37.6v400c0.8 20.8 17.6 37.6 37.6 37.6m350.4 0c20.8 0 37.632-16.8 37.632-37.6v-400c0-20.8-16.8-37.6-37.632-37.6-20.768 0-37.6 16.8-37.6 37.6v400c0 20.8 16.8 37.6 37.6 37.6" p-id="2139"></path></svg>
                 </a> 
   
-                    <a href=""  style="float:right;" id="'.$pid.'">
+                    <a href=""  style="float:right;" onclick="deleteButton(this)" id="'.$pid.'">
                       <svg t="1616548870602" class="icon" width="30" height="29" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2787" width="200" height="200"><path d="M607.839811 895.957102H214.69447A86.82497 86.82497 0 0 1 127.880338 809.070721V214.784781A86.839419 86.839419 0 0 1 214.69447 127.880338h594.28594a86.33729 86.33729 0 0 1 61.436749 25.456857c16.400473 16.400473 25.362934 38.208767 25.373771 61.411462L894.439878 607.821749v0.10476a32.031496 32.031496 0 0 0 64.059379 0.101149L959.825022 214.889542v-0.104761A150.775976 150.775976 0 0 0 808.98041 63.940169H214.69447A150.638703 150.638703 0 0 0 63.940169 214.784781v594.28594a150.638703 150.638703 0 0 0 150.757914 150.82655h393.141728a31.970084 31.970084 0 0 0 0-63.940169z" fill="" p-id="2788"></path><path d="M950.544667 905.331381l-122.071536-122.071536a192.217875 192.217875 0 1 0-45.213286 45.213286l122.071536 122.071536a31.970084 31.970084 0 0 0 45.213286-45.213286z m-278.547941-105.302594a128.028448 128.028448 0 1 1 90.531332-37.497116 127.193975 127.193975 0 0 1-90.527719 37.497116zM768.004516 352.212795c17.653989 0 31.966472-14.402794 31.970084-32.056783s-14.308871-32.074845-31.966472-32.078457L256.002709 287.911382a32.020659 32.020659 0 0 0-31.970084 32.024271c0 17.657601 14.308871 32.092907 31.966472 32.092908L768.004516 352.212795zM448.000226 544.033302a31.96286 31.96286 0 1 0 0-63.940169h-192.001129a31.937573 31.937573 0 1 0 0 63.878758l192.001129 0.061411zM256.017159 671.91364a31.959247 31.959247 0 1 0 0 63.922107l127.999549 0.018062a31.941185 31.941185 0 1 0 0-63.878757z" fill="" p-id="2789"></path></svg>
                     </a>    
 
@@ -110,20 +107,20 @@
                 </a>
                                 <br/><h3>'.$row2["title"].'</h3>
                                 <div class="blog-meta big-meta">
-                                    <small>'.$pid.'</small>
-                                    <small>'.$row2["meeting"].' '.$row2["year"].'</small>
-                                    <small>'.$row2["ptime"].'</small>
+                                    <small><a href="marketing-single.html" title="">'.$pid.'</a></small>
+                                    <small><a href="marketing-single.html" title="">'.$row2["meeting"].' '.$row2["year"].'</a></small>
+                                    <small><a href="blog-author.html" title="">'.$row2["ptime"].'</a></small>
                                 </div>
                                 <div class="blog-meta big-meta">
-                                    <small><a href="'.$row2["link"].'" title="" target="_blank"><i class="fa fa-eye"></i>原文链接：'.$row2["link"].'</a></small>
+                                    <small><a href="'.$row2["link"].'" title=""><i class="fa fa-eye"></i>原文链接：'.$row2["link"].'</a></small>
                                 </div>
                             <div class="blog-title-area">
                                 <div class="tag-cloud-single">
-                                    <a href="" onclick="keyButton(this)" id="'.$row2["key1"].'"><span style="background-color:#FC9D9A">'.$row2["key1"].'</span></a>
-                                    <a href="" onclick="keyButton(this)" id="'.$row2["key2"].'"><span style="background-color:#ffacac">'.$row2["key2"].'</span></a>
-                                    <a href="" onclick="keyButton(this)" id="'.$row2["key3"].'"><span style="background-color:#FF9999">'.$row2["key3"].'</span></a>
-                                    <a href="" onclick="keyButton(this)" id="'.$row2["key4"].'"><span style="background-color:#ffacac">'.$row2["key4"].'</span></a>
-                                    <a href="" onclick="keyButton(this)" id="'.$row2["key5"].'"><span style="background-color:#FC9D9A">'.$row2["key5"].'</span></a>
+                                    <span style="background-color:#FC9D9A">'.$row2["key1"].'</span>
+                                    <span style="background-color:#ffacac">'.$row2["key2"].'</span>
+                                    <span style="background-color:#FF9999">'.$row2["key3"].'</span>
+                                    <span style="background-color:#ffacac">'.$row2["key4"].'</span>
+                                    <span style="background-color:#FC9D9A">'.$row2["key5"].'</span>
                                 </div>
                             </div>
   
@@ -162,7 +159,7 @@
                 <option value="3">按关键词</option>
                 <option value="4">不限</option>
             </select>
-            <input type="text"  placeholder=" 请输入检索内容……" id="searchName" name="searchName" required class="form-control" >
+            <input type="text"  placeholder=" 检索论文……" id="searchName" name="searchName" required class="form-control" >
             <input type="submit" value="搜索" class="btn btn-default btn-block" style="height:40px;"/>
             </div>
         </form> 
@@ -216,7 +213,7 @@
                                 	    $len=sizeof($top_key_array);
                                 	for($i=0;$i<$len;$i++)
                                 	    echo '
-                                        <li><a href="" onclick="keyButton(this)" id="'.$top_key_array[$i].'">'.$top_key_array[$i].'<span>('.$top_value_array[$i].')</span></a></li>
+                                        <li><a href="#">'.$top_key_array[$i].'<span>('.$top_value_array[$i].')</span></a></li>
                                            ';
                                 	?>
 
@@ -258,10 +255,5 @@ function remarkButton(e){
                     });
 	
 	//window.location.href="../form/delete.php? pid="+pid;
-}
-function keyButton(e){
-	window.event.returnValue=false;
-	var x=e.id;
-	window.location.href = window.location.href="search.php? searchName="+x+"&searchSelect=3";
 }
 </script>
