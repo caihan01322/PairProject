@@ -1,4 +1,4 @@
-<?php ?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -46,6 +46,9 @@
                     </a>
                     <?php 
                     $conn = new mysqli('localhost','root','','paperdb');
+                    if(!isset($_SESSION["userid"])){
+                        echo '<script>alert("请先登录！");window.location.href="..iew/login.php";</script>';
+                    }
                     $userid=$_SESSION["userid"];
                     $sql = "select * from user where userid = '$userid' ";
                     $result = $conn->query($sql);
@@ -332,8 +335,8 @@
         tooltip: {
             headerFormat: '',
             pointFormat: '<span style=\"color:{point.color}\">\u25CF</span> <b> {point.name}</b><br/>' +
-                '相关论文数 (篇): <b>{point.y}</b><br/>' /*+
-                '人口密度 (每平方千米人数): <b>{point.z}</b><br/>'*/
+                /*'相关论文数 (篇): <b>{point.y}</b><br/>' +*/
+                '相关论文数 (篇): <b>{point.z}</b><br/>'
         },
         plotOptions: {
         	variablepie: {
@@ -343,8 +346,17 @@
 					style: {
 		                'fontSize' : '15px'
 		            }
-				}
-			}
+				},
+			},
+            series: { 
+                cursor: 'pointer', 
+                events: { 
+                    click: function(e) {  //实现点击饼图关键词跳转至相关论文界面
+                        var paperName = e.point.name;
+                        window.location.href = \"search.php?searchName=\" + paperName + \"&searchSelect=3\"; 
+                    } 
+                } 
+            }
 		},
 		navigation: {
 			buttonOptions: {
