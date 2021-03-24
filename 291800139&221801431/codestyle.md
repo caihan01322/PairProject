@@ -1,10 +1,9 @@
 # 代码规范
 
-参考来源：https://github.com/chjw8016/alibaba-java-style-guide**
+**参考来源：https://github.com/chjw8016/alibaba-java-style-guide**
 
 ---
 [toc]
----
 
 ## 命名规范
 ### 变量命名
