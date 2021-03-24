@@ -12,6 +12,19 @@ a{background-color:transparent;text-decoration:none;color:inherit}
 .metabar__right{margin-left:auto;height:60px}
 .metabar__right .avatar{border-radius:100%;padding:1px;border:1px solid #4370f5;cursor:pointer;width:30px;height:30px}
 .metabarItem{margin-right:20px;cursor:pointer;height:60px}
-.metabarItem.active,.metabarItem:hover{color:#4370f5}
-.metabarItem.active svg,.metabarItem:hover svg{fill:#4370f5}
+.metabarItem.active,.metabarItem:hover{color:rgb(128, 128, 128)}
+.metabarItem.active svg,.metabarItem:hover svg{fill:rgb(128, 128, 128)}
 .metabarItem svg{margin-right:6px}
+
+.dropdown-content {
+  display: none;
+  background-color:white;
+  padding:10px;
+  position:absolute;
+  left:90%;
+  top:75%;
+  border-radius:20px;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
