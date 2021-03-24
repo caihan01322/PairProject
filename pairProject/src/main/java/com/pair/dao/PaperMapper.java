@@ -22,4 +22,6 @@ public interface PaperMapper {
     public void deletePaperByPid(String pid);
 
     public Paper getPapersByPid(String pid);
+
+    public int getPaperNum(Map<String, String> map);
 }

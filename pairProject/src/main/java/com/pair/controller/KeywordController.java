@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class KeywordController {
@@ -73,36 +75,91 @@ public class KeywordController {
         if(publisher==null){
             publisher="CVPR";
         }
+        //某顶会几年间的top10词汇
         List<Keyword> top10Keyword = keywordMapper.getTop10Keyword(publisher);
 
         String top10Keywords[]=new String[10];
-        int wordNums[]=new int[10];
+        int wordNums2019[]=new int[10];
+        int wordNums2016[]=new int[10];
+        int wordNums2013[]=new int[10];
+
         for (int i = 0; i < top10Keyword.size(); i++) {
             top10Keywords[i]=top10Keyword.get(i).getKeyword();
-            wordNums[i]=top10Keyword.get(i).getNum();
+
+            Map<String,String> map2019=new HashMap<>();
+            map2019.put("kid",top10Keyword.get(i).getKid());
+            map2019.put("publicationYear1","2018");
+            map2019.put("publicationYear2","2019");
+            map2019.put("publicationYear3","2020");
+            wordNums2019[i]=paperMapper.getPaperNum(map2019);
+
+            Map<String,String> map2016=new HashMap<>();
+            map2016.put("kid",top10Keyword.get(i).getKid());
+            map2016.put("publicationYear1","2015");
+            map2016.put("publicationYear2","2016");
+            map2016.put("publicationYear3","2017");
+            wordNums2016[i]=paperMapper.getPaperNum(map2016);
+
+            Map<String,String> map2013=new HashMap<>();
+            map2013.put("kid",top10Keyword.get(i).getKid());
+            map2013.put("publicationYear1","2012");
+            map2013.put("publicationYear2","2013");
+            map2013.put("publicationYear3","2014");
+            wordNums2013[i]=paperMapper.getPaperNum(map2013);
         }
-        System.out.println(top10Keyword);
+
         model.addAttribute("title",publisher);
+
         model.addAttribute("top0",top10Keywords[0]);
-        model.addAttribute("num0",wordNums[0]);
+        model.addAttribute("num02019",wordNums2019[0]);
+        model.addAttribute("num02016",wordNums2016[0]);
+        model.addAttribute("num02013",wordNums2013[0]);
+
         model.addAttribute("top1",top10Keywords[1]);
-        model.addAttribute("num1",wordNums[1]);
+        model.addAttribute("num12019",wordNums2019[1]);
+        model.addAttribute("num12016",wordNums2016[1]);
+        model.addAttribute("num12013",wordNums2013[1]);
+
         model.addAttribute("top2",top10Keywords[2]);
-        model.addAttribute("num2",wordNums[2]);
+        model.addAttribute("num22019",wordNums2019[2]);
+        model.addAttribute("num22016",wordNums2016[2]);
+        model.addAttribute("num22013",wordNums2013[2]);
+
         model.addAttribute("top3",top10Keywords[3]);
-        model.addAttribute("num3",wordNums[3]);
+        model.addAttribute("num32019",wordNums2019[3]);
+        model.addAttribute("num32016",wordNums2016[3]);
+        model.addAttribute("num32013",wordNums2013[3]);
+
         model.addAttribute("top4",top10Keywords[4]);
-        model.addAttribute("num4",wordNums[4]);
+        model.addAttribute("num42019",wordNums2019[4]);
+        model.addAttribute("num42016",wordNums2016[4]);
+        model.addAttribute("num42013",wordNums2013[4]);
+
         model.addAttribute("top5",top10Keywords[5]);
-        model.addAttribute("num5",wordNums[5]);
+        model.addAttribute("num52019",wordNums2019[5]);
+        model.addAttribute("num52016",wordNums2016[5]);
+        model.addAttribute("num52013",wordNums2013[5]);
+
         model.addAttribute("top6",top10Keywords[6]);
-        model.addAttribute("num6",wordNums[6]);
+        model.addAttribute("num62019",wordNums2019[6]);
+        model.addAttribute("num62016",wordNums2016[6]);
+        model.addAttribute("num62013",wordNums2013[6]);
+
         model.addAttribute("top7",top10Keywords[7]);
-        model.addAttribute("num7",wordNums[7]);
+        model.addAttribute("num72019",wordNums2019[7]);
+        model.addAttribute("num72016",wordNums2016[7]);
+        model.addAttribute("num72013",wordNums2013[7]);
+
         model.addAttribute("top8",top10Keywords[8]);
-        model.addAttribute("num8",wordNums[8]);
+        model.addAttribute("num82019",wordNums2019[8]);
+        model.addAttribute("num82016",wordNums2016[8]);
+        model.addAttribute("num82013",wordNums2013[8]);
+
         model.addAttribute("top9",top10Keywords[9]);
-        model.addAttribute("num9",wordNums[9]);
+        model.addAttribute("num92019",wordNums2019[9]);
+        model.addAttribute("num92016",wordNums2016[9]);
+        model.addAttribute("num92013",wordNums2013[9]);
+
         return "lineChart";
     }
 

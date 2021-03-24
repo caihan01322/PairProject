@@ -38,7 +38,7 @@
         },
         tooltip: {},
         legend: {
-            data:['热度']
+            data:['19-20','15-17','12-14']
         },
         xAxis: {
             data: ["[[${top5}]]","[[${top1}]]","[[${top6}]]","[[${top3}]]","[[${top4}]]","[[${top0}]]","[[${top2}]]","[[${top9}]]","[[${top8}]]","[[${top7}]]"],
@@ -49,12 +49,27 @@
         },
         yAxis: {},
         series: [{
-            name: '热度',
+            name: '19-20',
             type: 'line',
-            data: [parseInt("[[${num5}]]"), parseInt("[[${num1}]]"), parseInt("[[${num6}]]"), parseInt("[[${num3}]]"),
-                parseInt("[[${num4}]]"), parseInt("[[${num0}]]"),parseInt("[[${num2}]]"),parseInt("[[${num9}]]"),
-                parseInt("[[${num8}]]"),parseInt("[[${num7}]]")]
-        }]
+            data: [parseInt("[[${num52019}]]"), parseInt("[[${num12019}]]"), parseInt("[[${num62019}]]"), parseInt("[[${num32019}]]"),
+                parseInt("[[${num42019}]]"), parseInt("[[${num02019}]]"),parseInt("[[${num22019}]]"),parseInt("[[${num92019}]]"),
+                parseInt("[[${num82019}]]"),parseInt("[[${num72019}]]")]
+        },
+        {
+            name: '15-17',
+            type: 'line',
+            data: [parseInt("[[${num52016}]]"), parseInt("[[${num12016}]]"), parseInt("[[${num62016}]]"), parseInt("[[${num32016}]]"),
+                parseInt("[[${num42016}]]"), parseInt("[[${num02016}]]"),parseInt("[[${num22016}]]"),parseInt("[[${num92016}]]"),
+                parseInt("[[${num82016}]]"),parseInt("[[${num72016}]]")]
+        },
+        {
+            name: '12-14',
+            type: 'line',
+            data: [parseInt("[[${num52013}]]"), parseInt("[[${num12013}]]"), parseInt("[[${num62013}]]"), parseInt("[[${num32013}]]"),
+                parseInt("[[${num42013}]]"), parseInt("[[${num02013}]]"),parseInt("[[${num22013}]]"),parseInt("[[${num92013}]]"),
+                parseInt("[[${num82013}]]"),parseInt("[[${num72013}]]")]
+        }
+        ]
     };
 
     // 使用刚指定的配置项和数据显示图表。
