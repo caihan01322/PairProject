@@ -88,30 +88,24 @@ public class KeywordController {
 
             Map<String,String> map2019=new HashMap<>();
             map2019.put("kid",top10Keyword.get(i).getKid());
-            map2019.put("publicationYear","2018");
-            wordNums2019[i]+=paperMapper.getPaperNum(map2019);
-            map2019.put("publicationYear","2019");
-            wordNums2019[i]+=paperMapper.getPaperNum(map2019);
-            map2019.put("publicationYear","2020");
-            wordNums2019[i]+=paperMapper.getPaperNum(map2019);
+            map2019.put("publicationYear1","2018");
+            map2019.put("publicationYear2","2019");
+            map2019.put("publicationYear3","2020");
+            wordNums2019[i]=paperMapper.getPaperNum(map2019);
 
             Map<String,String> map2016=new HashMap<>();
             map2016.put("kid",top10Keyword.get(i).getKid());
-            map2016.put("publicationYear","2015");
-            wordNums2016[i]+=paperMapper.getPaperNum(map2016);
-            map2016.put("publicationYear","2016");
-            wordNums2016[i]+=paperMapper.getPaperNum(map2016);
-            map2016.put("publicationYear","2017");
-            wordNums2016[i]+=paperMapper.getPaperNum(map2016);
+            map2016.put("publicationYear1","2015");
+            map2016.put("publicationYear2","2016");
+            map2016.put("publicationYear3","2017");
+            wordNums2016[i]=paperMapper.getPaperNum(map2016);
 
             Map<String,String> map2013=new HashMap<>();
             map2013.put("kid",top10Keyword.get(i).getKid());
-            map2013.put("publicationYear","2012");
-            wordNums2013[i]+=paperMapper.getPaperNum(map2013);
-            map2013.put("publicationYear","2013");
-            wordNums2013[i]+=paperMapper.getPaperNum(map2013);
-            map2013.put("publicationYear","2014");
-            wordNums2013[i]+=paperMapper.getPaperNum(map2013);
+            map2013.put("publicationYear1","2012");
+            map2013.put("publicationYear2","2013");
+            map2013.put("publicationYear3","2014");
+            wordNums2013[i]=paperMapper.getPaperNum(map2013);
         }
 
         model.addAttribute("title",publisher);

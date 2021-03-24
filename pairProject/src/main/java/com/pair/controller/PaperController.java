@@ -27,8 +27,15 @@ public class PaperController {
 
     @RequestMapping("/paperList")
     public String getPaperList(Model model, HttpServletResponse response) {
+
+        //long startTime = System.currentTimeMillis(); //获取开始时间
+
         List<Paper> papers = paperMapper.selectAllPapers();
         model.addAttribute("papers", papers);
+
+        //long endTime = System.currentTimeMillis(); //获取结束时间
+        //System.out.println("列表展示：" + (endTime - startTime) + "ms");
+
         return "paperList";
     }
 
