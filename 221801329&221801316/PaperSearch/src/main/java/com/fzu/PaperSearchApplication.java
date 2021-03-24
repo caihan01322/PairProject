@@ -9,6 +9,7 @@ public class PaperSearchApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(PaperSearchApplication.class, args);
+        System.out.println("上传完成!!!");
     }
 
 }

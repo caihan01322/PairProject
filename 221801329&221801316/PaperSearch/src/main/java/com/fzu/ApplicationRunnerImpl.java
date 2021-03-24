@@ -34,6 +34,7 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
                 JSONObject jsonObject=JSONObject.parseObject(json);
                 String title=jsonObject.getString("title");
                 String abstractContent=jsonObject.getString("abstract");
+                if (abstractContent==null)abstractContent="暂无";
                 if(abstractContent.length()>=150){
                     abstractContent=abstractContent.substring(0,150);
                 }
@@ -47,7 +48,6 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
                         JSONObject keyword=keywords.getJSONObject(j);
                         JSONArray jsonArray=keyword.getJSONArray("kwd");
                         for(int k=0;k<jsonArray.size();k++){
-                            System.out.println(i+"      "+jsonArray.getString(k));
                             keywordList.add(jsonArray.getString(k));
                         }
                     }
@@ -58,7 +58,7 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
                 List<String> authorList=new ArrayList<>();
                 JSONArray authors=jsonObject.getJSONArray("authors");
                 if(authors!=null){
-                    for(int j=0;j<authorList.size();j++){
+                    for(int j=0;j<authors.size();j++){
                         JSONObject author=authors.getJSONObject(j);
                         authorList.add(author.getString("name"));
                     }
@@ -74,6 +74,7 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
                 paper.setMeet(meet);
                 paper.setYear(year);
                 paperList.add(paper);
+                System.out.println(paper.toString());
             }
         }
         else{
@@ -95,6 +96,7 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
                 JSONObject jsonObject=JSONObject.parseObject(json);
                 String title=jsonObject.getString("title");
                 String abstractContent=jsonObject.getString("abstract");
+                if (abstractContent==null)abstractContent="暂无";
                 if(abstractContent.length()>=150){
                     abstractContent=abstractContent.substring(0,150);
                 }
@@ -108,7 +110,6 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
                         JSONObject keyword=keywords.getJSONObject(j);
                         JSONArray jsonArray=keyword.getJSONArray("kwd");
                         for(int k=0;k<jsonArray.size();k++){
-                            System.out.println(i+"      "+jsonArray.getString(k));
                             keywordList.add(jsonArray.getString(k));
                         }
                     }
@@ -119,7 +120,7 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
                 List<String> authorList=new ArrayList<>();
                 JSONArray authors=jsonObject.getJSONArray("authors");
                 if(authors!=null){
-                    for(int j=0;j<authorList.size();j++){
+                    for(int j=0;j<authors.size();j++){
                         JSONObject author=authors.getJSONObject(j);
                         authorList.add(author.getString("name"));
                     }
@@ -135,6 +136,7 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
                 paper.setMeet(meet);
                 paper.setYear(year);
                 paperList.add(paper);
+                System.out.println(paper.toString());
             }
         }
         else{
@@ -156,6 +158,7 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
                 JSONObject jsonObject=JSONObject.parseObject(json);
                 String title=jsonObject.getString("论文名称");
                 String abstractContent=jsonObject.getString("摘要");
+                if (abstractContent==null)abstractContent="暂无";
                 if(abstractContent.length()>=150){
                     abstractContent=abstractContent.substring(0,150);
                 }
@@ -184,6 +187,7 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
                 paper.setAuthor(authorList);
                 paper.setKeywords(keywordList);
                 paperList.add(paper);
+                System.out.println(paper.toString());
             }
         }
         return paperList;
@@ -213,7 +217,7 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
             System.out.println(i+"   "+paper.toString());
             i++;
         }*/
-        Paper testPaper=new Paper();
+        /*Paper testPaper=new Paper();
         testPaper.setTitle("test");
         testPaper.setAbstractContent("testcontent");
         testPaper.setYear(2020);
@@ -227,6 +231,30 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
         keywords.add("keyword1");
         keywords.add("keyword2");
         testPaper.setKeywords(keywords);
-        paperService.uploadPaper(testPaper);
+        paperService.uploadPaper(testPaper);*/
+        System.out.println("开始上传...");
+        List<Paper> totalList=new ArrayList<>();
+        List<Paper>papers=new ArrayList<>();
+        papers=cvprJsonParse();
+        for (Paper paper : papers) {
+            totalList.add(paper);
+        }
+        System.out.println("CVPR");
+        papers=iccvJsonParse();
+        for (Paper paper : papers) {
+            totalList.add(paper);
+        }
+        System.out.println("ECCV");
+        papers=eccvJsonParse();
+        for (Paper paper : papers) {
+            totalList.add(paper);
+        }
+
+
+        for (Paper paper : totalList) {
+            paperService.uploadPaper(paper);
+        }
+
+
     }
 }
