@@ -1,8 +1,12 @@
 # Default ignored files
 /workspace.xml
 
-#过滤整个.idea文件夹
-#/pairproject/.idea/
+#过滤整个.mvn文件夹
+/pairproject/.mvn/
+/pairproject/HELP.md
+/pairproject/mvnw
+/pairproject/mvnw.cmd
+/pairproject/pairproject.iml
 
 #过滤所有.txt文件
 *.txt
@@ -15,3 +19,4 @@
 
 #过滤所有.exe文件
 *.exe
+
