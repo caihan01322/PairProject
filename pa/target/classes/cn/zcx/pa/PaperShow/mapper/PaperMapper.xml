@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.zcx.pa.PaperShow.dao.PaperDao">
+    <!--插入-->
+    <insert id="insertPaper" parameterType="cn.zcx.pa.PaperShow.pojo.Paper">
+        INSERT INTO paper(id,pid,title,abst,conference,publicationYear,link)
+        VALUES(null,#{pid},#{title},#{abst},#{conference},#{publicationYear},#{link})
+    </insert>
+
+    <!--根据id删除-->
+    <delete id="deleteById" parameterType="string">
+        DELETE FROM paper WHERE pid=#{pid}
+    </delete>
+
+    <!--通过对象更新-->
+    <update id="updateByObject" parameterType="cn.zcx.pa.PaperShow.pojo.Paper">
+        UPDATE paper SET title=#{title},abst=#{abst},conference=#{conference},
+        publicationYear=#{publicationYear},link=#{link} WHERE pid=#{pid}
+    </update>
+
+    <!--通过map更新-->
+    <update id="updateByMap" parameterType="map">
+        UPDATE paper
+        <set>
+            <if test="title !=NULL">title=#{title},</if>
+            <if test="abst !=NULL">abst=#{abst},</if>
+            <if test="conference !=NULL">conference=#{conference},</if>
+            <if test="publicationYear !=NULL">publicationYear=#{publicationYear},</if>
+            <if test="link !=NULL">link=#{link}</if>
+        </set>
+        WHERE pid=#{pid}
+    </update>
+
+    <!--通过id查询-->
+    <select id="selectPaperById" parameterType="string" resultMap="Paper">
+        SELECT p.pid,title,abst,p.conference,publicationYear,link,
+        k.kid,keyword
+        FROM paper AS p
+        LEFT JOIN keyword AS k ON p.pid=k.kid
+        LEFT JOIN kp ON kp.pid=p.pid AND kp.kid=k.kid
+        WHERE pid=#{pid}
+    </select>
+
+    <!--通过map精确查询-->
+    <select id="selectPapersByMapExactly" parameterType="map" resultMap="Paper">
+        SELECT p.pid,title,abst,p.conference,publicationYear,link,
+        k.kid,keyword
+        FROM paper AS p
+        LEFT JOIN keyword AS k ON p.pid=k.kid
+        LEFT JOIN kp ON kp.pid=p.pid AND kp.kid=k.kid
+        <where>
+            <if test="title !=NULL">AND title=#{title}</if>
+            <if test="abst !=NULL">AND abst=#{abst}</if>
+            <if test="conference !=NULL">AND p.conference=#{conference}</if>
+            <if test="publicationYear !=NULL">AND publicationYear=#{publicationYear}</if>
+            <if test="beginYear !=NULL">AND publicationYear BETWEEN #{beginYear} AND #{endYear}</if>
+            <if test="keyword !=NULL">AND k.keyword=#{keyword}</if>
+            <if test="link !=NULL">AND link=#{link}</if>
+        </where>
+    </select>
+
+    <!--通过map模糊查询-->
+    <select id="selectPapersByMapVaguely" parameterType="map" resultMap="Paper">
+        SELECT p.pid,title,abst,p.conference,publicationYear,link,
+        k.kid,keyword
+        FROM paper AS p
+        LEFT JOIN keyword AS k ON p.pid=k.kid
+        LEFT JOIN kp ON kp.pid=p.pid AND kp.kid=k.kid
+        <where>
+            <if test="title !=NULL">AND title LIKE "%"#{title}"%"</if>
+            <if test="abst !=NULL">AND abst LIKE "%"#{abst}"%"</if>
+            <if test="conference !=NULL">AND p.conference=#{conference}</if>
+            <if test="publicationYear !=NULL">AND publicationYear=#{publicationYear}</if>
+            <if test="beginYear !=NULL">AND publicationYear BETWEEN #{beginYear} AND #{endYear}</if>
+            <if test="keyword !=NULL">AND k.keyword LIKE "%"#{keyword}"%"</if>
+        </where>
+    </select>
+
+    <!--通过kid查询论文列表-->
+    <select id="selectPapersByKid" parameterType="string" resultMap="Paper">
+        SELECT p.pid,title,abst,p.conference,publicationYear,link,
+        k.kid,keyword
+        FROM paper AS p
+        LEFT JOIN keyword AS k ON p.pid=k.kid
+        LEFT JOIN kp ON kp.pid=p.pid AND kp.kid=k.kid
+        WHERE kp.kid=#{kid}
+    </select>
+
+
+    <!--paper的映射-->
+    <resultMap id="Paper" type="cn.zcx.pa.PaperShow.pojo.Paper">
+        <result column="pid" property="pid"/>
+        <result column="title" property="title"/>
+        <result column="abst" property="abst"/>
+        <result column="conference" property="conference"/>
+        <result column="publicationYear" property="publicationYear"/>
+        <result column="link" property="link"/>
+
+        <!--keyword集合-->
+        <collection property="keywords" ofType="cn.zcx.pa.PaperShow.pojo.Keyword">
+            <result property="kid" column="kid"/>
+            <result property="keyword" column="keyword"/>
+            <result property="conference" column="conference"/>
+        </collection>
+    </resultMap>
+</mapper>

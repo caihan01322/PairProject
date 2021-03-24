@@ -1,0 +1,214 @@
+{
+  "userInfo":
+  {
+  "institute":false,
+  "member":false,
+  "individual":false,
+  "guest":false,
+  "subscribedContent":false,
+  "fileCabinetContent":false,
+  "fileCabinetUser":false,
+  "institutionalFileCabinetUser":false,
+  "showPatentCitations":true,
+  "showGet802Link":false,
+  "showOpenUrlLink":false,
+  "tracked":false,
+  "delegatedAdmin":false,
+  "desktop":false,
+  "isInstitutionDashboardEnabled":false,
+  "isInstitutionProfileEnabled":false,
+  "isRoamingEnabled":false,
+  "isDelegatedAdmin":false,
+  "isMdl":false,"isCwg":false
+},
+  "authors":
+  [
+  {"name":"I. Stamos",
+    "affiliation":["Columbia University, USA"],
+    "firstName":"I.",
+    "lastName":"Stamos",
+    "id":"37281853400"
+  },
+    {"name":"P.E. Allen",
+      "affiliation":["Columbia University, USA"],
+      "firstName":"P.E.",
+      "lastName":"Allen",
+      "id":"37280851400"
+    }
+  ],
+  "isbn":
+  [
+    {"format":"Print ISBN",
+      "value":"0-7695-0662-3",
+      "isbnType":""
+    }
+  ],
+  "issn":
+  [
+    {"format":"Print ISSN",
+      "value":"1063-6919"
+    }
+  ],
+  "articleNumber":"855865",
+  "dbTime":"3 ms",
+  "metrics":
+  {
+    "citationCountPaper":75,
+    "citationCountPatent":10,
+    "totalDownloads":658
+  },
+  "purchaseOptions":
+  {
+    "showOtherFormatPricingTab":false,
+    "showPdfFormatPricingTab":true,
+    "pdfPricingInfoAvailable":true,
+    "otherPricingInfoAvailable":false,
+    "mandatoryBundle":false,
+    "optionalBundle":false,
+    "pdfPricingInfo":
+    [
+      {
+        "memberPrice":"$14.95",
+        "nonMemberPrice":"$33.00",
+        "partNumber":"855865",
+        "type":"PDF"
+      }
+    ]
+  },
+  "getProgramTermsAccepted":false,
+  "sections":
+  {
+    "abstract":"true",
+    "authors":"true",
+    "figures":"false",
+    "multimedia":"false",
+    "references":"true",
+    "citedby":"true",
+    "keywords":"true",
+    "definitions":"false",
+    "algorithm":"false",
+    "dataset":"false",
+    "cadmore":"false",
+    "footnotes":"false",
+    "disclaimer":"false",
+    "relatedContent":"false",
+    "metrics":"true"
+  },
+  "keywords":
+  [
+    {
+      "type":"IEEE Keywords",
+      "kwd":["Bismuth"]
+    },
+    {
+      "type":"INSPEC: Controlled Indexing",
+      "kwd":["virtual reality","image segmentation","image reconstruction"]
+    },
+    {
+      "type":"INSPEC: Non-Controlled Indexing",
+      "kwd":["3-D models","virtual reality","tele-presence","digital cinematography","urban planning","dense depth estimates","image sensing","registration","segmentation algorithms","photorealistic models"]
+    }
+  ],
+  "pdfUrl":"/stamp/stamp.jsp?tp=&arnumber=855865",
+  "allowComments":false,
+  "pubLink":"/xpl/conhome/6894/proceeding",
+  "abstract":"This paper deals with the automated creation of geometric and photometric correct 3-D models of the world. Those models can be used for virtual reality, tele-presence, digital cinematography and urban planning applications. The combination of range (dense depth estimates) and image sensing (color information) provides data-sets which allow us to create geometrically correct, photorealistic models of high quality. The 3-D models are first built from range data using a volumetric set intersection method previously developed by us. Photometry can be napped onto these models by registering features from both the 3-D and 2-D data sets. Range data segmentation algorithms have been developed to identify planar regions, determine linear features from planar intersections that can serve as features for registration with 2-D imagery lines, and reduce the overall complexity of the models. Results are shown for building models of large buildings on our campus using real data acquired from multiple sensors.",
+  "doi":"10.1109/CVPR.2000.855865",
+  "rightsLink":"http://s100.copyright.com/AppDispatchServlet?publisherName=ieee&publication=proceedings&title=3-D+model+construction+using+range+and+image+data&isbn=0-7695-0662-3&publicationDate=2000&author=I.+Stamos&ContentID=10.1109/CVPR.2000.855865&orderBeanReset=true&startPage=531&endPage=536 vol.1&volumeNum=1&proceedingName=Proceedings+IEEE+Conference+on+Computer+Vision+and+Pattern+Recognition.+CVPR+2000+%28Cat.+No.PR00662%29",
+  "publicationTitle":"Proceedings IEEE Conference on Computer Vision and Pattern Recognition. CVPR 2000 (Cat. No.PR00662)",
+  "displayPublicationTitle":"Proceedings IEEE Conference on Computer Vision and Pattern Recognition. CVPR 2000 (Cat. No.PR00662)",
+  "pdfPath":"/iel5/6894/18553/00855865.pdf",
+  "startPage":"531",
+  "endPage":"536 vol.1",
+  "issueLink":"/xpl/tocresult.jsp?isnumber=18553",
+  "doiLink":"https://doi.org/10.1109/CVPR.2000.855865",
+  "formulaStrippedArticleTitle":"3-D model construction using range and image data",
+  "isReadingRoomArticle":false,
+  "isGetArticle":false,
+  "isGetAddressInfoCaptured":false,
+  "isMarketingOptIn":false,
+  "pubTopics":[{"name":"Computing and Processing"},{"name":"Signal Processing and Analysis"}],
+  "publisher":"IEEE",
+  "isFreeDocument":false,
+  "conferenceDate":"15-15 June 2000",
+  "isNotDynamicOrStatic":true,
+  "chronOrPublicationDate":"2000",
+  "isSMPTE":false,
+  "isOUP":false,
+  "isSAE":false,
+  "isNow":false,
+  "isCustomDenial":false,
+  "htmlAbstractLink":"/document/855865/",
+  "isPromo":false,
+  "isStandard":false,
+  "displayDocTitle":"3-D model construction using range and image data",
+  "isProduct":false,
+  "isMorganClaypool":false,
+  "isConference":true,
+  "volume":"1",
+  "dateOfInsertion":"06 August 2002",
+  "isJournal":false,
+  "isBook":false,
+  "isBookWithoutChapters":false,
+  "isChapter":false,
+  "isStaticHtml":false,
+  "isOpenAccess":false,
+  "isEphemera":false,
+  "accessionNumber":"6651680",
+  "publicationDate":"2000",
+  "isACM":false,
+  "isEarlyAccess":false,
+  "persistentLink":"https://ieeexplore.ieee.org/servlet/opac?punumber=6894",
+  "isDynamicHtml":false,
+  "xploreDocumentType":"Conference Publication",
+  "startPage":"531",
+  "openAccessFlag":"F",
+  "ephemeraFlag":"false",
+  "title":"3-D model construction using range and image data",
+  "confLoc":"Hilton Head, SC, USA",
+  "accessionNumber":"6651680",
+  "html_flag":"false",
+  "ml_html_flag":"false",
+  "sourcePdf":"00855865.pdf",
+  "content_type":"Conferences",
+  "mlTime":"PT0.028125S",
+  "chronDate":"2000",
+  "pdfPath":"/iel5/6894/18553/00855865.pdf",
+  "isNumber":"18553",
+  "rightsLinkFlag":"1",
+  "dateOfInsertion":"06 August 2002",
+  "contentType":"conferences",
+  "publicationDate":"2000",
+  "publicationNumber":"6894",
+  "citationCount":"75",
+  "articleId":"855865",
+  "publicationTitle":"Proceedings IEEE Conference on Computer Vision and Pattern Recognition. CVPR 2000 (Cat. No.PR00662)",
+  "sections":
+  {
+    "abstract":"true",
+    "authors":"true",
+    "figures":"false",
+    "multimedia":"false",
+    "references":"true",
+    "citedby":"true",
+    "keywords":"true",
+    "definitions":"false",
+    "algorithm":"false",
+    "dataset":"false",
+    "cadmore":"false",
+    "footnotes":"false",
+    "disclaimer":"false",
+    "relatedContent":"false",
+    "metrics":"true"
+  },
+  "volume":"1",
+  "onlineDate":"",
+  "contentTypeDisplay":"Conferences",
+  "conferenceDate":"15-15 June 2000",
+  "publicationYear":"2000",
+  "subType":"IEEE Conference",
+  "lastupdate":"2021-03-06",
+  "mediaPath":"",
+  "endPage":"536 vol.1",
+  "displayPublicationTitle":"Proceedings IEEE Conference on Computer Vision and Pattern Recognition. CVPR 2000 (Cat. No.PR00662)",
+  "doi":"10.1109/CVPR.2000.855865"};
