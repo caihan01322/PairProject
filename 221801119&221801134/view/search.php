@@ -63,8 +63,15 @@
 <div class="mainPaper">
     	<?php 
     	$conn = new mysqli('localhost','root','','paperdb');
-    	$searchname=$_POST['searchName'];
-    	$searchtype=$_POST["searchSelect"];
+    	if(!isset($_POST["searchName"])){
+    	    $searchname=$_GET['searchName'];
+    	    $searchtype=$_GET["searchSelect"];  
+    	}
+    	else{
+    	     $searchname=$_POST['searchName'];
+    	       $searchtype=$_POST["searchSelect"];  
+    	}
+
     	$userid=$_SESSION["userid"];
     	if($searchname==''){
     	    echo '<script>alert("请输入搜索内容！");window.location="../view/manage.php";</script>';
@@ -192,16 +199,53 @@
       </div>
         <div class="siders">
 				<div style="padding:0 5% 2% 5%">
-                            <h2 class="widget-title">Popular Categories</h2>
+                            <h2 class="widget-title">My Categories</h2>
                             <div class="link-widget">
                                 <ul style="list-style:none;margin: 0;padding: 0;">
-                                    <li><a href="#">Marketing <span>(21)</span></a></li>
-                                    <li><a href="#">SEO Service <span>(15)</span></a></li>
-                                    <li><a href="#">Digital Agency <span>(31)</span></a></li>
-                                    <li><a href="#">Make Money <span>(22)</span></a></li>
-                                    <li><a href="#">Blogging <span>(66)</span></a></li>
-                                    <li><a href="#">Entertaintment <span>(11)</span></a></li>
-                                    <li><a href="#">Video Tuts <span>(87)</span></a></li>
+                                    <?php 
+                                	$conn = new mysqli('localhost','root','','paperdb');
+                                	$userid=$_SESSION["userid"];
+                                	$sql = "select * from paper";
+                                	$res = $conn->query($sql);
+                                	$result_array = array();
+                                	$key_array = array();
+                                	if( $res->num_rows >0 ){
+                                	    while( $row= $res->fetch_assoc()){
+                                	        $pid=$row["pid"];
+                                	        $sql2 = "select * from userPaper where userid = '$userid' and pid='$pid' ";
+                                	        $res2 = $conn->query($sql2);
+                                	        if( $res2->num_rows >0 ){
+                                	            $result_array[] = $row["key1"];
+                                	            $result_array[] = $row["key2"];
+                                	            $result_array[] = $row["key3"];
+                                	            $result_array[] = $row["key4"];
+                                	            $result_array[] = $row["key5"];
+                                	        }
+                                	    }
+                                	    
+                                	}
+                                	foreach($result_array as $value){
+                                	    if(!empty($value)){
+                                	        $value = ucfirst($value);
+                                	        if(array_key_exists($value, $key_array)){
+                                	            $key_array[$value] += 1;   //+=1
+                                	        }
+                                	        else{
+                                	            $key_array[$value] = 1;   //=1
+                                	        }
+                                	    }
+                                	}
+                                	arsort($key_array);
+                                	$top_key_array = array_keys($key_array);
+                                	$top_value_array = array_values($key_array);
+                                	$len=10;
+                                	if(sizeof($top_key_array)<10)
+                                	    $len=sizeof($top_key_array);
+                                	for($i=0;$i<$len;$i++)
+                                	    echo '
+                                        <li><a href="#">'.$top_key_array[$i].'<span>('.$top_value_array[$i].')</span></a></li>
+                                           ';
+                                	?>
                                 </ul>
                             </div>
                 </div>           

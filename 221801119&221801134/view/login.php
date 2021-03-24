@@ -7,6 +7,7 @@
     <title>登录入口</title>
     <link rel='stylesheet' href='../css/myCss.css' type='text/css'/>
 	<link rel='stylesheet' href='../css/myCss3.css' type='text/css'/>
+	<link rel='stylesheet' href='../css/myCss4.css' type='text/css'/>
 </head>
 
 <body style="background-color:#F8F8F8 ;">
@@ -58,7 +59,7 @@
             
         </form>
 
-        <div style="padding-top: 15%;" >
+        <div style="padding: 15% 0;" >
             <a href="register.php">没有账号？立即注册</a>
         </div>
     </div>

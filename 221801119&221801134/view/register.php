@@ -7,6 +7,7 @@
     <title>注册入口</title>
     <link rel='stylesheet' href='../css/myCss.css' type='text/css'/>
 	<link rel='stylesheet' href='../css/myCss3.css' type='text/css'/>
+    <link rel='stylesheet' href='../css/myCss4.css' type='text/css'/>
 </head>
 
 <body style="background-color:#F8F8F8 ;">
@@ -55,10 +56,10 @@
             <input type="text" id="password1" name="password1" placeholder="请输入密码"><br/>
             <label for="lname">确认密码：</label>
             <input type="text" id="password2" name="password2" placeholder="请再次输入密码"><br/>
-            <input type="submit" value="注册">
+            <input type="submit" value="注册" id="submitLogin">
         </form>
 
-        <div style="padding-top: 6%;" >
+        <div style="padding: 6% 0;" >
             <a href="login.php">已有账号？返回登录</a>
         </div>
     </div>

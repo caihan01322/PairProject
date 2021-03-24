@@ -6,6 +6,8 @@
     <meta name="viewport" content="initial-scale=1.0,user-scalable=no,minimal-ui">
     <title>首页</title>
     <link rel='stylesheet' href='../css/myCss.css' type='text/css'/>
+    <link rel='stylesheet' href='../css/myCss3.css' type='text/css'/>
+    <link rel='stylesheet' href='../css/myCss4.css' type='text/css'/>
 
 </head>
 
