@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -8,6 +8,7 @@
   <meta name="author" content="ThemeBucket">
   <link rel="shortcut icon" href="#" type="image/png">
     <link rel="stylesheet" type="text/css" href="css/myCss/mainCss.css" />
+  <link rel="stylesheet" type="text/css" href="css/pagination.css" >
   <title>论文查询</title>
 
   <div th:include="common :: commonheader"></div>
@@ -25,67 +26,128 @@
         <div class="wrapper">
             <div class="card-container">
                 <div class="card">
-                    <div class="card-content">
+                    <div class="card-content" data-toggle="modal" data-target="#myModal">
+                        <div class="paper-id" style="display: none"></div>
                         <div class="paper-title">
-                            Dual Super-Resolution Learning for Semantic Segmentation
+                            好像找不到标题...
                         </div>
                         <div class="paper-author">
-                            Thomas Schöps, Viktor Larsson, Marc Pollefeys, Torsten Sattler
+                            好像找不到链接...
                         </div>
                         <div class="paper-keywords">
-                            <span>【keyword】</span>
-                            <span>Cameras, Calibration, Feature extraction, Three-dimensional displays</span>
+                            <span>[keyword]</span>
+                            <span>好像找不到关键词...</span>
                         </div>
                         <div class="paper-abstract">
-                            <span>【abstract】</span>
+                            <span>[abstract]</span>
                             <span>
-                                Camera calibration is an essential first step in setting up 3D Computer Vision systems.
-                                Commonly used parametric camera models are limited to a few degrees of freedom and thus often do not optimally fit to complex real lens distortion.
-                                In contrast, generic camera models allow for very accurate calibration due to their flexibility. Despite this, they have seen little use in practice.
-                                In this paper, we argue that this should change. We propose a calibration pipeline for generic models that is fully automated, easy to use, and can act as a drop-in replacement for parametric calibration, with a focus on accuracy.
-                                We compare our results to parametric calibrations. Considering stereo depth estimation and camera pose estimation as examples, we show that the calibration error acts as a bias on the results. We thus argue that in contrast to current common practice,
-                                generic models should be preferred over parametric ones whenever possible. To facilitate this, we released our calibration pipeline at https://github.com/puzzlepaint/camera_calibration,
-                                making both easy-to-use and accurate camera calibration available to everyone.
+                                好像找不到摘要...
                             </span>
                         </div>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-content">
-                        123
+                    <div class="card-content" data-toggle="modal" data-target="#myModal">
+                        <div class="paper-id" style="display: none"></div>
+                        <div class="paper-title">
+                            好像找不到标题...
+                        </div>
+                        <div class="paper-author">
+                            好像找不到链接...
+                        </div>
+                        <div class="paper-keywords">
+                            <span>[keyword]</span>
+                            <span>好像找不到关键词...</span>
+                        </div>
+                        <div class="paper-abstract">
+                            <span>[abstract]</span>
+                            <span>
+                                好像找不到摘要...
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-content">
-                        123
+                    <div class="card-content" data-toggle="modal" data-target="#myModal">
+                        <div class="paper-id" style="display: none"></div>
+                        <div class="paper-title">
+                            好像找不到标题...
+                        </div>
+                        <div class="paper-author">
+                            好像找不到链接...
+                        </div>
+                        <div class="paper-keywords">
+                            <span>[keyword]</span>
+                            <span>好像找不到关键词...</span>
+                        </div>
+                        <div class="paper-abstract">
+                            <span>[abstract]</span>
+                            <span>
+                                好像找不到摘要...
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-content">
-                        123
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-content">
-                        123
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-content">
-                        123
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-content">
-                        123
+                    <div class="card-content" data-toggle="modal" data-target="#myModal">
+                        <div class="paper-id" style="display: none"></div>
+                        <div class="paper-title">
+                            好像找不到标题...
+                        </div>
+                        <div class="paper-author">
+                            好像找不到链接...
+                        </div>
+                        <div class="paper-keywords">
+                            <span>[keyword]</span>
+                            <span>好像找不到关键词...</span>
+                        </div>
+                        <div class="paper-abstract">
+                            <span>[abstract]</span>
+                            <span>
+                                好像找不到摘要...
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="setPageDiv m-style">
+            <div class="pagination" id="pagination"></div>
+        </div>
     </div>
+
+    <!--模态框-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        论文详情
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div>我是模态框</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        关闭
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                        收藏
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
 
 <div th:include="common :: #commonscript"></div>
-
+<script src="js/jquery.pagination.js"></script>
+<script src="js/myJs/pagination.js"></script>
 </body>
 </html>
