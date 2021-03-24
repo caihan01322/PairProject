@@ -31,10 +31,7 @@ class DemoApplicationTests {
 
     @Test
     void contextLoads() throws IOException {
-//        Map<String,String> params=new HashMap<>();
-//        params.put("title","Spring");
-//        System.out.println(paperMapper.selectPaperByPreciseMode(params).toString());
-//        paperKeywordMapper.deletePKByPid("1");
+        putPapers("ECCV");
     }
 
     public void putPapers(String publisher) throws IOException {

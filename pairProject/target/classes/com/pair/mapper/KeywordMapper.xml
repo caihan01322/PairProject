@@ -28,7 +28,8 @@
         select kid from pair.keyword where keyword=#{keyword}
     </select>
     <delete id="deleteKeywordByPid">
-        delete from keyword k
+        update keyword k
+        set k.num = k.num-1
         where k.kid in(select pk.kid from paper_keyword pk where pk.pid=#{kid});
     </delete>
     

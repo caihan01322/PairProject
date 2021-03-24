@@ -24,10 +24,12 @@ public class PaperController {
     KeywordMapper keywordMapper;
     @Autowired
     PaperKeywordMapper paperKeywordMapper;
+    private int startIndex=0;
+    private int indexNum=166;
 
     @RequestMapping("/paperList")
     public String getPaperList(Model model, HttpServletResponse response) {
-        List<Paper> papers = paperMapper.selectAllPapers();
+        List<Paper> papers = paperMapper.selectAllPapers(startIndex,indexNum);
         model.addAttribute("papers", papers);
         return "paperList";
     }
@@ -37,8 +39,10 @@ public class PaperController {
         String selectTerm = request.getParameter("selectTerm");
         String selectItem = request.getParameter("selectItem");
         String selectMode = request.getParameter("selectMode");
-        Map<String, String> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put(selectTerm, selectItem);
+        map.put("startIndex",startIndex);
+        map.put("indexNum",indexNum);
         List<Paper> papers;
         if (selectMode.equals("fuzzy")) {//模糊查询
             papers = paperMapper.selectPaperByFuzzyMode(map);
@@ -51,9 +55,26 @@ public class PaperController {
 
     @RequestMapping("/deletePaper/{pid}")
     public String paperSelect(@PathVariable("pid") String pid) {
-        keywordMapper.deleteKeywordByPid(pid);
-        paperKeywordMapper.deletePKByPid(pid);
+        //keywordMapper.deleteKeywordByPid(pid);
+        //paperKeywordMapper.deletePKByPid(pid);
         paperMapper.deletePaperByPid(pid);
         return "redirect:/paperList";
+    }
+    @RequestMapping("/nextPage")
+    public String nextPage(Model model){
+        startIndex+=166;
+        List<Paper> papers = paperMapper.selectAllPapers(startIndex,indexNum);
+        model.addAttribute("papers", papers);
+        return "paperList";
+    }
+    @RequestMapping("/perviousPage")
+    public String previousPage(Model model){
+        startIndex-=166;
+        if(startIndex<=0){
+            startIndex=0;
+        }
+        List<Paper> papers = paperMapper.selectAllPapers(startIndex,indexNum);
+        model.addAttribute("papers", papers);
+        return "paperList";
     }
 }

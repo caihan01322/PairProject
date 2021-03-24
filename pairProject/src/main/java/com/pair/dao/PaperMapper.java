@@ -13,11 +13,11 @@ import java.util.Map;
 public interface PaperMapper {
     public void insertPaper(Paper paper_sql);
 
-    public List<Paper> selectAllPapers();
+    public List<Paper> selectAllPapers(int startIndex,int indexNum);
 
-    public List<Paper> selectPaperByFuzzyMode(Map<String, String> map);//模糊查询
+    public List<Paper> selectPaperByFuzzyMode(Map<String, Object> map);//模糊查询
 
-    public List<Paper> selectPaperByPreciseMode(Map<String, String> map);//精确查询
+    public List<Paper> selectPaperByPreciseMode(Map<String, Object> map);//精确查询
 
     public void deletePaperByPid(String pid);
 
