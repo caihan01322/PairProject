@@ -9,17 +9,12 @@ import java.util.TreeSet;
 
 public class JsonToBean_CVPR_ICCV {
 
-    public static Essay getEssay(String fileName) {
+    public static Essay getEssay(String fileName, String conference) {
         JSONObject object = ReadJsonUtil.getJson(fileName);
 
         String abst = object.getString("abstract");//获取文章摘要
 
         String title = object.getString("title");//获取标题
-
-        String doi = object.getString("doi");
-        int start = doi.indexOf('/') + 1;
-        int end = start + 4;
-        String conference = doi.substring(start, end);//获取会议名称
 
         String publicationYear = object.getString("publicationYear");//获取年份
 

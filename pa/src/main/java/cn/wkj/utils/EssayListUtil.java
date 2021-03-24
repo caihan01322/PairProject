@@ -48,7 +48,7 @@ public class EssayListUtil {
             File[] files = file.listFiles();
             for(int j = 0; j < files.length; j++) {
                 String jsonpath = files[j].getAbsolutePath();
-                Essay essay = JsonToBean_CVPR_ICCV.getEssay(jsonpath);
+                Essay essay = JsonToBean_CVPR_ICCV.getEssay(jsonpath,i==0?"CVPR":"ICCV");
                 essayList.add(essay);
             }
         }
@@ -58,7 +58,7 @@ public class EssayListUtil {
             File[] files = file.listFiles();
             for(int j = 0; j < files.length; j++) {
                 String jsonpath = files[j].getAbsolutePath();
-                Essay essay = JsonToBean_ECCV.getEssay(jsonpath);
+                Essay essay = JsonToBean_ECCV.getEssay(jsonpath,"ECCV");
                 essayList.add(essay);
             }
         }

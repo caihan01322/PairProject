@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Sidebar</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+</head>
+<body>
+
+<div th:fragment="sidebar">
+    <ul class="layui-nav layui-nav-tree layui-inline side_fixed" lay-filter="demo">
+        <li class="layui-nav-item layui-bg-blue">
+            <a th:href="@{/searchEssay}" style="color: #f8f8f8;">高级检索</a>
+        </li>
+        <li class="layui-nav-item layui-bg-blue">
+            <a th:href="@{/searchEssay}" style="color: #f8f8f8;">热词统计</a>
+        </li>
+        <li class="layui-nav-item layui-bg-blue">
+            <a th:href="@{/searchEssay}" style="color: #f8f8f8;">回收站</a>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

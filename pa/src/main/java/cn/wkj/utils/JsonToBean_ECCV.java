@@ -9,7 +9,7 @@ import java.util.TreeSet;
 
 public class JsonToBean_ECCV {
 
-    public static Essay getEssay(String fileName) {
+    public static Essay getEssay(String fileName, String conference) {
         JSONObject object = ReadJsonUtil.getJson(fileName);
 
         String title = object.getString("论文名称");//获取论文标题
@@ -20,7 +20,6 @@ public class JsonToBean_ECCV {
         int start = 0;
         int end = year_confer.length();
         String publicationYear = year_confer.substring(4, end);//获取年份
-        String conference = year_confer.substring(start, 4);//获取会议名称
 
         String doiLink = object.getString("原文链接");//获取原文链接
 
