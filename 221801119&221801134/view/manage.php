@@ -22,7 +22,7 @@
             -->
             <nav class="header-nav">
                 <ul class="subnav-ul">
-                    <li class="menu-item"><a  href="">首页</a></li>
+                    <li class="menu-item"><a  href="index.php">首页</a></li>
                     <li class="menu-item"><a   data-id="37" data-adid="41" href="import.php">论文导入</a></li>
                     <li class="menu-item"><a   data-id="37" data-adid="41" href="manage.php"><b style="font-size: larger">论文管理</b></a></li>
                     <li class="menu-item"><a data-id="37" data-adid="41" href="analysis.php">动态分析</a></li>
@@ -283,6 +283,7 @@ function keyButton(e){
 	window.location.href="search.php? searchName="+x+"&searchSelect=3";
 }
 function exitLogin(){
+	window.event.returnValue=false;     
 	window.location.href="../form/exit.php";
 }
 function deleteCollect(e){

@@ -22,7 +22,7 @@
             -->
             <nav class="header-nav">
                 <ul class="subnav-ul">
-                    <li class="menu-item"><a  href="">首页</a></li>
+                    <li class="menu-item"><a  href="index.php">首页</a></li>
                     <li class="menu-item"><a   data-id="37" data-adid="41" href="import.php">论文导入</a></li>
                     <li class="menu-item"><a   data-id="37" data-adid="41" href="manage.php">论文管理</a></li>
                     <li class="menu-item"><a data-id="37" data-adid="41" href="analysis.php">动态分析</a></li>
@@ -47,7 +47,7 @@
                     <?php 
                     $conn = new mysqli('localhost','root','','paperdb');
                     if(!isset($_SESSION["userid"])){
-                        echo '<script>alert("请先登录！");if (window.event.preventDefault) window.event.preventDefault();window.location.href="../view/login.php";</script>';
+                        echo '<script>alert("请先登录！");window.location.href="../view/login.php";</script>';
                     }
                     $userid=$_SESSION["userid"];
                     $sql = "select * from user where userid = '$userid' ";
@@ -78,6 +78,9 @@
     	<?php 
     	$conn = new mysqli('localhost','root','','paperdb');
     	$conn->query("SET NAMES utf8");
+    	if(!isset($_SESSION["userid"])){
+    	    echo '<script>alert("请先登录！");window.location.href="../view/login.php";</script>';
+    	}
     	$userid=$_SESSION["userid"];
     	$sql = "select * from userPaper where userid = '$userid' and collect='1' ORDER BY pid";
     	$res = $conn->query($sql);
@@ -188,5 +191,9 @@ function deleteCollect(e){
 	}
 	var userid='<?php echo $userid;?>';
 	window.location.href="../form/collect.php? pid="+pid+"&userid="+userid+"&c=0"+"&view=3";
+}
+function exitLogin(){
+	window.event.returnValue=false;     
+	window.location.href="../form/exit.php";
 }
 </script>
