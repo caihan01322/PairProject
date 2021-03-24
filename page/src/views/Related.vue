@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-    <div class='related'></div>
+    <div class='related'>related</div>
 </template>
 
 <script>

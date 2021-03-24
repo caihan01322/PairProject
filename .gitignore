@@ -21,3 +21,8 @@ pnpm-debug.log*
 /page/*.njsproj
 /page/*.sln
 /page/*.sw?
+
+# npm tools
+package.json
+package-lock.json
+node_modules

@@ -3,18 +3,14 @@
     <a-layout id="components-layout-demo-custom-trigger">
       <a-layout-sider id="asider" v-model="collapsed" :trigger="null" collapsible>
         <div class="logo" />
-        <a-menu mode="inline" :default-selected-keys="['1']">
-          <a-menu-item key="1">
-            <a-icon type="user" />
-            <span>nav 1</span>
+        <a-menu mode="inline" :default-selected-keys="['index']" @click="route">
+          <a-menu-item key="index">
+            <a-icon type="unordered-list" />
+            <span>论文列表</span>
           </a-menu-item>
-          <a-menu-item key="2">
-            <a-icon type="video-camera" />
-            <span>nav 2</span>
-          </a-menu-item>
-          <a-menu-item key="3">
-            <a-icon type="upload" />
-            <span>nav 3</span>
+          <a-menu-item key="analyze">
+            <a-icon type="line-chart" />
+            <span>数据分析</span>
           </a-menu-item>
         </a-menu>
       </a-layout-sider>
@@ -40,6 +36,14 @@ export default {
     return {
       collapsed: false,
     };
+  },
+  methods: {
+    route({ item, key, keyPath }) {
+      this.$router.push(key);
+    }
+  },
+  mounted() {
+    this.$router.push("/index");
   },
 };
 </script>

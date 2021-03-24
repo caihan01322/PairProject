@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-    <div class='edit'></div>
+    <div class='edit'>edit</div>
 </template>
 
 <script>

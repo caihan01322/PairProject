@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-    <div class='lsit'></div>
+    <div class='lsit'>list</div>
 </template>
 
 <script>
