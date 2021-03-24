@@ -12,7 +12,30 @@
                     <div class="search_inputer_container">
                         <div class="search_inputer search_inputer-inline">
                             <span class="search_inputer_title">论文标题</span>
-                            <a-input class="search_inputer_inner" placeholder="请输入论文标题" />
+                            <a-select
+                                showSearch
+                                :value="titleSelected"
+                                placeholder="请输入论文标题"
+                                class="search_inputer_inner"
+                                :showArrow="false"
+                                @search="serachPage"
+                                @change="handleChange"
+                            >
+                                <a-select-opt-group label="已爬取">
+                                <a-select-option value="00001">
+                                    00001
+                                </a-select-option>
+                                <a-select-option value="00002">
+                                    00002
+                                </a-select-option>
+                                </a-select-opt-group>
+
+                                <a-select-opt-group label="未爬取">
+                                <a-select-option :value="titleInput">
+                                    点击将"{{titleInput}}"添加至待爬取
+                                </a-select-option>
+                                </a-select-opt-group>
+                            </a-select>
                         </div>
                         <div class="search_inputer search_inputer-inline">
                             <span class="search_inputer_title">论文编号</span>
@@ -37,11 +60,39 @@
                     </div>
                     <div class="search_btn_container">
                         <a-button type="primary">检索</a-button>
-                        <a-button type="link">批量导入</a-button>
+                        <a-button type="link" @click="openImport">批量导入</a-button>
                     </div>
                 </div>
             </div>
         </a-page-header>
+
+        <a-modal 
+            v-model="showImport" 
+            title="批量导入"
+            :maskClosable="false"
+        >
+            <template slot="footer">
+                <a-button key="cancel" @click="handleCancel">
+                取 消
+                </a-button>
+                <a-button key="add" @click="handleAdd">
+                仅添加到列表
+                </a-button>
+                <a-button key="crawl" type="primary" @click="handleCrawl">
+                导入并爬取
+                </a-button>
+            </template>
+
+            <div class="import_inner">
+                <div class="upload_container">
+                    <span>论文表格：</span>
+                    <a-button class="upload_btn" icon="upload">上传表格</a-button>
+                </div>
+                <div class="upload_table">
+                    <a-table :columns="uploadColumn" :data-source="uploadData" size="small" :pagination="false" />
+                </div>
+            </div>
+        </a-modal>
 
         <a-layout-content
             :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }"
@@ -66,11 +117,29 @@
                         :data-source="listData"
                         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
                     >
-                        <span slot="action">
-                            <a>删除</a>
-                            <a :style="{ marginLeft: '12px' }">爬取</a>
-                            <a :style="{ marginLeft: '12px' }">查看</a>
+                        <router-link 
+                            slot="pageTitle" 
+                            :style="{ color: 'rgba(0, 0, 0, 0.65)' }" 
+                            slot-scope="text"
+                            to="detail"
+                        >{{text}}</router-link>
+
+                        <span slot="keywords" slot-scope="keywords">
+                            <a-tag v-for="keyword in keywords" :key="keyword">{{keyword}}</a-tag>
                         </span>
+                        <span slot="status" slot-scope="status">
+                            <span>
+                                <a-badge v-if="status=='已爬取'" status="success" />
+                                <a-badge v-if="status=='未爬取'" status="default" />
+                                {{status}}
+                            </span>
+                        </span>
+                        <span slot="action" slot-scope="text, record">
+                            <a>删除</a>
+                            <a :style="{ marginLeft: '12px' }" v-if="record.status=='未爬取'">爬取</a>
+                            <a :style="{ marginLeft: '12px' }" v-if="record.status=='已爬取'">查看</a>
+                        </span>
+
                     </a-table>
                 </div>
             </div>
@@ -97,7 +166,8 @@ export default {
                     title: "论文名",
                     dataIndex: "title",
                     key: "title",
-                    width: "25%"
+                    scopedSlots: { customRender: 'pageTitle' },
+                    width: "25%",
                 },
                 {
                     title: "编号",
@@ -109,12 +179,14 @@ export default {
                     title: "关键词",
                     dataIndex: "keyword",
                     key: "keyword",
+                    scopedSlots: { customRender: 'keywords' },
                     width: "25%"
                 },
                 {
                     title: "状态",
                     dataIndex: "status",
                     key: "status",
+                    scopedSlots: { customRender: 'status' },
                     width: "10%"
                 },
                 {
@@ -129,13 +201,31 @@ export default {
                 {
                     title: "test",
                     number: 123456,
-                    keyword: "t",
+                    keyword: ['t','e','s'],
                     status: "已爬取",
 
 
                 }
             ],
+            uploadColumn: [
+                {
+                    title: "论文标题",
+                    dataIndex: "title",
+                    key: "title",
+                }
+            ],
+            uploadData: [
+                {
+                    title: "111111111"
+                },
+                {
+                    title: "222222222"
+                }
+            ],
             selectedRowKeys: [],
+            titleSelected: " ",
+            titleInput: "",
+            showImport: false,
         }
     },
     methods: {
@@ -146,6 +236,19 @@ export default {
             console.log('selectedRowKeys changed: ', selectedRowKeys);
             this.selectedRowKeys = selectedRowKeys;
         },
+        requestList() {
+
+        },
+        serachPage(value) {
+            this.titleInput = value;
+            console.log(value);
+        },
+        handleChange(value, option) {
+            console.log(option);
+        },
+        openImport() {
+            this.showImport = true;
+        }
     }
 }
 </script>
@@ -172,7 +275,7 @@ export default {
         }
     }
     .search_inputer-inline {
-        width: 40%;
+        width: 45%;
     }
     .search_inputer_container-next {
         margin-top: 12px;
@@ -205,6 +308,14 @@ export default {
     }
 
     .table {
+        margin-top: 12px;
+    }
+}
+.import_inner {
+    .upload_btn {
+        margin-left: 12px;
+    }
+    .upload_table {
         margin-top: 12px;
     }
 }
