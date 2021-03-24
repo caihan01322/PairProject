@@ -39,7 +39,7 @@ public class UserDaoImpl implements BaseCRUD<User> {
      */
     @Override
     public List<User> readByKey(String[] propertyName, Object[] value) {
-        String sql="select * from User where email=?";
+        String sql="select * from User where mail=?";
         List<User> usersList=baseDao.query(sql,value,User.class);
         return usersList.size()>0?usersList:null;
     }
