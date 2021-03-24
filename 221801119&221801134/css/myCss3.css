@@ -21,7 +21,7 @@ input[type=text], select {
     box-sizing: border-box;
 }
 
-.login #submitLogin{
+#submitLogin{
     width: 80%;
     background-color: #686f72;
     color: white;
@@ -32,7 +32,7 @@ input[type=text], select {
     cursor: pointer;
 }
 
-input[type=submit]:hover {
+#submitLogin:hover {
     background-color: #45a049;
 }
 
