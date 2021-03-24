@@ -35,6 +35,7 @@
 	margin-right: 30px;
 	border: 1px solid #666;
 	border-radius: 30px;
+	
 }
 .icon{ 
 	list-style-type:none;
@@ -55,7 +56,8 @@
 .contentright{
 	width: 80%;
 	float: right;
-	padding: 20px
+	padding: 20px;
+	overflow: hidden;
 }
 .contentright select{
 	border-color: #DCDCDC;

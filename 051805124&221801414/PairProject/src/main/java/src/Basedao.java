@@ -67,6 +67,84 @@ public class Basedao {
 		return count;
 	}
 	
+	public static ArrayList<PaperBean> searchPaper(String sql){
+		Connection conn = Basedao.getconnection();
+		ResultSet rs = null;
+		PreparedStatement ps = null;
+		ArrayList<PaperBean> res = new ArrayList<PaperBean>();
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				res.add(new PaperBean(
+						rs.getInt("academicNum"),
+						rs.getString("title"),
+						rs.getString("link"),
+						rs.getString("abstract"),
+						rs.getString("magazine")
+						));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			Basedao.closeAll(ps,conn);
+		}
+		return res;
+	}
+	
+	public static String getKeyWord(String sql){
+		Connection conn = Basedao.getconnection();
+		ResultSet rs = null;
+		PreparedStatement ps = null;
+		StringBuilder str = new StringBuilder();
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				str.append(rs.getString("keyword")+",");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			Basedao.closeAll(ps,conn);
+		}
+		return str.toString();
+	}
+	
+	public static int updatePaper(String sql) {
+		int count = 0;
+		Connection conn = Basedao.getconnection();
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			count = ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			Basedao.closeAll(ps,conn);
+		}
+		return count;
+	}
+	
+	public static int deletePaper(String sql) {
+		int count = 0;
+		Connection conn = Basedao.getconnection();
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			count = ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			Basedao.closeAll(ps,conn);
+		}
+		return count;
+	}
+	
 	public static void closeAll(PreparedStatement ps,Connection conn) {
 			try {
 				if(ps != null)

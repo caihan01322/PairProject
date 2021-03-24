@@ -12,4 +12,5 @@ public class UserDao {
 		String sql = "select * from user where userName = \""+user.getUserName()+"\" and password = \""+user.getPassword()+"\"";
 		return Basedao.isUser(sql,user.getUserName(),user.getPassword());
 	}
+	
 }
