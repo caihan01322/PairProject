@@ -1,6 +1,8 @@
 package com.topwordanalysis.databaseOperation.model;
 
 
+import lombok.AllArgsConstructor;
+
 /**
  * Paper类
  *
@@ -9,9 +11,9 @@ package com.topwordanalysis.databaseOperation.model;
  */
 
 
-
+@AllArgsConstructor
 public class Paper {
-    private String id;
+    private int id;
     private String title;
     private String link;
     private String paperAbstract;
@@ -19,11 +21,11 @@ public class Paper {
     private String type;
     private int year;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
