@@ -1,10 +1,10 @@
 <!--  -->
 <template>
-    <div class='list'>
-
+    <div class='tasks'>
+    
         <a-page-header
             class="header"
-            title="论文检索"
+            title="添加爬虫任务"
             :breadcrumb="{ props: { routes } }"
         >
             <div>
@@ -59,11 +59,40 @@
                         </div>
                     </div>
                     <div class="search_btn_container">
-                        <a-button type="primary">检索</a-button>
+                        <a-button type="primary">添加</a-button>
+                        <a-button type="link" @click="openImport">批量导入</a-button>
                     </div>
                 </div>
             </div>
         </a-page-header>
+
+        <a-modal 
+            v-model="showImport" 
+            title="批量导入"
+            :maskClosable="false"
+        >
+            <template slot="footer">
+                <a-button key="cancel" @click="handleCancel">
+                取 消
+                </a-button>
+                <a-button key="add" @click="handleAdd">
+                仅添加到列表
+                </a-button>
+                <a-button key="crawl" type="primary" @click="handleCrawl">
+                导入并爬取
+                </a-button>
+            </template>
+
+            <div class="import_inner">
+                <div class="upload_container">
+                    <span>论文表格：</span>
+                    <a-button class="upload_btn" icon="upload">上传表格</a-button>
+                </div>
+                <div class="upload_table">
+                    <a-table :columns="uploadColumn" :data-source="uploadData" size="small" :pagination="false" />
+                </div>
+            </div>
+        </a-modal>
 
         <a-layout-content
             :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }"
@@ -71,15 +100,8 @@
             <div class="table_container">
                 <div class="ops">
                     <div class="item_op">
+                        <a-button icon="cloud-download" type="primary">爬取</a-button>
                         <a-button class="delete_btn" icon="delete" type="danger">删除</a-button>
-                    </div>
-                    <div class="label">
-                        <a-radio-group v-model="label" @change="changeLabel">
-                            <a-radio-button value="total">全部</a-radio-button>
-                            <a-radio-button value="cvpr">CVPR</a-radio-button>
-                            <a-radio-button value="iccv">ICCV</a-radio-button>
-                            <a-radio-button value="eccv">ECCV</a-radio-button>
-                        </a-radio-group>
                     </div>
                 </div>
                 <div class="table">
@@ -98,12 +120,9 @@
                         <span slot="keywords" slot-scope="keywords">
                             <a-tag v-for="keyword in keywords" :key="keyword">{{keyword}}</a-tag>
                         </span>
-                        <span slot="meetings" slot-scope="meetings">
-                            <a-tag v-for="meet in meetings" :key="meet">{{meet}}</a-tag>
-                        </span>
                         <span slot="action">
                             <a>删除</a>
-                            <a :style="{ marginLeft: '12px' }">查看</a>
+                            <a :style="{ marginLeft: '12px' }">爬取</a>
                         </span>
 
                     </a-table>
@@ -116,17 +135,16 @@
 <script>
 
 export default {
-    name: 'List',
+    name: 'Tasks',
     components: {},
     data () {
         return {
             routes: [
                 {
                     path: 'index',
-                    breadcrumbName: '论文列表',
+                    breadcrumbName: '任务列表',
                 },
             ],
-            currentLabel: "total",
             columns: [
                 {
                     title: "论文名",
@@ -146,14 +164,7 @@ export default {
                     dataIndex: "keyword",
                     key: "keyword",
                     scopedSlots: { customRender: 'keywords' },
-                    width: "20%"
-                },
-                {
-                    title: "录取会议",
-                    dataIndex: "meeting",
-                    key: "meeting",
-                    scopedSlots: { customRender: 'meetings' },
-                    width: "15%"
+                    width: "25%"
                 },
                 {
                     title: '操作',
@@ -167,8 +178,9 @@ export default {
                 {
                     title: "test",
                     number: 123456,
-                    keyword: ['t','e','s'],
-                    meeting: ['CVPR','ICCV','ECCV'],
+                    keyword: ['t','e','s']
+
+
                 }
             ],
             uploadColumn: [
@@ -189,7 +201,7 @@ export default {
             selectedRowKeys: [],
             titleSelected: " ",
             titleInput: "",
-            label: "",
+            showImport: false,
         }
     },
     methods: {
@@ -207,13 +219,14 @@ export default {
         handleChange(value, option) {
             console.log(option);
         },
-        changeLabel() {
-
+        openImport() {
+            this.showImport = true;
         }
     }
 }
 </script>
 <style lang='scss' scoped>
+//@import url();
 .header {
     background-color: #fff;
     border: 1px solid #eeeeee;

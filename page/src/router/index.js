@@ -6,6 +6,7 @@ import Edit from '../views/Edit'
 import Analyze from '../views/Analyze'
 import Detail from '../views/Detail'
 import Related from '../views/Related'
+import Tasks from '../views/Tasks'
 
 Vue.use(VueRouter)
 
@@ -56,6 +57,14 @@ const routes = [
     component: Related,
     meta: {
       title: '相关论文'
+    }
+  },
+  {
+    path: '/tasks',
+    name: 'tasks',
+    component: Tasks,
+    meta: {
+      title: '爬虫任务'
     }
   },
 ]

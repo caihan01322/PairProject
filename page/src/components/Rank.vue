@@ -3,7 +3,7 @@
     <div class='rank'>
         <div class="tabs">
             <a-tabs default-active-key="1" @change="changeTab">
-                <a-tab-pane key="1" tab="Tab 1">
+                <a-tab-pane key="1" tab="CVPR">
                     <div class="title">
                         <h3>热门领域</h3>
                     </div>
@@ -11,7 +11,7 @@
                         <rank-table></rank-table>
                     </div>
                 </a-tab-pane>
-                <a-tab-pane key="2" tab="Tab 2" force-render>
+                <a-tab-pane key="2" tab="ICCV">
                     <div class="title">
                         <h3>热门领域</h3>
                     </div>
@@ -19,7 +19,7 @@
                         <rank-table></rank-table>
                     </div>
                 </a-tab-pane>
-                <a-tab-pane key="3" tab="Tab 3">
+                <a-tab-pane key="3" tab="ECCV">
                     <div class="title">
                         <h3>热门领域</h3>
                     </div>

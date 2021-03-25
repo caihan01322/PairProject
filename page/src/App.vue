@@ -4,6 +4,10 @@
       <a-layout-sider id="asider" v-model="collapsed" :trigger="null" collapsible>
         <div class="logo" />
         <a-menu mode="inline" :default-selected-keys="['index']" @click="route">
+          <a-menu-item key="tasks">
+            <a-icon type="global" />
+            <span>爬虫任务</span>
+          </a-menu-item>
           <a-menu-item key="index">
             <a-icon type="unordered-list" />
             <span>论文列表</span>
