@@ -10,8 +10,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class PageResponsesBody {
-    private int count;
+public class PageResponseBody {
     private int code;
+    private int count;
     private List<Paper> list = new ArrayList<>();
 }

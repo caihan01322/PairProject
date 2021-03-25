@@ -1,31 +1,16 @@
 package com.pairing.controller;
 
-import com.pairing.bean.City;
 import com.pairing.bean.User;
-import com.pairing.service.CityService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
 @Controller
 public class IndexController {
-
-    @Autowired
-    CityService cityService;
-
-    @ResponseBody
-    @GetMapping("/city")
-    public City getCityById(@RequestParam("id") Long id) {
-        return cityService.getById(id);
-    }
-
 
     /**
      * 返回登录页面

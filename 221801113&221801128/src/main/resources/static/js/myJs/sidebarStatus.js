@@ -1,4 +1,21 @@
 $(function(){
+    lockSearchBtn()
+    //不在搜索页不让搜索
+    function lockSearchBtn() {
+        if (location.pathname != "/main.html" && location.pathname != "/main" ) {
+            let isLock = $(".searchform button").attr("class");
+            isLock = (isLock.indexOf("disabled") == -1) ? false : true;
+            if (!isLock) {
+                $(".searchform button").addClass("disabled");
+            }
+        } else {
+            let isLock = $(".searchform button").attr("class");
+            isLock = (isLock.indexOf("disabled") == -1) ? false : true;
+            if (isLock) {
+                $(".searchform button").removeClass("disabled");
+            }
+        }
+    }
 
     //记录sidebar点击状态
     $(".parent-content").click(function (){
