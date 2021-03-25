@@ -10,6 +10,7 @@
     <result column="typeandyear" jdbcType="VARCHAR" property="typeandyear" />
     <result column="releasetime" jdbcType="VARCHAR" property="releasetime" />
     <result column="link" jdbcType="VARCHAR" property="link" />
+
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.geiyepa.demo.bean.paperWithBLOBs">
     <!--

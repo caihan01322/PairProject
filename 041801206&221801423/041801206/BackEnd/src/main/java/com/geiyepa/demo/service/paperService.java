@@ -6,7 +6,7 @@ import com.geiyepa.demo.mapper.paperMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Paper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,13 +72,13 @@ public class paperService implements paperMapper{
     }
 
     @Override
-    public List<Paper> selectLikeWord(String word) {
+    public List<paper> selectLikeWord(String word) {
 
         return paperMapper.selectLikeWord(word);
     }
 
     @Override
-    public Paper getPaper(Integer id) {
+    public paper getPaper(Integer id) {
         return null;
     }
 

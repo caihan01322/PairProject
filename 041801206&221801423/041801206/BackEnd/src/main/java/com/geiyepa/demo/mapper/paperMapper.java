@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
-import java.awt.print.Paper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,7 +73,7 @@ public interface paperMapper {
 
      通过关键词模糊搜索
      */
-    List<Paper> selectLikeWord(String word);
+    List<paper> selectLikeWord(String word);
 
-    Paper getPaper(@Param("id") Integer id);
+    paper getPaper(@Param("id") Integer id);
 }
