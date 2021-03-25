@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <title>编辑论文列表页面</title> 
+    <!-- <link rel="stylesheet" href="../../../application/index/view/style/editStyle.css"/> -->
+    <link rel="stylesheet" href="//unpkg.com/element-ui/lib/theme-chalk/index.css"/>
+    
+
+    <script src="//unpkg.com/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/element-ui/lib/index.js"></script>
+    
+</head>
+<body>
+    <div id = "app">
+        <el-container>
+            <el-header height = "100dp" style = >编辑论文列表页面</el-header>
+            
+        </el-container>
+    </div>
+    <div id = "searchBar"> 
+    <el-row>
+        <el-input  placeholder="请输入关键字"></el-input>
+        <el-button>搜索</el-button>
+    <el-row>
+    </div> 
+
+    <div id = "table">`
+        <template>
+            <el-table :data="tableData" border style = "width:100%">
+                <el-table-column fixed prop = "title" label="论文题目" ></el-table-column>
+                <el-table-column fixed prop = "abstract" label="论文摘要" ></el-table-column>
+                <el-table-column fixed prop = "keyword" label="论文关键词" ></el-table-column>
+                <el-table-column fixed prop = "url" label="论文链接" >
+                    <template slot-scope="scope">
+                        <span class="span-text" v-if="scope.row.url!== undefined && scope.row.url.length >=1">
+                            <a link :href="scope.row.url" target="_blank">点击查看原文</a>
+                        </span>
+                    </template>
+                </el-table-column>
+                <el-table-column fixed prop = "operation" label="操作" >
+                    <template slot-scope="scope">
+                        <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
+                        <el-button @click="handleClick(scope.row)" type="text" size="small">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </template>
+    </div>
+
+    <div id = "page">
+        <el-pagination
+          layout="prev, pager, next"
+          :total="50">
+        </el-pagination>
+    </div>
+
+    <script>
+        var Main = {
+            method:{
+                handlerClick(row){
+                    console.log(row)
+                }
+            },
+            data(){
+                return {
+                    tableData:[
+                        {
+                            title:"论文题目",
+                            abstract:"论文摘要",
+                            keyword:"论文关键词",
+                            url:"https://www.baidu.com/"
+                        },
+                        {
+                            title:"论文题目",
+                            abstract:"论文摘要",
+                            keyword:"论文关键词",
+                            url:"https://www.baidu.com/"
+                        },
+                        {
+                            title:"论文题目",
+                            abstract:"论文摘要",
+                            keyword:"论文关键词",
+                            url:"https://www.baidu.com/"
+                        },
+                        {
+                            title:"论文题目",
+                            abstract:"论文摘要",
+                            keyword:"论文关键词",
+                            url:"https://www.baidu.com/"
+                        },
+                        {
+                            title:"论文题目",
+                            abstract:"论文摘要",
+                            keyword:"论文关键词",
+                            url:"https://www.baidu.com/"
+                        },
+                    ]
+                }
+            }
+        }
+        var Ctor = Vue.extend(Main)
+        new Ctor().$mount('#table')
+        // new Vue().$mount('#app')
+        new Vue().$mount('#searchBar')
+        new Vue().$mount('#page')
+    </script>
+    
+</body>
+</html>
