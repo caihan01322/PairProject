@@ -22,4 +22,7 @@ class Index extends Controller
     public function test2(){
         return view();
     }
+    public function LoginInterface(){
+        return view();
+    }
 }
