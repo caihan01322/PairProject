@@ -75,11 +75,8 @@
                 <a-button key="cancel" @click="handleCancel">
                 取 消
                 </a-button>
-                <a-button key="add" @click="handleAdd">
-                仅添加到列表
-                </a-button>
                 <a-button key="crawl" type="primary" @click="handleCrawl">
-                导入并爬取
+                添 加
                 </a-button>
             </template>
 
@@ -94,13 +91,45 @@
             </div>
         </a-modal>
 
+        <a-modal 
+            v-model="showCrawl" 
+            title="论文爬取"
+            :maskClosable="false"
+            :closable="!crawling"
+        >
+            <template slot="footer">
+                <a-button key="close" :disabled="crawling" @click="crawlClose">
+                关闭
+                </a-button>
+                <a-button key="show" :disabled="crawling || !crawSuccess" type="primary" @click="crawlShow">
+                查看数据
+                </a-button>
+            </template>
+
+            <div class="crawl_inner">
+                <a-spin v-if="crawling" size="large" />
+                <a-result
+                    status="success"
+                    title="爬取已完成"
+                    sub-title="点击查看立即查看爬取结果"
+                    v-if="!crawling && crawSuccess"
+                ></a-result>
+                <a-result
+                    status="warning"
+                    title="爬取错误"
+                    sub-title="请尝试重新添加任务"
+                    v-if="!crawling && !crawSuccess"
+                ></a-result>
+            </div>
+        </a-modal>
+
         <a-layout-content
             :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }"
         >
             <div class="table_container">
                 <div class="ops">
                     <div class="item_op">
-                        <a-button icon="cloud-download" type="primary">爬取</a-button>
+                        <a-button icon="cloud-download" :disabled="selectedRowEmpty()" type="primary" @click="crawl">爬取</a-button>
                         <a-button class="delete_btn" icon="delete" type="danger">删除</a-button>
                     </div>
                 </div>
@@ -179,8 +208,26 @@ export default {
                     title: "test",
                     number: 123456,
                     keyword: ['t','e','s']
-
-
+                },
+                {
+                    title: "test",
+                    number: 123456,
+                    keyword: ['t','e','s']
+                },
+                {
+                    title: "test",
+                    number: 123456,
+                    keyword: ['t','e','s']
+                },
+                {
+                    title: "test",
+                    number: 123456,
+                    keyword: ['t','e','s']
+                },
+                {
+                    title: "test",
+                    number: 123456,
+                    keyword: ['t','e','s']
                 }
             ],
             uploadColumn: [
@@ -202,11 +249,14 @@ export default {
             titleSelected: " ",
             titleInput: "",
             showImport: false,
+            showCrawl: false,
+            crawling: true,
+            crawSuccess: false
         }
     },
     methods: {
         onSelectChange(selectedRowKeys) {
-            console.log('selectedRowKeys changed: ', selectedRowKeys);
+            // console.log('selectedRowKeys changed: ', selectedRowKeys);
             this.selectedRowKeys = selectedRowKeys;
         },
         requestList() {
@@ -221,8 +271,32 @@ export default {
         },
         openImport() {
             this.showImport = true;
+        },
+        crawl() {
+            this.showCrawl = true;
+            this.crawling = true;
+            let that = this;
+            setTimeout(()=>{
+                that.crawling = false;
+            },2000)
+        },
+        handleCrawl() {
+
+        },
+        crawlShow() {
+
+        },
+        crawlClose() {
+
+        },
+        handleCancel() {
+
+        },
+        selectedRowEmpty() {
+            // console.log(this.selectedRowKeys.length);
+            return this.selectedRowKeys.length==0;
         }
-    }
+    },
 }
 </script>
 <style lang='scss' scoped>
@@ -292,5 +366,12 @@ export default {
     .upload_table {
         margin-top: 12px;
     }
+}
+.crawl_inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 480px;
 }
 </style>
