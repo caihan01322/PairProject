@@ -1,7 +1,12 @@
 package com.practice.pairproject.pojo;
 
+import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.Serializable;
 
+@Slf4j
+@Builder
 public class Paper implements Serializable {
     private Integer pid;
 
@@ -9,15 +14,15 @@ public class Paper implements Serializable {
 
     private String year;
 
-    private String publicDate;
+    private String publicDate; //
 
-    private String title;
+    private String title; //
 
-    private String link;
+    private String link; //
 
     private String authors;
 
-    private String abstractContent;
+    private String abstractContent; //
 
     private static final long serialVersionUID = 1L;
 

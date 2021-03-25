@@ -33,11 +33,10 @@ spring:
     servlet:
       content-type: text/html
 
-  #    #。。。。
-  #    devtools:
-  #      restart:
-  #        # 热部署开关
-  #        enabled: true
+  devtools:
+    restart:
+      # 热部署开关
+      enabled: true
 
   #静态文件配置
   #  resources:
@@ -64,4 +63,4 @@ mybatis:
 #showSql ???
 logging:
   level:
-    com.practice.pair.pairproject.dao: debug
+    com.practice.pairproject.dao: debug
