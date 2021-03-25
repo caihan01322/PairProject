@@ -28,7 +28,10 @@
         from paper p
         left join paper_keyword pk on p.pid=pk.pid
         left join keyword k on pk.kid=k.kid
-        limit #{startIndex} , #{indexNum}
+    </select>
+
+    <select id="selectPaperListWithoutKeywords" resultType="paper">
+        select * from pair.paper
     </select>
 
     <select id="selectPaperByFuzzyMode" parameterType="map" resultMap="PaperKeyword">
@@ -45,7 +48,6 @@
             <if test="publicationYear!=NULL">AND publicationYear LIKE "%"#{publicationYear}"%"</if>
             <if test="keyword!=NULL">AND keyword LIKE "%"#{keyword}"%"</if>
         </where>
-        limit #{startIndex} , #{indexNum}
     </select>
 
     <select id="selectPaperByPreciseMode" parameterType="map" resultMap="PaperKeyword">
@@ -62,7 +64,6 @@
             <if test="publicationYear !=NULL">and publicationYear = #{publicationYear}</if>
             <if test="keyword !=NULL">and keyword = #{keyword}</if>
         </where>
-        limit #{startIndex} , #{indexNum}
     </select>
     <delete id="deletePaperByPid">
         delete from paper where pid=#{pid};
@@ -79,11 +80,18 @@
         left join paper_keyword pk on p.pid=pk.pid
         where pk.kid=#{kid} and
             pk.pid=p.pid and
-            (p.publicationYear=#{publicationYear1} or
-             p.publicationYear=#{publicationYear2} or
-             p.publicationYear=#{publicationYear3})
+            p.publicationYear=#{publicationYear}
     </select>
- 
+
+    <select id="getPapersByKeyword" resultMap="PaperKeyword" parameterType="String">
+        select p.pid pid,p.title ptitle,p.abs pabs,p.publisher ppublisher,
+        p.publicationYear pyear,p.doiLink plink,
+        k.kid kid,k.keyword kkey,k.publisher ppub,k.num pnum
+        from paper p
+        left join paper_keyword pk on p.pid=pk.pid
+        left join keyword k on pk.kid=k.kid
+        where k.keyword=#{keyword}
+    </select>
     
 
 </mapper>

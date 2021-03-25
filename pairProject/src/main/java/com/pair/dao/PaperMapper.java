@@ -4,6 +4,7 @@ import com.pair.pojo.Paper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,9 @@ import java.util.Map;
 public interface PaperMapper {
     public void insertPaper(Paper paper_sql);
 
-    public List<Paper> selectAllPapers(int startIndex,int indexNum);
+    public List<Paper> selectAllPapers();
+
+    public List<Paper> selectPaperListWithoutKeywords();
 
     public List<Paper> selectPaperByFuzzyMode(Map<String, Object> map);//模糊查询
 
@@ -24,4 +27,6 @@ public interface PaperMapper {
     public Paper getPapersByPid(String pid);
 
     public int getPaperNum(Map<String, String> map);
+
+    public List<Paper> getPapersByKeyword(String keyword);
 }

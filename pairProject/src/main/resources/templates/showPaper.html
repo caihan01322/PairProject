@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.min.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-table/bootstrap-table.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+
+</head>
+<body>
+
+
+<div class="container-fluid p-t-15" style="background: white">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <header class="card-header">
+                    <div class="callout callout-danger">
+                        论文
+                    </div>
+                </header>
+                <div class="card-body">
+                    <div id="toolbar" class="toolbar-btn-action" style="margin-bottom: 3%">
+                        <form th:action="@{/paperSelect}" method="post" role="form">
+                            <select name="selectMode" class="form-control">
+                                <option value="fuzzy">模糊</option>
+                                <option value="precise">精确</option>
+                            </select>
+                            <select name="selectTerm" class="form-control">
+                                <option value="title">标题</option>
+                                <option value="abs">摘要</option>
+                                <option value="publisher">会议名称</option>
+                                <option value="publicationYear">发布年份</option>
+                                <option value="keyword">关键词</option>
+                            </select>
+                            <input type="text" name="selectItem" class="form-control" rows="3" placeholder="请输入要搜索的内容"/>
+                            <input type="submit" class="btn btn-default" value="搜索"/>
+                        </form>
+                    </div>
+                    <table id="studentTable" class="table table-bordered table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>标题</th>
+                            <th>摘要</th>
+                            <th>会议名称</th>
+                            <th>发布年份</th>
+                            <th>关键词</th>
+                            <th>原文链接</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <div th:each="items : ${pageInfo.list}">
+                            <tr>
+                                <td th:text="${items.title}"></td>
+                                <td th:text="${items.abs}"></td>
+                                <td th:text="${items.publisher}"></td>
+                                <td th:text="${items.publicationYear}"></td>
+                                <td>
+                                    <div th:each="keyword : ${items.keywords}">
+                                        <div th:text="${keyword.keyword}"></div>
+                                    </div>
+                                </td>
+                                <td><a th:text="${items.doiLink}"></a></td>
+                                <td><a th:href="@{/deletePaper/}+${items.getPid()}">删除</a></td>
+                            </tr>
+                        </div>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="pager" style=" position:absolute; alignment: center">
+    <ul class="pagination" style="display: inline ;alignment: center" >
+        <li class="page-item" style="display: inline" th:if="${pageInfo.pageNum!=1}">
+            <a class="page-link" th:href="@{/paperList(pageNum=1)}">首页</a></li>
+        <li class="page-item" style="display: inline" th:if="${pageInfo.pageNum!=1}">
+            <a class="page-link" th:href="@{/paperList(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:${pageInfo.pages})}">上一页</a>
+        </li>
+        <li class="page-item" style="display: inline"><a class="page-link"><span th:text="第+${pageInfo.pageNum}+页"></span></a></li>
+        <li class="page-item" style="display: inline" th:if="${pageInfo.pageNum != pageInfo.pages}">
+            <a class="page-link" th:href="@{/paperList(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
+        </li>
+        <li class="page-item" style="display: inline" th:if="${pageInfo.pageNum != pageInfo.pages}">
+            <a class="page-link" th:href="@{/paperList(pageNum=${pageInfo.pages})}">尾页</a>
+        </li>
+    </ul>
+    <li class="page-item" ><a class="page-link"><span th:text="共+${pageInfo.pages}+页"></span></a></li>
+</div>
+
+</body>
+</html>

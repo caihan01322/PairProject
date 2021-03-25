@@ -19,12 +19,14 @@ public interface KeywordMapper {
 
     public int selectNum(String keyword, String publisher);
 
-    public List<String> getKeyWords();
+    public List<Keyword> getKeyWords();
 
     public List<String> getKid(String keyword);
 
     public void updateKeywordByPid(String pid);
 
     public List<Keyword> getTop10Keyword(String publisher);
+
+    public List<Keyword> getKeyWordsByPid(String pid);
 
 }
