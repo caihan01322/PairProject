@@ -1,24 +1,6 @@
 $(function(){
     let active = false;
 
-    //login
-    /*$('#login').click(() => {
-        $.ajax({
-            type: "GET",
-            contentType: "application/json;charset=UTF-8",
-            url: "/t1",
-            data: {},
-            success: function(res) {
-                console.log(res);
-            },
-            //请求失败，包含具体的错误信息
-            error: function(res){
-                console.log(res.status);
-                console.log(res.responseText);
-            }
-        });
-    })*/
-
     //toggle
     $(".sbutton").click(() => {
         $('input').val("");

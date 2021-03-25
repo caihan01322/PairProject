@@ -39,4 +39,31 @@ public class PaperListController {
         }
         return pageResponseBody;
     }
+
+    @GetMapping("/get_collect_paper")
+    @ResponseBody
+    public PageResponseBody getCollectPaper(@RequestParam(value = "searchInfo") String searchInfo
+            , @RequestParam(value = "pageNum", defaultValue = "0") int pageNum
+            , @RequestParam(value = "userName") String userName) {
+        PageResponseBody pageResponseBody = new PageResponseBody();
+        pageResponseBody.setCode(200);
+        for(Map.Entry<List<Paper>, Integer> vo
+                : paperService.getCollectPaper(searchInfo, pageNum, userName).entrySet()) {
+            pageResponseBody.setList(vo.getKey());
+            pageResponseBody.setCount(vo.getValue());
+        }
+        return pageResponseBody;
+    }
+
+    @GetMapping("/collect")
+    @ResponseBody
+    public String collectPaper(@RequestParam(value = "userName") String userName
+            , @RequestParam(value = "paperId") String paperId
+            , @RequestParam(value = "keywords") String keywords
+            , @RequestParam(value = "abstrac") String abstrac
+            , @RequestParam(value = "publicationTitle") String publicationTitle
+            , @RequestParam(value = "persistentLink") String persistentLink ) {
+        return paperService.insertPaperToCollection(userName, paperId, keywords, abstrac
+                , publicationTitle, persistentLink);
+    }
 }

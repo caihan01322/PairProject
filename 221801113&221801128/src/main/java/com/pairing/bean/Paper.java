@@ -13,4 +13,7 @@ public class Paper {
     private String authors;
     private String keywords;
     private String abstrac;
+    private String persistentLink;
+    private String publicationYear;
+    private String typepaper;
 }

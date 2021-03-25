@@ -2,7 +2,8 @@ $(function(){
     lockSearchBtn()
     //不在搜索页不让搜索
     function lockSearchBtn() {
-        if (location.pathname != "/main.html" && location.pathname != "/main" ) {
+        if (location.pathname != "/main.html" && location.pathname != "/main"
+            && location.pathname != "/paper_collect") {
             let isLock = $(".searchform button").attr("class");
             isLock = (isLock.indexOf("disabled") == -1) ? false : true;
             if (!isLock) {
