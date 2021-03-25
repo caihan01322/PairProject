@@ -27,4 +27,9 @@ public interface PaperMapper {
                                     @Param("start")Integer start,
                                     @Param("rows")Integer rows);
 
+    //根据作者查询论文
+    List<Paper> queryPaperByAuthor(@Param("author")String author,
+                                    @Param("start")Integer start,
+                                    @Param("rows")Integer rows);
+
 }

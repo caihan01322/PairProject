@@ -11,6 +11,7 @@ public interface PaperService {
     void uploadPaper(Paper paper);
     List<Paper> queryPaperByPage(Integer start,Integer rows);
     List<Paper> queryPaperByKeyword(String keyword,Integer start,Integer rows);
+    List<Paper> queryPaperByAuthor(String Author,Integer start,Integer rows);
 
 
 }

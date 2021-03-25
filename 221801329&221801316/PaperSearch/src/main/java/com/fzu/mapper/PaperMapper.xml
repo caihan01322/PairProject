@@ -21,7 +21,11 @@
         select author from paper_search.paper_author where paper_id=#{paperId}
     </select>
     <select id="queryPaperByKeyword" resultType="com.fzu.pojo.Paper">
-        select a.id,a.title,a.abstract_content,a.meet,a.year,a.link from paper a,paper_keyword b
+        select a.id,a.title,a.abstract_content as "abstractContent",a.meet,a.year,a.link from paper a,paper_keyword b
         where b.keyword like '%${keyword}%' and a.id=b.paper_id limit #{start},#{rows}
+    </select>
+    <select id="queryPaperByAuthor" resultType="com.fzu.pojo.Paper">
+        select a.id,a.title,a.abstract_content as "abstractContent",a.meet,a.year,a.link from paper a,paper_author b
+        where b.author like '%${author}%' and a.id=b.paper_id limit #{start},#{rows}
     </select>
 </mapper>

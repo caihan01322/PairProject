@@ -30,5 +30,13 @@ public class PaperController {
         return paperList;
     }
 
+    @ResponseBody
+    @RequestMapping("/queryByAuthor")
+    public List<Paper> queryByAuthor(){
+        List<Paper> paperList=paperService.queryPaperByAuthor("G.A. Giraldi",0,10);
+        return paperList;
+    }
+
+
 
 }

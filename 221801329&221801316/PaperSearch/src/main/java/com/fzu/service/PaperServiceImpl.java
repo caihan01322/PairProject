@@ -31,7 +31,7 @@ public class PaperServiceImpl implements PaperService {
 
     @Override
     public List<Paper> queryPaperByPage(Integer start, Integer rows) {
-        List<Paper> paperList=new ArrayList<>();
+        List<Paper> paperList;
         paperList=paperMapper.queryPaper(start,rows);
         for (Paper paper : paperList) {
             Integer paperId=paper.getId();
@@ -45,8 +45,22 @@ public class PaperServiceImpl implements PaperService {
 
     @Override
     public List<Paper> queryPaperByKeyword(String keyword, Integer start, Integer rows) {
-        List<Paper> paperList=new ArrayList<>();
+        List<Paper> paperList;
         paperList=paperMapper.queryPaperByKeyword(keyword,start,rows);
+        for (Paper paper : paperList) {
+            Integer paperId=paper.getId();
+            List<String> keywords=paperMapper.queryKeywords(paperId);
+            List<String> authors=paperMapper.queryAuthors(paperId);
+            paper.setKeywords(keywords);
+            paper.setAuthor(authors);
+        }
+        return paperList;
+    }
+
+    @Override
+    public List<Paper> queryPaperByAuthor(String author, Integer start, Integer rows) {
+        List<Paper> paperList;
+        paperList=paperMapper.queryPaperByAuthor(author,start,rows);
         for (Paper paper : paperList) {
             Integer paperId=paper.getId();
             List<String> keywords=paperMapper.queryKeywords(paperId);
