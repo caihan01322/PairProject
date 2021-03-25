@@ -17,14 +17,26 @@
             </div>
         </div>
 
-        <div class="line">
-            <div class="chart_container"></div>
+        <div class="line line2">
+            <div class="title">
+                <div class="search">
+                    <a-input placeholder="请输入想要查询的热词" v-model="searchKey" allow-clear @change="onInput" />
+                </div>
+                <div class="date">
+                    <a-month-picker placeholder="请选择开始月份" suffix-icon="起" @change="changeStartMonth" />
+                    <a-month-picker class="endMonthPicker" placeholder="请选择结束月份" suffix-icon="止" @change="changeEndMonth" />
+                </div>
+            </div>
+            <div class="chart_container block">
+                <line-chart></line-chart>
+            </div>
         </div>
         
     </div>
 </template>
 
 <script>
+import LineChart from '../components/LineChart.vue'
 import Rank from '../components/Rank.vue'
 
 import WordCloud from '../components/WordCloud.vue'
@@ -34,15 +46,22 @@ export default {
     components: {},
     data () {
         return {
-
+            searchKey: '',
         }
     },
     components: {
-        'word-cloud': WordCloud, 
-        Rank,
+        WordCloud, Rank, LineChart,
     },
     methods: {
+        oninput(value) {
+            console.log(value);
+        },
+        changeStartMonth() {
 
+        },
+        changeEndMonth() {
+
+        }
     }
 }
 </script>
@@ -50,6 +69,8 @@ export default {
 <style lang='scss' scoped>
 //@import url();
 .analyze {
+    display: flex;
+    flex-direction: column;
     padding: 24px 16px;
     box-sizing: border-box;
 }
@@ -83,4 +104,28 @@ export default {
         flex-grow: 1;
     }
 }
+
+.line2 {
+    display: flex;
+    flex-direction: column;
+    margin-top: 12px;
+    background-color: #fff;
+    .title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 60px;
+        width: 100%;
+        padding: 0 24px;
+        box-sizing: border-box;
+        border-bottom: 1px solid #eeeeee;
+        .endMonthPicker {
+            margin-left: 6px;
+        }
+    }
+    .chart_container {
+        width: 100%;
+    }
+}
+
 </style>
