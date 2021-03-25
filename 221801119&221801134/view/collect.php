@@ -71,7 +71,7 @@
 <div class="mainPaper2">
 		<div class="paper" style="marin:0 200px;padding-top:0;padding-bottom:0">
 		<ol class="breadcrumb hidden-xs-down" style="margin:0">
-            <li class="breadcrumb-item active">论文收藏列表</li>
+            <li class="breadcrumb-item active">收藏列表</li>
             <li class="breadcrumb-item active" style="float:right">共 <span id="resultNum"></span> 个收藏</li>
         </ol>
 		</div>
