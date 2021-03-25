@@ -1,8 +1,11 @@
 package com.pairing.controller;
 
 import com.pairing.bean.HotWord;
+import com.pairing.bean.NameAndYear;
+import com.pairing.bean.Worditem;
 import com.pairing.service.HotwordService;
 import com.pairing.service.HotwordService;
+import com.pairing.service.TrendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +29,7 @@ public class HotwordController {
         return "/paperAnalyze/trend_compare";
     }
 
-//    @GetMapping("/hot_areas.html")
-//    public String main(){
-//        return "hot_areas";
-//    }
+
 
 
     @GetMapping("/hot")
@@ -92,11 +92,66 @@ public class HotwordController {
 
     //part2走势对比
 
-//    @GetMapping("/json1")
-//    @ResponseBody
-//    public List<Worditem> getfirstjson(){
-//
-//    }
+    @Autowired
+    TrendService trendService;
+
+    @GetMapping("/json1")
+    @ResponseBody
+    public List<Worditem> getfirstjson(){
+        List<Worditem>json11 = new ArrayList<>();
+        List<List<String>> json1 = new ArrayList<>();
+        List<String> code = new ArrayList<>();
+        List<String> emoji = new ArrayList<>();
+        List<String> unicode = new ArrayList<>();
+        List<String> title = new ArrayList<>();
+        List<String> dialCode = new ArrayList<>();
+        List<String> keywords = new ArrayList<>();
+        List<String> name = new ArrayList<>();
+        HashMap<String,Integer> hashMap = new HashMap<String,Integer>();
+        List<String> publicationYear = new ArrayList<>();
+        List<NameAndYear> keyandyear = new ArrayList<>();
+        keyandyear = trendService.getYear();
+        //添加两个key和year
+        for (int i = 0;i<keyandyear.size();i++){
+            String key = keyandyear.get(i).getKeywords();
+            String year = keyandyear.get(i).getPublicationYear();
+            keywords.add(key);//在这里添加第二个json!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            publicationYear.add(year);
+        }
+        //取到每个词
+        String a = new String();
+        String str = new String();
+        for (int q = 0; q < keywords.size(); q++) {
+            a = keywords.get(q);//String
+            if(a==null){
+                break;
+            }
+            str = a.replace("\"", "");
+
+            String[] chars = new String[2000];
+            chars = str.split(",");
+
+            for (int j = 0; j < chars.length; j++) {
+                if(hashMap.containsKey(chars[j])){
+                    hashMap.put(chars[j],hashMap.get(chars[j])+1);
+                }
+                else {
+                    hashMap.put(chars[j],1);
+                }
+            }
+        }
+        String strr = new String();
+        for(Map.Entry<String, Integer> entry : hashMap.entrySet()){
+            strr = entry.getKey();
+            name.add(strr);
+        }
+        for(int i = 0;i<name.size();i++){
+            Worditem w = new Worditem("","","",name.get(i),"","");
+            json11.add(w);
+        }
+        return json11;//可以输出
+
+    }
 
 
 
