@@ -1,13 +1,13 @@
 module.exports = {
 
-    // devServer: {
-    //     proxy: {
-    //         '': {
-    //             target: '',
-    //             changeOrigin: true,
-    //         },
-    //     },
-    // },
+    devServer: {
+        proxy: {
+            '': {
+                target: 'http://47.98.191.214/api/pages/',
+                changeOrigin: true,
+            },
+        },
+    },
 
     // publicPath: '',
 

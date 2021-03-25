@@ -62,7 +62,7 @@
                         <i
                             class="iconfont icon-delete"
                             title="删除"
-                            @click="go_delete"
+                            @click="go_delete(scope.row.isbn)"
                         ></i>
                     </template>
                 </el-table-column>
@@ -88,54 +88,13 @@ export default {
     data() {
         return {
             now_page: 1,
-            total_page: 4,
+            total_page: 1,
             isShowPre: true,
             isShowNext: true,
             page_isbn: "",
             page_name: "",
             page_tag: "",
-            page_data: [
-                {
-                    isbn: "19398261",
-                    name:
-                        "FaceForensics++: Learning to Detect Manipulated Facial Images",
-                    tag:
-                        "facial manipulation detection,Deep-Fakes,Face2Face,facial manipulations,random compression level,forgery datasets",
-                },
-                {
-                    isbn: "19398261",
-                    name:
-                        "FaceForensics++: Learning to Detect Manipulated Facial Images",
-                    tag:
-                        "facial manipulation detection,Deep-Fakes,Face2Face,facial manipulations,random compression level,forgery datasets",
-                },
-                {
-                    isbn: "19398261",
-                    name:
-                        "FaceForensics++: Learning to Detect Manipulated Facial Images",
-                    tag:
-                        "facial manipulation detection,Deep-Fakes,Face2Face,facial manipulations,random compression level,forgery datasets",
-                },
-                {
-                    isbn: "19398261",
-                    name:
-                        "FaceForensics++: Learning to Detect Manipulated Facial Images",
-                    tag:
-                        "facial manipulation detection,Deep-Fakes,Face2Face,facial manipulations,random compression level,forgery datasets",
-                },
-                {
-                    isbn: "19398261",
-                    name:
-                        "FaceForensics++: Learning to Detect Manipulated Facial Images",
-                    tag:
-                        "facial manipulation detection,Deep-Fakes,Face2Face,facial manipulations,random compression level,forgery datasets",
-                },
-                {
-                    isbn: "2016-05-03",
-                    name: "王小虎",
-                    tag: "上海市普陀区金沙江路 1516 弄",
-                },
-            ],
+            page_data: [],
         };
     },
 
@@ -145,12 +104,7 @@ export default {
             this.search_page();
             localStorage.removeItem("tag");
         } else {
-            this.$axios({
-                method: "get",
-                url: "",
-            }).then((re) => {
-                console.log(re);
-            });
+             this.show_page();
         }
     },
 
@@ -181,21 +135,7 @@ export default {
             //     target = target.parentNode;
             // }
             // target.blur();
-            let data = {
-                isbn: this.page_isbn,
-                title: this.page_name,
-                tag: this.page_tag,
-            };
-
-            this.$axios({
-                method: "post",
-                url: "",
-                data: data,
-            }).then((re) => {
-                console.log(re);
-            });
-
-            console.log("yeah!!");
+             this.show_page();
         },
 
         go_detail(isbn) {
@@ -208,7 +148,7 @@ export default {
             this.$router.push({ name: "editpage", params: { isbn } });
         },
 
-        go_delete() {
+        go_delete(isbn) {
             this.$confirm("是否删除该条论文记录?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
@@ -216,7 +156,7 @@ export default {
             }).then(() => {
                 this.$axios({
                     method: "delete",
-                    url: ``,
+                    url: `/page/${isbn}`,
                 }).then((re) => {
                     if (re.data.error == 0) {
                         this.$message({
@@ -237,12 +177,7 @@ export default {
 
             this.now_page--;
 
-            this.$axios({
-                method: "get",
-                url: ``,
-            }).then((re) => {
-                console.log(re);
-            });
+             this.show_page();
         },
 
         go_next(e) {
@@ -254,11 +189,27 @@ export default {
 
             this.now_page++;
 
+            this.show_page();
+        },
+
+        show_page() {
+            let data = {
+                isbn: this.page_isbn,
+                title: this.page_name,
+                tag: this.page_tag,
+            };
+
             this.$axios({
-                method: "get",
-                url: ``,
+                method: "post",
+                url: `/page/search/${this.now_page}`,
+                data: data,
             }).then((re) => {
-                console.log(re);
+                // console.log(re);
+                if (re.data.error == 0) {
+                    let { result } = re.data.result;
+                    this.page_data = result.pages;
+                    this.total_page = result.total_num;
+                }
             });
         },
     },
