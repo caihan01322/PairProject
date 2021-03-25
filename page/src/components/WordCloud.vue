@@ -71,7 +71,7 @@ export default {
         dv.transform({
             type: 'tag-cloud',
             fields: ['x', 'value'],
-            size: [600, 500],
+            size: [500, 400],
             font: 'Verdana',
             padding: 0,
             timeInterval: 5000, // max execute time
@@ -92,8 +92,8 @@ export default {
         const chart = new Chart({
             container: 'wordCloud',
             autoFit: false,
-            width: 600,
-            height: 500,
+            width: 500,
+            height: 400,
             padding: 0
         });
         chart.data(dv.rows);
@@ -122,7 +122,7 @@ export default {
 <style lang='scss' scoped>
 //@import url();
 #wordCloud {
-    width: 600px;
-    height: 500px;
+    width: 500px;
+    height: 400px;
 }
 </style>
