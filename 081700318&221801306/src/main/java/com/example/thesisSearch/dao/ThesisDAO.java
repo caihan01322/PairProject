@@ -8,18 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ThesisDAO {
-    public Thesis getBytitle(String title)
+    public int getNumBytitle(String title)
     {
-        Thesis result=null;
+        int result=0;
         try {
             Connection ThesisConnection =DBUtil.getConnection();
             Statement ThesisStatement = ThesisConnection.createStatement();
-            String sql = "select * from Thesis where title like ?";
+            String sql = "select count(*) from Thesis where title like ?";
             PreparedStatement Ptmt = ThesisConnection.prepareStatement(sql);
             Ptmt.setString(1, "%" + title + "%");
             ResultSet Rs = Ptmt.executeQuery();
             if(Rs.next()) {
-                result=setThesis(Rs);
+                result=Rs.getInt(1);
             }
             DBUtil.close(Rs,ThesisStatement,ThesisConnection);
 
@@ -29,7 +29,6 @@ public class ThesisDAO {
         return  result;
 
     }
-
     public List<Thesis> getAllBytitle(String title)
     {
         List<Thesis> results=new ArrayList<>();
@@ -84,7 +83,6 @@ public class ThesisDAO {
         }
         return results;
     }
-
     public Thesis  setThesis(ResultSet Rs )
     {
         Thesis result=new Thesis();
@@ -100,5 +98,26 @@ public class ThesisDAO {
             throwables.printStackTrace();
         }
         return result;
+    }
+
+    public List<Thesis> getAllByAbstract(String key)
+    {
+        List<Thesis> results=new ArrayList<>();
+        Connection ThesisConnection = null;
+        try {
+            ThesisConnection = DBUtil.getConnection();
+            Statement ThesisStatement = ThesisConnection.createStatement();
+            String sql = "select * from Thesis where abstract like ?";
+            PreparedStatement Ptmt = ThesisConnection.prepareStatement(sql);
+            Ptmt.setString(1, "%" + key + "%");
+            ResultSet Rs = Ptmt.executeQuery();
+            while (Rs.next()) {
+                results.add(setThesis(Rs));
+            }
+            DBUtil.close(Rs,ThesisStatement,ThesisConnection);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return results;
     }
 }

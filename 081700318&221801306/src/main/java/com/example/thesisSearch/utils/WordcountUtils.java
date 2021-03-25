@@ -14,8 +14,8 @@ public class WordcountUtils {
         try {
             Connection ThesisConnection =DBUtil.getConnection();
             Statement ThesisStatement = ThesisConnection.createStatement();
-            String SelectSql = "select keyword,thesisyear,meeting from Thesis ";
-            String InsertSql = "insert into Keywords(keyword,nums,thesisyear,meeting) value(?,1,?,?) on duplicate key update nums=nums+1 ";
+            String SelectSql = "select keyword,thesisyear,meeting,id from Thesis ";
+            String InsertSql = "insert into Keywords(keyword,ThesisID,thesisyear,meeting) value(?,?,?,?)  ";
             //预编译
             PreparedStatement Ptmt = ThesisConnection.prepareStatement(SelectSql);
             ResultSet Rs = Ptmt.executeQuery();
@@ -24,14 +24,16 @@ public class WordcountUtils {
                 String TempString=Rs.getString("keyword");
                 Integer TempYear=Rs.getInt("thesisyear");
                 String TempMeeting=Rs.getString("meeting");
+                int TempId= Rs.getInt("id");
 
                 JSONArray TheKeyWord = JSONArray.parseArray(TempString);
                 for(int i=0;i<TheKeyWord.size();i++)
                 {
                     System.out.println(TheKeyWord.get(i));
                     Ptmt.setString(1,TheKeyWord.get(i).toString());
-                    Ptmt.setInt(2,TempYear);
-                    Ptmt.setString(3,TempMeeting);
+                    Ptmt.setInt(2,TempId);
+                    Ptmt.setInt(3,TempYear);
+                    Ptmt.setString(4,TempMeeting);
                     Ptmt.execute();
                 }
 

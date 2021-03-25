@@ -4,7 +4,7 @@
 
 .main {
   margin: auto auto;
-  width: 500px;
+  width: auto;
   height: auto;
   text-align: center;
 }
@@ -12,8 +12,25 @@
 .search-title {
   font-size: 75px;
   text-align: center;
-  margin-top: 40%;
+  margin-top: 10%;
 }
 .search-bar {
   margin-top: 50px;
+}
+.thesis-content {
+  text-align: left;
+  text-indent: 2em;
+}
+.thesis-star {
+  text-align: right;
+  display: inline-block;
+  float: right;
+}
+.thesis-link {
+}
+.thesis-select {
+  width: fit-content;
+}
+.thesis-input {
+  width: 66%;
 }
