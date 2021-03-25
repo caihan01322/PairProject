@@ -1,17 +1,13 @@
 # -*- coding: utf-8 -*-
 import json
 import os
-import pymysql
+from config import *
+
 
 # 论文json所在的文件夹路径
 CVPR_PATH = "C:/Users/MI/Desktop/论文数据/CVPR"
 ECCV_PATH = "C:/Users/MI/Desktop/论文数据/ECCV"
 ICCV_PATH = "C:/Users/MI/Desktop/论文数据/ICCV"
-
-# 连接数据库
-db = pymysql.connect(host="localhost", user="root",
-                     password="123456", database="articles")
-cursor = db.cursor()
 
 
 def deal_data(path):
@@ -66,12 +62,9 @@ def data_insert(meeting, context):
     """
     global SKIP
 
-    insert_article = "insert into article values (%s,%s,%s,%s,%s);"
-    insert_keywords = "insert into keywords values (%s,%s);"
-
     try:
-        article_info = ((meeting, context["title"], context["publicationYear"],
-                         context["abstract"], context["doiLink"]))
+        article_info = Articles(meeting=meeting, title=context["title"], publicationYear=context["publicationYear"],
+                                abstract=context["abstract"], doiLink=context["doiLink"])
         keywords = context["keywords"][0]["kwd"]     # 选择IEEE Keywords
     # 记录跳过的论文
     except KeyError as e:
@@ -79,12 +72,15 @@ def data_insert(meeting, context):
         SKIP += 1
     else:
         # json数据没有缺失时，插入数据库
-        cursor.execute(insert_article, article_info)
-        for kwd in keywords:
-            info = ((context["title"], kwd))
-            cursor.execute(insert_keywords, info)
+        try:
+            db.session.add(article_info)
 
-        db.commit()
+            for kwd in keywords:
+                title_keyword = Keywords(title=context["title"], keyword=kwd)
+                db.session.add(title_keyword)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
 
 
 def eccv_data_insert(context):
@@ -98,16 +94,14 @@ def eccv_data_insert(context):
         context: 爬取到的json内容
     """
     global SKIP
-    insert_article = "insert into article values (%s,%s,%s,%s,%s);"
-    insert_keywords = "insert into keywords values (%s,%s);"
 
     try:
         meet_year = context["会议和年份"].split()
         meeting = meet_year[0]
         year = meet_year[1]
 
-        article_info = (
-            (meeting, context["论文名称"], year, context["摘要"], context["原文链接"]))
+        article_info = Articles(
+            meeting=meeting, title=context["论文名称"], publicationYear=year, abstract=context["摘要"], doiLink=context["原文链接"])
         keywords = context["关键词"]
     # 记录跳过的论文
     except KeyError as e:
@@ -115,12 +109,15 @@ def eccv_data_insert(context):
         SKIP += 1
     else:
         # json数据没有缺失时，插入数据库
-        cursor.execute(insert_article, article_info)
-        for kwd in keywords:
-            info = ((context["论文名称"], kwd))
-            cursor.execute(insert_keywords, info)
+        try:
+            db.session.add(article_info)
 
-        db.commit()
+            for kwd in keywords:
+                title_keyword = Keywords(title=context["论文名称"], keyword=kwd)
+                db.session.add(title_keyword)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
 
 
 if __name__ == "__main__":

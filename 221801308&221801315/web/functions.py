@@ -1,4 +1,4 @@
-from app import cursor
+from config import *
 
 
 def combine_keywords_and_articles(articles):
@@ -16,15 +16,14 @@ def combine_keywords_and_articles(articles):
     for article in articles:
         # 提取每篇论文的关键词组
         keywords = []
-        cursor.execute(
-            "select keyword from keywords where title=%s", article[1])
-        keyword_list = cursor.fetchall()
+        keyword_list = Keywords.query.filter(
+            Keywords.title == article.title).all()
         if keyword_list is not None:
             for keyword in keyword_list:
-                keywords.append(keyword[0])
+                keywords.append(keyword.keyword)
 
-        content = {"meeting": article[0], "title": article[1], "year": article[2],
-                   "keywords": keywords, "abstract": article[3],
-                   "doiLink": article[4]}
+        content = {"meeting": article.meeting, "title": article.title, "year": article.publicationYear,
+                   "keywords": keywords, "abstract": article.abstract,
+                   "doiLink": article.doiLink}
         data.append(content)
     return data

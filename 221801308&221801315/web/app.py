@@ -1,17 +1,6 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, jsonify, render_template, request
-import pymysql
+from config import *
 from functions import *
-
-
-# 获取后端实例
-app = Flask(__name__)
-
-
-# 链接数据库
-db = pymysql.connect(host="localhost", user="root",
-                     password="123456", database="articles")
-cursor = db.cursor()
 
 
 @app.route("/")
@@ -44,9 +33,7 @@ def search_by_title():
         return jsonify(code=1, message="没有输入title", data=None)
     title = title.lower()
 
-    cursor.execute(
-        f"select * from article where lower(title) like '%{title}%'")
-    articles = cursor.fetchall()
+    articles = Articles.query.filter(Articles.title.ilike("%"+title+"%")).all()
     if articles is None:
         return jsonify(code=-1, message="没有查询到数据", data=None)
 
@@ -79,19 +66,17 @@ def search_by_keyword():
 
     article_title = set()
     for key in keywords:
-        cursor.execute(
-            f"select title from keywords where lower(keyword) like '%{key}%'")
-        titles = cursor.fetchall()
-        if titles is None:
+        tuples = Keywords.query.filter(
+            Keywords.keyword.ilike("%"+key+"%")).all()
+        if tuples is None:
             return jsonify(code=-1, message="没有查询到数据", data=None)
         # 避免查询重复的论文标题
-        for title in titles:
-            article_title.add(title[0])
+        for t in tuples:
+            article_title.add(t.title)
 
         articles = []
         for title in article_title:
-            cursor.execute("select * from article where title=%s", title)
-            for article in cursor.fetchall():
+            for article in Articles.query.filter(Articles.title == title).all():
                 articles.append(article)
 
         data = combine_keywords_and_articles(articles)
