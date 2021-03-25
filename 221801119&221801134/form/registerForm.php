@@ -1,3 +1,7 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"> 
+</head>
 <?php
 header("Content-type: text/html; charset=utf-8");
 $username = preg_replace("/\s|　/", "", $_POST['name']);
