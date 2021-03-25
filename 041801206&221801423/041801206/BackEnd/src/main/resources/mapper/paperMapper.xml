@@ -47,8 +47,14 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <select id="selectLikeWord" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
-    select * from paper like title=#{word,jdbcType=VARCHAR}
+  <select id="getPaper" parameterType="java.lang.Integer" resultType="Paper">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM paper WHERE id = #{id}
+  </select>
+
+  <select id="selectLikeWord" parameterType="java.lang.String" resultType="com.geiyepa.demo.bean.paper">
+    select * from paper where title like #{word,jdbcType=VARCHAR}
 
   </select>
 

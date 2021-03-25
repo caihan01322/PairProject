@@ -1,5 +1,8 @@
 package com.geiyepa.demo.bean;
 
+import org.springframework.context.annotation.Bean;
+
+
 public class paper {
     /**
      *
@@ -8,6 +11,7 @@ public class paper {
      *
      * @mbg.generated
      */
+
     private Integer id;
 
     /**

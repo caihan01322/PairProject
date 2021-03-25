@@ -3,6 +3,7 @@ package com.geiyepa.demo.mapper;
 import com.geiyepa.demo.bean.paper;
 import com.geiyepa.demo.bean.paperWithBLOBs;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.awt.print.Paper;
@@ -72,5 +73,7 @@ public interface paperMapper {
 
      通过关键词模糊搜索
      */
-    ArrayList<Paper> selectLikeWord(String word);
+    List<Paper> selectLikeWord(String word);
+
+    Paper getPaper(@Param("id") Integer id);
 }
