@@ -18,7 +18,7 @@
 ### 请求参数
 |参数|必选|类型|说明|
 |-----  |-------|-----|----- |
-|title   |ture    |string|请求检索的论文部分标题名（大小写均可）     
+|title   |true    |string|请求检索的论文部分标题名，大小写均可
 
 ### 返回字段
 |返回字段|字段类型|说明                              |
@@ -61,6 +61,68 @@
       "title": "A batch/recursive algorithm for 3D scene reconstruction", 
       "year": "2000"
     },
+    ...
+  ],  
+  "message": "查询成功"
+}
+```
+
+## 根据论文关键词检索论文：search_by_keyword
+### 接口功能
+> 根据论文关键词在论文列表**模糊**检索，可同时输入多个关键字，将返回查询结果的并集
+
+### URL
+> [http://127.0.0.1:8080/a/search_by_keyword](http://127.0.0.1:8080/a/search_by_keyword)
+
+### 支持格式
+> JSON
+
+### HTTP请求方式
+> GET
+
+### 请求参数
+|参数|必选|类型|说明|
+|-----  |-------|-----|----- |
+|keyword   |ture    |string|请求检索的关键词，多个关键词用 **英文逗号（,）** 分割，大小写均可
+
+### 返回字段
+|返回字段|字段类型|说明                              |
+|:-----   |:------|:-----------------------------   |
+|code   |int    |返回结果代码。0：正常；-1：错误；1：没有输入  |
+|message   |string    |返回信息的解释  |
+|data   |json    |返回查询结果 |
+#### data
+|返回字段|字段类型|说明                              |
+|:-----   |:------|:-----------------------------   |
+|meeting  |string |所属会议名                      |
+|title |string |论文完整标题                        |
+|year |string |出版年份                     |
+|keywords |string[] |IEEE关键词                 |
+|abstract |string |摘要                        |
+|doiLink |url |原文链接                        |
+
+### 接口示例
+> 地址：[http://127.0.0.1:5000/a/search_by_keyword?keyword=Bismuth,target%20tracking](http://127.0.0.1:5000/a/search_by_keyword?keyword=Bismuth,target%20tracking)
+``` javascript
+{
+  "code": 0, 
+  "data": [
+    {
+      "abstract": ..., 
+      "doiLink": "https://doi.org/10.1109/CVPRW.2011.5981785", 
+      "keywords": [
+        "Harmonic analysis", 
+        "Cameras", 
+        "Humans", 
+        "Transmission line matrix methods", 
+        "Transforms", 
+        "Materials", 
+        "Bismuth"
+      ], 
+      "meeting": "CVPR", 
+      "title": "Viewpoint invariants from three-dimensional data: The role of reflection in human activity understanding", 
+      "year": "2011"
+    }, ,
     ...
   ],  
   "message": "查询成功"
