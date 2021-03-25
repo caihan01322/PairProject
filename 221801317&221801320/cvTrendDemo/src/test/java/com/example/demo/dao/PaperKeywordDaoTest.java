@@ -22,7 +22,7 @@ public class PaperKeywordDaoTest {
     @Test
     public void testgetHotWordResentYear(){
         Calendar cur = Calendar.getInstance();
-        List<Keyword> hotWordResentYear = paperKeywordDao.getOrderedWord(cur.get(Calendar.YEAR),cur.get(Calendar.YEAR)+5,10);
+        List<Keyword> hotWordResentYear = paperKeywordDao.getOrderedWord(cur.get(Calendar.YEAR)-5,cur.get(Calendar.YEAR),10,null);
         //List<Keyword> hotWordResentYear = paperKeywordDao.getOrderedWord(10);
         hotWordResentYear.stream().forEach(keyword -> {
             System.out.println(keyword.getKeyword()+": "+keyword.getFrequency());
@@ -32,22 +32,33 @@ public class PaperKeywordDaoTest {
     @Test
     public void testGetWordTread(){
         Calendar cur = Calendar.getInstance();
-        List<Keyword> hotWordResentYear = paperKeywordDao.getOrderedWord(cur.get(Calendar.YEAR),cur.get(Calendar.YEAR)+5,10);
+        List<Keyword> hotWordResentYear = paperKeywordDao.getOrderedWord(cur.get(Calendar.YEAR)-5,cur.get(Calendar.YEAR),10,null);
         //List<Keyword> hotWordResentYear = paperKeywordDao.getOrderedWord(10);
         Keyword keyword = hotWordResentYear.get(5);
-        List<Keyword> wordTrend = paperKeywordDao.getWordTrend(keyword.getKeyword());
+        List<Keyword> wordTrend = paperKeywordDao.getWordTrend(keyword.getKeyword(),null);
         wordTrend.stream().forEach(keyword1 -> {
             System.out.println(keyword1.getKeyword()+"--"+keyword1.getYear()+"--"+keyword1.getFrequency());
         });
     }
 
+    @Test
+    public void testGetWordTread_CVPR(){
+        Calendar cur = Calendar.getInstance();
+        List<Keyword> hotWordResentYear = paperKeywordDao.getOrderedWord(cur.get(Calendar.YEAR)-5,cur.get(Calendar.YEAR),10,"CVPR");
+        //List<Keyword> hotWordResentYear = paperKeywordDao.getOrderedWord(10);
+        Keyword keyword = hotWordResentYear.get(5);
+        List<Keyword> wordTrend = paperKeywordDao.getWordTrend(keyword.getKeyword(),"CVPR");
+        wordTrend.stream().forEach(keyword1 -> {
+            System.out.println(keyword1.getKeyword()+"--"+keyword1.getYear()+"--"+keyword1.getFrequency());
+        });
+    }
     /**
      * 通过关键词搜索相关的paper
      */
     @Test
     public void testGetPaperByWord() {
         Calendar cur = Calendar.getInstance();
-        List<Keyword> hotWordResentYear = paperKeywordDao.getOrderedWord(cur.get(Calendar.YEAR),cur.get(Calendar.YEAR)+5,10);
+        List<Keyword> hotWordResentYear = paperKeywordDao.getOrderedWord(cur.get(Calendar.YEAR)-5,cur.get(Calendar.YEAR),10,null);
         //List<Keyword> hotWordResentYear = paperKeywordDao.getOrderedWord(10);
         Keyword keyword = hotWordResentYear.get(5);
         List<Paper> papers = paperKeywordDao.getPaperByKeyword(keyword.getKeyword());
@@ -56,11 +67,21 @@ public class PaperKeywordDaoTest {
         });
     }
 
+    @Test
+    public void testGetPaperNumByWord() {
+        Calendar cur = Calendar.getInstance();
+        List<Keyword> hotWordResentYear = paperKeywordDao.getOrderedWord(cur.get(Calendar.YEAR)-5,cur.get(Calendar.YEAR),10,null);
+        //List<Keyword> hotWordResentYear = paperKeywordDao.getOrderedWord(10);
+        Keyword keyword = hotWordResentYear.get(5);
+        int num = paperKeywordDao.getPaperNumByKeyword(keyword);
+        System.out.println(num);
+    }
+
     //通过paperID搜索相关的关键词
     @Test
     public void testGetWordByPaperID() {
         Calendar cur = Calendar.getInstance();
-        List<Keyword> hotWordResentYear = paperKeywordDao.getOrderedWord(cur.get(Calendar.YEAR),cur.get(Calendar.YEAR)+5,10);
+        List<Keyword> hotWordResentYear = paperKeywordDao.getOrderedWord(cur.get(Calendar.YEAR)-5,cur.get(Calendar.YEAR),10,null);
         //List<Keyword> hotWordResentYear = paperKeywordDao.getOrderedWord(10);
         Keyword keyword = hotWordResentYear.get(5);
         List<Paper> papers = paperKeywordDao.getPaperByKeyword(keyword.getKeyword());

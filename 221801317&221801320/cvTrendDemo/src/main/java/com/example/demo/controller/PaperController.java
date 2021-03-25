@@ -18,4 +18,9 @@ public class PaperController {
     public List<Paper> queryByKeyword(String keyword){
         return paperService.queryByKeyword(keyword);
     }
+
+    @RequestMapping("/paper/delete")
+    public void deleteByPaperID(int paperID){
+        paperService.deletePaperByID(paperID);
+    }
 }

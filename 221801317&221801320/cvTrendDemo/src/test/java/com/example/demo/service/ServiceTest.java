@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.pojo.Keyword;
 import com.example.demo.pojo.PaperKeyword;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,47 +49,86 @@ public class ServiceTest {
     public void testDel(){
         paperService.deletePaperByID(getPaperInstance(1).getPaperID());
     }
+
     @Test
-    public void testHotWord(){
-        testAdd();
+    public void testHotWord(){//五年来的热词列表
+//        testAdd();
         paperKeywordService.getHotWordResentYear().forEach(k->{
             System.out.println(k.getKeyword()+":"+k.getFrequency());
         });
-        testDel();
+        System.out.println("cvpr-------------------------");
+        paperKeywordService.getHotWordResentYear("cvpr").forEach(k->{
+            System.out.println(k.getKeyword()+":"+k.getFrequency());
+        });
+//        testDel();
     }
 
     @Test
-    public void testWordTrend(){
+    public void testWordTrend(){//某个词的趋势
         paperKeywordService.getWordTrend("Partitioning").forEach(k->{
             System.out.println(k.getKeyword()+":"+k.getYear()+":"+k.getFrequency());
         });
+        System.out.println("cvpr-------------------------");
+        paperKeywordService.getWordTrend("Partitioning","cvpr").forEach(k->{
+            System.out.println(k.getKeyword()+":"+k.getYear()+":"+k.getFrequency());
+        });
+
     }
     @Test
-    public void testWordTrend_recent(){
+    public void testWordTrend_recent(){//某个词的趋势map，近五年 空的补0
         String keyword = "Partitioning";
         paperKeywordService.getWordTrendRecent(keyword)
                 .entrySet()
                 .forEach(stringLongEntry -> {
                     System.out.println(keyword+":"+stringLongEntry.getKey()+":"+stringLongEntry.getValue());
                 });
+
+        System.out.println("cvpr-------------------------");
+        paperKeywordService.getWordTrendRecent(keyword,"cvpr")
+                .entrySet()
+                .forEach(stringLongEntry -> {
+                    System.out.println(keyword+":"+stringLongEntry.getKey()+":"+stringLongEntry.getValue());
+                });
     }
     @Test
-    public void testPagerQuery_P_by_Keyword(){
+    public void testPagerQuery_P_by_Hotword(){//通过keyword查找文章 文章热词跳转
+        Keyword param = new Keyword();
+        param.setKeyword("rolling");
+        System.out.println(paperKeywordService.getPaperNumByKeyword(param));
+
         System.out.println("-----------------------------------------");
 
-        paperKeywordService.getPaperByKeywordLimit("rolling",0,10)
+        paperKeywordService.getPaperByKeywordLimit(param,0,10)
                 .forEach(System.out::println);
 
         System.out.println("-----------------------------------------");
 
-        paperKeywordService.getPaperByKeywordLimit("rolling",9,10)
+        paperKeywordService.getPaperByKeywordLimit(param,9,10)
+                .forEach(System.out::println);
+
+        System.out.println("-----------------------------------------");
+    }
+    @Test
+    public void testPagerQuery_P_by_Keyword(){//通过keyword查找文章 模糊搜索
+        System.out.println(paperService.queryPaperNumByKeyword("rolling"));
+
+        System.out.println("-----------------------------------------");
+
+        paperService.queryByKeywordLimit("rolling",0,10)
+                .forEach(System.out::println);
+
+        System.out.println("-----------------------------------------");
+
+        paperService.queryByKeywordLimit("rolling",9,10)
                 .forEach(System.out::println);
 
         System.out.println("-----------------------------------------");
     }
 
     @Test
-    public void testPagerQuery_P_by_title(){
+    public void testPagerQuery_P_by_title(){//通过title查找文章
+        System.out.println(paperService.queryPaperNumByTitle("Simultaneous"));
+
         System.out.println("-----------------------------------------");
 
         paperService.queryByTitleLimit("Simultaneous",0,10).forEach(System.out::println);
@@ -101,18 +141,21 @@ public class ServiceTest {
     }
 
     @Test
-    public void testPagerQuery_Accuracy(){
-        System.out.println("-----------------------------------------");
-
+    public void testPagerQuery_Accuracy(){//通过精确信息查找文章
         Paper paper = new Paper();
         paper.setMeeting("CVPR");
         paper.setYear("2020");
         paper.setAbstractContent("Simultaneous");
+
+        System.out.println(paperService.queryPaperNum(paper));
+
+        System.out.println("-----------------------------------------");
+
         paperService.query(paper,0,10).forEach(System.out::println);
 
         System.out.println("-----------------------------------------");
 
-        paperService.query(paper,9,10).forEach(System.out::println);
+        paperService.query(paper,15,10).forEach(System.out::println);
         System.out.println("-----------------------------------------");
     }
 }

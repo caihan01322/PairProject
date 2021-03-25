@@ -19,6 +19,9 @@
     <select id="queryByKeywordLimit" resultType="Paper">
         select * from paper where title like CONCAT('%',#{keyword},'%') or abstractContent like CONCAT('%',#{keyword},'%') limit ${begin},${num};
     </select>
+    <select id="queryByKeywordRezultNum" resultType="int">
+        select count(*) from paper where title like CONCAT('%',#{keyword},'%') or abstractContent like CONCAT('%',#{keyword},'%');
+    </select>
 
     <select id="query" resultType="Paper">
         select * from paper
@@ -31,6 +34,30 @@
             </if>
             <if test="title!=null and title!=''">
                 and title like CONCAT('%',#{title},'%')
+            </if>
+            <if test="meeting!=null and meeting!=''">
+                and meeting = #{meeting}
+            </if>
+            <if test="year!=null and year!=''">
+                and year = #{year}
+            </if>
+            <if test="authors!=null and authors!=''">
+                and authors like CONCAT('%',#{authors},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="queryRezultNum" resultType="int">
+        select count(*) from paper
+        <where>
+            <if test="paperID!=null and paperID!=0">
+                and paperID = #{paperID}
+            </if>
+            <if test="title!=null and title!=''">
+                and title like CONCAT('%',#{title},'%')
+            </if>
+            <if test="abstractContent!=null and abstractContent!=''">
+                and abstractContent like CONCAT('%',#{abstractContent},'%')
             </if>
             <if test="meeting!=null and meeting!=''">
                 and meeting = #{meeting}

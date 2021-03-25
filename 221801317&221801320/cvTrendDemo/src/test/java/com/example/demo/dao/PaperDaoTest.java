@@ -56,7 +56,22 @@ public class PaperDaoTest {
         param.setTitle("image");
         param.setMeeting("CVPR");
         param.setYear("2020");
-        List<Paper> query = paperService.query(param,0,10);
+        List<Paper> query = paperService.query(param,90,10);
         query.stream().forEach(System.out::println);
+    }
+    @Test
+    public void testQueryNum(){
+        Paper param = new Paper();
+        param.setTitle("image");
+        param.setMeeting("CVPR");
+        param.setYear("2020");
+        int num = dao.queryRezultNum(param);
+        System.out.println(num);
+    }
+
+    @Test
+    public void testQueryNum_by_keyword(){
+        int num = dao.queryByKeywordRezultNum("Rolling");
+        System.out.println(num);
     }
 }

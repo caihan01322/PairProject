@@ -18,6 +18,7 @@ public interface PaperDao {
 //    int begin
 //    int num
     public List<Paper> queryByKeywordLimit(Map<String,String> param);
+    public int queryByKeywordRezultNum(String keyword);
 
     //精确查询
     public List<Paper> query(Paper paper);
@@ -26,6 +27,7 @@ public interface PaperDao {
 //    int begin
 //    int num
     public List<Paper> queryLimit(Map<String,String> param);
+    public int queryRezultNum(Paper paper);
 
     public int getID(Paper paper);
 

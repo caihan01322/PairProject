@@ -20,21 +20,45 @@
         <result column="sum" property="frequency"/>
     </resultMap>
     <select id="getOrderedWord" parameterType="Integer" resultMap="hotWord">
-        select keyword,sum(frequency) sum from keywordPaper where year between #{beginYear} and  #{endYear}  group by keyword order by sum desc limit ${size};
+        select keyword,sum(frequency) sum from keywordPaper
+        where year between #{beginYear} and  #{endYear}
+        <if test="meeting != null and meeting != ''">
+            and meeting = #{meeting}
+        </if>
+        group by keyword order by sum desc limit ${size};
     </select>
-
 
 <!--    得到某词的趋势-->
     <select id="getWordTrend" resultMap="hotWord">
-        select keyword,year,sum(frequency) sum from keywordPaper where keyword = #{keyword} group by year ;
+        select keyword,year,sum(frequency) sum from keywordPaper
+        where keyword = #{keyword}
+        <if test="meeting != null and meeting != ''">
+            and meeting = #{meeting}
+        </if>
+        group by year ;
     </select>
 
     <select id="getPaperByKeyword" resultType="Paper">
         select p.paperID ,title,p.year,authors,p.meeting,link,abstractContent from paper p join keywordPaper k on  p.paperID = k.paperID  where keyword = #{keyword};
     </select>
 
+    <select id="getPaperNumByKeyword" resultType="int">
+        select count(*)
+        from paper p join keywordPaper k on  p.paperID = k.paperID
+        where keyword = #{keyword}
+        <if test="meeting != null and meeting != ''">
+            and p.meeting = #{meeting}
+        </if>;
+    </select>
+
     <select id="getPaperByKeywordLimit" resultType="Paper">
-        select p.paperID ,title,p.year,authors,p.meeting,link,abstractContent from paper p join keywordPaper k on  p.paperID = k.paperID  where keyword = #{keyword} limit ${begin},${num};
+        select p.paperID ,title,p.year,authors,p.meeting,link,abstractContent
+        from paper p join keywordPaper k on  p.paperID = k.paperID
+        where keyword = #{keyword}
+        <if test="meeting != null and meeting != ''">
+            and p.meeting = #{meeting}
+        </if>
+        limit ${begin},${num};
     </select>
 
     <select id="getKeywordByPaper" resultType="Keyword">

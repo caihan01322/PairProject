@@ -40,6 +40,9 @@ public class PaperService {
         paramMap.put("num",String.valueOf(num));
         return paperDao.queryByKeywordLimit(paramMap);
     }
+    public int queryPaperNumByKeyword(String keyword){
+        return paperDao.queryByKeywordRezultNum(keyword);
+    }
 
 //    通过title搜索获取相关的文章 分页
 //    String keyword
@@ -52,6 +55,11 @@ public class PaperService {
         paramMap.put("num",String.valueOf(num));
         return paperDao.queryLimit(paramMap);
     }
+    public int queryPaperNumByTitle(String title){
+        Paper param = new Paper();
+        param.setTitle(title);
+        return paperDao.queryRezultNum(param);
+    }
 
 //    通过title搜索获取相关的文章 分页
 //    String title
@@ -62,6 +70,7 @@ public class PaperService {
         paramMap.put("title",paper.getTitle());
         paramMap.put("meeting",paper.getMeeting());
         paramMap.put("year",paper.getYear());
+        paramMap.put("abstractContent",paper.getAbstractContent());
         if (paper.getAuthors()!=null) {
             String[] authors = paper.getAuthors().split(",");
             StringBuilder authorsBuilder = new StringBuilder();
@@ -73,6 +82,9 @@ public class PaperService {
         paramMap.put("begin",String.valueOf(begin));
         paramMap.put("num",String.valueOf(num));
         return paperDao.queryLimit(paramMap);
+    }
+    public int queryPaperNum(Paper param){
+        return paperDao.queryRezultNum(param);
     }
 
     //删除文章 需要把相应关键字的也删除
