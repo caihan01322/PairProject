@@ -3,27 +3,102 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $("button").click(function(){
-                $.ajax({
-                    type: 'POST',
-                    url: 'http://localhost/Pairprojcet/PairProject/PairProjectDemo/tp5/public/index.php/index/index/hello',
-                    success: function(data) {
-                        alert(data);
-                        $("p").text(data);
-                       }
-                });
-       });
-    });
-    </script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../public/static/index/css/a.css" type="text/css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui@2.15.1/lib/index.js"></script>
+    <script src="https://unpkg.com/element-ui@2.14.1/lib/index.js"></script>
     <title>test</title>
 </head>
 <body>
-    <button type="button">click</button>
-    <p></p>
     
+    <div id="app">
+    <el-menu
+    :default-active="activeIndex2"
+    class="el-menu-demo"
+    mode="horizontal"
+    @select="handleSelect"
+    background-color="#DCDCDC"
+    text-color="#696969"
+    active-text-color="#4682D4">
+    <el-menu-item index="1">首页</el-menu-item>
+    <el-menu-item index="2">编辑</el-menu-item>
+    <el-menu-item index="3">概况</el-menu-item>
+    <el-menu-item index="4">导入</el-menu-item>
+    </el-menu>
+    <div class="line"></div>
+    <div class="search">
+      <el-form :inline="true" :model="formInline" class="demo-form-inline" >
+      <el-form-item >
+          <el-input v-model="formInline.keyword"  type="text" placeholder="关键词" style="width: 640px;" clearable></el-input>
+          <el-button type="info" @click="onSubmit">查询</el-button>
+      </el-form-item>
+    </el-form>
+    
+  </div>
+    <el-table
+      :data="tableData"
+      stripe
+      style="width: 100%">
+      <el-table-column
+        prop="title"
+        label="标题"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="abstract"
+        label="摘要"
+        >
+      </el-table-column>
+      <el-table-column
+        prop="date"
+        label="日期"
+        width="180">
+      </el-table-column>
+    </el-table>
+  </div>
+    <script>
+        var Main = {
+        data() {
+          return {
+            activeIndex: '1',
+            activeIndex2: '1',
+            formInline: {
+              keyword: ''
+            },
+            tableData: [{
+              title: '文章1',
+              abstract: '问题很大',
+              date: '2020.03.25'
+            }, {
+              title: '文章1',
+              abstract: '问题很大',
+              date: '2020.03.25'
+            }, {
+              title: '文章1',
+              abstract: '问题很大',
+              date: '2020.03.25'
+            }, {
+              title: '文章1',
+              abstract: '问题很大',
+              date: '2020.03.25'
+            }]
+          };
+        },
+          methods: {
+            handleSelect(key, keyPath) {
+              console.log(key, keyPath);
+            },
+            onSubmit() {
+            console.log(this.formInline.keyword);
+            },
+          }
+
+        }
+      var Ctor = Vue.extend(Main)
+      new Ctor().$mount('#app')
+    </script>
+
 </body>
 </html>
