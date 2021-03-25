@@ -27,5 +27,6 @@ public interface KeywordMapper {
 
     public List<Keyword> getTop10Keyword(String publisher);
 
+    public List<Keyword> getKeyWordsByPid(String pid);
 
 }

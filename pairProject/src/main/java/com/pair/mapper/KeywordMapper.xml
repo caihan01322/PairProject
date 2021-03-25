@@ -51,5 +51,10 @@
     </select>
 
 
+    <select id="getKeyWordsByPid" resultType="keyword" parameterType="String">
+        select * from keyword k
+        left join paper_keyword pk on pk.kid=k.kid
+        where pk.pid=#{pid}
+    </select>
 
 </mapper>

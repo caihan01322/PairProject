@@ -14,7 +14,9 @@ import java.util.Map;
 public interface PaperMapper {
     public void insertPaper(Paper paper_sql);
 
-    public List<Paper> selectAllPapers(int startIndex,int indexNum);
+    public List<Paper> selectAllPapers();
+
+    public List<Paper> selectPaperListWithoutKeywords();
 
     public List<Paper> selectPaperByFuzzyMode(Map<String, Object> map);//模糊查询
 

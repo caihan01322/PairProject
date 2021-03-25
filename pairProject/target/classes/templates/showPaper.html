@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -54,26 +53,49 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <div th:each="paper:${papers}">
+                        <div th:each="items : ${pageInfo.list}">
                             <tr>
-                                <td><div th:text="${paper.getTitle()}"></div></td>
-                                <td><div th:text="${paper.getAbs()}"></div></td>
-                                <td><div th:text="${paper.getPublisher()}"></div></td>
-                                <td><div th:text="${paper.getPublicationYear()}"></div></td>
-                                <td><div th:each="keyword:${paper.getKeywords()}">
-                                    <div th:text="${keyword.getKeyword()}">
+                                <td th:text="${items.title}"></td>
+                                <td th:text="${items.abs}"></td>
+                                <td th:text="${items.publisher}"></td>
+                                <td th:text="${items.publicationYear}"></td>
+                                <td>
+                                    <div th:each="keyword : ${items.keywords}">
+                                        <div th:text="${keyword.keyword}"></div>
                                     </div>
-                                </div></td>
-                                <td><div th:text="${paper.getDoiLink()}"></div></td>
-                                <td><a th:href="@{/deletePaper/}+${paper.getPid()}">删除</a></td>
+                                </td>
+                                <td><a th:text="${items.doiLink}"></a></td>
+                                <td><a th:href="@{/deletePaper/}+${items.getPid()}">删除</a></td>
                             </tr>
                         </div>
                         </tbody>
+
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+<div class="pager" style=" position:absolute; alignment: center">
+    <ul class="pagination" style="display: inline ;alignment: center" >
+        <li class="page-item" style="display: inline" th:if="${pageInfo.pageNum!=1}">
+            <a class="page-link" th:href="@{/paperList(pageNum=1)}">首页</a></li>
+        <li class="page-item" style="display: inline" th:if="${pageInfo.pageNum!=1}">
+            <a class="page-link" th:href="@{/paperList(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:${pageInfo.pages})}">上一页</a>
+        </li>
+        <li class="page-item" style="display: inline"><a class="page-link"><span th:text="第+${pageInfo.pageNum}+页"></span></a></li>
+        <li class="page-item" style="display: inline" th:if="${pageInfo.pageNum != pageInfo.pages}">
+            <a class="page-link" th:href="@{/paperList(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a>
+        </li>
+        <li class="page-item" style="display: inline" th:if="${pageInfo.pageNum != pageInfo.pages}">
+            <a class="page-link" th:href="@{/paperList(pageNum=${pageInfo.pages})}">尾页</a>
+        </li>
+    </ul>
+    <li class="page-item" ><a class="page-link"><span th:text="共+${pageInfo.pages}+页"></span></a></li>
+</div>
+
 </body>
 </html>
