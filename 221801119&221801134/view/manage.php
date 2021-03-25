@@ -71,7 +71,7 @@
 <div class="mainPaper">
 		<div class="paper" style="padding-top:0;padding-bottom:0">
 		<ol class="breadcrumb hidden-xs-down" style="margin:0">
-            <li class="breadcrumb-item active">论文列表</li>
+            <li class="breadcrumb-item active">本地论文列表</li>
             <li class="breadcrumb-item active" style="float:right">共 <span id="resultNum"></span> 篇论文</li>
         </ol>
 		</div>

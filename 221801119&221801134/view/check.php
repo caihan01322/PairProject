@@ -85,7 +85,7 @@
     	$pid=$_GET["pid"];
     	if($view==1){
     	    echo '
-                <li class="breadcrumb-item"><a href="manage.php">论文列表</a></li>
+                <li class="breadcrumb-item"><a href="manage.php"><span style="color:#888888  ">本地论文列表</span></a></li>
                 ';
     	}
     	else{
