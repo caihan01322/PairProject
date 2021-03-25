@@ -41,13 +41,20 @@
         WHERE kid=#{kid}
     </update>
 
-    <!--查询频率前n位的关键词-->
-    <select id="selectKeywordsOrderByCount" parameterType="int">
-<!--        SELECT * FROM keyword WHERE ORDER BY (SELECT count(*))-->
+    <!--通过查询频率前n位的关键词-->
+    <select id="selectKeywordCountByMap" parameterType="map" resultMap="KeywordCount">
+        SELECT keyword,count(keyword) AS `count` FROM keyword
+        <where>
+            <if test="conference !=null">AND conference=#{conference}</if>
+            <if test="publicationYear !=null">AND publicationYear=#{publicationYear}</if>
+            <if test="beginYear !=NULL">AND publicationYear BETWEEN #{beginYear} AND #{endYear}</if>
+        </where>
+        GROUP BY keyword ORDER BY `count` DESC
+        <if test="size !=NULL">LIMIT ${size}</if>
     </select>
 
     <!--通过id查询-->
-    <select id="selectKeywordById" parameterType="string" resultType="Keyword">
+    <select id="selectKeywordById" parameterType="string" resultMap="Keyword">
         SELECT * FROM keyword WHERE kid=#{kid}
     </select>
 
@@ -69,5 +76,11 @@
         <result column="keyword" property="keyword"/>
         <result column="conference" property="conference"/>
         <result column="publicationYear" property="publicationYear"/>
+    </resultMap>
+    
+    <!--KeywordCount映射-->
+    <resultMap id="KeywordCount" type="cn.zcx.pa.PaperShow.pojo.KeywordCount">
+        <result column="keyword" property="keyword"/>
+        <result column="count" property="count"/>
     </resultMap>
 </mapper>

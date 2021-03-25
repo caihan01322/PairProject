@@ -2,6 +2,7 @@ package cn.zcx.pa.PaperShow.dao;
 
 
 import cn.zcx.pa.PaperShow.pojo.Keyword;
+import cn.zcx.pa.PaperShow.pojo.KeywordCount;
 import cn.zcx.pa.PaperShow.pojo.Paper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -22,7 +23,7 @@ public interface KeywordDao
 
   void updateByMap(Map params);       //通过map更新
 
-  List<String> selectKeywordsOrderByCount(int size);   //查询频率前n位的keyword
+  List<KeywordCount> selectKeywordCountByMap(Map params);   //通过map查询频率前n位的keyword
 //
   List<String> selectKeywordsByMap(Map params);    //通过map查询
 

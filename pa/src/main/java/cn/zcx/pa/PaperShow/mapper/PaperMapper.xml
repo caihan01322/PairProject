@@ -85,7 +85,6 @@
         WHERE k.keyword=#{keyword}
     </select>
 
-
     <!--paper的映射-->
     <resultMap id="Paper" type="cn.zcx.pa.PaperShow.pojo.Paper">
         <result column="pid" property="pid"/>
