@@ -51,20 +51,8 @@ public class KeywordController {
 
     @RequestMapping("/getPapers/{keyword}")
     public String getPapers(@PathVariable("keyword") String keyword,Model model) {
-        //根据关键词查找kid
-        List<String> kids = keywordMapper.getKid(keyword);
-        //根据kid查找对应pid
-        List<String> pids=new ArrayList<String>();
-        for (int i = 0; i < kids.size(); i++) {
-            List<String> pid = paperKeywordMapper.getPid(kids.get(i));
-            pids.addAll(pid);
-        }
-        //根据pid查找对应Paper
-        List<Paper> papers=new ArrayList<Paper>();
 
-        for (int i = 0; i < pids.size(); i++) {
-            papers.add(paperMapper.getPapersByPid(pids.get(i)));
-        }
+        List<Paper> papers=paperMapper.getPapersByKeyword(keyword);
         model.addAttribute("papers", papers);
         return "paperList";
     }

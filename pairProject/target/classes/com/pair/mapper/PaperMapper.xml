@@ -83,7 +83,16 @@
              p.publicationYear=#{publicationYear2} or
              p.publicationYear=#{publicationYear3})
     </select>
- 
+
+    <select id="getPapersByKeyword" resultMap="PaperKeyword" parameterType="String">
+        select p.pid pid,p.title ptitle,p.abs pabs,p.publisher ppublisher,
+        p.publicationYear pyear,p.doiLink plink,
+        k.kid kid,k.keyword kkey,k.publisher ppub,k.num pnum
+        from paper p
+        left join paper_keyword pk on p.pid=pk.pid
+        left join keyword k on pk.kid=k.kid
+        where k.keyword=#{keyword}
+    </select>
     
 
 </mapper>
