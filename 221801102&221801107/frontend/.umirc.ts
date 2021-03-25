@@ -7,5 +7,8 @@ export default defineConfig({
   fastRefresh: {},
   antd: {
     dark: true,
+  },
+  dva: {
+    immer: true,
   }
 });

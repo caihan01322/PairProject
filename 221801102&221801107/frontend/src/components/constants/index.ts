@@ -4,6 +4,9 @@ enum Prefix {
 
   // 圆形图片组件
   circleLetter = 'CircleLetter',
+
+  // 登录组件
+  loginModal = 'LoginModal',
 }
 
 export default Prefix;

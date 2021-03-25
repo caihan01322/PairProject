@@ -1,8 +1,19 @@
 import styles from './index.less';
 import { ThemeSearch, CircleLetter } from '@/components';
 import { Row, Col } from 'antd';
+import { history, ConnectProps, useSelector, useDispatch } from 'umi';
+import { RootStore, ModelNameSpaces } from '@/types';
+import { memo } from 'react';
+import { UserModelInstance } from '@/models';
 
-const Home = () => {
+interface HomeProps extends ConnectProps {}
+
+const Home = memo(() => {
+  // query and code
+  const query = history.location.query;
+
+
+
   return (
     <div className={styles.scoped}>
       <div className="container">
@@ -19,36 +30,10 @@ const Home = () => {
           <Col>
             <CircleLetter letter="ADSDS" />
           </Col>
-          <Col>
-            <CircleLetter letter="B" />
-          </Col>
-          <Col>
-            <CircleLetter letter="C" />
-          </Col>
-          <Col>
-            <CircleLetter letter="D" />
-          </Col>
-        </Row>
-        <Row style={{ marginLeft: '30px' }}>
-          <Col>
-            <CircleLetter letter="这是一篇搜索论文的东西" />
-          </Col>
-          <Col>
-            <CircleLetter letter="这是一篇搜索论文的东西" />
-          </Col>
-          <Col>
-            <CircleLetter letter="这是一篇搜索论文的东西" />
-          </Col>
-          <Col>
-            <CircleLetter letter="这是一篇搜索论文的东西" />
-          </Col>
-          <Col>
-            <CircleLetter letter="这是一篇搜索论文的东西" />
-          </Col>
         </Row>
       </div>
     </div>
   );
-};
+});
 
 export default Home;
