@@ -1,5 +1,7 @@
 package com.fzu.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.fzu.Util.Result;
 import com.fzu.pojo.Paper;
 import com.fzu.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,6 +38,12 @@ public class PaperController {
         return paperList;
     }
 
+    @ResponseBody
+    @RequestMapping("/queryTop10ByYear")
+    public String queryTop10ByYear(){
+        String data=JSON.toJSONString(paperService.queryTop10ByYear());
+        return  data;
+    }
 
 
 }

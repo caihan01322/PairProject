@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface PaperService {
@@ -12,6 +13,7 @@ public interface PaperService {
     List<Paper> queryPaperByPage(Integer start,Integer rows);
     List<Paper> queryPaperByKeyword(String keyword,Integer start,Integer rows);
     List<Paper> queryPaperByAuthor(String Author,Integer start,Integer rows);
+    List<Map<String,String>> queryTop10ByYear();
 
 
 }

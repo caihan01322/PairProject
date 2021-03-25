@@ -1,10 +1,13 @@
 package com.fzu.mapper;
 
+import com.fzu.pojo.Keyword;
 import com.fzu.pojo.Paper;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface PaperMapper {
@@ -31,5 +34,7 @@ public interface PaperMapper {
     List<Paper> queryPaperByAuthor(@Param("author")String author,
                                     @Param("start")Integer start,
                                     @Param("rows")Integer rows);
+    //统计某会议某一年前10的关键词及其数量
 
+    List<Keyword> queryTop10ByYear(@Param("year")Integer year, @Param("meet")String meet);
 }
