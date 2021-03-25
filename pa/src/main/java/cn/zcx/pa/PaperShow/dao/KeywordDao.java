@@ -25,8 +25,8 @@ public interface KeywordDao
   void updateByMap(Map params);       //通过map更新
 
 //  List<Keyword> selectKeywordsOrderByCount(int size);   //查询频率前n位的keyword
-
-  List<Keyword> selectKeywordsByMap(Map params);    //通过map查询
+//
+//  List<Keyword> selectKeywordsByMap(Map params);    //通过map查询
 
   Keyword selectKeywordById(String kid);       //通过id查询
 

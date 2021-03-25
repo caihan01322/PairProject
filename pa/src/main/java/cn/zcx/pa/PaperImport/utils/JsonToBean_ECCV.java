@@ -1,7 +1,5 @@
 package cn.zcx.pa.PaperImport.utils;
 
-
-import cn.zcx.pa.PaperImport.pojo.Essay;
 import cn.zcx.pa.PaperShow.pojo.Keyword;
 import cn.zcx.pa.PaperShow.pojo.Paper;
 import com.alibaba.fastjson.JSONArray;
@@ -38,7 +36,7 @@ public class JsonToBean_ECCV
                 kwds.add(new Keyword(paper.getPid(),kwd,conference,Integer.parseInt(publicationYear)));//添加关键词
             }
         }
-
+        paper.setKeywords(kwds);
         return paper;
     }
 

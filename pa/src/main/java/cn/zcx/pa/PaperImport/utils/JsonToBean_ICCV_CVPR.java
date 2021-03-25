@@ -1,7 +1,5 @@
 package cn.zcx.pa.PaperImport.utils;
 
-
-import cn.zcx.pa.PaperImport.pojo.Essay;
 import cn.zcx.pa.PaperShow.pojo.Keyword;
 import cn.zcx.pa.PaperShow.pojo.Paper;
 import com.alibaba.fastjson.JSONArray;
@@ -42,6 +40,8 @@ public class JsonToBean_ICCV_CVPR {
                 }
             }
         }
+
+        paper.setKeywords(kwds);
 
         return paper;
     }

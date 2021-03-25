@@ -47,7 +47,6 @@ public class Keyword
     if (o == null || getClass() != o.getClass()) return false;
     Keyword keyword1 = (Keyword) o;
     return publicationYear == keyword1.publicationYear &&
-        kid.equals(keyword1.kid) &&
         pid.equals(keyword1.pid) &&
         keyword.equals(keyword1.keyword) &&
         conference.equals(keyword1.conference);
@@ -55,7 +54,7 @@ public class Keyword
 
   @Override
   public int hashCode() {
-    return Objects.hash(kid, pid, keyword, conference, publicationYear);
+    return Objects.hash(pid, keyword, conference, publicationYear);
   }
 
   /**

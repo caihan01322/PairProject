@@ -6,8 +6,8 @@
 <mapper namespace="cn.zcx.pa.PaperShow.dao.KeywordDao">
     <!--插入-->
     <insert id="insertKeyword" parameterType="cn.zcx.pa.PaperShow.pojo.Keyword">
-        INSERT INTO keyword(id,kid,pid,keyword,conference,publicationYear)
-        VALUES(null,#{kid},#{pid}#{keyword},#{conference},#{publicationYear})
+        INSERT INTO keyword(kid,pid,keyword,conference,publicationYear)
+        VALUES(#{kid},#{pid}#{keyword},#{conference},#{publicationYear})
     </insert>
 
     <!--根据id删除-->
@@ -27,11 +27,6 @@
         WHERE kid=#{kid}
     </update>
 
-<!--    &lt;!&ndash;查询频率前n位的keyword&ndash;&gt;-->
-<!--    <select id="selectKeywordsOrderByCount" parameterType="int" resultMap="Keyword">-->
-<!--        SELECT * FROM keyword ORDER BY `count` DESC LIMIT ${size}-->
-<!--    </select>-->
-
 
     <!--通过map更新-->
     <update id="updateByMap" parameterType="map">
@@ -48,22 +43,22 @@
         SELECT * FROM keyword WHERE pid=#{pid}
     </select>
 
-    <!--通过map查询-->
-    <select id="selectKeywordsByMap" parameterType="map" resultMap="Keyword">
-        SELECT *
-        FROM paper AS p
-        LEFT JOIN keyword AS k ON p.pid=k.kid
-        LEFT JOIN kp ON kp.pid=p.pid AND kp.kid=k.kid
-        <where>
-            <if test="keyword !=NULL">AND keyword=#{keyword}</if>
-            <if test="conference !=NULL">AND conference=#{conference}</if>
-        </where>
-    </select>
+<!--    &lt;!&ndash;通过map查询&ndash;&gt;-->
+<!--    <select id="selectKeywordsByMap" parameterType="map" resultMap="Keyword">-->
+<!--        SELECT *-->
+<!--        FROM paper AS p-->
+<!--        LEFT JOIN keyword AS k ON p.pid=k.pid-->
+<!--        <where>-->
+<!--            <if test="keyword !=NULL">AND keyword=#{keyword}</if>-->
+<!--            <if test="conference !=NULL">AND conference=#{conference}</if>-->
+<!--        </where>-->
+<!--    </select>-->
 
     <!--Keyword的映射-->
     <resultMap id="Keyword" type="cn.zcx.pa.PaperShow.pojo.Keyword">
         <result column="kid" property="kid"/>
         <result column="keyword" property="keyword"/>
         <result column="conference" property="conference"/>
+        <result column="publicationYear" property="publicationYear"/>
     </resultMap>
 </mapper>

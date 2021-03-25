@@ -6,8 +6,8 @@
 <mapper namespace="cn.zcx.pa.PaperShow.dao.PaperDao">
     <!--插入-->
     <insert id="insertPaper" parameterType="cn.zcx.pa.PaperShow.pojo.Paper">
-        INSERT INTO paper(id,pid,title,abst,conference,publicationYear,link)
-        VALUES(null,#{pid},#{title},#{abst},#{conference},#{publicationYear},#{link})
+        INSERT INTO paper(pid,title,abst,conference,publicationYear,link)
+        VALUES(#{pid},#{title},#{abst},#{conference},#{publicationYear},#{link})
     </insert>
 
     <!--根据id删除-->
@@ -39,8 +39,7 @@
         SELECT p.pid,title,abst,p.conference,publicationYear,link,
         k.kid,keyword
         FROM paper AS p
-        LEFT JOIN keyword AS k ON p.pid=k.kid
-        LEFT JOIN kp ON kp.pid=p.pid AND kp.kid=k.kid
+        LEFT JOIN keyword AS k ON p.pid=k.pid
         WHERE pid=#{pid}
     </select>
 
@@ -49,8 +48,7 @@
         SELECT p.pid,title,abst,p.conference,publicationYear,link,
         k.kid,keyword
         FROM paper AS p
-        LEFT JOIN keyword AS k ON p.pid=k.kid
-        LEFT JOIN kp ON kp.pid=p.pid AND kp.kid=k.kid
+        LEFT JOIN keyword AS k ON p.pid=k.pid
         <where>
             <if test="title !=NULL">AND title=#{title}</if>
             <if test="abst !=NULL">AND abst=#{abst}</if>
@@ -67,8 +65,7 @@
         SELECT p.pid,title,abst,p.conference,publicationYear,link,
         k.kid,keyword
         FROM paper AS p
-        LEFT JOIN keyword AS k ON p.pid=k.kid
-        LEFT JOIN kp ON kp.pid=p.pid AND kp.kid=k.kid
+        LEFT JOIN keyword AS k ON p.pid=k.pid
         <where>
             <if test="title !=NULL">AND title LIKE "%"#{title}"%"</if>
             <if test="abst !=NULL">AND abst LIKE "%"#{abst}"%"</if>
@@ -84,8 +81,7 @@
         SELECT p.pid,title,abst,p.conference,publicationYear,link,
         k.kid,keyword
         FROM paper AS p
-        LEFT JOIN keyword AS k ON p.pid=k.kid
-        LEFT JOIN kp ON kp.pid=p.pid AND kp.kid=k.kid
+        LEFT JOIN keyword AS k ON p.pid=k.pid
         WHERE kp.kid=#{kid}
     </select>
 
@@ -104,6 +100,7 @@
             <result property="kid" column="kid"/>
             <result property="keyword" column="keyword"/>
             <result property="conference" column="conference"/>
+            <result property="publicationYear" column="publicationYear"/>
         </collection>
     </resultMap>
 </mapper>
