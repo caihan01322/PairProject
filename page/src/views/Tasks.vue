@@ -12,50 +12,7 @@
                     <div class="search_inputer_container">
                         <div class="search_inputer search_inputer-inline">
                             <span class="search_inputer_title">论文标题</span>
-                            <a-select
-                                showSearch
-                                :value="titleSelected"
-                                placeholder="请输入论文标题"
-                                class="search_inputer_inner"
-                                :showArrow="false"
-                                @search="serachPage"
-                                @change="handleChange"
-                            >
-                                <a-select-opt-group label="已爬取">
-                                <a-select-option value="00001">
-                                    00001
-                                </a-select-option>
-                                <a-select-option value="00002">
-                                    00002
-                                </a-select-option>
-                                </a-select-opt-group>
-
-                                <a-select-opt-group label="未爬取">
-                                <a-select-option :value="titleInput">
-                                    点击将"{{titleInput}}"添加至待爬取
-                                </a-select-option>
-                                </a-select-opt-group>
-                            </a-select>
-                        </div>
-                        <div class="search_inputer search_inputer-inline">
-                            <span class="search_inputer_title">论文编号</span>
-                            <a-input class="search_inputer_inner" placeholder="请输入论文编号" />
-                        </div>
-                    </div>
-                    <div class="search_inputer_container search_inputer_container-next">
-                        <div class="search_inputer">
-                            <span class="search_inputer_title">关键词</span>
-                            <a-select
-                            class="search_inputer_selector"
-                            mode="multiple"
-                            placeholder="请选择关键字"
-                            :default-value="['a1', 'b2']"
-                            @change="handleChange"
-                            >
-                                <a-select-option v-for="i in 25" :key="(i + 9).toString(36) + i">
-                                    {{ (i + 9).toString(36) + i }}
-                                </a-select-option>
-                            </a-select>
+                            <a-input v-model="pageTitle" placeholder="请输入论文标题" class="search_inputer_inner" ></a-input>
                         </div>
                     </div>
                     <div class="search_btn_container">
@@ -145,10 +102,7 @@
                             slot-scope="text"
                             to="detail"
                         >{{text}}</router-link>
-
-                        <span slot="keywords" slot-scope="keywords">
-                            <a-tag v-for="keyword in keywords" :key="keyword">{{keyword}}</a-tag>
-                        </span>
+                        
                         <span slot="action">
                             <a>删除</a>
                             <a :style="{ marginLeft: '12px' }">爬取</a>
@@ -176,24 +130,11 @@ export default {
             ],
             columns: [
                 {
-                    title: "论文名",
+                    title: "论文标题",
                     dataIndex: "title",
                     key: "title",
                     scopedSlots: { customRender: 'pageTitle' },
                     width: "25%",
-                },
-                {
-                    title: "编号",
-                    dataIndex: "number",
-                    key: "number",
-                    width: "25%"
-                },
-                {
-                    title: "关键词",
-                    dataIndex: "keyword",
-                    key: "keyword",
-                    scopedSlots: { customRender: 'keywords' },
-                    width: "25%"
                 },
                 {
                     title: '操作',
@@ -206,28 +147,18 @@ export default {
             listData: [
                 {
                     title: "test",
-                    number: 123456,
-                    keyword: ['t','e','s']
                 },
                 {
                     title: "test",
-                    number: 123456,
-                    keyword: ['t','e','s']
                 },
                 {
                     title: "test",
-                    number: 123456,
-                    keyword: ['t','e','s']
                 },
                 {
                     title: "test",
-                    number: 123456,
-                    keyword: ['t','e','s']
                 },
                 {
                     title: "test",
-                    number: 123456,
-                    keyword: ['t','e','s']
                 }
             ],
             uploadColumn: [
@@ -246,8 +177,7 @@ export default {
                 }
             ],
             selectedRowKeys: [],
-            titleSelected: " ",
-            titleInput: "",
+            pageTitle: "",
             showImport: false,
             showCrawl: false,
             crawling: true,
@@ -308,14 +238,14 @@ export default {
 .search {
     .search_inputer_container {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
     }
     .search_inputer {
         display: flex;
         align-items: center;
         width: 100%;
         .search_inputer_title {
-            width: 96px;
+            width: 72px;
         }
         .search_inputer_inner {
             width: auto;
@@ -323,10 +253,7 @@ export default {
         }
     }
     .search_inputer-inline {
-        width: 45%;
-    }
-    .search_inputer_container-next {
-        margin-top: 12px;
+        width: 48%;
     }
     .search_inputer_selector {
         width: auto;
@@ -337,7 +264,7 @@ export default {
         display: flex;
         justify-content: center;
         width: 100%;
-        margin-top: 12px;
+        margin-top: 24px;
     }
 }
 .table_container {

@@ -9,13 +9,15 @@ const request = {
                     id: "000001",
                     title: "测试论文标题1他比较长测试论文标题1",
                     number: "10.13722/j.cnki.jrme.2020.1183",
-                    keyword: ['岩石力学', 'CO2致裂', '爆破']
+                    keyword: ['岩石力学', 'CO2致裂', '爆破'],
+                    meeting: ['CVPR'],
                 },
                 {
                     id: "000002",
                     title: "测试论文标题2他比较长测试论文标题2",
                     number: "10.13722/j.cnki.jrme.2020.1183",
-                    keyword: ['岩石力学', 'CO2致裂', '爆破']
+                    keyword: ['岩石力学', 'CO2致裂', '爆破'],
+                    meeting: ['CVPR','ICCV'],
                 }
             ]
         }
