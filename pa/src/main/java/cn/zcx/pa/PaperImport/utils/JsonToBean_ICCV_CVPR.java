@@ -30,13 +30,13 @@ public class JsonToBean_ICCV_CVPR {
 
         Paper paper=new Paper(title,abst,conference,Integer.parseInt(publicationYear),doiLink);
 
-        Set<Keyword> kwds = new HashSet<>();
+        Set<String> kwds = new HashSet<>();
         if(keywords != null){
             for(int i = 0; i < keywords.size(); i++) {
                 JSONArray keyword = keywords.getJSONObject(i).getJSONArray("kwd");
                 for(int j = 0; j < keyword.size(); j++){
                     String kwd=keyword.getString(j);
-                    kwds.add(new Keyword(paper.getPid(),kwd,conference,Integer.parseInt(publicationYear)));//添加关键词
+                    kwds.add(kwd);//添加关键词
                 }
             }
         }

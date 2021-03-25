@@ -27,7 +27,7 @@ public class Paper
 
   private String link;            //原文链接
 
-  private Set<Keyword> keywords;  //关键词集合
+  private Set<String> keywords;  //关键词集合
 
 
   /**

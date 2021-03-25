@@ -25,7 +25,7 @@ public interface PaperDao
 
   Paper selectPaperById(String pid);        //通过id查询
 
-  List<Paper> selectPapersByKid(String kid);  //通过kid查询论文列表
+  List<Paper> selectPapersByKeyword(String keyword);  //通过keyword查询论文列表
 
 
 }

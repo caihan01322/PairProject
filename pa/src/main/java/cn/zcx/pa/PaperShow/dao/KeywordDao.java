@@ -16,17 +16,15 @@ public interface KeywordDao
 
   void deleteById(String kid);           //根据id删除
 
-  boolean isKeywordExist(String keyword,String conference,int publicationYear);   //判断关键词是否存在
-
-//  void countIncrease(Keyword keyword);    //增加关键词频率
+//  boolean isKeywordExist(String keyword,String conference,int publicationYear);   //判断关键词是否存在
 
   void updateByObject(Keyword keyword);   //通过对象更新
 
   void updateByMap(Map params);       //通过map更新
 
-//  List<Keyword> selectKeywordsOrderByCount(int size);   //查询频率前n位的keyword
+  List<String> selectKeywordsOrderByCount(int size);   //查询频率前n位的keyword
 //
-//  List<Keyword> selectKeywordsByMap(Map params);    //通过map查询
+  List<String> selectKeywordsByMap(Map params);    //通过map查询
 
   Keyword selectKeywordById(String kid);       //通过id查询
 

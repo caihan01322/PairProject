@@ -36,16 +36,16 @@
 
     <!--通过id查询-->
     <select id="selectPaperById" parameterType="string" resultMap="Paper">
-        SELECT p.pid,title,abst,p.conference,publicationYear,link,
+        SELECT p.pid,title,abst,p.conference,p.publicationYear,link,
         k.kid,keyword
         FROM paper AS p
         LEFT JOIN keyword AS k ON p.pid=k.pid
-        WHERE pid=#{pid}
+        WHERE p.pid=#{pid}
     </select>
 
     <!--通过map精确查询-->
     <select id="selectPapersByMapExactly" parameterType="map" resultMap="Paper">
-        SELECT p.pid,title,abst,p.conference,publicationYear,link,
+        SELECT p.pid,title,abst,p.conference,p.publicationYear,link,
         k.kid,keyword
         FROM paper AS p
         LEFT JOIN keyword AS k ON p.pid=k.pid
@@ -53,8 +53,8 @@
             <if test="title !=NULL">AND title=#{title}</if>
             <if test="abst !=NULL">AND abst=#{abst}</if>
             <if test="conference !=NULL">AND p.conference=#{conference}</if>
-            <if test="publicationYear !=NULL">AND publicationYear=#{publicationYear}</if>
-            <if test="beginYear !=NULL">AND publicationYear BETWEEN #{beginYear} AND #{endYear}</if>
+            <if test="publicationYear !=NULL">AND p.publicationYear=#{publicationYear}</if>
+            <if test="beginYear !=NULL">AND p.publicationYear BETWEEN #{beginYear} AND #{endYear}</if>
             <if test="keyword !=NULL">AND k.keyword=#{keyword}</if>
             <if test="link !=NULL">AND link=#{link}</if>
         </where>
@@ -62,7 +62,7 @@
 
     <!--通过map模糊查询-->
     <select id="selectPapersByMapVaguely" parameterType="map" resultMap="Paper">
-        SELECT p.pid,title,abst,p.conference,publicationYear,link,
+        SELECT p.pid,title,abst,p.conference,p.publicationYear,link,
         k.kid,keyword
         FROM paper AS p
         LEFT JOIN keyword AS k ON p.pid=k.pid
@@ -70,19 +70,19 @@
             <if test="title !=NULL">AND title LIKE "%"#{title}"%"</if>
             <if test="abst !=NULL">AND abst LIKE "%"#{abst}"%"</if>
             <if test="conference !=NULL">AND p.conference=#{conference}</if>
-            <if test="publicationYear !=NULL">AND publicationYear=#{publicationYear}</if>
-            <if test="beginYear !=NULL">AND publicationYear BETWEEN #{beginYear} AND #{endYear}</if>
+            <if test="publicationYear !=NULL">AND p.publicationYear=#{publicationYear}</if>
+            <if test="beginYear !=NULL">AND p.publicationYear BETWEEN #{beginYear} AND #{endYear}</if>
             <if test="keyword !=NULL">AND k.keyword LIKE "%"#{keyword}"%"</if>
         </where>
     </select>
 
-    <!--通过kid查询论文列表-->
-    <select id="selectPapersByKid" parameterType="string" resultMap="Paper">
-        SELECT p.pid,title,abst,p.conference,publicationYear,link,
+    <!--通过keyword查询论文列表-->
+    <select id="selectPapersByKeyword" parameterType="string" resultMap="Paper">
+        SELECT p.pid,title,abst,p.conference,p.publicationYear,link,
         k.kid,keyword
         FROM paper AS p
         LEFT JOIN keyword AS k ON p.pid=k.pid
-        WHERE kp.kid=#{kid}
+        WHERE k.keyword=#{keyword}
     </select>
 
 
@@ -96,11 +96,8 @@
         <result column="link" property="link"/>
 
         <!--keyword集合-->
-        <collection property="keywords" ofType="cn.zcx.pa.PaperShow.pojo.Keyword">
-            <result property="kid" column="kid"/>
+        <collection property="keywords" ofType="string">
             <result property="keyword" column="keyword"/>
-            <result property="conference" column="conference"/>
-            <result property="publicationYear" column="publicationYear"/>
         </collection>
     </resultMap>
 </mapper>

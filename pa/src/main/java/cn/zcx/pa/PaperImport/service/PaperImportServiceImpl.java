@@ -27,9 +27,9 @@ public class PaperImportServiceImpl implements PaperImportService
     paperDao.insertPaper(paper);  //导入论文
 
     //导入关键词
-    for (Keyword keyword:paper.getKeywords())
+    for (String kwd:paper.getKeywords())
     {
-      keywordDao.insertKeyword(keyword);
+      keywordDao.insertKeyword(new Keyword(paper.getPid(),kwd,paper.getConference(),paper.getPublicationYear()));
     }
   }
 

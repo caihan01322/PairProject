@@ -29,11 +29,11 @@ public class JsonToBean_ECCV
 
         Paper paper=new Paper(title,abst,conference,Integer.parseInt(publicationYear),doiLink);
 
-        Set<Keyword> kwds = new HashSet<>();
+        Set<String> kwds = new HashSet<>();
         if(keywords != null){
             for(int i = 0; i < keywords.size(); i++) {
                 String kwd = keywords.getString(i);
-                kwds.add(new Keyword(paper.getPid(),kwd,conference,Integer.parseInt(publicationYear)));//添加关键词
+                kwds.add(kwd);//添加关键词
             }
         }
         paper.setKeywords(kwds);
