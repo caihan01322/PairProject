@@ -153,6 +153,78 @@ public class HotwordController {
 
     }
 
+    //第二个json文件的获取
+    @GetMapping("/json2")
+    @ResponseBody
+    public List<List<String>> getsecondjson(){
+        List<List<String>> json2 = new ArrayList<>();
+        List<String> jsonson2 = new ArrayList<>();
+        HashMap<String,Integer> hashMap = new HashMap<String,Integer>();
+        List<NameAndYear> keyandyear = new ArrayList<>();
+        keyandyear = trendService.getYear();
+
+        List<String> keywords = new ArrayList<>();
+        List<String> publicationYear = new ArrayList<>();
+        for (int i = 0;i<keyandyear.size();i++){
+            String key = keyandyear.get(i).getKeywords();
+            String year = keyandyear.get(i).getPublicationYear();
+            keywords.add(key);
+            publicationYear.add(year);
+
+        }
+
+        String a = new String();
+        String numm = new String();
+        String str = new String();
+        for (int q = 0; q < keywords.size(); q++) {
+            numm = publicationYear.get(q);
+            //System.out.println(numm);
+            a = keywords.get(q);//String
+            if(a==null){
+                continue;
+            }
+
+            str = a.replace("\"", "");
+
+            String[] chars = new String[2000];
+            chars = str.split(",");
+            String strr = new String();
+            for (int j = 0; j < chars.length; j++) {
+                strr = chars[j]+","+numm;
+                if(hashMap.containsKey(strr)){
+                    hashMap.put(strr,hashMap.get(strr)+1);
+                }
+                else {
+                    hashMap.put(strr,1);
+                }
+            }
+        }
+        String strr2 = new String();
+        int number = 0;
+        jsonson2.add("Income");
+        jsonson2.add("Life Expectancy");
+        jsonson2.add("Population");
+        jsonson2.add("Country");
+        jsonson2.add("Year");
+        json2.add(jsonson2);
+        for(Map.Entry<String, Integer> entry : hashMap.entrySet()){
+            List<String> jsonson = new ArrayList<>();
+            number = entry.getValue();
+            String strnum = new String();
+            strnum = String.valueOf(number);
+            strr2 = entry.getKey().replace("\"", "");;
+            String[] char2 = new String[2];
+            char2 = strr2.split(",");
+            jsonson.add(strnum);
+            jsonson.add("");
+            jsonson.add("");
+            jsonson.add(char2[0]);
+            jsonson.add(char2[1]);
+            json2.add(jsonson);
+
+        }
+        return json2;
+    }
 
 
 }
