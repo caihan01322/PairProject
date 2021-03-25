@@ -1,6 +1,6 @@
 package com.example.demo.dao;
 
-import com.example.demo.pojo.Keyword;
+import com.example.demo.service.PaperService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +15,48 @@ import java.util.List;
 @SpringBootTest
 @EnableAutoConfiguration
 public class PaperDaoTest {
-
     @Autowired
     PaperDao dao;
 
+    @Autowired
+    PaperService paperService;
+
     @Test
     public void testList(){
-        Keyword keyword = new Keyword();
-        keyword.setKeyword("image");
-        List<Paper> list = dao.query(keyword);
+        List<Paper> list = dao.queryByKeyword("image");
         list.stream();
+    }
+
+    @Test
+    public void testLimit(){
+        List<Paper> papers = paperService.queryByKeywordLimit("image", 0, 10);
+        papers.stream().forEach(System.out::println);
+    }
+
+    @Test
+    public void testQuery(){
+        Paper param = new Paper();
+        param.setTitle("image");
+        param.setMeeting("CVPR");
+        param.setYear("2020");
+        List<Paper> query = dao.query(param);
+        query.stream().forEach(System.out::println);
+    }
+
+    @Test
+    public void testQueryTitleLimit(){
+        List<Paper> query = paperService.queryByTitleLimit("image",0, 10);
+        query.stream().forEach(System.out::println);
+
+    }
+
+    @Test
+    public void testQueryLimit(){
+        Paper param = new Paper();
+        param.setTitle("image");
+        param.setMeeting("CVPR");
+        param.setYear("2020");
+        List<Paper> query = paperService.query(param,0,10);
+        query.stream().forEach(System.out::println);
     }
 }

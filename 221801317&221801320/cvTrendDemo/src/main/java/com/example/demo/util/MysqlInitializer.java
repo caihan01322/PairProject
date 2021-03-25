@@ -4,6 +4,7 @@ import com.example.demo.pojo.PaperKeyword;
 import com.example.demo.service.PaperKeywordService;
 import com.example.demo.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pojo.Paper;
 
@@ -51,7 +52,7 @@ public class MysqlInitializer {
         }
     }
 
-    //@RequestMapping("/initmysql")
+    @RequestMapping("/initmysql")
     public void insertAllPaper(String meeting) throws IOException {
         PaperJSONParser jsonParser = PaperJSONParser.valueOf(meeting.trim().toUpperCase());
 
@@ -62,6 +63,7 @@ public class MysqlInitializer {
         for (int i = 0;  i < paperPaths.length; i++) {
             StringBuilder stringBuilder = new StringBuilder();
             IOUtil.readToBuffer(paperPaths[i].getAbsolutePath(),stringBuilder);
+
             Paper paper = jsonParser.getPaperByJSON(stringBuilder);
             paperService.add(paper);
 
@@ -75,6 +77,7 @@ public class MysqlInitializer {
 
             TextSolver solver = new TextSolver(mainContent);
             Map<String, Long> wordFrequencyMap = solver.getOrderedWordFrequencyMap(10);
+
             for (Map.Entry wordFrequency: wordFrequencyMap.entrySet()) {
                 PaperKeyword paperKeyword = new PaperKeyword();
                 paperKeyword.setPaperID(paperID);

@@ -12,12 +12,61 @@
         select paperID from paper where title=#{title} and meeting = #{meeting} and link=#{link} and year = #{year}
     </select>
 
-    <select id="query" resultType="Paper">
+    <select id="queryByKeyword" resultType="Paper">
         select * from paper where title like CONCAT('%',#{keyword},'%') or abstractContent like CONCAT('%',#{keyword},'%')
     </select>
 
-    <select id="getPaperByKeyword" resultType="Paper">
-        select p.paperID ,title,p.year,authors,p.meeting,link,abstractContent from paper p join keywordPaper k on  p.paperID = k.paperID  where keyword = #{keyword};
+    <select id="queryByKeywordLimit" resultType="Paper">
+        select * from paper where title like CONCAT('%',#{keyword},'%') or abstractContent like CONCAT('%',#{keyword},'%') limit ${begin},${num};
+    </select>
+
+    <select id="query" resultType="Paper">
+        select * from paper
+        <where>
+            <if test="paperID!=null and paperID!=0">
+                and paperID = #{paperID}
+            </if>
+            <if test="abstractContent!=null and abstractContent!=''">
+                and abstractContent like CONCAT('%',#{abstractContent},'%')
+            </if>
+            <if test="title!=null and title!=''">
+                and title like CONCAT('%',#{title},'%')
+            </if>
+            <if test="meeting!=null and meeting!=''">
+                and meeting = #{meeting}
+            </if>
+            <if test="year!=null and year!=''">
+                and year = #{year}
+            </if>
+            <if test="authors!=null and authors!=''">
+                and authors like CONCAT('%',#{authors},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="queryLimit" resultType="Paper">
+        select * from paper
+        <where>
+            <if test="paperID!=null and paperID!=0">
+                and paperID = #{paperID}
+            </if>
+            <if test="title!=null and title!=''">
+                and title like CONCAT('%',#{title},'%')
+            </if>
+            <if test="abstractContent!=null and abstractContent!=''">
+                and abstractContent like CONCAT('%',#{abstractContent},'%')
+            </if>
+            <if test="meeting!=null and meeting!=''">
+                and meeting = #{meeting}
+            </if>
+            <if test="year!=null and year!=''">
+                and year = #{year}
+            </if>
+            <if test="authors!=null and authors!=''">
+                and authors like CONCAT('%',#{authors},'%')
+            </if>
+        </where>
+        limit ${begin},${num};
     </select>
 
     <delete id="deleteByID">

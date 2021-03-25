@@ -9,7 +9,7 @@
         insert into keywordPaper (paperID,keyword,meeting,year,frequency) values (#{paperID},#{keyword},#{meeting},#{year},#{frequency})
     </insert>
 
-    <delete id="deleteByID">
+    <delete id="deleteByPaperID">
         delete from keywordPaper where paperID = #{paperID};
     </delete>
 
@@ -19,8 +19,8 @@
         <result column="year" property="year"/>
         <result column="sum" property="frequency"/>
     </resultMap>
-    <select id="getHotWordResentYear" resultMap="hotWord">
-        select keyword,sum(frequency) sum from keywordPaper where year in("2020","2019","2017","2018","2016")  group by keyword order by sum desc limit 10;
+    <select id="getOrderedWord" parameterType="Integer" resultMap="hotWord">
+        select keyword,sum(frequency) sum from keywordPaper where year between #{beginYear} and  #{endYear}  group by keyword order by sum desc limit ${size};
     </select>
 
 
@@ -29,5 +29,16 @@
         select keyword,year,sum(frequency) sum from keywordPaper where keyword = #{keyword} group by year ;
     </select>
 
+    <select id="getPaperByKeyword" resultType="Paper">
+        select p.paperID ,title,p.year,authors,p.meeting,link,abstractContent from paper p join keywordPaper k on  p.paperID = k.paperID  where keyword = #{keyword};
+    </select>
+
+    <select id="getPaperByKeywordLimit" resultType="Paper">
+        select p.paperID ,title,p.year,authors,p.meeting,link,abstractContent from paper p join keywordPaper k on  p.paperID = k.paperID  where keyword = #{keyword} limit ${begin},${num};
+    </select>
+
+    <select id="getKeywordByPaper" resultType="Keyword">
+        select keyword ,frequency,k.year,k.meeting from paper p join keywordPaper k on  p.paperID = k.paperID  where p.paperID = #{paperID};
+    </select>
 
 </mapper>

@@ -9,6 +9,19 @@ public class Paper {
     String meeting;
     String link;
 
+    @Override
+    public String toString() {
+        return "Paper{" +
+                "paperID=" + paperID +
+                ", title='" + title + '\'' +
+                ", abstractContent='" + abstractContent + '\'' +
+                ", year='" + year + '\'' +
+                ", authors='" + authors + '\'' +
+                ", meeting='" + meeting + '\'' +
+                ", link='" + link + '\'' +
+                '}';
+    }
+
     public int getPaperID() {
         return paperID;
     }

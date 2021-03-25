@@ -1,7 +1,7 @@
 package com.example.demo.pojo;
 
 public class PaperKeyword {
-    String paperKeywordID;
+    int paperKeywordID;
     int paperID;
     String keyword;
     String meeting;
@@ -16,11 +16,11 @@ public class PaperKeyword {
         this.frequency = frequency;
     }
 
-    public String getPaperKeywordID() {
+    public int getPaperKeywordID() {
         return paperKeywordID;
     }
 
-    public void setPaperKeywordID(String paperKeywordID) {
+    public void setPaperKeywordID(int paperKeywordID) {
         this.paperKeywordID = paperKeywordID;
     }
 

@@ -10,11 +10,11 @@ public class IOUtil {
      * 读取file，把文件内容存在缓存中
      * 非法字符用空白字符代替
      * @param inputFilePath
-     * @param stringBuffer
+     * @param stringBuilder
      * @return 非法字符数目
      * @throws IOException
      */
-    public static int readToBuffer(String inputFilePath,StringBuilder stringBuffer) throws IOException {
+    public static int readToBuffer(String inputFilePath,StringBuilder stringBuilder) throws IOException {
         File inputFile = new File(inputFilePath);
         //BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(inputFile));
 
@@ -24,7 +24,7 @@ public class IOUtil {
         int unvalidCharNum = 0;
         for (int c = reader.read(); c!=-1; c = reader.read()) {
             char cur = (char) c;
-            stringBuffer.append(cur);
+            stringBuilder.append(cur);
             if (!(c>0&&c<128)) {
                 unvalidCharNum++;
             }
