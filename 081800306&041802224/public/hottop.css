@@ -1,3 +1,6 @@
 .highcharts-title{ 
-    color: "#ffffff",
+    color: "#ffffff"
+}
+text.highcharts-title{
+    color:'#ffffff'
 }
