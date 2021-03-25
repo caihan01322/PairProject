@@ -40,11 +40,19 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 
 
+# 连接文章和对应的关键词
+article_keyword = db.Table(
+    "article_keyword",
+    db.Column("article_id", db.Integer, db.ForeignKey(
+        "articles.id", ondelete="cascade")),
+    db.Column("keyword_id", db.Integer, db.ForeignKey(
+        "keywords.id", ondelete="cascade"))
+)
+
+
 class Articles(db.Model):
-    """对应数据库中的表articles"""
     # 定义表名
     __tablename__ = "articles"
-
     # 定义字段
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     meeting = db.Column(db.String(255))
@@ -52,17 +60,17 @@ class Articles(db.Model):
     publicationYear = db.Column(db.String(255))
     abstract = db.Column(db.Text)
     doiLink = db.Column(db.String(255))
+    keywords = db.relationship(
+        "Keywords", secondary=article_keyword, backref=db.backref("articles"))
 
 
 class Keywords(db.Model):
-    """对应数据库中的表keywords"""
     # 定义表名
     __tablename__ = "keywords"
-
     # 定义字段
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = db.Column(db.String(255))
     keyword = db.Column(db.String(255))
+    count = db.Column(db.Integer, default=1)
 
 
 if __name__ == "__main__":

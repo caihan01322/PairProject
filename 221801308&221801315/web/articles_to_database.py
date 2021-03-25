@@ -73,11 +73,16 @@ def data_insert(meeting, context):
     else:
         # json数据没有缺失时，插入数据库
         try:
-            db.session.add(article_info)
-
+            article_info.keywords = []
             for kwd in keywords:
-                title_keyword = Keywords(title=context["title"], keyword=kwd)
-                db.session.add(title_keyword)
+                k = Keywords.query.filter(Keywords.keyword == kwd).first()
+                if k is not None:
+                    k.count+=1
+                else:
+                    k = Keywords(keyword=kwd)
+                article_info.keywords.append(k)
+
+                db.session.add(article_info)
             db.session.commit()
         except Exception as e:
             db.session.rollback()
@@ -110,20 +115,26 @@ def eccv_data_insert(context):
     else:
         # json数据没有缺失时，插入数据库
         try:
-            db.session.add(article_info)
-
+            article_info.keywords = []
             for kwd in keywords:
-                title_keyword = Keywords(title=context["论文名称"], keyword=kwd)
-                db.session.add(title_keyword)
+                k = Keywords.query.filter(Keywords.keyword == kwd).first()
+                if k is not None:
+                    k.count += 1
+                else:
+                    k = Keywords(keyword=kwd)
+                article_info.keywords.append(k)
+
+                db.session.add(article_info)
             db.session.commit()
         except Exception as e:
             db.session.rollback()
 
 
 if __name__ == "__main__":
-    deal_data(CVPR_PATH)
-    deal_data(ICCV_PATH)
+    # deal_data(CVPR_PATH)
+    # deal_data(ICCV_PATH)
     add_data("CVPR", CVPR_PATH)
     add_data("ECCV", ECCV_PATH)
     add_data("ICCV", ICCV_PATH)
     print("共跳过", SKIP, "篇")
+
