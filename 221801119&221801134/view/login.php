@@ -6,8 +6,8 @@
     <meta name="viewport" content="initial-scale=1.0,user-scalable=no,minimal-ui">
     <title>登录入口</title>
     <link rel='stylesheet' href='../css/myCss.css' type='text/css'/>
-	<link rel='stylesheet' href='../css/myCss3.css' type='text/css'/>
-	<link rel='stylesheet' href='../css/myCss4.css' type='text/css'/>
+    <link rel='stylesheet' href='../css/myCss3.css' type='text/css'/>
+    <link rel='stylesheet' href='../css/myCss4.css' type='text/css'/>
 
 </head>
 
@@ -23,7 +23,7 @@
             -->
             <nav class="header-nav">
                 <ul class="subnav-ul">
-                    <li class="menu-item"><a  href="index.php">首页</a></li>
+                    <li class="menu-item"><a  href="../index.php">首页</a></li>
                     <li class="menu-item"><a   data-id="37" data-adid="41" href="import.php">论文导入</a></li>
                     <li class="menu-item"><a   data-id="37" data-adid="41" href="manage.php">论文管理</a></li>
                     <li class="menu-item"><a data-id="37" data-adid="41" href="analysis.php">动态分析</a></li>
