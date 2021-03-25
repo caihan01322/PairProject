@@ -55,8 +55,8 @@ public class PaperController {
 
     @RequestMapping("/deletePaper/{pid}")
     public String paperSelect(@PathVariable("pid") String pid) {
-        //keywordMapper.deleteKeywordByPid(pid);
-        //paperKeywordMapper.deletePKByPid(pid);
+        keywordMapper.updateKeywordByPid(pid);
+        paperKeywordMapper.deletePKByPid(pid);
         paperMapper.deletePaperByPid(pid);
         return "redirect:/paperList";
     }
