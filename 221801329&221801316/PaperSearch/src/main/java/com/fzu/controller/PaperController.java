@@ -26,7 +26,7 @@ public class PaperController {
     @ResponseBody
     @RequestMapping("/queryByKeyword")
     public List<Paper> queryByKeyword(){
-        List<Paper> paperList=new ArrayList<>();
+        List<Paper> paperList=paperService.queryPaperByKeyword("digital",0,10);
         return paperList;
     }
 

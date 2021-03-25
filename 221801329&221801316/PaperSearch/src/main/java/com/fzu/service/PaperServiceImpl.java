@@ -43,5 +43,19 @@ public class PaperServiceImpl implements PaperService {
         return paperList;
     }
 
+    @Override
+    public List<Paper> queryPaperByKeyword(String keyword, Integer start, Integer rows) {
+        List<Paper> paperList=new ArrayList<>();
+        paperList=paperMapper.queryPaperByKeyword(keyword,start,rows);
+        for (Paper paper : paperList) {
+            Integer paperId=paper.getId();
+            List<String> keywords=paperMapper.queryKeywords(paperId);
+            List<String> authors=paperMapper.queryAuthors(paperId);
+            paper.setKeywords(keywords);
+            paper.setAuthor(authors);
+        }
+        return paperList;
+    }
+
 
 }
