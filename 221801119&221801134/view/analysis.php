@@ -49,7 +49,7 @@
                     <?php 
                     $conn = new mysqli('localhost','root','','paperdb');
                     if(!isset($_SESSION["userid"])){
-                        echo '<script>alert("请先登录！");window.location.href="../view/login.php";</script>';
+                        echo '<script>alert("请先登录！");window.location.href="login.php";</script>';
                     }
                     $userid=$_SESSION["userid"];
                     $sql = "select * from user where userid = '$userid' ";
@@ -146,7 +146,7 @@
 		yAxis: {
 			min: 0,
 			title: {
-				text: '出现次数 (次)',
+				text: '相关论文数 (篇)',
 				align: 'high'
 			},
 			labels: {
@@ -157,7 +157,7 @@
 			}
 		},
 		tooltip: {
-			valueSuffix: ' 次'
+			valueSuffix: ' 篇'
 		},
 		plotOptions: {
 			bar: {
