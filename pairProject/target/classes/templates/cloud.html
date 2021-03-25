@@ -7,17 +7,85 @@
     <script type="text/javascript" src="jquery-3.5.1.js"></script>
     <script type="text/javascript" src="jqcloud-1.0.4.js"></script>
     <link rel="stylesheet" type="text/css" href="jqcloud.css"/>
-
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css"  >
 </head>
 
 <body>
 <!-- You should explicitly specify the dimensions of the container element -->
-<h1>标签云展示</h1>
-<div id="words" style="width: 550px; height: 350px;"></div>
 
-<div th:each="kw : ${kws}">
-    <p th:text="${kw}"></p>
+<div>
+    <div id="words" style="width: 550px; height: 350px; float: left;"></div>
+    <div id="top10" style="float:left;">
+        <table class="layui-table" lay-even="" lay-skin="row">
+            <colgroup>
+                <col width="100">
+                <col width="200">
+                <col width="100">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>排行</th>
+                <th>热词</th>
+                <th>数量</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1.</td>
+                <td th:text="${kw0}"></td>
+                <td th:text="${num0}"></td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td th:text="${kw1}"></td>
+                <td th:text="${num1}"></td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td th:text="${kw2}"></td>
+                <td th:text="${num2}"></td>
+            </tr>
+            <tr>
+                <td>4.</td>
+                <td th:text="${kw3}"></td>
+                <td th:text="${num3}"></td>
+            </tr>
+            <tr>
+                <td>5.</td>
+                <td th:text="${kw4}"></td>
+                <td th:text="${num4}"></td>
+            </tr>
+            <tr>
+                <td>6.</td>
+                <td th:text="${kw5}"></td>
+                <td th:text="${num5}"></td>
+            </tr>
+            <tr>
+                <td>7.</td>
+                <td th:text="${kw6}"></td>
+                <td th:text="${num6}"></td>
+            </tr>
+            <tr>
+                <td>8.</td>
+                <td th:text="${kw7}"></td>
+                <td th:text="${num7}"></td>
+            </tr>
+            <tr>
+                <td>9.</td>
+                <td th:text="${kw8}"></td>
+                <td th:text="${num8}"></td>
+            </tr>
+            <tr>
+                <td>10.</td>
+                <td th:text="${kw9}"></td>
+                <td th:text="${num9}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+
 
 
 <script type="text/javascript">
@@ -25,16 +93,16 @@
 
     var
         word_array = [
-            {text: "[[${kw0}]]", weight: 10,link: "./getPapers/[[${kw0}]]"},
-            {text: "[[${kw1}]]", weight: 9,link: "./getPapers/[[${kw1}]]"},
-            {text: "[[${kw2}]]", weight: 8,link: "./getPapers/[[${kw2}]]"},
-            {text: "[[${kw3}]]", weight: 7,link: "./getPapers/[[${kw3}]]"},
-            {text: "[[${kw4}]]", weight: 6,link: "./getPapers/[[${kw4}]]"},
-            {text: "[[${kw5}]]", weight: 5,link: "./getPapers/[[${kw5}]]"},
-            {text: "[[${kw6}]]", weight: 4,link: "./getPapers/[[${kw6}]]"},
-            {text: "[[${kw7}]]", weight: 3,link: "./getPapers/[[${kw7}]]"},
-            {text: "[[${kw8}]]", weight: 2,link: "./getPapers/[[${kw8}]]"},
-            {text: "[[${kw9}]]", weight: 1,link: "./getPapers/[[${kw9}]]"},
+            {text: "[[${kw0}]]", weight:  parseInt("[[${num0}]]"),link: "./getPapers/[[${kw0}]]"},
+            {text: "[[${kw1}]]", weight: parseInt("[[${num1}]]"),link: "./getPapers/[[${kw1}]]"},
+            {text: "[[${kw2}]]", weight: parseInt("[[${num2}]]"),link: "./getPapers/[[${kw2}]]"},
+            {text: "[[${kw3}]]", weight: parseInt("[[${num3}]]"),link: "./getPapers/[[${kw3}]]"},
+            {text: "[[${kw4}]]", weight: parseInt("[[${num4}]]"),link: "./getPapers/[[${kw4}]]"},
+            {text: "[[${kw5}]]", weight: parseInt("[[${num5}]]"),link: "./getPapers/[[${kw5}]]"},
+            {text: "[[${kw6}]]", weight: parseInt("[[${num6}]]"),link: "./getPapers/[[${kw6}]]"},
+            {text: "[[${kw7}]]", weight: parseInt("[[${num7}]]"),link: "./getPapers/[[${kw7}]]"},
+            {text: "[[${kw8}]]", weight: parseInt("[[${num8}]]"),link: "./getPapers/[[${kw8}]]"},
+            {text: "[[${kw9}]]", weight: parseInt("[[${num9}]]"),link: "./getPapers/[[${kw9}]]"},
 
             // ...as many words as you want
         ];
@@ -43,5 +111,6 @@
         $("#words").jQCloud(word_array);
     });
 </script>
+<script src="https://www.layuicdn.com/layui/layui.js"></script>
 </body>
 </html>

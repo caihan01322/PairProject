@@ -19,7 +19,7 @@ public interface KeywordMapper {
 
     public int selectNum(String keyword, String publisher);
 
-    public List<String> getKeyWords();
+    public List<Keyword> getKeyWords();
 
     public List<String> getKid(String keyword);
 

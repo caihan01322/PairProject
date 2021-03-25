@@ -18,6 +18,18 @@
         <option value="ICCV">ICCV</option>
         <option value="ECCV">ECCV</option>
     </select>
+    <select name="words">
+        <option th:value="${top0}" th:text="${top0}"></option>
+        <option th:value="${top1}" th:text="${top1}"></option>
+        <option th:value="${top2}" th:text="${top2}"></option>
+        <option th:value="${top3}" th:text="${top3}"></option>
+        <option th:value="${top4}" th:text="${top4}"></option>
+        <option th:value="${top5}" th:text="${top5}"></option>
+        <option th:value="${top6}" th:text="${top6}"></option>
+        <option th:value="${top7}" th:text="${top7}"></option>
+        <option th:value="${top8}" th:text="${top8}"></option>
+        <option th:value="${top9}" th:text="${top9}"></option>
+    </select>
     <input type="submit" value="确定"/>
 </form>
 
@@ -38,10 +50,10 @@
         },
         tooltip: {},
         legend: {
-            data:['19-20','15-17','12-14']
+            data:["[[${keyword}]]"]
         },
         xAxis: {
-            data: ["[[${top5}]]","[[${top1}]]","[[${top6}]]","[[${top3}]]","[[${top4}]]","[[${top0}]]","[[${top2}]]","[[${top9}]]","[[${top8}]]","[[${top7}]]"],
+            data: ['2011','2012','2013','2014','2015','2016','2017','2018','2019','2020'],
             axisLabel: {
                 interval:0,
                 rotate:20
@@ -49,26 +61,12 @@
         },
         yAxis: {},
         series: [{
-            name: '19-20',
+            name: "[[${keyword}]]",
             type: 'line',
-            data: [parseInt("[[${num52019}]]"), parseInt("[[${num12019}]]"), parseInt("[[${num62019}]]"), parseInt("[[${num32019}]]"),
-                parseInt("[[${num42019}]]"), parseInt("[[${num02019}]]"),parseInt("[[${num22019}]]"),parseInt("[[${num92019}]]"),
-                parseInt("[[${num82019}]]"),parseInt("[[${num72019}]]")]
+            data: [parseInt("[[${year0}]]"), parseInt("[[${year1}]]"), parseInt("[[${year2}]]"), parseInt("[[${year3}]]"),
+                parseInt("[[${year4}]]"), parseInt("[[${year5}]]"),parseInt("[[${year6}]]"),parseInt("[[${year7}]]"),
+                parseInt("[[${year8}]]"),parseInt("[[${year9}]]")]
         },
-        {
-            name: '15-17',
-            type: 'line',
-            data: [parseInt("[[${num52016}]]"), parseInt("[[${num12016}]]"), parseInt("[[${num62016}]]"), parseInt("[[${num32016}]]"),
-                parseInt("[[${num42016}]]"), parseInt("[[${num02016}]]"),parseInt("[[${num22016}]]"),parseInt("[[${num92016}]]"),
-                parseInt("[[${num82016}]]"),parseInt("[[${num72016}]]")]
-        },
-        {
-            name: '12-14',
-            type: 'line',
-            data: [parseInt("[[${num52013}]]"), parseInt("[[${num12013}]]"), parseInt("[[${num62013}]]"), parseInt("[[${num32013}]]"),
-                parseInt("[[${num42013}]]"), parseInt("[[${num02013}]]"),parseInt("[[${num22013}]]"),parseInt("[[${num92013}]]"),
-                parseInt("[[${num82013}]]"),parseInt("[[${num72013}]]")]
-        }
         ]
     };
 

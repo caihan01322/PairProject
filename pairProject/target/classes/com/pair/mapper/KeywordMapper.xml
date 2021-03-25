@@ -21,8 +21,8 @@
     </insert>
 
 
-    <select id="getKeyWords" resultType="String">
-        select keyword from pair.keyword order by num desc limit 10;
+    <select id="getKeyWords" resultType="keyword">
+        select * from pair.keyword order by num desc limit 10;
     </select>
     <select id="getKid" resultType="String" parameterType="String">
         select kid from pair.keyword where keyword=#{keyword}

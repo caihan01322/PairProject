@@ -80,9 +80,7 @@
         left join paper_keyword pk on p.pid=pk.pid
         where pk.kid=#{kid} and
             pk.pid=p.pid and
-            (p.publicationYear=#{publicationYear1} or
-             p.publicationYear=#{publicationYear2} or
-             p.publicationYear=#{publicationYear3})
+            p.publicationYear=#{publicationYear}
     </select>
 
     <select id="getPapersByKeyword" resultMap="PaperKeyword" parameterType="String">
