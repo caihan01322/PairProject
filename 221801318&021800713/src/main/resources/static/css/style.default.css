@@ -256,3 +256,17 @@ ul ul a {
   border: 1px solid blue;
   overflow: hidden
 }
+
+#tagmain{
+  width: 800px;
+  height:400px;
+  margin-left: 40px;
+}
+
+#personList{
+  width: 400px;
+  height:280px;
+  position: absolute;
+  top:850px;
+  left: 260px;
+}
