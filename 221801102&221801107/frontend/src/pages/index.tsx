@@ -12,7 +12,13 @@ const Home = memo(() => {
   // query and code
   const query = history.location.query;
 
-
+  const handleSearch = (value: string) => {
+    if (value === '') return;
+    history.push(`/search`, {
+      s: [value],
+      p: 1,
+    });
+  };
 
   return (
     <div className={styles.scoped}>
@@ -21,7 +27,7 @@ const Home = memo(() => {
           <div className="logo">Huro</div>
         </Row>
         <Row>
-          <ThemeSearch />
+          <ThemeSearch onSearch={handleSearch} />
         </Row>
         <Row style={{ marginTop: '50px', marginLeft: '30px' }}>
           <Col>
