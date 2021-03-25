@@ -20,21 +20,29 @@
             <div class="bottom-box">
                 <div class="menu-list">
                     <div class="menu-title">MENU</div>
-                    <div id="index" class="menu-item">
+                    <div class="menu-item">
                         <img src="../img/green-home.svg" alt="" class="menu-item-img">
-                        <span class="menu-span">首页</span>
+                        <span id="index">
+                            <span class="menu-span">首页</span>
+                        </span>
                     </div>
-                    <div id="paper-list" class="menu-item">
+                    <div class="menu-item">
                         <img src="../img/blue-list.svg" alt="" class="menu-item-img">
-                        <span class="menu-span">论文列表</span>
+                        <span id="paper-list">
+                            <span class="menu-span">论文列表</span>
+                        </span>
                     </div>
-                    <div id="paper-analyse" class="menu-item">
+                    <div class="menu-item">
                         <img src="../img/red-table.svg" alt="" class="menu-item-img">
-                        <span class="menu-span">论文分析</span>
+                        <span id="paper-analyse">
+                            <span class="menu-span">论文分析</span>
+                        </span>
                     </div>
-                    <div id="paper-collection" class="menu-item">
+                    <div class="menu-item">
                         <img src="../img/orange-star.svg" alt="" class="menu-item-img">
-                        <span class="menu-span">收藏夹</span>
+                        <span id="paper-collection">
+                            <span class="menu-span">收藏夹</span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -43,59 +51,22 @@
             <div class="top-box" id="search-box">
                 <form action="" id="search-form">
                    <input type="text" name="search-text" id="search-text" placeholder="Input something here">
-                   <img src="../img/gray-search.svg" alt="" onclick="getPaperList(0)">
+                   <img src="../img/gray-search.svg" alt="" onclick="getPaperList(0)" id="search-icon">
                 </form>
             </div>
             <div class="main-panel" id="main-panel">
-                <div class="paper-list" id="">
-                    <a href="#" class="paper-title">paperTitle</a>
-                    <p class="paper-author">author1,author2,author3</p>
-                    <p> 
-                        <span class="paper-abstract-title">[Abstract]</span>
-                        <span class="paper-abstract-detial">We present a novel and high-performance 3D object detection framework, named PointVoxel-RCNN (PV-RCNN), for accurate 3D object detection from point clouds. Our proposed method deeply integrates both 3D voxel Convolutional Neural Network (CNN) and PointNet-based set abstraction to learn more discriminative point cloud features.</span>
-                    </p>
-                    <p>
-                        <span class="paper-keyword">[Keyword]</span>
-                        <span class="paper-keyword-list">Keyword</span>
-                    </p>   
+                <div class="img-panel">
+                    <img src="../img/u98.png" class="img-box" alt="">
+                    <span class="img-span">A batch/recursive algorithm for 3D scene reconstruction</span>
+                    <span class="img-keyword">Camera Rotation</span>
                 </div>
-                <div class="paper-list" id="">
-                    <a href="#" class="paper-title">paperTitle</a>
-                    <p class="paper-author">author1,author2,author3</p>
-                    <p> 
-                        <span class="paper-abstract-title">[Abstract]</span>
-                        <span class="paper-abstract-detial">We present a novel and high-performance 3D object detection framework, named PointVoxel-RCNN (PV-RCNN), for accurate 3D object detection from point clouds. Our proposed method deeply integrates both 3D voxel Convolutional Neural Network (CNN) and PointNet-based set abstraction to learn more discriminative point cloud features.</span>
-                    </p>
-                    <p>
-                        <span class="paper-keyword">[Keyword]</span>
-                        <span class="paper-keyword-list">Keyword</span>
-                    </p>   
-                </div>
-                <div class="paper-list" id="">
-                    <a href="#" class="paper-title">paperTitle</a>
-                    <p class="paper-author">author1,author2,author3</p>
-                    <p> 
-                        <span class="paper-abstract-title">[Abstract]</span>
-                        <span class="paper-abstract-detial">We present a novel and high-performance 3D object detection framework, named PointVoxel-RCNN (PV-RCNN), for accurate 3D object detection from point clouds. Our proposed method deeply integrates both 3D voxel Convolutional Neural Network (CNN) and PointNet-based set abstraction to learn more discriminative point cloud features.</span>
-                    </p>
-                    <p>
-                        <span class="paper-keyword">[Keyword]</span>
-                        <span class="paper-keyword-list">Keyword</span>
-                    </p>   
-                </div>
-                <div class="paper-list" id="">
-                    <a href="#" class="paper-title">paperTitle</a>
-                    <p class="paper-author">author1,author2,author3</p>
-                    <p> 
-                        <span class="paper-abstract-title">[Abstract]</span>
-                        <span class="paper-abstract-detial">We present a novel and high-performance 3D object detection framework, named PointVoxel-RCNN (PV-RCNN), for accurate 3D object detection from point clouds. Our proposed method deeply integrates both 3D voxel Convolutional Neural Network (CNN) and PointNet-based set abstraction to learn more discriminative point cloud features.</span>
-                    </p>
-                    <p>
-                        <span class="paper-keyword">[Keyword]</span>
-                        <span class="paper-keyword-list">Keyword</span>
-                    </p>   
+                <div class="img-panel">
+                    <img src="../img/u98.png" class="img-box" alt="">
+                    <span class="img-span">A batch/recursive algorithm for 3D scene reconstruction</span>
+                    <span class="img-keyword">Camera Rotation</span>
                 </div>
             </div>
+            
         </div>
         <div class="right-bar">
             <div class="top-box">

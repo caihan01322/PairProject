@@ -113,3 +113,20 @@ function initPagination(currentPage, totalPage) {
         '</a></li></ul></nav>'
         panel.innerHTML = panel.innerHTML + str;
 }
+
+function getTopKwords() {
+    panel = document.getElementById('main-panel');
+    panel.innerHTML = '';
+    instance.get('/url', {
+        params: {
+            keyword: 'searchStmt',
+            pageNum: 'pageNum'
+        }
+    })
+    .then(function (response){
+        
+    })
+    .then(function(response) {
+        console.log(error);
+    })
+}
