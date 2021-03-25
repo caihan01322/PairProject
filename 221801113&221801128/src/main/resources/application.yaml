@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/paper_crawling?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/paper?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
     username: root
-    password: 123456
+    password: "001221"
     driver-class-name: com.mysql.jdbc.Driver
 
 #配置mybatis
