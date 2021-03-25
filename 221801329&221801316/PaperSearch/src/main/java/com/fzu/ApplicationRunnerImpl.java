@@ -211,28 +211,8 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
     }
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        /*List<Paper> paperList=eccvJsonParse();
-        int i=0;
-        for (Paper paper : paperList) {
-            System.out.println(i+"   "+paper.toString());
-            i++;
-        }*/
-        /*Paper testPaper=new Paper();
-        testPaper.setTitle("test");
-        testPaper.setAbstractContent("testcontent");
-        testPaper.setYear(2020);
-        testPaper.setMeet("ECCV");
-        testPaper.setLink("wwww");
-        List<String> authors= new ArrayList<>();
-        authors.add("未知");
-        authors.add("ldy");
-        testPaper.setAuthor(authors);
-        List<String> keywords=new ArrayList<>();
-        keywords.add("keyword1");
-        keywords.add("keyword2");
-        testPaper.setKeywords(keywords);
-        paperService.uploadPaper(testPaper);*/
-        System.out.println("开始上传...");
+
+      /*  System.out.println("开始上传...");
         List<Paper> totalList=new ArrayList<>();
         List<Paper>papers=new ArrayList<>();
         papers=cvprJsonParse();
@@ -253,7 +233,7 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
 
         for (Paper paper : totalList) {
             paperService.uploadPaper(paper);
-        }
+        }*/
 
 
     }

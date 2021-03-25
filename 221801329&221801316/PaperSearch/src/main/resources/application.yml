@@ -10,3 +10,8 @@ mybatis:
   mapper-locations: mapper/*.xml
   # 配置实体地址
   type-aliases-package: com.fzu.pojo
+#分页pageHelper
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true

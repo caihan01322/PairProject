@@ -11,4 +11,14 @@
     <insert id="insertKeywordWithId">
         insert into paper_search.paper_keyword(paper_id, keyword) values (#{paperId},#{keyword})
     </insert>
+    <select id="queryPaper" resultType="com.fzu.pojo.Paper">
+        select * from paper_search.paper limit #{start},#{rows}
+    </select>
+    <select id="queryKeywords" resultType="java.lang.String">
+        select keyword from paper_search.paper_keyword where paper_id=#{paperId}
+    </select>
+    <select id="queryAuthors" resultType="java.lang.String">
+        select author from paper_search.paper_author where paper_id=#{paperId}
+    </select>
+
 </mapper>
