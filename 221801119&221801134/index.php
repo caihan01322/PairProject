@@ -41,9 +41,7 @@
                 </div>
                 <metabar-notice v-bind:noticenum="noticeNum" v-bind:islogin="islogin"></metabar-notice>
                 <div class="metabarItem u-flex u-paddingLeft20 dropdown" >
-                    <a href="" class="u-flex" title="用户" >
-                    <svg t="1616238407449" class="icon" width="40" height="39" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2253" width="200" height="200"><path d="M512 0a512 512 0 1 0 512 512A512 512 0 0 0 512 0zM213.333 832A298.667 298.667 0 0 1 512 533.333a170.667 170.667 0 1 1 170.667-170.666A170.667 170.667 0 0 1 512 533.333 298.667 298.667 0 0 1 810.667 832z" p-id="2254" fill="#e6e6e6"></path></svg>
-                    </a>
+                    
                     <?php 
                     $conn = new mysqli('localhost','root','','paperdb');
                     if(!isset($_SESSION["userid"])){
@@ -55,6 +53,9 @@
                     $result = $conn->query($sql);
                     $number = mysqli_num_rows($result);
                     $row=$result ->fetch_assoc();
+                    echo '<a href="" class="u-flex" title="用户" >
+                    <svg t="1616238407449" class="icon" width="40" height="39" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2253" width="200" height="200"><path d="M512 0a512 512 0 1 0 512 512A512 512 0 0 0 512 0zM213.333 832A298.667 298.667 0 0 1 512 533.333a170.667 170.667 0 1 1 170.667-170.666A170.667 170.667 0 0 1 512 533.333 298.667 298.667 0 0 1 810.667 832z" p-id="2254" fill="#e6e6e6"></path></svg>
+                    </a>';
                     echo $row["username"];
                     echo '
                     <div class="dropdown-content">
