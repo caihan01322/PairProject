@@ -13,21 +13,43 @@
       <arg column="abstractContent" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
     </constructor>
   </resultMap>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from paper
     where pid = #{pid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.practice.pairproject.pojo.Paper">
+
+
+  <!--
+      values (#{meeting,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, #{publicDate,jdbcType=VARCHAR},
+      #{title,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR}, #{authors,jdbcType=VARCHAR},
+      #{abstractContent,jdbcType=LONGVARCHAR})
+  -->
+  <insert id="insertPaper" parameterType="com.practice.pairproject.pojo.Paper">
     <selectKey keyProperty="pid" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into paper (meeting, "year", publicDate, 
-      title, link, authors, 
-      abstractContent)
-    values (#{meeting,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, #{publicDate,jdbcType=VARCHAR}, 
-      #{title,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR}, #{authors,jdbcType=VARCHAR}, 
-      #{abstractContent,jdbcType=LONGVARCHAR})
+    insert into paper
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="meeting != null and meeting != ''">meeting,</if>
+      <if test="year != null and year != ''">year,</if>
+      <if test="publicDate != null and publicDate != ''">publicDate,</if>
+      <if test="title != null and title != ''">title,</if>
+      <if test="link != null and link != ''">link,</if>
+      <if test="authors != null and authors != ''">authors,</if>
+      <if test="abstractContent != null and abstractContent != ''">abstractContent,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="meeting != null and meeting != ''">#{meeting,jdbcType=VARCHAR},</if>
+      <if test="year != null and year != ''">#{year,jdbcType=VARCHAR},</if>
+      <if test="publicDate != null and publicDate != ''">#{publicDate,jdbcType=VARCHAR},</if>
+      <if test="title != null and title != ''">#{title,jdbcType=VARCHAR},</if>
+      <if test="link != null and link != ''">#{link,jdbcType=VARCHAR},</if>
+      <if test="authors != null and authors != ''">#{authors,jdbcType=VARCHAR},</if>
+      <if test="abstractContent != null and abstractContent != ''">#{abstractContent,jdbcType=LONGVARCHAR},</if>
+    </trim>
   </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.practice.pairproject.pojo.Paper">
     update paper
     set meeting = #{meeting,jdbcType=VARCHAR},
@@ -44,8 +66,10 @@
     from paper
     where pid = #{pid,jdbcType=INTEGER}
   </select>
+
   <select id="selectAll" resultMap="BaseResultMap">
     select pid, meeting, "year", publicDate, title, link, authors, abstractContent
     from paper
   </select>
+
 </mapper>

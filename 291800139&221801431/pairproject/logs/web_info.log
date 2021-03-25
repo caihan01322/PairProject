@@ -1,0 +1,558 @@
+2021-03-25 18:21:47.577 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 32876 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 18:21:47.580 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 18:21:47.632 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 18:21:47.632 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 18:21:48.862 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 18:21:48.873 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 18:21:48.874 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 18:21:48.874 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 18:21:48.880 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 18:21:48.881 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 18:21:48.881 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 18:21:49.070 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 18:21:49.264 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 18:21:49.264 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1631 ms
+2021-03-25 18:21:49.686 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 18:21:49.889 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 18:21:49.912 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 18:21:49.959 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 18:21:49.990 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 3.146 seconds (JVM running for 4.724)
+2021-03-25 18:21:55.504 [http-nio-8080-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 18:21:55.504 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 18:21:55.505 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2021-03-25 18:22:07.903 [http-nio-8080-exec-3] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2021-03-25 18:22:09.486 [http-nio-8080-exec-3] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2021-03-25 19:07:45.825 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 35184 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 19:07:45.828 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 19:07:45.881 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 19:07:45.881 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 19:07:47.906 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 19:07:47.949 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:07:47.949 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 19:07:47.950 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 19:07:47.955 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 19:07:47.955 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 19:07:47.957 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 19:07:47.968 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 19:07:48.224 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 19:07:48.225 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2342 ms
+2021-03-25 19:07:48.875 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 19:07:49.240 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 19:07:49.261 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:07:49.280 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 19:07:49.313 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 4.177 seconds (JVM running for 6.039)
+2021-03-25 19:08:06.897 [http-nio-8080-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 19:08:06.898 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 19:08:06.900 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2021-03-25 19:09:33.304 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 22952 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 19:09:33.308 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 19:09:33.365 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 19:09:33.366 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 19:09:34.794 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 19:09:34.803 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:09:34.803 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 19:09:34.803 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 19:09:34.805 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 19:09:34.806 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 19:09:34.806 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 19:09:34.809 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 19:09:35.074 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 19:09:35.075 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1708 ms
+2021-03-25 19:09:35.549 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 19:09:35.922 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 19:09:35.940 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:09:35.960 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 19:09:36.004 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 3.336 seconds (JVM running for 4.879)
+2021-03-25 19:09:40.457 [http-nio-8080-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 19:09:40.458 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 19:09:40.460 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2021-03-25 19:10:52.547 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 35548 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 19:10:52.551 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 19:10:52.615 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 19:10:52.615 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 19:10:54.013 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 19:10:54.042 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:10:54.044 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 19:10:54.045 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 19:10:54.050 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 19:10:54.051 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 19:10:54.051 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 19:10:54.060 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 19:10:54.294 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 19:10:54.294 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1678 ms
+2021-03-25 19:10:54.956 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 19:10:55.276 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 19:10:55.295 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:10:55.342 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 19:10:55.412 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 3.396 seconds (JVM running for 5.747)
+2021-03-25 19:10:59.444 [http-nio-8080-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 19:10:59.445 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 19:10:59.447 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2021-03-25 19:13:14.822 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 22724 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 19:13:14.825 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 19:13:14.926 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 19:13:14.926 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 19:13:16.125 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 19:13:16.140 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:13:16.142 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 19:13:16.142 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 19:13:16.146 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 19:13:16.146 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 19:13:16.147 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 19:13:16.153 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 19:13:16.301 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 19:13:16.301 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1373 ms
+2021-03-25 19:13:16.732 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 19:13:16.923 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 19:13:16.942 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:13:16.963 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 19:13:16.997 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 2.801 seconds (JVM running for 4.065)
+2021-03-25 19:13:22.700 [http-nio-8080-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 19:13:22.702 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 19:13:22.706 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2021-03-25 19:17:26.170 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 25756 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 19:17:26.174 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 19:17:26.241 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 19:17:26.241 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 19:17:27.449 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 19:17:27.457 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:17:27.458 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 19:17:27.458 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 19:17:27.460 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 19:17:27.461 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 19:17:27.461 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 19:17:27.464 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 19:17:27.736 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 19:17:27.737 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1495 ms
+2021-03-25 19:17:28.280 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 19:17:28.569 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 19:17:28.588 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:17:28.605 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 19:17:28.641 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 3.042 seconds (JVM running for 4.613)
+2021-03-25 19:17:33.192 [http-nio-8080-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 19:17:33.193 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 19:17:33.195 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2021-03-25 19:18:41.411 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 7420 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 19:18:41.413 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 19:18:41.460 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 19:18:41.461 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 19:18:42.427 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 19:18:42.435 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:18:42.436 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 19:18:42.436 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 19:18:42.438 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 19:18:42.438 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 19:18:42.439 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 19:18:42.443 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 19:18:42.630 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 19:18:42.631 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1169 ms
+2021-03-25 19:18:43.158 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 19:18:43.402 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 19:18:43.420 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:18:43.435 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 19:18:43.467 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 2.638 seconds (JVM running for 4.036)
+2021-03-25 19:18:52.249 [http-nio-8080-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 19:18:52.250 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 19:18:52.254 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2021-03-25 19:22:34.066 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 31760 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 19:22:34.070 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 19:22:34.132 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 19:22:34.132 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 19:22:35.356 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 19:22:35.367 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:22:35.367 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 19:22:35.368 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 19:22:35.370 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 19:22:35.370 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 19:22:35.371 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 19:22:35.375 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 19:22:35.517 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 19:22:35.518 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1385 ms
+2021-03-25 19:22:36.006 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 19:22:36.218 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 19:22:36.234 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:22:36.254 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 19:22:36.289 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 2.825 seconds (JVM running for 4.32)
+2021-03-25 19:22:55.589 [http-nio-8080-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 19:22:55.590 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 19:22:55.593 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2021-03-25 19:29:07.442 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 1316 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 19:29:07.448 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 19:29:07.584 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 19:29:07.584 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 19:29:10.049 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 19:29:10.065 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:29:10.066 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 19:29:10.068 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 19:29:10.071 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 19:29:10.072 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 19:29:10.072 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 19:29:10.079 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 19:29:10.225 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 19:29:10.226 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2640 ms
+2021-03-25 19:29:10.876 [restartedMain] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static com.practice.pairproject.service.PaperService com.practice.pairproject.util.StoragePaper.paperService
+2021-03-25 19:29:10.876 [restartedMain] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static com.practice.pairproject.service.KeywordService com.practice.pairproject.util.StoragePaper.keywordService
+2021-03-25 19:29:11.345 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 19:29:11.882 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 19:29:11.929 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:29:11.970 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 19:29:12.043 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 5.742 seconds (JVM running for 8.502)
+2021-03-25 19:29:17.765 [http-nio-8080-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 19:29:17.765 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 19:29:17.769 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2021-03-25 19:32:24.977 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 31592 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 19:32:24.982 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 19:32:25.056 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 19:32:25.057 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 19:32:27.046 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 19:32:27.057 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:32:27.057 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 19:32:27.058 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 19:32:27.060 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 19:32:27.060 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 19:32:27.061 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 19:32:27.065 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 19:32:27.173 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 19:32:27.173 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2115 ms
+2021-03-25 19:32:27.643 [restartedMain] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static com.practice.pairproject.service.impl.PaperServiceImpl com.practice.pairproject.util.StoragePaper.paperService
+2021-03-25 19:32:27.643 [restartedMain] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static com.practice.pairproject.service.impl.KeywordServiceImpl com.practice.pairproject.util.StoragePaper.keywordService
+2021-03-25 19:32:27.858 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 19:32:28.138 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 19:32:28.161 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:32:28.183 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 19:32:28.228 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 4.012 seconds (JVM running for 5.992)
+2021-03-25 19:33:27.705 [http-nio-8080-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 19:33:27.705 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 19:33:27.708 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2021-03-25 19:36:27.247 [Thread-5] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2021-03-25 19:36:27.334 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 31592 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 19:36:27.334 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 19:36:27.576 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 19:36:27.576 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:36:27.576 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 19:36:27.576 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 19:36:27.577 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 19:36:27.577 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 19:36:27.577 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 19:36:27.577 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 19:36:27.613 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 19:36:27.613 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 276 ms
+2021-03-25 19:36:27.719 [restartedMain] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static com.practice.pairproject.service.impl.PaperServiceImpl com.practice.pairproject.util.StoragePaper.paperService
+2021-03-25 19:36:27.719 [restartedMain] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static com.practice.pairproject.service.impl.KeywordServiceImpl com.practice.pairproject.util.StoragePaper.keywordService
+2021-03-25 19:36:27.787 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 19:36:27.861 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 19:36:27.872 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:36:27.874 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 19:36:27.884 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 0.603 seconds (JVM running for 245.649)
+2021-03-25 19:36:27.886 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2021-03-25 19:36:29.861 [Thread-8] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2021-03-25 19:36:29.933 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 31592 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 19:36:29.933 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 19:36:30.183 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 19:36:30.184 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:36:30.184 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 19:36:30.184 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 19:36:30.185 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 19:36:30.185 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 19:36:30.185 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 19:36:30.185 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 19:36:30.211 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 19:36:30.211 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 275 ms
+2021-03-25 19:36:30.337 [restartedMain] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static com.practice.pairproject.service.impl.PaperServiceImpl com.practice.pairproject.util.StoragePaper.paperService
+2021-03-25 19:36:30.337 [restartedMain] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static com.practice.pairproject.service.impl.KeywordServiceImpl com.practice.pairproject.util.StoragePaper.keywordService
+2021-03-25 19:36:30.416 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 19:36:30.469 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 19:36:30.477 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:36:30.480 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 19:36:30.488 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 0.593 seconds (JVM running for 248.253)
+2021-03-25 19:36:30.490 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2021-03-25 19:36:37.189 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 34488 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 19:36:37.193 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 19:36:37.261 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 19:36:37.261 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 19:36:39.010 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 19:36:39.022 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:36:39.023 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 19:36:39.024 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 19:36:39.029 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 19:36:39.029 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 19:36:39.030 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 19:36:39.035 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 19:36:39.163 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 19:36:39.164 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1901 ms
+2021-03-25 19:36:39.802 [restartedMain] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static com.practice.pairproject.service.impl.PaperServiceImpl com.practice.pairproject.util.StoragePaper.paperService
+2021-03-25 19:36:39.803 [restartedMain] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static com.practice.pairproject.service.impl.KeywordServiceImpl com.practice.pairproject.util.StoragePaper.keywordService
+2021-03-25 19:36:40.110 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 19:36:40.594 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 19:36:40.639 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:36:40.682 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 19:36:40.765 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 4.188 seconds (JVM running for 5.938)
+2021-03-25 19:36:59.767 [http-nio-8080-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 19:36:59.768 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 19:36:59.773 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2021-03-25 19:42:37.462 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 25856 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 19:42:37.467 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 19:42:37.536 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 19:42:37.536 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 19:42:38.919 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 19:42:38.926 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:42:38.927 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 19:42:38.927 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 19:42:38.929 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 19:42:38.929 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 19:42:38.930 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 19:42:38.933 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 19:42:39.020 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 19:42:39.021 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1484 ms
+2021-03-25 19:42:39.486 [restartedMain] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static com.practice.pairproject.service.impl.PaperServiceImpl com.practice.pairproject.util.StoragePaper.paperService
+2021-03-25 19:42:39.486 [restartedMain] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static com.practice.pairproject.service.impl.KeywordServiceImpl com.practice.pairproject.util.StoragePaper.keywordService
+2021-03-25 19:42:39.703 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 19:42:39.964 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 19:42:39.982 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:42:39.999 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 19:42:40.036 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 3.088 seconds (JVM running for 4.564)
+2021-03-25 19:42:44.694 [http-nio-8080-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 19:42:44.696 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 19:42:44.700 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2021-03-25 19:44:15.581 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 32056 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 19:44:15.586 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 19:44:15.667 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 19:44:15.668 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 19:44:18.090 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 19:44:18.117 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:44:18.118 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 19:44:18.119 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 19:44:18.122 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 19:44:18.122 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 19:44:18.123 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 19:44:18.129 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 19:44:18.269 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 19:44:18.270 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2599 ms
+2021-03-25 19:44:18.754 [restartedMain] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static com.practice.pairproject.service.impl.PaperServiceImpl com.practice.pairproject.util.StoragePaper.paperService
+2021-03-25 19:44:18.754 [restartedMain] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - Autowired annotation is not supported on static fields: private static com.practice.pairproject.service.impl.KeywordServiceImpl com.practice.pairproject.util.StoragePaper.keywordService
+2021-03-25 19:44:18.893 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 19:44:19.121 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 19:44:19.146 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:44:19.174 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 19:44:19.212 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 4.745 seconds (JVM running for 7.633)
+2021-03-25 19:44:22.235 [http-nio-8080-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 19:44:22.237 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 19:44:22.241 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2021-03-25 19:44:22.357 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2021-03-25 19:44:25.756 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2021-03-25 19:50:07.416 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 29648 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 19:50:07.419 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 19:50:07.475 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 19:50:07.475 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 19:50:08.723 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 19:50:08.746 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:50:08.747 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 19:50:08.747 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 19:50:08.750 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 19:50:08.750 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 19:50:08.751 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 19:50:08.755 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 19:50:08.849 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 19:50:08.849 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1373 ms
+2021-03-25 19:50:09.519 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 19:50:10.132 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 19:50:10.225 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 19:50:10.261 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 19:50:10.313 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 3.532 seconds (JVM running for 5.618)
+2021-03-25 19:50:47.920 [http-nio-8080-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 19:50:47.921 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 19:50:47.925 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2021-03-25 19:50:48.063 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2021-03-25 19:50:51.017 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2021-03-25 20:02:08.271 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 10124 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 20:02:08.274 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 20:02:08.342 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 20:02:08.342 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 20:02:09.520 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 20:02:09.530 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 20:02:09.530 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 20:02:09.530 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 20:02:09.533 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 20:02:09.533 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 20:02:09.533 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 20:02:09.537 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 20:02:09.607 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 20:02:09.607 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1264 ms
+2021-03-25 20:02:10.071 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 20:02:10.385 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 20:02:10.402 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 20:02:10.419 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 20:02:10.453 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 2.689 seconds (JVM running for 4.153)
+2021-03-25 20:02:23.427 [http-nio-8080-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 20:02:23.428 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 20:02:23.430 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2021-03-25 20:02:23.508 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2021-03-25 20:02:25.695 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2021-03-25 20:08:57.612 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 19952 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 20:08:57.616 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 20:08:57.678 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 20:08:57.679 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 20:08:58.935 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 20:08:58.945 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 20:08:58.946 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 20:08:58.946 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 20:08:58.948 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 20:08:58.949 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 20:08:58.949 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 20:08:58.952 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 20:08:59.028 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 20:08:59.028 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1348 ms
+2021-03-25 20:08:59.435 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 20:08:59.684 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 20:08:59.705 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 20:08:59.731 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 20:08:59.778 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 2.732 seconds (JVM running for 4.154)
+2021-03-25 20:09:22.191 [http-nio-8080-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 20:09:22.193 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 20:09:22.196 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2021-03-25 20:09:22.334 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2021-03-25 20:09:25.335 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2021-03-25 20:19:03.595 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 1764 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 20:19:03.599 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 20:19:03.652 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 20:19:03.652 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 20:19:04.831 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 20:19:04.840 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 20:19:04.840 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 20:19:04.840 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 20:19:04.842 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 20:19:04.843 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 20:19:04.843 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 20:19:04.846 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 20:19:04.917 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 20:19:04.917 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1264 ms
+2021-03-25 20:19:05.428 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 20:19:05.762 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 20:19:05.781 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 20:19:05.800 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 20:19:05.836 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 2.801 seconds (JVM running for 4.233)
+2021-03-25 20:19:24.389 [http-nio-8080-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 20:19:24.390 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 20:19:24.394 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2021-03-25 20:19:24.556 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2021-03-25 20:19:26.661 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2021-03-25 20:21:12.415 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 22680 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 20:21:12.421 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 20:21:12.540 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 20:21:12.541 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 20:21:14.876 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 20:21:14.895 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 20:21:14.896 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 20:21:14.897 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 20:21:14.901 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 20:21:14.902 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 20:21:14.903 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 20:21:14.911 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 20:21:15.067 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 20:21:15.067 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2524 ms
+2021-03-25 20:21:15.960 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 20:21:16.422 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 20:21:16.453 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 20:21:16.490 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 20:21:16.563 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 5.104 seconds (JVM running for 8.184)
+2021-03-25 20:21:37.582 [http-nio-8080-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 20:21:37.584 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 20:21:37.588 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2021-03-25 20:21:37.694 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2021-03-25 20:21:40.463 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2021-03-25 20:24:49.057 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 24276 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 20:24:49.064 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 20:24:49.194 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 20:24:49.195 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 20:24:51.593 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 20:24:51.613 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 20:24:51.614 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 20:24:51.615 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 20:24:51.620 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 20:24:51.621 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 20:24:51.621 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 20:24:51.629 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 20:24:51.785 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 20:24:51.786 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2590 ms
+2021-03-25 20:24:52.750 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 20:24:53.199 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 20:24:53.240 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 20:24:53.280 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 20:24:53.357 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 5.452 seconds (JVM running for 8.402)
+2021-03-25 20:25:15.498 [http-nio-8080-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 20:25:15.499 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 20:25:15.503 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2021-03-25 20:25:15.598 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2021-03-25 20:25:18.370 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2021-03-25 20:27:36.398 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 36172 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 20:27:36.402 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 20:27:36.505 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 20:27:36.506 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 20:27:38.870 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 20:27:38.890 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 20:27:38.892 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 20:27:38.892 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 20:27:38.897 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 20:27:38.898 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 20:27:38.898 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 20:27:38.907 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 20:27:39.066 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 20:27:39.067 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2559 ms
+2021-03-25 20:27:39.922 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 20:27:40.330 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 20:27:40.372 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 20:27:40.418 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 20:27:40.506 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 5.249 seconds (JVM running for 8.241)
+2021-03-25 20:27:49.624 [http-nio-8080-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 20:27:49.633 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 20:27:49.638 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 5 ms
+2021-03-25 20:27:50.233 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2021-03-25 20:27:52.669 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2021-03-25 21:09:34.028 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 35224 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 21:09:34.077 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 21:09:34.220 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 21:09:34.221 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 21:09:36.065 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 21:09:36.108 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 21:09:36.109 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 21:09:36.109 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 21:09:36.113 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 21:09:36.114 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 21:09:36.114 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 21:09:36.269 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 21:09:36.440 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 21:09:36.441 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2218 ms
+2021-03-25 21:09:37.058 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 21:09:37.254 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 21:09:37.269 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 21:09:37.284 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 21:09:37.310 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 4.001 seconds (JVM running for 5.846)
+2021-03-25 21:09:47.846 [http-nio-8080-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 21:09:47.847 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 21:09:47.849 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2021-03-25 21:09:48.060 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2021-03-25 21:09:50.628 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2021-03-25 21:52:23.694 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Starting PairprojectApplication using Java 12.0.1 on LAPTOP-F049C9RS with PID 31964 (D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject\target\classes started by Lenovo in D:\【Third _Grade_Next】\软工实践\结对\第二次\项目代码\PairProject\291800139&221801431\pairproject)
+2021-03-25 21:52:23.698 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - The following profiles are active: dev
+2021-03-25 21:52:23.804 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-25 21:52:23.805 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-25 21:52:25.513 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2021-03-25 21:52:25.528 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2021-03-25 21:52:25.529 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-03-25 21:52:25.529 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-03-25 21:52:25.531 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.26] using APR version [1.7.0].
+2021-03-25 21:52:25.531 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-25 21:52:25.532 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-25 21:52:25.590 [restartedMain] INFO  org.apache.catalina.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1i  8 Dec 2020]
+2021-03-25 21:52:25.672 [restartedMain] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-03-25 21:52:25.672 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1866 ms
+2021-03-25 21:52:26.204 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-25 21:52:26.407 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2021-03-25 21:52:26.424 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2021-03-25 21:52:26.440 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2021-03-25 21:52:26.468 [restartedMain] INFO  com.practice.pairproject.PairprojectApplication - Started PairprojectApplication in 3.471 seconds (JVM running for 4.957)
+2021-03-25 21:52:34.721 [http-nio-8080-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-25 21:52:34.722 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-03-25 21:52:34.725 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2021-03-25 21:52:35.214 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2021-03-25 21:52:37.502 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.

@@ -6,7 +6,12 @@ import java.util.List;
 public interface PaperMapper {
     int deleteByPrimaryKey(Integer pid);
 
-    int insert(Paper record);
+    /**
+     * 插入一个论文
+     * @param paper
+     * @return 数据库自增id
+     */
+    Integer insertPaper(Paper paper);
 
     Paper selectByPrimaryKey(Integer pid);
 

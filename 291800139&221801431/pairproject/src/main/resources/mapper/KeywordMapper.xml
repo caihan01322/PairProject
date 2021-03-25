@@ -10,19 +10,36 @@
       <arg column="year" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from keyword
     where kpid = #{kpid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.practice.pairproject.pojo.Keyword">
+
+
+  <!--
+      values (#{content,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, #{meeting,jdbcType=VARCHAR},
+      #{year,jdbcType=VARCHAR})
+  -->
+  <insert id="insertPKeywords" parameterType="com.practice.pairproject.pojo.Keyword">
     <selectKey keyProperty="kpid" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into keyword (content, pid, meeting, 
-      "year")
-    values (#{content,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, #{meeting,jdbcType=VARCHAR}, 
-      #{year,jdbcType=VARCHAR})
+    insert into keyword
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="content != null and content != ''">content,</if>
+      <if test="pid != null ">pid,</if>
+      <if test="meeting != null and meeting != ''">meeting,</if>
+      <if test="year != null and year != ''">year,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="content != null and content != ''">#{content},</if>
+      <if test="pid != null ">#{pid},</if>
+      <if test="meeting != null and meeting != ''">#{meeting},</if>
+      <if test="year != null and year != ''">#{year},</if>
+    </trim>
   </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.practice.pairproject.pojo.Keyword">
     update keyword
     set content = #{content,jdbcType=VARCHAR},
@@ -31,13 +48,16 @@
       "year" = #{year,jdbcType=VARCHAR}
     where kpid = #{kpid,jdbcType=INTEGER}
   </update>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select kpid, content, pid, meeting, "year"
     from keyword
     where kpid = #{kpid,jdbcType=INTEGER}
   </select>
+
   <select id="selectAll" resultMap="BaseResultMap">
     select kpid, content, pid, meeting, "year"
     from keyword
   </select>
+
 </mapper>
