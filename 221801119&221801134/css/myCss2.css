@@ -24,13 +24,16 @@
     align-items: center;
 }
 
-#search_img_wrap {
-	padding: 5% 0;
+#search_word_cloud {
+	width: 80%;
+	height: 500px;
+	margin: 0 0 0 5%;
+	padding: 0px;
 }
 
 #search_container{
 	height: 50px;
-	width: 800px;	
+	width: 800px;
 }
 
 #search_form{
