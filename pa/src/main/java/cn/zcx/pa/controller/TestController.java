@@ -7,11 +7,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class TestController
 {
-    @GetMapping("/searchEssay")
+    @GetMapping("/index")
     public String searchEssay(Model model)
     {
         model.addAttribute("user","zcx");
-        return "searchEssay";
+        return "index";
     }
+
+    @GetMapping("/advancedSearch")
+    public String advancedSearch(Model model)
+    {
+        return "advancedSearch";
+    }
+
 
 }

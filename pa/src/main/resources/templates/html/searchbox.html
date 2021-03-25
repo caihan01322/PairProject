@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="searchbox" style="margin-left: 200px;">
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">标题</label>
+            <div class="layui-input-inline">
+                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-input-inline">
+                <select name="way" lay-verify="required">
+                    <option value="0">精确</option>
+                    <option value="1">模糊</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">关键词</label>
+            <div class="layui-input-inline">
+                <input type="password" name="password" required lay-verify="required" placeholder="请输入关键词" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-input-inline">
+                <select name="way" lay-verify="required">
+                    <option value="0">精确</option>
+                    <option value="1">模糊</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">摘要</label>
+            <div class="layui-input-inline">
+                <input type="password" name="password" required lay-verify="required" placeholder="请输入摘要" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-input-inline">
+                <select name="way" lay-verify="required">
+                    <option value="0">精确</option>
+                    <option value="1">模糊</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">年份</label>
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="price_min" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-mid">-</div>
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="price_max" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">会议</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="ECCV" title="ECCV" checked>
+                <input type="checkbox" name="CVPR" title="CVPR" checked>
+                <input type="checkbox" name="ICCV" title="ICCV" checked>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">查询</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
