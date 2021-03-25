@@ -1,0 +1,73 @@
+<!--  -->
+<template>
+    <div class='rank'>
+        <div class="tabs">
+            <a-tabs default-active-key="1" @change="changeTab">
+                <a-tab-pane key="1" tab="Tab 1">
+                    <div class="title">
+                        <h3>热门领域</h3>
+                    </div>
+                    <div class="table_container">
+                        <rank-table></rank-table>
+                    </div>
+                </a-tab-pane>
+                <a-tab-pane key="2" tab="Tab 2" force-render>
+                    <div class="title">
+                        <h3>热门领域</h3>
+                    </div>
+                    <div class="table_container">
+                        <rank-table></rank-table>
+                    </div>
+                </a-tab-pane>
+                <a-tab-pane key="3" tab="Tab 3">
+                    <div class="title">
+                        <h3>热门领域</h3>
+                    </div>
+                    <div class="table_container">
+                        <rank-table></rank-table>
+                    </div>
+                </a-tab-pane>
+            </a-tabs>
+        </div>
+    </div>
+</template>
+
+<script>
+import RankTable from './RankTable.vue'
+
+export default {
+    name: 'Rank',
+    components: {RankTable},
+    data () {
+        return {
+
+        }
+    },
+    methods: {
+        changeTab(){
+
+        }
+    }
+}
+</script>
+<style lang='scss' scoped>
+//@import url();
+.tabs {
+    padding: 0 12px;
+}
+.title {
+    width: 100%;
+    padding: 0 12px;
+    box-sizing: border-box;
+    h3 {
+        margin: 0;
+        font-weight: 700;
+    }
+}
+.table_container {
+    width: 100%;
+    margin-top: 12px;
+    padding: 0 12px;
+    box-sizing: border-box;
+}
+</style>
