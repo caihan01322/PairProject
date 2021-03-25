@@ -63,7 +63,7 @@ function getPaperList(pageNum) {
                         keywordStr +
                         "</span></p></div>"
                 }
-                initPagination(pageNum,list['totalPage']);
+                initPagination(pageNum, list['totalPage']);
             }
         })
         .then(function (error) {
@@ -99,34 +99,50 @@ function initPagination(currentPage, totalPage) {
         ' aria-label="Previous">' +
         '<span aria-hidden="true">&laquo;</span>' +
         '</a></li>';
-        for (var i = start; i <= end; i++) {
-            if (currentPage == i - 1) {
-                var li = "<li class=\"active\"><a onclick=getPaperList("+(i-1)+")>" + i + "</a></li>";
-            } else {
-                var li = "<li><a onclick=getPaperList("+(i-1)+")>" + i + "</a></li>";
-            }
-            str += li;
+    for (var i = start; i <= end; i++) {
+        if (currentPage == i - 1) {
+            var li = "<li class=\"active\"><a onclick=getPaperList(" + (i - 1) + ")>" + i + "</a></li>";
+        } else {
+            var li = "<li><a onclick=getPaperList(" + (i - 1) + ")>" + i + "</a></li>";
         }
-        str += '<li>' +
+        str += li;
+    }
+    str += '<li>' +
         '<a href=' + +' aria-label="Next">' +
         '<span aria-hidden="true">&raquo;</span>' +
         '</a></li></ul></nav>'
-        panel.innerHTML = panel.innerHTML + str;
+    panel.innerHTML = panel.innerHTML + str;
 }
 
 function getTopKwords() {
     panel = document.getElementById('main-panel');
     panel.innerHTML = '';
     instance.get('/url', {
-        params: {
-            keyword: 'searchStmt',
-            pageNum: 'pageNum'
-        }
-    })
-    .then(function (response){
-        
-    })
-    .then(function(response) {
-        console.log(error);
-    })
+            params: {
+                keyword: 'searchStmt',
+                pageNum: 'pageNum'
+            }
+        })
+        .then(function (response) {
+
+        })
+        .then(function (response) {
+            console.log(error);
+        })
+}
+
+function getIndex() {
+    panel = document.getElementById('main-panel');
+
+    panel.innerHTML = '' +
+        '<div class="img-panel">' +
+        '<img src="../img/u98.png" class="img-box" alt="">' +
+        '<span class="img-span">A batch/recursive algorithm for 3D scene reconstruction</span>' +
+        '<span class="img-keyword">Camera Rotation</span>' +
+        '</div>' +
+        '<div class="img-panel">' +
+        '<img src="../img/u98.png" class="img-box" alt="">' +
+        '<span class="img-span">A batch/recursive algorithm for 3D scene reconstruction</span>' +
+        '<span class="img-keyword">Camera Rotation</span>' +
+        '</div>';
 }
