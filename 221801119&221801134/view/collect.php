@@ -47,7 +47,7 @@
                     <?php 
                     $conn = new mysqli('localhost','root','','paperdb');
                     if(!isset($_SESSION["userid"])){
-                        echo '<script>alert("请先登录！");window.location.href="../view/login.php";</script>';
+                        echo '<script>alert("请先登录！");window.location.href="login.php";</script>';
                     }
                     $userid=$_SESSION["userid"];
                     $sql = "select * from user where userid = '$userid' ";

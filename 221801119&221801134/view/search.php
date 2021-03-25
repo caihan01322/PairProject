@@ -67,14 +67,17 @@
 
 
 
-                    <div class="mainPaper">
+<div class="mainPaper">
                 <?php
                     $conn = new mysqli('localhost','root','','paperdb');
                 $conn->query("SET NAMES utf8");
                 if(isset($_GET['searchName'])){
                     $searchname=$_GET['searchName'];
                     $searchtype=$_GET["searchSelect"];
-                    $searching=2;
+                    if(isset($_GET['searching']))
+                        $searching=$_GET['searching'];
+                    else
+                        $searching=2;
                 }
                 else if(isset($_POST['searchName'])){
                     $searchname=$_POST['searchName'];
@@ -108,7 +111,7 @@
                     echo'
                     <div class="paper" style="padding-top:0;padding-bottom:0">
                         <ol class="breadcrumb hidden-xs-down" style="margin:0">
-                            <li class="breadcrumb-item active"><a href="manage.php">论文列表</a></li>
+                            <li class="breadcrumb-item active"><a href="manage.php"><span style="color:#888888  ">本地论文列表</span></a></li>
                     ';
                     if($searching==1){
                         echo ' <li class="breadcrumb-item">本地搜索</li> ';
@@ -327,7 +330,7 @@
                                     $len=sizeof($top_key_array);
                                     for($i=0;$i<$len;$i++)
                                     echo '
-                                    <li><a href="#" onclick="keyButton(this)" id="'.$top_key_array[$i].'">'.$top_key_array[$i].'<span>('.$top_value_array[$i].')</span></a></li>
+                                    <li><a href="#" onclick="keyButton1(this)" id="'.$top_key_array[$i].'">'.$top_key_array[$i].'<span>('.$top_value_array[$i].')</span></a></li>
                                     ';
                                     ?>
                                 </ul>
@@ -406,4 +409,10 @@
         var userid='<?php echo $userid;?>';
         window.location.href="../form/addPaper.php? pid="+pid+"&userid="+userid+"&r="+str;
     }
+    function keyButton1(e){
+	window.event.returnValue=false;                    
+    if (window.event.preventDefault) window.event.preventDefault();
+	var x=e.id;
+	window.location.href="search.php? searchName="+x+"&searchSelect=3"+"&searching=1";
+}
 </script>
