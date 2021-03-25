@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.zcx.pa.PaperShow.dao.KeywordDao">
+    <!--插入-->
+    <insert id="insertKeyword" parameterType="cn.zcx.pa.PaperShow.pojo.Keyword">
+        INSERT INTO keyword(kid,pid,keyword,conference,publicationYear)
+        VALUES(#{kid},#{pid},#{keyword},#{conference},#{publicationYear})
+    </insert>
+
+    <!--根据id删除-->
+    <delete id="deleteById" parameterType="string">
+        DELETE FROM keyword WHERE kid=#{kid}
+    </delete>
+
+<!--    &lt;!&ndash;判断关键词是否存在&ndash;&gt;-->
+<!--    <select id="isKeywordExist"  resultType="java.lang.Boolean">-->
+<!--        <![CDATA[ select count(kid) from keyword-->
+<!--        where keyword=#{keyword} AND conference=#{conference} AND publicationYear=#{publicationYear} ]]>-->
+<!--    </select>-->
+
+
+    <!--通过对象更新-->
+    <update id="updateByObject" parameterType="cn.zcx.pa.PaperShow.pojo.Keyword">
+        UPDATE keyword SET pid=#{pid},keyword=#{keyword},conference=#{conference},publicationYear=#{publicationYear}
+        WHERE kid=#{kid}
+    </update>
+
+
+    <!--通过map更新-->
+    <update id="updateByMap" parameterType="map">
+        UPDATE keyword
+        <set>
+            <if test="pid !=NULL">pid=#{pid},</if>
+            <if test="keyword !=NULL">keyword=#{keyword},</if>
+            <if test="conference !=NULL">conference=#{conference},</if>
+            <if test="publicationYear !=NULL">publicationYear=#{publicationYear}</if>
+        </set>
+        WHERE kid=#{kid}
+    </update>
+
+    <!--通过查询频率前n位的关键词-->
+    <select id="selectKeywordCountByMap" parameterType="map" resultMap="KeywordCount">
+        SELECT keyword,count(keyword) AS `count` FROM keyword
+        <where>
+            <if test="conference !=null">AND conference=#{conference}</if>
+            <if test="publicationYear !=null">AND publicationYear=#{publicationYear}</if>
+            <if test="beginYear !=NULL">AND publicationYear BETWEEN #{beginYear} AND #{endYear}</if>
+        </where>
+        GROUP BY keyword ORDER BY `count` DESC
+        <if test="size !=NULL">LIMIT ${size}</if>
+    </select>
+
+    <!--通过id查询-->
+    <select id="selectKeywordById" parameterType="string" resultMap="Keyword">
+        SELECT * FROM keyword WHERE kid=#{kid}
+    </select>
+
+    <!--通过map查询-->
+    <select id="selectKeywordsByMap" parameterType="map" resultType="string">
+        SELECT keyword FROM keyword
+        <where>
+            <if test="pid !=NULL">AND pid=#{pid}</if>
+            <if test="keyword !=NULL">AND keyword=#{keyword}</if>
+            <if test="conference !=NULL">AND conference=#{conference}</if>
+            <if test="publicationYear !=NULL">AND publicationYear=#{publicationYear}</if>
+        </where>
+    </select>
+
+    <!--Keyword的映射-->
+    <resultMap id="Keyword" type="cn.zcx.pa.PaperShow.pojo.Keyword">
+        <result column="kid" property="kid"/>
+        <result column="pid" property="pid"/>
+        <result column="keyword" property="keyword"/>
+        <result column="conference" property="conference"/>
+        <result column="publicationYear" property="publicationYear"/>
+    </resultMap>
+    
+    <!--KeywordCount映射-->
+    <resultMap id="KeywordCount" type="cn.zcx.pa.PaperShow.pojo.KeywordCount">
+        <result column="keyword" property="keyword"/>
+        <result column="count" property="count"/>
+    </resultMap>
+</mapper>
