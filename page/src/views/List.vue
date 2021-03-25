@@ -115,6 +115,8 @@
 
 <script>
 
+import request from '../request/request'
+
 export default {
     name: 'List',
     components: {},
@@ -198,7 +200,19 @@ export default {
             this.selectedRowKeys = selectedRowKeys;
         },
         requestList() {
-
+            let that = this;
+            request.search({
+                key: "test"
+            })
+            .then((res)=>{
+                // console.log(res);
+                if(res.error == 0) {
+                    // load data
+                }
+                else {
+                    // alert error
+                }
+            })
         },
         serachPage(value) {
             this.titleInput = value;
@@ -210,7 +224,10 @@ export default {
         changeLabel() {
 
         }
-    }
+    },
+    mounted() {
+        this.requestList();
+    },
 }
 </script>
 <style lang='scss' scoped>
