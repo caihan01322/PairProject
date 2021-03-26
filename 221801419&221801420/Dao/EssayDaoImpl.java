@@ -46,5 +46,12 @@ public class EssayDaoImpl implements essayDao {
         session.close();
         
     }
- 
+    @Override
+    public List<Essay> singleSearch(String searchString) {
+        ArrayList<Essay> array = new ArrayList<>();
+        array = (ArrayList<Essay>) e.singleSearch(searchString);
+        return array;
+    }
+
+    
 }

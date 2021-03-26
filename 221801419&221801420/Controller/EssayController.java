@@ -80,6 +80,17 @@ public class EssayController {
         }
         return "success";
     }
+    
+    //论文查询（对作者，摘要和论文题目进行模糊查询）
+    /*
+     * searchString：查询的字符串
+     */
+    @RequestMapping("/singleSearch")
+    @ResponseBody
+    public List<Essay> essaySingleSearch(String searchString){
+        EssayDaoImpl e = new EssayDaoImpl();
+        return e.singleSearch(searchString);
+    }
 
     
 }

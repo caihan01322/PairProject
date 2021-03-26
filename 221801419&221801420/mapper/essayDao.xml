@@ -31,5 +31,13 @@ select  title,authors,articlenumber,link,keywords,summary,year,meeting  from ess
 <update id="editiccv" parameterType="Entity.Essay">
  update essay_iccv set title=#{title},authors=#{authors},articlenumber=#{articlenumber},link=#{link},keywords=#{keywords},summary=#{summary},year=#{year},meeting=#{meeting} where title = #{title};
 </update>
+<select id="singleSearch" parameterType="String" resultType="Entity.Essay">
+select * from essay_cvpr where title like concat('%','${searchString}','%') or authors like concat('%','${searchString}','%') or summary like concat('%','${searchString}','%')
+union all
+select * from essay_eccv where title like concat('%','${searchString}','%') or authors like concat('%','${searchString}','%') or summary like concat('%','${searchString}','%')
+union all
+select * from essay_iccv where title like concat('%','${searchString}','%') or authors like concat('%','${searchString}','%') or summary like concat('%','${searchString}','%')
+order by meeting,title;
+</select>
 
 </mapper>
