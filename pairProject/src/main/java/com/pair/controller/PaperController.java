@@ -28,7 +28,7 @@ public class PaperController {
 
     @RequestMapping("/paperList")
     public String getPaperList(Model model, @RequestParam(defaultValue = "1") Integer pageNum) {
-        PageHelper.startPage(pageNum,5);
+        PageHelper.startPage(pageNum,10);
         List<Paper> papers = paperMapper.selectPaperListWithoutKeywords();
         for (int i = 0; i < papers.size(); i++) {
             papers.get(i).setKeywords(keywordMapper.getKeyWordsByPid(papers.get(i).getPid()));
