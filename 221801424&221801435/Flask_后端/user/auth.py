@@ -166,4 +166,56 @@ def register():
         db.session.rollback()
         return responseError(Responses.PARAMETERS_ERROR)
 
+@auth.route("/update_note",methods=["GET"])
+#@token_check_required
+def update_note():
+    try:
+        data = request.get_json()
+        user_id = data.get("user_id")
+        article_id = data.get("article_id")
+        note_info=data.get("note_info")
+        note = Note.query.filter_by(user_id=user_id, article_id=article_id).first()
+        if not note:
+            return responseError(Responses.NO_RECORD_FOUND)
+        note.note=note_info
+        db.session.commit()
+        return responseSuccess(Responses.OPERATION_SUCCESS)
+    except Exception as e:
+        print(e)
+        db.session.rollback()
+        return responseError(Responses.PARAMETERS_ERROR)
 
+@auth.route("/del_article",methods=["GET"])
+#@token_check_required
+def del_article():
+    try:
+        data=request.get_json()
+        user_id=data.get("user_id")
+        article_id=data.get("article_id")
+
+        article=User_article.query.filter_by(user_id=user_id,id=article_id).first()
+        if not article:
+            return responseError(Responses.NO_RECORD_FOUND)
+        db.session.delete(article)
+        db.session.commit()
+        return responseSuccess(Responses.OPERATION_SUCCESS)
+    except Exception as e:
+        print(e)
+        db.session.rollback()
+        return responseError(Responses.PARAMETERS_ERROR)
+
+@auth.route("/upload_file",methods=["POST"])
+#@token_check_required
+def upload_file():
+    try:
+        data=request.get_json()
+        file=data.get("file")
+        title = data.get("title")
+        filename = random_filename(file.filename)
+        # 生成文件保存路径
+        save_path = url_for('/static', filename='userupload/' + filename)
+        # 保存文件
+        file.save(save_path)
+    except Exception as e:
+        print(e)
+        return responseError(Responses.PARAMETERS_ERROR)
