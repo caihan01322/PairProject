@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +9,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./index.css">
+    <script type="text/javascript">  
+			function a(){
+				$.ajax({  
+            		url:"DoUserServlet",//servlet文件的名称
+            		type:"GET",
+            		success:function(e){
+            			alert("servlet调用成功！");
+            		}
+            	});
+				
+			}
+        </script>
 </head>
-<body>
+<body onload = "a()">
     <div class="nav">
         <div class="logo">
             Paper管理平台
@@ -30,24 +43,20 @@
         </div>
     </div>
     <div class="content">
-        <div class="block">标题<br>摘要<br>关键词</div>
-        <div class="block">标题<br>摘要<br>关键词</div>
-        <div class="block">标题<br>摘要<br>关键词</div>
-        <div class="block">标题<br>摘要<br>关键词</div>
-        <div class="block">标题<br>摘要<br>关键词</div>
-        <div class="block">标题<br>摘要<br>关键词</div>
-        <div class="block">标题<br>摘要<br>关键词</div>
-        <div class="block">标题<br>摘要<br>关键词</div>
-    </div>
-    <div class="title_recommend">
-        为您推荐以下论文
-    </div>
-    <div class="line"></div>
-    <div class="content">
-        <div class="block">标题<br>摘要<br>关键词</div>
-        <div class="block">标题<br>摘要<br>关键词</div>
-        <div class="block">标题<br>摘要<br>关键词</div>
-        <div class="block">标题<br>摘要<br>关键词</div>
+    <c:forEach var="p" items="${paperList}">
+        <div class="block">
+	        <a class="title_a">标题:
+	        </a>${p.title}<br>
+	        <a class="conclude">摘要:</a>
+	        <div class=conclude_content>${p.abstractString}</div>
+	        <a class="keyword">关键词:</a>
+	        <div class="word">
+		        ${p.keywords.get(0)},
+		        ${p.keywords.get(1)},
+		        ${p.keywords.get(2)}
+	        </div>
+    	</div>
+    </c:forEach>
     </div>
 </body>
 </html>
