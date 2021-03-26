@@ -1,0 +1,28 @@
+textarea.conceal{
+    border: none;
+    resize: none;
+    /*height: auto;*/
+    /*overflow-y:hidden;*/
+}
+textarea.short{
+    width: 80px;
+}
+textarea.long{
+    width: 800px;
+}
+.high{
+    height: 70px;
+}
+.higher{
+    height: 180px;
+}
+.interval{
+    margin-left: 50px;
+    margin-top: 50px;
+}
+.btn{
+    width: 400px;
+    vertical-align: middle;
+    font-size: 0;
+    margin: 20px auto
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="detail">
+    <div class="interval">
+        <textarea class="conceal short">标题：</textarea>
+        <textarea class="conceal long">3-D Motion and Structure from 2-D Motion Causally Integrated over Time: Implementation</textarea>
+    </div>
+    <div class="interval">
+        <textarea class="conceal short higher">摘要：</textarea>
+        <textarea class="conceal long higher">The causal estimation of three-dimensional motion from a sequence of two-dimensional images can be posed as a nonlinear filtering problem. We describe the implementation of an algorithm whose uniform observability, minimal realization and stability have been proven analytically in [5]. We discuss a scheme for handling occlusions, drift in the scale factor and tuning of the filter. We also present an extension to partially calibrated camera models and prove its observability. We report the performance of our implementation on a few long sequences of real images. More importantly, however, we have made our real-time implementation - which runs on a personal computer - available to the public for first-hand testing.</textarea>
+    </div>
+    <div class="interval">
+        <textarea class="conceal short high">关键词：</textarea>
+        <textarea class="conceal long high">"Pattern Anal","Rigid Motion","Motion Error","Minimal Realization","Correspondence Problem"</textarea>
+    </div>
+    <div class="interval">
+        <label>原文链接：</label>
+        <a href="https://doi.org/10.1109/CVPR.2000.855865">https://doi.org/10.1109/CVPR.2000.855865</a>
+    </div>
+    <div class="btn">
+        <a th:href="@{/index}">
+            <button type="button" class="layui-btn">返回</button>
+        </a>
+        <button type="button" class="layui-btn layui-btn-danger">删除</button>
+    </div>
+</div>
+</body>
+</html>

@@ -20,5 +20,10 @@ public class TestController
         return "advancedSearch";
     }
 
+    @GetMapping("/essayDetail")
+    public String essayDetail(Model model)
+    {
+        return "essayDetail";
+    }
 
 }
