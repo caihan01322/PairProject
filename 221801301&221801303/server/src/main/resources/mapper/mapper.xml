@@ -3,11 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fzu.server.dao.PaperDao">
-    <select id="getName" resultType="java.lang.String">
-        select name
-        from user
-        where id = #{id}
-    </select>
     <insert id="addECCVPaper" parameterType="com.fzu.server.pojo.Paper" useGeneratedKeys="true" keyProperty="ID">
         insert into ECCV_paper(abstract,
                                year,
