@@ -1,6 +1,8 @@
 package com.pairing.controller;
 
 import com.pairing.bean.User;
+import com.pairing.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class IndexController {
 
+    @Autowired
+    UserService userService;
     /**
      * 返回登录页面
      * @return
@@ -22,8 +26,8 @@ public class IndexController {
     }
 
     @PostMapping("/login")
-    public String main(User user, HttpSession session, Model model) {
-        if (StringUtils.hasLength(user.getUserName()) && "123456".equals(user.getPassword())) {
+    public String judLogin(User user, HttpSession session, Model model) {
+        if (userService.getUser(user.getUserName(), user.getPassword())) {
             session.setAttribute("loginUser", user);
             return "redirect:/main.html";
         } else {

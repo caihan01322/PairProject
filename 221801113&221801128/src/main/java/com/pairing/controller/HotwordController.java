@@ -43,7 +43,7 @@ public class HotwordController {
         liststr = hotwordService.getAllWord();
         String str = new String();
         for (int q = 0; q < liststr.size(); q++) {
-            System.out.println("+$$$$$$$"+liststr.get(q));
+
             a = liststr.get(q);//String
             if(a==null){
                 break;

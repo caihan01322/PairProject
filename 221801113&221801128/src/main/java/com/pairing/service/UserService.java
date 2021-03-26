@@ -11,10 +11,11 @@ public class UserService {
     @Autowired
     UserMapper userMapper;
 
-    public User getUserById(String userName) {
-       /*if (userMapper.getUserById(userName) != null && ) {
-
-       }*/
-       return userMapper.getUserById(userName);
+    public Boolean getUser(String userName, String password) {
+       User user = userMapper.getUser(userName);
+       if (user != null && user.getPassword().equals(password)) {
+            return true;
+       }
+       return false;
     }
 }
