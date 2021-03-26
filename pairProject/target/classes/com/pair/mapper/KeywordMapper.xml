@@ -58,4 +58,16 @@
         where pk.pid=#{pid}
     </select>
 
+    <!--模糊查询 通过keyword-->
+    <select id="getKidByFuzzyMode" resultType="String" parameterType="map">
+        select kid from keyword
+        where keyword=#{keyword}
+    </select>
+
+    <!--精确查询 通过keyword-->
+    <select id="getKidByByPreciseMode" resultType="String" parameterType="map">
+        select kid from keyword
+        where keyword=#{keyword}
+    </select>
+
 </mapper>

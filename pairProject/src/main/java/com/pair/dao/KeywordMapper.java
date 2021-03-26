@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -28,5 +29,13 @@ public interface KeywordMapper {
     public List<Keyword> getTop10Keyword(String publisher);
 
     public List<Keyword> getKeyWordsByPid(String pid);
+
+    //模糊查询 通过keyword
+    public List<String> getKidByFuzzyMode(Map<String,String> map);
+
+    //精确查询 通过keyword
+    public List<String> getKidByByPreciseMode(Map<String,String> map);
+
+
 
 }

@@ -65,6 +65,8 @@
             <if test="keyword !=NULL">and keyword = #{keyword}</if>
         </where>
     </select>
+
+
     <delete id="deletePaperByPid">
         delete from paper where pid=#{pid};
     </delete>
@@ -91,6 +93,36 @@
         left join paper_keyword pk on p.pid=pk.pid
         left join keyword k on pk.kid=k.kid
         where k.keyword=#{keyword}
+    </select>
+
+    <select id="selectPaperByPid" parameterType="String" resultMap="PaperKeyword">
+        select p.pid pid,p.title ptitle,p.abs pabs,p.publisher ppublisher,
+        p.publicationYear pyear,p.doiLink plink,
+        k.kid kid,k.keyword kkey,k.publisher ppub,k.num pnum
+        from paper p
+        left join paper_keyword pk on p.pid=pk.pid
+        left join keyword k on pk.kid=k.kid
+        where p.pid=#{pid}
+    </select>
+
+    <select id="getPidByFuzzyModeByPaperInfo" parameterType="map" resultType="paper">
+        select * from paper
+        <where>
+            <if test="title!=NULL">AND title LIKE "%"#{title}"%"</if>
+            <if test="abs!=NULL">AND abs LIKE "%"#{abs}"%"</if>
+            <if test="publisher!=NULL">AND publisher LIKE "%"#{publisher}"%"</if>
+            <if test="publicationYear!=NULL">AND publicationYear LIKE "%"#{publicationYear}"%"</if>
+        </where>
+    </select>
+
+    <select id="selectPaperByPreciseModeByPaperInfo" parameterType="map" resultType="paper">
+        select * from paper
+        <where>
+            <if test="title !=NULL">and title = #{title}</if>
+            <if test="abs !=NULL">and abs = #{abs}</if>
+            <if test="publisher !=NULL">and publisher = #{publisher}</if>
+            <if test="publicationYear !=NULL">and publicationYear = #{publicationYear}</if>
+        </where>
     </select>
     
 

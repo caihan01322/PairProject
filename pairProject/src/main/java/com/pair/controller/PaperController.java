@@ -38,20 +38,67 @@ public class PaperController {
     }
 
     @RequestMapping("/paperSelect")
-    public String paperSelect(HttpServletRequest request, Model model) {
+    public String paperSelect(HttpServletRequest request, Model model,@RequestParam(defaultValue = "1") Integer pageNum) {
+        //
         String selectTerm = request.getParameter("selectTerm");
+        //输入信息
         String selectItem = request.getParameter("selectItem");
+        //查询模式
         String selectMode = request.getParameter("selectMode");
-        Map<String, Object> map = new HashMap<>();
+
+        //查询的内容
+        Map<String, String> map = new HashMap<>();
         map.put(selectTerm, selectItem);
-        List<Paper> papers;
+
+        List<Paper> papers=null;
+
         if (selectMode.equals("fuzzy")) {//模糊查询
-            papers = paperMapper.selectPaperByFuzzyMode(map);
+            if(selectItem.equals("keyword")){
+                PageHelper.startPage(pageNum,10);
+                List<String> kids = keywordMapper.getKidByFuzzyMode(map);
+                for (int i = 0; i < kids.size(); i++) {
+                    List<String> pids = paperKeywordMapper.getPid(kids.get(i));
+                    for (int j = 0; j < pids.size(); j++) {
+                        papers.add(paperMapper.getPapersByPid(pids.get(i)));
+                    }
+                }
+                model.addAttribute("kidsInfo",new PageInfo<String>(kids));
+                model.addAttribute("pageInfo",new PageInfo<Paper>(papers));
+                return "paperList2";
+            }
+            else {
+                PageHelper.startPage(pageNum,10);
+                papers = paperMapper.getPidByFuzzyModeByPaperInfo(map);
+                for (int i = 0; i < papers.size(); i++) {
+                    papers.get(i).setKeywords(keywordMapper.getKeyWordsByPid(papers.get(i).getPid()));
+                }
+                model.addAttribute("pageInfo",new PageInfo<Paper>(papers));
+                return "showPaper";
+            }
         } else {//精确查询
-            papers = paperMapper.selectPaperByPreciseMode(map);
+            if(selectItem.equals("keyword")){
+                PageHelper.startPage(pageNum,10);
+                List<String> kids = keywordMapper.getKidByByPreciseMode(map);
+                for (int i = 0; i < kids.size(); i++) {
+                    List<String> pids = paperKeywordMapper.getPid(kids.get(i));
+                    for (int j = 0; j < pids.size(); j++) {
+                        papers.add(paperMapper.getPapersByPid(pids.get(i)));
+                    }
+                }
+                model.addAttribute("kidsInfo",new PageInfo<String>(kids));
+                model.addAttribute("pageInfo",new PageInfo<Paper>(papers));
+                return "paperList2";
+            }
+            else {
+                PageHelper.startPage(pageNum,10);
+                papers = paperMapper.selectPaperByPreciseModeByPaperInfo(map);
+                for (int i = 0; i < papers.size(); i++) {
+                    papers.get(i).setKeywords(keywordMapper.getKeyWordsByPid(papers.get(i).getPid()));
+                }
+                model.addAttribute("pageInfo",new PageInfo<Paper>(papers));
+                return "showPaper";
+            }
         }
-        model.addAttribute("papers", papers);
-        return "paperList";
     }
 
     @RequestMapping("/deletePaper/{pid}")

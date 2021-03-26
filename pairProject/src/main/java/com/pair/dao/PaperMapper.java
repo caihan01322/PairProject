@@ -29,4 +29,14 @@ public interface PaperMapper {
     public int getPaperNum(Map<String, String> map);
 
     public List<Paper> getPapersByKeyword(String keyword);
+
+    //根据pid查找文章完整信息
+    public Paper selectPaperByPid(String pid);
+
+    //模糊查询 标题、摘要、会议名称、发布年份
+    public List<Paper> getPidByFuzzyModeByPaperInfo(Map<String,String> map);
+
+    //精准查询 标题、摘要、会议名称、发布年份
+    public List<Paper> selectPaperByPreciseModeByPaperInfo(Map<String, String> map);
+
 }
