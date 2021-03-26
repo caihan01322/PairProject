@@ -2,6 +2,7 @@ package com.example.thesisSearch.servlets;
 
 
 import com.example.thesisSearch.dao.ThesisDAO;
+import com.example.thesisSearch.javabean.PageBean;
 import com.example.thesisSearch.pojo.Thesis;
 import com.example.thesisSearch.service.SearchService;
 import jakarta.servlet.ServletException;
@@ -20,7 +21,15 @@ public class SearchServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String type = (String) request.getParameter("searchtype");
         String input =(String) request.getParameter("input");
-        List<Thesis> SearchResults=SearchService.search(type,input,SearchThesisDAO);
+        PageBean SearchResults=null;
+        if(request.getParameter("pagenum")==null)//如果没参数就从第一页开始
+        {
+             SearchResults = SearchService.search(type, input, SearchThesisDAO, 1);
+        }
+        else
+        {
+            SearchResults = SearchService.search(type, input, SearchThesisDAO, Integer.parseInt(request.getParameter("pagenum")));
+        }
         request.setAttribute("result",SearchResults);
         request.setAttribute("searchtype",type);
         try {

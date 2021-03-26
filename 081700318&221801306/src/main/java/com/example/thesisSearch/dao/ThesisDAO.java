@@ -29,6 +29,28 @@ public class ThesisDAO {
         return  result;
 
     }
+    public List<Thesis> getLimitBytitile(int start,int length,String title)
+    {
+        List<Thesis> results=new ArrayList<>();
+        Connection ThesisConnection = null;
+        try {
+            ThesisConnection = DBUtil.getConnection();
+            Statement ThesisStatement = ThesisConnection.createStatement();
+            String sql = "select * from Thesis where title like ? limit ?,?";
+            PreparedStatement Ptmt = ThesisConnection.prepareStatement(sql);
+            Ptmt.setString(1, "%" + title + "%");
+            Ptmt.setInt(2,start);
+            Ptmt.setInt(3,length);
+            ResultSet Rs = Ptmt.executeQuery();
+            while (Rs.next()) {
+                results.add(setThesis(Rs));
+            }
+            DBUtil.close(Rs,ThesisStatement,ThesisConnection);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return results;
+    }
     public List<Thesis> getAllBytitle(String title)
     {
         List<Thesis> results=new ArrayList<>();
