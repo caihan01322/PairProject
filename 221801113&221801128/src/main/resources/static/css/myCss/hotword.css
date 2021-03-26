@@ -1,10 +1,4 @@
 /*词云容器*/
-
-h1{
-    font-size: 40px;
-    text-shadow: 5px 5px 5px black, 0px 0px 2px black;
-    color: #000000;
-}
 .container{
     display: flex;
     flex-wrap: wrap;
