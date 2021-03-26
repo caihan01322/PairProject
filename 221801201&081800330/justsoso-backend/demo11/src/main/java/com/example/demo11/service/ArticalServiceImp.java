@@ -1,10 +1,7 @@
 package com.example.demo11.service;
 
 import com.example.demo11.dao.ArticalDaoImpl;
-import com.example.demo11.model.Artical;
-import com.example.demo11.model.PageModel;
-import com.example.demo11.model.authors;
-import com.example.demo11.model.keywords;
+import com.example.demo11.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,5 +47,10 @@ public class ArticalServiceImp implements ArticalService
     public int deleteCollections(String username,int []academicNum)
     {
         return articalDao.deleteCollections(username,academicNum);
+    }
+    @Override
+    public List<hotkey> top20()
+    {
+        return articalDao.top20();
     }
 }

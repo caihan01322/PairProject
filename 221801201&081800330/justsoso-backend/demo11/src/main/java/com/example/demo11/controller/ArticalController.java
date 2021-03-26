@@ -2,6 +2,7 @@ package com.example.demo11.controller;
 
 import com.example.demo11.dao.ArticalDaoImpl;
 import com.example.demo11.model.*;
+import com.example.demo11.model.Collection;
 import com.example.demo11.service.ArticalService;
 import com.example.demo11.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo11.ajAxResponse;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -66,13 +66,13 @@ public class ArticalController
 
     }
     @PostMapping("/Collect")
-    public ajAxResponse CollectArticals(@RequestParam String username,@RequestParam int [] Nums)
+    public ajAxResponse CollectArticals(@RequestParam String Account,@RequestParam int [] Nums)
     {
-        if(userService.getUserByAccount(username) == 0)
+        if(userService.getUserByAccount(Account) == 0)
         {
             return  ajAxResponse.fail401("没找到人");
         }
-        return ajAxResponse.successfullyUpdate("收藏成功",articalService.Collect(username,Nums));
+        return ajAxResponse.successfullyUpdate("收藏成功",articalService.Collect(Account,Nums));
     }
     @GetMapping("/getConllections")
     public ajAxResponse getCollections(@RequestParam String Account)
@@ -106,15 +106,60 @@ public class ArticalController
         return ajAxResponse.successfully(col);
     }
     @PostMapping("/deleteCollections")
-    public ajAxResponse deleteArtical(@RequestParam String Account,@RequestParam int[] academicNum)
+    public ajAxResponse deleteArtical(@RequestParam String Account,@RequestParam int[] Nums)
     {
         if(userService.getUserByAccount(Account) == 0)
         {
             return  ajAxResponse.fail401("没找到人");
         }
-        return ajAxResponse.successfullyUpdate("删除成功！",articalService.deleteCollections(Account,academicNum));
+        return ajAxResponse.successfullyUpdate("删除成功！",articalService.deleteCollections(Account,Nums));
     }
+    @GetMapping("/Top20")
+    public ajAxResponse top20()
+    {
 
+        List<hotkey> hotkeys = articalService.top20();
+        Collections.sort(hotkeys, new Comparator<hotkey>() {
+            @Override
+            public int compare(hotkey o1, hotkey o2) {
+                if(o1.getNumber() == o2.getNumber())
+                    return 0;
+                else if(o1.getNumber() > o2.getNumber())
+                    return 1;
+                else return -1;
+                //return o1.getNumber().compareTo(o2.getNumber());
+            }
+        });
+        Map<String,Integer> map = new LinkedHashMap<>();
+        for (hotkey key :
+                hotkeys) {
+            map.put(key.keyword,key.Number);
+        }
+       return ajAxResponse.successfully(map);
+    }
+    @GetMapping("/Top10")
+    public ajAxResponse top10()
+    {
+
+        List<hotkey> hotkeys = articalService.top20().subList(0,10);
+        Collections.sort(hotkeys, new Comparator<hotkey>() {
+            @Override
+            public int compare(hotkey o1, hotkey o2) {
+                if(o1.getNumber() == o2.getNumber())
+                    return 0;
+                else if(o1.getNumber() > o2.getNumber())
+                    return 1;
+                else return -1;
+                //return o1.getNumber().compareTo(o2.getNumber());
+            }
+        });
+        Map<String,Integer> map = new LinkedHashMap<>();
+        for (hotkey key :
+                hotkeys) {
+            map.put(key.keyword,key.Number);
+        }
+        return ajAxResponse.successfully(map);
+    }
 
 
 }
