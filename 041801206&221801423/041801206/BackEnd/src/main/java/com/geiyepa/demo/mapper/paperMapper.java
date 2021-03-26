@@ -75,7 +75,7 @@ public interface paperMapper {
      */
     List<paper> selectLikeWord(String word);
 
-
+    List<paper> selectLikeKeyword(String keyword);
 
     paper getPaper(@Param("id") Integer id);
 }

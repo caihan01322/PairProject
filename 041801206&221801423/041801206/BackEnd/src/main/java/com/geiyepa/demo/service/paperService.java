@@ -78,6 +78,11 @@ public class paperService implements paperMapper{
     }
 
     @Override
+    public List<paper> selectLikeKeyword(String keyword) {
+        return paperMapper.selectLikeKeyword(keyword);
+    }
+
+    @Override
     public paper getPaper(Integer id) {
         return null;
     }

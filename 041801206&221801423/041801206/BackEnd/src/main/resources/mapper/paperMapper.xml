@@ -56,10 +56,11 @@
 
   <select id="selectLikeWord" parameterType="java.lang.String" resultType="com.geiyepa.demo.bean.paper">
     select * from paper where title like #{word,jdbcType=VARCHAR}
-
   </select>
 
-
+  <select id="selectLikeKeyword" parameterType="java.lang.String" resultType="com.geiyepa.demo.bean.paper">
+    select * from paper where keyword like #{keyword,jdbcType=VARCHAR}
+  </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--

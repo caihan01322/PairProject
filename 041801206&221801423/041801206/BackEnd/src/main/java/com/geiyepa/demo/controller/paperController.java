@@ -24,8 +24,8 @@ public class paperController {
     private paperService paperService;
 
     @ResponseBody
-    @RequestMapping(value = "/searchPapers" , method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public JSONArray searchPapers(@RequestBody String JSONBody){
+    @RequestMapping(value = "/searchPaperByTitle" , method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public JSONArray searchPaperByTitle(@RequestBody String JSONBody){
 
         JSONObject object = JSONObject.parseObject(JSONBody);
         String searchWord = (String) object.get("searchWord");
@@ -33,7 +33,23 @@ public class paperController {
         JSONArray array= JSONArray.parseArray(JSON.toJSONString(paperList));
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
         Date date = new Date(System.currentTimeMillis());
-        System.out.println(formatter.format(date) + " ====> 搜索文章 ##搜索关键词：" + searchWord + "  ##搜索结果数：" + paperList.size());
+        System.out.println(formatter.format(date) + " ====> 搜索文章 ##搜索标题词：" + searchWord + "  ##搜索结果数：" + paperList.size());
+
+        return array;
+
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/searchPaperByKeyword" , method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public JSONArray searchPaperByKeyword(@RequestBody String JSONBody){
+
+        JSONObject object = JSONObject.parseObject(JSONBody);
+        String searchKeyword = (String) object.get("searchKeyword");
+        List<paper> paperList = paperService.selectLikeKeyword("%"+ searchKeyword +"%");
+        JSONArray array= JSONArray.parseArray(JSON.toJSONString(paperList));
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date date = new Date(System.currentTimeMillis());
+        System.out.println(formatter.format(date) + " ====> 搜索文章 ##搜索关键词：" + searchKeyword + "  ##搜索结果数：" + paperList.size());
 
         return array;
 

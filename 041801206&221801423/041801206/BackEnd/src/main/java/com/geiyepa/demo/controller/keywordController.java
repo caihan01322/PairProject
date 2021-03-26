@@ -18,6 +18,7 @@ import java.util.List;
 @EnableAutoConfiguration
 @RequestMapping(value = "/", produces = "application/json; charset=utf-8")
 public class keywordController {
+
     @Autowired
     private keywordService keywordService;
 
@@ -33,9 +34,9 @@ public class keywordController {
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
         Date date = new Date(System.currentTimeMillis());
         System.out.println(formatter.format(date) + " ====> 搜索热词 ##按年份：" + searchYear + "  ##搜索结果数：" + analysisList.size());
-
         return array;
     }
+
 
     @ResponseBody
     @RequestMapping(value = "/getTopkeywordsByType" , method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -49,7 +50,6 @@ public class keywordController {
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
         Date date = new Date(System.currentTimeMillis());
         System.out.println(formatter.format(date) + " ====> 搜索热词 ##按类型：" + searchType + "  ##搜索结果数：" + analysisList.size());
-
         return array;
     }
 
