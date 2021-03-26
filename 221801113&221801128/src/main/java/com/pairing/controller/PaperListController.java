@@ -21,7 +21,7 @@ public class PaperListController {
 
     @GetMapping("/paper_collect")
     public String paper_collect() {
-        return "/paperList/paper_collect";
+        return "paperList/paper_collect";
     }
 
     @GetMapping("/main")

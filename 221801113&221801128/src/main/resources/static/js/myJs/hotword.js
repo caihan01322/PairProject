@@ -187,8 +187,7 @@ $(function(){
             $("text").click(function () {
                 console.log($(this).text().trim())
                 localStorage.setItem("hot", $(this).text().trim());
-
-                window.location = 'http://localhost:8080/main' //服务器！！！！！！！！！！
+                window.location = 'http://118.25.6.96:8080/main'
             })
         },
         //请求失败，包含具体的错误信息
