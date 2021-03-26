@@ -20,7 +20,7 @@ export interface UserModelType {
 }
 
 export const initialState = {
-  isLogin: false,
+  isLogin: true,
   avatar: null,
   name: 'huro',
 };

@@ -29,10 +29,13 @@ const Layout = ({ children }: IRouteComponentProps) => {
 
   const [visible, setVisible] = useState(false);
 
-  const AvatarSetting = useMemo(() => {
+  const UserSetting = useMemo(() => {
+    const handleFavoriteBtnClick = () => {
+      history.push('/favorite')
+    }
     return (
       <Menu theme="dark" style={{ marginTop: '20px' }}>
-        <Menu.Item icon={<FolderOutlined />}>收藏夹</Menu.Item>
+        <Menu.Item icon={<FolderOutlined />} onClick={handleFavoriteBtnClick}>收藏夹</Menu.Item>
         <Menu.Item icon={<LogoutOutlined />}>退出登录</Menu.Item>
       </Menu>
     );
@@ -46,7 +49,7 @@ const Layout = ({ children }: IRouteComponentProps) => {
         </Link>
         {isLogin && (
           <>
-            <Dropdown overlay={AvatarSetting} placement="bottomCenter">
+            <Dropdown overlay={UserSetting} placement="bottomCenter">
               <span className={styles.name}>{name}</span>
             </Dropdown>
             <Avatar className={styles.avatar} size="small" src={avatar} />
