@@ -11,6 +11,7 @@ use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 
 AppAsset::register($this);
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -56,7 +57,7 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container">
+    <div class="container" style="margin:60px;width:auto";>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
@@ -66,7 +67,7 @@ AppAsset::register($this);
 </div>
 <!--页脚-->
 <footer class="footer">
-    <div class="container">
+    <div class="container" style="width:auto">
         <p class="pull-left">&copy; Bookstore Freeloader <?= date('Y') ?></p>
 
         <p class="pull-right">Powered by Lin and Li</p>
