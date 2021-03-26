@@ -26,6 +26,13 @@ public class EssayService {
        String answer = e.collect(essayName, essayMeeting, userName);
        return answer;
    }
+   
+   //将论文从论文列表中删除
+   public static String essayDelete(String userName,String essayMeeting,String essayName) {
+       EssayDeleteDaoImpl e = new EssayDeleteDaoImpl();
+       String answer = e.delete(userName, essayName, essayMeeting);
+       return answer;
+   }
 
    
 }

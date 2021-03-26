@@ -36,6 +36,17 @@ public class EssayController {
     }
     
 
-
+    //论文的删除
+    /*
+     * userName:用户名字
+     * essayMeeting:所属顶会（cvpr,eccv,iccv）
+     * essayName：文章名称
+     */
+    @RequestMapping(value="/delete")
+    @ResponseBody
+    public String essayDelete(String userName,String essayMeeting,String essayName) { 
+        return essayService.essayDelete(userName, essayMeeting, essayName);     
+    }
     
+   
 }
