@@ -18,6 +18,6 @@ public interface UserJBDCDAO
     User getUserByAccount(String account,String Password);
     boolean Register(String Account,String Password);
     int getUserByAccount(String account);
-    String saveImg(String username,String imgUrl);
+    String saveImg(String Account,String imgUrl);
     String getImg(String account);
 }

@@ -31,12 +31,7 @@ public class UserController
 {
     @Autowired
     UserService userService;
-    @RequestMapping(value = "/Users",method = RequestMethod.GET)
-    public ajAxResponse getUser()
-    {
-        //return new User("edmund","123");
-        return ajAxResponse.successfully(new User("edmund","123"));
-    }
+
     @PostMapping(value = "/login")
     public ajAxResponse Login(@RequestParam String Account,@RequestParam String password)
     {

@@ -75,14 +75,14 @@ public class ArticalController
         return ajAxResponse.successfullyUpdate("收藏成功",articalService.Collect(username,Nums));
     }
     @GetMapping("/getConllections")
-    public ajAxResponse getCollections(@RequestParam String username)
+    public ajAxResponse getCollections(@RequestParam String Account)
     {
-        if(userService.getUserByAccount(username) == 0)
+        if(userService.getUserByAccount(Account) == 0)
         {
             return  ajAxResponse.fail401("没找到人");
         }
         Collection col = new Collection();
-        for (Artical art: articalService.getCollection(username)
+        for (Artical art: articalService.getCollection(Account)
              ) {
             FullArtical full = new FullArtical();
             full.artical = art;
@@ -106,19 +106,15 @@ public class ArticalController
         return ajAxResponse.successfully(col);
     }
     @PostMapping("/deleteCollections")
-    public ajAxResponse deleteArtical(@RequestParam String username,@RequestParam int[] academicNum)
+    public ajAxResponse deleteArtical(@RequestParam String Account,@RequestParam int[] academicNum)
     {
-        if(userService.getUserByAccount(username) == 0)
+        if(userService.getUserByAccount(Account) == 0)
         {
             return  ajAxResponse.fail401("没找到人");
         }
-        return ajAxResponse.successfullyUpdate("删除成功！",articalService.deleteCollections(username,academicNum));
+        return ajAxResponse.successfullyUpdate("删除成功！",articalService.deleteCollections(Account,academicNum));
     }
-@PostMapping("/eeeeeee")
-    public ajAxResponse  eeeeeee()
-{
-    return ajAxResponse.successfully(articalService.getAllkeywords());
-}
+
 
 
 }

@@ -16,8 +16,8 @@ public interface ArticleJDBCDAO
     List<Artical> searchArtical(String keywords);
     List<keywords> searchKeywords(int academicNum);
     List<authors> searchAuthors(int academicNum);
-    int Collect(String username,int [] academicNum);
-    List<Artical> getCollection(String username);
+    int Collect(String Account,int [] academicNum);
+    List<Artical> getCollection(String Account);
     Set<String> getAllkeywords();
-    int deleteCollections(String username,int []academicNum);
+    int deleteCollections(String Account,int []academicNum);
 }
