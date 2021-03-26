@@ -71,6 +71,15 @@
         </div>
     </header>
     <div/>
+<div style="width:80%;padding:6% 0% 0% 15%">
+	<h1 style="font-size:42px;magin:0;color:#606060 ">欢迎来到</h1>
+	<h1 style="font-size:100px;magin:0;position:relative;top:-170px">论文<span style="font-size:200px;color:#FC9D9A">爬</span>取站！</h1>
+	<h1 style="font-size:30px;magin:0;position:relative;top:-280px;color:#505050  ">Welcome to paper crawling station!</h1>
+</div>   
+    
+<div style="float:left;width:100%;magin:0;text-align:center;font:"黑体">
+	<small>Copyright ©2020-2021 - XXL&XXY</small> 
+</div>
 
 </body>
 

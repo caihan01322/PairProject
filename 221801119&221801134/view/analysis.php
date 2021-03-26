@@ -146,7 +146,7 @@
 		yAxis: {
 			min: 0,
 			title: {
-				text: '相关论文数 (篇)',
+				text: '出现次数 (次)',
 				align: 'high'
 			},
 			labels: {
@@ -157,7 +157,7 @@
 			}
 		},
 		tooltip: {
-			valueSuffix: ' 篇'
+			valueSuffix: ' 次'
 		},
 		plotOptions: {
 			bar: {
@@ -428,6 +428,9 @@
 </script>";
     $conn->close();
 ?>
+</div>
+<div style="height:40px;float:left;width:100%;magin:0;padding:20px 0;text-align:center;font:"黑体">
+	<small>Copyright ©2020-2021 - XXL&XXY</small> 
 </div>
 
 </body>

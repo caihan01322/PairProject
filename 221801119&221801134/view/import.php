@@ -8,6 +8,7 @@
     <title>论文导入</title>
     <link rel='stylesheet' href='../css/myCss.css' type='text/css'/>
     <link rel='stylesheet' href='../css/myCss2.css' type='text/css'/>
+     <link rel='stylesheet' href='../css/myCss3.css' type='text/css'/>
     <link rel='stylesheet' href='../css/myCss4.css' type='text/css'/>
     
     <script src='https://cdn.bootcss.com/echarts/3.7.0/echarts.simple.js'></script>
@@ -210,6 +211,9 @@
 		    <input type="submit" value="搜索" >
 		</form>	
 	</div>
+</div>
+<div style="height:40px;float:left;width:100%;magin:0;padding:20px 0;text-align:center;font:"黑体">
+	<small>Copyright ©2020-2021 - XXL&XXY</small> 
 </div>
 
 </body>

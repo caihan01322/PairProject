@@ -11,7 +11,12 @@
 
 </head>
 
-<body style="background-color:#F8F8F8 ;">
+<body style="background-color:#F8F8F8 ">
+<div style="width:80%;padding:10% 0% 0% 15%">
+	<h1 style="font-size:42px;magin:0;color:#606060 ">欢迎来到</h1>
+	<h1 style="font-size:100px;magin:0;position:relative;top:-170px">论文<span style="font-size:200px;color:#FC9D9A">爬</span>取站！</h1>
+	<h1 style="font-size:30px;magin:0;position:relative;top:-280px;color:#505050  ">Welcome to paper crawling station!</h1>
+</div>   
 <div id="app" class="surface--content">
 
     <el-backtop></el-backtop>
@@ -54,7 +59,7 @@
             <label for="name" >用户名：</label>
             <input type="text" id="name" name="name" placeholder="请输入用户名"><br/>
             <label for="psw">密&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
-            <input type="text" id="password" name="password" placeholder="请输入密码"><br/>
+            <input type="password" id="password" name="password" placeholder="请输入密码"><br/>
 
             <input type="submit" value="登录" id="submitLogin">
             
@@ -64,6 +69,9 @@
             <a href="register.php">没有账号？立即注册</a>
         </div>
     </div>
+    <div style="height:40px;float:left;width:100%;magin:0;padding:20px 0;text-align:center;font:"黑体">
+	<small>Copyright ©2020-2021 - XXL&XXY</small> 
+</div>
     
 </body>
 
