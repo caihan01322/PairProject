@@ -3,7 +3,7 @@
 
     <transition name="fade">
       <!--    登录弹窗-->
-      <Login id="login" v-if="loginVisible"/>
+      <Login v-model="loginVisible" id="login" v-if="loginVisible"/>
     </transition>
 
     <img id="logo" src="../assets/logo.png" alt="logo"/>
@@ -21,14 +21,17 @@
     </div>
 
     <div id="background"/>
-    <img id="avatar" src="../assets/avatar.png" alt="avatar"
-         @click="loginVisible=!loginVisible">
+    <img id="avatar"
+         alt="avatar"
+         :src="avatarUrl!=='' ? avatarUrl : defaultAvatar"
+         @click="clickAvatar">
+    <!--             src="../assets/avatar.png"-->
 
   </div>
 </template>
 
 <script>
-import Login from "@/components/Login";
+import Login from "@/components/LoginPop";
 
 export default {
   name:'Search',
@@ -39,18 +42,28 @@ export default {
   data(){
     return {
       searchWord:'',
-      loginVisible:false
+      loginVisible:false,
+      manageAccountVisible:false,
+      avatarUrl:this.$store.state.avatarUrl,
+      defaultAvatar:require('../assets/avatar.png')
     }
   },
   methods:{
     routeToHome:function(){
       this.$router.push({
-        path: '/home',
-        name: 'Home',
-        query: {
-          searchWord: this.searchWord
+        path:'/home',
+        name:'Home',
+        query:{
+          searchWord:this.searchWord
         }
       })
+    },
+    clickAvatar(){
+      if(!this.$store.state.isLogin){
+        this.loginVisible=!this.loginVisible
+      }else{
+        this.manageAccountVisible=!this.manageAccountVisible
+      }
     }
   }
 }
