@@ -5,24 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="../public/index.css">
-    <link rel="stylesheet" href="../public/base.css">
-    <link rel="stylesheet" href="../public/hottop.css">
-    <script type="text/javascript" src="../public/js/exporting.js"></script>
-    <script type="text/javascript" src="../public/js/highcharts.js"></script>
-    <script type="text/javascript" src="../public/js/highcharts-zh_CN.js"></script>
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../base.css">
+    <link rel="stylesheet" href="../hottop.css">
+		<link rel="stylesheet" href="../nav.css">
+    <script type="text/javascript" src="../js/exporting.js"></script>
+    <script type="text/javascript" src="../js/highcharts.js"></script>
+    <script type="text/javascript" src="../js/highcharts-zh_CN.js"></script>
 </head>
 <body>
-    <div class="nav">
-        <div class="logo">
-    
-        </div>
-        <div class="items">
-            <a class="item" href="">首页</a>
-            <a class="item" href="">论文检索</a>
-            <a class="item" href="">热度分析</a>
-        </div>
-    </div>
+	<%- include('./nav.html') %> 
     <div id="container" style="width:400px;height:400px;-webkit-tap-highlight-color: transparent;position: relative;top: 50%;
         left: 50%;transform: translate(-50%,0%);"></div>
 
