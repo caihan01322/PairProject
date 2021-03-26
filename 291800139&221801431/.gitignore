@@ -8,6 +8,7 @@
 /pairproject/mvnw.cmd
 /pairproject/pairproject.iml
 
+
 #过滤所有.txt文件
 *.txt
 
@@ -19,3 +20,5 @@
 
 #过滤所有.exe文件
 *.exe
+
+*.log

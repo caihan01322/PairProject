@@ -1,16 +1,12 @@
 package com.practice.pairproject.util;
 
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.practice.pairproject.pojo.Keyword;
 import com.practice.pairproject.pojo.Paper;
 import com.practice.pairproject.service.KeywordService;
 import com.practice.pairproject.service.PaperService;
-import com.practice.pairproject.service.impl.KeywordServiceImpl;
-import com.practice.pairproject.service.impl.PaperServiceImpl;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +32,13 @@ public class StoragePaper {
     private static String year;
 
     @Autowired
-    private  PaperServiceImpl paperService;
+    private  PaperService paperService;
 
     @Autowired
-    private  KeywordServiceImpl keywordService;
+    private  KeywordService keywordService;
 
 
-    //index:0 1 2 3
+    //index:0 1 2 3 4(测试)
     public  ArrayList<File> loadFiles(int index){
         String fullPath = path + folder[index];
 
@@ -71,6 +67,7 @@ public class StoragePaper {
     }
 
 
+    //ECCV
     public int loadECCVpapers(int index){
         ArrayList<File> fileList = this.loadFiles(index);
 
@@ -89,17 +86,9 @@ public class StoragePaper {
                         .publicDate(rootNode.path("发布时间").asText())
                         .title(rootNode.path("论文名称").asText())
                         .link(rootNode.path("原文链接").asText())
-                        .meeting(my[0])
+                        .meeting(my[0])  //meeting[index]
                         .year(my[1])
                         .build();
-                /*Paper p = new Paper();
-                p.setAbstractContent(rootNode.path("摘要").asText());
-                p.setPublicDate(rootNode.path("发布时间").asText());
-                p.setTitle(rootNode.path("论文名称").asText());
-                p.setLink(rootNode.path("原文链接").asText());
-                p.setMeeting(my[0]);
-                p.setYear(my[1]);*/
-
                 //System.out.println("【论文】：" + paper);
                 //将此论文存入【paper】
                 if( paperService.insertPaper(paper) > 0 ){
@@ -132,6 +121,81 @@ public class StoragePaper {
         return fileList.size();
     }
 
+    //CVPR_ICCV
+    public int loadCVPR_ICCVpapers(int index){
+        ArrayList<File> fileList = this.loadFiles(index);
+
+        //实例一个ObjectMapper
+        ObjectMapper mapper = new ObjectMapper();
+        try{
+            for(int i = 0; i < fileList.size(); i++){
+            //for (File f : fileList) {
+                StringBuffer authorsName = new StringBuffer("");
+                JsonNode rootNode = mapper.readValue(fileList.get(i), JsonNode.class);
+
+                if(rootNode.path("abstract").asText().isEmpty() || rootNode.path("abstract").asText().equals("")){
+                    System.out.println("【abstract】为空！！------跳过");
+                    continue;
+                }
+
+                //作者
+                JsonNode authors = rootNode.path("authors");
+                //System.out.println("【作者名字】：");
+                if (authors.isArray()) {
+                    for (JsonNode at : authors) {
+                        //System.out.println(at.path("name").asText());
+                        authorsName.append(at.path("name").asText() + " / ");
+                    }
+                }
+
+                //其他
+                Paper paper = Paper.builder()
+                        .abstractContent(rootNode.path("abstract").asText())
+                        .meeting(meeting[index])
+                        .year(rootNode.path("publicationYear").asText())
+                        .publicDate(rootNode.path("publicationDate").asText())
+                        .title(rootNode.path("title").asText())
+                        .link(rootNode.path("doiLink").asText())
+                        .authors(authorsName.toString())
+                        .build();
+
+                //System.out.println("【论文】：" + paper);
+                //将此论文存入【paper】
+                if( paperService.insertPaper(paper) > 0 ){
+                    //System.out.println("------插入论文成功【" + paper.getPid() + "】: " + paper);
+                }
+
+                //关键词
+                JsonNode keywords = rootNode.path("keywords");
+                //System.out.println("【关键词】:");
+                if (keywords.isArray()) {
+                    for (JsonNode kw : keywords) {
+                        JsonNode kwd = kw.path("kwd");
+                        if (kwd.isArray()) {
+                            for (JsonNode keyword : kwd) {
+                                //System.out.println(keyword.toString());
+                                Keyword k = Keyword.builder()
+                                        .content(keyword.toString().replace("\"",""))
+                                        .pid(paper.getPid())
+                                        .meeting(paper.getMeeting())
+                                        .year(paper.getYear())
+                                        .build();
+                                //System.out.println(kw.toString().replace("\"",""));
+                                //将关键词存入【keyword】
+                                if(keywordService.insertPKeywords(k) > 0){
+                                    //System.out.println("~~~~~插入关键词成功【" + paper.getPid() + "】: " + k);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return fileList.size();
+    }
 
 
 

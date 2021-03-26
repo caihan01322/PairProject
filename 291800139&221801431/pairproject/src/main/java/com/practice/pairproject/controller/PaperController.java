@@ -27,20 +27,30 @@ public class PaperController {
     private StoragePaper storagePaper;
 
     @ResponseBody
-    @RequestMapping(value = {"/loadECCV"}, method = {RequestMethod.POST})
+    @RequestMapping(value = {"/load/ECCV"}, method = {RequestMethod.POST})
     public String insertPaper1() {
 
         //ECCV 1  ECCV+ 2
-        int size = storagePaper.loadECCVpapers(2);
+        int size1 = storagePaper.loadECCVpapers(1);
+        int size2 = storagePaper.loadECCVpapers(2);
+        return String.valueOf(size1+size2);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = {"/load/CVPR"}, method = {RequestMethod.POST})
+    public String insertPaper2() {
+
+        //CVPR 0
+        int size = storagePaper.loadCVPR_ICCVpapers(0);
         return String.valueOf(size);
     }
 
     @ResponseBody
-    @RequestMapping(value = {"/loadCVPR"}, method = {RequestMethod.POST})
-    public String insertPaper2() {
+    @RequestMapping(value = {"/load/ICCV"}, method = {RequestMethod.POST})
+    public String insertPaper3() {
 
-        //CVPR 0
-        int size = storagePaper.loadECCVpapers(0);
+        //ICCV 3
+        int size = storagePaper.loadCVPR_ICCVpapers(3);
         return String.valueOf(size);
     }
 }

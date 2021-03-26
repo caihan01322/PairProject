@@ -202,4 +202,15 @@
         </root>
     </springProfile>
 
+    <!-- 4.3 测试环境:打印控制台 -->
+    <springProfile name="test">
+        <root level="debug">
+            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="DEBUG_FILE" />
+            <appender-ref ref="INFO_FILE" />
+            <appender-ref ref="WARN_FILE" />
+            <appender-ref ref="ERROR_FILE" />
+        </root>
+    </springProfile>
+
 </configuration>
