@@ -43,11 +43,11 @@ export default {
 }
 #consumerForm{
   /*background-color: #42b983;*/
-  border:black solid 1px;
+  /*border:black solid 1px;*/
   width: 600px;
   height: 350px;
   position: relative;
   left: 50%;
-  transform: translate(-50%, -30px);
+  transform: translate(-50%, 0);
 }
 </style>

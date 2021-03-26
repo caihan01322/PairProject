@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './assets/css/global.css'
+// import './assets/js/validator.js'
 
 import ViewUI from 'view-design'
 import 'view-design/dist/styles/iview.css'
