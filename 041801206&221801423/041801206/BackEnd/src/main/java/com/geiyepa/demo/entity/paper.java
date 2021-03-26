@@ -1,6 +1,4 @@
-package com.geiyepa.demo.bean;
-
-import org.springframework.context.annotation.Bean;
+package com.geiyepa.demo.entity;
 
 
 public class paper {

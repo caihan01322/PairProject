@@ -1,4 +1,4 @@
-package com.geiyepa.demo.bean;
+package com.geiyepa.demo.entity;
 
 public class paperWithBLOBs extends paper {
     /**

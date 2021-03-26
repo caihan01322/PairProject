@@ -1,13 +1,11 @@
 package com.geiyepa.demo.mapper;
 
-import com.geiyepa.demo.bean.paper;
-import com.geiyepa.demo.bean.paperWithBLOBs;
+import com.geiyepa.demo.entity.paper;
+import com.geiyepa.demo.entity.paperWithBLOBs;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Mapper
@@ -77,5 +75,4 @@ public interface paperMapper {
 
     List<paper> selectLikeKeyword(String keyword);
 
-    paper getPaper(@Param("id") Integer id);
 }

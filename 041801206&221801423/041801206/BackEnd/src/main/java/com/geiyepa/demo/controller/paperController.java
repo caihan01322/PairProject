@@ -3,11 +3,10 @@ package com.geiyepa.demo.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.geiyepa.demo.bean.paper;
+import com.geiyepa.demo.entity.paper;
 import com.geiyepa.demo.service.paperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
 

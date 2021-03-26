@@ -1,36 +1,21 @@
 package com.geiyepa.demo.service;
 
-import com.geiyepa.demo.bean.paper;
-import com.geiyepa.demo.bean.paperWithBLOBs;
+import com.geiyepa.demo.entity.paper;
+import com.geiyepa.demo.entity.paperWithBLOBs;
 import com.geiyepa.demo.mapper.paperMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-
+@Component
 public class paperService implements paperMapper{
 
     @Autowired
     private paperMapper paperMapper;
-
-
-
-
-//    public paperWithBLOBs getPaperById(Integer id){
-//        System.out.println("===>查询id："+id);
-//        paperWithBLOBs paperWithBLOBsr=paperMapper.selectByPrimaryKey(id);
-//        System.out.println(paperWithBLOBsr.toString());
-//        return paperWithBLOBsr;
-//    }
-//
-//    public Paper getById(Integer id){
-//        return  paperMapper.getPaper(id);
-//    }
-
 
     @Override
     public int deleteByPrimaryKey(Integer id) {
@@ -49,11 +34,7 @@ public class paperService implements paperMapper{
 
     @Override
     public paperWithBLOBs selectByPrimaryKey(Integer id) {
-        System.out.println("===>查询id："+id);
-        paperWithBLOBs paperWithBLOBsr=paperMapper.selectByPrimaryKey(id);
-        System.out.println(paperWithBLOBsr.toString());
-        return paperWithBLOBsr;
-
+        return null;
     }
 
     @Override
@@ -81,11 +62,5 @@ public class paperService implements paperMapper{
     public List<paper> selectLikeKeyword(String keyword) {
         return paperMapper.selectLikeKeyword(keyword);
     }
-
-    @Override
-    public paper getPaper(Integer id) {
-        return null;
-    }
-
 
 }

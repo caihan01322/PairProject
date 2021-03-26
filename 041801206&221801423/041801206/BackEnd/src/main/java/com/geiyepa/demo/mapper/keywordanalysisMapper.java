@@ -1,6 +1,6 @@
 package com.geiyepa.demo.mapper;
 
-import com.geiyepa.demo.bean.keywordanalysis;
+import com.geiyepa.demo.entity.keywordanalysis;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 

@@ -1,14 +1,15 @@
 package com.geiyepa.demo.service;
 
-import com.geiyepa.demo.bean.keywordanalysis;
+import com.geiyepa.demo.entity.keywordanalysis;
 import com.geiyepa.demo.mapper.keywordanalysisMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @Service
+@Component
 public class keywordService implements keywordanalysisMapper {
     @Autowired keywordanalysisMapper keywordanalysisMapper;
 
