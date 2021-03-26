@@ -8,6 +8,10 @@
 
   <link rel="stylesheet" th:href="@{/css/echarts.css}"/>
 
+  <script th:src="@{/js/echarts.js}"></script>
+
+<!--  <script th:src="@{/js/element.js}"></script>-->
+
   <script th:src="@{/layui/layui.js}"></script>
 
   <!--jquery引入-->
@@ -19,7 +23,9 @@
 </head>
 <body>
 
-<div id="content">
+
+<!--热词top10柱状图-->
+<div id="bar">
   <div id="selecter">
     <div class="layui-input-inline">
       <div class="layui-form-item">
@@ -33,7 +39,7 @@
             <input type="text" id="endYear" placeholder="年" autocomplete="off" class="layui-input">
           </div>
           <div class="layui-input-inline">
-            <button class="layui-btn layui-btn-warm" id="refresh-button" onclick="refresh()">查询</button>
+            <button class="layui-btn layui-btn-warm" id="refresh-button">查询</button>
           </div>
         </div>
       </div>
@@ -45,85 +51,60 @@
     </div>
   </div>
 
-
-
   <div id="main" style="margin-top:50px;width: 1200px;height:400px;"></div>
 </div>
 
-
+<!--单一关键词多年走势折线图-->
 
 
 <script>
   var myChart = echarts.init(document.getElementById('main'));
 
-  myChart.showLoading();
-  // 指定图表的配置项和数据
-  $.post('/getTop10Keywords/',{beginYear:2000,endYear:2200,
-    conference:"CVPR"},function(data)
-  {
-    myChart.hideLoading();
-    data=JSON.parse(data);
-    myChart.setOption
-    ({
-      title: {
-        text: '热词top10'
+  myChart.setOption
+  ({
+    title: {
+      text: '热词top10'
+    },
+    tooltip: {},
+    legend: {
+      data: ['CVPR']
+    },
+    xAxis: {
+      data: [],
+      axisTick: {
+        alignWithLabel: true
       },
-      tooltip: {},
-      legend: {
-        data: ['CVPR']
-      },
-      xAxis: {
-        data: data.x,
-        axisTick: {
-          alignWithLabel: true
-        },
-        axisLabel: {
-          formatter: function (value, index)
-          {
-            var v = value.substring(0, 6) + '...'
-            return value.length > 10 ? v : value
-          }
-        }
-      },
-      yAxis: {},
-      series: [
+      axisLabel: {
+        formatter: function (value, index)
         {
-          type: 'bar',
-          data: data.y
-        }]
-    });
+          var v = value.substring(0, 6) + '...'
+          return value.length > 10 ? v : value
+        }
+      }
+    },
+    yAxis: {},
+    series: [
+      {
+        type: 'bar',
+        data: []
+      }]
   });
 
-</script>
+  // 指定图表的配置项和数据
+  refresh(2000,2021,"CVPR");
 
-<script th:src="@{/js/element.js}"></script>
-<script>
-  function refresh()
-  {
-    myChart.showLoading();
-    $.post('/getTop10Keywords/',{beginYear:$('#beginYear').val()==''?2000:$('#beginYear').val(),
-      endYear:$('#endYear').val()==''?2200:$('#endYear').val(),conference:$('input[type=radio][name=conference]:checked').val()},function(data)
-    {
-      myChart.hideLoading();
-      data=JSON.parse(data);
-      myChart.setOption
-      ({
-        xAxis: {
-          data: data.x
-        },
-        series: [
-          {
-            type: 'bar',
-            data: data.y
-          }]
-      });
-    });
-  }
-
+  $('#refresh-button').click(function() {
+    refresh($('#beginYear').val()==''?2000:$('#beginYear').val(),
+        $('#endYear').val()==''?2200:$('#endYear').val(),
+        $('input[type=radio][name=conference]:checked').val());
+  })
 
   $('input[type=radio][name=conference]').change(function() {
-    refresh();
+    refresh($('#beginYear').val()==''?2000:$('#beginYear').val(),
+        $('#endYear').val()==''?2200:$('#endYear').val(),
+        $('input[type=radio][name=conference]:checked').val());
   });
 </script>
+
 </body>
 </html>
