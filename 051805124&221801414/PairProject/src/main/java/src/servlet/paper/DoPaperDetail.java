@@ -28,23 +28,11 @@ public class DoPaperDetail extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		PaperBean bean = PaperDao.showPaper(id);
 		
-			request.setAttribute("title",bean.getTitle() );
-			request.setAttribute("link",bean.getLink() );
-			request.setAttribute("abst",bean.getAbst() );
-			request.setAttribute("magazine",bean.getMagazine());
-			request.setAttribute("keyword",PaperDao.getKeyWord(bean.getPaperNum()));
-			request.getRequestDispatcher("index_two_edit.jsp").forward(request, response);
-		
-			
+		request.setAttribute("title",bean.getTitle() );
+		request.setAttribute("link",bean.getLink() );
+		request.setAttribute("abst",bean.getAbst() );
+		request.setAttribute("magazine",bean.getMagazine());
+		request.setAttribute("keyword",PaperDao.getKeyWord(bean.getPaperNum()));
+		request.getRequestDispatcher("index_two_edit.jsp").forward(request, response);
 	}
-	
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

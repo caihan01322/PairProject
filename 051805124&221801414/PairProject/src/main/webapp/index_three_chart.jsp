@@ -42,18 +42,15 @@
         </div>
     </div>
     <div>
-    	
-        	
-        	<%
+    	<%
         	String[] keyword = (String[])request.getAttribute("keyword");
         	int[] occur = (int[])request.getAttribute("occur");
-        	%>
-
+        %>
         		
         <div class="contentright">
-        <div id="main" style="width: 600px;height:400px; float:left"></div>
+        <div id="mypie" style="width: 800px;height:450px; float:left"></div>
         <script type="text/javascript">
-        var myChart = echarts.init(document.getElementById('main'));
+        var myChart = echarts.init(document.getElementById('mypie'));
         option = {
                 title : {
                     text: '关键词Top10',       //大标题
@@ -76,16 +73,16 @@
                         radius : '55%',
                         center: ['50%', '60%'],
                         data:[
-                            {value:<%="\""+occur[0]+"\""%>, name:<%="\""+keyword[0]+"\""%>,url: "DoPaperSearch?"},
-                            {value:<%="\""+occur[1]+"\""%>, name:<%="\""+keyword[1]+"\""%>,url: "DoPaperSearch?"},
-                            {value:<%="\""+occur[2]+"\""%>, name:<%="\""+keyword[2]+"\""%>,url: "DoPaperSearch?"},
-                            {value:<%="\""+occur[3]+"\""%>, name:<%="\""+keyword[3]+"\""%>,url: "DoPaperSearch?"},
-                            {value:<%="\""+occur[4]+"\""%>, name:<%="\""+keyword[4]+"\""%>,url: "DoPaperSearch?"},
-                            {value:<%="\""+occur[5]+"\""%>, name:<%="\""+keyword[5]+"\""%>,url: "DoPaperSearch?"},
-                            {value:<%="\""+occur[6]+"\""%>, name:<%="\""+keyword[6]+"\""%>,url: "DoPaperSearch?"},
-                            {value:<%="\""+occur[7]+"\""%>, name:<%="\""+keyword[7]+"\""%>,url: "DoPaperSearch?"},
-                            {value:<%="\""+occur[8]+"\""%>, name:<%="\""+keyword[8]+"\""%>,url: "DoPaperSearch?"},
-                            {value:<%="\""+occur[9]+"\""%>, name:<%="\""+keyword[9]+"\""%>,url: "DoPaperSearch?"},
+                            {value:<%="\""+occur[0]+"\""%>, name:<%="\""+keyword[0]+"\""%>,url: "dopapersearch?plugin=keyword&searchContent="+<%="\""+keyword[0]+"\""%>},
+                            {value:<%="\""+occur[1]+"\""%>, name:<%="\""+keyword[1]+"\""%>,url: "dopapersearch?plugin=keyword&searchContent="+<%="\""+keyword[1]+"\""%>},
+                            {value:<%="\""+occur[2]+"\""%>, name:<%="\""+keyword[2]+"\""%>,url: "dopapersearch?plugin=keyword&searchContent="+<%="\""+keyword[2]+"\""%>},
+                            {value:<%="\""+occur[3]+"\""%>, name:<%="\""+keyword[3]+"\""%>,url: "dopapersearch?plugin=keyword&searchContent="+<%="\""+keyword[3]+"\""%>},
+                            {value:<%="\""+occur[4]+"\""%>, name:<%="\""+keyword[4]+"\""%>,url: "dopapersearch?plugin=keyword&searchContent="+<%="\""+keyword[4]+"\""%>},
+                            {value:<%="\""+occur[5]+"\""%>, name:<%="\""+keyword[5]+"\""%>,url: "dopapersearch?plugin=keyword&searchContent="+<%="\""+keyword[5]+"\""%>},
+                            {value:<%="\""+occur[6]+"\""%>, name:<%="\""+keyword[6]+"\""%>,url: "dopapersearch?plugin=keyword&searchContent="+<%="\""+keyword[6]+"\""%>},
+                            {value:<%="\""+occur[7]+"\""%>, name:<%="\""+keyword[7]+"\""%>,url: "dopapersearch?plugin=keyword&searchContent="+<%="\""+keyword[7]+"\""%>},
+                            {value:<%="\""+occur[8]+"\""%>, name:<%="\""+keyword[8]+"\""%>,url: "dopapersearch?plugin=keyword&searchContent="+<%="\""+keyword[8]+"\""%>},
+                            {value:<%="\""+occur[9]+"\""%>, name:<%="\""+keyword[9]+"\""%>,url: "dopapersearch?plugin=keyword&searchContent="+<%="\""+keyword[9]+"\""%>},
                         ],
                         itemStyle: {
                             emphasis: {
@@ -103,7 +100,6 @@
         	    window.location.href = url;
         	});
         </script>
-        
     	</div>
     </div>
 </div>
