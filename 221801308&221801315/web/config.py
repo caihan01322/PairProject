@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, jsonify, render_template, request
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
 
@@ -62,6 +62,19 @@ class Articles(db.Model):
     doiLink = db.Column(db.String(255))
     keywords = db.relationship(
         "Keywords", secondary=article_keyword, backref=db.backref("articles"))
+
+    def schema(self):
+        keywords = []
+        for keyword in self.keywords:
+            keywords.append(keyword.keyword)
+        return {
+            "meeting": self.meeting,
+            "title": self.title,
+            "publicationYear": self.publicationYear,
+            "abstract": self.abstract,
+            "doiLink": self.doiLink,
+            "keywords": keywords
+        }
 
 
 class Keywords(db.Model):

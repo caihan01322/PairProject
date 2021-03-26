@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
+from flask import jsonify, render_template, request
 from config import *
-from functions import *
 
 
 @app.route("/")
@@ -31,13 +31,14 @@ def search_by_title():
     title = request.args.get("title")
     if title is None:
         return jsonify(code=1, message="没有输入title", data=None)
-    title = title.lower()
 
     articles = Articles.query.filter(Articles.title.ilike("%"+title+"%")).all()
     if articles is None:
         return jsonify(code=-1, message="没有查询到数据", data=None)
 
-    data = combine_keywords_and_articles(articles)
+    data = []
+    for article in articles:
+        data.append(article.schema())
 
     return jsonify(code=0, message="查询成功", data=data)
 
@@ -72,16 +73,15 @@ def search_by_keyword():
             return jsonify(code=-1, message="没有查询到数据", data=None)
         # 避免查询重复的论文标题
         for t in tuples:
-            article_title.add(t.title)
+            for article in t.articles:
+                article_title.add(article.title)
 
-        articles = []
+        data = []
         for title in article_title:
             for article in Articles.query.filter(Articles.title == title).all():
-                articles.append(article)
+                data.append(article.schema())
 
-        data = combine_keywords_and_articles(articles)
-
-        return jsonify(code=0, message="查询成功", data=data)
+    return jsonify(code=0, message="查询成功", data=data)
 
 
 if __name__ == "__main__":
