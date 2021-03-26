@@ -71,10 +71,12 @@ public class HotwordController {
             if (cnt >= 10)//仅需要输出前十位
                 break;
         }
-//
-
         return hashMap2;
     }
+
+
+    //part2走势对比
+
 
     public static List<HashMap.Entry<String, Integer>> getSortedList(HashMap<String, Integer> hashMap) {
         List<HashMap.Entry<String, Integer>> list1 =
@@ -89,8 +91,19 @@ public class HotwordController {
         return list1;
     }
 
+    public static List<HashMap.Entry<String, Integer>> getSortedList2(HashMap<String, Integer> hashMap) {
+        List<HashMap.Entry<String, Integer>> list1 = new ArrayList<HashMap.Entry<String, Integer>>(hashMap.entrySet());
+        Collections.sort(list1, new Comparator<Map.Entry<String,Integer>>() {
+            public int compare(Map.Entry<String,Integer> hash1, Map.Entry<String,Integer> hash2){
+                if(hash1.getKey().split(",")[1].equals(hash2.getKey().split(",")[1]))
+                    return hash2.getValue().compareTo(hash1.getValue());
+                return hash1.getKey().split(",")[1].compareTo(hash2.getKey().split(",")[1]);
+            }
+        });
+        return list1;
+    }
 
-    //part2走势对比
+
 
     @Autowired
     TrendService trendService;
@@ -98,61 +111,92 @@ public class HotwordController {
     @GetMapping("/json1")
     @ResponseBody
     public List<Worditem> getfirstjson(){
-        List<Worditem>json11 = new ArrayList<>();
-        List<List<String>> json1 = new ArrayList<>();
-        List<String> code = new ArrayList<>();
-        List<String> emoji = new ArrayList<>();
-        List<String> unicode = new ArrayList<>();
-        List<String> title = new ArrayList<>();
-        List<String> dialCode = new ArrayList<>();
-        List<String> keywords = new ArrayList<>();
-        List<String> name = new ArrayList<>();
+        List<List<String>> json2 = new ArrayList<>();
+        List<String> jsonson2 = new ArrayList<>();
         HashMap<String,Integer> hashMap = new HashMap<String,Integer>();
-        List<String> publicationYear = new ArrayList<>();
         List<NameAndYear> keyandyear = new ArrayList<>();
         keyandyear = trendService.getYear();
-        //添加两个key和year
+
+        List<String> keywords = new ArrayList<>();
+        List<String> publicationYear = new ArrayList<>();
+
         for (int i = 0;i<keyandyear.size();i++){
             String key = keyandyear.get(i).getKeywords();
             String year = keyandyear.get(i).getPublicationYear();
-            keywords.add(key);//在这里添加第二个json!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            keywords.add(key);
             publicationYear.add(year);
+
         }
-        //取到每个词
+
         String a = new String();
+        String numm = new String();
         String str = new String();
         for (int q = 0; q < keywords.size(); q++) {
+            numm = publicationYear.get(q);
+            //System.out.println(numm);
             a = keywords.get(q);//String
             if(a==null){
-                break;
+                continue;
             }
+
             str = a.replace("\"", "");
 
             String[] chars = new String[2000];
             chars = str.split(",");
-
+            String strr = new String();
             for (int j = 0; j < chars.length; j++) {
-                if(hashMap.containsKey(chars[j])){
-                    hashMap.put(chars[j],hashMap.get(chars[j])+1);
+                strr = chars[j]+","+numm;
+                if(hashMap.containsKey(strr)){
+                    hashMap.put(strr,hashMap.get(strr)+1);
                 }
                 else {
-                    hashMap.put(chars[j],1);
+                    hashMap.put(strr,1);
                 }
             }
         }
-        String strr = new String();
-        for(Map.Entry<String, Integer> entry : hashMap.entrySet()){
-            strr = entry.getKey();
-            name.add(strr);
+
+        jsonson2.add("Income");
+        jsonson2.add("Life Expectancy");
+        jsonson2.add("Population");
+        jsonson2.add("Country");
+        jsonson2.add("Year");
+        json2.add(jsonson2);
+
+        List<HashMap.Entry<String, Integer>> count = getSortedList(hashMap);
+        List<HashMap.Entry<String, Integer>> count2 = new ArrayList<>();
+        count = getSortedList2(hashMap);//
+        int size = count.size();
+        HashMap<String ,Integer> yearnumhash = new HashMap<>();
+        for(int l = 0;l<size;l++){
+            String year = count.get(l).getKey().replace("\"", "").split(",")[1];
+            if(yearnumhash.containsKey(year)){
+                yearnumhash.put(year,yearnumhash.get(year)+1);
+            }else {
+                yearnumhash.put(year,1);
+            }
+            if(yearnumhash.get(year)<20){
+                count2.add(count.get(l));
+            }else {
+                continue;
+            }
         }
-        for(int i = 0;i<name.size();i++){
-            Worditem w = new Worditem("","","",name.get(i),"","");
-            json11.add(w);
+        List<Worditem>json11 = new ArrayList<>();
+        HashMap<String,Integer> samehash = new HashMap<>();
+        for(int y = 0;y<count2.size();y++){
+            String name = count2.get(y).getKey().replace("\"", "").split(",")[0];
+            if (samehash.containsKey(name)){
+                continue;
+            }else {
+                String s = "*";
+                Worditem w = new Worditem(s,s,"",name,"","");
+                json11.add(w);
+                samehash.put(name,1);
+            }
+
         }
         return json11;//可以输出
 
     }
-
     //第二个json文件的获取
     @GetMapping("/json2")
     @ResponseBody
