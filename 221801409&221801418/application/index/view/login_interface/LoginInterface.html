@@ -2,20 +2,28 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>创建用户</title>
-    <style>
-    </style>
+    <title>论文查询系统</title>
+    <link href="__CSS__/login_interface.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<div class="uplan" style="width:100%;height:40px ;border:0px;background-color: rgb(107, 107, 209);">
-  <div style="color: white;font-size: 25px;">论文查询系统</div>
-</div>
-<div style="text-align:center;top: 10000px;">欢迎来到论文查询系统！</div>
-<FORM style="text-align:center;"method="post" class="form" action="{:url('admin/user/add')}">
-    账 号：<INPUT type="text" class="text" name="account"><br/>
-    密 码：<INPUT type="text" class="text" name="password"><br/>
-    <input type="hidden" name="__token__" value="{$Request.token}" />
-    <INPUT type="submit" class="btn" value=" 提交 ">
-</FORM>
+    <div class="topNav">
+        <a href="#"> </a>
+        <a href="#"> 未登录</a>
+    </div>
+    <div class="content">
+        <div class="welcomeArea">
+            <p>欢迎来到论文查询系统!</p>
+        </div>
+        <div class="loginArea">
+            <form method="post" class="form" action="{:url('admin/user/add')}">
+                <label>账 号：</label>
+                <input type="text" class="text" name="account" placeholder="请输入账号"><br/>
+                <label>密 码：</label>
+                <input type="text" class="text" name="password" placeholder="请输入密码"><br/>
+                <input id="login"type="submit" class="btn" value=" 登录  ">
+                <button id="register" > 注册 </button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
