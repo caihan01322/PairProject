@@ -32,7 +32,6 @@
 <body>
     <div id = "app">
             <el-header height = "100dp" >编辑论文列表页面</el-header>
-    </div>
     <div id = "searchBar"> 
         <el-form :inline="true"  style="text-align: center;width:auto">
             <el-row>
@@ -46,7 +45,7 @@
 
     <div id = "table">`
         <template>
-            <el-table :data="tableData" border style = "width:100%" >
+            <el-table :data="tableData.slice((currPage-1)*limitCount,currPage*limitCount)" border style = "width:100%" >
                 <el-table-column fixed prop = "title" label="论文题目" align="center" min-width="20%"></el-table-column>
                 <el-table-column fixed prop = "abstract" label="论文摘要"  align="center" min-width="30%">
                     <template slot-scope="scope" >
@@ -77,25 +76,37 @@
 
     <div id = "page">
         <el-pagination
-          layout = "prev, pager, next"
-          :page-size = "4"
-          :total="{$count}"
-           style="text-align: center">
+            @current-change="currentChange"
+            :current-page= "currPage"
+            layout = "prev, pager, next"
+            :total="{$count}"
+            style="text-align: center"
+        >
         </el-pagination>
     </div>
+    </div>
 
+    
     <script type = "text/javascript">
         var aa = {$tableData|raw};
         
         var Main = {
-            method:{
+            methods:{
                 handlerClick(row){
                     console.log(row)
+                },
+                currentChange(val){
+                    console.log(val);
+                    this.currPage = val;
                 }
             },
             data(){
                 return {
-                    tableData:aa
+                    tableData:aa,
+                    limitCount:4,
+                    currPage : 1,
+                    
+                    input:'',
                 }
             },
             filters: {
@@ -107,23 +118,9 @@
             return value;
             }
         },
-
-            
-        }
-        var search = {
-            data(){
-                return {
-                    input:''
-                }
-            }
-        }
+ }
         var Ctor = Vue.extend(Main)
-        new Ctor().$mount('#table')
-        // new Vue().$mount('#app')
-        var Search = Vue.extend(search);
-        new Search().$mount('#searchBar')
-        
-        new Vue().$mount('#page')
+        new Ctor().$mount('#app') 
     </script>
     
 </body>
