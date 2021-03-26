@@ -1,10 +1,7 @@
 package com.pairing.mapper;
 
 import com.pairing.bean.Paper;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -37,4 +34,12 @@ public interface PaperMapper {
             , @Param("keywords") String keywords, @Param("abstrac") String abstrac
             , @Param("publicationTitle") String publicationTitle, @Param("persistentLink") String persistentLink);
 
+    @Update("update collect set publicationTitle=#{publicationTitle},persistentLink=#{persistentLink}" +
+            ",keywords=#{keywords},abstrac=#{abstrac} where uid=#{uid} and did=#{did}")
+    public Integer updatePaperToCollection(@Param("uid") String uid, @Param("did") String did
+            , @Param("keywords") String keywords, @Param("abstrac") String abstrac
+            , @Param("publicationTitle") String publicationTitle, @Param("persistentLink") String persistentLink);
+
+    @Delete("delete from collect where uid=#{uid} and did=#{did}")
+    public Integer deletePaperFromCollection(@Param("uid") String uid, @Param("did") String did);
 }

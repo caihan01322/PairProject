@@ -180,7 +180,7 @@ $(function(){
      */
     function initCard() {
         for (let i = 0; i < 4; i++) {
-            $(".paper-id").get(i).innerHTML = 0;
+            $(".paper-id").get(i).innerHTML = "-1";
             $(".paper-title").get(i).innerHTML = "好像找不到标题...";
             $(".paper-link a").get(i).innerHTML = "好像找不到链接...";
             $(".paper-keywords").eq(i).find("span").get(1).innerHTML = "好像找不到关键词...";
@@ -192,37 +192,67 @@ $(function(){
      * 点击卡片将数据填充至模态框中
      */
     $(".card-content").click(function () {
-        $("#edit-id").val($(this).find(".paper-id").html());
-        $("#edit-title").val($(this).find(".paper-title").html());
-        $("#edit-link").val($(this).find(".paper-link a").html());
-        $("#edit-keywords").val($(this).find(".paper-keywords span").eq(1).html());
-        $("#edit-abstract").val($(this).find(".paper-abstract span").eq(1).html());
+            $("#edit-id").val($(this).find(".paper-id").html());
+            $("#edit-title").val($(this).find(".paper-title").html());
+            $("#edit-link").val($(this).find(".paper-link a").html());
+            $("#edit-keywords").val($(this).find(".paper-keywords span").eq(1).html());
+            $("#edit-abstract").val($(this).find(".paper-abstract span").eq(1).html());
     })
+
+    $(".close").click(function(){
+
+    });
+
+    function updateCollection(url) {
+        if ($("#edit-id").val() == "-1") {
+            console.log(123456)
+        } else {
+            $.ajax({
+                type: "GET",
+                contentType: "application/json;charset=UTF-8",
+                url: url,
+                data: {
+                    userName: $(".menu-right a").eq(0).text().replace('"', "").trim(),
+                    paperId: $("#edit-id").val().trim(),
+                    keywords: $("#edit-keywords").val().trim(),
+                    abstrac: $("#edit-abstract").val().trim(),
+                    publicationTitle: $("#edit-title").val().trim(),
+                    persistentLink: $("#edit-link").val().trim(),
+                },
+                success: function(res) {
+                    console.log(res);
+                },
+                //请求失败，包含具体的错误信息
+                error: function(res){
+                    console.log(res.status);
+                    console.log(res.responseText);
+                }
+            });
+        }
+
+    }
 
     /**
      * 收藏
      */
     $("#btn-collect").click(() => {
-        $.ajax({
-            type: "GET",
-            contentType: "application/json;charset=UTF-8",
-            url: "/collect",
-            data: {
-                userName: $(".menu-right a").eq(0).text().replace('"', "").trim(),
-                paperId: $("#edit-id").val().trim(),
-                keywords: $("#edit-keywords").val().trim(),
-                abstrac: $("#edit-abstract").val().trim(),
-                publicationTitle: $("#edit-title").val().trim(),
-                persistentLink: $("#edit-link").val().trim(),
-            },
-            success: function(res) {
-                console.log(res);
-            },
-            //请求失败，包含具体的错误信息
-            error: function(res){
-                console.log(res.status);
-                console.log(res.responseText);
-            }
-        });
+        updateCollection("/collect");
+        getPaperData("", 0);
+    })
+
+    /**
+     * 保存（修改）
+     */
+    $("#btn-update").click(() => {
+        updateCollection("/update");
+        getCollectPaperData("", $(".menu-right a").eq(0).text().replace('"', "").trim(), 0);
+    })
+
+    /**
+     * 删除
+     */
+    $("#btn-delete").click(() => {
+        updateCollection("/delete");
+        getCollectPaperData("", $(".menu-right a").eq(0).text().replace('"', "").trim(),0);
     })
 })

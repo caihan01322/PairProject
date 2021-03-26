@@ -66,4 +66,27 @@ public class PaperListController {
         return paperService.insertPaperToCollection(userName, paperId, keywords, abstrac
                 , publicationTitle, persistentLink);
     }
+
+    @GetMapping("/delete")
+    @ResponseBody
+    public String deletePaper(@RequestParam(value = "userName") String userName
+            , @RequestParam(value = "paperId") String paperId
+            , @RequestParam(value = "keywords") String keywords
+            , @RequestParam(value = "abstrac") String abstrac
+            , @RequestParam(value = "publicationTitle") String publicationTitle
+            , @RequestParam(value = "persistentLink") String persistentLink ) {
+        return paperService.deletePaperFromCollection(userName, paperId);
+    }
+
+    @GetMapping("/update")
+    @ResponseBody
+    public String updatePaper(@RequestParam(value = "userName") String userName
+            , @RequestParam(value = "paperId") String paperId
+            , @RequestParam(value = "keywords") String keywords
+            , @RequestParam(value = "abstrac") String abstrac
+            , @RequestParam(value = "publicationTitle") String publicationTitle
+            , @RequestParam(value = "persistentLink") String persistentLink ) {
+        return paperService.updatePaperToCollection(userName, paperId, keywords, abstrac
+                , publicationTitle, persistentLink);
+    }
 }

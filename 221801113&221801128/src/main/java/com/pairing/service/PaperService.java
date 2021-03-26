@@ -54,4 +54,36 @@ public class PaperService {
 
         return (integer.intValue() == 0) ? "收藏失败！(可能原因：该论文已被收藏)" : "收藏成功！";
     }
+
+    /**
+     * 更新
+     */
+    public String updatePaperToCollection(String uid, String did, String keywords, String abstrac
+            , String publicationTitle, String persistentLink) {
+        Integer integer = new Integer(0);
+        try{
+            integer = paperMapper.updatePaperToCollection(uid, did, keywords
+                    , abstrac, publicationTitle, persistentLink);
+        } catch (Exception e) {
+            integer = new Integer(0);
+        }
+        if (integer == null) integer = new Integer(0);
+
+        return (integer.intValue() == 0) ? "修改失败！" : "修改成功！";
+    }
+
+    /**
+     * 删除
+     */
+    public String deletePaperFromCollection(String uid, String did) {
+        Integer integer = new Integer(0);
+        try{
+            integer = paperMapper.deletePaperFromCollection(uid, did);
+        } catch (Exception e) {
+            integer = new Integer(0);
+        }
+        if (integer == null) integer = new Integer(0);
+
+        return (integer.intValue() == 0) ? "删除失败！" : "删除成功！";
+    }
 }

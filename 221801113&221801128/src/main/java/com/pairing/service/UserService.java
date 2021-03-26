@@ -27,8 +27,6 @@ public class UserService {
             integer = new Integer(0);
         }
         if (integer == null) integer = new Integer(0);
-
-        System.out.println(integer);
         return (integer.intValue() == 0) ? false : true;
     }
 }
