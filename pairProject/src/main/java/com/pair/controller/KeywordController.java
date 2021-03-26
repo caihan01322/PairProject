@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -67,6 +68,16 @@ public class KeywordController {
         List<Paper> papers=paperMapper.getPapersByKeyword(keyword);
         model.addAttribute("papers", papers);
         return "paperList";
+    }
+    @RequestMapping("/top10words/{meeting}")
+    @ResponseBody
+    public List<Keyword> getTop10ByMeeting(@PathVariable("meeting") String meeting){
+        String publisher=meeting;
+        if(publisher==null){
+            publisher="CVPR";
+        }
+        List<Keyword> top10Keyword = keywordMapper.getTop10Keyword(publisher);
+        return top10Keyword;
     }
 
     @RequestMapping("/top10")

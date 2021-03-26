@@ -40,12 +40,12 @@
     </div>
     <div class="layui-body">
         <form th:action="@{/top10}" method="post" style="margin-top: auto;margin-bottom: auto">
-            <select name="meeting" id="selections">
+            <select name="meeting" id="meeting" onchange="getwords()">
                 <option value="CVPR">CVPR</option>
                 <option value="ICCV">ICCV</option>
                 <option value="ECCV">ECCV</option>
             </select>
-            <select name="words">
+            <select name="words" id="words">
                 <option th:value="${top0}" th:text="${top0}"></option>
                 <option th:value="${top1}" th:text="${top1}"></option>
                 <option th:value="${top2}" th:text="${top2}"></option>
@@ -67,6 +67,25 @@
              style="width: 1300px; height: 600px; margin-right:auto;margin-left: auto;background: #e9ecef"></div>
     </div>
 </div>
+<script>
+    function getwords() {
+        var meeting = $("#meeting").val();
+        $.ajax({
+            type:"GET",
+            url:"/top10words/" + meeting,
+            async:true,
+            success:function (data) {
+                var rList = data;
+                var rSelect = "";
+                for(var i = 0; i < rList.length; i++){
+                    rSelect += ("<option value = '"+rList[i].keyword+"'>"+rList[i].keyword+"</option>");
+                }
+                $("#words").empty();
+                $("#words").append(rSelect);
+            }
+        })
+    }
+</script>
 <script type="text/javascript">
     var myChart = echarts.init(document.getElementById('linechart'));
 
