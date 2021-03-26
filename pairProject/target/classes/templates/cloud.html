@@ -43,12 +43,12 @@
     <div class="layui-body">
         <div>
             <form th:action="@{/clouds}" method="post" style="margin-top: auto;margin-bottom: auto">
-                <select name="meeting" id="meeting">
+                <select name="meeting" id="meeting" lay-verify="required">
                     <option value="CVPR">CVPR</option>
                     <option value="ICCV">ICCV</option>
                     <option value="ECCV">ECCV</option>
                 </select>
-                <input type="submit" value="确定"/>
+                <input type="submit" value="确定"class="layui-btn layui-btn-radius layui-btn-normal"/>
             </form>
             <div><h2 th:text="${meeting}"></h2></div>
             <div id="words" style="width: 550px; height: 350px; float: left;"></div>
