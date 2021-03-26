@@ -31,7 +31,6 @@
                  <li class="icon"><a href="index_one_add.jsp"><i><img src="./ImageResources/folderadd.png"></i>论文爬取</a></li>
                  <li class="icon">
                  	<div><a href="index.jsp"><i><img src="./ImageResources/database.png"></i>论文管理</a></div>
-                 	<div class="titleright"><a href="index_two_edit.jsp">论文列表修改</a></div>
                  	<div class="titleright"><a href="index_two_search.jsp">论文查找</a></div>
                  </li>
                  <li class="icon"><a href="DoPaperPie?"><i><img src="./ImageResources/fund.png"></i>论文分析</a></li>
@@ -40,12 +39,11 @@
         </div>
     </div>
     <div class="contentright">
-    	<p>标题：<textarea rows="2" cols="30" readonly="readonly">${title}</textarea></p>
+    	<p><a class="button" href="javascript:history.go(-1);">返回</a></p>
     	
-    	<p>链接：<textarea rows="2" cols="30" readonly="readonly">${link}</textarea></p>
-    	
-    	<p>摘要：<textarea rows="4" cols="30" readonly="readonly">${abst}</textarea></p>
-    	
+    	<p>标 题：<textarea rows="2" cols="30" readonly="readonly">${title}</textarea></p>
+    	<p>链 接：<textarea rows="2" cols="30" readonly="readonly">${link}</textarea></p>
+    	<p>摘 要：<textarea rows="4" cols="30" readonly="readonly">${abst}</textarea></p>
     	<p>关键词：<textarea rows="4" cols="30" readonly="readonly">${keyword}</textarea></p>
     </div>
 </div>

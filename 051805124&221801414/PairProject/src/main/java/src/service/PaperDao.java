@@ -23,7 +23,11 @@ public class PaperDao {
 		}
 		
 	}
-	
+	public static ArrayList<PaperBean> showAll() {
+			String sql = "select * from academics ";
+			System.out.print(sql);
+			return Basedao.searchPaper(sql);
+	}
 	public static PaperBean showPaper(int academicNum) {
 		String sql = "select * from academics where academicNum = "+ academicNum;
 		return Basedao.showPaper(sql);

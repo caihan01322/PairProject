@@ -29,7 +29,7 @@
         <div class="contentleft">
             <ul>
                  <li class="icon"><a href="index_one_add.jsp"><i><img src="./ImageResources/folderadd.png"></i>论文爬取</a></li>
-                 <li class="icon"><a href="index_two_edit.jsp"><i><img src="./ImageResources/database.png"></i>论文管理</a></li>
+                 <li class="icon"><a href="index_two_search.jsp"><i><img src="./ImageResources/database.png"></i>论文管理</a></li>
                  <li class="icon">
                  	<div><a href="index.jsp"><i><img src="./ImageResources/fund.png"></i>论文分析</a></div>
                  	<div class="titleright"><a href="DoPaperPie?">图表分析</a></div>

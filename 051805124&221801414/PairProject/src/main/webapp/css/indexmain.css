@@ -82,6 +82,10 @@
     font-size: 14px;
     float: left;
 }
+.contentright .button{
+    color: #0080ff;
+    text-decoration: none;
+}
 .contentright textarea{
 	vertical-align: -1px;
 	border:0;

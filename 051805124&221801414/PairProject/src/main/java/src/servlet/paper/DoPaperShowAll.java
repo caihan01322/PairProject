@@ -13,11 +13,10 @@ import src.PaperBean;
 import src.service.PaperDao;
 
 /**
- * Servlet implementation class DoPaperSearch
+ * Servlet implementation class DoPaperShowAll
  */
-@WebServlet("/dopapersearch")
-public class DoPaperSearch extends HttpServlet {
-
+@WebServlet("/DoPaperShowAll")
+public class DoPaperShowAll extends HttpServlet {
 	static String curContent = "";
 	static ArrayList<PaperBean> list = new ArrayList<PaperBean>();
 	/**
@@ -28,31 +27,11 @@ public class DoPaperSearch extends HttpServlet {
 		int curPage = 1;
 		//每页显示
 		int count = 5;
-		String type = request.getParameter("type");
-		if(type == "1") {
-			list = PaperDao.showAll();
-			for(int i=0;i < list.size();i++) {
-				list.get(i).setKeyword(PaperDao.getKeyWord(list.get(i).getPaperNum()));
-			}
+				
+		list = PaperDao.showAll();
+		for(int i=0;i < list.size();i++) {
+			list.get(i).setKeyword(PaperDao.getKeyWord(list.get(i).getPaperNum()));
 		}
-		else {
-			String requestPage = request.getParameter("cp");
-			if(requestPage != null) {
-				curPage = Integer.parseInt(requestPage);
-			}
-			String option = request.getParameter("plugin");
-			String content = request.getParameter("searchContent");
-			if(content == null || content.equals("")) {
-				content = curContent;
-			}else {
-				curContent = content;
-				list = PaperDao.searchPaper(content,option);
-				for(int i=0;i < list.size();i++) {
-					list.get(i).setKeyword(PaperDao.getKeyWord(list.get(i).getPaperNum()));
-				}
-			}
-		}
-		
 		
 		request.setAttribute("totalPage", list.size()%count==0?list.size()/5:list.size()/5+1);
 		request.setAttribute("curPage", curPage);
@@ -65,5 +44,4 @@ public class DoPaperSearch extends HttpServlet {
 		request.setAttribute("paperlist", t);
 		request.getRequestDispatcher("index_two_search.jsp").forward(request, response);
 	}
-
 }
