@@ -1,16 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: apple
-  Date: 2021/3/26
-  Time: 22:30
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%response.sendRedirect("login");%>
