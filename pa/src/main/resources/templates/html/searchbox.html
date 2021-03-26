@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<div th:fragment="searchbox">
+<div th:fragment="searchbox" style="margin-top: 30px;">
     <form class="layui-form" action="">
         <div class="layui-form-item">
             <label class="layui-form-label">标题</label>
@@ -44,13 +44,12 @@
             <div class="layui-inline">
                 <label class="layui-form-label">年份</label>
                 <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="price_min" autocomplete="off" class="layui-input">
+                    <input type="text" name="price_min" placeholder="2000" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-mid">-</div>
                 <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="price_max" autocomplete="off" class="layui-input">
+                    <input type="text" name="price_max" placeholder="2020" autocomplete="off" class="layui-input">
                 </div>
-                <div class="layui-form-mid layui-word-aux">范围:2000~2020</div>
             </div>
         </div>
         <div class="layui-form-item">

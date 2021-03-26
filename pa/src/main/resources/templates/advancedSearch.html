@@ -44,5 +44,15 @@
             });
         });
     </script>
+
+<script>
+    layui.use('element', function(){
+        var element = layui.element;
+        //监听导航点击
+        element.on('nav(demo)', function(elem){
+            layer.msg(elem.text());
+        });
+    });
+</script>
 </body>
 </html>

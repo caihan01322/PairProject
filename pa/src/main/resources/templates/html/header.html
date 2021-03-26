@@ -13,7 +13,7 @@
 <div th:fragment="header">
     <ul class="layui-nav layui-bg-blue">
         <li class="layui-nav-item">
-            <a th:href="@{/searchEssay}">
+            <a th:href="@{/index}">
                 <i class="layui-icon">&#xe68e;首页</i>
             </a>
         </li>
@@ -22,7 +22,7 @@
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <div class="layui-form-mid" >
-                            <input type="text" name="information" placeholder="请输入标题、关键词、摘要（支持模糊查询）"
+                            <input type="text" name="information" placeholder="请输入标题（支持模糊查询）"
                                    id="search" autocomplete="off" required class="layui-input-block" style="margin-top:4px; width:500px;">
                         </div>
                         <div class="layui-input-inline" >
