@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>创建用户</title>
+    <style>
+      @import url("//unpkg.com/element-ui@2.15.1/lib/theme-chalk/index.css");
+      .demo-table-expand {
+        font-size: 0;
+      }
+      .demo-table-expand label {
+        width: 90px;
+        color: #99a9bf;
+      }
+      .demo-table-expand .el-form-item {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 50%;
+      }
+    </style>
+    <script src="//unpkg.com/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/element-ui@2.15.1/lib/index.js"></script>
+</head>
+<body>
+<div class="uplan" style="width:100%;height:40px ;border:0px;background-color: rgb(107, 107, 209);">
+  <div style="color: white;font-size: 25px;">论文查询系统</div>
+</div>
+<div id="app">
+<template>
+  <el-table
+    :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" border
+    style="width: 100%">
+    <el-table-column type="expand">
+      <template slot-scope="props">
+        <el-form label-position="left" inline class="demo-table-expand">
+          <el-form-item label="论文标题">
+            <span>{{ props.row.title }}</span>
+          </el-form-item>
+          <el-form-item label="关键词">
+            <span>{{ props.row.keyword }}</span>
+          </el-form-item>
+          <el-form-item label="摘要">
+            <span>{{ props.row.abstract }}</span>
+          </el-form-item>
+          <el-form-item label="发布日期">
+            <span>{{ props.row.releasetime }}</span>
+        </el-form>
+      </template>
+    </el-table-column>
+    <el-table-column
+      label="标题"
+      prop="title">
+    </el-table-column>
+    <el-table-column
+      label="关键词"
+      prop="keyword">
+    </el-table-column>
+    <el-table-column
+      label="摘要"
+      prop="abstract">
+    </el-table-column>
+    <el-table-column label="操作">
+      <template slot-scope="scope">
+        <el-button
+          size="mini"
+          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+        <el-button
+          size="mini"
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
+  <el-pagination
+    @current-change="pageChange"
+    :current-page="currentpage"
+    :page-size="pageSize"
+    layout="total, prev, pager, next, jumper"
+    :total="tableData.length">
+</el-pagination>
+</template>
+</div>
+<script>
+var fromDb={$try|raw};
+var Main = {
+  data() {
+    return {
+      tableData:fromDb,
+      currentPage: 1,
+      pageSize: 8
+    }
+  },
+  methods:{
+    pageChange(val) {
+      this.currentPage = val;
+    }
+  }
+}
+var Ctor = Vue.extend(Main)
+new Ctor().$mount('#app')
+</script>
+</body>
+</html>
