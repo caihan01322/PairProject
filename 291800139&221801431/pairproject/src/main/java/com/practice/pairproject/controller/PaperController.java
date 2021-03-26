@@ -13,9 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -104,10 +108,31 @@ public class PaperController {
     }
 
 
+    @GetMapping("/show")
+    public String home(Model model){
 
+
+
+        System.out.println("home后端查询到了！");
+
+        //model.addAttribute("list",list2);
+        return "home";
+    }
+
+    /**
+     * 多条件联合模糊查询
+     * @param title
+     * @param pid
+     * @param keyword
+     * @param sort
+     * @param model
+     * @return
+     */
     @GetMapping("/search")
-    public AjaxResponse searchUser(@RequestParam(value = "name")String name, Model model){
-
+    public AjaxResponse searchUser(@RequestParam("title") String title,
+                                   @RequestParam("pid") String pid,
+                                   @RequestParam("keyword") String keyword,
+                                   @RequestParam("sort") String sort, Model model){
        /* List<User> list = _userService.selectUserLikeUserName(name);
         System.out.println("admin-searchUser后端查询到了！" + name);
         for (User user : list) {
@@ -115,6 +140,20 @@ public class PaperController {
         }
         model.addAttribute("list",list);
         return "admin/adminCenter";*/
+
+       if(sort.isEmpty() || sort.equals("")){
+           sort = "1";
+       }
+
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("title",title);
+        paramMap.put("pid",pid);
+        paramMap.put("keyword",keyword);
+        paramMap.put("sort",sort);
+
+        List<Paper> paperList = paperService.searchPaper(paramMap);
+        model.addAttribute("paperList",paperList);
+
         return AjaxResponse.success("【删除成功！】");
     }
 

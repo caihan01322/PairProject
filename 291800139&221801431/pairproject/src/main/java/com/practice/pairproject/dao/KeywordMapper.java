@@ -13,6 +13,13 @@ public interface KeywordMapper {
      */
     int insertPKeywords(Keyword kw);
 
+    /**
+     * 模糊查询拥有此keyword的所有pid的list
+     * @param kw
+     * @return
+     */
+    List<Integer> searchKeywords(String kw);
+
     Keyword selectByPrimaryKey(Integer kpid);
 
     List<Keyword> selectAll();

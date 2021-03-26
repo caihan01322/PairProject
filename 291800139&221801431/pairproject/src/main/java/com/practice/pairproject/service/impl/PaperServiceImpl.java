@@ -1,5 +1,6 @@
 package com.practice.pairproject.service.impl;
 
+import com.practice.pairproject.dao.KeywordMapper;
 import com.practice.pairproject.dao.PaperMapper;
 import com.practice.pairproject.pojo.Paper;
 import com.practice.pairproject.service.PaperService;
@@ -8,12 +9,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PaperServiceImpl implements PaperService {
 
     @Autowired
     private PaperMapper paperMapper;
+
+    @Autowired
+    private KeywordMapper keywordMapper;
 
 
     @Override
@@ -29,5 +34,12 @@ public class PaperServiceImpl implements PaperService {
     @Override
     public int deleteByPrimaryKeyList(List<Integer> pids) {
         return paperMapper.deleteByPrimaryKeyList(pids);
+    }
+
+    @Override
+    public List<Paper> searchPaper(Map<String, String> paramMap) {
+        //String keyword =  paramMap.get("keyword");
+        //List<Integer> pidList= keywordMapper.searchKeywords(keyword);
+        return paperMapper.searchPaper(paramMap);
     }
 }

@@ -1,7 +1,10 @@
 package com.practice.pairproject.service;
 
 import com.practice.pairproject.pojo.Paper;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
+import java.util.Map;
 
 public interface PaperService {
 
@@ -25,4 +28,11 @@ public interface PaperService {
      * @return
      */
     int deleteByPrimaryKeyList(List<Integer> pids);
+
+    /**
+     * 多条件联合模糊查询
+     * @param paramMap
+     * @return  List<Paper>
+     */
+    List<Paper> searchPaper(Map<String, String> paramMap);
 }

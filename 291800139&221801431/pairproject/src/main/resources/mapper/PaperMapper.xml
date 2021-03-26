@@ -25,13 +25,6 @@
   </delete>
 
 
-  <delete id="deleteByPrimaryKeyList" parameterType="java.util.List">
-    delete from paper where pid in
-    <foreach collection="pids" index="index" item="item" open="(" separator="," close=")">
-      #{item}
-    </foreach>
-  </delete>
-
 
   <!--
       values (#{meeting,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, #{publicDate,jdbcType=VARCHAR},
@@ -58,7 +51,7 @@
       <if test="publicDate != null and publicDate != ''">#{publicDate,jdbcType=VARCHAR},</if>
       <if test="title != null and title != ''">#{title,jdbcType=VARCHAR},</if>
       <if test="link != null and link != ''">#{link,jdbcType=VARCHAR},</if>
-      <if test="authors != null and authors != ''">#{authors,jdbcType=VARCHAR},</if>
+      <if test="authors != null and authors != ''">#{authors,jdbcType=LONGVARCHAR},</if>
       <if test="abstractContent != null and abstractContent != ''">#{abstractContent,jdbcType=LONGVARCHAR},</if>
     </trim>
   </insert>
@@ -70,7 +63,7 @@
       publicDate = #{publicDate,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       link = #{link,jdbcType=VARCHAR},
-      authors = #{authors,jdbcType=VARCHAR},
+      authors = #{authors,jdbcType=LONGVARCHAR},
       abstractContent = #{abstractContent,jdbcType=LONGVARCHAR}
     where pid = #{pid,jdbcType=INTEGER}
   </update>
@@ -84,5 +77,47 @@
     select pid, meeting, "year", publicDate, title, link, authors, abstractContent
     from paper
   </select>
+
+
+  <delete id="deleteByPrimaryKeyList" parameterType="java.util.List">
+    delete from paper where pid in
+    <foreach collection="pids" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
+
+  <!-- map里的key直接用 -->
+  <select id="searchPaper" parameterType="java.util.Map" resultMap="BaseResultMap">
+    <include refid="selectUserVo"/>
+    <where>
+      <if test="title != null and title != ''">
+        AND title like "%"#{title,jdbcType=VARCHAR}"%"
+      </if>
+      <if test="pid != null">
+        AND pid like #{pid,jdbcType=INTEGER}"%"
+      </if>
+      <if test="keyword != null and keyword != ''">
+        AND pid in (select pid from keyword where content like "%"#{keyword,jdbcType=VARCHAR}"%" )
+      </if>
+    </where>
+    order by
+    <if test=" sort == '1' ">
+        pid asc
+    </if>
+    <if test=" sort == '2' ">
+        year asc
+    </if>
+  </select>
+
+  <sql id="selectUserVo">
+    select pid, meeting, year, publicDate, title, link, authors, abstractContent
+    from paper
+    <!--
+    left join sys_dept d on u.dept_id = d.dept_id
+    left join sys_user_role ur on u.user_id = ur.user_id
+    left join sys_role r on r.role_id = ur.role_id
+    -->
+  </sql>
 
 </mapper>
