@@ -2,6 +2,7 @@ package com.topwordanalysis.databaseOperation.model;
 
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
  * Paper类
@@ -10,24 +11,15 @@ import lombok.AllArgsConstructor;
  * @Date 2021/3/23
  */
 
-
+@NoArgsConstructor
 @AllArgsConstructor
 public class Paper {
-    private int id;
+    private int academicNum;
     private String title;
     private String link;
     private String paperAbstract;
-    private String academicNum;
     private String type;
-    private int year;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private String year;
 
     public String getTitle() {
         return title;
@@ -53,11 +45,11 @@ public class Paper {
         this.paperAbstract = paperAbstract;
     }
 
-    public String getAcademicNum() {
+    public int getAcademicNum() {
         return academicNum;
     }
 
-    public void setAcademicNum(String academicNum) {
+    public void setAcademicNum(int academicNum) {
         this.academicNum = academicNum;
     }
 
@@ -69,11 +61,11 @@ public class Paper {
         this.type = type;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 }
