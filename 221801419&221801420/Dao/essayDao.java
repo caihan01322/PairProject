@@ -10,5 +10,8 @@ import Entity.Keywords;
 public interface essayDao {
 
     Essay getInfo(String essayName);
+    void editcvpr(Essay essay);
+    void editeccv(Essay essay);
+    void editiccv(Essay essay);
 
 }

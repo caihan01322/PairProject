@@ -22,5 +22,14 @@ select  title,authors,articlenumber,link,keywords,summary,year,meeting  from ess
 union all
 select  title,authors,articlenumber,link,keywords,summary,year,meeting  from essay_iccv where title = #{essayName}
 </select>
+<update id="editcvpr" parameterType="Entity.Essay">
+ update essay_cvpr set title=#{title},authors=#{authors},articlenumber=#{articlenumber},link=#{link},keywords=#{keywords},summary=#{summary},year=#{year},meeting=#{meeting} where title = #{title};
+</update>
+<update id="editeccv" parameterType="Entity.Essay">
+ update essay_eccv set title=#{title},authors=#{authors},articlenumber=#{articlenumber},link=#{link},keywords=#{keywords},summary=#{summary},year=#{year},meeting=#{meeting} where title = #{title};
+</update>
+<update id="editiccv" parameterType="Entity.Essay">
+ update essay_iccv set title=#{title},authors=#{authors},articlenumber=#{articlenumber},link=#{link},keywords=#{keywords},summary=#{summary},year=#{year},meeting=#{meeting} where title = #{title};
+</update>
 
 </mapper>

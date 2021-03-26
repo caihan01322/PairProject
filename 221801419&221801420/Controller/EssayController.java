@@ -60,6 +60,26 @@ public class EssayController {
         return e.getInfo(essayName);
     }
     
+    //论文信息修改
+    /*
+     * essay：前端传递的essayjson数据
+     * essayMeeting:论文所属顶会
+     */
+    @RequestMapping(value="/edit",method=RequestMethod.POST)
+    @ResponseBody
+    public String essayEdit(@RequestBody Essay essay,String essayMeeting) {
+        EssayDaoImpl e = new EssayDaoImpl();
+        if (essayMeeting.equals("iccv")) {
+            e.editiccv(essay);
+        }
+        if (essayMeeting.equals("cvpr")) {
+            e.editcvpr(essay);
+        }
+        if (essayMeeting.equals("eccv")) {
+            e.editeccv(essay);
+        }
+        return "success";
+    }
 
     
 }

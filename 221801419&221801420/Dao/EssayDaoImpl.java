@@ -27,5 +27,24 @@ public class EssayDaoImpl implements essayDao {
         return essay;
     }
     
-
+    public void editcvpr(Essay essay) {
+        e.editcvpr(essay);
+        session.commit();
+        session.close();
+    }
+    
+   
+    public void editeccv(Essay essay) {
+        e.editeccv(essay);
+        session.commit();
+        session.close();
+    }
+    @Override
+    public void editiccv(Essay essay) {
+        e.editiccv(essay);
+        session.commit();
+        session.close();
+        
+    }
+ 
 }
