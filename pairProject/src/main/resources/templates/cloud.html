@@ -8,12 +8,16 @@
     <link rel="stylesheet" type="text/css" href="jqcloud.css"/>
     <script src="https://www.layuicdn.com/layui-v2.5.6/layui.js"></script>
     <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css"/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
+
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
 </head>
 <body class="layui-layout-body">
 
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">论文网</div>
+        <div class="layui-logo" style="font-size: 35px">论文网</div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
@@ -28,99 +32,115 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a href="/paperList;">论文列表</a>
+                <li class="layui-nav-item">
+                    <a href="/paperList" style="font-size: 20px">论文列表</a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="/clouds;">词云图谱</a>
+                    <a href="/clouds" style="font-size: 20px">词云图谱</a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="/top10;">热度趋势</a>
+                    <a href="/top10" style="font-size: 20px">热度趋势</a>
                 </li>
             </ul>
         </div>
     </div>
     <div class="layui-body">
+        <br/>
         <div>
             <form th:action="@{/clouds}" method="post" style="margin-top: auto;margin-bottom: auto">
-                <select name="meeting" id="meeting" lay-verify="required">
+                <select name="meeting" id="meeting" class="ui fluid dropdown" style="width: 100px;height: 35px;display: inline">
                     <option value="CVPR">CVPR</option>
                     <option value="ICCV">ICCV</option>
                     <option value="ECCV">ECCV</option>
                 </select>
-                <input type="submit" value="确定"class="layui-btn layui-btn-radius layui-btn-normal"/>
+                <input type="submit" value="确定"class="ui inverted blue button" style="height: 33px"/>
             </form>
-            <div><h2 th:text="${meeting}"></h2></div>
-            <div id="words" style="width: 550px; height: 350px; float: left;"></div>
-            <div id="top10" style="float:left;">
-                <table class="layui-table" lay-even="" lay-skin="row">
-                    <colgroup>
-                        <col width="100">
-                        <col width="200">
-                        <col width="100">
-                        <col>
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th>排行</th>
-                        <th>热词</th>
-                        <th>数量</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1.</td>
-                        <td th:text="${kw0}"></td>
-                        <td th:text="${num0}"></td>
-                    </tr>
-                    <tr>
-                        <td>2.</td>
-                        <td th:text="${kw1}"></td>
-                        <td th:text="${num1}"></td>
-                    </tr>
-                    <tr>
-                        <td>3.</td>
-                        <td th:text="${kw2}"></td>
-                        <td th:text="${num2}"></td>
-                    </tr>
-                    <tr>
-                        <td>4.</td>
-                        <td th:text="${kw3}"></td>
-                        <td th:text="${num3}"></td>
-                    </tr>
-                    <tr>
-                        <td>5.</td>
-                        <td th:text="${kw4}"></td>
-                        <td th:text="${num4}"></td>
-                    </tr>
-                    <tr>
-                        <td>6.</td>
-                        <td th:text="${kw5}"></td>
-                        <td th:text="${num5}"></td>
-                    </tr>
-                    <tr>
-                        <td>7.</td>
-                        <td th:text="${kw6}"></td>
-                        <td th:text="${num6}"></td>
-                    </tr>
-                    <tr>
-                        <td>8.</td>
-                        <td th:text="${kw7}"></td>
-                        <td th:text="${num7}"></td>
-                    </tr>
-                    <tr>
-                        <td>9.</td>
-                        <td th:text="${kw8}"></td>
-                        <td th:text="${num8}"></td>
-                    </tr>
-                    <tr>
-                        <td>10.</td>
-                        <td th:text="${kw9}"></td>
-                        <td th:text="${num9}"></td>
-                    </tr>
-                    </tbody>
-                </table>
+            <br/>
+            <div>
+                <a class="ui teal tag label">
+                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;" th:text="${meeting}"></font></font>
+                </a>
             </div>
+
+            <div class="layui-row">
+                <div class="layui-col-xs6">
+                    <div class="grid-demo grid-demo-bg1">
+                        <div id="words" style="width: 550px; height: 350px; float: left;margin-top: 100px"></div>
+                    </div>
+                </div>
+                <div class="layui-col-xs6">
+                    <div id="top10" style="float:left; margin-top: 80px">
+                        <table class="ui inverted grey table" lay-even="" lay-skin="row">
+                            <colgroup>
+                                <col width="100">
+                                <col width="200">
+                                <col width="100">
+                                <col>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>排行</th>
+                                <th>热词</th>
+                                <th>数量</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1.</td>
+                                <td th:text="${kw0}"></td>
+                                <td th:text="${num0}"></td>
+                            </tr>
+                            <tr>
+                                <td>2.</td>
+                                <td th:text="${kw1}"></td>
+                                <td th:text="${num1}"></td>
+                            </tr>
+                            <tr>
+                                <td>3.</td>
+                                <td th:text="${kw2}"></td>
+                                <td th:text="${num2}"></td>
+                            </tr>
+                            <tr>
+                                <td>4.</td>
+                                <td th:text="${kw3}"></td>
+                                <td th:text="${num3}"></td>
+                            </tr>
+                            <tr>
+                                <td>5.</td>
+                                <td th:text="${kw4}"></td>
+                                <td th:text="${num4}"></td>
+                            </tr>
+                            <tr>
+                                <td>6.</td>
+                                <td th:text="${kw5}"></td>
+                                <td th:text="${num5}"></td>
+                            </tr>
+                            <tr>
+                                <td>7.</td>
+                                <td th:text="${kw6}"></td>
+                                <td th:text="${num6}"></td>
+                            </tr>
+                            <tr>
+                                <td>8.</td>
+                                <td th:text="${kw7}"></td>
+                                <td th:text="${num7}"></td>
+                            </tr>
+                            <tr>
+                                <td>9.</td>
+                                <td th:text="${kw8}"></td>
+                                <td th:text="${num8}"></td>
+                            </tr>
+                            <tr>
+                                <td>10.</td>
+                                <td th:text="${kw9}"></td>
+                                <td th:text="${num9}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
 
