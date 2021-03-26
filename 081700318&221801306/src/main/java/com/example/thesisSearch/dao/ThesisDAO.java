@@ -8,15 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ThesisDAO {
-    public int getNumBytitle(String title)
+    public int getNum(String input,String type)
     {
         int result=0;
         try {
             Connection ThesisConnection =DBUtil.getConnection();
             Statement ThesisStatement = ThesisConnection.createStatement();
-            String sql = "select count(*) from Thesis where title like ?";
+            String sql = "select count(*) from Thesis where "+type+" like ?";
             PreparedStatement Ptmt = ThesisConnection.prepareStatement(sql);
-            Ptmt.setString(1, "%" + title + "%");
+            Ptmt.setString(1, "%" + input + "%");
             ResultSet Rs = Ptmt.executeQuery();
             if(Rs.next()) {
                 result=Rs.getInt(1);
@@ -29,16 +29,16 @@ public class ThesisDAO {
         return  result;
 
     }
-    public List<Thesis> getLimitBytitile(int start,int length,String title)
+    public List<Thesis> getLimit(int start,int length,String input,String type)
     {
         List<Thesis> results=new ArrayList<>();
         Connection ThesisConnection = null;
         try {
             ThesisConnection = DBUtil.getConnection();
             Statement ThesisStatement = ThesisConnection.createStatement();
-            String sql = "select * from Thesis where title like ? limit ?,?";
+            String sql = "select * from Thesis where "+type+" like ? limit ?,?";
             PreparedStatement Ptmt = ThesisConnection.prepareStatement(sql);
-            Ptmt.setString(1, "%" + title + "%");
+            Ptmt.setString(1, "%" + input + "%");
             Ptmt.setInt(2,start);
             Ptmt.setInt(3,length);
             ResultSet Rs = Ptmt.executeQuery();
@@ -51,26 +51,7 @@ public class ThesisDAO {
         }
         return results;
     }
-    public List<Thesis> getAllBytitle(String title)
-    {
-        List<Thesis> results=new ArrayList<>();
-        Connection ThesisConnection = null;
-        try {
-            ThesisConnection = DBUtil.getConnection();
-            Statement ThesisStatement = ThesisConnection.createStatement();
-            String sql = "select * from Thesis where title like ?";
-            PreparedStatement Ptmt = ThesisConnection.prepareStatement(sql);
-            Ptmt.setString(1, "%" + title + "%");
-            ResultSet Rs = Ptmt.executeQuery();
-            while (Rs.next()) {
-                results.add(setThesis(Rs));
-            }
-            DBUtil.close(Rs,ThesisStatement,ThesisConnection);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return results;
-    }
+
     public void deleteBymeeting()
     {
         Connection ThesisConnection = null;

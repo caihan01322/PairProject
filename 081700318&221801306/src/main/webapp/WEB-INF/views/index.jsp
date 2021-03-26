@@ -28,7 +28,7 @@
                     <option value ="all">模糊查询</option>
                     <option value ="title">题目</option>
                     <option value ="keyword">关键词</option>
-                    <option value ="content">文章内容</option>
+                    <option value ="abstract">文章内容</option>
                 </select>
                 <input type="text" class="col-sm-4 form-control thesis-input " aria-label="..." name="input">
                 <button type="submit" class="btn btn-default col-sm-2">搜索</button>

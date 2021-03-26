@@ -10,23 +10,16 @@ public class SearchService {
       static  public int pagesize=5;
       static  public  PageBean search(String type, String input,ThesisDAO SearchThesisDAO,int PageNum)
     {
+        int TotalResultNum;
+        int SearchStart;
+        int SearchLength;
         PageBean SearchResult=null;
-        if (type.equals("title"))
-        {
-            int TotalResultNum=SearchThesisDAO.getNumBytitle(input);
-            int SearchStart=(PageNum-1)*pagesize;
-            int SearchLength=PageNum*pagesize<TotalResultNum?5:TotalResultNum-(PageNum-1)*pagesize;
-            SearchResult=new PageBean(PageNum,pagesize,TotalResultNum,SearchThesisDAO.getLimitBytitile(SearchStart,SearchLength,input),type,input);//构建一个pagebean并且传出
-        }
-        else if(type.equals("keyword"))
-        {
+             TotalResultNum=SearchThesisDAO.getNum(input,type);
+             SearchStart=(PageNum-1)*pagesize;
+             SearchLength=PageNum*pagesize<TotalResultNum?5:TotalResultNum-(PageNum-1)*pagesize;
+            SearchResult=new PageBean(PageNum,pagesize,TotalResultNum,SearchThesisDAO.getLimit(SearchStart,SearchLength,input,type),type,input);//构建一个pagebean并且传出
 
-        }
-        else if(type.equals("content"))
-        {
-        }
-        else {
-        }
+
         return  SearchResult;
     }
 }

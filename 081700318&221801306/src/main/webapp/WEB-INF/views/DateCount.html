@@ -11,6 +11,8 @@
         <link href="../../static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="../../static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
         <link href="../../static/css/myEdit.css" rel="stylesheet">
+        <script src="../../static/echart/echarts.min.js"></script>
+        <script src="../../static/js/charts.js"></script>
     </head>
 
 <body>
@@ -34,27 +36,12 @@
         </div>
 </nav>
 
-<div  class='main'>
-    <h1 class='search-title'><span class="glyphicon glyphicon-search" aria-hidden="true"></span>论文查询</h1>
-
-    <div class="row search-bar">
-        <div class="col-lg-4 col-lg-offset-4">
-            <div class="input-group">
-                <div class="input-group-btn">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">模糊搜索 <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">模糊查询</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">题目</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">关键词</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">文章内容</a></li>
-                    </ul>
-                </div><!-- /btn-group -->
-                <input type="text" class="form-control" aria-label="...">
-            </div><!-- /input-group -->
-        </div><!-- /.col-lg-6 -->
+    <div  class='main row'>
+        <div class="col-md-8 col-sm-offset-4">
+        <div id="chart1" style="width: 800px;height:800px">
+        </div>
+        </div>
+        </div>
     </div>
     <nav class="navbar navbar-default navbar-fixed-bottom">
         <div class="container">
