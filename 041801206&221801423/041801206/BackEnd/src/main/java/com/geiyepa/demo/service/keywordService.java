@@ -5,6 +5,7 @@ import com.geiyepa.demo.mapper.keywordanalysisMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -46,4 +47,11 @@ public class keywordService implements keywordanalysisMapper {
     public List<keywordanalysis> getTopKeywordByYear(String year) {
         return keywordanalysisMapper.getTopKeywordByYear(year);
     }
+
+    @Override
+    public List<keywordanalysis> getTopKeywordByType(String type) {
+        return keywordanalysisMapper.getTopKeywordByType(type);
+    }
+
+
 }

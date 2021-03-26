@@ -127,4 +127,11 @@
     select * from keywordanalysis where publishyear = #{year,jdbcType=VARCHAR}
 
   </select>
+
+  <select id="getTopKeywordByType" parameterType="java.lang.String" resultType="com.geiyepa.demo.bean.keywordanalysis">
+    select * from keywordanalysis where type = #{type,jdbcType=VARCHAR}
+
+  </select>
+
+
 </mapper>

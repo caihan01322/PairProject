@@ -31,10 +31,9 @@ public class paperController {
         String searchWord = (String) object.get("searchWord");
         List<paper> paperList = paperService.selectLikeWord("%"+searchWord+"%");
         JSONArray array= JSONArray.parseArray(JSON.toJSONString(paperList));
-
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
         Date date = new Date(System.currentTimeMillis());
-        System.out.println(formatter.format(date) + " ====> 搜索 ##搜索词：" + searchWord + "  ##搜索结果数：" + paperList.size());
+        System.out.println(formatter.format(date) + " ====> 搜索文章 ##搜索关键词：" + searchWord + "  ##搜索结果数：" + paperList.size());
 
         return array;
 
