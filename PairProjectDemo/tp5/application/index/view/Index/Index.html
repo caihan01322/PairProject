@@ -25,16 +25,9 @@
     </el-menu>
     <div class="line"></div>
     <div class="search">
-      <el-form :inline="true" :model="formInline" class="demo-form-inline">
-        <el-form-item>
-          <el-input v-model="formInline.keyword" type="text" placeholder="关键词" style="width: 640px;" clearable>
-          </el-input>
-          <el-button type="info" @click="onSubmit">查询</el-button>
-        </el-form-item>
-      </el-form>
+      <el-input placeholder="请输入关键字" icon="search" v-model="devfilter" class="search-input" clearable></el-input>
     </div>
-      
-        <!-- 表格 -->
+
       <el-table :data="tableData.slice((currpage-1)*4,currpage*4)" stripe style="width: 100%">
         <el-table-column prop="title" label="标题·" width="180">
         </el-table-column>
@@ -43,9 +36,10 @@
         <el-table-column prop="releasetime" label="发布日期" width="180">
         </el-table-column>
       </el-table>
-        <!-- 分页 -->
+
       <div id='fenye'>
         <el-pagination :current-page="currpage" layout="prev, pager, next" :total="tableData.length"
+        style="text-align: center;"
         @current-change="handleCurrentChange"
         >
         </el-pagination>
@@ -62,13 +56,17 @@
       return {
         activeIndex: '1',
         activeIndex2: '1',
-        formInline: {
-          keyword: ''
-        },
+        devfilter:'',
         tableData: da,
+        sourceData: da,
         currpage: 1,
         currentPage1: 1,
       };
+    },
+    watch: {
+      devfilter: function(val, oldVal){
+        this.tableData = this.sourceData.filter( item => (~item.title.indexOf(val)));  
+      }
     },
     methods: {
       handleSelect(key, keyPath) {
@@ -79,7 +77,6 @@
       },
 
       handleCurrentChange: function (val) {
-        console.log('当前页：&{val}');
         this.currpage = val;
 
         // var list = {};
@@ -104,7 +101,8 @@
 
         // });
       },
-    }
+    },
+    
   })
 
   // var Ctor = Vue.extend(Main)
