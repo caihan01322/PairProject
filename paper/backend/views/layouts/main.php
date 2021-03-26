@@ -11,7 +11,8 @@ use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 
 AppAsset::register($this);
-
+$cssString = ".jumbotron{color:#fff;background:url(img/bg.jpg);},";
+$this->registerCss($cssString);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
