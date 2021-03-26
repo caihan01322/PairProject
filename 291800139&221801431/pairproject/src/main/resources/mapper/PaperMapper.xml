@@ -74,7 +74,7 @@
   </select>
 
   <select id="selectAll" resultMap="BaseResultMap">
-    select pid, meeting, "year", publicDate, title, link, authors, abstractContent
+    select pid, meeting, year, publicDate, title, link, authors, abstractContent
     from paper
   </select>
 

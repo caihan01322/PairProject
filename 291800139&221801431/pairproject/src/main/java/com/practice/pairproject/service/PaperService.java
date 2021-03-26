@@ -35,4 +35,11 @@ public interface PaperService {
      * @return  List<Paper>
      */
     List<Paper> searchPaper(Map<String, String> paramMap);
+
+    /**
+     * 【分页】
+     * 得到所有论文
+     * @return
+     */
+    List<Paper> selectAll();
 }

@@ -49,7 +49,7 @@ public class AjaxResponse {
     //请求成功的响应，带有查询数据（用于数据查询接口）
     public static AjaxResponse success(Object obj){
         AjaxResponse ajaxResponse = new AjaxResponse();
-        ajaxResponse.setIsok(false);
+        ajaxResponse.setIsok(true);
         ajaxResponse.setCode(200);
         ajaxResponse.setMessage("请求响应成功!");
         ajaxResponse.setData(obj);

@@ -42,4 +42,9 @@ public class PaperServiceImpl implements PaperService {
         //List<Integer> pidList= keywordMapper.searchKeywords(keyword);
         return paperMapper.searchPaper(paramMap);
     }
+
+    @Override
+    public List<Paper> selectAll() {
+        return paperMapper.selectAll();
+    }
 }
