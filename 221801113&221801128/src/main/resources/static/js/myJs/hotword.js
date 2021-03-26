@@ -1,4 +1,8 @@
 $(function(){
+
+
+
+
     var str1 = [];
     var str2 = [];
     var data2 = [];
@@ -180,6 +184,10 @@ $(function(){
                     data: data2
                 }]
             });
+            $("text").click(function () {
+                console.log($(this))
+                location.href()
+            })
         },
         //请求失败，包含具体的错误信息
         error: function(res){
