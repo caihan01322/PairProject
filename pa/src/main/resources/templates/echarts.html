@@ -10,12 +10,16 @@
 
   <script th:src="@{/js/echarts.js}"></script>
 
-<!--  <script th:src="@{/js/element.js}"></script>-->
-
-  <script th:src="@{/layui/layui.js}"></script>
+  <link href="https://cdn.bootcss.com/jqcloud/1.0.4/jqcloud.min.css" rel="stylesheet">
 
   <!--jquery引入-->
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+  <script src="https://cdn.bootcss.com/jqcloud/1.0.4/jqcloud-1.0.4.min.js"></script>
+
+  <script th:src="@{/layui/layui.js}"></script>
+
+
 
   <!--echarts引入-->
   <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
@@ -25,11 +29,18 @@
 
 
 <!--热词top10柱状图-->
-<div id="bar">
+<div id="main">
   <div id="selecter">
+    <div style="margin-left: 400px" id="conference-radio">
+      <input class="my-radio" type="radio" name="conference" value="CVPR" checked/>CVPR
+      <input class="my-radio" type="radio" name="conference" value="ECCV"/>ECCV
+      <input class="my-radio" type="radio" name="conference" value="ICCV"/>ICCV
+    </div>
+    <button class="layui-btn layui-btn-normal" id="backto-bar" style="display: none">返回</button>
+    <br/>
     <div class="layui-input-inline">
       <div class="layui-form-item">
-        <div class="layui-inline" style="margin-left: 500px">
+        <div class="layui-inline" style="margin-left: 300px">
           <label class="layui-form-label">年份</label>
           <div class="layui-input-inline" style="width: 100px;">
             <input type="text" id="beginYear" placeholder="年" autocomplete="off" class="layui-input">
@@ -39,35 +50,46 @@
             <input type="text" id="endYear" placeholder="年" autocomplete="off" class="layui-input">
           </div>
           <div class="layui-input-inline">
-            <button class="layui-btn layui-btn-warm" id="refresh-button">查询</button>
+            <button class="layui-btn layui-btn-warm" id="bar-refresh">查询</button>
+            <button class="layui-btn layui-btn-warm" style="display: none" id="line-refresh">查询</button>
           </div>
         </div>
       </div>
     </div>
-    <div style="margin: auto;width: 30%;">
-      <input class="my-radio" type="radio" name="conference" value="CVPR" checked/>CVPR
-      <input class="my-radio" type="radio" name="conference" value="ECCV" />ECCV
-      <input class="my-radio" type="radio" name="conference" value="ICCV"/>ICCV
-    </div>
+
   </div>
 
-  <div id="main" style="margin-top:50px;width: 1200px;height:400px;"></div>
-</div>
+  <div id="bar-main" style="margin-top:50px;width: 1200px;height:400px;"></div>
 
-<!--单一关键词多年走势折线图-->
+
+  <input type="hidden" id="keyword">
+  <div id="line-main" style="margin-top:50px;width: 1200px;height:400px; display: none"></div>
+
+
+
+</div>
+<div id="cloud"></div>
+
 
 
 <script>
-  var myChart = echarts.init(document.getElementById('main'));
 
-  myChart.setOption
+  var array = [
+
+  ];
+
+
+  //柱状图
+  var bar = echarts.init(document.getElementById('bar-main'));
+
+  bar.setOption
   ({
     title: {
-      text: '热词top10'
+      text: ''
     },
     tooltip: {},
     legend: {
-      data: ['CVPR']
+      data: ['']
     },
     xAxis: {
       data: [],
@@ -90,21 +112,135 @@
       }]
   });
 
-  // 指定图表的配置项和数据
-  refresh(2000,2021,"CVPR");
 
-  $('#refresh-button').click(function() {
-    refresh($('#beginYear').val()==''?2000:$('#beginYear').val(),
-        $('#endYear').val()==''?2200:$('#endYear').val(),
+
+  bar.on('click', 'series.bar', function (params)
+  {
+    $('#line-main').css('display','block');
+    $('#line-refresh').css('display','inline');
+    $('#backto-bar').css('display','inline');
+
+    $('#bar-main').css('display','none');
+    $('#bar-refresh').css('display','none');
+    $('#conference-radio').css('display','none');
+    $('#cloud').css('display','none');
+
+    $('#keyword').val(params.name);
+
+    LineLoad(2000, 2020,params.name);
+  });
+
+  // 指定图表的配置项和数据
+  BarLoad(2000,2020,"CVPR");
+
+  // alert(array);
+
+
+
+  //折线图
+  var line = echarts.init(document.getElementById('line-main'));
+
+  line.setOption
+  ({
+    title: {
+      text: ''
+    },
+    tooltip: {},
+    legend: {
+      data: ['CVPR','ICCV','ECCV']
+    },
+    xAxis: {
+      data: [],
+      axisTick: {
+        alignWithLabel: true
+      },
+      axisLabel: {
+        formatter: function (value, index)
+        {
+          var v = value.substring(0, 6) + '...'
+          return value.length > 10 ? v : value
+        }
+      }
+    },
+    yAxis: {},
+    series: [
+      {
+        name: 'CVPR',
+        type: 'line',
+        data: []
+      },
+      {
+        name: 'ICCV',
+        type: 'line',
+        data: []
+      }, {
+        name: 'ECCV',
+        type: 'line',
+        data: []
+      }]
+  });
+
+  $('#backto-bar').click(function()
+  {
+    $('#line-main').css('display','none');
+    $('#line-refresh').css('display','none');
+    $('#backto-bar').css('display','none');
+
+    $('#bar-main').css('display','block');
+    $('#bar-refresh').css('display','inline');
+    $('#conference-radio').css('display','block');
+    $('#cloud').css('display','block');
+  })
+
+  $('#bar-refresh').click(function() {
+    BarLoad($('#beginYear').val()==''?2000:$('#beginYear').val(),
+        $('#endYear').val()==''?2020:$('#endYear').val(),
         $('input[type=radio][name=conference]:checked').val());
   })
 
+  $('#line-refresh').click(function() {
+    LineLoad($('#beginYear').val()==''?2000:$('#beginYear').val(),
+        $('#endYear').val()==''?2020:$('#endYear').val(),
+        $('#keyword').val());
+  })
+
   $('input[type=radio][name=conference]').change(function() {
-    refresh($('#beginYear').val()==''?2000:$('#beginYear').val(),
-        $('#endYear').val()==''?2200:$('#endYear').val(),
+    BarLoad($('#beginYear').val()==''?2000:$('#beginYear').val(),
+        $('#endYear').val()==''?2020:$('#endYear').val(),
         $('input[type=radio][name=conference]:checked').val());
   });
+
+  $("#cloud").jQCloud(array, {
+    removeOverflowing: true,
+    shape: "elliptic",
+    height: 200
+  });
+
+  function CloudLoad(data)
+  {
+    array.splice(0,array.length);
+    for(var i=0;i<data.x.length;i++)
+    {
+      var obj=new Object();
+      obj.text = data.x[i];
+      obj.weight = data.y[i]/100;
+      obj.link = "https://www.baidu.com/";
+      array.push(obj);
+    }
+
+    //加载词云
+    $("#cloud").empty();
+    $("#cloud").jQCloud(array, {
+      removeOverflowing: false,
+      shape: "elliptic",
+      height: 200
+    });
+  }
+
+
 </script>
+
+
 
 </body>
 </html>

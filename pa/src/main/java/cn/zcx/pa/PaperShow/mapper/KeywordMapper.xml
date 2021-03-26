@@ -53,6 +53,19 @@
         <if test="size !=NULL">LIMIT ${size}</if>
     </select>
 
+    <!--通过map查询关键词的历年统计-->
+    <select id="selectYearCountByMap" parameterType="map" resultMap="YearCount">
+        SELECT keyword,count(keyword) AS `count`,publicationYear FROM keyword
+        <where>
+            keyword=#{keyword}
+            <if test="conference !=null">AND conference=#{conference}</if>
+            <if test="publicationYear !=null">AND publicationYear=#{publicationYear}</if>
+            <if test="beginYear !=NULL">AND publicationYear BETWEEN #{beginYear} AND #{endYear}</if>
+        </where>
+        GROUP BY publicationYear
+        ORDER BY `publicationYear` ASC
+    </select>
+
     <!--通过id查询-->
     <select id="selectKeywordById" parameterType="string" resultMap="Keyword">
         SELECT * FROM keyword WHERE kid=#{kid}
@@ -63,7 +76,6 @@
         SELECT keyword FROM keyword
         <where>
             <if test="pid !=NULL">AND pid=#{pid}</if>
-            <if test="keyword !=NULL">AND keyword=#{keyword}</if>
             <if test="conference !=NULL">AND conference=#{conference}</if>
             <if test="publicationYear !=NULL">AND publicationYear=#{publicationYear}</if>
         </where>
@@ -81,6 +93,13 @@
     <!--KeywordCount映射-->
     <resultMap id="KeywordCount" type="cn.zcx.pa.PaperShow.pojo.KeywordCount">
         <result column="keyword" property="keyword"/>
+        <result column="count" property="count"/>
+    </resultMap>
+
+    <!--YearCount映射-->
+    <resultMap id="YearCount" type="cn.zcx.pa.PaperShow.pojo.YearCount">
+        <result column="keyword" property="keyword"/>
+        <result column="publicationYear" property="year"/>
         <result column="count" property="count"/>
     </resultMap>
 </mapper>

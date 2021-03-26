@@ -44,37 +44,88 @@
     </select>
 
     <!--通过map精确查询-->
-    <select id="selectPapersByMapExactly" parameterType="map" resultMap="Paper">
+    <select id="selectPapersByMap" parameterType="map" resultMap="Paper">
         SELECT p.pid,title,abst,p.conference,p.publicationYear,link,
         k.kid,keyword
         FROM paper AS p
         LEFT JOIN keyword AS k ON p.pid=k.pid
         <where>
-            <if test="title !=NULL">AND title=#{title}</if>
-            <if test="abst !=NULL">AND abst=#{abst}</if>
-            <if test="conference !=NULL">AND p.conference=#{conference}</if>
+            <!--精确查询-->
+            <if test="etitle !=NULL">AND title=#{etitle}</if>
+            <if test="eabst !=NULL">AND abst=#{eabst}</if>
+            <if test="econference !=NULL">AND p.conference=#{econference}</if>
+            <if test="ekeyword !=NULL">AND k.keyword=#{ekeyword}</if>
+
+            <!--模糊查询-->
+            <if test="vtitle !=NULL">AND title LIKE "%"#{vtitle}"%"</if>
+            <if test="vabst !=NULL">AND abst LIKE "%"#{vabst}"%"</if>
+            <if test="vkeyword !=NULL">AND k.keyword LIKE "%"#{vkeyword}"%"</if>
+
+            <!--年份查询-->
             <if test="publicationYear !=NULL">AND p.publicationYear=#{publicationYear}</if>
             <if test="beginYear !=NULL">AND p.publicationYear BETWEEN #{beginYear} AND #{endYear}</if>
-            <if test="keyword !=NULL">AND k.keyword=#{keyword}</if>
+
             <if test="link !=NULL">AND link=#{link}</if>
+
+            <if test="vconference !=NULL">
+                AND p.conference IN (
+                <if test="CVPR !=NULL">"CVPR",</if>
+                <if test="ECCV !=NULL">"ECCV",</if>
+                <if test="CVPR !=NULL">"CVPR"</if>
+                )
+            </if>
         </where>
     </select>
 
-    <!--通过map模糊查询-->
-    <select id="selectPapersByMapVaguely" parameterType="map" resultMap="Paper">
-        SELECT p.pid,title,abst,p.conference,p.publicationYear,link,
-        k.kid,keyword
+
+    <!---->
+    <select id="selectPapersByTest" parameterType="map" resultType="string">
+        SELECT p.pid
         FROM paper AS p
         LEFT JOIN keyword AS k ON p.pid=k.pid
         <where>
-            <if test="title !=NULL">AND title LIKE "%"#{title}"%"</if>
-            <if test="abst !=NULL">AND abst LIKE "%"#{abst}"%"</if>
-            <if test="conference !=NULL">AND p.conference=#{conference}</if>
-            <if test="publicationYear !=NULL">AND p.publicationYear=#{publicationYear}</if>
-            <if test="beginYear !=NULL">AND p.publicationYear BETWEEN #{beginYear} AND #{endYear}</if>
-            <if test="keyword !=NULL">AND k.keyword LIKE "%"#{keyword}"%"</if>
+            <!--精确查询-->
+<!--            <if test="etitle !=NULL">AND title=#{etitle}</if>-->
+<!--            <if test="eabst !=NULL">AND abst=#{eabst}</if>-->
+<!--            <if test="econference !=NULL">AND p.conference=#{econference}</if>-->
+<!--            <if test="ekeyword !=NULL">AND k.keyword=#{ekeyword}</if>-->
+
+            <!--模糊查询-->
+            <if test="vtitle !=NULL">AND title LIKE "%"#{vtitle}"%"</if>
+<!--            <if test="vabst !=NULL">AND abst LIKE "%"#{vabst}"%"</if>-->
+<!--            <if test="vkeyword !=NULL">AND k.keyword LIKE "%"#{vkeyword}"%"</if>-->
+
+            <!--年份查询-->
+<!--            <if test="publicationYear !=NULL">AND p.publicationYear=#{publicationYear}</if>-->
+<!--            <if test="beginYear !=NULL">AND p.publicationYear BETWEEN #{beginYear} AND #{endYear}</if>-->
+
+<!--            <if test="link !=NULL">AND link=#{link}</if>-->
+
+<!--            <if test="vconference !=NULL">-->
+<!--                AND p.conference IN (-->
+<!--                <if test="CVPR !=NULL">"CVPR",</if>-->
+<!--                <if test="ECCV !=NULL">"ECCV",</if>-->
+<!--                <if test="CVPR !=NULL">"CVPR"</if>-->
+<!--                )-->
+<!--            </if>-->
         </where>
     </select>
+
+
+    <!---->
+
+    <!---->
+    <select id="selectPapersByWord" parameterType="string" >
+         SELECT p.pid
+        FROM paper AS p
+        LEFT JOIN keyword AS k ON p.pid=k.pid
+        WHERE title LIKE '%m%'
+    </select>
+    <!---->
+
+
+
+
 
     <!--通过keyword查询论文列表-->
     <select id="selectPapersByKeyword" parameterType="string" resultMap="Paper">
@@ -100,3 +151,4 @@
         </collection>
     </resultMap>
 </mapper>
+

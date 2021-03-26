@@ -22,12 +22,27 @@ public class PaperServiceImpl implements PaperService
   }
 
   @Override
+  public List<Paper> queryPapersByMap(Map<String, Object> params)
+  {
+    return paperDao.selectPapersByMap(params);
+  }
+
+  @Override
+  public List<Paper> queryPapersByKeyword(String keyword)
+  {
+    Map<String,Object> params=new HashMap<>();
+    params.put("ekeyword",keyword);
+    //根据keyword精确查询
+    return paperDao.selectPapersByMap(params);
+  }
+
+  @Override
   public List<Paper> queryPapersByInput(String input)
   {
     Map<String,Object> params=new HashMap<>();
-    params.put("title",input);
+    params.put("vtitle",input);
     //根据title模糊搜索
-    return paperDao.selectPapersByMapVaguely(params);
+    return paperDao.selectPapersByMap(params);
   }
 
   @Override

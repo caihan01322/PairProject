@@ -19,9 +19,13 @@ public interface PaperDao
 
   void updateByMap(Map params);       //通过map更新
 
-  List<Paper> selectPapersByMapExactly(Map params);    //通过map精确查询
+  List<Paper> selectPapersByMap(Map params);    //通过map查询
 
-  List<Paper> selectPapersByMapVaguely(Map params);    //通过map模糊查询
+  //
+  List<String> selectPapersByTest(Map params);    //通过map查询
+  //
+
+  List<String> selectPapersByWord();
 
   Paper selectPaperById(String pid);        //通过id查询
 

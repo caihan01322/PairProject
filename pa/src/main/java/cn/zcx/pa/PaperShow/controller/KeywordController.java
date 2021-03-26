@@ -31,14 +31,20 @@ public class KeywordController
 
   @ResponseBody
   @PostMapping("/getTop10Keywords")
-  public String getjson(@RequestParam("beginYear") int beginYear,
+  public String getTop10Keywords(@RequestParam("beginYear") int beginYear,
                         @RequestParam("endYear") int endYear,
                         @RequestParam("conference") String conference)
   {
-    Map<String,Object> params=new HashMap<>();
-    params.put("beginYear",beginYear);
-    params.put("endYear",endYear);
-    params.put("conference",conference);
-    return echartsService.getTop10Json(params);
+    return echartsService.getTop10Json(beginYear,endYear,conference);
   }
+
+  @ResponseBody
+  @PostMapping("/getKeywordCount")
+  public String getKeywordCount(@RequestParam("beginYear") int beginYear,@RequestParam("endYear") int endYear,
+                                @RequestParam("keyword") String keyword)
+  {
+    return echartsService.getYearCountJson(beginYear, endYear, keyword);
+  }
+
+
 }

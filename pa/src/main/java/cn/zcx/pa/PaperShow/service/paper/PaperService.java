@@ -3,6 +3,7 @@ package cn.zcx.pa.PaperShow.service.paper;
 import cn.zcx.pa.PaperShow.pojo.Paper;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PaperService
 {
@@ -13,11 +14,19 @@ public interface PaperService
    */
   Paper getPaperById(String id);
 
-  //模糊查询
+  /**
+   * 模糊查询
+   * @param params
+   * @return
+   */
+  List<Paper> queryPapersByMap(Map<String,Object> params);
 
-  //精确查询
-
-  //选择关键词展示
+  /**
+   * 选择关键词展示
+   * @param keyword
+   * @return
+   */
+  List<Paper> queryPapersByKeyword(String keyword);
 
   /**
    * 通过用户搜索框中的输入查询paper
