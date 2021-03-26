@@ -8,16 +8,16 @@ use think\db\connector\Mysql;
 class SearchInterface extends Controller
 {
     public function create(){
-        
-        $this->assign('name','论文的标题在此！s');
+        $Db = new Db;
+        $data  = Db::table('paper')->select();
+        $haha=json_encode($data);
+        $this->assign('try',$haha);
         return view('SearchInterface');
     }
 
     public function getNoModelData(){
         $Db = new Db;
         $data = Db::table('paper')->select();
-        $paper['title']    =    '标题';
-        
-        return json($data);
+        $this->assign("user",$data);
     }
 }

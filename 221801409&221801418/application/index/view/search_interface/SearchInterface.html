@@ -28,7 +28,7 @@
 <div id="app">
 <template>
   <el-table
-    :data="tableData"
+    :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" border
     style="width: 100%">
     <el-table-column type="expand">
       <template slot-scope="props">
@@ -43,7 +43,7 @@
             <span>{{ props.row.abstract }}</span>
           </el-form-item>
           <el-form-item label="发布日期">
-            <span>{{ props.row.date }}</span>
+            <span>{{ props.row.releasetime }}</span>
         </el-form>
       </template>
     </el-table-column>
@@ -59,41 +59,45 @@
       label="摘要"
       prop="abstract">
     </el-table-column>
+    <el-table-column label="操作">
+      <template slot-scope="scope">
+        <el-button
+          size="mini"
+          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+        <el-button
+          size="mini"
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+      </template>
+    </el-table-column>
   </el-table>
+  <el-pagination
+    @current-change="pageChange"
+    :current-page="currentpage"
+    :page-size="pageSize"
+    layout="total, prev, pager, next, jumper"
+    :total="tableData.length">
+</el-pagination>
 </template>
 </div>
 <script>
+var fromDb={$try|raw};
 var Main = {
-    data() {
-
-      return {
-        tableData: [{
-          title: '{$name}',
-          keyword: '好滋好味鸡蛋仔',
-          abstract: '江浙小吃、小吃零食',
-          date: '荷兰优质淡奶，奶香浓而不腻',
-        }, {
-          title: '12987122',
-          keyword: '好滋好味鸡蛋仔',
-          abstract: '江浙小吃、小吃零食',
-          date: '荷兰优质淡奶，奶香浓而不腻',
-        }, {
-          title: '12987122',
-          keyword: '好滋好味鸡蛋仔',
-          abstract: '江浙小吃、小吃零食',
-          date: '荷兰优质淡奶，奶香浓而不腻',
-        }, {
-          title: '12987122',
-          keyword: '好滋好味鸡蛋仔',
-          abstract: '江浙小吃、小吃零食',
-          date: '荷兰优质淡奶，奶香浓而不腻',
-        }]
-      }
+  data() {
+    return {
+      tableData:fromDb,
+      currentPage: 1,
+      pageSize: 8
+    }
+  },
+  methods:{
+    pageChange(val) {
+      this.currentPage = val;
     }
   }
+}
 var Ctor = Vue.extend(Main)
 new Ctor().$mount('#app')
 </script>
-
 </body>
 </html>
