@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @EnableAutoConfiguration
+@CrossOrigin
 @RequestMapping(value = "/", produces = "application/json; charset=utf-8")
 public class paperController {
 
