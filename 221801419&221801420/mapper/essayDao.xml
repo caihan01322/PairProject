@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!--   namespace属性  名称空间  java包结构一个概念-->
+<!-- 用来区分Dao接口，推荐编写Dao接口的全限定路径 -->
+<!-- cn.tx.dao.IUserDao.findAll -->
+
+<mapper namespace="Dao.essayDao">
+    
+
+<!--   查询所有 -->
+<!-- id必须于IUserDao.java里的方法名一样 -->
+<!-- resultType属性，方法返回值类型，全限定路径（包名+类名)-->
+
+<select id="getInfo" parameterType="String"  resultType="Entity.Essay">
+<!-- ';'可以省略.编写对应的sql语句 -->
+select  title,authors,articlenumber,link,keywords,summary,year,meeting  from essay_cvpr where title = #{essayName}
+union all
+select  title,authors,articlenumber,link,keywords,summary,year,meeting  from essay_eccv where title = #{essayName}
+union all
+select  title,authors,articlenumber,link,keywords,summary,year,meeting  from essay_iccv where title = #{essayName}
+</select>
+
+</mapper>

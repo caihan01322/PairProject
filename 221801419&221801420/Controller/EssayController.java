@@ -48,5 +48,18 @@ public class EssayController {
         return essayService.essayDelete(userName, essayMeeting, essayName);     
     }
     
-   
+    //论文详细信息获取
+    /*
+     * essayName：论文名称
+     */
+    @RequestMapping("/getInfo")
+    @ResponseBody
+    public Essay essayInfoGet(String essayName){
+        EssayDaoImpl e = new EssayDaoImpl();
+        System.out.println(e.getInfo(essayName).getAuthors());
+        return e.getInfo(essayName);
+    }
+    
+
+    
 }
