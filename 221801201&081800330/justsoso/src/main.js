@@ -12,10 +12,13 @@ import {
 import {
   BarChart
 } from 'echarts/charts'
+
 import {
   GridComponent,
   TooltipComponent
 } from 'echarts/components'
+
+import store from './store'
 
 use([
   CanvasRenderer,
@@ -30,6 +33,7 @@ Vue.use(ElementUI);
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 });
 

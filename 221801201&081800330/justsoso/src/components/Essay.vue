@@ -3,7 +3,7 @@
   <div class="essay_frame" >
     <div class="check" style="background-color: #42b983" >
       <el-checkbox class="checkbox" :label="this.id" :key="this.id" v-model="this.id"
-                   size="medium" ></el-checkbox>
+                   size="medium" >{{''}}</el-checkbox>
     </div>
     <div class="title" @click="openLink(link)">{{ title }}</div>
     <div class="authors">
@@ -11,7 +11,8 @@
     </div>
     <div class="abstract" @click="openLink(link)">{{ abstract }}</div>
     <div class="keywords">
-        <div class="keyword" v-for="keyword in keywords" :key="keyword">{{ keyword }}</div>
+        <div class="keyword" v-for="keyword in keywords" :key="keyword"
+        @click="this.$emit('search-event',keyword)">{{ keyword }}</div>
     </div>
   </div>
 
@@ -146,6 +147,10 @@ export default {
   cursor: pointer;
 }
 
+.checkbox{
+  margin-right: 20px;
+}
+
 .checkbox /deep/.el-checkbox__inner{
   ::after{
     left: 7px;
@@ -157,6 +162,7 @@ export default {
 
 .checkbox /deep/ .el-checkbox__label{
   visibility: hidden;
+  padding: 0;
 }
 
 </style>
