@@ -25,6 +25,7 @@
         </if>
         limit ${begin},${num};
     </select>
+
     <select id="queryByKeywordRezultNum" resultType="int">
         select count(*) from paper where title like CONCAT('%',#{keyword},'%') or abstractContent like CONCAT('%',#{keyword},'%');
     </select>

@@ -10,4 +10,9 @@ public class ViewController {
     public String index(Model model) {
         return "index";
     }
+
+    @GetMapping("/chart")
+    public String chart(Model model) {
+        return "chart";
+    }
 }
