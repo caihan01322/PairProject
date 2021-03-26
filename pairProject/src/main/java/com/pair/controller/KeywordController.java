@@ -30,14 +30,19 @@ public class KeywordController {
     PaperKeywordMapper paperKeywordMapper;
 
     @RequestMapping("/clouds")
-    public String getKeyWords(Model model) {
-        List<Keyword> keyWords = keywordMapper.getKeyWords();
+    public String getKeyWords(Model model,HttpServletRequest request) {
+        String publisher=request.getParameter("meeting");
+        if(publisher==null){
+            publisher="CVPR";
+        }
+        List<Keyword> keyWords = keywordMapper.getKeyWords(publisher);
         String kws[] = new String[10];
         int nums[]=new int[10];
         for (int i = 0; i < keyWords.size(); i++) {
             kws[i] = keyWords.get(i).getKeyword();
             nums[i]=keyWords.get(i).getNum();
         }
+        model.addAttribute("meeting",publisher);
         model.addAttribute("kw0", kws[0]);
         model.addAttribute("kw1", kws[1]);
         model.addAttribute("kw2", kws[2]);

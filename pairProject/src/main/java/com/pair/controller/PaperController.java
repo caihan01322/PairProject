@@ -51,7 +51,7 @@ public class PaperController {
             papers = paperMapper.selectPaperByPreciseMode(map);
         }
         model.addAttribute("papers", papers);
-        return "/paperList";
+        return "paperList";
     }
 
     @RequestMapping("/deletePaper/{pid}")

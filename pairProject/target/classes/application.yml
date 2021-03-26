@@ -10,4 +10,7 @@ mybatis:
   type-aliases-package: com.pair.pojo
   mapper-locations: classpath*:com/pair/mapper/*.xml
 
+server:
+  port: 8081
+
 
