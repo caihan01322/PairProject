@@ -53,7 +53,7 @@ public class analysis {
     public static List<TopWord> readTopWordOfECCV() {
         File root = new File(ECCV_ROOT);
         File[] files = root.listFiles();
-        List<TopWord> topWords = new ArrayList<>(4096);
+        List<TopWord> topWords = new ArrayList<>(40960);
         for (File file : files) {
             JSONObject jsonObject = JSON.parseObject(readMMAP(file));
             JSONArray keys = null;
@@ -91,7 +91,7 @@ public class analysis {
     public static List<TopWord> readTopWordOfICCV() {
         File root = new File(ICCV_ROOT);
         File[] files = root.listFiles();
-        List<TopWord> topWords = new ArrayList<>(4096);
+        List<TopWord> topWords = new ArrayList<>(40906);
         for (File file : files) {
             String ori = readMMAP(file);
             JSONObject jsonObject = JSON.parseObject(ori.substring(0, ori.length()-1));
@@ -140,7 +140,7 @@ public class analysis {
     public static List<TopWord> readTopWordOfCVPR() {
         File root = new File(CVPR_ROOT);
         File[] files = root.listFiles();
-        List<TopWord> topWords = new ArrayList<>(7000);
+        List<TopWord> topWords = new ArrayList<>(70000);
         for (File file : files) {
             String ori = readMMAP(file);
             JSONObject jsonObject = JSON.parseObject(ori.substring(0, ori.length()-1));

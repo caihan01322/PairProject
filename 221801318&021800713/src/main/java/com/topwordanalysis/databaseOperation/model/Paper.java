@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Paper {
-    private int academicNum;
+    private int id;
     private String title;
     private String link;
-    private String paperAbstract;
+    private String paperAbstract;   //这个如果用abstract命名会报错
     private String type;
     private String year;
 
@@ -45,12 +45,12 @@ public class Paper {
         this.paperAbstract = paperAbstract;
     }
 
-    public int getAcademicNum() {
-        return academicNum;
+    public int getid() {
+        return id;
     }
 
-    public void setAcademicNum(int academicNum) {
-        this.academicNum = academicNum;
+    public void setid(int academicNum) {
+        this.id = academicNum;
     }
 
     public String getType() {

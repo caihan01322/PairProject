@@ -1,9 +1,12 @@
-package com.topwordanalysis.service.User;
+package com.topwordanalysis.service;
 
 import com.topwordanalysis.databaseOperation.dao.BaseCRUD;
 import com.topwordanalysis.databaseOperation.dao.UserDaoImpl;
 import com.topwordanalysis.databaseOperation.encryption.MD5Util;
 import com.topwordanalysis.databaseOperation.model.User;
+import com.topwordanalysis.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,12 +14,17 @@ import java.util.List;
  * @author 221801318_黄贸之
  * @Date 2021/3/24
  */
-public class UserAdmin {
+@Service
+public class UserService {
     /**
      * 学生登录
      *
      * @param user
      */
+
+    @Autowired
+    private UserMapper userMapper;
+
     public String login(User user){
         String message = "";
         if (user.getMail() == null || user.getMail().equals("")) {
