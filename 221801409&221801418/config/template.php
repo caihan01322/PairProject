@@ -32,4 +32,10 @@ return [
     'taglib_begin' => '{',
     // 标签库标签结束标记
     'taglib_end'   => '}',
+    //模板引入js,css,img路径常量设置
+    'tpl_replace_string' => [
+        '__CSS__' =>'/PairProject/221801409&221801418/public/static/index/css',
+        '__JS__'  =>'/PairProject/221801409&221801418/public/static/index/js',
+        '__IMG__' =>'/PairProject/221801409&221801418/public/static/index/img',
+    ]
 ];
