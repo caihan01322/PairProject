@@ -82,6 +82,16 @@
     font-size: 14px;
     float: left;
 }
+.contentright textarea{
+	vertical-align: -1px;
+	border:0;
+	border-radius:5px;
+	background-color:rgba(241,241,241,.98);
+	width: 600px;
+	height: 50px;
+	padding: 10px;
+	resize: none;
+}
 .contentright img{
 	float:right;
 }

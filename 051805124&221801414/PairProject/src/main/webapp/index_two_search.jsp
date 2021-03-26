@@ -54,6 +54,7 @@
     			<th class="td">关键词</th>
     			<th class="td">摘要</th>
     			<th class="td">原文地址</th>
+    			<th class="td">操作</th>
     		</tr>
     		
     		<c:forEach var="u" items="${paperlist}">
@@ -62,16 +63,31 @@
 	    			<td class="td"><div class="tdcontent">${u.keyword}</div></td>
 	    			<td class="td"><div class="tdcontent">${u.abst}</div></td>
 	    			<td class="td"><div class="tdcontent"><a href="${u.link}">${u.link}</a></div></td>
+	    			<td class="td">
+	    				<div class="tdcontent">
+	    					<a href="dopaperdetail?id=${u.paperNum }">查看</a>
+	    					<a href="javascript:Delete('你确定要删除该项吗？','dopaperdelete?id=${u.paperNum }&cp=${curPage}&content=${searchContent}')">删除</a>
+	    				</div>
+	    			</td>
     			</tr>
     			<span style="height: 2px; background-color: #666;"></span>
     		</c:forEach>
     	</table>
     	
+    	<script type="text/javascript">
+    		function Delete(mess, url) {
+    			if(confirm(mess )) {
+    				window.location.href=url;
+    			}
+    		}
+    		
+    	</script>
+    	
     	<div class="tableFooter" >
     		共 ${totalNum} 条记录，当前 ${totalPage == 0?0:curPage} / ${totalPage} 页
     		<a href="dopapersearch?cp=1">首页</a>	
     		<a href="dopapersearch?cp=${curPage-1>0?curPage-1:1 }">上一页</a>	
-    		<a href=dopapersearch?cp=${curPage+1>totalPage?totalPage:curPage+1 }>下一页</a>	
+    		<a href="dopapersearch?cp=${curPage+1>totalPage?totalPage:curPage+1 }">下一页</a>	
     		<a href="dopapersearch?cp=${totalPage}">尾页</a>	
     	</div>
     </div>

@@ -35,9 +35,9 @@ public class DoPaperSearch extends HttpServlet {
 		}
 		
 		String content = request.getParameter("searchContent");
-		if(content == null || content.equals(""))
+		if(content == null || content.equals("")) {
 			content = curContent;
-		else {
+		}else {
 			curContent = content;
 			list = PaperDao.searchPaper(content);
 			for(int i=0;i < list.size();i++) {
@@ -49,7 +49,7 @@ public class DoPaperSearch extends HttpServlet {
 		request.setAttribute("curPage", curPage);
 		request.setAttribute("totalNum", list.size());
 		request.setAttribute("curContent", curContent);
-		int from = (curPage-1)*5;
+		int from = (curPage-1)*5 > 0?(curPage-1)*5:0;
 		int to = curPage*5 > list.size()?list.size():curPage*5;
 		ArrayList<PaperBean> t = new ArrayList<PaperBean>();
 		t.addAll(list.subList(from,to));

@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Basedao {
 
@@ -20,7 +21,7 @@ public class Basedao {
 	public static Connection getconnection() {
 		Connection conn = null;
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/paper?serverTimezone=UTC&useSSL=false","root","051805124");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/paper?serverTimezone=UTC&useSSL=false","root","ljx10086");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -113,20 +114,30 @@ public class Basedao {
 		return str.toString();
 	}
 	
-	public static int updatePaper(String sql) {
-		int count = 0;
+	public static PaperBean showPaper(String sql) {
+		PaperBean bean = null;
 		Connection conn = Basedao.getconnection();
+		ResultSet rs = null;
 		PreparedStatement ps = null;
 		try {
 			ps = conn.prepareStatement(sql);
-			count = ps.executeUpdate();
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				bean = new PaperBean(
+					rs.getInt("academicNum"),
+					rs.getString("title"),
+					rs.getString("link"),
+					rs.getString("abstract"),
+					rs.getString("magazine")
+					);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			Basedao.closeAll(ps,conn);
 		}
-		return count;
+		return bean;
 	}
 	
 	public static int deletePaper(String sql) {
@@ -156,5 +167,24 @@ public class Basedao {
 				e.printStackTrace();
 			}
 		
+	}
+	public static ArrayList<String> getKeyWords(String sql){
+		Connection conn = Basedao.getconnection();
+		ResultSet rs = null;
+		PreparedStatement ps = null;
+		ArrayList<String> list = new ArrayList<String>(); 
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				list.add(rs.getString("keyword"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			Basedao.closeAll(ps,conn);
+		}
+		return list;
 	}
 }

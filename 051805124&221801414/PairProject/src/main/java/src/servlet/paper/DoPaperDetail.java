@@ -9,13 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import src.PaperBean;
 import src.service.PaperDao;
 
 /**
- * Servlet implementation class DoPaperDelete
+ * Servlet implementation class DoPaperDetail
  */
-@WebServlet("/dopaperdelete")
-public class DoPaperDelete extends HttpServlet {
+@WebServlet("/dopaperdetail")
+public class DoPaperDetail extends HttpServlet {
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -25,22 +26,25 @@ public class DoPaperDelete extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		
 		int id = Integer.parseInt(request.getParameter("id"));
+		PaperBean bean = PaperDao.showPaper(id);
 		
-		int count = PaperDao.deletePaper(id);
+			request.setAttribute("title",bean.getTitle() );
+			request.setAttribute("link",bean.getLink() );
+			request.setAttribute("abst",bean.getAbst() );
+			request.setAttribute("magazine",bean.getMagazine());
+			request.setAttribute("keyword",PaperDao.getKeyWord(bean.getPaperNum()));
+			request.getRequestDispatcher("index_two_edit.jsp").forward(request, response);
 		
-		if(count > 0) {
-			response.sendRedirect("dopapersearch?cp=" + request.getParameter("cp"));
-		}else {
-			PrintWriter out = response.getWriter();
-			out.write("<script>");
-			out.write("alert('删除失败');");
-			out.write("window.location.href='dopapersearch?cp=" + request.getParameter("cp")+"'");
-			out.write("</script>");
-		}
+			
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
 }

@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8"/>
     <title>图表分析</title>
     <link rel="stylesheet" type="text/css" href="css/indexmain.css"/>
+    <script src="./echarts.min.js"></script>
 </head>
 <body>
 <div>
@@ -37,6 +40,58 @@
                  <li class="icon"><a href="index_four.jsp"><i><img src="./ImageResources/read.png"></i>背景知识</a></li>
             </ul>
         </div>
+    </div>
+    <div>
+    	
+        	
+        	<%
+        	String[] keyword = (String[])request.getAttribute("keyword");
+        	int[] occur = (int[])request.getAttribute("occur");
+        	if(keyword == null){ %>
+        		<jsp:forward page="DoPaperPie"></jsp:forward>
+        		<%
+        		}%>
+        	<p><%=keyword[0] %></p>
+        <div class="contentright">
+        <div id="main" style="width: 600px;height:400px; float:left"></div>
+        <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'));
+        option = {
+        	    title: {
+        	        text: '某站点用户访问来源',
+        	        subtext: '纯属虚构',
+        	        left: 'center'
+        	    },
+        	    tooltip: {
+        	        trigger: 'item'
+        	    },
+        	    legend: {
+        	        orient: 'vertical',
+        	        left: 'left',
+        	        data: [<%=keyword[0]%>,<%=keyword[1]%>,<%=keyword[2]%>,<%=keyword[3]%>,<%=keyword[4]%>]
+        	    },
+        	    series: [
+        	        {
+        	            name: '访问来源',
+        	            type: 'pie',
+        	            radius: '50%',
+        	            data: [
+        	                <%=occur[0]%>,<%=occur[1]%>,<%=occur[2]%>,<%=occur[3]%>,<%=occur[4]%>
+        	            ],
+        	            emphasis: {
+        	                itemStyle: {
+        	                    shadowBlur: 10,
+        	                    shadowOffsetX: 0,
+        	                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+        	                }
+        	            }
+        	        }
+        	    ]
+        	};
+        	myChart.setOption(option);
+        </script>
+        
+    	</div>
     </div>
 </div>
 <div>

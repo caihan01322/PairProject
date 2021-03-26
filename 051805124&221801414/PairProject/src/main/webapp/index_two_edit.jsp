@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,6 +38,15 @@
                  <li class="icon"><a href="index_four.jsp"><i><img src="./ImageResources/read.png"></i>背景知识</a></li>
             </ul>
         </div>
+    </div>
+    <div class="contentright">
+    	<p>标题：<textarea rows="2" cols="30" readonly="readonly">${title}</textarea></p>
+    	
+    	<p>链接：<textarea rows="2" cols="30" readonly="readonly">${link}</textarea></p>
+    	
+    	<p>摘要：<textarea rows="4" cols="30" readonly="readonly">${abst}</textarea></p>
+    	
+    	<p>关键词：<textarea rows="4" cols="30" readonly="readonly">${keyword}</textarea></p>
     </div>
 </div>
 <div>
