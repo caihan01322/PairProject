@@ -4,6 +4,8 @@
     <transition name="fade">
       <!--    登录弹窗-->
       <Login v-model="loginVisible" id="login" v-if="loginVisible"/>
+
+      <ManageAccountPop v-model="manageAccountVisible" id="manage_account" v-if="manageAccountVisible"/>
     </transition>
 
     <img id="logo" src="../assets/logo.png" alt="logo"/>
@@ -25,17 +27,16 @@
          alt="avatar"
          :src="avatarUrl!=='' ? avatarUrl : defaultAvatar"
          @click="clickAvatar">
-    <!--             src="../assets/avatar.png"-->
-
   </div>
 </template>
 
 <script>
 import Login from "@/components/LoginPop";
+import ManageAccountPop from "@/components/ManageAccountPop";
 
 export default {
   name:'Search',
-  components:{Login},
+  components:{ManageAccountPop,Login},
   props:{
     msg:String
   },
@@ -59,7 +60,7 @@ export default {
       })
     },
     clickAvatar(){
-      if(!this.$store.state.isLogin){
+      if(this.$store.state.account===''){
         this.loginVisible=!this.loginVisible
       }else{
         this.manageAccountVisible=!this.manageAccountVisible
@@ -99,6 +100,13 @@ a {
   right: 50px;
 }
 
+#manage_account {
+  width: 240px;
+  position: absolute;
+  top: 100px;
+  right: 50px;
+}
+
 #logo {
   margin-top: 8%;
   width: 30%;
@@ -114,6 +122,7 @@ a {
 #avatar {
   width: 40px;
   height: 40px;
+  border-radius: 50%;
   position: absolute;
   alignment: right;
   top: 50px;

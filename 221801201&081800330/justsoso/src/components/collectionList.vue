@@ -102,7 +102,7 @@ export default {
     getCollection(){
       if(this.$store.state.username!==undefined){
         axios
-            .get('http://121.5.100.116:8080/api/getConllections?username='+this.$store.state.username.toString())
+            .get('http://121.5.100.116:8080/api/getCollections?username='+this.$store.state.username.toString())
             .then(response=>{
               if(response.data.code===200){
                 this.papers=response.data.data.list;

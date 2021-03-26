@@ -7,16 +7,20 @@ export default new Vuex.Store({
   state: {
     username:'',
     avatarUrl:'',
-    isLogin:''
+    account:'',
   },
   mutations: {
-    setUser:function(state,loginUsername,loginAvatarUrl,isLogin){
+    setUsername:function(state,loginUsername){
       state.username=loginUsername;
-      state.avatarUrl=loginAvatarUrl;
-      state.isLogin=isLogin;
       sessionStorage.setItem("username", loginUsername);
+    },
+    setAvatarUrl:function(state,loginAvatarUrl){
+      state.avatarUrl=loginAvatarUrl;
       sessionStorage.setItem("avatarUrl", loginAvatarUrl);
-      sessionStorage.setItem("isLogin", isLogin);
+    },
+    setAccount:function(state,loginAccount){
+      state.account=loginAccount;
+      sessionStorage.setItem("account", loginAccount);
     },
   },
   actions: {

@@ -9,7 +9,7 @@
           <el-button id="logout_button"
                      class="button_custom"
                      type="primary" round
-                     @click="register">退出登录
+                     @click="logout">退出登录
           </el-button>
 
   </div>
@@ -17,114 +17,33 @@
 </template>
 
 <script>
-import axios from "axios";
 
 export default {
-  name:"Login",
+  name:"ManageAccountPop",
   model:{
     prop:"manageAccountVisible",
     event:"visible-event"
   },
   props:{
-    loginVisible:{
+    manageAccountVisible:{
       type:Boolean
     }
   },
   data(){
-    var checkNickName=(rule,value,callback)=>{
-      if(!value){
-        return callback(new Error('昵称不能为空'));
-      }
-      setTimeout(()=>{
-        if(value.length<6){
-          callback(new Error('昵称必须大于6位'));
-        }else{
-          callback();
-        }
-      },1000);
-    };
-    var validatePass=(rule,value,callback)=>{
-      if(value===''){
-        callback(new Error('请输入密码'));
-      }else if(value.length<6){
-        callback(new Error('密码需大于6位'))
-      }else{
-        if(this.ruleForm.inputPassword!==''){
-          this.$refs.ruleForm.validateField('validatePass2');
-        }
-        callback();
-      }
-    };
-    var validatePass2=(rule,value,callback)=>{
-      if(value===''){
-        callback(new Error('请再次输入密码'));
-      }else if(value!==this.ruleForm.inputPassword){
-        callback(new Error('两次输入密码不一致!'));
-      }else{
-        callback();
-      }
-    };
     return {
-      ruleForm:{
-        inputNickName:'',
-        inputPassword:'',
-        inputConfirmPassword:'',
-      },
-      isLogin:true,
-      isRegister:false,
-      rules:{
-        inputPassword:[
-          {validator:validatePass,trigger:'blur'}
-        ],
-        inputConfirmPassword:[
-          {validator:validatePass2,trigger:'blur'}
-        ],
-        inputNickName:[
-          {validator:checkNickName,trigger:'blur'}
-        ]
-      }
     }
   },
   methods:{
-    routeToHome:function(){
-      this.$router.push("/home");
+    manageAccount(){
+
     },
-    login(){
-      axios
-          .post('http://121.5.100.116:8080/api/login?Account='+this.ruleForm.inputNickName+'&password='+this.ruleForm.inputPassword)
-          .then(response=>{
-            if(response.data.code!==200){
-              this.$message.error(response.data.message+"，登录失败！")
-            }else{
-              this.$message.success("登录成功！")
-              this.loginVisible=false
-              this.$emit('visible-event',this.loginVisible)
-              this.$store.commit('setUser'
-                  ,response.data.data.account
-                  ,response.data.data.username
-                  ,'https://i.loli.net/2021/03/17/gIm31pPLdirouRc.jpg'
-                  ,true
-              )
-              // response.data.data.avatarUrl
-            }
-          })
-    },
-    register(){
-      this.$refs['ruleForm'].validate((valid)=>{
-        if(valid){
-          axios
-              .post('http://121.5.100.116:8080/api/register?Account='+this.ruleForm.inputNickName+'&password='+this.ruleForm.inputPassword)
-              .then(response=>{
-                if(response.data.code!==200){
-                  this.$message.error(response.data.message+"，注册失败！")
-                }else{
-                  this.$message.success("注册成功！")
-                }
-              })
-        }else{
-          this.$message.error("请确认注册填写正确")
-        }
-      });
+    logout(){
+      this.$message.success("已退出登录")
+      this.manageAccountVisible=false
+      this.$emit('visible-event',this.manageAccountVisible)
+      this.$store.commit('setUsername',"")
+      this.$store.commit('setAvatarUrl',"")
+      this.$store.commit('setAccount',"")
     },
   }
 }
@@ -140,6 +59,14 @@ export default {
   z-index: 50;
 }
 
+#logout_button{
+  background-color: #9e4d4d;
+}
+
+.el-button+.el-button {
+  margin-left: 0;
+}
+
 
 .input_custom /deep/ .el-input__inner {
   background-color: #efefef;
@@ -152,6 +79,7 @@ export default {
 .button_custom {
   background-color: #405869;
   width: 100%;
+  position: relative;
   height: 28px;
   line-height: 5px;
   margin-top: 10px;

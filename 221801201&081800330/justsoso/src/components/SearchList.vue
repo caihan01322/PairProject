@@ -91,18 +91,22 @@ export default {
 
     crawl(){
       console.log('http://121.5.100.116:8080/api/Collect?Account='+this.$store.state.account.toString()+'&Nums='+this.checkedPapers.toString())
-      if(this.checkedPapers.length>0){
-        axios
-            .get('http://121.5.100.116:8080/api/Collect?Account='+this.$store.state.account.toString()+'&Nums='+this.checkedPapers.toString())
-            .then(response=>{
-              if(response.data.code===200){
-                this.$message.success('收藏成功，共'+response.data.data+'篇')
-              }else{
-                this.$message.error('收藏失败')
-              }
-            })
+      if(this.$store.state.account!==''){
+        if(this.checkedPapers.length>0){
+          axios
+              .get('http://121.5.100.116:8080/api/Collect?Account='+this.$store.state.account.toString()+'&Nums='+this.checkedPapers.toString())
+              .then(response=>{
+                if(response.data.code===200){
+                  this.$message.success('收藏成功，共'+response.data.data+'篇')
+                }else{
+                  this.$message.error('收藏失败')
+                }
+              })
+        }else{
+          this.$message.warning('请先勾选文章')
+        }
       }else{
-        this.$message.warning('请先勾选文章')
+        this.$message.warning("请先登录")
       }
     },
 

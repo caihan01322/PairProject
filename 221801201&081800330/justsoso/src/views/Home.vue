@@ -26,7 +26,7 @@
     <div style="display: flex ;margin-top: 30px;margin-left: 50px">
       <a :class="['tab', currentTab===1 ? 'tab_underline' : 'left-to-right' ]" id="search_tab" @click="currentTab=1">论文列表</a>
       <a :class="['tab', currentTab===2 ? 'tab_underline' : 'left-to-right' ]" id="analyze_tab" @click="currentTab=2">论文结果统计</a>
-      <a :class="['tab', currentTab===3 ? 'tab_underline' : 'left-to-right' ]" id="manage_tab" @click="currentTab=3">爬取记录</a>
+      <a :class="['tab', currentTab===3 ? 'tab_underline' : 'left-to-right' ]" id="manage_tab" @click="showCollection">爬取记录</a>
     </div>
 
 
@@ -60,6 +60,14 @@ export default {
     routeToSearch:function(){
       this.$router.push("/")
     },
+
+    showCollection(){
+      if(this.$store.state.account!==''){
+        this.currentTab=3
+      }else{
+        this.$message.warning("请先登录")
+      }
+    }
 
   },
 

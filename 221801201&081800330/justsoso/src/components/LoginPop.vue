@@ -139,13 +139,9 @@ export default {
               this.$message.success("登录成功！")
               this.loginVisible=false
               this.$emit('visible-event',this.loginVisible)
-              this.$store.commit('setUser'
-                  ,response.data.data.account
-                  ,response.data.data.username
-                  ,'https://i.loli.net/2021/03/17/gIm31pPLdirouRc.jpg'
-                  ,true
-              )
-              // response.data.data.avatarUrl
+              this.$store.commit('setUsername',response.data.data.username)
+              this.$store.commit('setAvatarUrl',response.data.data.imgUrl)
+              this.$store.commit('setAccount',response.data.data.Account)
             }
           })
     },
