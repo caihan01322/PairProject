@@ -22,7 +22,7 @@ public class Pager {
         this.totalPageNum = totalPageNum;
         this.shownPage = new LinkedList<>();
         for (int i = curPage-2; i <= curPage+2 ; i++){
-            if (i>0&&i<totalPageNum){
+            if (i>0&&i<=totalPageNum){
                 shownPage.add(i);
             }
         }

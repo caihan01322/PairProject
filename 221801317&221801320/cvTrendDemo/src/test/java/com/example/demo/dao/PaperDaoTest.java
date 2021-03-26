@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import com.example.demo.pojo.Keyword;
 import com.example.demo.service.PaperService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +30,9 @@ public class PaperDaoTest {
 
     @Test
     public void testLimit(){
-        List<Paper> papers = paperService.queryByKeywordLimit("image", 0, 10);
+        Keyword keyword = new Keyword();
+        keyword.setKeyword("image");
+        List<Paper> papers = paperService.queryByKeywordLimit(keyword, 0, 10);
         papers.stream().forEach(System.out::println);
     }
 
@@ -71,7 +74,9 @@ public class PaperDaoTest {
 
     @Test
     public void testQueryNum_by_keyword(){
-        int num = dao.queryByKeywordRezultNum("Rolling");
+        Keyword keyword = new Keyword();
+        keyword.setKeyword("Rolling");
+        int num = dao.queryByKeywordRezultNum(keyword);
         System.out.println(num);
     }
 }

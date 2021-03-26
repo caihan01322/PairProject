@@ -34,6 +34,14 @@ public class PagerControllerTest {
     }
 
     @Test
+    public void request_Paper_Keyword(){
+        Keyword param = new Keyword();
+        param.setKeyword("World");
+        param.setMeeting("eccv");
+        Pager pager = pagerController.queryByKeyword(param,1);
+        System.out.println("fine");
+    }
+    @Test
     public void request_Paper_Query_Hotword(){
         Keyword param = new Keyword();
         param.setKeyword("image");

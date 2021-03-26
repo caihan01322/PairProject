@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import com.example.demo.pojo.Keyword;
 import org.apache.ibatis.annotations.Mapper;
 import pojo.Paper;
 
@@ -18,7 +19,7 @@ public interface PaperDao {
 //    int begin
 //    int num
     public List<Paper> queryByKeywordLimit(Map<String,String> param);
-    public int queryByKeywordRezultNum(String keyword);
+    public int queryByKeywordRezultNum(Keyword keyword);
 
     //精确查询
     public List<Paper> query(Paper paper);

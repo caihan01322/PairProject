@@ -54,7 +54,7 @@ public class ServiceTest {
     public void testHotWord(){//五年来的热词列表
 //        testAdd();
         paperKeywordService.getHotWordResentYear().forEach(k->{
-            System.out.println(k.getKeyword()+":"+k.getFrequency());
+            System.out.println(k.getKeyword()+" "+k.getFrequency());
         });
         System.out.println("cvpr-------------------------");
         paperKeywordService.getHotWordResentYear("cvpr").forEach(k->{
@@ -110,16 +110,19 @@ public class ServiceTest {
     }
     @Test
     public void testPagerQuery_P_by_Keyword(){//通过keyword查找文章 模糊搜索
-        System.out.println(paperService.queryPaperNumByKeyword("rolling"));
+        Keyword param = new Keyword();
+        param.setKeyword("rolling");
+
+        System.out.println(paperService.queryPaperNumByKeyword(param));
 
         System.out.println("-----------------------------------------");
 
-        paperService.queryByKeywordLimit("rolling",0,10)
+        paperService.queryByKeywordLimit(param,0,10)
                 .forEach(System.out::println);
 
         System.out.println("-----------------------------------------");
 
-        paperService.queryByKeywordLimit("rolling",9,10)
+        paperService.queryByKeywordLimit(param,9,10)
                 .forEach(System.out::println);
 
         System.out.println("-----------------------------------------");

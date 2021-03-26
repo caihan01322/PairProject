@@ -14,7 +14,7 @@ public class PaperController {
     @Autowired
     PaperService paperService;
 
-    @RequestMapping("/paper/query")
+    //@RequestMapping("/paper/query")
     public List<Paper> queryByKeyword(String keyword){
         return paperService.queryByKeyword(keyword);
     }

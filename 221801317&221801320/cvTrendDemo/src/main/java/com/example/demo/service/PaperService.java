@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dao.PaperDao;
 import com.example.demo.dao.PaperKeywordDao;
+import com.example.demo.pojo.Keyword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pojo.Paper;
@@ -33,14 +34,15 @@ public class PaperService {
 //    String keyword
 //    int begin
 //    int num
-    public List<Paper> queryByKeywordLimit(String keyword,int begin,int num){
+    public List<Paper> queryByKeywordLimit(Keyword keyword,int begin,int num){
         HashMap<String, String> paramMap = new HashMap<>();
-        paramMap.put("keyword",keyword);
+        paramMap.put("keyword",keyword.getKeyword());
+        paramMap.put("meeting",keyword.getMeeting());
         paramMap.put("begin",String.valueOf(begin));
         paramMap.put("num",String.valueOf(num));
         return paperDao.queryByKeywordLimit(paramMap);
     }
-    public int queryPaperNumByKeyword(String keyword){
+    public int queryPaperNumByKeyword(Keyword keyword){
         return paperDao.queryByKeywordRezultNum(keyword);
     }
 

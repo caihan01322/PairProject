@@ -28,7 +28,16 @@ public class PagerController {
         int totalPageNum = paperCount/Pager.PAGE_NUM + 1;
 
         List<Paper> papers = paperService.query(param, pageNumInLogic * Pager.PAGE_NUM, Pager.PAGE_NUM);
+        return new Pager(papers,page,totalPageNum);
+    }
 
+    @GetMapping("/paper/query/keyword")
+    public Pager queryByKeyword(Keyword keyword,@RequestParam(name = "page",defaultValue = "1") int page){
+        int pageNumInLogic = page - 1;
+        int paperCount = paperService.queryPaperNumByKeyword(keyword);
+        int totalPageNum = paperCount/Pager.PAGE_NUM + 1;
+
+        List<Paper> papers = paperService.queryByKeywordLimit(keyword, pageNumInLogic * Pager.PAGE_NUM, Pager.PAGE_NUM);
         return new Pager(papers,page,totalPageNum);
     }
 
