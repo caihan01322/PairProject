@@ -3,6 +3,7 @@
 
 #过滤整个.mvn文件夹
 /pairproject/.mvn/
+/pairproject/logs/
 /pairproject/HELP.md
 /pairproject/mvnw
 /pairproject/mvnw.cmd

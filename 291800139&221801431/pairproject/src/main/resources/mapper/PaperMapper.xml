@@ -19,6 +19,19 @@
     where pid = #{pid,jdbcType=INTEGER}
   </delete>
 
+  <delete id="deleteByPrimaryKeyList2" parameterType="java.lang.Integer">
+    delete from paper
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
+
+
+  <delete id="deleteByPrimaryKeyList" parameterType="java.util.List">
+    delete from paper where pid in
+    <foreach collection="pids" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
 
   <!--
       values (#{meeting,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, #{publicDate,jdbcType=VARCHAR},
