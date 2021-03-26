@@ -10,24 +10,27 @@
         .hid1 {
             overflow: hidden;
             text-overflow: ellipsis;
-            display: -webkit-box;     /* 将对象作为弹性伸缩盒子模型显示 */
-            -webkit-line-clamp: 3;    /* 控制最多显示几行 */
+            display: -webkit-box; /* 将对象作为弹性伸缩盒子模型显示 */
+            -webkit-line-clamp: 3; /* 控制最多显示几行 */
             -webkit-box-orient: vertical; /* 设置或检索伸缩盒对象的子元素的排列方式 */
             width: 700px;
         }
-        .hid1:hover{
+
+        .hid1:hover {
             overflow: visible;
             height: 300px;
         }
+
         .hid2 {
             overflow: hidden;
             text-overflow: ellipsis;
-            display: -webkit-box;     /* 将对象作为弹性伸缩盒子模型显示 */
-            -webkit-line-clamp: 3;    /* 控制最多显示几行 */
+            display: -webkit-box; /* 将对象作为弹性伸缩盒子模型显示 */
+            -webkit-line-clamp: 3; /* 控制最多显示几行 */
             -webkit-box-orient: vertical; /* 设置或检索伸缩盒对象的子元素的排列方式 */
             width: 300px;
         }
-        .hid2:hover{
+
+        .hid2:hover {
             overflow: visible;
             overflow: auto
         }
@@ -37,11 +40,12 @@
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
         <div class="layui-logo">Papers</div>
-         头部区域（可配合layui已有的水平导航）
+        头部区域（可配合layui已有的水平导航）
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="https://images.cnblogs.com/cnblogs_com/WangWeijia0720/1927441/o_21020305013414.jpg" class="layui-nav-img">
+                    <img src="https://images.cnblogs.com/cnblogs_com/WangWeijia0720/1927441/o_21020305013414.jpg"
+                         class="layui-nav-img">
                 </a>
             </li>
         </ul>
@@ -50,7 +54,7 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;">论文列表</a>
                 </li>
@@ -97,10 +101,18 @@
             <tbody>
             <div th:each="paper:${papers}">
                 <tr>
-                    <td><div th:text="${paper.getTitle()}"></div></td>
-                    <td><div th:text="${paper.getAbs()}" class="hid1" ></div></td>
-                    <td><div th:text="${paper.getPublisher()}"></div></td>
-                    <td><div th:text="${paper.getPublicationYear()}"></div></td>
+                    <td>
+                        <div th:text="${paper.getTitle()}"></div>
+                    </td>
+                    <td>
+                        <div th:text="${paper.getAbs()}" class="hid1"></div>
+                    </td>
+                    <td>
+                        <div th:text="${paper.getPublisher()}"></div>
+                    </td>
+                    <td>
+                        <div th:text="${paper.getPublicationYear()}"></div>
+                    </td>
                     <td>
                         <div class="hid2">
                             <div th:each="keyword:${paper.getKeywords()}">
@@ -109,17 +121,15 @@
                             </div>
                         </div>
                     </td>
-                    <td><div th:text="${paper.getDoiLink()}"></div></td>
-                    <td><a th:href="@{/deletePaper/}+${paper.getPid()}" class="layui-btn layui-btn-sm layui-btn-danger">删除</a></td>
+                    <td>
+                        <div th:text="${paper.getDoiLink()}"></div>
+                    </td>
+                    <td><a th:href="@{/deletePaper/}+${paper.getPid()}" class="layui-btn layui-btn-sm layui-btn-danger">删除</a>
+                    </td>
                 </tr>
             </div>
             </tbody>
         </table>
-    </div>
-
-    <div class="layui-footer">
-        <a th:href="@{/perviousPage}">上一页</a>
-        <a th:href="@{/nextPage}">下一页</a>
     </div>
 </div>
 </body>
