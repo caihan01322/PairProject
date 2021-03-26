@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="search_btn_container">
-                        <a-button type="primary">添加</a-button>
+                        <a-button type="primary" @click="addTask">添加</a-button>
                         <a-button type="link" @click="openImport">批量导入</a-button>
                     </div>
                 </div>
@@ -27,12 +27,19 @@
             v-model="showImport" 
             title="批量导入"
             :maskClosable="false"
+            :closable="!importing"
         >
             <template slot="footer">
-                <a-button key="cancel" @click="handleCancel">
+                <a-button key="cancel" @click="handleCancel" :disabled="importing">
                 取 消
                 </a-button>
-                <a-button key="crawl" type="primary" @click="handleCrawl">
+                <a-button 
+                    key="crawl" 
+                    type="primary" 
+                    @click="importTask" 
+                    :loading="importing"
+                    :disabled="!exectImportFile()"
+                >
                 添 加
                 </a-button>
             </template>
@@ -40,10 +47,15 @@
             <div class="import_inner">
                 <div class="upload_container">
                     <span>论文表格：</span>
-                    <a-button class="upload_btn" icon="upload">上传表格</a-button>
-                </div>
-                <div class="upload_table">
-                    <a-table :columns="uploadColumn" :data-source="uploadData" size="small" :pagination="false" />
+                    <a-upload 
+                        class="upload_btn"
+                        accept=".xlsx, .xls"
+                        :file-list="fileList"
+                        :remove="handleFileRemove"
+                        :before-upload="beforeUpload"
+                    >
+                        <a-button> <a-icon type="upload" /> 上传表格 </a-button>
+                    </a-upload>
                 </div>
             </div>
         </a-modal>
@@ -56,26 +68,25 @@
         >
             <template slot="footer">
                 <a-button key="close" :disabled="crawling" @click="crawlClose">
-                关闭
+                关 闭
                 </a-button>
-                <a-button key="show" :disabled="crawling || !crawSuccess" type="primary" @click="crawlShow">
-                查看数据
+                <a-button key="show" :disabled="crawling || !crawlSuccess" type="primary" @click="crawlConfirm">
+                完 成
                 </a-button>
             </template>
-
             <div class="crawl_inner">
                 <a-spin v-if="crawling" size="large" />
                 <a-result
                     status="success"
                     title="爬取已完成"
                     sub-title="点击查看立即查看爬取结果"
-                    v-if="!crawling && crawSuccess"
+                    v-if="!crawling && crawlSuccess"
                 ></a-result>
                 <a-result
                     status="warning"
                     title="爬取错误"
                     sub-title="请尝试重新添加任务"
-                    v-if="!crawling && !crawSuccess"
+                    v-if="!crawling && !crawlSuccess"
                 ></a-result>
             </div>
         </a-modal>
@@ -83,7 +94,8 @@
         <a-layout-content
             :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }"
         >
-            <div class="table_container">
+            <a-spin v-if="loadingTasks" />
+            <div class="table_container" v-if="!loadingTasks">
                 <div class="ops">
                     <div class="item_op">
                         <a-button icon="cloud-download" :disabled="selectedRowEmpty()" type="primary" @click="crawl">爬取</a-button>
@@ -116,6 +128,7 @@
 </template>
 
 <script>
+import request from '../request/request';
 
 export default {
     name: 'Tasks',
@@ -161,71 +174,152 @@ export default {
                     title: "test",
                 }
             ],
-            uploadColumn: [
-                {
-                    title: "论文标题",
-                    dataIndex: "title",
-                    key: "title",
-                }
-            ],
-            uploadData: [
-                {
-                    title: "111111111"
-                },
-                {
-                    title: "222222222"
-                }
-            ],
-            selectedRowKeys: [],
-            pageTitle: "",
+
             showImport: false,
+            importing: false,
+            fileList: [],
+
+            selectedRowKeys: [],
+
+            pageTitle: "",
+
             showCrawl: false,
             crawling: true,
-            crawSuccess: false
+            crawlSuccess: false,
+            crawlKey: "",
+
+            loadingTasks: false,
         }
     },
     methods: {
+        // 添加爬虫任务
+        addTask() {
+            // console.log(this.pageTitle);
+            this.loadingTasks = true;
+            let that = this;
+            request.addTask({
+                title: that.pageTitle
+            })
+            .then((res)=>{
+                // console.log(res);
+                that.listData = res.result;
+                that.loadingTasks = false;
+            })
+        },
+        // 选择任务
         onSelectChange(selectedRowKeys) {
             // console.log('selectedRowKeys changed: ', selectedRowKeys);
             this.selectedRowKeys = selectedRowKeys;
         },
-        requestList() {
-
+        // 请求任务列表
+        requestList(data) {
+            this.loadingTasks = true;
+            let that = this;
+            request.getTaskList(data)
+            .then((res)=>{
+                console.log(res);
+                that.listData = res.result;
+                that.loadingTasks = false;
+            })
         },
-        serachPage(value) {
-            this.titleInput = value;
-            console.log(value);
-        },
+        // ???
         handleChange(value, option) {
             console.log(option);
         },
+        // 打开批量导入窗口
         openImport() {
             this.showImport = true;
         },
+        // 开始爬虫
         crawl() {
             this.showCrawl = true;
             this.crawling = true;
+            this.crawlKey = "";
             let that = this;
-            setTimeout(()=>{
+            let keys = [];
+            for(let i=0; i<this.selectedRowKeys.length; i++) {
+                keys.push(that.listData[that.selectedRowKeys[i]].title);
+            }
+            // console.log(keys);
+            request.runCrawl({
+                titles: keys
+            })
+            .then((res)=>{
+                console.log(res);
+                if(res.error==0) {
+                    that.crawlSuccess = true;
+                    that.crawlKey = res.result
+                }
+                else {
+                    that.crawlSuccess = false;
+                }
                 that.crawling = false;
-            },2000)
+            })
         },
-        handleCrawl() {
-
+        // 跳转查看爬虫结果
+        crawlConfirm() {
+            this.showCrawl = false;
         },
-        crawlShow() {
-
-        },
+        // 关闭爬虫窗口
         crawlClose() {
-
+            this.showCrawl = false;
         },
+        // 关闭批量导入窗口
         handleCancel() {
-
+            this.fileList = [];
+            this.showImport = false;
         },
+        // 返回多选列表是否为空
         selectedRowEmpty() {
             // console.log(this.selectedRowKeys.length);
             return this.selectedRowKeys.length==0;
+        },
+        // 删除某个导入文件
+        handleFileRemove(file) {
+            const index = this.fileList.indexOf(file);
+            const newFileList = this.fileList.slice();
+            newFileList.splice(index, 1);
+            this.fileList = newFileList;
+        },
+        // 拦截文件上传
+        beforeUpload(file) {
+            if(this.fileList.length>=1) {
+                this.$message.warning('一次只能上传一个文件哦~');
+            }
+            else {
+                this.fileList = [...this.fileList, file];
+            }
+            return false;
+        },
+        // 批量添加爬虫任务
+        importTask() {
+            this.importing = true;
+            // console.log(this.fileList[0]);
+            let that = this;
+            request.importTask({
+                file: that.fileList[0]
+            })
+            .then((res)=>{
+                console.log(res);
+                if(res.error == 0) {
+                    that.showImport = false;
+                    that.importing = false;
+                    that.$message.success("导入成功");
+                    that.requestList({
+                        page: 1
+                    });
+                }
+            })
+        },
+        // 文件是否上传过
+        exectImportFile() {
+            return this.fileList.length>0;
         }
+    },
+    mounted() {
+        this.requestList({
+            page: 1
+        });
     },
 }
 </script>

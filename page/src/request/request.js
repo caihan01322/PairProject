@@ -1,7 +1,10 @@
 let root = "/"
 
 const request = {
+    // 已有论文检索
     search: async (data) => {
+        console.log("get req:");
+        console.log(data);
         return {
             error: 0,
             result: [
@@ -22,7 +25,10 @@ const request = {
             ]
         }
     },
+    // 标题输入提示
     getTitleTips: async (data) => {
+        console.log("get req:");
+        console.log(data);
         return {
             error: 0,
             result: [
@@ -34,7 +40,10 @@ const request = {
             ]
         }
     },
+    // 关键词输入提示
     getKeywordTips: async (data) => {
+        console.log("get req:");
+        console.log(data);
         return {
             error: 0,
             result: [
@@ -46,32 +55,72 @@ const request = {
             ]
         }
     },
-    addTask: async (data) => {
+    // 获取爬虫任务列表
+    getTaskList: async (data) => {
+        console.log("get req:");
+        console.log(data);
         return {
             error: 0,
-            key: {
-                title: "测试论文标题2他比较长测试论文标题1",
-                keyword: ['岩石力学', 'CO2致裂', '爆破'],
-                number: "10.13722/j.cnki.jrme.2020.1183"
-            }
+            result: [
+                { title: "测试论文标题2他比较长测试论文标题1" },
+                { title: "测试论文标题2他比较长测试论文标题2" },
+                { title: "测试论文标题2他比较长测试论文标题3" },
+                { title: "测试论文标题2他比较长测试论文标题4" },
+                { title: "测试论文标题2他比较长测试论文标题5" },
+            ]
         }
     },
+    // 添加爬虫任务
+    addTask: async (data) => {
+        console.log("get req:");
+        console.log(data);
+        return {
+            error: 0,
+            result: [
+                { title: "测试论文标题2他比较长测试论文标题1" },
+                { title: "测试论文标题2他比较长测试论文标题2" },
+                { title: "测试论文标题2他比较长测试论文标题3" },
+                { title: "测试论文标题2他比较长测试论文标题4" },
+                { title: "测试论文标题2他比较长测试论文标题5" },
+            ]
+        }
+    },
+    // 导入爬虫任务
     importTask: async (data) => {
+        console.log("get req:");
+        console.log(data);
         return {
             error: 0
         }
     },
+    // 删除爬虫任务
     deleteTask: async (data) => {
+        console.log("get req:");
+        console.log(data);
         return {
             error: 0
         }
     },
+    // 删除论文记录
     deletePage: async (data) => {
+        console.log("get req:");
+        console.log(data);
         return {
             error: 0
         }
     },
-    deletePage: async (data) => {
+    // 执行爬虫
+    runCrawl: async (data) => {
+        console.log("get req:");
+        console.log(data);
+        return {
+            error: 0
+        }
+    },
+    // 获取热词
+    getHotwords: async (data) => {
+        console.log("get req:");
+        console.log(data);
         return {
             error: 0,
             result: [
@@ -93,7 +142,10 @@ const request = {
             ]
         }
     },
+    // 获取关键词排行
     getRank: async (data) => {
+        console.log("get req:");
+        console.log(data);
         return {
             error: 0,
             result: [
@@ -125,7 +177,10 @@ const request = {
             ]
         }
     },
-    getHotwordTips: async (data) => {
+    // 热词折线图数据获取
+    getHotwordLine: async (data) => {
+        console.log("get req:");
+        console.log(data);
         return {
             error: 0,
             result: [
@@ -161,7 +216,7 @@ const request = {
                 }
             ]
         }
-    },
+    }, 
 
 }
 
