@@ -3,6 +3,7 @@ package com.example.demo11.dao;
 import com.example.demo11.model.Artical;
 
 import com.example.demo11.model.authors;
+import com.example.demo11.model.hotkey;
 import com.example.demo11.model.keywords;
 
 import java.util.Dictionary;
@@ -20,4 +21,5 @@ public interface ArticleJDBCDAO
     List<Artical> getCollection(String Account);
     Set<String> getAllkeywords();
     int deleteCollections(String Account,int []academicNum);
+    List<hotkey> top20();
 }
