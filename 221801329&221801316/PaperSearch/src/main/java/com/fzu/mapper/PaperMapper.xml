@@ -13,7 +13,7 @@
         insert into paper_search.paper_keyword(paper_id, keyword) values (#{paperId},#{keyword})
     </insert>
     <select id="queryPaper" resultType="com.fzu.pojo.Paper">
-        select * from paper_search.paper limit #{start},#{rows}
+        select id,title,abstract_content as "abstractContent",meet,`year`,link from paper_search.paper limit #{start},#{rows}
     </select>
     <select id="queryKeywords" resultType="java.lang.String">
         select keyword from paper_search.paper_keyword where paper_id=#{paperId}
@@ -32,5 +32,9 @@
     <select id="queryTop10ByYear" resultType="com.fzu.pojo.Keyword">
         select keyword as name,count(*) as `count`  from(select b.keyword from paper a,paper_keyword b where
         a.id=b.paper_id and a.year=#{year} and a.meet =#{meet}) as tmp group by keyword order by count(*) desc limit 10
+    </select>
+    <select id="">
+        select keyword as name,count(*) as `count`  from(select b.keyword from paper a,paper_keyword b where
+        a.id=b.paper_id and a.year=#{year} ) as tmp group by keyword order by count(*) desc limit 10
     </select>
 </mapper>

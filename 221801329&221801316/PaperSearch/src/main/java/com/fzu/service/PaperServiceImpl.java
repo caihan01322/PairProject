@@ -18,7 +18,8 @@ import java.util.Map;
 public class PaperServiceImpl implements PaperService {
     @Autowired
     PaperMapper paperMapper;
-    @Override
+
+   /* @Override
     public void uploadPaper(Paper paper) {
         //添加论文的信息
         paperMapper.addPaper(paper);
@@ -34,7 +35,8 @@ public class PaperServiceImpl implements PaperService {
         for (String keyword : keywords) {
             paperMapper.insertKeywordWithId(id,keyword);
         }
-    }
+    }*/
+
 
     @Override
     public List<Paper> queryPaperByPage(Integer start, Integer rows) {
@@ -116,15 +118,28 @@ public class PaperServiceImpl implements PaperService {
             for(int j=0;j<5;j++){
                 //获得第i个会议，第j年的前10关键词及其数量
                 List<Keyword> keywordMapList=paperMapper.queryTop10ByYear(years[j],meets[i]);
-                for (Keyword keyword : keywordMapList) {
+                //如果查询不到记录
+                if(keywordMapList==null){
                     Map<String,String> param3=new HashMap<>();
                     param3.put("id","3."+n);
                     param3.put("parent","2."+k);
-                    param3.put("name", keyword.getName());
-                    param3.put("value",String.valueOf(keyword.getCount()));
+                    param3.put("name", " ");
+                    param3.put("value"," ");
                     data.add(param3);
                     n++;
+                }else{
+                    //查询得到记录
+                    for (Keyword keyword : keywordMapList) {
+                        Map<String,String> param3=new HashMap<>();
+                        param3.put("id","3."+n);
+                        param3.put("parent","2."+k);
+                        param3.put("name", keyword.getName());
+                        param3.put("value",String.valueOf(keyword.getCount()));
+                        data.add(param3);
+                        n++;
+                    }
                 }
+
                 k++;
             }
         }

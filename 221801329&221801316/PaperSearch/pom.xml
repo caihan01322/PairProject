@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.fzu</groupId>
     <artifactId>demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <name>paperSearch</name>
     <description>Demo project for Spring Boot</description>
 
@@ -78,6 +78,7 @@
     </dependencyManagement>
 
     <build>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -88,13 +89,14 @@
                     <target>1.8</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
+
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.7.RELEASE</version>
                 <configuration>
-                    <mainClass>com.fzu.paperSearch.PaperSearchApplication</mainClass>
+                    <mainClass>com.fzu.PaperSearchApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -110,9 +112,18 @@
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
+                    <include>**/*.properties</include>
                     <include>**/*.xml</include>
                 </includes>
-                <filtering>true</filtering>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.yml</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
             </resource>
         </resources>
     </build>
