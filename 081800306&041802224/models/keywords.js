@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const sequelize = require('../controllers/mysqlConfigs');
+const sequelize = require('../controllers/mysqlConfig');
 
 const Keywords = sequelize.define('keywords', {
     academicNum: {
@@ -8,7 +8,8 @@ const Keywords = sequelize.define('keywords', {
     keyword: Sequelize.STRING(100),
     id: {
         type: Sequelize.INTEGER(11),
-        PrimaryKey: true
+        unique: true,
+        primaryKey: true
     }
 }, {
     freezeTableName: false,
@@ -19,8 +20,8 @@ const Keywords = sequelize.define('keywords', {
 
 
 //创建表，默认是false，true则是删除原有表，再创建
-User.sync({
+Keywords.sync({
     force: false,
 });
 
-module.exports = User;
+module.exports = Keywords;

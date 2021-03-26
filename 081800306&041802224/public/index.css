@@ -3,19 +3,6 @@ body{
     background-color: #2F3D60;
 }
 
-.nav{
-    height: 50px;
-    background-color: #151728;
-    display: flex;
-    justify-content: space-between;
-  }
-  .items .item{
-    color: aliceblue;
-    font-size: 20px;
-    line-height: 40px;
-    margin: 0 20px;
-  }
-
   .search{
     display: flex;
     justify-content: center;

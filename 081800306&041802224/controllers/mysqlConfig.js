@@ -1,9 +1,9 @@
 const Sequelize = require("sequelize");
-const config = require("./config");
+const config = require("./defaultConfig").database;
 
 console.log('init sequelize...');
 
-const sequelize = new Sequelize(config.database, config.username, config.password, {
+const sequelize = new Sequelize(config.DATABASE, config.USERNAME, config.PASSWORD, {
     host: config.host, //数据库地址
     dialect: 'mysql', //指定连接的数据库类型
     pool: {
@@ -14,15 +14,15 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
     logging: true, // 执行过程会log一些SQL的logging，设为false不显示
 })
 
-//对连接进行测试，查看控制台
-sequelize
-    .authenticate()
-    .then(() => {
-        console.log('******Connection has been established successfully.********');
-        console.log('******测试结束，即将退出！！！********');
-        process.exit(); //结束进程
-    })
-    .catch(err => {
-        console.error('***************Unable to connect to the database:***********', err);
-    });
+// //对连接进行测试，查看控制台
+// sequelize
+//     .authenticate()
+//     .then(() => {
+//         console.log('******Connection has been established successfully.********');
+//         console.log('******测试结束，即将退出！！！********');
+//         process.exit(); //结束进程
+//     })
+//     .catch(err => {
+//         console.error('***************Unable to connect to the database:***********', err);
+//     });
 module.exports = sequelize;
