@@ -209,6 +209,7 @@ public class HotwordController {
 
         List<String> keywords = new ArrayList<>();
         List<String> publicationYear = new ArrayList<>();
+
         for (int i = 0;i<keyandyear.size();i++){
             String key = keyandyear.get(i).getKeywords();
             String year = keyandyear.get(i).getPublicationYear();
@@ -243,29 +244,43 @@ public class HotwordController {
                 }
             }
         }
-        String strr2 = new String();
-        int number = 0;
+
         jsonson2.add("Income");
         jsonson2.add("Life Expectancy");
         jsonson2.add("Population");
         jsonson2.add("Country");
         jsonson2.add("Year");
         json2.add(jsonson2);
-        for(Map.Entry<String, Integer> entry : hashMap.entrySet()){
-            List<String> jsonson = new ArrayList<>();
-            number = entry.getValue();
-            String strnum = new String();
-            strnum = String.valueOf(number);
-            strr2 = entry.getKey().replace("\"", "");;
-            String[] char2 = new String[2];
-            char2 = strr2.split(",");
-            jsonson.add(strnum);
-            jsonson.add("");
-            jsonson.add("");
-            jsonson.add(char2[0]);
-            jsonson.add(char2[1]);
-            json2.add(jsonson);
 
+        List<HashMap.Entry<String, Integer>> count = getSortedList(hashMap);
+        List<HashMap.Entry<String, Integer>> count2 = new ArrayList<>();
+        count = getSortedList2(hashMap);//
+        int size = count.size();
+        HashMap<String ,Integer> yearnumhash = new HashMap<>();
+        for(int l = 0;l<size;l++){
+            String year = count.get(l).getKey().replace("\"", "").split(",")[1];
+            if(yearnumhash.containsKey(year)){
+                yearnumhash.put(year,yearnumhash.get(year)+1);
+            }else {
+                yearnumhash.put(year,1);
+            }
+            if(yearnumhash.get(year)<21){
+                count2.add(count.get(l));
+            }else {
+                continue;
+            }
+        }
+        for(int y = 0;y<count2.size();y++){
+            List<String> jsonson = new ArrayList<>();
+            String name = count2.get(y).getKey().replace("\"", "").split(",")[0];
+            String year = count2.get(y).getKey().replace("\"", "").split(",")[1];
+
+            jsonson.add(String.valueOf(count2.get(y).getValue()));
+            jsonson.add("");
+            jsonson.add("");
+            jsonson.add(name);
+            jsonson.add(year);
+            json2.add(jsonson);
         }
         return json2;
     }
