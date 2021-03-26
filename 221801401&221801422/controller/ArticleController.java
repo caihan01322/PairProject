@@ -42,4 +42,38 @@ public class ArticleController {
     }
     
 
+
+    @RequestMapping("/articles/bynumber")
+    @ResponseBody
+    public List<Article> queryByNumber(String number) {
+        ArticleDao dao = new ArticleDao();
+        dao.setConnection(DatabaseUtils.connectToArticles());
+        List<Article> a = dao.queryByNumber(number);
+        return a;
+    }
+    
+    @RequestMapping("/articles/bykwds")
+    @ResponseBody
+    public List<Article> queryByKwds(String kwd) {
+        ArticleDao dao = new ArticleDao();
+        dao.setConnection(DatabaseUtils.connectToArticles());
+        List<Article> a = dao.queryByKwds(kwd);
+        return a;
+    }
+    
+    @RequestMapping("/articles/byyear")
+    @ResponseBody
+    public List<Article> queryByYear(String year) {
+        ArticleDao dao = new ArticleDao();
+        dao.setConnection(DatabaseUtils.connectToArticles());
+        List<Article> a = dao.queryByYear(year);
+        return a;
+    }
+    
+    @RequestMapping("/articles/delete")
+    @ResponseBody
+    public void deleteArt(String title) {
+        ArticleDao dao = new ArticleDao();
+        dao.setConnection(DatabaseUtils.connectToArticles());
+    }
 }

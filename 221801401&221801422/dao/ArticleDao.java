@@ -100,6 +100,154 @@ public class ArticleDao {
         return list;
         
     }
-
     
+    /*
+     * 按照论文编号查找对应论文
+     * @param number
+     * @return article类的List
+     * */
+    public List<Article> queryByNumber(String number) {
+        String sql = "select * from cvpr where articlenumber=? union select * from "
+                + "eccv where articlenumber=? union select * from iccv where articlenumber=?;";
+        List<Article> list = new ArrayList();
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, number);
+            pre.setString(2, number);
+            pre.setString(3, number);
+            ResultSet result = pre.executeQuery();
+            while(result.next()) {
+                String authors = result.getString("authors").toString();
+                String titleName = result.getString("formulastrippedarticletitle").toString();
+                String articleNumber = result.getString("articlenumber").toString();
+                String doiLink = result.getString("doilink").toString();
+                String abs = result.getString("abstract").toString();
+                String kwds = result.getString("kwds").toString();
+                String year = result.getString("year").toString();
+                Article art = new Article();
+                art.setAuthors(authors);
+                art.setTitle(titleName);
+                art.setArticleNumber(articleNumber);
+                art.setDoiLink(doiLink);
+                art.setKwds(kwds);
+                art.setAbs(abs);
+                art.setYear(year);
+                list.add(art);
+            }
+            result.close();
+            pre.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    /*
+     * 按照关键词查找对应论文
+     * @param kwd
+     * @return article类的List
+     * */
+    public List<Article> queryByKwds(String kwd) {
+        String sql = "select * from cvpr where kwds like ? union select * from eccv where kwds"
+                + " like ? union select * from iccv where kwds like ?;";
+        List<Article> list = new ArrayList();
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, "%" + kwd + "%");
+            pre.setString(2, "%" + kwd + "%");
+            pre.setString(3, "%" + kwd + "%");
+            ResultSet result = pre.executeQuery();
+            while(result.next()) {
+                String authors = result.getString("authors").toString();
+                String titleName = result.getString("formulastrippedarticletitle").toString();
+                String articleNumber = result.getString("articlenumber").toString();
+                String doiLink = result.getString("doilink").toString();
+                String abs = result.getString("abstract").toString();
+                String kwds = result.getString("kwds").toString();
+                String year = result.getString("year").toString();
+                Article art = new Article();
+                art.setAuthors(authors);
+                art.setTitle(titleName);
+                art.setArticleNumber(articleNumber);
+                art.setDoiLink(doiLink);
+                art.setKwds(kwds);
+                art.setAbs(abs);
+                art.setYear(year);
+                list.add(art);
+            }
+            result.close();
+            pre.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    /*
+     * 按照年份查找对应论文
+     * @param year
+     * @return article类的List
+     * */
+    public List<Article> queryByYear(String year) {
+        String sql = "select * from cvpr where year=? union select * from eccv where year=? "
+                + "union select * from iccv where year=?;";
+        System.out.println("s");
+        List<Article> list = new ArrayList();
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, year);
+            pre.setString(2, year);
+            pre.setString(3, year);
+            ResultSet result = pre.executeQuery();
+            while(result.next()) {
+                String authors = result.getString("authors").toString();
+                String titleName = result.getString("formulastrippedarticletitle").toString();
+                String articleNumber = result.getString("articlenumber").toString();
+                String doiLink = result.getString("doilink").toString();
+                String abs = result.getString("abstract").toString();
+                String kwds = result.getString("kwds").toString();
+                Article art = new Article();
+                art.setAuthors(authors);
+                art.setTitle(titleName);
+                art.setArticleNumber(articleNumber);
+                art.setDoiLink(doiLink);
+                art.setKwds(kwds);
+                art.setAbs(abs);
+                art.setYear(year);
+                list.add(art);
+            }
+            result.close();
+            pre.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    /*
+     * 删除指定论文
+     * @param title
+     * @return 无
+     * */
+    public void deleteArt(String title) {
+        String sql1 = "delete from cvpr where "
+                + "formulastrippedarticletitle='" + title + "';";
+        String sql2 = "delete from eccv where "
+                + "formulastrippedarticletitle='" + title + "';";
+        String sql3 = "delete from iccv where "
+                + "formulastrippedarticletitle='" + title + "';";
+        try {
+            Statement statement = conn.createStatement();
+            statement.executeUpdate(sql1);
+            statement.executeUpdate(sql2);
+            statement.executeUpdate(sql3);
+            statement.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 }
