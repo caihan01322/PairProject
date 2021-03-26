@@ -21,26 +21,21 @@ def search_by_title():
     title大小写均可
 
     Returns:
-        返回json格式的信息，格式见接口文档
-        1. title不存在时，返回有关错误提示的json信息
-        2. 查询不到文章时，返回没查到数据的json信息
-        3. 查询成功时，返回论文有关内容的json信息
+        有查询结果：返回模板文本和condition参数，并用分页器pagination填充模板
+        无结果：返回模板文本
         example：
             见接口文档
     """
-    title = request.args.get("title")
+    title = request.args.get("condition")
+    page = int(request.args.get("page", 1))
+
     if title is None:
-        return jsonify(code=1, message="没有输入title", data=None)
+        return render_template("index.html")
 
-    articles = Articles.query.filter(Articles.title.ilike("%"+title+"%")).all()
-    if articles is None:
-        return jsonify(code=-1, message="没有查询到数据", data=None)
+    pagination = Articles.query.filter(Articles.title.ilike(
+        "%"+title+"%")).paginate(page, per_page=10, error_out=False)
 
-    data = []
-    for article in articles:
-        data.append(article.schema())
-
-    return jsonify(code=0, message="查询成功", data=data)
+    return render_template("index.html", pagination=pagination, condition=title)
 
 
 @app.route("/a/search_by_keyword", methods=["GET"])
@@ -52,36 +47,40 @@ def search_by_keyword():
     keyword大小写输入均可
 
     Returns:
-        返回json格式的信息，格式见接口文档
-        1. keyword不存在时，返回有关错误提示的json信息
-        2. 查询不到文章时，返回没查到数据的json信息
-        3. 查询成功时，返回论文有关内容的json信息
+        有查询结果：返回模板文本和condition参数，并用分页器pagination填充模板
+        无结果：返回模板文本
         example：
             见接口文档
     """
-    keyword = request.args.get("keyword")
+    keyword = request.args.get("condition")
+    page = int(request.args.get("page", 1))
+
     if keyword is None:
-        return jsonify(code=1, message="没有输入keywords", data=None)
-    keyword = keyword.lower()
+        return render_template("index.html")
     keywords = keyword.split(",")
 
     article_title = set()
+    all_articles = None
+
     for key in keywords:
         tuples = Keywords.query.filter(
             Keywords.keyword.ilike("%"+key+"%")).all()
         if tuples is None:
-            return jsonify(code=-1, message="没有查询到数据", data=None)
+            return render_template("index.html")
         # 避免查询重复的论文标题
         for t in tuples:
             for article in t.articles:
                 article_title.add(article.title)
 
-        data = []
-        for title in article_title:
-            for article in Articles.query.filter(Articles.title == title).all():
-                data.append(article.schema())
+        articles = Articles.query.filter(Articles.title.in_(article_title))
+        if all_articles is None:
+            all_articles = articles
+        else:
+            all_articles = all_articles.union(articles)
 
-    return jsonify(code=0, message="查询成功", data=data)
+    pagination = all_articles.paginate(page, per_page=10, error_out=False)
+
+    return render_template("index.html", pagination=pagination, condition=keyword)
 
 
 if __name__ == "__main__":

@@ -2,15 +2,20 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title></title>
+    {% import 'macros.html' as macro %}
 </head>
 
 <body>
+    <!--action后/a/后对应什么url，下方macro就传入什么函数名-->
     <form method="GET" action="/a/search_by_keyword">
-        <input type="text" name="keyword" placeholder="请输入搜索内容">
+        <input type="text" name="condition" placeholder="请输入搜索内容">
         <input type="submit" value="搜索">
     </form>
-</body>
+    {% if pagination%}
+
+    <!--上方为search_by_keyword，下方第二个参数就传入"search_by_keyword"-->
+    {{ macro.pagination_widget(pagination,"search_by_keyword", condition) }}
+
+    {% endif %}
 
 </html>

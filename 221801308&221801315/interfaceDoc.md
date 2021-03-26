@@ -7,10 +7,10 @@
 > 根据论文标题在论文列表**模糊**检索
 
 ### URL
-> [http://127.0.0.1:8080/a/search_by_title](http://127.0.0.1:8080/a/search_by_title)
+> [http://127.0.0.1:5000/a/search_by_title](http://127.0.0.1:5000/a/search_by_title)
 
 ### 支持格式
-> JSON
+> 模板渲染
 
 ### HTTP请求方式
 > GET
@@ -18,64 +18,40 @@
 ### 请求参数
 |参数|必选|类型|说明|
 |-----  |-------|-----|----- |
-|title   |true    |string|请求检索的论文部分标题名，大小写均可
+|condition   |true    |string|请求检索的论文部分标题名，大小写均可，表单应给出提示
+|page   |false    |int|分页器指示当前是第几页，该参数**不用表单传入**，默认值为1
 
 ### 返回字段
 |返回字段|字段类型|说明                              |
 |:-----   |:------|:-----------------------------   |
-|code   |int    |返回结果代码。0：正常；-1：错误；1：没有输入  |
-|message   |string    |返回信息的解释  |
-|data   |json    |返回查询结果 |
-#### data
+|html文件名   |String    |结果要渲染的模板 |
+|pagination   |object    | 分页器 |
+|condition   |String    |与请求参数中的condition一致 |
+#### pagination
 |返回字段|字段类型|说明                              |
 |:-----   |:------|:-----------------------------   |
-|meeting  |string |所属会议名                      |
-|title |string |论文完整标题                        |
-|year |string |出版年份                     |
-|keywords |string[] |IEEE关键词                 |
-|abstract |string |摘要                        |
-|doiLink |url |原文链接                        |
+|items  |list |分页后每一页的内容                      |
+|has_prev |boolean |当前页是否有上一页                       |
+|prev_num |int |上一页的页码                    |
+|has_next |boolean |当前页是否有下一页                 |
+|next_num |int |下一页的页码                     |
+|page |int |当前页的页码                       |
+|pages |int |总页数                       |
 
 ### 接口示例
-> 地址：[http://127.0.0.1:8080/a/search_by_title?title=3D](http://127.0.0.1:8080/a/search_by_title?title=3D)
-``` javascript
-{
-  "code": 0, 
-  "data": [
-    {
-      "abstract": ..., 
-      "doiLink": "https://doi.org/10.1109/CVPR.2000.854948", 
-      "keywords": [
-        "Layout", 
-        "Image reconstruction", 
-        "Filters", 
-        "Cameras", 
-        "Military computing", 
-        "Linear systems", 
-        "Information technology", 
-        "Mathematics", 
-        "Image sensors", 
-        "Image sequences"
-      ], 
-      "meeting": "CVPR", 
-      "title": "A batch/recursive algorithm for 3D scene reconstruction", 
-      "year": "2000"
-    },
-    ...
-  ],  
-  "message": "查询成功"
-}
-```
+<span id="search_by_title"></span>
+> 地址：[http://127.0.0.1:5000/a/search_by_title?page=2&condition=3D](http://127.0.0.1:5000/a/search_by_title?page=2&condition=3D)
+![图片示例](https://images.cnblogs.com/cnblogs_com/blogs/664343/galleries/1953060/o_210326120257example.PNG)
 
 ## 根据论文关键词检索论文：search_by_keyword
 ### 接口功能
 > 根据论文关键词在论文列表**模糊**检索，可同时输入多个关键字，将返回查询结果的并集
 
 ### URL
-> [http://127.0.0.1:8080/a/search_by_keyword](http://127.0.0.1:8080/a/search_by_keyword)
+> [http://127.0.0.1:5000/a/search_by_keyword](http://127.0.0.1:5000/a/search_by_keyword)
 
 ### 支持格式
-> JSON
+> 模板渲染
 
 ### HTTP请求方式
 > GET
@@ -83,48 +59,27 @@
 ### 请求参数
 |参数|必选|类型|说明|
 |-----  |-------|-----|----- |
-|keyword   |ture    |string|请求检索的关键词，多个关键词用 **英文逗号（,）** 分割，大小写均可
+|condition   |ture    |string|请求检索的关键词，多个关键词用 **英文逗号（,）** 分割，大小写均可，表单应给出输入提示
+|page   |false    |int|分页器指示当前是第几页，该参数**不用表单传入**，默认值为1
 
 ### 返回字段
 |返回字段|字段类型|说明                              |
 |:-----   |:------|:-----------------------------   |
-|code   |int    |返回结果代码。0：正常；-1：错误；1：没有输入  |
-|message   |string    |返回信息的解释  |
-|data   |json    |返回查询结果 |
-#### data
+|html文件名   |String    |结果要渲染的模板 |
+|pagination   |object    | 分页器 |
+|condition   |String    |与请求参数中的condition一致 |
+#### pagination
 |返回字段|字段类型|说明                              |
 |:-----   |:------|:-----------------------------   |
-|meeting  |string |所属会议名                      |
-|title |string |论文完整标题                        |
-|year |string |出版年份                     |
-|keywords |string[] |IEEE关键词                 |
-|abstract |string |摘要                        |
-|doiLink |url |原文链接                        |
+|items  |list |分页后每一页的内容                      |
+|has_prev |boolean |当前页是否有上一页                       |
+|prev_num |int |上一页的页码                    |
+|has_next |boolean |当前页是否有下一页                 |
+|next_num |int |下一页的页码                     |
+|page |int |当前页的页码                       |
+|pages |int |总页数                       |
 
 ### 接口示例
-> 地址：[http://127.0.0.1:5000/a/search_by_keyword?keyword=Bismuth,target%20tracking](http://127.0.0.1:5000/a/search_by_keyword?keyword=Bismuth,target%20tracking)
-``` javascript
-{
-  "code": 0, 
-  "data": [
-    {
-      "abstract": ..., 
-      "doiLink": "https://doi.org/10.1109/CVPRW.2011.5981785", 
-      "keywords": [
-        "Harmonic analysis", 
-        "Cameras", 
-        "Humans", 
-        "Transmission line matrix methods", 
-        "Transforms", 
-        "Materials", 
-        "Bismuth"
-      ], 
-      "meeting": "CVPR", 
-      "title": "Viewpoint invariants from three-dimensional data: The role of reflection in human activity understanding", 
-      "year": "2011"
-    }, ,
-    ...
-  ],  
-  "message": "查询成功"
-}
-```
+> 地址：[http://127.0.0.1:5000/a/search_by_keyword?page=2&condition=layOut%2CComputer+science](http://127.0.0.1:5000/a/search_by_keyword?page=2&condition=layOut%2CComputer+science)
+>
+> 搜索结果如[search_by_title](#search_by_title)

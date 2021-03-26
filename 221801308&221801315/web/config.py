@@ -13,7 +13,7 @@ class Config(object):
     # 设置连接数据库的URL
     user = 'root'
     password = '123456'
-    database = 'articles'
+    database = 'paperweb'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://%s:%s@localhost:3306/%s' % (
         user, password, database)
 
