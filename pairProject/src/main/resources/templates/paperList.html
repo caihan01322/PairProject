@@ -6,6 +6,11 @@
     <title>PaperList</title>
     <script src="https://www.layuicdn.com/layui-v2.5.6/layui.js"></script>
     <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
     <style type="text/css">
         .hid1 {
             overflow: hidden;
@@ -67,11 +72,11 @@
         </div>
     </div>
     <div class="layui-body">
-        <select name="selectMode" lay-verify="" form="search">
+        <select name="selectMode" form="search" class="ui fluid dropdown" style="width: 100px;height: 35px;display: inline">
             <option value="fuzzy">模糊</option>
             <option value="precise">精确</option>
         </select>
-        <select name="selectTerm" lay-verify="" form="search">
+        <select name="selectTerm" form="search"  class="ui fluid dropdown" style="width: 100px;height: 35px;display: inline">
             <option value="title">标题</option>
             <option value="abs">摘要</option>
             <option value="publisher">会议名称</option>
@@ -79,10 +84,10 @@
             <option value="keyword">关键词</option>
         </select>
         <!-- 内容主体区域 -->
-        <form th:action="@{/paperSelect}" class="layui-form" method="post" id="search">
-            <div class="layui-form-item">
-                <input type="text" name="selectItem" class="layui-input" placeholder="请输入要搜索的内容"/>
-                <input type="submit" 	class="layui-btn layui-btn-radius" value="搜索"/>
+        <form th:action="@{/paperSelect}" class="layui-form" method="post" id="search" style="display:inline;">
+            <div class="ui large form" style="display: inline">
+                <input type="text" name="selectItem" class="layui-input" placeholder="请输入要搜索的内容" style="width: 200px;display: inline"/>
+                <input type="submit" class="layui-btn layui-btn-radius" value="搜索" style="display: inline"/>
             </div>
         </form>
         <table id="studentTable" class="layui-table">
