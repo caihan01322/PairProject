@@ -12,6 +12,8 @@ import (
 func main() {
 	// prepare templates
 
+	// crawler.Start()
+
 	r := routers.InitRouter()
 
 	s := http.Server{

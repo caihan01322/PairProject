@@ -32,6 +32,25 @@ func GetPaperByCode(code string) (paper Paper) {
 	return
 }
 
+func UpdatePaperContent(paper *Paper) {
+	db.Model(paper).
+		Update("content", paper.Content)
+}
+
+func SearchPaper(q string, offset, limit int) (papers []Paper) {
+	db.Where("title like ? or content like ?", q, q).
+		Offset(offset).
+		Limit(limit).
+		Find(&papers)
+	return
+}
+
+func GetPaperCount() (total int64) {
+	db.Model(&Paper{}).
+		Count(&total)
+	return
+}
+
 func (paper *Paper) AfterFind(db *gorm.DB) (err error) {
 	if notFound := db.Where("paper_id = ?", paper.ID).Find(&UserFav{}); notFound != nil {
 		paper.Status = 0

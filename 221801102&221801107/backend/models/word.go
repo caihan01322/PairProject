@@ -1,10 +1,16 @@
 package models
 
+import (
+	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
+	"time"
+)
+
 type Word struct {
 	Model
-	Name        string      `json:"name"`
+	Name        string      `json:"name" gorm:"size:255;uniqueIndex:ui"`
 	Value       int         `json:"value"`
-	Contributor string      `json:"-"`
+	Contributor string      `json:"-" gorm:"size:255;uniqueIndex:ui"`
 	Points      []WordPoint `json:"points" gorm:"constraint:OnDelete:CASCADE;"`
 }
 
@@ -38,21 +44,30 @@ func GetWords(contributor string) (words []Word) {
 	return
 }
 
-func AddWord(contributor, name, time string) {
-	word := Word{}
-	// 1
-	db.Where("contributor = ? AND name = ?", contributor, name).
-		Find(&word)
-	// 2
-	if word.ID <= 0 {
-		word.Contributor = contributor
-		word.Name = name
-		word.Value = 1
-		db.Create(&word)
-	} else {
-		word.Value++
-		db.Model(&word).
-			Update("value", word.Value)
+var addWordLock = make(chan int, 1)
+
+func AddWord(contributor, name string, t time.Time) {
+	word := Word{
+		Name:        name,
+		Contributor: contributor,
+		Value:       1,
 	}
-	AddWordPoint(time, word)
+	addWordLock <- 1
+	// p lock for update, no record selected then no lock
+	db.Clauses(clause.Locking{Strength: "UPDATE"}).
+		Where("contributor = ? AND name = ?", contributor, name).
+		Find(&word)
+
+	if word.ID <= 0 {
+		// create, value++ on conflict(update has lock itself)
+		db.Clauses(clause.OnConflict{
+			Columns:   []clause.Column{{Name: "name"}, {Name: "contributor"}},
+			DoUpdates: clause.Assignments(map[string]interface{}{"value": gorm.Expr("value + 1")}),
+		}).Create(&word)
+	} else {
+		// update
+		db.Model(&word).Update("value", word.Value+1)
+	}
+	<-addWordLock
+	addWordPoint(t, word)
 }
