@@ -35,7 +35,7 @@
                  	<div class="titleright"><a href="index_two_edit.jsp">论文列表修改</a></div>
                  	<div class="titleright"><a href="index_two_search.jsp">论文查找</a></div>
                  </li>
-                 <li class="icon"><a href="index_three_chart.jsp"><i><img src="./ImageResources/fund.png"></i>论文分析</a></li>
+                 <li class="icon"><a href="DoPaperPie?"><i><img src="./ImageResources/fund.png"></i>论文分析</a></li>
                  <li class="icon"><a href="index_four.jsp"><i><img src="./ImageResources/read.png"></i>背景知识</a></li>
             </ul>
         </div>
@@ -43,6 +43,11 @@
     <div class="contentright">
     	<div>
     		<form action="dopapersearch" method="get">
+    			<select name="plugin">
+  					<option value ="title">题目</option>
+  					<option value="abstract">摘要</option>
+  					<option value ="keyword">关键词</option>
+				</select>
 	            <input class="searchInput" type="text" name="searchContent" placeholder="请输入论文题目，关键词等" size="40" />
 	            <input class="searchBtn" id="button" type="submit" value="搜索"/>
             </form>

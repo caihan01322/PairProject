@@ -34,7 +34,7 @@
                  	<div class="titleright"><a href="index_two_edit.jsp">论文列表修改</a></div>
                  	<div class="titleright"><a href="index_two_search.jsp">论文查找</a></div>
                  </li>
-                 <li class="icon"><a href="index_three_chart.jsp"><i><img src="./ImageResources/fund.png"></i>论文分析</a></li>
+                 <li class="icon"><a href="DoPaperPie?"><i><img src="./ImageResources/fund.png"></i>论文分析</a></li>
                  <li class="icon"><a href="index_four.jsp"><i><img src="./ImageResources/read.png"></i>背景知识</a></li>
             </ul>
         </div>

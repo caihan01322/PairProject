@@ -38,9 +38,4 @@ public class DoPaperDelete extends HttpServlet {
 			out.write("</script>");
 		}
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	
 }

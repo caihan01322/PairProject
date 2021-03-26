@@ -34,7 +34,7 @@
                  <li class="icon"><a href="index_two_edit.jsp"><i><img src="./ImageResources/database.png"></i>论文管理</a></li>
                  <li class="icon">
                  	<div><a href="index.jsp"><i><img src="./ImageResources/fund.png"></i>论文分析</a></div>
-                 	<div class="titleright"><a href="index_three_chart.jsp">图表分析</a></div>
+                 	<div class="titleright"><a href="DoPaperPie?">图表分析</a></div>
                  	<div class="titleright"><a href="index_three_hot.jsp">热门领域</a></div>
                  </li>
                  <li class="icon"><a href="index_four.jsp"><i><img src="./ImageResources/read.png"></i>背景知识</a></li>
@@ -47,48 +47,61 @@
         	<%
         	String[] keyword = (String[])request.getAttribute("keyword");
         	int[] occur = (int[])request.getAttribute("occur");
-        	if(keyword == null){ %>
-        		<jsp:forward page="DoPaperPie"></jsp:forward>
-        		<%
-        		}%>
-        	<p><%=keyword[0] %></p>
+        	%>
+
+        		
         <div class="contentright">
         <div id="main" style="width: 600px;height:400px; float:left"></div>
         <script type="text/javascript">
         var myChart = echarts.init(document.getElementById('main'));
         option = {
-        	    title: {
-        	        text: '某站点用户访问来源',
-        	        subtext: '纯属虚构',
-        	        left: 'center'
-        	    },
-        	    tooltip: {
-        	        trigger: 'item'
-        	    },
-        	    legend: {
-        	        orient: 'vertical',
-        	        left: 'left',
-        	        data: [<%=keyword[0]%>,<%=keyword[1]%>,<%=keyword[2]%>,<%=keyword[3]%>,<%=keyword[4]%>]
-        	    },
-        	    series: [
-        	        {
-        	            name: '访问来源',
-        	            type: 'pie',
-        	            radius: '50%',
-        	            data: [
-        	                <%=occur[0]%>,<%=occur[1]%>,<%=occur[2]%>,<%=occur[3]%>,<%=occur[4]%>
-        	            ],
-        	            emphasis: {
-        	                itemStyle: {
-        	                    shadowBlur: 10,
-        	                    shadowOffsetX: 0,
-        	                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-        	                }
-        	            }
-        	        }
-        	    ]
-        	};
+                title : {
+                    text: '关键词Top10',       //大标题
+                    x:'center'                 //标题位置   居中
+                },
+                tooltip : {
+                    trigger: 'item',           //数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用。
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"   //{a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）用于鼠标悬浮时对应的显示格式和内容
+                },
+                legend: {                           //图例组件。
+                    orient: 'vertical',             //图例列表的布局朝向
+                    left: 'left',
+                    data: [<%="\""+keyword[0]+"\""%>,<%="\""+keyword[1]+"\""%>,<%="\""+keyword[2]+"\""%>,<%="\""+keyword[3]+"\""%>,<%="\""+keyword[4]+"\""%>,
+                    	<%="\""+keyword[5]+"\""%>,<%="\""+keyword[6]+"\""%>,<%="\""+keyword[7]+"\""%>,<%="\""+keyword[8]+"\""%>,<%="\""+keyword[9]+"\""%>],
+                },
+                series : [              //系列列表。每个系列通过 type 决定自己的图表类型
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        radius : '55%',
+                        center: ['50%', '60%'],
+                        data:[
+                            {value:<%="\""+occur[0]+"\""%>, name:<%="\""+keyword[0]+"\""%>,url: "DoPaperSearch?"},
+                            {value:<%="\""+occur[1]+"\""%>, name:<%="\""+keyword[1]+"\""%>,url: "DoPaperSearch?"},
+                            {value:<%="\""+occur[2]+"\""%>, name:<%="\""+keyword[2]+"\""%>,url: "DoPaperSearch?"},
+                            {value:<%="\""+occur[3]+"\""%>, name:<%="\""+keyword[3]+"\""%>,url: "DoPaperSearch?"},
+                            {value:<%="\""+occur[4]+"\""%>, name:<%="\""+keyword[4]+"\""%>,url: "DoPaperSearch?"},
+                            {value:<%="\""+occur[5]+"\""%>, name:<%="\""+keyword[5]+"\""%>,url: "DoPaperSearch?"},
+                            {value:<%="\""+occur[6]+"\""%>, name:<%="\""+keyword[6]+"\""%>,url: "DoPaperSearch?"},
+                            {value:<%="\""+occur[7]+"\""%>, name:<%="\""+keyword[7]+"\""%>,url: "DoPaperSearch?"},
+                            {value:<%="\""+occur[8]+"\""%>, name:<%="\""+keyword[8]+"\""%>,url: "DoPaperSearch?"},
+                            {value:<%="\""+occur[9]+"\""%>, name:<%="\""+keyword[9]+"\""%>,url: "DoPaperSearch?"},
+                        ],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(1, 2, 3, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
         	myChart.setOption(option);
+        	myChart.on('click', function(param) {
+        	    var url = param.data.url;
+        	    window.location.href = url;
+        	});
         </script>
         
     	</div>

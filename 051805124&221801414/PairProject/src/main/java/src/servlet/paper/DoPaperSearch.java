@@ -33,13 +33,13 @@ public class DoPaperSearch extends HttpServlet {
 		if(requestPage != null) {
 			curPage = Integer.parseInt(requestPage);
 		}
-		
+		String option = request.getParameter("plugin");
 		String content = request.getParameter("searchContent");
 		if(content == null || content.equals("")) {
 			content = curContent;
 		}else {
 			curContent = content;
-			list = PaperDao.searchPaper(content);
+			list = PaperDao.searchPaper(content,option);
 			for(int i=0;i < list.size();i++) {
 				list.get(i).setKeyword(PaperDao.getKeyWord(list.get(i).getPaperNum()));
 			}

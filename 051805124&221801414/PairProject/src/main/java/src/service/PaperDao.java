@@ -9,12 +9,19 @@ import src.PaperBean;
 
 public class PaperDao {
 	
-	public static ArrayList<PaperBean> searchPaper(String content) {
-		String sql = "select * from academics where title like \"%"+content+"%\""
-				+ " or academicNum in "
+	public static ArrayList<PaperBean> searchPaper(String content, String option) {
+		if(option != "keyword") {
+			String sql = "select * from academics where " + option + " like \"%"+content+"%\"";
+			System.out.print(sql);
+			return Basedao.searchPaper(sql);
+		}
+		else {
+			String sql = "select * from academics where academicNum in "
 				+ "(select academicNum from keywords where keyword like \"%"+content+"%\")";
-		System.out.print(sql);
-		return Basedao.searchPaper(sql);
+			System.out.print(sql);
+			return Basedao.searchPaper(sql);
+		}
+		
 	}
 	
 	public static PaperBean showPaper(int academicNum) {
