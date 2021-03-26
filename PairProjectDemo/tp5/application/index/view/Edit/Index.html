@@ -47,17 +47,25 @@
     <div id = "table">`
         <template>
             <el-table :data="tableData" border style = "width:100%" >
-                <el-table-column fixed prop = "title" label="论文题目" align="center"></el-table-column>
-                <el-table-column fixed prop = "abstract" label="论文摘要"  align="center"></el-table-column>
-                <el-table-column fixed prop = "keyword" label="论文关键词" align="center"></el-table-column>
-                <el-table-column fixed prop = "url" label="论文链接" align="center">
+                <el-table-column fixed prop = "title" label="论文题目" align="center" min-width="20%"></el-table-column>
+                <el-table-column fixed prop = "abstract" label="论文摘要"  align="center" min-width="30%">
+                    <template slot-scope="scope" >
+                        <span>{{scope.row.abstract|ellipsis}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column fixed prop = "keyword" label="论文关键词" align="center" min-width="30%">
+                    <template slot-scope="scope" >
+                        <span>{{scope.row.keyword|ellipsis}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column fixed prop = "url" label="论文链接" align="center" min-width="10%">
                     <template slot-scope="scope">
                         <span class="span-text" v-if="scope.row.link!== undefined && scope.row.link.length >=1">
                             <a link :href="scope.row.link" target="_blank">原文链接</a>
                         </span>
                     </template>
                 </el-table-column>
-                <el-table-column fixed prop = "operation" label="操作" align="center">
+                <el-table-column fixed prop = "operation" label="操作" align="center" min-width="15%">
                     <template slot-scope="scope">
                         <el-button @click="handleClick(scope.row)" type="primary" size="small">编辑</el-button>
                         <el-button @click="handleClick(scope.row)" type="danger" size="small">删除</el-button>
@@ -69,8 +77,10 @@
 
     <div id = "page">
         <el-pagination
-          layout="prev, pager, next"
-          :total="50" style="text-align: center">
+          layout = "prev, pager, next"
+          :page-size = "4"
+          :total="{$count}"
+           style="text-align: center">
         </el-pagination>
     </div>
 
@@ -87,7 +97,18 @@
                 return {
                     tableData:aa
                 }
+            },
+            filters: {
+                ellipsis(value) {
+                if (!value) return "";
+                if (value.length > 150) {
+                    return value.slice(0, 150) + "...";
+                }
+            return value;
             }
+        },
+
+            
         }
         var search = {
             data(){
