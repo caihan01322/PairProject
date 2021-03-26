@@ -25,13 +25,39 @@ public class IndexController {
         return "login";
     }
 
+    @GetMapping(value = "/register")
+    public String registerPage() {
+        return "login";
+    }
+
+    /**
+     * 登录
+     * @param user
+     * @param session
+     * @param model
+     * @return
+     */
     @PostMapping("/login")
     public String judLogin(User user, HttpSession session, Model model) {
-        if (userService.getUser(user.getUserName(), user.getPassword())) {
+        if (userService.isMember(user.getUserName().trim(), user.getPassword().trim())) {
             session.setAttribute("loginUser", user);
             return "redirect:/main.html";
         } else {
             model.addAttribute("msg","用户名或密码错误！");
+            return "login";
+        }
+    }
+
+    @PostMapping("/register")
+    public String judRegister(User user, HttpSession session, Model model) {
+        if (user.getUserName().trim().equals("") || user.getPassword().trim().equals("")) {
+            model.addAttribute("msg","注册失败，用户名或密码不能为空！");
+            return "login";
+        } else if (userService.register(user.getUserName().trim(), user.getPassword().trim())) {
+            session.setAttribute("loginUser", user);
+            return "redirect:/main.html";
+        } else {
+            model.addAttribute("msg","注册失败(可能原因：用户名已被使用)");
             return "login";
         }
     }

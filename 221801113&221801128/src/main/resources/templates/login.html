@@ -22,12 +22,12 @@
             </div>
             <div class="big-contain register" style="display: none">
                 <div class="btitle">注册账户</div>
-                <form class="bform" action="/login" method="post">
+                <form class="bform" th:action="@{/register}" method="post">
                     <span class="errTips" th:text="${msg}"></span>
-                    <input type="text" placeholder="用户名" name="username"/>
+                    <input type="text" placeholder="用户名" name="userName"/>
                     <input type="password" placeholder="密码" name="password"/>
+                    <button id="register" class="bbutton" type="submit">注册</button>
                 </form>
-                <button id="register" class="bbutton" onclick="register">注册</button>
             </div>
         </div>
         <div class="small-box">
