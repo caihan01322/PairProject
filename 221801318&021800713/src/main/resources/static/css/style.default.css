@@ -270,3 +270,85 @@ ul ul a {
   top:850px;
   left: 260px;
 }
+#paperList{
+  width: 400px;
+  height:280px;
+  position: absolute;
+  top:850px;
+  left: 700px;
+}
+
+.resultArea th{
+  overflow: hidden;
+}
+
+
+#myInput {
+  background-image: url('https://static.runoob.com/images/mix/searchicon.png'); /* 搜索按钮 */
+  background-position: 10px 12px; /* 定位搜索按钮 */
+  background-repeat: no-repeat; /* 不重复图片 */
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+table{
+  width:100%;
+  table-layout:fixed;
+}
+
+/*.id1{*/
+/*    width:5%;*/
+/*}*/
+/*.title1{*/
+/*    width:30%;*/
+/*}*/
+/*.link1{*/
+/*    width:20%;*/
+/*}*/
+/*.key1{*/
+/*    width:150%;*/
+/*}*/
+/*.summer1{*/
+/*    width:20%;*/
+/*}*/
+/*.operate1{*/
+/*    width:10%;*/
+/*}*/
+
+/*#myTable {*/
+/*    border-collapse: collapse;*/
+/*    width: 100%;*/
+/*    border: 2px solid #ddd;*/
+/*    font-size: 18px;*/
+/*}*/
+
+/*#myTable th, #myTable td {*/
+/*    text-align: left;*/
+/*    padding: 12px;*/
+/*}*/
+
+/*#myTable tr {*/
+/*    !* 表格添加边框 *!*/
+/*    border-bottom: 5px solid #ddd;*/
+/*}*/
+
+#myTable tr.header, #myTable tr:hover {
+  /* 表头及鼠标移动过 tr 时添加背景 */
+  background-color: #f1f1f1;
+}
+
+td {
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  width: 150px;
+}
+
+.wrap{
+  white-space: nowrap; //不换行
+text-overflow: ellipsis; //超出部分用....代替
+overflow: hidden; //超出隐藏
+}
