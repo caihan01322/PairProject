@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>论文爬取平台</title>
-  <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+  <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
   <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body> 
@@ -22,10 +22,11 @@
 <table class="layui-hide" id="LAY_table_user" lay-filter="user"></table> 
                
 <script type="text/html" id="barDemo">
-  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+	<a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="detail" onclick=window.open("detail.html")>详情</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
           
-<script src="layui/layui.js" charset="utf-8"></script>
+<script src="../layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
 <script>
 layui.use('table', function(){
@@ -36,10 +37,11 @@ layui.use('table', function(){
     elem: '#LAY_table_user'
     ,url: 'data.json'
     ,cols: [[
-      {field:'title', title: '标题', width:200, sort: true, fixed: true},
-      {field:'abstract', title: '摘要', width:400},
+      {field:'title', title: '标题', width:100, sort: true, fixed: true},
+      {field:'abstract', title: '摘要', width:300},
       {field:'keywords', title: '关键词', width:300},
       {field:'authors', title: '作者', width:100},
+	  {field:'year', title: '发表年份', width:100},
 	  {field:'doilink', title: '链接', width:300},
 	  {fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
     ]]
@@ -49,10 +51,16 @@ layui.use('table', function(){
   });
   
   table.on('tool(user)', function(obj){
-      layer.confirm('要删除改行吗', function(index){
-        obj.del();
-        layer.close(index);
-      });
+		if(obj.event==='detail'){
+			// var data = obj.data;
+			// layer.alert(JSON.stringify(data))
+		}
+		else{
+			layer.confirm('要删除改行吗', function(index){
+			  obj.del();
+			  layer.close(index);
+			});
+		}
     });
   
   
@@ -67,9 +75,7 @@ layui.use('table', function(){
           curr: 1 //重新从第 1 页开始
         }
         ,where: {
-          key: {
-            id: demoReload.val()
-          }
+          title: demoReload.val()
         }
       }, 'data');
     }
