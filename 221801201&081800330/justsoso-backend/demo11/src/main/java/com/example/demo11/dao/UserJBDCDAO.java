@@ -20,4 +20,5 @@ public interface UserJBDCDAO
     int getUserByAccount(String account);
     String saveImg(String Account,String imgUrl);
     String getImg(String account);
+    boolean changeInfo(String Account,String password,String username);
 }

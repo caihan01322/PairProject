@@ -13,5 +13,5 @@ public interface UserService
     int getUserByAccount(String account);
     String saveImg(String username,String imgUrl);
     String getImg(String account);
-
+    boolean changeInfo(String Account,String password,String username);
 }

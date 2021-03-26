@@ -3,8 +3,10 @@ package com.example.demo11.controller;
 import com.example.demo11.ajAxResponse;
 import com.example.demo11.dao.UserDaoImpl;
 import com.example.demo11.dao.UserJBDCDAO;
+import com.example.demo11.model.Artical;
 import com.example.demo11.model.User;
 
+import com.example.demo11.service.ArticalService;
 import com.example.demo11.service.UserService;
 import com.example.demo11.service.UserServiceImp;
 
@@ -104,6 +106,15 @@ public class UserController
         }
 
         return ajAxResponse.successfully(filename);
+    }
+    @PostMapping("/updateInfo")
+    public ajAxResponse updateInfo(@RequestParam String Account,@RequestParam String username,@RequestParam String password)
+    {
+        if(userService.changeInfo(Account,password,username) == false)
+        {
+            return ajAxResponse.fail("更新失败");
+        }
+        return ajAxResponse.successfullyUpdate("更新成功！",1);
     }
 
 

@@ -80,4 +80,17 @@ public class UserDaoImpl implements UserJBDCDAO{
             return imgurl.imgUrl;
         }
     }
+    @Override
+    public boolean changeInfo(String Account,String password,String username)
+    {
+        List<User> users = jdbcTemplate.query("select * from users where account = ?",
+                new Object[]{Account},new BeanPropertyRowMapper<>(User.class));
+        if(users.size()!= 1)
+        {
+            return false;
+        }
+        jdbcTemplate.update("update users set username = ? where account = ?",new Object[]{username,Account});
+        jdbcTemplate.update("update users set password = ? where account = ?",new Object[]{password,Account});
+        return true;
+    }
 }

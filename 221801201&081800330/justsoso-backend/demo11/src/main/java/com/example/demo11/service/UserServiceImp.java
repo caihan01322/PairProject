@@ -36,4 +36,9 @@ public class UserServiceImp implements UserService
     {
         return userDao.getImg(account);
     }
+    @Override
+    public boolean changeInfo(String Account,String password,String username)
+    {
+        return userDao.changeInfo(Account,password,username);
+    }
 }
