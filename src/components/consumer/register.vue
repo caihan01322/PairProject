@@ -2,21 +2,21 @@
   <div id = "register">
     <div class="viceTitle">注册</div>
     <div class="registerForm">
-      <Form ref="formValidate1" :model="formValidate1" :rules="ruleValidate1" :label-width="0">
+      <Form ref="formValidate1" :model="formValidate" :rules="ruleValidate" :label-width="0">
         <FormItem prop="account1">
-          <Input v-model="formValidate1.account" placeholder="请输入用户名"></Input>
+          <Input v-model="formValidate.account" placeholder="请输入用户名"></Input>
         </FormItem>
         <FormItem prop="email">
-          <Input v-model="formValidate1.email" placeholder="请输入邮箱"></Input>
+          <Input v-model="formValidate.email" placeholder="请输入邮箱"></Input>
         </FormItem>
-        <FormItem prop="password1">
-          <Input v-model="formValidate1.password" type="password" password placeholder="请输入密码"></Input>
+        <FormItem prop="password">
+          <Input v-model="formValidate.password" type="password" password placeholder="请输入密码"></Input>
         </FormItem>
         <FormItem prop="confirmPassword">
-          <Input v-model="formValidate1.confirmPassword" type="password" password placeholder="请确认密码"></Input>
+          <Input v-model="formValidate.confirmPassword" type="password" password placeholder="请确认密码"></Input>
         </FormItem>
         <FormItem>
-          <Button class="subBtn" type="primary" @click="handleSubmit('formValidate1')">登录</Button>
+          <Button class="subBtn" type="primary" @click="handleSubmit('formValidate1')">注册</Button>
           <div id="registerOpe">
             <div @click="toSignin()" id="registerBtn" class="opeBtn">已有账号，点我登录</div>
           </div>
@@ -32,13 +32,13 @@ export default {
   name: 'register',
   data () {
     return {
-      formValidate1: {
+      formValidate: {
         account: '',
         email: '',
-        password1: '',
+        password: '',
         confirmPassword: ''
       },
-      ruleValidate1: {
+      ruleValidate: {
         account: [
           { required: true, message: '用户名不能为空', trigger: 'blur' },
           { pattern: /^[a-zA-Z][a-zA-Z0-9_]{4,15}$/, message: '用户名以字母开头，允许5-16字节，允许字母数字下划线', trigger: 'blur' }
@@ -47,7 +47,7 @@ export default {
           { type: 'email', message: '请输入正确的邮箱格式', trigger: 'blur' },
           { required: true, message: '请输入邮箱', trigger: 'blur' }
         ],
-        password1: [
+        password: [
           { required: true, message: '密码不能为空', trigger: 'blur' },
           { pattern: /^[a-zA-Z]\w{5,17}$/, message: '密码以字母开头，长度在6~18之间，只能包含字母、数字和下划线', trigger: 'blur' }
         ],
