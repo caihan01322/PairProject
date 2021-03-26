@@ -3,25 +3,27 @@ package com.fzu.server.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ECCV {
+public class Paper {
     int ID;
     String Abstract;
     String year;
     String time;
     String name;
+    List<String> author;
     String link;
     List<String> keyword;
 
-    public ECCV() {
+    public Paper() {
 
     }
 
-    public ECCV(int ID, String Abstract, String year, String time, String name, String link, List<String> keyword) {
+    public Paper(int ID, String Abstract, String year, String time, String name, List<String> author, String link, List<String> keyword) {
         this.ID = ID;
         this.Abstract = Abstract;
         this.year = year;
         this.time = time;
         this.name = name;
+        this.author = author;
         this.link = link;
         this.keyword = new ArrayList<String>(keyword);
     }
@@ -66,6 +68,14 @@ public class ECCV {
         return name;
     }
 
+    public void setAuthor(List<String> author) {
+        this.author = author;
+    }
+
+    public List<String> getAuthor() {
+        return author;
+    }
+
     public void setLink(String link) {
         this.link = link;
     }
@@ -82,5 +92,5 @@ public class ECCV {
         return keyword;
     }
 
-    
+
 }
