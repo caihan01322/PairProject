@@ -1,5 +1,14 @@
 $(function(){
 
+    getHotSearch();
+    function getHotSearch() {
+        if (localStorage.getItem("hot") != null) {
+            $('.searchform .form-control').eq(0).val(localStorage.getItem("hot"))
+            $(".searchform button").click();
+            localStorage.removeItem("hot");
+        }
+    }
+
 
     /**
      * 阻止点击论文链接产生的事件冒泡

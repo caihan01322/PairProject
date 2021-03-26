@@ -185,8 +185,10 @@ $(function(){
                 }]
             });
             $("text").click(function () {
-                console.log($(this))
-                location.href()
+                console.log($(this).text().trim())
+                localStorage.setItem("hot", $(this).text().trim());
+
+                window.location = 'http://localhost:8080/main' //服务器！！！！！！！！！！
             })
         },
         //请求失败，包含具体的错误信息
