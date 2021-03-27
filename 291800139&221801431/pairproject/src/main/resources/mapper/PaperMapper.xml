@@ -102,12 +102,15 @@
       </if>
     </where>
     order by
-    <if test=" sort == '1' ">
-        pid asc
-    </if>
-    <if test=" sort == '2' ">
-        year asc
-    </if>
+    <trim  suffixOverrides=",">
+      <if test='sort =="1"'>
+        pid
+      </if>
+      <if test='sort =="2"'>
+        year
+      </if>
+    </trim>
+    asc
   </select>
 
   <sql id="selectUserVo">

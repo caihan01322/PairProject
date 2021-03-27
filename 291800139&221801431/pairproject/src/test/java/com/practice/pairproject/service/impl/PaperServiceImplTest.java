@@ -1,11 +1,8 @@
 package com.practice.pairproject.service.impl;
 
 import com.practice.pairproject.pojo.Paper;
-import com.practice.pairproject.service.PaperService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PaperServiceImplTest {
 

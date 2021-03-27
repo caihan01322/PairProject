@@ -105,6 +105,7 @@ public class PaperController {
      */
     @DeleteMapping("/delete")
     public AjaxResponse deletePapers(@RequestBody List<Integer> pids){
+        log.info("233333333");
         int result = paperService.deleteByPrimaryKeyList(pids);
         if(result != pids.size()){
             log.error("【删除失败！】: " + result);
@@ -124,22 +125,13 @@ public class PaperController {
      * @return
      */
     @GetMapping("/search")
-    public AjaxResponse searchUser(@RequestParam("title") String title,
-                                   @RequestParam("pid") String pid,
-                                   @RequestParam("keyword") String keyword,
-                                   @RequestParam("sort") String sort, Model model){
-       /* List<User> list = _userService.selectUserLikeUserName(name);
-        System.out.println("admin-searchUser后端查询到了！" + name);
-        for (User user : list) {
-            System.out.println(user);
-        }
-        model.addAttribute("list",list);
-        return "admin/adminCenter";*/
-
-        if(sort.isEmpty() || sort.equals("")){
+    public AjaxResponse searchUser(@RequestParam(name= "title" , defaultValue = "") String title,
+                                   @RequestParam(name= "pid" , defaultValue = "") String pid,
+                                   @RequestParam(name= "keyword" , defaultValue = "") String keyword,
+                                   @RequestParam(name= "sort" , defaultValue = "1") String sort, Model model){
+       /* if(sort.isEmpty() || sort.equals("")){
             sort = "1";
-        }
-
+        }*/
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put("title",title);
         paramMap.put("pid",pid);
@@ -147,9 +139,13 @@ public class PaperController {
         paramMap.put("sort",sort);
 
         List<Paper> paperList = paperService.searchPaper(paramMap);
+        if( paperList.isEmpty()){
+            log.info("【未查询到数据】 " );
+            return AjaxResponse.success("【未查询到数据】");
+        }
         model.addAttribute("paperList",paperList);
 
-        return AjaxResponse.success("【删除成功！】");
+        return AjaxResponse.success(paperList, "【查询成功！】");
     }
 
 
@@ -203,6 +199,8 @@ public class PaperController {
         //model.addAttribute("list",list2);
         return AjaxResponse.success(papers, "【查询所有论文列表成功！】");
     }
+
+
 
 
 }

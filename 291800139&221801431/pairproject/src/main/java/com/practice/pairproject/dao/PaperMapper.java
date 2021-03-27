@@ -38,7 +38,7 @@ public interface PaperMapper {
      * @Param ("pids") List<Integer> pids
      * @return  List<Paper>
      */
-    List<Paper> searchPaper(@Param("paramMap") Map<String, String> paramMap);
+    List<Paper> searchPaper(Map<String, String> paramMap);
 
 
     Paper selectByPrimaryKey(Integer pid);
