@@ -36,6 +36,11 @@ def login():
     """登录
 
     获取前端通过POST方式提交的email、password，判断是否登陆成功
+    
+    Args:
+        email: 邮箱账号
+        password: 密码
+        remember: 是否记住我，勾选则cookie的保存时间变长
 
     Returns:
         登陆出错时返回结果的json格式
@@ -119,7 +124,7 @@ def register():
     db.session.add(user)
     db.session.commit()
 
-    return render_template("login.html")
+    return redirect(url_for("login_view"))
 
 
 @app.route("/search_view", methods=["GET"])
