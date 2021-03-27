@@ -9,6 +9,8 @@ import com.practice.pairproject.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class KeywordServiceImpl implements KeywordService {
 
@@ -19,5 +21,10 @@ public class KeywordServiceImpl implements KeywordService {
     @Override
     public int insertPKeywords(Keyword kw) {
         return keywordMapper.insertPKeywords(kw);
+    }
+
+    @Override
+    public List<Integer> searchKeywords(String kw) {
+        return keywordMapper.searchKeywords(kw);
     }
 }

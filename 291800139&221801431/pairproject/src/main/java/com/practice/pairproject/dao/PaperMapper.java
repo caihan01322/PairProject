@@ -24,6 +24,13 @@ public interface PaperMapper {
     int deleteByPrimaryKeyList(@Param("pids") List<Integer> pids);
 
     /**
+     * 通过pid-list查询对应的paper列表
+     * @param pids
+     * @return
+     */
+    List<Paper> selelctByIDlist(@Param("pids") List<Integer> pids);
+
+    /**
      * 插入一个论文
      * @param paper
      * @return 数据库自增id
@@ -40,8 +47,6 @@ public interface PaperMapper {
      */
     List<Paper> searchPaper(Map<String, String> paramMap);
 
-
-    Paper selectByPrimaryKey(Integer pid);
 
     /**
      * 【分页】

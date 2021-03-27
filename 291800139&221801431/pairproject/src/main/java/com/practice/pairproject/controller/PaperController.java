@@ -164,19 +164,20 @@ public class PaperController {
         }
 
         //model.addAttribute("list",list2);
-        return AjaxResponse.success("【查询所有论文列表成功！】");
+        return AjaxResponse.success(paperList,"【查询所有论文列表成功！】");
     }
 
     /**
      * 【分页】
-     *  查询所有论文列表
+     * 查询所有论文列表
      * @param pageNum  第几页
      * @param pageSize
      * @param model
      * @return
      */
-    @GetMapping("/show/{page}")
-    public AjaxResponse showPage(@PathVariable("page") int pageNum, @RequestParam String pageSize, Model model){
+    @GetMapping("/show")
+    public AjaxResponse showPage(@RequestParam("pageNum") String pageNum,
+                                 @RequestParam("pageSize") String pageSize, Model model){
 
         int page_size = -1;
         if( !pageSize.isEmpty() && !pageSize.equals("") ){
@@ -187,7 +188,7 @@ public class PaperController {
         }
 
         //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（Select）方法会被分页!!!!
-        PageHelper.startPage(pageNum, page_size);
+        PageHelper.startPage(Integer.valueOf(pageNum), page_size);
         List<Paper> paperList = paperService.selectAll();
 
         if(paperList.isEmpty()){
@@ -200,7 +201,36 @@ public class PaperController {
         return AjaxResponse.success(papers, "【查询所有论文列表成功！】");
     }
 
+    /**
+     * 点击某个keyword->相关的论文列表
+     * @param keyword
+     * @return
+     */
+    @GetMapping(value = {"/list/{keyword}"})
+    public AjaxResponse GetUser(@PathVariable("keyword") String keyword,
+                                @RequestParam("pageNum") String pageNum,
+                                @RequestParam("pageSize") String pageSize, Model model) {
+        int page_size = -1;
+        if( !pageSize.isEmpty() && !pageSize.equals("") ){
+            page_size = Integer.valueOf(pageSize);
+        }
+        if( page_size <= 0 ){
+            page_size = this.pageSize;
+        }
 
+        //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（Select）方法会被分页!!!!
+        PageHelper.startPage(Integer.valueOf(pageNum), page_size);
+        List<Paper> paperList = paperService.selectPaperByKeyword(keyword);
+
+        if(paperList.isEmpty()){
+            log.error("【查询keyword-->论文列表失败！】");
+            return AjaxResponse.fail(500, "【查询keyword-->论文列表失败！】");
+        }
+
+        //该分页的json数据
+        PageInfo<Paper> papers = PageInfo.of(paperList);
+        return AjaxResponse.success(papers,"【查询keyword-->论文列表成功！】");
+    }
 
 
 }

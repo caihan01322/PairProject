@@ -3,6 +3,7 @@ package com.practice.pairproject.service;
 import com.practice.pairproject.pojo.Paper;
 import org.apache.ibatis.annotations.Param;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
@@ -36,10 +37,20 @@ public interface PaperService {
      */
     List<Paper> searchPaper(Map<String, String> paramMap);
 
+
     /**
      * 【分页】
      * 得到所有论文
      * @return
      */
     List<Paper> selectAll();
+
+
+    /**
+     * 根据keyword查询相关的论文列表
+     * @param keyword
+     * @return
+     */
+    List<Paper> selectPaperByKeyword(String keyword);
+
 }

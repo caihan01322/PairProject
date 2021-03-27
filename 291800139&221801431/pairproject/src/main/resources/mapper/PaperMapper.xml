@@ -86,6 +86,14 @@
     </foreach>
   </delete>
 
+  <select id="selelctByIDlist" parameterType="java.util.List" resultMap="BaseResultMap">
+    <include refid="selectUserVo"/>
+    where pid in
+    <foreach collection="pids" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+
 
   <!-- map里的key直接用 -->
   <select id="searchPaper" parameterType="java.util.Map" resultMap="BaseResultMap">

@@ -64,9 +64,10 @@
     select pid from keyword
     <where>
       <if test="kw != null and kw != ''">
-        content like "%"#{kw}"%"
+        content = #{kw, jdbcType=VARCHAR}
       </if>
     </where>
+    order by pid asc
   </select>
 
   <sql id="selectUserVo">

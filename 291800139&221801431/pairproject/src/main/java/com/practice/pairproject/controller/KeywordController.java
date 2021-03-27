@@ -13,10 +13,7 @@ public class KeywordController {
     @Autowired
     private UserService userService;
 
-    //@ResponseBody
-    @GetMapping(value = {"paperlist/{keyword}"})
-    public User GetUser(@PathVariable String uid) {
-        User temp = userService.getUserInfo(Integer.parseInt(uid));
-        return temp;
-    }
+
+
+
 }

@@ -6,8 +6,6 @@ import com.practice.pairproject.pojo.Paper;
 import com.practice.pairproject.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -43,8 +41,18 @@ public class PaperServiceImpl implements PaperService {
         return paperMapper.searchPaper(paramMap);
     }
 
+
     @Override
     public List<Paper> selectAll() {
         return paperMapper.selectAll();
+    }
+
+    @Override
+    public List<Paper> selectPaperByKeyword(String keyword) {
+        //查询拥有此keyword的所有pid的list
+        List<Integer> pids = keywordMapper.searchKeywords(keyword);
+        System.out.println("【pids】" + pids);
+        List<Paper> paperList = paperMapper.selelctByIDlist(pids);
+        return paperList;
     }
 }
