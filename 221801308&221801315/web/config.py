@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 from flask import Flask
+from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
 
 
 # 获取后端实例
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "this is a secret key"
 
 
 class Config(object):
@@ -50,6 +52,16 @@ article_keyword = db.Table(
 )
 
 
+# 用户收藏文章，文章被多个用户收藏
+article_user = db.Table(
+    "article_user",
+    db.Column("article_id", db.Integer, db.ForeignKey(
+        "articles.id", ondelete="cascade")),
+    db.Column("user_id", db.Integer, db.ForeignKey(
+        "users.id", ondelete="cascade"))
+)
+
+
 class Articles(db.Model):
     # 定义表名
     __tablename__ = "articles"
@@ -84,6 +96,19 @@ class Keywords(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     keyword = db.Column(db.String(255))
     count = db.Column(db.Integer, default=1)
+
+
+class Users(db.Model, UserMixin):
+    # 定义表名
+    __tablename__ = "users"
+    # 定义字段
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    email = db.Column(db.String(255), primary_key=True)
+    password = db.Column(db.String(255), nullable=False)
+    nickname = db.Column(db.String(255))
+    # 收藏夹
+    articles = db.relationship(
+        "Articles", secondary="article_user", backref="users")
 
 
 if __name__ == "__main__":

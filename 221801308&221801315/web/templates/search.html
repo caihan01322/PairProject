@@ -1,0 +1,22 @@
+<html>
+
+<head>
+    {% import 'macros.html' as macro %}
+</head>
+
+<body>
+    <a href="{{url_for("index_logined")}}">主页</a>
+    <form method="GET" action="/search">
+        <input type="text" name="condition" placeholder="请输入搜索内容">
+        <input type="submit" value="搜索"><br>
+        <input type="radio" name="search_way" value="title" checked="checked"><span>标题</span>
+        <input type="radio" name="search_way" value="keyword"><span>关键词</span><br>
+        
+    </form>
+    {% if pagination%}
+
+    {{ macro.pagination_widget(pagination, pagination_func, condition, search_way) }}
+
+    {% endif %}
+
+</html>

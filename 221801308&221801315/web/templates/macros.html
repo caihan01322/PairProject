@@ -1,4 +1,4 @@
-{% macro pagination_widget(pagination, search_function, condition) %}
+{% macro pagination_widget(pagination, pagination_func, condition, search_way) %}
 <div>
 {% for article in pagination.items %}
     <ul>
@@ -13,7 +13,7 @@
 
     {# 如果存在上一页 #}
     {% if pagination.has_prev %}
-        <a href={{url_for(search_function, page=pagination.prev_num, condition=condition)}}>上一页</a>
+        <a href={{url_for(pagination_func, page=pagination.prev_num, condition=condition, search_way=search_way)}}>上一页</a>
     {% endif %}
 
     {% for i in pagination.iter_pages() %}
@@ -21,7 +21,7 @@
             {% if i == pagination.page %}
                 {{i}}
             {% else %}
-                <a href={{url_for(search_function, page=i, condition=condition)}}>{{i}}</a>
+                <a href={{url_for(pagination_func, page=i, condition=condition, search_way=search_way)}}>{{i}}</a>
             {% endif %}
         {% else %}
             <a href="#">&hellip;</a>
@@ -30,7 +30,7 @@
 
     {# 如果存在下一页 #}
     {% if pagination.has_next %}
-        <a href={{url_for(search_function, page=pagination.next_num, condition=condition)}}>下一页</a>
+        <a href={{url_for(pagination_func, page=pagination.next_num, condition=condition, search_way=search_way)}}>下一页</a>
     {% endif %}
 </div>
 {% endmacro %}
