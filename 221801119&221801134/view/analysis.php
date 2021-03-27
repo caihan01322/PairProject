@@ -76,6 +76,7 @@
     $username = "root";
     $password = "";
     $dbname = "paperdb";
+    $year = array('2016', '2018', '2020');
     // 数据库连接
     $conn = new mysqli($servername, $username, $password, $dbname);
     // Check connection
@@ -112,12 +113,46 @@
         return array_slice($key_array, 0, $nums);
     }
     
-    $year = array('2016', '2018', '2020');
-    $arr = array();
+    function getKeyNum($conn, $key_arr, $year_arr){
+        $arr = array();
+        $arr['ECCV'] = array();
+        $arr['ICCV'] = array();
+        $arr['CVPR'] = array();
+        $size = count($key_arr);
+        for($i = 0; $i < count($year_arr); $i++){
+            for ($j = 0; $j < $size; $j++){
+                $arr['ECCV'][$year_arr[$i]][$j] = 0;
+                $arr['ICCV'][$year_arr[$i]][$j] = 0;
+                $arr['CVPR'][$year_arr[$i]][$j] = 0;
+            }
+        }
+        for ($i = 0; $i < $size; $i++){
+            $result = $conn->query("SELECT meeting, year FROM paper WHERE "
+                ."(key1 REGEXP '".$key_arr[$i]."' OR key2 REGEXP '".$key_arr[$i]."' OR key3 REGEXP '".$key_arr[$i]."' OR key4 REGEXP '".$key_arr[$i]."' OR key5 REGEXP '".$key_arr[$i]."')");
+            while($row = $result->fetch_assoc()) {
+                if($row["year"] == $year_arr[0] || $row["year"] == $year_arr[1] || $row["year"] == $year_arr[2]){
+                        $arr[$row["meeting"]][$row["year"]][$i] += 10;   //+=1
+                }
+            }
+        }
+        return $arr;
+    }
+    
+    $top_ten_key = getTopKeys("SELECT key1, key2, key3, key4, key5 FROM paper", $conn, 10);
+    $top_key_array = array_keys($top_ten_key);
+    $top_value_array = array_values($top_ten_key);
+    
+    $arr = getKeyNum($conn, array_slice($top_key_array, 0, 5), $year);
+    
+    /*$arr = array();
     $arr['ECCV'] = array();
     $arr['ECCV'][$year[0]] = getTopKeys("SELECT key1, key2, key3, key4, key5 FROM paper WHERE meeting = 'ECCV' AND year = '".$year[0]."'", $conn, 5);
     $arr['ECCV'][$year[1]] = getTopKeys("SELECT key1, key2, key3, key4, key5 FROM paper WHERE meeting = 'ECCV' AND year = '".$year[1]."'", $conn, 5);
     $arr['ECCV'][$year[2]] = getTopKeys("SELECT key1, key2, key3, key4, key5 FROM paper WHERE meeting = 'ECCV' AND year = '".$year[2]."'", $conn, 5);
+    $arr['CVPR'][$year[0]] = getTopKeys("SELECT key1, key2, key3, key4, key5 FROM paper WHERE meeting = 'CVPR' AND year = '".$year[0]."'", $conn, 5);
+    $arr['CVPR'][$year[1]] = getTopKeys("SELECT key1, key2, key3, key4, key5 FROM paper WHERE meeting = 'CVPR' AND year = '".$year[1]."'", $conn, 5);
+    $arr['CVPR'][$year[2]] = getTopKeys("SELECT key1, key2, key3, key4, key5 FROM paper WHERE meeting = 'CVPR' AND year = '".$year[2]."'", $conn, 5);
+    */
     echo 
 "<script>
 	var chart = Highcharts.chart('analysis_left_container', {
@@ -131,7 +166,7 @@
 			}
 		},
 		xAxis: {
-			categories: ".json_encode(array_keys($arr['ECCV'][$year[2]])).",
+			categories: ".json_encode(array_slice($top_key_array, 0, 5)).",
 			/*title: {
 				text: '热词', style: {
 					fontSize: '18px'
@@ -197,6 +232,7 @@
 		    		text: ".$year[0].",
 		    		hoverSymbolFill: null,
 		    		onclick: function() {
+                        chart.series[0].setData(".json_encode(array_values($arr['CVPR'][$year[0]])).");
 		    			chart.series[2].setData(".json_encode(array_values($arr['ECCV'][$year[0]])).");
 		    		},
 		    		theme: {
@@ -230,6 +266,7 @@
 		    		text: ".$year[1].",
 		    		hoverSymbolFill: null,
 		    		onclick: function() {
+                        chart.series[0].setData(".json_encode(array_values($arr['CVPR'][$year[1]])).");
 		    			chart.series[2].setData(".json_encode(array_values($arr['ECCV'][$year[1]])).");
 		    		},
 		    		theme: {
@@ -263,6 +300,7 @@
 		    		text: ".$year[2].",
 		    		hoverSymbolFill: null,
 		    		onclick: function() {
+                        chart.series[0].setData(".json_encode(array_values($arr['CVPR'][$year[2]])).");
 		    			chart.series[2].setData(".json_encode(array_values($arr['ECCV'][$year[2]])).");
 		    		},
 		    		theme: {
@@ -306,7 +344,8 @@
 		},
 		series: [{
 			name: 'CVPR',
-			data: [507, 931, 2635, 203, 1522],
+			//data: [507, 931, 2635, 203, 1522],
+            data: ".json_encode(array_values($arr['CVPR'][$year[2]]))."
 		}, {
 			name: 'ICCV',
 			data: [833, 156, 947, 408, 2006]
@@ -317,10 +356,6 @@
 		}]
 	});
 </script>"; 
-
-    $top_ten_key = getTopKeys("SELECT key1, key2, key3, key4, key5 FROM paper", $conn, 10);
-    $top_key_array = array_keys($top_ten_key);
-    $top_value_array = array_values($top_ten_key);
     
     echo "
 <div id=\"analysis_right_container\"></div>
