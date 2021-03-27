@@ -975,5 +975,13 @@ SELECT|sys.sys_config:null
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
+    <index id="302" parent="287" name="PID">
+      <ColNames>pid</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="303" parent="287" name="KID">
+      <ColNames>kid</ColNames>
+      <Type>btree</Type>
+    </index>
   </database-model>
 </dataSource>

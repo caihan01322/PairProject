@@ -136,6 +136,15 @@
             </tbody>
         </table>
     </div>
+    <div class="layui-footer">
+        <a th:href="@{/beginPage}">首页</a>
+        <a th:href="@{/previousPage}">上一页</a>
+        <div th:text="${currentPages}" style="display: inline"></div>
+        <a th:href="@{/nextPage}">下一页</a>
+        <div th:text="${pages}" style="display: inline"></div>
+        <a th:href="@{/endPage}">尾页</a>
+
+    </div>
 </div>
 </body>
 </html>
