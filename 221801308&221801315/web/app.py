@@ -10,6 +10,9 @@ login_manager = get_login_manager()
 login_manager.init_app(app)
 
 
+PER_PAGE = 10
+
+
 @app.route("/")
 def index():
     """未登录的主页"""
@@ -36,7 +39,7 @@ def login():
     """登录
 
     获取前端通过POST方式提交的email、password，判断是否登陆成功
-    
+
     Args:
         email: 邮箱账号
         password: 密码
@@ -177,7 +180,7 @@ def search_by_title(title, page):
             见接口文档
     """
     pagination = Articles.query.filter(Articles.title.ilike(
-        "%"+title+"%")).paginate(page, per_page=10, error_out=False)
+        "%"+title+"%")).paginate(page, per_page=PER_PAGE, error_out=False)
 
     return pagination
 
@@ -214,9 +217,21 @@ def search_by_keyword(keyword, page):
         else:
             all_articles = all_articles.union(articles)
 
-    pagination = all_articles.paginate(page, per_page=10, error_out=False)
+    pagination = all_articles.paginate(
+        page, per_page=PER_PAGE, error_out=False)
 
     return pagination
+
+
+@app.route("/delete", methods=["GET"])
+def delete():
+    title = request.args.get("title")
+
+    article = Articles.query.filter(Articles.title == title)
+
+    db.session.delete(article)
+    db.session.commit()
+    return render_template("search.html")
 
 
 if __name__ == "__main__":

@@ -1,11 +1,14 @@
 {% macro pagination_widget(pagination, pagination_func, condition, search_way) %}
 <div>
-{% for article in pagination.items %}
-    <ul>
-        <li>{{article.title}}</li>
-        <li>{{article.publicationYear}}</li>
-    </ul>
-    {% endfor %}
+    <table>
+        {% for article in pagination.items %}
+        <tr>
+            <td>{{article.title}}</td>
+            <td><a href={{url_for("delete", title=article.title)}}>删除</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    
 
     <br>
     当前页数：{{pagination.page}}
