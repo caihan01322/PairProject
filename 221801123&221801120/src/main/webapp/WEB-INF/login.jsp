@@ -16,7 +16,7 @@
 	</div>
 	<div class="middle">
 		<h2>登录</h2>
-		<form action="login/do" method="post" onclick="check(this);">
+		<form action="login/do" method="post" onsubmit="return check(this);">
 			<div class="form-group">
 				<label for="user">账号：</label>
 				<input type="text" name="username" class="form-control" id="user" placeholder="请输入用户名"/>
@@ -39,13 +39,14 @@
 		</form>
 
 		<!-- 出错显示的信息框 -->
-		<c:if test="${! empty error}" >
-			<span id="login_error"><strong>${error}</strong></span>
-			<button >
-				<span>&times;</span>
-			</button>
-		</c:if>
-
+		<div id="login_error">
+			<c:if test="${! empty error}" >
+				<strong>${error}</strong>
+				<button >
+					<span>&times;</span>
+				</button>
+			</c:if>
+		</div>
 	</div>
 </body>
 </html>
