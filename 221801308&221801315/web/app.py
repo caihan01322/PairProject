@@ -5,12 +5,13 @@ from flask_wtf import FlaskForm
 from config import *
 from login_manager import get_login_manager
 
-
 login_manager = get_login_manager()
 login_manager.init_app(app)
 
-
 PER_PAGE = 10
+CURRENT_YEAR = 2021
+YEAR_LIMIT = 10
+BEGIN_YEAR = CURRENT_YEAR - YEAR_LIMIT
 
 
 @app.route("/")
@@ -162,10 +163,12 @@ def search():
 
     if search_way == "title":
         pagination = search_by_title(title=condition, page=page)
-        return render_template("search.html", pagination_func="search", pagination=pagination, condition=condition, search_way=search_way)
+        return render_template("search.html", pagination_func="search", pagination=pagination, condition=condition,
+                               search_way=search_way)
     else:
         pagination = search_by_keyword(keyword=condition, page=page)
-        return render_template("search.html", pagination_func="search", pagination=pagination, condition=condition, search_way=search_way)
+        return render_template("search.html", pagination_func="search", pagination=pagination, condition=condition,
+                               search_way=search_way)
 
 
 def search_by_title(title, page):
@@ -180,7 +183,7 @@ def search_by_title(title, page):
             见接口文档
     """
     pagination = Articles.query.filter(Articles.title.ilike(
-        "%"+title+"%")).paginate(page, per_page=PER_PAGE, error_out=False)
+        "%" + title + "%")).paginate(page, per_page=PER_PAGE, error_out=False)
 
     return pagination
 
@@ -203,9 +206,9 @@ def search_by_keyword(keyword, page):
 
     for key in keywords:
         tuples = Keywords.query.filter(
-            Keywords.keyword.ilike("%"+key+"%")).all()
+            Keywords.keyword.ilike("%" + key + "%")).all()
         if tuples is None:
-            return render_template("index.html")
+            return render_template("search.html")
         # 避免查询重复的论文标题
         for t in tuples:
             for article in t.articles:
@@ -262,12 +265,30 @@ def hot_keywords():
         data: 含有10个关键词的list
             keyword: 关键词
             url: 查询跟该关键词相关的论文的路由
+            CVPR: 近10年间在每年在该会议出现的次数
+            ECCV: 近10年间在每年在该会议出现的次数
+            ICCV: 近10年间在每年在该会议出现的次数
     """
     keyword = Keywords.query.order_by(Keywords.count.desc()).limit(10).all()
 
     data = []
     for key in keyword:
-        per_key = {"keyword":key.keyword, "url":url_for("search", condition=key.keyword, search_way="keyword")}
+        CVPR = [0 for i in range(10)]
+        ECCV = [0 for i in range(10)]
+        ICCV = [0 for i in range(10)]
+
+        for article in key.articles:
+            year = int(article.publicationYear)
+            if year in range(BEGIN_YEAR, CURRENT_YEAR):
+                if article.meeting == "CVPR":
+                    CVPR[year - BEGIN_YEAR] += 1;
+                elif article.meeting == "ECCV":
+                    ECCV[year - BEGIN_YEAR] += 1;
+                else:
+                    ICCV[year - BEGIN_YEAR] += 1;
+
+        per_key = {"keyword": key.keyword, "url": url_for("search", condition=key.keyword, search_way="keyword"),
+                   "CVPR": CVPR, "ECCV": ECCV, "ICCV": ICCV}
         data.append(per_key)
 
     return jsonify(code=0, data=data)
