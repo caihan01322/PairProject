@@ -40,6 +40,11 @@
         </div>
     </div>
     <div>	
+    	<%
+        	String[] keyword = (String[])request.getAttribute("keyword");
+        	int[] occur = (int[])request.getAttribute("occur");
+        %>
+    	
         <div class="contentright">
         <div id="myline" style="width: 900px;height:450px; float:left"></div>
         <script type="text/javascript">
@@ -68,7 +73,8 @@
         		    xAxis: {
         		        type: 'category',
         		        boundaryGap: false,
-        		        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        		        data: [<%="\""+keyword[0]+"\""%>,<%="\""+keyword[1]+"\""%>,<%="\""+keyword[2]+"\""%>,<%="\""+keyword[3]+"\""%>,<%="\""+keyword[4]+"\""%>,
+                        	<%="\""+keyword[5]+"\""%>,<%="\""+keyword[6]+"\""%>,<%="\""+keyword[7]+"\""%>,<%="\""+keyword[8]+"\""%>,<%="\""+keyword[9]+"\""%>],
         		    },
         		    yAxis: {
         		        type: 'value'

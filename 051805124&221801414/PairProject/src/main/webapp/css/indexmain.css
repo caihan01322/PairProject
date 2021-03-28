@@ -45,6 +45,9 @@
 	color: #320F0F;
 	text-decoration:none;
 }
+.icon i{
+	padding-right: 10px;
+}
 .footer{
 	text-align: center;
 }

@@ -44,7 +44,7 @@
     		<form action="dopapersearch" method="get">
     			<select name="plugin">
   					<option value ="title">题目</option>
-  					<option value="abstract">摘要</option>
+  					<option value="conclude">摘要</option>
   					<option value ="keyword">关键词</option>
 				</select>
 	            <input class="searchInput" type="text" name="searchContent" placeholder="请输入论文题目，关键词等" size="40" />

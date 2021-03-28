@@ -21,7 +21,7 @@ public class Basedao {
 	public static Connection getconnection() {
 		Connection conn = null;
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/paper?serverTimezone=UTC&useSSL=false","root","ljx10086");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/papershow?serverTimezone=UTC&useSSL=false","root","ljx10086");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,10 +78,10 @@ public class Basedao {
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				res.add(new PaperBean(
-						rs.getInt("academicNum"),
+						rs.getInt("id"),
 						rs.getString("title"),
 						rs.getString("link"),
-						rs.getString("abstract"),
+						rs.getString("conclude"),
 						rs.getString("magazine")
 						));
 			}
@@ -124,10 +124,10 @@ public class Basedao {
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				bean = new PaperBean(
-					rs.getInt("academicNum"),
+					rs.getInt("id"),
 					rs.getString("title"),
 					rs.getString("link"),
-					rs.getString("abstract"),
+					rs.getString("conclude"),
 					rs.getString("magazine")
 					);
 			}

@@ -35,7 +35,7 @@
                  <li class="icon">
                  	<div><a href="index.jsp"><i><img src="./ImageResources/fund.png"></i>论文分析</a></div>
                  	<div class="titleright"><a href="DoPaperPie?">图表分析</a></div>
-                 	<div class="titleright"><a href="index_three_hot.jsp">热门领域</a></div>
+                 	<div class="titleright"><a href="DoPaperLine?year=2018">热门领域</a></div>
                  </li>
                  <li class="icon"><a href="index_four.jsp"><i><img src="./ImageResources/read.png"></i>背景知识</a></li>
             </ul>
@@ -68,7 +68,7 @@
                 },
                 series : [              //系列列表。每个系列通过 type 决定自己的图表类型
                     {
-                        name: '访问来源',
+                        name: '关键词占比',
                         type: 'pie',
                         radius : '55%',
                         center: ['50%', '60%'],

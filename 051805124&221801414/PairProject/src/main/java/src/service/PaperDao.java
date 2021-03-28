@@ -10,41 +10,51 @@ import src.PaperBean;
 public class PaperDao {
 	
 	public static ArrayList<PaperBean> searchPaper(String content, String option) {
-		if(option != "keyword") {
-			String sql = "select * from academics where " + option + " like \"%"+content+"%\"";
+		if( !option.equals("keyword")) {
+			String sql = "select * from article where " + option + " like \"%"+content+"%\"";
 			System.out.print(sql);
 			return Basedao.searchPaper(sql);
 		}
 		else {
-			String sql = "select * from academics where academicNum in "
-				+ "(select academicNum from keywords where keyword like \"%"+content+"%\")";
+			String sql = "select * from article where id in "
+				+ "(select id from keywords where keyword like \"%"+content+"%\")";
 			System.out.print(sql);
 			return Basedao.searchPaper(sql);
 		}
 		
 	}
 	public static ArrayList<PaperBean> showAll() {
-			String sql = "select * from academics ";
+			String sql = "select * from article ";
 			System.out.print(sql);
 			return Basedao.searchPaper(sql);
 	}
-	public static PaperBean showPaper(int academicNum) {
-		String sql = "select * from academics where academicNum = "+ academicNum;
+	public static PaperBean showPaper(int id) {
+		String sql = "select * from article where id = "+ id;
+		System.out.print(sql);
 		return Basedao.showPaper(sql);
 	}
 	
-	public static int deletePaper(int academicNum) {
-		String sql = "delete from academics where academicNum = "+ academicNum;
+	public static int deletePaper(int id) {
+		String sql = "delete from article where id = "+ id;
+		System.out.print(sql);
 		return Basedao.deletePaper(sql);
 	}
 	
-	public static String getKeyWord(int paperNum) {
-		String sql = "select * from keywords where academicNum = "+paperNum;
+	public static String getKeyWord(int id) {
+		String sql = "select * from keywords where id = "+ id;
+		System.out.print(sql);
 		return Basedao.getKeyWord(sql);
 	}
 
 	public static ArrayList<String>  getKeyWords() {
 		String sql = "select keyword from keywords ";
+		System.out.print(sql);
+		return Basedao.getKeyWords(sql);
+	}
+	public static ArrayList<String> getKeyWordsByYear(String year) {
+		String sql = "select keyword from keywords where id in "
+				+ "(select id from article where year = " + year + ")";
+		System.out.println(sql);
 		return Basedao.getKeyWords(sql);
 	}
 }
