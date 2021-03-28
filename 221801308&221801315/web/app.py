@@ -225,6 +225,16 @@ def search_by_keyword(keyword, page):
 
 @app.route("/delete", methods=["GET"])
 def delete():
+    """删除论文
+
+    在查询列表，每篇论有一个删除按钮，点击删除后数据库将删除该文章，同时更新当前的查询列表视图
+
+    Args:
+        title: 在列表视图中点击删除按钮时会自动获取title
+
+    Return:
+        返回模板渲染
+    """
     title = request.args.get("title")
 
     article = Articles.query.filter(Articles.title == title)
@@ -232,6 +242,29 @@ def delete():
     db.session.delete(article)
     db.session.commit()
     return render_template("search.html")
+
+
+@app.route("/top_10_keyword")
+def top_10_keyword():
+    """获取Top10的关键词
+
+    获取频率最高的前10个关键词，返回json格式
+
+    Return:
+        json格式
+        code: 0正常
+        data: 含有10个关键词的list
+            keyword: 关键词
+            url: 查询跟该关键词相关的论文的路由
+    """
+    keyword = Keywords.query.order_by(Keywords.count.desc()).limit(10).all()
+
+    data = []
+    for key in keyword:
+        per_key = {"keyword":key.keyword, "url":url_for("search", condition=key.keyword, search_way="keyword")}
+        data.append(per_key)
+
+    return jsonify(code=0, data=data)
 
 
 if __name__ == "__main__":
