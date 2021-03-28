@@ -50,7 +50,7 @@ public class LoginController {
 			if(user != null) {
 				//登陆成功
 				request.getSession().setAttribute("user",user);
-				return "redirect:/admin/index";
+				return "redirect:/user/index";
 			} else{
 				//登陆失败
 				model.addAttribute("error","账号或密码不正确");
