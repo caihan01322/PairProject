@@ -260,7 +260,208 @@ public static ArrayList<Map.Entry<String,Integer>> selectYearData(String year,St
 	}
 	ArrayList<Map.Entry<String, Integer>> wordList1 = new ArrayList<Map.Entry<String,Integer>>(wordMap1.entrySet());;
 	return wordList1;
+}
 	
+public static ArrayList<HotWord> getCVPRChart() {
+	
+	ArrayList<HotWord> hotWordList = new ArrayList<HotWord>();
+	ArrayList<Map.Entry<String, Integer>> wordList2018 = ArticleDao.selectYearData("2018", "CVPR");
+	for (Map.Entry<String,Integer> entry:wordList2018)
+	{
+		HotWord hotWord = new HotWord();
+		hotWord.setWordString(entry.getKey());
+		ArrayList<Integer> tArrayList= hotWord.getWordList();
+		tArrayList.set(0, entry.getValue());
+		hotWord.setWordList(tArrayList);
+		hotWordList.add(hotWord);
+	}
+	ArrayList<Map.Entry<String, Integer>> wordList2019 = ArticleDao.selectYearData("2019", "CVPR");
+	for (Map.Entry<String,Integer> entry:wordList2019)
+	{
+		boolean exist = false;
+		for (int i = 0; i < hotWordList.size(); i++) {
+			if (hotWordList.get(i).getWordString().equals(entry.getKey())) {
+				exist = true;
+				ArrayList<Integer> tArrayList = hotWordList.get(i).getWordList();
+				tArrayList.set(1, entry.getValue());
+				break;
+			}
+		}
+		
+		if (!exist) {
+			HotWord hotWord = new HotWord();
+			hotWord.setWordString(entry.getKey());
+			ArrayList<Integer> tArrayList= hotWord.getWordList();
+			tArrayList.set(1, entry.getValue());
+			hotWord.setWordList(tArrayList);
+			hotWordList.add(hotWord);
+		}
+	}
+	
+	ArrayList<Map.Entry<String, Integer>> wordList2020 = ArticleDao.selectYearData("2020", "CVPR");
+	for (Map.Entry<String,Integer> entry:wordList2020)
+	{
+		boolean exist = false;
+		for (int i = 0; i < hotWordList.size(); i++) {
+			if (hotWordList.get(i).getWordString().equals(entry.getKey())) {
+				exist = true;
+				ArrayList<Integer> tArrayList = hotWordList.get(i).getWordList();
+				tArrayList.set(2, entry.getValue());
+				break;
+			}
+		}
+		
+		if (!exist) {
+			HotWord hotWord = new HotWord();
+			hotWord.setWordString(entry.getKey());
+			ArrayList<Integer> tArrayList= hotWord.getWordList();
+			tArrayList.set(2, entry.getValue());
+			hotWord.setWordList(tArrayList);
+			hotWordList.add(hotWord);
+		}
+	}
+	
+	for (int i = 0; i < hotWordList.size(); i++) {
+		HotWord hotWord = hotWordList.get(i);
+		ArrayList<Integer> tArrayList = hotWord.getWordList();		
+	}
+	
+	return hotWordList;
+}
+
+public static ArrayList<HotWord> getICCVChart() {
+	
+	ArrayList<HotWord> hotWordList = new ArrayList<HotWord>();
+	ArrayList<Map.Entry<String, Integer>> wordList2018 = ArticleDao.selectYearData("2018", "ICCV");
+	for (Map.Entry<String,Integer> entry:wordList2018)
+	{
+		HotWord hotWord = new HotWord();
+		hotWord.setWordString(entry.getKey());
+		ArrayList<Integer> tArrayList= hotWord.getWordList();
+		tArrayList.set(0, entry.getValue());
+		hotWord.setWordList(tArrayList);
+		hotWordList.add(hotWord);
+	}
+	ArrayList<Map.Entry<String, Integer>> wordList2019 = ArticleDao.selectYearData("2019", "ICCV");
+	for (Map.Entry<String,Integer> entry:wordList2019)
+	{
+		boolean exist = false;
+		for (int i = 0; i < hotWordList.size(); i++) {
+			if (hotWordList.get(i).getWordString().equals(entry.getKey())) {
+				exist = true;
+				ArrayList<Integer> tArrayList = hotWordList.get(i).getWordList();
+				tArrayList.set(1, entry.getValue());
+				break;
+			}
+		}
+		
+		if (!exist) {
+			HotWord hotWord = new HotWord();
+			hotWord.setWordString(entry.getKey());
+			ArrayList<Integer> tArrayList= hotWord.getWordList();
+			tArrayList.set(1, entry.getValue());
+			hotWord.setWordList(tArrayList);
+			hotWordList.add(hotWord);
+		}
+	}
+	
+	ArrayList<Map.Entry<String, Integer>> wordList2020 = ArticleDao.selectYearData("2020", "ICCV");
+	for (Map.Entry<String,Integer> entry:wordList2020)
+	{
+		boolean exist = false;
+		for (int i = 0; i < hotWordList.size(); i++) {
+			if (hotWordList.get(i).getWordString().equals(entry.getKey())) {
+				exist = true;
+				ArrayList<Integer> tArrayList = hotWordList.get(i).getWordList();
+				tArrayList.set(2, entry.getValue());
+				break;
+			}
+		}
+		
+		if (!exist) {
+			HotWord hotWord = new HotWord();
+			hotWord.setWordString(entry.getKey());
+			ArrayList<Integer> tArrayList= hotWord.getWordList();
+			tArrayList.set(2, entry.getValue());
+			hotWord.setWordList(tArrayList);
+			hotWordList.add(hotWord);
+		}
+	}
+	
+	for (int i = 0; i < hotWordList.size(); i++) {
+		HotWord hotWord = hotWordList.get(i);
+		ArrayList<Integer> tArrayList = hotWord.getWordList();
+		
+	}
+	
+	return hotWordList;
+}
+
+public static ArrayList<HotWord> getECCVChart() {
+	
+	ArrayList<HotWord> hotWordList = new ArrayList<HotWord>();
+	ArrayList<Map.Entry<String, Integer>> wordList2018 = ArticleDao.selectYearData("2018", "ECCV");
+	for (Map.Entry<String,Integer> entry:wordList2018)
+	{
+		HotWord hotWord = new HotWord();
+		hotWord.setWordString(entry.getKey());
+		ArrayList<Integer> tArrayList= hotWord.getWordList();
+		tArrayList.set(0, entry.getValue());
+		hotWord.setWordList(tArrayList);
+		hotWordList.add(hotWord);
+	}
+	ArrayList<Map.Entry<String, Integer>> wordList2019 = ArticleDao.selectYearData("2019", "ECCV");
+	for (Map.Entry<String,Integer> entry:wordList2019)
+	{
+		boolean exist = false;
+		for (int i = 0; i < hotWordList.size(); i++) {
+			if (hotWordList.get(i).getWordString().equals(entry.getKey())) {
+				exist = true;
+				ArrayList<Integer> tArrayList = hotWordList.get(i).getWordList();
+				tArrayList.set(1, entry.getValue());
+				break;
+			}
+		}
+		
+		if (!exist) {
+			HotWord hotWord = new HotWord();
+			hotWord.setWordString(entry.getKey());
+			ArrayList<Integer> tArrayList= hotWord.getWordList();
+			tArrayList.set(1, entry.getValue());
+			hotWord.setWordList(tArrayList);
+			hotWordList.add(hotWord);
+		}
+	}
+	
+	ArrayList<Map.Entry<String, Integer>> wordList2020 = ArticleDao.selectYearData("2020", "ECCV");
+	for (Map.Entry<String,Integer> entry:wordList2020)
+	{
+		boolean exist = false;
+		for (int i = 0; i < hotWordList.size(); i++) {
+			if (hotWordList.get(i).getWordString().equals(entry.getKey())) {
+				exist = true;
+				ArrayList<Integer> tArrayList = hotWordList.get(i).getWordList();
+				tArrayList.set(2, entry.getValue());
+				break;
+			}
+		}
+		
+		if (!exist) {
+			HotWord hotWord = new HotWord();
+			hotWord.setWordString(entry.getKey());
+			ArrayList<Integer> tArrayList= hotWord.getWordList();
+			tArrayList.set(2, entry.getValue());
+			hotWord.setWordList(tArrayList);
+			hotWordList.add(hotWord);
+		}
+	}
+	
+	for (int i = 0; i < hotWordList.size(); i++) {
+		HotWord hotWord = hotWordList.get(i);
+		ArrayList<Integer> tArrayList = hotWord.getWordList();		
+	}
+	
+	return hotWordList;
 }
 	
 }
