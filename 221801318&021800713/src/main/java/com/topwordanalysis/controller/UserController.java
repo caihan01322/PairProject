@@ -4,9 +4,7 @@ package com.topwordanalysis.controller;
 import com.topwordanalysis.databaseOperation.model.User;
 import com.topwordanalysis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 221801318_黄贸之
@@ -20,16 +18,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/hello")
-    public String hello(){
-        return "hello";
-    }
-
-    @GetMapping("/login")
-    public String login(String mail,String password){
-        User user = new User(mail,password);
+    @PostMapping("/login")
+    public String login(@RequestBody User user){
         String result = userService.login(user);
         return result;
     }
+
+    @PostMapping("/register")
+    public String register(@RequestBody User user){
+        String result = userService.sign(user);
+        return result;
+    }
+
 
 }
