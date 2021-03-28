@@ -15,5 +15,12 @@ public interface essayDao {
     void editeccv(Essay essay);
     void editiccv(Essay essay);
     List<Essay> singleSearch(@Param("searchString") String searchString);
-
+    List<Keywords> keywordsGetCVPR(@Param("year")String year);
+    List<Keywords> keywordsGetECCV(@Param("year")String year);
+    List<Keywords> keywordsGetICCV(@Param("year")String year);
+    List<Keywords> keywordsGetMY(@Param("name")String name);
+    List<Keywords> keywordsGetCVPRALL();
+    List<Keywords> keywordsGetECCVALL();
+    List<Keywords> keywordsGetICCVALL();
+  
 }

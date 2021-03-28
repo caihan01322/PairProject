@@ -1,14 +1,23 @@
 package Controller;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import Dao.EssayDaoImpl;
 import Entity.Essay;
@@ -91,6 +100,17 @@ public class EssayController {
         EssayDaoImpl e = new EssayDaoImpl();
         return e.singleSearch(searchString);
     }
-
+    
+    //论文关键词获取
+    /*
+     * keywordsType:查询谁的关键词（用户名，cvpr,iccv,eccv)
+     * year:查询年份(当输入年会时，year为"all"则查询所有年份的top10关键词)
+     */
+    @RequestMapping("/keywords")
+    @ResponseBody
+    public List<Keywords> essayKeywordsGet(String keywordsType,String year){
+        return essayService.keywordsGet(keywordsType, year);
+    }
+    
     
 }

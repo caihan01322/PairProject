@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import Dao.EssayCollectDaoImpl;
 import Dao.EssayDaoImpl;
 import Dao.EssayDeleteDaoImpl;
+import Entity.Essay;
 import Entity.Keywords;
 
 
@@ -33,6 +34,70 @@ public class EssayService {
        String answer = e.delete(userName, essayName, essayMeeting);
        return answer;
    }
+   
+   //获取不同年份，不同顶会的top10关键词
+   public static List<Keywords> keywordsGet(String keywordsType,String year) {
+       ArrayList<Keywords> k = new ArrayList<>();
+       switch (keywordsType) {
+           case "cvpr":
+               if (year.equals("all")) {
+                   k = (ArrayList<Keywords>) e.keywordsGetCVPRALL();
+               }else {
+                   k = (ArrayList<Keywords>) e.keywordsGetCVPR(year);
+               }
+               break;
+           case "eccv":
+               if (year.endsWith("all")) {
+                   k = (ArrayList<Keywords>) e.keywordsGetECCVALL();
+               }else {
+                   k = (ArrayList<Keywords>) e.keywordsGetECCV(year);
+               }
+               break;
+           case "iccv":
+               if (year.equals("all")) {
+                   k = (ArrayList<Keywords>) e.keywordsGetICCVALL();
+               }else {
+                   k = (ArrayList<Keywords>) e.keywordsGetICCV(year);
+               }
+               break;
+           default :
+               k = (ArrayList<Keywords>) e.keywordsGetMY(keywordsType);
+               break;
+       }
+       String str = "";
+       for (int i = 0;i<k.size();i++) {
+           str = str + k.get(i).getKeywords();
+       }
+       //引用wordcount代码稍加修改
+       Map<String,Integer> wordsMap = new TreeMap<>();
+       String ragex = "([A-Za-z]+(\\s)*)+";
+       Pattern p = Pattern.compile(ragex);
+       Matcher m = p.matcher(str);
+       while (m.find()) {
+            String s = m.group();
+            if (wordsMap.containsKey(s)) {
+                int num = wordsMap.get(s);
+                wordsMap.put(s, num + 1);
+            }else {
+                wordsMap.put(s, 1);
+            }
+        }
+        List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(wordsMap.entrySet()); 
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {  
+            public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {  
+                return o2.getValue().compareTo(o1.getValue());  
+            }  
+        });    
+        ArrayList<Keywords> temp = new ArrayList<>();
+        for (int i = 0;i < 10&&i<list.size();i ++) {
+            Keywords key = new Keywords();
+            key.setFrequency(list.get(i).getValue());
+            key.setKeywords(list.get(i).getKey());
+            temp.add(key);
+        }
+       return temp;
+   }
+   
 
    
 }

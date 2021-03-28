@@ -52,6 +52,34 @@ public class EssayDaoImpl implements essayDao {
         array = (ArrayList<Essay>) e.singleSearch(searchString);
         return array;
     }
+    @Override
+    public List<Keywords> keywordsGetCVPR(String year) {
+       return e.keywordsGetCVPR(year);
+    }
+    @Override
+    public List<Keywords> keywordsGetECCV(String year) {
+        return e.keywordsGetECCV(year);
+    }
+    @Override
+    public List<Keywords> keywordsGetICCV(String year) {
+        return e.keywordsGetICCV(year);
+    }
+    @Override
+    public List<Keywords> keywordsGetMY(String name) {
+        return e.keywordsGetMY(name);
+    }
 
+    @Override
+    public List<Keywords> keywordsGetCVPRALL() {
+        return e.keywordsGetCVPRALL();
+    }
+    @Override
+    public List<Keywords> keywordsGetECCVALL() {
+        return e.keywordsGetECCVALL();
+    }
+    @Override
+    public List<Keywords> keywordsGetICCVALL() {
+        return e.keywordsGetICCVALL();
+    }
     
 }

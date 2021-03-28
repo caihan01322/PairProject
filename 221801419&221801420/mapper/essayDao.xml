@@ -39,5 +39,30 @@ union all
 select * from essay_iccv where title like concat('%','${searchString}','%') or authors like concat('%','${searchString}','%') or summary like concat('%','${searchString}','%')
 order by meeting,title;
 </select>
+<select id="keywordsGetCVPR" resultType="Entity.Keywords">
+select keywords from essay_cvpr where year =#{year};
+</select>
+<select id="keywordsGetECCV" resultType="Entity.Keywords">
+select keywords from essay_eccv where year =#{year};
+</select>
+<select id="keywordsGetICCV" resultType="Entity.Keywords">
+select keywords from essay_iccv where year =#{year};
+</select>
+<select id="keywordsGetICCVALL" resultType="Entity.Keywords">
+select keywords from essay_iccv;
+</select>
+<select id="keywordsGetCVPRALL" resultType="Entity.Keywords">
+select keywords from essay_cvpr;
+</select>
+<select id="keywordsGetECCVALL" resultType="Entity.Keywords">
+select keywords from essay_eccv;
+</select>
+<select id="keywordsGetMY" resultType="Entity.Keywords">
+select keywords from essay_eccv where meeting in (select essaytype from collect where name = #{name}) and id in (select essaynum from collect where name = #{name})
+union all
+select keywords from essay_cvpr where meeting in (select essaytype from collect where name = #{name}) and id in (select essaynum from collect where name = #{name})
+union all
+select keywords from essay_iccv where meeting in (select essaytype from collect where name = #{name}) and id in (select essaynum from collect where name = #{name});
+</select>
 
 </mapper>
