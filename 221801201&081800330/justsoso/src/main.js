@@ -3,29 +3,13 @@ import ElementUI from 'element-ui';
 import './theme/index.css'
 import App from './App.vue';
 import router from './router'
-// import ECharts from 'vue-echarts'
-import { use } from "echarts/core"
-
-import {
-  CanvasRenderer
-} from 'echarts/renderers'
-import {
-  BarChart
-} from 'echarts/charts'
-
-import {
-  GridComponent,
-  TooltipComponent
-} from 'echarts/components'
-
 import store from './store'
 
-use([
-  CanvasRenderer,
-  BarChart,
-  GridComponent,
-  TooltipComponent
-]);
+
+import * as echarts from 'echarts';
+// 或
+// const echarts = require('echarts');
+Vue.prototype.$echarts = echarts
 
 
 Vue.use(ElementUI);
