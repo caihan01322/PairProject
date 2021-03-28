@@ -1,0 +1,26 @@
+body {
+    background-color: #DCDCDC;
+    margin: 20px 10%;
+}
+.search{
+    margin: 10px 20% 20px 20%;
+}
+#fenye{
+    margin: 20px 20% 0px 20%;
+}
+.el-tabs__nav-scroll{
+    padding-left: 12px;
+    background: #DCDCDC;
+    }
+
+}
+.el-tabs__item:hover {
+    text-align: center;
+    color: #696969;
+    background-color: #DCDCDC ;
+  }
+.el-tabs__item.is-active {
+    text-align: center;
+    color:#4682D4;
+    background-color: #DCDCDC;
+}
