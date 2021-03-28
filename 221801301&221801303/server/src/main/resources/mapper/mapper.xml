@@ -113,4 +113,26 @@
     <select id="getAuthor" resultType="java.lang.String">
         select author from author where pid = #{id} limit 5;
     </select>
+
+    <select id="getCVPR" resultType="java.util.Map">
+        select keyword,COUNT(*) num
+        from CVPR_keyword
+        group by keyword
+        order by COUNT(*) DESC
+        limit 5;
+    </select>
+    <select id="getECCV" resultType="java.util.Map">
+        select keyword,COUNT(*) num
+        from ECCV_keyword
+        group by keyword
+        order by COUNT(*) DESC
+        limit 5;
+    </select>
+    <select id="getICCV" resultType="java.util.Map">
+        select keyword,COUNT(*) num
+        from ICCV_keyword
+        group by keyword
+        order by COUNT(*) DESC
+        limit 5;
+    </select>
 </mapper>

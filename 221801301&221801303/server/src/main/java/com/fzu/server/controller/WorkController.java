@@ -26,4 +26,22 @@ public class WorkController {
     public Object queryAuthor(@RequestBody Map<String,Object> name){
         return ws.queryAuthor(name);
     }
+
+    @RequestMapping("/getCVPR")
+    @ResponseBody
+    public Object getCVPR(){
+        return ws.getCVPR();
+    }
+
+    @RequestMapping("/getECCV")
+    @ResponseBody
+    public Object getECCV(){
+        return ws.getECCV();
+    }
+
+    @RequestMapping("/getICCV")
+    @ResponseBody
+    public Object getICCV(){
+        return ws.getICCV();
+    }
 }

@@ -42,4 +42,22 @@ public class WorkService {
         Object obj = JSONArray.toJSON(paper);
         return obj;
     }
+
+    public Object getCVPR(){
+        List<Map<String, String>> cvpr = dao.getCVPR();
+        Object obj = JSONArray.toJSON(cvpr);
+        return obj;
+    }
+
+    public Object getECCV(){
+        List<Map<String, String>> eccv = dao.getECCV();
+        Object obj = JSONArray.toJSON(eccv);
+        return obj;
+    }
+
+    public Object getICCV(){
+        List<Map<String, String>> iccv = dao.getICCV();
+        Object obj = JSONArray.toJSON(iccv);
+        return obj;
+    }
 }

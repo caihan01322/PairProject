@@ -27,4 +27,8 @@ public interface PaperDao {
     List<Paper> getPaperByAuthor(String name);
     List<String> getKeyword(Integer id);
     List<String> getAuthor(Integer id);
+
+    List<Map<String,String>> getCVPR();
+    List<Map<String,String>> getECCV();
+    List<Map<String,String>> getICCV();
 }
