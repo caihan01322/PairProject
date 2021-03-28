@@ -58,7 +58,36 @@ class Paper(db.Model):
 # db.drop_all()
 db.create_all()
 
-
+#用户注册
+# {
+#     "telephone":"",
+#     "password":"",
+#     "repassword":""
+# }
+# {
+#     "error":""
+# }
+# {
+#     "status":"ok"
+# }
+@app.route('/user/register',methods=['POST'])
+def user_register():
+    user1 = request.get_json()
+    print(user1)
+    user = User()
+    tele = user1.get("telephone")
+    pass1 = user1.get("password")
+    pass2 = user1.get("repassword")
+    if (len(tele)!=11):
+        return jsonify({'error': '电话号码错误'})
+    elif (pass1 != pass2):
+        return jsonify({'error': '两次密码不相同'})
+    else:
+        user.telephone = tele
+        user.password = pass1
+    db.session.add(user)
+    db.session.commit()
+    return jsonify({'status':'ok'})
 
 if __name__ == '__main__':
     app.run(debug=True)
