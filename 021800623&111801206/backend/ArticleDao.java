@@ -464,4 +464,59 @@ public static ArrayList<HotWord> getECCVChart() {
 	return hotWordList;
 }
 	
+public static ArrayList<String> selectKeyWords() {
+	ArrayList<String> keywordList = new ArrayList<String>();
+	ResultSet rs = null;
+	
+	Connection connection = Base.getConn();
+	
+	PreparedStatement ps = null;
+	String sqlString = "select * from keywords";
+	try {
+		ps = connection.prepareStatement(sqlString);
+		rs = ps.executeQuery();
+		while(rs.next()) {
+			keywordList.add(rs.getString("keyword"));
+		}
+		
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	List<Map.Entry<String, Integer>> wordList;
+	Map<String,Integer> wordMap = new HashMap<String, Integer>();
+	for (int i = 0; i < keywordList.size(); i++) {
+		String keywordString = keywordList.get(i);
+		Integer countInteger = wordMap.get(keywordString);
+		if (countInteger == null) {
+			countInteger = 1;
+		}
+		else {
+			countInteger++;
+		}
+		wordMap.put(keywordString, countInteger);
+	}
+	wordList = new ArrayList<Map.Entry<String,Integer>>(wordMap.entrySet());
+	Collections.sort(wordList, new Comparator<Map.Entry<String,Integer>>() {
+        @Override
+        public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+            if (o2.getValue()==o1.getValue()){
+                return o1.getKey().compareTo(o2.getKey());
+            }
+            return o2.getValue().compareTo(o1.getValue());
+        }
+    });
+	ArrayList<String> top10 = new ArrayList<String>();
+	int i = 1;
+	for (Map.Entry<String,Integer> entry:wordList)
+	{
+		if (i>10) {
+			break;
+		}
+		top10.add(entry.getKey());
+		i++;
+	}
+	return top10;
+}
+	
 }
