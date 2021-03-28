@@ -1,53 +1,64 @@
 <?php
-
 /* @var $this yii\web\View */
+use yii\helpers\Html;
+use backend\components\KeywordsCloudWidget;
+use common\models\Paper;
+use yii\grid\GridView;
+use yii\widgets\ListView;
+use common\models\PaperSearch;
 
-$this->title = 'My Yii Application';
+$this->title = '论文管理系统';
 ?>
 <div class="site-index">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
+<div class="jumbotron">
+    <h1>论文管理系统</h1>
+ 
+</div>
+<div class="container">
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
 
-    <div class="body-content">
+    <div class="row">
+        <div class="col-md-7">
+        <?= ListView::widget([
+				'id'=>'paperList',
+				'dataProvider'=>$dataProvider,
+				'itemView'=>'_listitem',//子视图,显示一篇文章的标题等内容.
+			    'layout'=>'{items} {pager}',
+		])?>
 
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
         </div>
 
+        <div class="col-md-5">
+            <div class="searchbox">
+                <ul class="list-group">
+                   <li class="list-group-item">
+                   <span class="glyphion-search" aria-hidden="true"></span>背景介绍
+                   </li>
+                   <li class="list-group-item">CVPR国际计算机视觉与模式识别会议（CVPR）是IEEE一年一度的学术性会议，会议的主要内容是计算机视觉与模式识别技术。CVPR是世界顶级的计算机视觉会议（三大顶会之一，另外两个是ICCV和ECCV），近年来每年有约1500名参加者，收录的论文数量一般300篇左右。本会议每年都会有固定的研讨主题，而每一年都会有公司赞助该会议并获得在会场展示的机会。ICCVICCV 的全称是 IEEE International Conference on Computer Vision，即国际计算机视觉大会，由IEEE主办，与计算机视觉模式识别会议（CVPR）和欧洲计算机视觉会议（ECCV）并称计算机视觉方向的三大顶级会议，被澳大利亚ICT学术会议排名和中国计算机学会等机构评为最高级别学术会议，在业内具有极高的评价。不同于在美国每年召开一次的CVPR和只在欧洲召开的ECCV，ICCV在世界范围内每两年召开一次。ICCV论文录用率非常低，是三大会议中公认级别最高的。ECCVECCV的全称是European Conference on Computer Vision(欧洲计算机视觉国际会议) ，两年一次，是计算机视觉三大会议（另外两个是ICCV和CVPR）之一。每次会议在全球范围录用论文300篇左右，主要的录用论文都来自美国、欧洲等顶 尖实验室及研究所，中国大陆的论文数量一般在10-20篇之间。ECCV2010的论文录取率为27%。</li>
+                </ul>
+            </div>
+        
+
+            <div class="searchbox">
+                <ul class="list-group">
+                   <li class="list-group-item">
+                   <span class="glyphion-search" aria-hidden="true"></span>关键词top10
+                   </li>
+                   <li class="list-group-item">
+                   <?= KeywordsCloudWidget::widget(['keywords'=>$keywords]);?>
+                   </li>
+                </ul>
+            </div>
+
+            
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
+
+
+
+
