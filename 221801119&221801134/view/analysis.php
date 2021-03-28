@@ -16,7 +16,7 @@
     <script src="https://code.highcharts.com.cn/highcharts/modules/variable-pie.js"></script>
 </head>
 
-<body style="background-color:#F8F8F8 ;">
+<body style="background-color:#F8F8F8 ;width:1420px">
 <div id="app" class="surface--content">
 
     <header class="metabar">

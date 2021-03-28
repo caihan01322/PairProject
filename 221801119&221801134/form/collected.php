@@ -25,6 +25,19 @@ else
     echo '<script>alert("已添加到默认收藏夹！");</script>';
 if($view==1)
     echo '<script>window.location.href="../view/manage.php";</script>';
-else 
+else if($view==3)
     echo '<script>window.location.href="../view/collect.php";</script>';
+else{
+    $searchname=$_GET['searchname'];
+    $searchtype=$_GET['searchtype'];
+    $searching=$_GET['searching'];
+}
 ?>
+
+<script type="text/javascript">
+	var userid='<?php echo $userid;?>';
+	var searchname='<?php echo $searchname;?>';
+    var searchtype='<?php echo $searchtype;?>';
+    var searching='<?php echo $searching;?>';
+	window.location.href="../view/search.php?searchName="+searchname+"&searching="+searching+"&searchSelect="+searchtype+"&userid="+userid;
+</script>

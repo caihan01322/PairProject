@@ -46,7 +46,7 @@ input[type=password]{
 }
 
 #submitLogin:hover {
-    background-color: #45a049;
+    background-color: #FE4365;
 }
 
 /*论文列表*/
@@ -115,8 +115,9 @@ input[type=password]{
 
 /*收藏列表*/
  .mainPaper2{
- 	 margin:0 auto;
-     width: 70%;
+ 	 margin:0 0 0 14%;
+     width: 60%;
+     float:left;
  }
  
  .collectFolder{
@@ -128,3 +129,28 @@ input[type=password]{
     background-color: #FFCCCC	;
     color:white;
 }
+
+  .mainPaper3{
+ 	 margin:0% auto;
+     width: 70%;
+ }
+ 
+#note{
+ 	background-color: white;
+ 	padding:6% 5% 4% 8%;
+ 	
+ }
+ 
+#note2{
+  display:none;
+ 	padding:6% 5% 4% 10%;
+ 	background-color:#F8F8F8 ;
+ 	 
+ }
+
+.notenote:hover #note {
+	color:white;
+	background-color:#FFCCCC ;
+ 	 
+}
+ 
