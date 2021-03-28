@@ -6,6 +6,7 @@
 <head>
 	<title>登录</title>
 	<link rel="stylesheet" href="css/login.css">
+	<script src="script/login.js"></script>
 </head>
 <body>
 	<div class="header">
@@ -29,6 +30,7 @@
 			<div class="form-inline">
 				<label for="vcode">验证码：</label>
 				<input type="text" name="verify" class="verify_input" id="vcode">
+				<img src="varify_code.jsp" onclick="image(this);" class="verify_image">
 			</div>
 
 			<div class="form-group" style="text-align: center;">
