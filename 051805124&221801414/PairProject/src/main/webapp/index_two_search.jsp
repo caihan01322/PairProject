@@ -5,6 +5,8 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
     <title>论文查找</title>
     <link rel="stylesheet" type="text/css" href="css/indexmain.css"/>
     <link rel="stylesheet" type="text/css" href="css/table.css"/>

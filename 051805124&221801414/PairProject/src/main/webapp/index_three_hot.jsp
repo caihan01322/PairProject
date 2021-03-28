@@ -42,22 +42,24 @@
     <div>	
     	<%
         	String[] keyword = (String[])request.getAttribute("keyword");
-        	int[] occur = (int[])request.getAttribute("occur");
+        	int[] CVPR = (int[])request.getAttribute("CVPR");
+        	int[] ICCV = (int[])request.getAttribute("ICCV");
+        	int[] ECCV = (int[])request.getAttribute("ECCV");
         %>
     	
         <div class="contentright">
-        <div id="myline" style="width: 900px;height:450px; float:left"></div>
+        <div id="myline" style="width: 1100px;height:450px; float:left"></div>
         <script type="text/javascript">
         	var myChart = echarts.init(document.getElementById('myline'));
         	option = {
         		    title: {
-        		        text: '折线图堆叠'
+        		        text: '多年论文关键词对比'
         		    },
         		    tooltip: {
         		        trigger: 'axis'
         		    },
         		    legend: {
-        		        data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+        		        data: ['CVPR', 'ICCV', 'ECCV']
         		    },
         		    grid: {
         		        left: '3%',
@@ -75,40 +77,62 @@
         		        boundaryGap: false,
         		        data: [<%="\""+keyword[0]+"\""%>,<%="\""+keyword[1]+"\""%>,<%="\""+keyword[2]+"\""%>,<%="\""+keyword[3]+"\""%>,<%="\""+keyword[4]+"\""%>,
                         	<%="\""+keyword[5]+"\""%>,<%="\""+keyword[6]+"\""%>,<%="\""+keyword[7]+"\""%>,<%="\""+keyword[8]+"\""%>,<%="\""+keyword[9]+"\""%>],
+                        axisLabel : {
+                            interval:0,                    
+                            formatter : function(params){
+                               var newParamsName = "";// 最终拼接成的字符串
+                               var paramsNameNumber = params.length;// 实际标签的个数
+                               var provideNumber = 16;// 每行能显示的字的个数
+                               var rowNumber = Math.ceil(paramsNameNumber / provideNumber);// 换行的话，需要显示几行，向上取整
+                                            
+                               if (paramsNameNumber > provideNumber) {
+                                    /** 循环每一行,p表示行 */
+                                   for (var p = 0; p < rowNumber; p++) {
+                                       var tempStr = "";// 表示每一次截取的字符串
+                                       var start = p * provideNumber;// 开始截取的位置
+                                       var end = start + provideNumber;// 结束截取的位置
+                                       // 此处特殊处理最后一行的索引值
+                                       if (p == rowNumber - 1) {
+                                           // 最后一次不换行
+                                           tempStr = params.substring(start, paramsNameNumber);
+                                       } else {
+                                            // 每一次拼接字符串并换行
+                                           tempStr = params.substring(start, end) + "-" +"\n";
+                                       }
+                                       newParamsName += tempStr;// 最终拼成的字符串
+                                   }
+
+                               } else {
+                                     // 将旧标签的值赋给新标签
+                                    newParamsName = params;
+                               }
+                               //将最终的字符串返回
+                               return newParamsName
+                             }
+                         }
+
         		    },
         		    yAxis: {
         		        type: 'value'
         		    },
         		    series: [
         		        {
-        		            name: '邮件营销',
+        		            name: 'CVPR',
         		            type: 'line',
         		            stack: '总量',
-        		            data: [120, 132, 101, 134, 90, 230, 210]
+        		            data: [<%="\""+CVPR[0]+"\""%>,<%="\""+CVPR[1]+"\""%>,<%="\""+CVPR[2]+"\""%>]
         		        },
         		        {
-        		            name: '联盟广告',
+        		            name: 'ICCV',
         		            type: 'line',
         		            stack: '总量',
-        		            data: [220, 182, 191, 234, 290, 330, 310]
+        		            data: [<%="\""+ICCV[0]+"\""%>,<%="\""+ICCV[1]+"\""%>,<%="\""+ICCV[2]+"\""%>]
         		        },
         		        {
-        		            name: '视频广告',
+        		            name: 'ECCV',
         		            type: 'line',
         		            stack: '总量',
-        		            data: [150, 232, 201, 154, 190, 330, 410]
-        		        },
-        		        {
-        		            name: '直接访问',
-        		            type: 'line',
-        		            stack: '总量',
-        		            data: [320, 332, 301, 334, 390, 330, 320]
-        		        },
-        		        {
-        		            name: '搜索引擎',
-        		            type: 'line',
-        		            stack: '总量',
-        		            data: [820, 932, 901, 934, 1290, 1330, 1320]
+        		            data: [<%="\""+ECCV[0]+"\""%>,<%="\""+ECCV[1]+"\""%>,<%="\""+ECCV[2]+"\""%>]
         		        }
         		    ]
         		};

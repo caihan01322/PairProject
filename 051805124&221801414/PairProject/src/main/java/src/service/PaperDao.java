@@ -2,6 +2,7 @@ package src.service;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import src.Basedao;
@@ -56,5 +57,23 @@ public class PaperDao {
 				+ "(select id from article where year = " + year + ")";
 		System.out.println(sql);
 		return Basedao.getKeyWords(sql);
+	}
+	public static ArrayList<String> getMagazineByYK(String year, String keyword) {
+		String sql = "select magazine from article where year = "+ year + " and id in "
+				+ "(select id from keywords where keyword = \'" + keyword + "\') ";
+		System.out.println(sql);
+		return Basedao.getKeyWords(sql);
+	}
+	public static Map<String, Integer> getMagazineOccur(ArrayList<String> list){
+		Map<String, Integer> map = new HashMap<String,Integer>();
+		for(String str : list) {
+			if (map.containsKey(str)) {
+    			int occurs = map.get(str);
+    			map.put(str, occurs+1);
+    		} else {
+    			map.put(str, 1);
+    		}
+		}
+		return map;
 	}
 }

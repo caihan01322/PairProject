@@ -21,7 +21,7 @@ public class Basedao {
 	public static Connection getconnection() {
 		Connection conn = null;
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/papershow?serverTimezone=UTC&useSSL=false","root","ljx10086");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/papershow?serverTimezone=UTC&useSSL=false&useOldAliasMetadataBehavior=true","root","ljx10086");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
