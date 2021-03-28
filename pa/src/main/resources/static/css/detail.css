@@ -1,14 +1,12 @@
 textarea.conceal{
     border: none;
     resize: none;
-    /*height: auto;*/
-    /*overflow-y:hidden;*/
 }
 textarea.short{
-    width: 80px;
+    width: 10%;
 }
 textarea.long{
-    width: 800px;
+    width: 60%;
 }
 .high{
     height: 70px;
@@ -17,12 +15,12 @@ textarea.long{
     height: 180px;
 }
 .interval{
-    margin-left: 50px;
+    margin-left: 10%;
     margin-top: 50px;
 }
 .btn{
-    width: 400px;
+    width: 30%;
     vertical-align: middle;
     font-size: 0;
-    margin: 20px auto
+    margin: 20px auto;
 }

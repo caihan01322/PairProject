@@ -20,7 +20,15 @@
             <div th:replace="~{html/sidebar::sidebar}"></div>
         </div>
         <div class="layui-main">
-            <div th:replace="~{html/table::table}"></div>
+            <div class="layui-carousel" style="height: 450px;">
+                <div carousel-item>
+                    <div>条目1</div>
+                    <div>条目2</div>
+                    <div>条目3</div>
+                    <div>条目4</div>
+                    <div>条目5</div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -36,6 +44,16 @@
         //监听导航点击
         element.on('nav(demo)', function(elem){
             layer.msg(elem.text());
+        });
+    });
+    layui.use('carousel', function(){
+        var carousel = layui.carousel;
+        //建造实例
+        carousel.render({
+            elem: '#test1'
+            ,width: '100%' //设置容器宽度
+            ,arrow: 'always' //始终显示箭头
+            //,anim: 'updown' //切换动画方式
         });
     });
 </script>
