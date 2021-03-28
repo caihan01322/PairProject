@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ViewController {
     @GetMapping("/")
     public String index(Model model) {
-        return "index";
+        return "index.html";
     }
 
     @GetMapping("/chart")
     public String chart(Model model) {
-        return "chart";
+        return "chart.html";
     }
 }
