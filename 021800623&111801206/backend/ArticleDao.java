@@ -4,12 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 
 public class ArticleDao {
 	
-	public static ArrayList<Paper> selectAll() {
+	public static ArrayList<Paper> selectAll(int cpage,int count) {
 		
 		ArrayList<Paper> list = new ArrayList<Paper>();
 		
@@ -18,10 +19,11 @@ public class ArticleDao {
 		Connection connection = Base.getConn();
 		
 		PreparedStatement ps = null;
-		String sqlString = "select * from academics";
-		
+		String sqlString = "select * from academics limit ?,?";
 		try {
 			ps = connection.prepareStatement(sqlString);
+			ps.setInt(1, (cpage-1)*count);
+			ps.setInt(2, count);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				Paper paper = new Paper();
@@ -49,7 +51,8 @@ public class ArticleDao {
 		
 		return list;
 	}
-	public static ArrayList<Paper> selectSpecial(String conditionString) {
+	
+public static ArrayList<Paper> selectSpecial(String conditionString) {
 		
 		ArrayList<Paper> list = new ArrayList<Paper>();
 		
@@ -88,7 +91,7 @@ public class ArticleDao {
 				}
 			}
 			
-			sqlString =  "select * from keywords where (keyword like '%"+conditionString+"%')";
+			sqlString =  "select * from keywords where (keyword like '%"+conditionString+"%') ";
 			PreparedStatement ps1 = connection.prepareStatement(sqlString);
 			ResultSet rs1 = ps1.executeQuery();
 			while(rs1.next())
@@ -125,6 +128,39 @@ public class ArticleDao {
 		
 		return list;
 	}
+
+public static int total() {
+	int num=0;
+	ResultSet rs = null;
+	Connection connection = Base.getConn();
+	PreparedStatement ps = null;
+	String sqlString =  "select * from academics";
+	try {
+		ps = connection.prepareStatement(sqlString);
+		rs = ps.executeQuery();
+		while(rs.next()) {
+			num++;
+		}
+	}
+	catch(SQLException e) {
+		e.printStackTrace();
+	}
+	return num;
 }
 
-	
+public static void deletePaper(int academicNum) {
+		Connection connection = Base.getConn();
+		String sqlString = "delete from academics where academicNum= " + academicNum;
+		try {
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(sqlString);
+			
+			sqlString = "delete from keywords where academicNum= " + academicNum;
+			statement.executeUpdate(sqlString);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+}
