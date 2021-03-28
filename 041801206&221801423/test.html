@@ -10,47 +10,40 @@
 </head>
 <body>
 <button id = "abc" >发送一个 HTTP POST 请求页面并获取返回内容</button>
+<div id="res"></div>
 <p id = "bbb">aa</p>
 <script>
 
     var btn = document.getElementById("abc");
     var word = document.getElementById("bbb");
     var xmlhttp;
-    var url = "http://localhost:8080/getTopkeywordsByType";
+    var url = "http://47.119.130.124:90/searchPaperByKeyword";
     btn.onclick= function(){
-        //1.
 
         if(window.XMLHttpRequest){
-            alert("11");
             xmlhttp = new XMLHttpRequest();
         }else{
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
 
         }
-        //2.
         xmlhttp.onreadystatechange = function() {
-            //
-            //
+
             if(xmlhttp.readyState == 4){
-                //
 
                 if(xmlhttp.status == 200) {
-                    //
                     var str = xmlhttp.responseText;
-                    //
                     alert(str);
-                    var json = JSON.parse(str);
-
-                    word.innerText = json;
+                    var div = document.getElementById("res");
+                    div.innerText=str;
+                    // var json = JSON.parse(str);
+                    // word.innerText = json;
 
                 }
             }
         }
-        //3.
         xmlhttp.open("POST",url,true);
-        xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*")
-        //4.
-        xmlhttp.send("{\"type\":\"all\"}");
+        xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+        xmlhttp.send("{\"searchKeyword\":\"Shape\"}");
     }
 </script>
 
