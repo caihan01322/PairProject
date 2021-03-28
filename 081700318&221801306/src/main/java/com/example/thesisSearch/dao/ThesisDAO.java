@@ -15,8 +15,17 @@ public class ThesisDAO {
             Connection ThesisConnection =DBUtil.getConnection();
             Statement ThesisStatement = ThesisConnection.createStatement();
             String sql = "select count(*) from Thesis where "+type+" like ?";
+            if(type.equals("all"))
+            {
+                sql = "select COUNT(*) from Thesis where title like ? OR keyword like ? OR abstract like ?";
+            }
             PreparedStatement Ptmt = ThesisConnection.prepareStatement(sql);
             Ptmt.setString(1, "%" + input + "%");
+            if(type.equals("all"))
+            {
+                Ptmt.setString(2, "%" + input + "%");
+                Ptmt.setString(3, "%" + input + "%");
+            }
             ResultSet Rs = Ptmt.executeQuery();
             if(Rs.next()) {
                 result=Rs.getInt(1);
@@ -37,10 +46,23 @@ public class ThesisDAO {
             ThesisConnection = DBUtil.getConnection();
             Statement ThesisStatement = ThesisConnection.createStatement();
             String sql = "select * from Thesis where "+type+" like ? limit ?,?";
+            if(type.equals("all"))
+            {
+                sql = "select * from Thesis where title like ? OR keyword like ? OR abstract like ? limit ?,?";
+            }
             PreparedStatement Ptmt = ThesisConnection.prepareStatement(sql);
             Ptmt.setString(1, "%" + input + "%");
-            Ptmt.setInt(2,start);
-            Ptmt.setInt(3,length);
+            if(type.equals("all"))
+            {
+                Ptmt.setString(2, "%" + input + "%");
+                Ptmt.setString(3, "%" + input + "%");
+                Ptmt.setInt(4, start);
+                Ptmt.setInt(5, length);
+            }
+            else {
+                Ptmt.setInt(2, start);
+                Ptmt.setInt(3, length);
+            }
             ResultSet Rs = Ptmt.executeQuery();
             while (Rs.next()) {
                 results.add(setThesis(Rs));

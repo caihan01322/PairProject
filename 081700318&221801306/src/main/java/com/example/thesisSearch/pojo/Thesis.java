@@ -10,6 +10,15 @@ public class Thesis {
     private  String abstractContent;
     private  int id;
     private String keyword;
+    private  boolean isliked;
+
+    public void setIsliked(boolean isliked) {
+        this.isliked = isliked;
+    }
+
+    public boolean isIsliked() {
+        return isliked;
+    }
 
     public String getKeyword() {
         return keyword;
