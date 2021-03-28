@@ -77,7 +77,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ],
             [
-                'attribute' => 'link',
+                'attribute' => '链接',
+                'value' => function ($model) {
+                    return Html::a($model->link, "{$model->link}", ['target' => '_blank']);
+                },
+                'format' => 'raw',
             ],
 
             ['class' => 'yii\grid\ActionColumn'],
