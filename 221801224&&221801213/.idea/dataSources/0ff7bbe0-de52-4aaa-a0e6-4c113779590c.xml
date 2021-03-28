@@ -925,12 +925,12 @@ APPLICATION_PASSWORD_ADMIN,AUDIT_ADMIN,BACKUP_ADMIN,BINLOG_ADMIN,BINLOG_ENCRYPTI
     <table id="290" parent="6" name="user"/>
     <column id="291" parent="288" name="userId">
       <Position>1</Position>
-      <DataType>int|0s</DataType>
+      <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
     </column>
     <column id="292" parent="288" name="paperId">
       <Position>2</Position>
-      <DataType>int|0s</DataType>
+      <DataType>bigint|0s</DataType>
     </column>
     <key id="293" parent="288" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
@@ -939,49 +939,46 @@ APPLICATION_PASSWORD_ADMIN,AUDIT_ADMIN,BACKUP_ADMIN,BINLOG_ADMIN,BINLOG_ENCRYPTI
     </key>
     <column id="294" parent="289" name="paperId">
       <Position>1</Position>
-      <DataType>int|0s</DataType>
+      <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="295" parent="289" name="paperSummary">
+    <column id="295" parent="289" name="summary">
       <Position>2</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="296" parent="289" name="paperLink">
+    <column id="296" parent="289" name="link">
       <Position>3</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="297" parent="289" name="paperKeywords">
+    <column id="297" parent="289" name="keyWords">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="298" parent="289" name="paperTitle">
+    <column id="298" parent="289" name="title">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="299" parent="289" name="paperContent">
-      <Position>6</Position>
-      <DataType>text|0s</DataType>
-    </column>
-    <key id="300" parent="289" name="PRIMARY">
+    <key id="299" parent="289" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>paperId</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="301" parent="290" name="userId">
+    <column id="300" parent="290" name="userId">
       <Position>1</Position>
-      <DataType>int|0s</DataType>
+      <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="302" parent="290" name="password">
+    <column id="301" parent="290" name="password">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="303" parent="290" name="account">
+    <column id="302" parent="290" name="account">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <key id="304" parent="290" name="PRIMARY">
+    <key id="303" parent="290" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>userId</ColNames>
       <Primary>1</Primary>

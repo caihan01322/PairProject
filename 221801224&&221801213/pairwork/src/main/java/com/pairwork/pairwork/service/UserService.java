@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-@Service//标识服务
+@Service//变成Spring 容器中的一个bean
 public class UserService {
     @Resource//获得将其他部分资源引入
     private UserDao userDao;
