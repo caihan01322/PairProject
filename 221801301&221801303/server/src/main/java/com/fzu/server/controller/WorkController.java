@@ -15,10 +15,15 @@ import java.util.Map;
 public class WorkController {
     @Autowired
     WorkService ws;
-    @RequestMapping("/query")
+    @RequestMapping("/queryName")
     @ResponseBody
-    public Object query(@RequestBody Map<String,Object> name){
-        return ws.query(name);
+    public Object queryName(@RequestBody Map<String,Object> name){
+        return ws.queryName(name);
+    }
 
+    @RequestMapping("/queryAuthor")
+    @ResponseBody
+    public Object queryAuthor(@RequestBody Map<String,Object> name){
+        return ws.queryAuthor(name);
     }
 }

@@ -14,7 +14,7 @@ import java.util.Map;
 public class WorkService {
     @Autowired
     PaperDao dao;
-    public Object query(Map<String,Object>name){
+    public Object queryName(Map<String,Object>name){
 //        System.out.println(name.get("name"));
 //        Object data = name.get("data");
 //        Map<String,Object> map = (Map<String, Object>) data;
@@ -23,10 +23,21 @@ public class WorkService {
 //        for (String s : arr) {
 //            System.out.println(s);
 //        }
-        List<Paper> paper = dao.getPaper(name.get("name").toString());
+        List<Paper> paper = dao.getPaperByName(name.get("name").toString());
         for (Paper paper1 : paper) {
             paper1.setKeyword(dao.getKeyword(paper1.getID()));
+            paper1.setAuthor(dao.getAuthor(paper1.getID()));
 
+        }
+        Object obj = JSONArray.toJSON(paper);
+        return obj;
+    }
+
+    public Object queryAuthor(Map<String,Object>name){
+        List<Paper> paper = dao.getPaperByAuthor(name.get("name").toString());
+        for (Paper paper1 : paper) {
+            paper1.setKeyword(dao.getKeyword(paper1.getID()));
+            paper1.setAuthor(dao.getAuthor(paper1.getID()));
         }
         Object obj = JSONArray.toJSON(paper);
         return obj;
