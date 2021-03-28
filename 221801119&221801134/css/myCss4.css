@@ -35,7 +35,7 @@ h6 {
 
 @media (min-width: 576px) {
     .container {
-        padding-right: 15px;
+		padding-right: 15px;
         padding-left: 15px;
     }
 }
@@ -270,8 +270,8 @@ h6 {
 
 .sidebar .widget ul {
     list-style: none;
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 .sidebar .blog-list-widget img {
