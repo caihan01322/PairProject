@@ -3,7 +3,7 @@ namespace app\index\model;
 
 use think\Model;
 
-class Paper extends Model
+class paper extends Model
 {
     
 }
