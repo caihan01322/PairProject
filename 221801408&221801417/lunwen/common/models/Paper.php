@@ -68,4 +68,5 @@ class Paper extends \yii\db\ActiveRecord
         Keyword::updateFrequency($this->keywords,'');
     }
   
+
 }
