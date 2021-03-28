@@ -257,7 +257,7 @@ public class ArticleDao {
      * @param 无
      * @return list
      * */
-    public List<String> findTop(){
+    public List<String> findTop() {
         List<String> list = new ArrayList();
         String sql = "select * from cvpr union select * from eccv union select * from iccv;";
         String str = "";
@@ -270,6 +270,34 @@ public class ArticleDao {
             }
             result.close();
             statement.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        list = WordCountUtils.sortHashmap(str);
+        return list;
+    }
+    
+    /*
+     * 根据年份和会议名来确定热词
+     * @param year name
+     * @return list
+     * */
+    public List<String> findKwds(String year, String name) {
+        List<String> list = new ArrayList();
+        String sql = "select kwds,year from ? where year=?;";
+        String str = "";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, name);
+            pre.setString(2, year);
+            ResultSet result = pre.executeQuery();
+            while(result.next()) {
+                String kwds = result.getString("kwds").toString();
+                str += kwds;
+            }
+            result.close();
+            pre.close();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

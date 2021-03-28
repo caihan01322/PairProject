@@ -80,10 +80,19 @@ public class ArticleController {
     
     @RequestMapping("/kwds/top10")
     @ResponseBody
-    public List<String> findTop(){
+    public List<String> findTop() {
         ArticleDao dao = new ArticleDao();
         dao.setConnection(DatabaseUtils.connectToArticles());
         List<String> a = dao.findTop();
+        return a;
+    }
+    
+    @RequestMapping("kwds/year")
+    @ResponseBody
+    public List<String> findKwds(String year, String name) {
+        ArticleDao dao = new ArticleDao();
+        dao.setConnection(DatabaseUtils.connectToArticles());
+        List<String> a = dao.findKwds(year, name);
         return a;
     }
 }
