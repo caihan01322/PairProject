@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>注册</title>
+    <title>登录</title>
 
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../LayUI/css/layui.css">
@@ -24,14 +24,14 @@
                     <span class="icon-bar"></span>
                 </button>
                 <!--首页图标-->
-                <a class="navbar-brand glyphicon glyphicon-home" href="#"> 首页 </a>
+                <a class="navbar-brand glyphicon glyphicon-home" href="Index.html"> 首页 </a>
             </div>
     
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">论文检索 <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">数据分析</a></li>
+                    <li><a href="PaperList.html">论文检索 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="KeywordAtlas.html">数据分析</a></li>
                 </ul>
                 <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
@@ -46,12 +46,10 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">昵称 <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#">个人主页</a></li>
+                            <li class="divider"></li>
                             <li><a href="#">收藏夹</a></li>
+                            <li class="divider"></li>
                             <li><a href="#">问答中心</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -83,6 +81,8 @@
                 </div>
             </form>
                
+
+            
               <script>
               //Demo
               layui.use('form', function(){
@@ -99,5 +99,14 @@
         </div>
 
     </div>
+
+
+
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
