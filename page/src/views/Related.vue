@@ -3,7 +3,7 @@
     <div class='related'>
         <a-page-header
             style="border: 1px solid rgb(235, 237, 240); background: #fff;"
-            title="关键词"
+            :title="keyword"
             :breadcrumb="{ props: { routes } }"
         />
         <a-layout-content
@@ -35,6 +35,8 @@
 </template>
 
 <script>
+
+import request from '../request/request'
 
 export default {
     name: 'Related',
@@ -88,13 +90,23 @@ export default {
                     meeting: "CCCC"
                 }
             ],
+            keyword: "",
         }
     },
     methods: {
         changeLabel(){
             
+        },
+        getTableData(page) {
+            // request.
         }
-    }
+    },
+    mounted() {
+        // console.log()
+        const url = decodeURI(window.location.hash.split("?")[1].split("=")[1]);
+        console.log(url);
+        this.keyword = url;
+    },
 }
 </script>
 <style lang='scss' scoped>

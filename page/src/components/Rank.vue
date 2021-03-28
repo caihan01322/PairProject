@@ -3,12 +3,12 @@
     <div class='rank'>
         <div class="tabs">
             <a-tabs default-active-key="1" @change="changeTab">
-                <a-tab-pane key="1" tab="CVPR">
+                <a-tab-pane key="1" tab="ECCV">
                     <div class="title">
                         <h3>热门领域</h3>
                     </div>
                     <div class="table_container">
-                        <rank-table></rank-table>
+                        <rank-table :tableData="tableData"></rank-table>
                     </div>
                 </a-tab-pane>
                 <a-tab-pane key="2" tab="ICCV">
@@ -16,15 +16,15 @@
                         <h3>热门领域</h3>
                     </div>
                     <div class="table_container">
-                        <rank-table></rank-table>
+                        <rank-table :tableData="tableData"></rank-table>
                     </div>
                 </a-tab-pane>
-                <a-tab-pane key="3" tab="ECCV">
+                <a-tab-pane key="3" tab="CVPR">
                     <div class="title">
                         <h3>热门领域</h3>
                     </div>
                     <div class="table_container">
-                        <rank-table></rank-table>
+                        <rank-table :tableData="tableData"></rank-table>
                     </div>
                 </a-tab-pane>
             </a-tabs>
@@ -33,21 +33,39 @@
 </template>
 
 <script>
+
 import RankTable from './RankTable.vue'
+
+import request from '../request/request'
 
 export default {
     name: 'Rank',
     components: {RankTable},
     data () {
         return {
-
+            tableData: []
         }
     },
     methods: {
-        changeTab(){
-
+        changeTab(value){
+            console.log(value);
+            this.getTableData(value, 1);
+        },
+        getTableData(label, page) {
+            let that = this;
+            request.getRank({
+                meeting: label,
+                page: page
+            })
+            .then((res)=>{
+                console.log(res);
+                that.tableData = res;
+            })
         }
-    }
+    },
+    mounted() {
+        this.getTableData(1, 1);
+    },
 }
 </script>
 <style lang='scss' scoped>

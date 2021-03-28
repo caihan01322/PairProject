@@ -146,7 +146,7 @@ const request = {
     getRank: async (data) => {
         console.log("get req:");
         console.log(data);
-        return {
+        let res =  {
             error: 0,
             result: [
                 {
@@ -176,6 +176,17 @@ const request = {
                 },
             ]
         }
+        let newRes = [];
+        for(let i=0; i<res.result.length; i++) {
+            let inner = {
+                index: i+1,
+                keyword: res.result[i].keyword,
+                pages: res.result[i].pages,
+                riserate: res.result[i].riserate,
+            };
+            newRes.push(inner);
+        }
+        return newRes;
     },
     // 热词折线图数据获取
     getHotwordLine: async (data) => {

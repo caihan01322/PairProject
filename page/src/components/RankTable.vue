@@ -1,11 +1,11 @@
 <!--  -->
 <template>
     <div class='table'>
-        <a-table :columns="columns" :data-source="rankData" size="small">
+        <a-table :columns="columns" :data-source="tableData" size="small">
             <router-link 
                 slot="keyword"
                 slot-scope="text"
-                to="related"
+                :to="'related?keyword='+text"
             >{{text}}</router-link>
         </a-table>
     </div>
@@ -21,7 +21,7 @@ export default {
             columns: [
                 {
                     title: '排名',
-                    dataIndex: 'rank',
+                    dataIndex: 'index',
                     width: "10%"
                 },
                 {
@@ -32,13 +32,13 @@ export default {
                 },
                 {
                     title: '论文数',
-                    dataIndex: 'size',
+                    dataIndex: 'pages',
                     align: 'right',
                     width: "25%"
                 },
                 {
                     title: '年涨幅',
-                    dataIndex: 'growth',
+                    dataIndex: 'riserate',
                     align: 'right',
                     width: "25%"
                 },
@@ -53,9 +53,15 @@ export default {
             ]
         }
     },
+    props: {
+        tableData: Array,
+    },
     methods: {
 
-    }
+    },
+    mounted() {
+        console.log(this.tableData);
+    },
 }
 </script>
 <style lang='scss' scoped>
