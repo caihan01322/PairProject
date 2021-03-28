@@ -4,7 +4,7 @@ $(document).ready(function () {
 
   option = {
     title: {
-      text: "热度前20关键词统计",
+      text: "TOP20关键词统计",
       left: "center",
     },
     tooltip: {
@@ -51,7 +51,13 @@ $(document).ready(function () {
         //如果请求成功，返回数据。
         $.each(data, function (i, item) {
           legendData.push(item.keyword);
-          seriesData.push({ name: item.keyword, value: item.nums });
+          seriesData.push({
+            name: item.keyword,
+            value: item.nums,
+            url:
+              "http://localhost:8080/thesisSearch_war_exploded/Search?searchtype=title&input=" +
+              item.keyword,
+          });
           console.log(seriesData[i]);
         });
       },
@@ -64,4 +70,9 @@ $(document).ready(function () {
   }
 
   myChart.setOption(option);
+  myChart.on("click", function (param) {
+    //console.log(param);
+    var url = param.data.url;
+    window.location.href = url;
+  });
 });

@@ -1,0 +1,14 @@
+package com.example.thesisSearch.service;
+
+import com.example.thesisSearch.dao.KeywordsDAO;
+import com.example.thesisSearch.pojo.HotWord;
+
+import java.util.List;
+
+public class CountService  {
+    public  List<HotWord> count()
+    {
+        KeywordsDAO Kd=new KeywordsDAO();
+        return Kd.getHotkey();
+    }
+}
