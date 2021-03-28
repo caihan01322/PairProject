@@ -26,7 +26,7 @@ import java.util.List;
  * @author 221801318_黄贸之
  * @Date 2021/3/26
  */
-public class analysis {
+public class AnalysisPaperUtil {
     private static final Charset ENCODING = StandardCharsets.UTF_8;
     static String ECCV_ROOT = "E://Paper/ECCV";
     static String ICCV_ROOT = "E://Paper/ICCV";

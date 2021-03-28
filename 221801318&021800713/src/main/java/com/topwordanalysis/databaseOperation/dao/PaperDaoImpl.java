@@ -13,7 +13,10 @@ import java.util.List;
 public class PaperDaoImpl implements BaseCRUD<Paper>{
     @Override
     public int create(Paper dataClass) {
-        return 0;
+        String sql="insert into paper(title,link,paperAbstract,type,year) values(?,?,?,?,?)";
+        Object[] paramsValue={dataClass.getTitle(), dataClass.getLink(), dataClass.getPaperAbstract(),dataClass.getType(),dataClass.getYear()};
+        baseDao.update(sql,paramsValue);
+        return -1;
     }
 
     /**
@@ -42,13 +45,14 @@ public class PaperDaoImpl implements BaseCRUD<Paper>{
      */
     @Override
     public List<Paper> readByKey(String[] propertyName, Object[] value) {
-        String head="select * from Paper where ";
+        String head="select * from paper where ";
         if (propertyName.length<1){
             List<Paper> paperList=baseDao.query(head,value,Paper.class);
             return paperList.size()>0?paperList:null;
         }
         String sql=head;
-        sql=sql+propertyName[0]+" like %";
+        sql=sql+propertyName[0]+" like ?";
+        System.out.println(sql);
         List<Paper> paperList=baseDao.query(sql,value,Paper.class);
         return paperList.size()>0?paperList:null;
     }
@@ -65,5 +69,10 @@ public class PaperDaoImpl implements BaseCRUD<Paper>{
         return null;
     }
 
+    public List<Paper> readAll(){
+        String sql="select  * from paper";
+        List<Paper> paperList = baseDao.query(sql,null,null);
+        return paperList;
+    }
 
 }
