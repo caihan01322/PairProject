@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
     <link rel="stylesheet" href="https://fonts.g.forms.cn/icon?family=Material+Icons">
-    <link rel="stylesheet" href="assets/css/index.css">
-    <link rel="stylesheet" href="assets/css/header.css">
+    <link rel="stylesheet" href={{url_for("static",filename="css/header.css")}}>
+    <link rel="stylesheet" href={{url_for("static",filename="css/index.css")}}>
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <title>主页</title>
 </head>
@@ -18,15 +18,15 @@
         <header>
             <nav class="navigater">
                 <div class="logo">
-                    <img src="../templates/assets/images/favicon.png" alt="logo" class="image" />
+                    <img src={{url_for("static",filename="images/favicon")}} alt="logo" class="image" />
                     <h3 class="title">iPaper</h3>
                 </div>
                 <ul class=" menu">
-                    <li class="nav-item"><a href="index.html" class="nav-href active">Home</a></li>
-                    <li class="nav-item"><a href="{{url_for(" search_view")}}" class="nav-href">Search</a></li>
-                    <li class="nav-item"><a href="./contact.html"class="nav-href">Contact</a></li>
-                    <!-- <li class="nav-item"><a href="{{url_for(" hot_keywords_view")}} class="nav-href"">热词</a></li> -->
-                    <li class="nav-item"><a href="{{url_for(" login_view")}} class="nav-href"">Sign in</a></li>
+                    <li class="nav-item"><a href={{url_for("index")}} class="nav-href">Home</a></li>
+                <li class="nav-item"><a href={{url_for("search_view")}} class="nav-href">Search</a></li>
+                <li class="nav-item"><a href="./contact.html" class="nav-href">Contact</a></li>
+                <!-- <li class="nav-item"><a href="{{url_for("hot_keywords_view")}}" class="nav-href">热词</a></li> -->
+                <li class="nav-item"><a href={{url_for("login_view")}} class="nav-href">Sign in</a></li>
                 </ul>
             </nav>
         </header>
@@ -40,7 +40,7 @@
                 </button>
             </div>
             <div class="main-right">
-                <img src="./assets/images/1.png" alt="picture" class="main-picture"/>
+                <img src={{url_for("static",filename="css/1.png")}} alt="picture" class="main-picture"/>
             </div>
 
         </main>

@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
     <link rel="stylesheet" href="https://fonts.g.forms.cn/icon?family=Material+Icons">
-    <link rel="stylesheet" href="assets/css/header.css">
-    <link rel="stylesheet" href="assets/css/login.css">
+    <link rel="stylesheet" href={{url_for("static",filename="css/header.css")}}>
+    <link rel="stylesheet" href={{url_for("static",filename="css/login.css")}}>
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <title>Sign in</title>
 </head>
@@ -17,15 +17,15 @@
     <header>
         <nav class="navigater">
             <div class="logo">
-                <img src="../templates/assets/images/favicon.png" alt="logo" class="image" />
+                <img src={{url_for("static",filename="images/favicon")}} alt="logo" class="image" />
                 <h3 class="title">iPaper</h3>
             </div>
             <ul class=" menu">
-                <li class="nav-item"><a href="index.html" class="nav-href">Home</a></li>
-                <li class="nav-item"><a href="{{url_for(" search_view")}}" class="nav-href">Search</a></li>
+                <li class="nav-item"><a href={{url_for("index")}} class="nav-href">Home</a></li>
+                <li class="nav-item"><a href={{url_for("search_view")}} class="nav-href">Search</a></li>
                 <li class="nav-item"><a href="./contact.html" class="nav-href">Contact</a></li>
-                <!-- <li class="nav-item"><a href="{{url_for(" hot_keywords_view")}}" class="nav-href">热词</a></li> -->
-                <li class="nav-item"><a href="{{url_for(" login_view")}} class="nav-href active">Sign in</a></li>
+                <!-- <li class="nav-item"><a href="{{url_for("hot_keywords_view")}}" class="nav-href">热词</a></li> -->
+                <li class="nav-item"><a href={{url_for("login_view")}} class="nav-href active">Sign in</a></li>
             </ul>
         </nav>
     </header>
@@ -33,7 +33,7 @@
         <div class="main-top">
             <h3 class="login-title">Sign in</h3>
             <p class="main-para">You don't have a password? Then please</p>
-            <p class="main-href"><a href="{{url_for(" register_view")}}" class="main-href ">Sign up</a></p>
+            <p class="main-href"><a href={{url_for("register_view")}} class="main-href ">Sign up</a></p>
         </div>
         <form method="POST" action="/login">
             <fieldset class="login-form">
