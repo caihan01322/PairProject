@@ -1,5 +1,6 @@
 package com.fzu.server.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fzu.server.service.WorkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,8 @@ public class WorkController {
     WorkService ws;
     @RequestMapping("/query")
     @ResponseBody
-    public String query(@RequestBody Map<String,Object> name){
-        ws.query(name);
+    public Object query(@RequestBody Map<String,Object> name){
+        return ws.query(name);
 
-        return null;
     }
 }

@@ -24,4 +24,5 @@ public interface PaperDao {
     void addAuthor(int pID,String author);
 
     List<Paper> getPaper(String name);
+    List<String> getKeyword(Integer id);
 }

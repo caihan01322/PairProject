@@ -26,9 +26,9 @@ public class Paper {
         this.year = year;
         this.time = time;
         this.name = name;
-        this.author = author;
+        this.author = new ArrayList<>(author);
         this.link = link;
-        this.keyword = new ArrayList<String>(keyword);
+        this.keyword = new ArrayList<>(keyword);
     }
 
     public void setID(int ID) {

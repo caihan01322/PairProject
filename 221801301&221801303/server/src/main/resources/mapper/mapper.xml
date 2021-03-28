@@ -101,6 +101,9 @@
 
     <select id="getPaper" resultType="com.fzu.server.pojo.Paper">
         <bind name="name" value="'%'+_parameter+'%'"/>
-        select * from paper where name like #{name};
+        select * from paper where name like #{name} limit 50;
+    </select>
+    <select id="getKeyword" resultType="java.lang.String">
+        select keyword from keyword where pid = #{id} limit 5;
     </select>
 </mapper>

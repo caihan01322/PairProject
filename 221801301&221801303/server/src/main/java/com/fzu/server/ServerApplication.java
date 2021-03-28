@@ -30,10 +30,19 @@ public class ServerApplication {
 
     @PostConstruct
     public void setJSON() throws IOException {
-        inj.getECCVJson();
-        inj.getCVPRJson();
-        inj.getICCVJson();
+//        inj.getECCVJson();
+//        inj.getCVPRJson();
+//        inj.getICCVJson();
 //        List<Paper> paper = dao.getPaper("IEEE/CVF Conference on Computer Vision and Pattern Recognition");
+//        for (Paper paper1 : paper) {
+//           paper1.setKeyword(dao.getKeyword(paper1.getID()));
+////           System.out.println(paper1.getKeyword());
+//
+//        }
+//        Object o = JSONArray.toJSON(paper);
+//
+//
+//
 //        System.out.println("wait");
     }
 
