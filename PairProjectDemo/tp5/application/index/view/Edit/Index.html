@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <title>编辑论文列表页面</title> 
+    <link rel="stylesheet" href="//unpkg.com/element-ui/lib/theme-chalk/index.css"/>
+    <style type = "text/css">
+    body{
+    }
+    #app{
+        width: 100%;
+        text-align: center;
+    }
+    el-header{
+        text-align: center;
+        font-size: 20px;
+    }
+    #searchBar{
+        margin:5% auto 5%;
+        width: 60%;
+        text-align: center;
+    }
+
+   
+    </style>
+
+    <script src="//unpkg.com/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/element-ui/lib/index.js"></script>
+    
+</head>
+<body>
+    <div id = "app">
+            <el-header height = "100dp" >编辑论文列表页面</el-header>
+    <div id = "searchBar"> 
+        <el-form :inline="true"  style="text-align: center;width:auto">
+            <el-row>
+                <el-form-item>
+                    <el-input v-model = "input" placeholder="请输入关键字" style="width:600px"></el-input>
+                    <el-button style="width:100px">搜索</el-button>
+                </el-form-item>
+            </el-row>
+        </el-form>
+    </div> 
+
+    <div id = "table">`
+        <template>
+            <el-table :data="tableData.slice((currPage-1)*limitCount,currPage*limitCount)" border style = "width:100%" >
+                <el-table-column fixed prop = "title" label="论文题目" align="center" min-width="20%"></el-table-column>
+                <el-table-column fixed prop = "abstract" label="论文摘要"  align="center" min-width="30%">
+                    <template slot-scope="scope" >
+                        <span>{{scope.row.abstract|ellipsis}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column fixed prop = "keyword" label="论文关键词" align="center" min-width="30%">
+                    <template slot-scope="scope" >
+                        <span>{{scope.row.keyword|ellipsis}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column fixed prop = "url" label="论文链接" align="center" min-width="10%">
+                    <template slot-scope="scope">
+                        <span class="span-text" v-if="scope.row.link!== undefined && scope.row.link.length >=1">
+                            <a link :href="scope.row.link" target="_blank">原文链接</a>
+                        </span>
+                    </template>
+                </el-table-column>
+                <el-table-column fixed prop = "operation" label="操作" align="center" min-width="15%">
+                    <template slot-scope="scope">
+                        <el-button @click="handleClick(scope.row)" type="primary" size="small">编辑</el-button>
+                        <el-button @click="handleClick(scope.row)" type="danger" size="small">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </template>
+    </div>
+
+    <div id = "page">
+        <el-pagination
+            @current-change="currentChange"
+            :current-page= "currPage"
+            layout = "prev, pager, next"
+            :total="{$count}"
+            style="text-align: center"
+        >
+        </el-pagination>
+    </div>
+    </div>
+
+    
+    <script type = "text/javascript">
+        var aa = {$tableData|raw};
+        
+        var Main = {
+            methods:{
+                handlerClick(row){
+                    console.log(row)
+                },
+                currentChange(val){
+                    console.log(val);
+                    this.currPage = val;
+                }
+            },
+            data(){
+                return {
+                    tableData:aa,
+                    limitCount:4,
+                    currPage : 1,
+                    
+                    input:'',
+                }
+            },
+            filters: {
+                ellipsis(value) {
+                if (!value) return "";
+                if (value.length > 150) {
+                    return value.slice(0, 150) + "...";
+                }
+            return value;
+            }
+        },
+ }
+        var Ctor = Vue.extend(Main)
+        new Ctor().$mount('#app') 
+    </script>
+    
+</body>
+</html>
