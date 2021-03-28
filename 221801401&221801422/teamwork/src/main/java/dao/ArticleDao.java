@@ -250,7 +250,5 @@ public class ArticleDao {
             e.printStackTrace();
         }
     }
-    
-    @Select("select * from articles;")
-    List<Article>  selectAll();
+
 }
