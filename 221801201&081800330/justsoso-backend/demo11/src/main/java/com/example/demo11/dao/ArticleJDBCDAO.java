@@ -22,4 +22,5 @@ public interface ArticleJDBCDAO
     Set<String> getAllkeywords();
     int deleteCollections(String Account,int []academicNum);
     List<hotkey> top20();
+
 }
