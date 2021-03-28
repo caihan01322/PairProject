@@ -38,6 +38,7 @@ $this->registerCss($cssString);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => '论文管理', 'url' => ['/paper/index']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
