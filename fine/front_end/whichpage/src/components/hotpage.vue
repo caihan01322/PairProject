@@ -63,7 +63,50 @@ export default {
         };
     },
 
-    created() {},
+    created() {
+        this.$axios({
+            method: "GET",
+            url: `/tag/pie`,
+        }).then((re) => {
+            console.log(re);
+            if (re.data.error == 0) {
+                let { pie_data, radar_data } = re.data.data;
+                this.pie_data = pie_data;
+                this.radar_tag = radar_data;
+            }
+        });
+
+        this.$axios({
+            method: "GET",
+            url: `/tag/line`,
+        }).then((re) => {
+            console.log(re);
+            if (re.data.error == 0) {
+                let {
+                    ic_data,
+                    cv_data,
+                    hot_word,
+                    ec_data,
+                    year,
+                } = re.data.data;
+                this.ic_data = ic_data;
+                this.cv_data = cv_data;
+                this.hot_word = hot_word;
+                this.ec_data = ec_data;
+                this.year = year;
+            }
+        });
+
+        this.$axios({
+            method:"GET",
+            url:`/tag/radar`,
+        }).then((re)=>{
+            console.log(re);
+            if(re.data.error==0) {
+                this.radar_data=re.data.data;
+            }
+        })
+    },
 
     mounted() {
         this.draw_pie();

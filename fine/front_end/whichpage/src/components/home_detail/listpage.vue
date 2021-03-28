@@ -34,7 +34,7 @@
                     align="center"
                 ></el-table-column>
                 <el-table-column
-                    prop="name"
+                    prop="title"
                     label="论文名"
                     width="280"
                     align="center"
@@ -104,7 +104,7 @@ export default {
             this.search_page();
             localStorage.removeItem("tag");
         } else {
-             this.show_page();
+            this.show_page();
         }
     },
 
@@ -135,7 +135,7 @@ export default {
             //     target = target.parentNode;
             // }
             // target.blur();
-             this.show_page();
+            this.show_page();
         },
 
         go_detail(isbn) {
@@ -177,7 +177,7 @@ export default {
 
             this.now_page--;
 
-             this.show_page();
+            this.show_page();
         },
 
         go_next(e) {
@@ -206,9 +206,9 @@ export default {
             }).then((re) => {
                 // console.log(re);
                 if (re.data.error == 0) {
-                    let { result } = re.data.result;
-                    this.page_data = result.pages;
-                    this.total_page = result.total_num;
+                    let { data } = re.data.data;
+                    this.page_data = data.pages;
+                    this.total_page = data.total_num;
                 }
             });
         },

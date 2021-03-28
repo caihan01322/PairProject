@@ -20,7 +20,7 @@
                 >
                 </el-table-column>
                 <el-table-column
-                    prop="name"
+                    prop="title"
                     label="论文题目"
                     width="280"
                     align="center"
@@ -57,48 +57,7 @@ export default {
     data() {
         return {
             page_name: "",
-            insert_data: [
-                {
-                    isbn: "19398261",
-                    name:
-                        "FaceForensics++: Learning to Detect Manipulated Facial Images",
-                    tag:
-                        "facial manipulation detection,Deep-Fakes,Face2Face,facial manipulations,random compression level,forgery datasets",
-                },
-                {
-                    isbn: "19398261",
-                    name:
-                        "FaceForensics++: Learning to Detect Manipulated Facial Images",
-                    tag:
-                        "facial manipulation detection,Deep-Fakes,Face2Face,facial manipulations,random compression level,forgery datasets",
-                },
-                {
-                    isbn: "19398261",
-                    name:
-                        "FaceForensics++: Learning to Detect Manipulated Facial Images",
-                    tag:
-                        "facial manipulation detection,Deep-Fakes,Face2Face,facial manipulations,random compression level,forgery datasets",
-                },
-                {
-                    isbn: "19398261",
-                    name:
-                        "FaceForensics++: Learning to Detect Manipulated Facial Images",
-                    tag:
-                        "facial manipulation detection,Deep-Fakes,Face2Face,facial manipulations,random compression level,forgery datasets",
-                },
-                {
-                    isbn: "19398261",
-                    name:
-                        "FaceForensics++: Learning to Detect Manipulated Facial Images",
-                    tag:
-                        "facial manipulation detection,Deep-Fakes,Face2Face,facial manipulations,random compression level,forgery datasets",
-                },
-                {
-                    isbn: "2016-05-03",
-                    name: "王小虎",
-                    tag: "上海市普陀区金沙江路 1516 弄",
-                },
-            ],
+            insert_data: [],
         };
     },
 
@@ -109,6 +68,22 @@ export default {
                 target = target.parentNode;
             }
             target.blur();
+
+            let data = {
+                title: this.page_name,
+            };
+
+            this.$axios({
+                url: `/insert/search`,
+                method: "POST",
+                data: data,
+            }).then((re) => {
+                console.log(re);
+                if (re.data.error == 0) {
+                    let { data } = re.data.data;
+                    this.insert_data = data.pages;
+                }
+            });
         },
 
         file_insert(e) {
@@ -117,6 +92,12 @@ export default {
                 target = target.parentNode;
             }
             target.blur();
+            this.$notify({
+                title: "消息",
+                message: "暂未开放，敬请期待",
+                type: "warning",
+                showClose: false,
+            });
         },
 
         insert_page(isbn, e) {
@@ -125,6 +106,26 @@ export default {
                 target = target.parentNode;
             }
             target.blur();
+
+            this.$axios({
+                method: "GET",
+                url: `/insert/add/${isbn}`,
+            }).then((re) => {
+                console.log(re);
+                if (re.data.error == 0) {
+                    this.$message({
+                        message: "导入成功",
+                        type: "success",
+                    });
+
+                    this.insert_data.some((item, i) => {
+                        if (item.isbn == isbn) {
+                            this.insert_data.splice(i, 1);
+                            return true;
+                        }
+                    });
+                }
+            });
 
             console.log(isbn);
         },
