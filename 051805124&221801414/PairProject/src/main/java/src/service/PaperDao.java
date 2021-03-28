@@ -11,24 +11,44 @@ import src.PaperBean;
 public class PaperDao {
 	
 	public static ArrayList<PaperBean> searchPaper(String content, String option, int curpage) {
+		int start = (curpage-1)*5;
+		if(content == null || content.equals("")) {
+			String sql = "select * from article limit "+start+",5";
+			System.out.println(sql);
+			return Basedao.searchPaper(sql);
+		}
 		if( !option.equals("keyword")) {
-			String sql = "select * from article where " + option + " like \"%" + content + "%\" limit "+(curpage-1)*5 + "," + "5";
+			String sql = "select * from article where " + option + " like \"%" + content + "%\" limit "+start + ",5";
 			System.out.println(sql);
 			return Basedao.searchPaper(sql);
 		}
 		else {
 			String sql = "select * from article where id in "
-				+ "(select id from keywords where keyword like \"%"+content+"%\")";
+				+ "(select id from keywords where keyword like \"%"+content+"%\") limit "+start+",5";
 			System.out.println(sql);
 			return Basedao.searchPaper(sql);
 		}
-		
 	}
-	public static ArrayList<PaperBean> showAll() {
-			String sql = "select * from article ";
+	
+	public static int getItemNum(String content, String option) {
+		if(content == null || content.equals("")) {
+			String sql = "select count(*) from article";
 			System.out.println(sql);
-			return Basedao.searchPaper(sql);
+			return Basedao.getItemNum(sql);
+		}
+		if( !option.equals("keyword")) {
+			String sql = "select count(*) from article where " + option + " like \"%" + content + "%";
+			System.out.println(sql);
+			return Basedao.getItemNum(sql);
+		}
+		else {
+			String sql = "select count(*) from article where id in "
+				+ "(select id from keywords where keyword like \"%"+content+"%\")";
+			System.out.println(sql);
+			return Basedao.getItemNum(sql);
+		}
 	}
+
 	public static PaperBean showPaper(int id) {
 		String sql = "select * from article where id = "+ id;
 		System.out.println(sql);

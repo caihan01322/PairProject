@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -92,6 +93,26 @@ public class Basedao {
 			Basedao.closeAll(ps,conn);
 		}
 		return res;
+	}
+	
+	public static int getItemNum(String sql) {
+		Connection conn = Basedao.getconnection();
+		ResultSet rs = null;
+		PreparedStatement ps = null;
+		int count = 0;
+		try {
+			Statement stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			Basedao.closeAll(ps,conn);
+		}
+		return count;
 	}
 	
 	public static String getKeyWord(String sql){

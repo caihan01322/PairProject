@@ -54,7 +54,7 @@
             </form>
     	</div>
     	
-    	<table style="border-bottom: 2px solid #666; border-collapse: collapse; margin-top: 10px;width:100%">
+    	<table style="border-bottom: 2px solid #666; border-collapse: collapse; margin-top: 10px;width:100%;display: ${paperlist.size()==0?none:block};">
     		<tr>
     			<th class="td">标题</th>
     			<th class="td">关键词</th>
