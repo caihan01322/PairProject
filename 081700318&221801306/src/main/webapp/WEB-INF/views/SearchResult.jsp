@@ -48,10 +48,11 @@
                 for(Thesis i:result)
                     {%>
                     <li class="list-group-item">
-                        <h3><%=i.getTitle()%></h3>
+                        <h3><a  href="<%=i.getLink()%>"><%=i.getTitle()%></a></h3>
                         <div class='thesis-content'><%=i.getAbstractContent()%>
                         </div>
-                        <a class='thesis-link' href="<%=i.getLink()%>">原文链接</a>
+                        <div class='thesis-content'><%=i.getKeyword()%>
+                        </div>
                         <a class="btn btn-default thesis-star" href="#" role="button">收藏</a>
                     </li>
                     <%}

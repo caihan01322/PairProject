@@ -33,7 +33,7 @@ public class KeywordsDAO {
         }
         return results;
     }
-    public List<HotWord> getHotkeyByYear(int year)
+    public List<HotWord> getHotkeyByYearAndMeeting(int year,String meeting)
     {
         List<HotWord> results=new ArrayList<>();
         Connection ThesisConnection = null;
@@ -41,12 +41,13 @@ public class KeywordsDAO {
             ThesisConnection = DBUtil.getConnection();
             Statement ThesisStatement = ThesisConnection.createStatement();
             String sql = "SELECT keyword, count( * ) AS count " +
-                    "from Keywords where year= ?" +
+                    "from Keywords where Thesisyear = ? AND meeting=? " +
                     "GROUP BY keyword " +
                     "ORDER BY count DESC " +
                     "LIMIT 20";
             PreparedStatement Ptmt = ThesisConnection.prepareStatement(sql);
-            Ptmt.setInt(year,1);
+            Ptmt.setInt(1,year);
+            Ptmt.setString(2, meeting);
             ResultSet Rs = Ptmt.executeQuery();
             while (Rs.next()) {
                 results.add(setHotWord(Rs));

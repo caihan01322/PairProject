@@ -97,6 +97,7 @@ public class ThesisDAO {
             result.setMeeting(Rs.getString("meeting"));
             result.setYear(Rs.getInt("thesisyear"));
             result.setTitle(Rs.getString("title"));
+            result.setKeyword(Rs.getString("keyword"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
