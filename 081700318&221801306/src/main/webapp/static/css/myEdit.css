@@ -20,6 +20,7 @@
 .thesis-content {
   text-align: left;
   text-indent: 2em;
+  display: inline-block;
 }
 .thesis-star {
   text-align: right;
