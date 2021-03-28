@@ -72,7 +72,7 @@
     <div class="row" style="margin-top: 30px">
         <div class="col" id="searchResult">
             <button type="button" class="btn btn-primary" id="abc">获取论文</button>
-            <div class="shadow-lg p-3 mb-5 bg-white rounded" id="res">大阴影</div>
+
 
         </div>
 
@@ -100,9 +100,17 @@
             lod.appendChild(lods);
             par.appendChild(lod);
 
-        // <div class="spinner-border" role="status">
-        //         <span class="sr-only">Loading...</span>
+        // <div class="card">
+        //         <div class="card-header">
+        //         Featured
+        //         </div>
+        //         <div class="card-body">
+        //         <h5 class="card-title">Special title treatment</h5>
+        //     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        //     <a href="#" class="btn btn-primary">Go somewhere</a>
         //     </div>
+        //     </div>
+
             xmlhttp.onreadystatechange = function() {
 
                 if(xmlhttp.readyState == 4){
@@ -115,30 +123,20 @@
                         var arr = eval('('+str+')');
                         for(var i=0;i<arr.length;i++){
                             console.log(arr[i].link);
-                            var div2 = document.createElement("div");
-                            div2.setAttribute('class', 'shadow-lg p-3 mb-5 bg-white rounded');
-                            div2.innerText=arr[i].link;
-                            // div2.innerText=resJson.get(i).toString();
-                            par.appendChild(div2);
-                        }
-                        // var resJson = JSON.parse(str);
-                        // for (i=0;i<resJson.size;i++){ alert(resJson.size+"JSON长度");
-                        //     var div2 = document.createElement("div");
-                        //     div2.setAttribute('class', 'shadow-lg p-3 mb-5 bg-white rounded');
-                        //     div2.innerText="1";
-                        //     // div2.innerText=resJson.get(i).toString();
-                        //     div.appendChild(div2);
-                        // }
-                        // var div = document.getElementById("res");
-                        // div.innerText=str;
-                        // var t = "[{'name':'xxx'},{'name':'yyy'}]";
-                        // var arr = eval('('+t+')');
-                        // for(var i=0;i<arr.length;i++){
-                        //     console.log(arr[i].name);
-                        // }
-                        // var json = JSON.parse(str);
-                        // word.innerText = json;
+                            var cardDiv = document.createElement("div");
+                            cardDiv.setAttribute('class', 'card');
+                            var cardHeaderDiv=document.createElement("div");
+                            cardHeaderDiv.innerText=arr[i].typeandyear;
+                            var  cardBodyDiv=document.createElement("div");
+                            cardBodyDiv.setAttribute("class","card-body");
+                            var bodyH5=document.createElement("h5");
+                            bodyH5.setAttribute("class","card-title");
+                            bodyH5.innerText=arr[i].title;
+                            cardBodyDiv.appendChild(bodyH5);  //到H5
 
+                            // div2.innerText=resJson.get(i).toString();
+                            par.appendChild(cardDiv);
+                        }
                     }
                 }
             }
