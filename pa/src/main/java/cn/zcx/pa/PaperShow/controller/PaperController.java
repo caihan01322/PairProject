@@ -48,10 +48,14 @@ public class PaperController
   }
 
 
+
+
+
   @GetMapping("/paper/{id}")
-  public String getPaperById(@PathVariable("id") String id)
+  public String getPaperById(@PathVariable("id") String id,Model model)
   {
-    return paperService.getPaperById(id).toString();
+    model.addAttribute("paper",paperService.getPaperById(id));
+    return "essayDetail";
   }
 
   @GetMapping("/delete/{id}")
@@ -70,18 +74,15 @@ public class PaperController
     Map<String,Object> params=new HashMap<>();
     if(!title.equals(""))
     {
-      System.out.println("t not null");
       params.put(tmode==0?"etitle":"vtitle",title);
     }
     if(!keyword.equals(""))
     {
-      System.out.println("k not null");
-      params.put(tmode==0?"ekeyword":"vkeyword",keyword);
+      params.put(kmode==0?"ekeyword":"vkeyword",keyword);
     }
     if(!abst.equals(""))
     {
-      System.out.println("a not null");
-      params.put(tmode==0?"eabst":"vabst",abst);
+      params.put(amode==0?"eabst":"vabst",abst);
     }
     params.put("beginYear",beginYear.equals("")?2000:Integer.parseInt(beginYear));
     params.put("endYear",endYear.equals("")?2020:Integer.parseInt(endYear));
@@ -103,17 +104,22 @@ public class PaperController
       }
     }
 
-    List<String> list=paperService.queryPidlistByMap(params);
-    pageHelper=new PageHelper(list,paperNum);
-    model.addAttribute("paperList",paperService.getPapersByPidlist(pageHelper.getPageByNum(1)));
-    return "index";
+    pageHelper=new PageHelper(paperService.queryPidlistByMap(params),paperNum);
+    return "redirect:/page/1";
   }
 
     @GetMapping("/page/{id}")
     public String page(@PathVariable("id") int id,Model model)
     {
       model.addAttribute("paperList",paperService.getPapersByPidlist(pageHelper.getPageByNum(id)));
-      return "index";
+      return "papers";
+    }
+
+    @GetMapping("/getPapersByKeyword/{keyword}")
+    public String getPapersByKeyword(@PathVariable("keyword") String keyword,Model model)
+    {
+      pageHelper=new PageHelper(paperService.queryPidlistByKeyword(keyword),paperNum);
+      return "redirect:/page/1";
     }
 
 

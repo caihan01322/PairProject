@@ -234,11 +234,11 @@
         $('input[type=radio][name=conference]:checked').val());
   });
 
-  $("#cloud").jQCloud(array, {
-    removeOverflowing: true,
-    shape: "elliptic",
-    height: 200
-  });
+  // $("#cloud").jQCloud(array, {
+  //   removeOverflowing: true,
+  //   shape: "elliptic",
+  //   height: 200
+  // });
 
   function CloudLoad(data)
   {
@@ -248,12 +248,13 @@
       var obj=new Object();
       obj.text = data.x[i];
       obj.weight = data.y[i]/100;
-      obj.link = "https://www.baidu.com/";
+      obj.link = "/getPapersByKeyword/"+data.x[i];
       array.push(obj);
     }
 
     //加载词云
     $("#cloud").empty();
+
     $("#cloud").jQCloud(array, {
       removeOverflowing: false,
       shape: "elliptic",

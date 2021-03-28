@@ -29,12 +29,12 @@ public class PaperServiceImpl implements PaperService
   }
 
   @Override
-  public List<Paper> queryPapersByKeyword(String keyword)
+  public List<String> queryPidlistByKeyword(String keyword)
   {
     Map<String,Object> params=new HashMap<>();
     params.put("ekeyword",keyword);
     //根据keyword精确查询
-    return paperDao.selectPapersByMap(params);
+    return paperDao.selectPidlistByMap(params);
   }
 
   @Override

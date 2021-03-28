@@ -35,7 +35,7 @@
             <td th:text="${paper.getPublicationYear()}">2000</td>
             <td>
                 <div class="layui-btn-group">
-                    <a th:href="@{/essayDetail}">
+                    <a th:href="@{/paper/}+${paper.getPid()}">
                         <button type="button" class="layui-btn layui-btn-sm">详情</button>
                     </a>
                     <button type="button" class="layui-btn layui-btn-danger layui-btn-sm ">

@@ -68,11 +68,11 @@
             <if test="link !=NULL and link !=''">AND link=#{link}</if>
 
             <if test="conference !=NULL and conference !=''">
-                AND p.conference IN (
+                AND p.conference IN (1,
                 <if test="CVPR !=NULL and CVPR !=''">"CVPR",</if>
                 <if test="ECCV !=NULL and ECCV !=''">"ECCV",</if>
-                <if test="CVPR !=NULL and CVPR !=''">"CVPR"</if>
-                )
+                <if test="CVPR !=NULL and CVPR !=''">"CVPR",</if>
+                2)
             </if>
         </where>
     </select>
@@ -102,11 +102,11 @@
             <if test="link !=NULL and link !=''">AND link=#{link}</if>
 
             <if test="conference !=NULL and conference !=''">
-                AND p.conference IN (
+                AND p.conference IN (1,
                 <if test="CVPR !=NULL and CVPR !=''">"CVPR",</if>
                 <if test="ECCV !=NULL and ECCV !=''">"ECCV",</if>
-                <if test="CVPR !=NULL and CVPR !=''">"CVPR"</if>
-                )
+                <if test="CVPR !=NULL and CVPR !=''">"CVPR",</if>
+                2)
             </if>
         </where>
     </select>

@@ -26,7 +26,7 @@ public interface PaperService
    * @param keyword
    * @return
    */
-  List<Paper> queryPapersByKeyword(String keyword);
+  List<String> queryPidlistByKeyword(String keyword);
 
   /**
    * 通过用户搜索框中的输入查询paper
