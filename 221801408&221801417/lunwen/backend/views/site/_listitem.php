@@ -9,4 +9,11 @@ use yii\helpers\Html;
 	<div class="content">
 	<?= $model->beginning;?>	
 	</div>
+    <br>
+    <div class="nav">
+        关键词：
+		<span class="glyphicon glyphicon-keyword" aria-hidden="true"></span>
+		<?= implode(', ',$model->keywordLinks);?>
+		<br>
+	</div>
 </div>
