@@ -223,9 +223,9 @@ padding: 0 1em 2em;
   + 声明prop的时候，其命名应该始终使用`camelCase`
   + 在模板中应该始终使用`kebab-case`
 ### Vue文件结构
-+ 顺序：template -> script -> style。一个组件尽量不要超过200行，页面包含独立部分时尽量分离成子组件。
++ 顺序：`template -> script -> style`。一个组件尽量不要超过200行，页面包含独立部分时尽量分离成子组件。
 ### Vue Router Path规范
-+ router path采用kebab-case格式。
++ router path采用`kebab-case`格式。
 ### 元素特性顺序
 ``` 
   - class
