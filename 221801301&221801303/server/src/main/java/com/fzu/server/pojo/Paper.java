@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Paper {
     int ID;
+    int meeting;
     String Abstract;
     String year;
     String time;
@@ -13,12 +14,14 @@ public class Paper {
     String link;
     List<String> keyword;
 
+
     public Paper() {
 
     }
 
-    public Paper(int ID, String Abstract, String year, String time, String name, List<String> author, String link, List<String> keyword) {
+    public Paper(int ID,int meeting, String Abstract, String year, String time, String name, List<String> author, String link, List<String> keyword) {
         this.ID = ID;
+        this.meeting = meeting;
         this.Abstract = Abstract;
         this.year = year;
         this.time = time;
@@ -34,6 +37,14 @@ public class Paper {
 
     public int getID() {
         return ID;
+    }
+
+    public void setMeeting(int meeting) {
+        this.meeting = meeting;
+    }
+
+    public int getMeeting() {
+        return meeting;
     }
 
     public void setAbstract(String anAbstract) {

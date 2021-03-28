@@ -12,6 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.PostConstruct;
 import java.io.*;
+import java.util.List;
+import java.util.Map;
 
 
 @SpringBootApplication
@@ -28,9 +30,11 @@ public class ServerApplication {
 
     @PostConstruct
     public void setJSON() throws IOException {
-//        inj.getECCVJson();
-//        inj.getCVPRJson();
-//        inj.getICCVJson();
+        inj.getECCVJson();
+        inj.getCVPRJson();
+        inj.getICCVJson();
+//        List<Paper> paper = dao.getPaper("IEEE/CVF Conference on Computer Vision and Pattern Recognition");
+//        System.out.println("wait");
     }
 
 

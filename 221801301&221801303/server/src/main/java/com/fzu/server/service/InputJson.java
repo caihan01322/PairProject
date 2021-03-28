@@ -67,16 +67,19 @@ public class InputJson {
                         else
                             obj.setAbstract(parse.getString("摘要").substring(0, 200));
                     }
+                    obj.setMeeting(1);
                     obj.setName(parse.getString("论文名称"));
                     obj.setLink(parse.getString("原文链接"));
                     obj.setYear(parse.getString("会议和年份"));
                     obj.setTime(parse.getString("发布时间"));
 //                    obj.setKeyword(kw.toJavaList(String.class));
 
-                    dao.addECCVPaper(obj);
+//                    dao.addECCVPaper(obj);
+                    dao.addPaper(obj);
                     if(kw!=null)
                     for (int j = 0; j < kw.size(); j++) {
-                        dao.addECCVKeyword(obj.getID(), kw.getString(j));
+//                        dao.addECCVKeyword(obj.getID(), kw.getString(j));
+                        dao.addKeyword(obj.getID(), kw.getString(j));
                     }
 //                    break;
 
@@ -126,26 +129,30 @@ public class InputJson {
                         else
                             obj.setAbstract(parse.getString("abstract").substring(0, 200));
                     }
+                    obj.setMeeting(0);
                     obj.setName(parse.getString("publicationTitle"));
                     obj.setLink(parse.getString("persistentLink"));
                     obj.setYear(parse.getString("conferenceDate"));
                     obj.setTime(parse.getString("dateOfInsertion"));
 
 
-                    dao.addCVPRPaper(obj);
+//                    dao.addCVPRPaper(obj);
+                    dao.addPaper(obj);
                     if(kw!=null)
                     for(int j=0;j<kw.size();j++){
                         JSONObject ko=kw.getJSONObject(j);
                         JSONArray ka=ko.getJSONArray("kwd");
                         if(ka!=null)
                         for(int k=0;k<ka.size();k++){
-                            dao.addCVPRKeyword(obj.getID(), ka.getString(k));
+//                            dao.addCVPRKeyword(obj.getID(), ka.getString(k));
+                            dao.addKeyword(obj.getID(), ka.getString(k));
                         }
                     }
                     if(at!=null)
                     for(int j=0;j<at.size();j++){
                         JSONObject ao=at.getJSONObject(j);
-                        dao.addCVPRAuthor(obj.getID(), ao.getString("name"));
+//                        dao.addCVPRAuthor(obj.getID(), ao.getString("name"));
+                        dao.addAuthor(obj.getID(), ao.getString("name"));
                     }
 //                    break;
 
@@ -195,26 +202,30 @@ public class InputJson {
                         else
                             obj.setAbstract(parse.getString("abstract").substring(0, 200));
                     }
+                    obj.setMeeting(2);
                     obj.setName(parse.getString("publicationTitle"));
                     obj.setLink(parse.getString("persistentLink"));
                     obj.setYear(parse.getString("conferenceDate"));
                     obj.setTime(parse.getString("dateOfInsertion"));
 
 
-                    dao.addICCVPaper(obj);
+//                    dao.addICCVPaper(obj);
+                    dao.addPaper(obj);
                     if(kw!=null)
                     for(int j=0;j<kw.size();j++){
                         JSONObject ko=kw.getJSONObject(j);
                         JSONArray ka=ko.getJSONArray("kwd");
                         if(ka!=null)
                         for(int k=0;k<ka.size();k++){
-                            dao.addICCVKeyword(obj.getID(), ka.getString(k));
+//                            dao.addICCVKeyword(obj.getID(), ka.getString(k));
+                            dao.addKeyword(obj.getID(), ka.getString(k));
                         }
                     }
                     if(at!=null)
                     for(int j=0;j<at.size();j++){
                         JSONObject ao=at.getJSONObject(j);
-                        dao.addICCVAuthor(obj.getID(), ao.getString("name"));
+//                        dao.addICCVAuthor(obj.getID(), ao.getString("name"));
+                        dao.addAuthor(obj.getID(), ao.getString("name"));
                     }
 //                    break;
 

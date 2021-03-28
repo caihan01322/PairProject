@@ -71,4 +71,36 @@
         VALUES (#{pID},
                 #{author})
     </insert>
+
+    <insert id="addPaper" parameterType="com.fzu.server.pojo.Paper" useGeneratedKeys="true" keyProperty="ID">
+        insert into paper(abstract,
+                               year,
+                               time,
+                               name,
+                               link,
+                            meeting)
+        values (#{Abstract},
+                #{year},
+                #{time},
+                #{name},
+                #{link},
+                #{meeting})
+    </insert>
+    <insert id="addKeyword">
+        insert into keyword(pid,
+                                 keyword)
+        values (#{pID},
+                #{keyword})
+    </insert>
+    <insert id="addAuthor">
+        insert into author(pid,
+                                author)
+        VALUES (#{pID},
+                #{author})
+    </insert>
+
+    <select id="getPaper" resultType="com.fzu.server.pojo.Paper">
+        <bind name="name" value="'%'+_parameter+'%'"/>
+        select * from paper where name like #{name};
+    </select>
 </mapper>
