@@ -1,5 +1,269 @@
 # 前端
+## 命名
+### 文件资源命名
++ 文件名不得含有空格
++ 文件名建议只使用小写字母，不使用大写字母。( 为了醒目，某些说明文件的文件名，可以使用大写字母，比如README、LICENSE。 )
++ 文件名包含多个单词时，单词之间建议使用半角的连词线 ( - ) 分隔。
 
+### 变量命名
++ 命名方式 : 小驼峰式命名方法
++ 命名规范 : 类型+对象描述的方式，如果没有明确的类型，就可以使前缀为名词。
++ eg: `var tableTitle = "LoginTable"` 
+
+### 函数命名
++ 命名方式 : 小驼峰方式 ( 构造函数使用大驼峰命名法 )
++ 命名规则 : 前缀为动词
++ eg: `function canRead()`
+
+### 常量
++ 命名方法 : 全部大写
++ 命名规范 : 使用大写字母和下划线来组合命名，下划线用以分割单词。
++ eg: `var MAX_COUNT = 10;`
+
+### 类的成员
++ 公共属性和方法 : 同变量命名方式
++ 私有属性和方法 : 前缀为下划线(_)后面跟公共属性和方法一样的命名方式
++ eg: ` var _name = name;`
+
+### 注释规范
+#### 单行注释
++ 单独一行：//(双斜线)与注释文字之间保留一个空格
++ 在代码后面添加注释：//(双斜线)与代码之间保留一个空格，并且//(双斜线)与注释文字之间保留一个空格。
++ 注释代码：//(双斜线)与代码之间保留一个空格。
+#### 多行注释
++ 若开始(/*和结束(*/)都在一行，推荐采用单行注释
++ 若至少三行注释时，第一行为/*，最后行为*/，其他行以*开始，并且注释文字与*保留一个空格
+#### 函数 ( 方法 ) 注释
+```
+/** 
+* 函数说明 
+* @关键字 
+*/
+```
+## HTML规范
+### 文档规范
++ 使用 HTML5 的文档声明类型 : <!DOCTYPE html>
+### 脚本加载
++ 兼容所有浏览器
+```
+<html>
+  <head>
+    <link rel="stylesheet" href="main.css">
+  </head>
+  <body>
+    <!-- body goes here -->
+
+    <script src="main.js" async></script>
+  </body>
+</html>
+```
++ 兼容现代浏览器
+```
+<html>
+  <head>
+    <link rel="stylesheet" href="main.css">
+    <script src="main.js" async></script>
+  </head>
+  <body>
+    <!-- body goes here -->
+  </body>
+</html>
+```
+### 语义化
++ 正确合理使用nav, header, article, section 等语义标签，不要全篇div
+### alt标签不为空
+### 结构、表现、行为三者分离
++ 尽量在文档和模板中只包含结构性的 HTML；
++ 将所有表现代码，移入样式表中；
++ 将所有动作行为，移入脚本之中。
+### HTML只关注内容
++ HTML只显示展示内容信息
++ 不要引入一些特定的 HTML 结构来解决一些视觉设计问题，多考虑使用伪元素:before、:after
++ 不要将 img 元素当做专门用来做视觉设计的元素
++ 样式上的问题应该使用css解决
+## CSS规范
+### id和class的命名
++ ID和class的名称总是使用可以反应元素目的和用途的名称，或其他通用的名称，代替表象和晦涩难懂的名称
+### 合理的使用ID
++ ID一般不用于样式，使用class解决样式问题
+### css选择器中避免使用标签名
+### 使用子选择器
+```
+.content > .title {
+  font-size: 2rem;
+}
+```
+### 尽量使用缩写属性
+```
+border-top: 0;
+font: 100%/1.6 palatino, georgia, serif;
+padding: 0 1em 2em;
+```
+### 0后面不带单位
+### 属性格式
++ 为了保证一致性和可扩展性，每个声明应该用分号结束，每个声明换行。
++ 属性名的冒号后使用一个空格。出于一致性的原因，属性和值（但属性和冒号之间没有空格）的之间始终使用一个空格。
++ 每个选择器和属性声明总是使用新的一行。
++ 属性选择器或属性值用双引号（””），而不是单引号（”）括起来。
++ URI值（url()）不要使用引号。
+### 属性顺序
++ 布局相关(display, position, float, overflow, clear)，因为元素的布局会对对相邻元素产生影响，自身甚至会脱离原来的文档流，所以比较重要。
++ 盒模型相关(width, height, margin, padding)
++ 外观 (color, background, border, box-shadow)
++ 文字排版 (font-size, font-family, text-align, text-transform)
++ 其他 (cursor, z-index)
+## js规范
+### 变量声明
++ 总是使用 var 来声明变量。如不指定 var，变量将被隐式地声明为全局变量
+### js声明提前
++ 只是提前声明，赋值还是在原处
+
+### 使用严格等
++ 总是使用 === 精确的比较操作符，避免在判断的过程中，由 JavaScript 的强制类型转换所造成的困扰。
+#### 等同== 和严格等===的区别
++ ==， 两边值类型不同的时候，要先进行类型转换，再比较。
++ ===，不做类型转换，类型不同的一定不等。
+
+### 真假判断
+#### js中以下内容为假：
++ false
++ null
++ undefined
++ 0
++ '' (空字符串)
++ NaN
+### 不使用eval()函数
+### this关键字使用场景
++ 在构造函数中
++ 在对象的方法中（包括由此创建出的闭包内）
+### 三元条件判断（if 的快捷方法）
++ 比较简单的情况下，用三元操作符分配或返回语句。
+### 使用ES6编码规范
++ 定义变量使用let ,定义常量使用const
++ 静态字符串一律使用单引号或反引号，动态字符串使用反引号
++ 解构赋值 eg: `const arr = [1, 2, 3, 4];const [first, second] = arr;`
++ 使用扩展运算符（...）拷贝数组。
+
+## Vue规范
+### Vue 项目规范
+#### 结构化规范（webpack）
+``` 
+  ├── index.html                      入口页面
+   ├── favicon.ico                     页面图标
+   ├── .babelrc                        babel规则
+   ├── .editorconfig                   编辑器配置
+   ├── .eslintignore                   eslint忽略规律
+   ├── .eslintrc.js                    eslint规则
+   ├── .gitignore                      git忽略规则
+   ├── build                           构建脚本目录
+   │   ├── build-server.js                 运行本地构建服务器，可以访问构后的页面
+   │   ├── build.js                        生产环境构建脚本
+   │   ├── dev-client.js                   开发服务器热重载脚本，主要用来实现开发阶段的页面自动刷新
+   │   ├── dev-server.js                   运行本地开发服务器
+   │   ├── utils.js                        构建相关工具方法
+   │   ├── webpack.base.conf.js            wabpack基础配置
+   │   ├── webpack.dev.conf.js             wabpack开发环境配置
+   │   └── webpack.prod.conf.js            wabpack生产环境配置
+   │   └── webpack.cdn.conf.js             wabpack cdn配置
+   │   └── webpack.dll.conf.js             wabpack dll配置
+   ├── config                          项目配置
+   │   ├── dev.env.js                      开发环境变量
+   │   ├── index.js                        项目配置文件
+   │   ├── prod.env.js                     生产环境变量
+   │   └── test.env.js                     测试环境变量
+   ├── mock                            mock数据目录
+   │   └── hello.js
+   ├── package.json                    npm包配置文件，里面定义了项目的npm脚本，依赖包等信息
+   ├── readmd.md                       项目描述文件
+   ├── src                                项目源码目录
+   │   ├── main.js                            入口js文件
+   │   ├── App.vue                            根组件
+   │   ├── components                         公共组件目录
+   │   │   └── ComponentItem.vue
+   │   ├── assets                         静态资源目录，这里的资源会被wabpack构建
+   │   │   ├── css                            公共样式文件目录
+   │   │   ├── js                             公共js文件目录（如帮助方法）
+   │   │   └── img                            图片存放目录
+   |   |── lib                            外部引用的插件存放及修改文件
+   |   |—— datas                          模拟数据，临时存放
+   │   ├── routes                         前端路由
+   │   │   └── index.js
+   │   ├── apis                           接口，统一管理
+   │   │   └── index.js
+   │   ├── store                          vuex, 统一管理
+   │   │   └── index.js
+   │   └── views                          视图模块名
+   │       ├── view-module                视图模块
+   |            └── index.vue             视图模块的主页面
+   │       ├── hello.vue
+   │       └── notfound.vue
+   ├── static                             纯静态资源，不会被wabpack构建。
+   └── test                               测试文件目录（unit&e2e）
+       └── unit                               单元测试
+           ├── index.js                           入口脚本
+           ├── karma.conf.js                      karma配置文件
+           └── specs                           单测case目录
+               └── Hello.spec.js
+```
+#### 命名规范
++ views下的文件
+  + 尽量是名词,且使用驼峰命名法
+  + 开头的单词就是所属模块名字（workbenchIndex、workbenchList、workbenchEdit）
++ 组件文件
+  + 命名遵循`PascalCase`约定。
+  + 组件名应该始终是多个单词的，根组件 App 除外
+  + 使用遵循 `kebab-case` 约定
+  + 导入及注册组件时，遵循 `PascalCase` 约定
+  + 必须符合自定义元素规范: 切勿使用保留字。
++ method 方法命名命名规范
+  + 驼峰式命名，统一使用动词或者动词+名词形式
+  + 请求数据方法，以 data 结尾
+  + 尽量使用常用单词开头（set、get、go、can、has、is）
++ props 命名规范
+  + 声明prop的时候，其命名应该始终使用`camelCase`
+  + 在模板中应该始终使用`kebab-case`
+### Vue文件结构
++ 顺序：`template -> script -> style`。一个组件尽量不要超过200行，页面包含独立部分时尽量分离成子组件。
+### Vue Router Path规范
++ router path采用`kebab-case`格式。
+### 元素特性顺序
+``` 
+  - class
+  - id,ref
+  - name
+  - data-*
+  - src, for, type, href,value,max-length,max,min,pattern
+  - title, alt，placeholder
+  - aria-*, role
+  - required,readonly,disabled
+  - is
+  - v-for
+  - key
+  - v-if
+  - v-else-if
+  - v-else
+  - v-show
+  - v-cloak
+  - v-pre
+  - v-once
+  - v-model
+  - v-bind,:
+  - v-on,@
+  - v-html
+  - v-text
+```
+### 组件选项顺序
+```
+  - components
+  - props
+  - data
+  - computed
+  - created
+  - mounted
+  - metods
+  - filter
+  - watch
+```
 
 # 后端python
 [来源：Python 编码规范(Google)](https://www.runoob.com/w3cnote/google-python-styleguide.html)
