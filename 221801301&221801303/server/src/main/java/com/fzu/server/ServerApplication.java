@@ -28,9 +28,9 @@ public class ServerApplication {
 
     @PostConstruct
     public void setJSON() throws IOException {
-        inj.getECCVJson();
-        inj.getCVPRJson();
-        inj.getICCVJson();
+//        inj.getECCVJson();
+//        inj.getCVPRJson();
+//        inj.getICCVJson();
     }
 
 
