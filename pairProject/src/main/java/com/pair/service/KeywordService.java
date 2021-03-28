@@ -19,13 +19,13 @@ public class KeywordService {
     PaperMapper paperMapper;
 
     public List<Keyword> getKeyWords(String publisher) {
-        if (publisher == null) {
-            publisher = "CVPR";
-        }
         return keywordMapper.getKeyWords(publisher);
     }
 
     public void getTop10Cloud(Model model, String publisher) {
+        if (publisher == null) {
+            publisher = "CVPR";
+        }
         List<Keyword> keyWords = getKeyWords(publisher);
         String kws[] = new String[10];
         int nums[] = new int[10];
