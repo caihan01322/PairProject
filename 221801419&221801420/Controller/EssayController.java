@@ -123,5 +123,34 @@ public class EssayController {
         return essayService.labelSearch(searchStr, searchLabel, username);
     }
     
+    //论文搜索文件上传
+    /*
+     * file ：上传的excel表格
+     */
+    @RequestMapping(value="/fileSearch",method=RequestMethod.POST)
+    @ResponseBody
+    public List<String> fileSearch(MultipartFile file){
+        ArrayList<String> titles = new ArrayList<>();
+        String fileName = file.getOriginalFilename();
+        XSSFWorkbook workbook = null;
+        InputStream in = null;
+        try {
+            in = file.getInputStream();
+            workbook = new XSSFWorkbook(in);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        XSSFSheet sheet = workbook.getSheetAt(0);
+        for (int rowindex = 0;rowindex <= sheet.getLastRowNum();rowindex++) {
+            XSSFRow row = sheet.getRow(rowindex);
+            if (row == null) {
+                continue;
+            }
+            XSSFCell titleCell = row.getCell(0);
+            titles.add(titleCell.getStringCellValue());
+        }
 
+        return titles;
+    }
 }
