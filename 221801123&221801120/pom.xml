@@ -10,6 +10,9 @@
     <name>Crawler Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <packaging>war</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>

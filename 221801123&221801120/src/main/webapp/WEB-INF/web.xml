@@ -41,11 +41,11 @@
 	<servlet>
 		<servlet-name>SpringMVC</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<!-- 配置文件位置 -->
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>classpath:crawler-servlet.xml</param-value>
 		</init-param>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>SpringMVC</servlet-name>
