@@ -20,5 +20,14 @@
 ### 221801401第六次commit
 > 更新push到库的项目结构，如配置文件等
 
+### 221801401第七次commit
+> 添加WordCountUtils，用于关键词的排序
+
+### 221801401第八次commit
+> 修改ArticleDao和Controller，添加top10关键词的相关代码
+
+### 221801401第九次commit
+> 修改ArticleDao和Controller，添加按年份和会议查找热词的相关代码
+
 ### 221801422第一次commit
 >建立vue项目
