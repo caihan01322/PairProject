@@ -59,7 +59,7 @@ $this->registerCss($cssString);
     NavBar::end();
     ?>
 
-    <div class="container" style="margin:60px;width:auto";>
+    <div class="container" >
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
@@ -69,7 +69,7 @@ $this->registerCss($cssString);
 </div>
 <!--页脚-->
 <footer class="footer">
-    <div class="container" style="width:auto">
+    <div class="container" >
         <p class="pull-left">&copy; Bookstore Freeloader <?= date('Y') ?></p>
 
         <p class="pull-right">Powered by Lin and Li</p>
