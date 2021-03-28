@@ -1,13 +1,49 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+    <link rel="stylesheet" href="https://fonts.g.forms.cn/icon?family=Material+Icons">
+    <link rel="stylesheet" href="assets/css/index.css">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <title>主页</title>
 </head>
 
 <body>
-    <a href="{{url_for("login_view")}}">登录</a>
-    <br>
-    <a href="{{url_for("search_view")}}">搜索</a>
-    <br>
-    <a href="{{url_for("hot_keywords_view")}}">热词</a>
+    <div class="container">
+        <header>
+            <nav class="navigater">
+                <div class="logo">
+                    <img src="../templates/assets/images/favicon.png" alt="logo" class="image" />
+                    <h3 class="title">iPaper</h3>
+                </div>
+                <ul class=" menu">
+                    <li class="nav-item"><a href="" class="nav-href active">Home</a></li>
+                    <li class="nav-item"><a href="{{url_for(" search_view")}}" class="nav-href">Search</a></li>
+                    <li class="nav-item"><a href="./contact.html"class="nav-href">Contact</a></li>
+                    <!-- <li class="nav-item"><a href="{{url_for(" hot_keywords_view")}} class="nav-href"">热词</a></li> -->
+                    <li class="nav-item"><a href="{{url_for(" login_view")}} class="nav-href"">Sign in</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <div class="main-left">
+                <h2>Welcom to this Website!</h2>
+                <p class="introduce">To provide a more simple, user-friendly way to login users, access to the field of computer vision from the world's three top conferences CVPR, ICCV, ECCV papers</p>
+                <p class="tips">No acount？Click the button below！</p>
+                <button class="mdc-button mdc-button--raised">
+                    <span class="mdc-button__label">Sign up</span>
+                </button>
+            </div>
+            <div class="main-right">
+                <img src="./assets/images/1.png" alt="picture" class="main-picture"/>
+            </div>
+
+        </main>
+    </div>
+</body>
+
 </html>
