@@ -104,20 +104,39 @@ public class PaperController {
 
     @RequestMapping("/previousPage")
     public String previousPage() {
-        begin -= 9;
-        if (begin < 0) {
-            begin = 0;
+        int temp = end - begin;
+        if (temp == 8) {
+            begin -= 9;
+            if (begin < 0) {
+                begin = 0;
+                end = paperIds.size() - 1>8?8:paperIds.size() - 1;
+            } else {
+                end -= 9;
+            }
         } else {
-            end -= 9;
+            begin -= 9;
+            if (begin < 0) {
+                begin = 0;
+                end = paperIds.size() - 1;
+            } else {
+                end = begin + 8;
+            }
         }
         return "redirect:/selectAgain";
     }
 
     @RequestMapping("/nextPage")
     public String nextPage() {
+        int temp=end-begin;
         end += 9;
         if (end > paperIds.size() - 1) {
             end = paperIds.size() - 1;
+            if(end>=9){
+                begin+=9;
+                if(begin>paperIds.size() - 1){
+                    begin=end-temp;
+                }
+            }
         } else {
             begin += 9;
         }

@@ -34,7 +34,7 @@
         where pk.pid = #{pid}
         and pk.kid = k.kid
     </update>
-    
+
     <select id="getCVPRKeyword" resultType="String">
         select keyword from pair.keyword where publisher="CVPR" limit 10
     </select>
