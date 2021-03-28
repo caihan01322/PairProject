@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>编辑论文详情页面</title>
+    <link rel="stylesheet" href="//unpkg.com/element-ui/lib/theme-chalk/index.css" />
+    <style type="text/css">
+
+    </style>
+
+    <script src="//unpkg.com/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <el-form ref="form" label-width="100px">
+            <el-form-item label="论文名称">
+                <el-input v-model="form.title" type="textarea" :autosize="{minRows:1,maxRows:3}">
+                </el-input>
+            </el-form-item>
+            <el-form-item label="论文链接">
+                <el-input v-model="form.url" type="textarea" :autosize="{minRows:1,maxRows:3}">
+                </el-input>
+            </el-form-item>
+            <el-form-item label="论文关键词">
+                <el-input v-model="form.keyword" type="textarea" :autosize="{minRows:2,maxRows:10}">
+                </el-input>
+            </el-form-item>
+            <el-form-item label="论文摘要">
+                <el-input v-model="form.abstract" type="textarea" :autosize="{minRows:2,maxRows:10}">
+                </el-input>
+            </el-form-item>
+            <el-form-item type= "width:100%" align="center">
+                <el-button  @click="commit()" type="success" size="small">完成修改</el-button>
+                <el-button  @click="recover()" type="primary" size="small">重置</el-button>
+            </el-form-item>
+        </el-form>
+        
+    </div>
+    <script type="text.javascript" src=""></script>
+    <script type="text/javascript">
+        var editPaper = {$editPaper|raw};
+        var oldPaperString = JSON.stringify(editPaper);
+        var oldPaper = JSON.parse(oldPaperString);
+        var Main = {
+            methods: {
+                commit:function(){
+                    alert()
+                },
+                recover:function(){
+                    this.form=JSON.parse(oldPaperString);
+                    console.log(oldPaperString);
+                }
+            },
+            data() {
+                return {
+                    form: editPaper
+                }
+            },
+        }
+
+        var Ctor = Vue.extend(Main)
+        new Ctor().$mount('#app')
+    </script>
+
+</body>
+
+</html>
