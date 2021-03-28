@@ -42,7 +42,6 @@ public interface PaperMapper {
      * 多条件联合模糊查询
      * 若查询条件存在keyword，则在模糊查询此keyword得到的paper里面进行相关查询
      * @param paramMap
-     * @Param ("pids") List<Integer> pids
      * @return  List<Paper>
      */
     List<Paper> searchPaper(Map<String, String> paramMap);

@@ -11,6 +11,12 @@
     </constructor>
   </resultMap>
 
+  <!-- 定义resultMap -->
+  <resultMap id="KeywordVO" type="com.practice.pairproject.pojo.KeywordVO">
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="total" property="total" jdbcType="INTEGER" />
+  </resultMap>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from keyword
     where kpid = #{kpid,jdbcType=INTEGER}
@@ -70,7 +76,52 @@
     order by pid asc
   </select>
 
-  <sql id="selectUserVo">
+  <select id="selectAllTOPKeyword" resultMap="KeywordVO">
+    select content, count(*) as total from keyword
+    <where>
+      <if test="years != null and years != ''">
+        year > #{years, jdbcType=VARCHAR}
+      </if>
+    </where>
+    group by content
+    order by total desc
+    limit #{topNum, jdbcType=INTEGER}
+  </select>
+
+  <select id="selectTopKeyword" resultMap="KeywordVO">
+    select content, count(*) as total from keyword
+    <where>
+      <if test="meeting != null and meeting != ''">
+        and meeting = #{meeting, jdbcType=VARCHAR}
+      </if>
+      <if test="years != null and years != ''">
+        and year > #{years, jdbcType=VARCHAR}
+      </if>
+    </where>
+    group by content
+    order by total desc
+    limit #{topNum, jdbcType=INTEGER}
+  </select>
+
+
+  <!-- map里的key直接用 -->
+  <select id="selectTOPKeywordXYear" parameterType="java.util.Map" resultMap="KeywordVO">
+    select content, count(*) as total from keyword
+    <where>
+      <if test="year != null">
+        AND year = #{year,jdbcType=VARCHAR}
+      </if>
+      <if test="meeting != null and meeting != ''">
+        AND meeting = #{meeting,jdbcType=VARCHAR}
+      </if>
+      <if test="content != null and content != ''">
+        AND content = #{content,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+
+  <sql id="selectVo">
     select kpid, content, pid, meeting, year
     from keyword
     <!--

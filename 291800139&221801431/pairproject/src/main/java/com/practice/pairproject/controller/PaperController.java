@@ -133,10 +133,10 @@ public class PaperController {
             sort = "1";
         }*/
         Map<String, String> paramMap = new HashMap<>();
-        paramMap.put("title",title);
-        paramMap.put("pid",pid);
-        paramMap.put("keyword",keyword);
-        paramMap.put("sort",sort);
+        paramMap.put("title", title);
+        paramMap.put("pid", pid);
+        paramMap.put("keyword", keyword);
+        paramMap.put("sort", sort);
 
         List<Paper> paperList = paperService.searchPaper(paramMap);
         if( paperList.isEmpty()){
@@ -176,19 +176,15 @@ public class PaperController {
      * @return
      */
     @GetMapping("/show")
-    public AjaxResponse showPage(@RequestParam("pageNum") String pageNum,
-                                 @RequestParam("pageSize") String pageSize, Model model){
-
-        int page_size = -1;
-        if( !pageSize.isEmpty() && !pageSize.equals("") ){
-            page_size = Integer.valueOf(pageSize);
-        }
-        if( page_size <= 0 ){
-            page_size = this.pageSize;
+    public AjaxResponse showPage(@RequestParam(name = "pageNum", defaultValue = "1") int pageNum,
+                                 @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+                                 Model model){
+        if( pageSize <= 0 ){
+            pageSize = this.pageSize;
         }
 
         //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（Select）方法会被分页!!!!
-        PageHelper.startPage(Integer.valueOf(pageNum), page_size);
+        PageHelper.startPage(pageNum, pageSize);
         List<Paper> paperList = paperService.selectAll();
 
         if(paperList.isEmpty()){
@@ -208,18 +204,15 @@ public class PaperController {
      */
     @GetMapping(value = {"/list/{keyword}"})
     public AjaxResponse GetUser(@PathVariable("keyword") String keyword,
-                                @RequestParam("pageNum") String pageNum,
-                                @RequestParam("pageSize") String pageSize, Model model) {
-        int page_size = -1;
-        if( !pageSize.isEmpty() && !pageSize.equals("") ){
-            page_size = Integer.valueOf(pageSize);
-        }
-        if( page_size <= 0 ){
-            page_size = this.pageSize;
+                                @RequestParam(name = "pageNum", defaultValue = "1") int pageNum,
+                                @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+                                Model model) {
+        if( pageSize <= 0 ){
+            pageSize = this.pageSize;
         }
 
         //只有紧跟在PageHelper.startPage方法后的第一个Mybatis的查询（Select）方法会被分页!!!!
-        PageHelper.startPage(Integer.valueOf(pageNum), page_size);
+        PageHelper.startPage(pageNum, pageSize);
         List<Paper> paperList = paperService.selectPaperByKeyword(keyword);
 
         if(paperList.isEmpty()){
