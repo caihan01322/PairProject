@@ -27,14 +27,8 @@
 
     <div class="row search-bar">
         <div class="col-lg-4 col-lg-offset-4">
-            <form class="form-horizontal" action="Search" method="GET">
+            <form class="form-horizontal" action="Like" method="GET">
                 <div class="form-group">
-                    <select class="form-control  thesis-select col-sm-4" name="searchtype" type="text">
-                        <option value ="all">模糊查询</option>
-                        <option value ="title">题目</option>
-                        <option value ="keyword">关键词</option>
-                        <option value ="abstract">文章内容</option>
-                    </select>
                     <input type="text" class="col-sm-4 form-control thesis-input " aria-label="..." name="input">
                     <button type="submit" class="btn btn-default col-sm-2">搜索</button>
                 </div>
@@ -43,8 +37,8 @@
 
     <div class="container-fluid">
         <ul class="list-group col-lg-8 col-lg-offset-2" >
-            <%PageBean Pb=(PageBean) request.getAttribute("result");
-             List<Thesis> result=Pb.getList();
+            <%
+             List<Thesis> result= (List<Thesis>) request.getAttribute("result");
             if(result.size()!=0)
                 {
                 for(Thesis i:result)
@@ -65,27 +59,6 @@
                 }%>
         </ul>
     </div>
-        <%if(Pb.getTotalPage()>1)
-        {%>
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li>
-                    <a href="Search?searchtype=<%=Pb.getSearchType()%>&input=<%=Pb.getInput()%>&pagenum=<%=Pb.getPageNum()-1<=0?0:Pb.getPageNum()-1%>" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <% for(int i=Pb.getPageNum();i<Pb.getTotalPage()&&i<Pb.getPageNum()+10;i++)
-                {%>
-                <li><a href="Search?searchtype=<%=Pb.getSearchType()%>&input=<%=Pb.getInput()%>&pagenum=<%=i%>"><%=i%></a></li>
-                <%}%>
-                <li>
-                    <a href="Search?searchtype=<%=Pb.getSearchType()%>&input=<%=Pb.getInput()%>&pagenum=<%=Pb.getPageNum()+1%>" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a >
-                </li>
-            </ul>
-        </nav>
-        <%}%>
     <nav class="navbar navbar-default ">
         <div class="container">
             <p class="navbar-text navbar-right"> <a href="#" class="navbar-link">copyright@aaagx</a></p>

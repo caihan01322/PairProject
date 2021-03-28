@@ -1,9 +1,12 @@
 package com.example.thesisSearch.dao;
 
+import com.example.thesisSearch.pojo.Thesis;
 import com.example.thesisSearch.utils.DBUtil;
 
 import java.sql.*;
-
+import java.util.ArrayList;
+import java.util.List;
+//收藏列表dao层
 public class LikeListDao {
 
     public boolean add(int id)
@@ -82,5 +85,87 @@ public class LikeListDao {
             throwables.printStackTrace();
         }
         return  false;
+    }
+    public List<Thesis> getLikeList()
+    {
+
+        List<Thesis> results=new ArrayList<>();
+        Connection ThesisConnection = null;
+        try {
+            ThesisConnection = DBUtil.getConnection();
+            Statement ThesisStatement = ThesisConnection.createStatement();
+            String sql = "select * from LikeList left join Thesis on LikeList.ThesisID=Thesis.ID";
+            PreparedStatement Ptmt = ThesisConnection.prepareStatement(sql);
+            ResultSet Rs = Ptmt.executeQuery();
+            while (Rs.next()) {
+                results.add(setThesis(Rs));
+            }
+            DBUtil.close(Rs,ThesisStatement,ThesisConnection);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return results;
+    }
+    public List<Thesis> getLikeListByTitle(String input)
+    {
+
+        List<Thesis> results=new ArrayList<>();
+        Connection ThesisConnection = null;
+        try {
+            ThesisConnection = DBUtil.getConnection();
+            Statement ThesisStatement = ThesisConnection.createStatement();
+            String sql = "select * from LikeList left join Thesis on LikeList.ThesisID=Thesis.ID Where title like ?";
+            PreparedStatement Ptmt = ThesisConnection.prepareStatement(sql);
+            Ptmt.setString(1, "%" + input + "%");
+            ResultSet Rs = Ptmt.executeQuery();
+            while (Rs.next()) {
+                results.add(setThesis(Rs));
+            }
+            DBUtil.close(Rs,ThesisStatement,ThesisConnection);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return results;
+    }
+
+    public List<Thesis> getLimit(int start,int length,String input,String type)
+    {
+        List<Thesis> results=new ArrayList<>();
+        Connection ThesisConnection = null;
+        try {
+            ThesisConnection = DBUtil.getConnection();
+            Statement ThesisStatement = ThesisConnection.createStatement();
+            String sql = "select * from LikeList left join Thesis on LikeList.ThesisID=Thesis.ID limit ?,?";
+            PreparedStatement Ptmt = ThesisConnection.prepareStatement(sql);
+            Ptmt.setInt(1, start);
+            Ptmt.setInt(2, length);
+            ResultSet Rs = Ptmt.executeQuery();
+            while (Rs.next()) {
+                results.add(setThesis(Rs));
+            }
+            DBUtil.close(Rs,ThesisStatement,ThesisConnection);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return results;
+    }
+
+    public Thesis  setThesis(ResultSet Rs )
+    {
+        Thesis result=new Thesis();
+        try {
+            result.setDate(Rs.getString("publishdate"));
+            result.setAbstractContent(Rs.getString("abstract"));
+            result.setId(Rs.getInt("id"));
+            result.setLink(Rs.getString("link"));
+            result.setMeeting(Rs.getString("meeting"));
+            result.setYear(Rs.getInt("thesisyear"));
+            result.setTitle(Rs.getString("title"));
+            result.setKeyword(Rs.getString("keyword"));
+            result.setIsliked(true);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return result;
     }
 }
