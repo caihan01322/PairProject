@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/gocolly/colly/v2"
 	"github.com/gocolly/colly/v2/queue"
+	"github.com/gocolly/redisstorage"
 	jsoniter "github.com/json-iterator/go"
 	"io/ioutil"
 	"log"
@@ -21,29 +22,36 @@ import (
 // The crawler use database to cache the contents.
 // It runs in cron (the timer)
 
-var timeLayouts = []string{"Jan 2006", "Jan. 2006", "January 2006"}
+const (
+	pageSize = 50
+)
 
-var size = make(chan int, 1)
-
-var c *colly.Collector
-var q *queue.Queue
-var re *regexp.Regexp
+var (
+	c           *colly.Collector
+	q           *queue.Queue
+	paperNum    = make(chan int, 1)
+	re          = regexp.MustCompile(`xplGlobal.document.metadata=(.+"});`)
+	timeLayouts = []string{"Jan 2006", "Jan. 2006", "January 2006"}
+)
 
 func init() {
-	re = regexp.MustCompile(`xplGlobal.document.metadata=(.+"});`)
 	c = colly.NewCollector(colly.Async(true))
 	c.AllowURLRevisit = true
-	// c.SetDebugger(&debug.LogDebugger{})
+	c.SetRequestTimeout(time.Minute * 2)
+	c.OnResponse(onResponse)
+
 	err := c.Limit(&colly.LimitRule{DomainGlob: "*", Parallelism: 20})
 	if err != nil {
 		log.Println("limit fail", err)
 	}
-	c.OnResponse(onResponse)
+
+	// c.SetDebugger(&debug.LogDebugger{})
 }
 
 type searchResult struct {
 	TotalRecords int `json:"totalRecords"`
 	TotalPages   int `json:"totalPages"`
+	StartRecord  int `json:"startRecord"`
 
 	Records []struct {
 		Link             string `json:"documentLink"`
@@ -89,6 +97,7 @@ func onResponse(r *colly.Response) {
 }
 
 func onJSON(r *colly.Response) {
+	log.Println("onJSON", r.Request.URL.String())
 	body := r.Body
 	result := searchResult{}
 	err := jsoniter.Unmarshal(body, &result)
@@ -100,8 +109,8 @@ func onJSON(r *colly.Response) {
 }
 
 func onHTML(r *colly.Response) {
-	s := <-size
-	size <- s + 1
+	s := <-paperNum
+	paperNum <- s + 1
 	log.Println("onHTML", s, r.Request.URL.String())
 	body := r.Body
 	group := re.FindSubmatch(body)
@@ -118,21 +127,33 @@ func onHTML(r *colly.Response) {
 }
 
 func Start() {
+	log.Println("Start scraping ieee papers...")
 
-	q, _ = queue.New(10, &queue.InMemoryQueueStorage{
-		MaxSize: 10000,
-	})
-	c.SetRequestTimeout(time.Minute * 2)
+	// redis for scraping cache
+	storage := &redisstorage.Storage{
+		Address:  "127.0.0.1:6379",
+		Password: "",
+		DB:       0,
+		Prefix:   "colly_pair_project",
+	}
+	err := c.SetStorage(storage)
+	if err != nil {
+		panic(err)
+	}
+	if err = storage.Clear(); err != nil {
+		log.Fatalln(err)
+	}
+	q, _ = queue.New(10, storage)
 
-	firstPage()
-
-	// TODO remove
-	// c.Wait()
-	// http.ListenAndServe("0.0.0.0:8899", nil)
+	go func() {
+		defer storage.Client.Close()
+		firstPage()
+		c.Wait()
+	}()
 }
 
 func firstPage() {
-	size <- 1
+	paperNum <- 1
 	param := newSearchParam(1)
 	bodyByte, _ := jsoniter.Marshal(&param)
 	reader := bytes.NewReader(bodyByte)
@@ -176,6 +197,7 @@ func firstPage() {
 }
 
 func handleResult(result *searchResult) {
+	log.Println("Parse page", result.StartRecord/pageSize)
 	records := result.Records
 	for i := range records {
 		paper := models.GetPaperByCode(records[i].Code)
@@ -205,6 +227,7 @@ func handleResult(result *searchResult) {
 			// log.Println("same code!", paper.Code)
 		}
 	}
+	log.Println("Finished page", result.StartRecord/pageSize)
 	// q.Run(c.Clone())
 }
 
@@ -247,9 +270,9 @@ func newSearchParam(page int) (res *searchParam) {
 		Highlight:    true,
 		ReturnType:   "SEARCH",
 		MatchPubs:    true,
-		Ranges:       []string{fmt.Sprintf("%d_%d_Year", nowYear-12, nowYear)},
+		Ranges:       []string{fmt.Sprintf("%d_%d_Year", nowYear-5, nowYear)},
 		ReturnFacets: []string{"ALL"},
-		RowsPerPage:  "50",
+		RowsPerPage:  strconv.Itoa(pageSize),
 		PageNumber:   strconv.Itoa(page),
 	}
 	return

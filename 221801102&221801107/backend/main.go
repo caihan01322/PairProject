@@ -13,6 +13,7 @@ func main() {
 	// prepare templates
 
 	// crawler.Start()
+	StartCrawler()
 
 	r := routers.InitRouter()
 
