@@ -21,8 +21,10 @@ public class ArticalDaoImpl implements ArticleJDBCDAO{
     @Override
     public List<Artical> searchArtical(String keywors)
     {
-        return jdbcTemplate.query("select * from academics where " +
-                "title like ?",new Object[]{"%"+keywors+"%"},new BeanPropertyRowMapper<>(Artical.class));
+        List<Artical> list = jdbcTemplate.query("select * from academics where " +
+                "title like ? or Abstract like ?",new Object[]{"%"+keywors+"%","%"+keywors+"%"},new BeanPropertyRowMapper<>(Artical.class));
+
+        return list;
     }
     @Override
     public List<keywords> searchKeywords(int academicNum)
