@@ -144,7 +144,9 @@ def showTopTags():
 
     data = []
     for r in result:
-        data.append(r.name)
+        d = {}
+        d['title'] = r.name
+        data.append(d)
 
     return jsonify(errno=0, data=data)
 
