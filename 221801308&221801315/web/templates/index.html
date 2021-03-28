@@ -18,7 +18,7 @@
         <header>
             <nav class="navigater">
                 <div class="logo">
-                    <img src={{url_for("static",filename="images/favicon")}} alt="logo" class="image" />
+                    <img src={{url_for("static",filename="images/favicon.png")}} alt="logo" class="image" />
                     <h3 class="title">iPaper</h3>
                 </div>
                 <ul class=" menu">
@@ -36,11 +36,11 @@
                 <p class="introduce">To provide a more simple, user-friendly way to login users, access to the field of computer vision from the world's three top conferences CVPR, ICCV, ECCV papers</p>
                 <p class="tips">No acount？Click the button below！</p>
                 <button class="mdc-button mdc-button--raised">
-                    <span class="mdc-button__label">Sign up</span>
+                    <a href={{url_for("login_view")}} class="mdc-button__label">Sign up</a>
                 </button>
             </div>
             <div class="main-right">
-                <img src={{url_for("static",filename="css/1.png")}} alt="picture" class="main-picture"/>
+                <img src={{url_for("static",filename="images/right.png")}} alt="picture" class="main-picture"/>
             </div>
 
         </main>
