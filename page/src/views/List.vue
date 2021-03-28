@@ -12,27 +12,23 @@
                     <div class="search_inputer_container">
                         <div class="search_inputer search_inputer-inline">
                             <span class="search_inputer_title">论文标题</span>
-                            <a-select
-                                showSearch
-                                :value="titleSelected"
-                                placeholder="请输入论文标题"
+                            <a-auto-complete
                                 class="search_inputer_inner"
-                                :showArrow="false"
-                                @search="getTitleTips"
-                            >
-                                <a-select-option v-for="tip in titleTips" :key="tip" :value="tip">
-                                    {{tip}}
-                                </a-select-option>
-                            </a-select>
+                                mode="tags"
+                                v-model="titleValue"
+                                placeholder="请输入论文标题"
+                                @search="updateTitleTips"
+                            />
                         </div>
                         <div class="search_inputer search_inputer-inline">
                             <span class="search_inputer_title">关键词</span>
                             <a-select
-                            class="search_inputer_selector"
-                            mode="multiple"
-                            placeholder="请选择关键字"
-                            :default-value="['a1', 'b2']"
-                            @change="handleChange"
+                                class="search_inputer_selector"
+                                mode="tags"
+                                v-model="keywordValue"
+                                placeholder="请选择关键字"
+                                :default-value="['a1', 'b2']"
+                                @search="updateKeywordTips"
                             >
                                 <a-select-option v-for="i in 25" :key="(i + 9).toString(36) + i">
                                     {{ (i + 9).toString(36) + i }}
@@ -120,12 +116,6 @@ export default {
                     width: "25%",
                 },
                 {
-                    title: "编号",
-                    dataIndex: "number",
-                    key: "number",
-                    width: "25%"
-                },
-                {
                     title: "关键词",
                     dataIndex: "keyword",
                     key: "keyword",
@@ -150,32 +140,16 @@ export default {
             listData: [
                 {
                     title: "test",
-                    number: 123456,
                     keyword: ['t','e','s'],
                     meeting: ['CVPR','ICCV','ECCV'],
                 }
             ],
-            uploadColumn: [
-                {
-                    title: "论文标题",
-                    dataIndex: "title",
-                    key: "title",
-                }
-            ],
-            uploadData: [
-                {
-                    title: "111111111"
-                },
-                {
-                    title: "222222222"
-                }
-            ],
             selectedRowKeys: [],
-            titleSelected: " ",
-            titleInput: "",
             label: "",
             titleTips: [],
-            keywordTips: []
+            keywordTips: [],
+            titleValue: [],
+            keywordValue: [],
         }
     },
     methods: {
@@ -208,15 +182,18 @@ export default {
         changeLabel() {
 
         },
-        getTitleTips() {
+        updateTitleTips(value) {
             let that = this;
+            // console.log(value);
+            // console.log(this.titleValue);
             request.getTitleTips()
             .then((res)=>{
                 console.log(res);
                 that.titleTips = res.result;
             })
         },
-        getKeywordTip() {
+        updateKeywordTips(value) {
+            // console.log(value);
             let that = this;
             request.getKeywordTips()
             .then((res)=>{
