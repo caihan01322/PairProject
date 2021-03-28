@@ -47,7 +47,19 @@
         	int[] ECCV = (int[])request.getAttribute("ECCV");
         %>
     	
-        <div class="contentright">
+    <div class="contentright">
+        <div>
+    		<form action="DoPaperLine" method="get">
+    			<select name="year">
+  					<option value ="2016">2016</option>
+  					<option value = "2017">2017</option>
+  					<option value = "2018">2018</option>
+  					<option value = "2019">2019</option>
+  					<option value = "2020">2020</option>
+				</select>
+				<input class="searchBtn" id="button" type="submit" value="切换"/>
+            </form>
+    	</div>
         <div id="myline" style="width: 1100px;height:450px; float:left"></div>
         <script type="text/javascript">
         	var myChart = echarts.init(document.getElementById('myline'));
@@ -120,19 +132,22 @@
         		            name: 'CVPR',
         		            type: 'line',
         		            stack: '总量',
-        		            data: [<%="\""+CVPR[0]+"\""%>,<%="\""+CVPR[1]+"\""%>,<%="\""+CVPR[2]+"\""%>]
+        		            data: [<%="\""+CVPR[0]+"\""%>,<%="\""+CVPR[1]+"\""%>,<%="\""+CVPR[2]+"\""%>,<%="\""+CVPR[3]+"\""%>,<%="\""+CVPR[4]+"\""%>,
+        		            <%="\""+CVPR[5]+"\""%>,<%="\""+CVPR[6]+"\""%>,<%="\""+CVPR[7]+"\""%>,<%="\""+CVPR[8]+"\""%>,<%="\""+CVPR[9]+"\""%>]
         		        },
         		        {
         		            name: 'ICCV',
         		            type: 'line',
         		            stack: '总量',
-        		            data: [<%="\""+ICCV[0]+"\""%>,<%="\""+ICCV[1]+"\""%>,<%="\""+ICCV[2]+"\""%>]
+        		            data: [<%="\""+ICCV[0]+"\""%>,<%="\""+ICCV[1]+"\""%>,<%="\""+ICCV[2]+"\""%>,<%="\""+ICCV[3]+"\""%>,<%="\""+ICCV[4]+"\""%>,
+        		            <%="\""+ICCV[5]+"\""%>,<%="\""+ICCV[6]+"\""%>,<%="\""+ICCV[7]+"\""%>,<%="\""+ICCV[8]+"\""%>,<%="\""+ICCV[9]+"\""%>]
         		        },
         		        {
         		            name: 'ECCV',
         		            type: 'line',
         		            stack: '总量',
-        		            data: [<%="\""+ECCV[0]+"\""%>,<%="\""+ECCV[1]+"\""%>,<%="\""+ECCV[2]+"\""%>]
+        		            data: [<%="\""+ECCV[0]+"\""%>,<%="\""+ECCV[1]+"\""%>,<%="\""+ECCV[2]+"\""%>,<%="\""+ECCV[3]+"\""%>,<%="\""+ECCV[4]+"\""%>,
+        		            <%="\""+ECCV[5]+"\""%>,<%="\""+ECCV[6]+"\""%>,<%="\""+ECCV[7]+"\""%>,<%="\""+ECCV[8]+"\""%>,<%="\""+ECCV[9]+"\""%>]
         		        }
         		    ]
         		};
