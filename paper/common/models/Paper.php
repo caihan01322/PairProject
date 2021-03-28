@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "paper".
@@ -44,4 +45,11 @@ class Paper extends \yii\db\ActiveRecord
             'link' => 'Link',
         ];
     }
+
+
+    public function  getOrgLink()
+    {
+        return Html::a($this->link, "//{$this->link}", ['target' => '_blank']);
+    }
+
 }

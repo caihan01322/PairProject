@@ -21,6 +21,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pager' => [
+            'firstPageLabel' => '第一页',
+            'lastPageLabel' => '最后一页',
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [

@@ -33,8 +33,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'typeandyear',
             'keywords',
             'releasetime',
-            'link',
+            [
+                'attribute' => 'orglink',
+                'format' => 'raw',
+            ],
         ],
+
     ]) ?>
 
 </div>
