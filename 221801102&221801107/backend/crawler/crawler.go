@@ -145,7 +145,6 @@ func Start() {
 	q, _ = queue.New(10, storage)
 
 	go func() {
-		defer storage.Client.Close()
 		firstPage()
 		c.Wait()
 	}()
