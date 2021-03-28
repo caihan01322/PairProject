@@ -91,14 +91,25 @@ public class DoPaperLine extends HttpServlet {
 		myMap.add(8,map9);
 		myMap.add(9,map10);
 		
-		int j=0;
 		int[] occurCVPR = new int[MAGAZINE_MAX_NUM];
 		int[] occurICCV = new int[MAGAZINE_MAX_NUM];
 		int[] occurECCV = new int[MAGAZINE_MAX_NUM];
 		for (Map<String, Integer> m : myMap) {
-	        occurCVPR[j] = (m.get("CVPR"));
-	        occurICCV[j] = (m.get("ICCV"));
-	        occurECCV[j++] = (m.get("ECCV"));
+			if(m.containsKey("CVPR")) {
+				occurCVPR[0] = (m.get("CVPR"));
+			} else {
+				occurCVPR[0] = 0;
+			}
+	        if(m.containsKey("ICCV")) {
+	        	occurICCV[1] = (m.get("ICCV"));
+	        } else {
+	        	occurICCV[1] = 0;
+	        }
+	        if(m.containsKey("ECCV")) {
+	        	occurECCV[2] = (m.get("ECCV"));
+	        } else {
+	        	occurECCV[2] = 0;
+	        }
 	    }
 		
 		request.setAttribute("keyword", keywords);

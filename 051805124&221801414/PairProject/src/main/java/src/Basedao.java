@@ -187,4 +187,24 @@ public class Basedao {
 		}
 		return list;
 	}
+
+	public static ArrayList<String> getMagazine(String sql) {
+		Connection conn = Basedao.getconnection();
+		ResultSet rs = null;
+		PreparedStatement ps = null;
+		ArrayList<String> list = new ArrayList<String>(); 
+		try {
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				list.add(rs.getString("magazine"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			Basedao.closeAll(ps,conn);
+		}
+		return list;
+	}
 }

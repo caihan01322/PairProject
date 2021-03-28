@@ -46,7 +46,7 @@ public class DoPaperSearch extends HttpServlet {
 				content = curContent;
 			}else {
 				curContent = content;
-				list = PaperDao.searchPaper(content,option);
+				list = PaperDao.searchPaper(content,option,curPage);
 				for(int i=0;i < list.size();i++) {
 					list.get(i).setKeyword(PaperDao.getKeyWord(list.get(i).getPaperNum()));
 				}
