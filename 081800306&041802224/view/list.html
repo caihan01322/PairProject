@@ -1,55 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="../list.css">
-  <link rel="stylesheet" href="../base.css">
-  <link rel="stylesheet" href="../nav.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../list.css">
+    <link rel="stylesheet" href="../base.css">
+    <link rel="stylesheet" href="../nav.css">
 </head>
+
 <body>
-  <%- include('./nav.html') %> 
-  <div class="search">
-    <div class="select-box">
-      <div class="key">编号</div>
-      <i class="down"><svg t="1616316749591" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2388" width="20" height="20"><path d="M517.688889 796.444444c-45.511111 0-85.333333-17.066667-119.466667-51.2L73.955556 381.155556c-22.755556-22.755556-17.066667-56.888889 5.688888-79.644445 22.755556-22.755556 56.888889-17.066667 79.644445 5.688889l329.955555 364.088889c5.688889 5.688889 17.066667 11.377778 28.444445 11.377778s22.755556-5.688889 34.133333-17.066667l312.888889-364.088889c22.755556-22.755556 56.888889-28.444444 79.644445-5.688889 22.755556 22.755556 28.444444 56.888889 5.688888 79.644445L637.155556 739.555556c-28.444444 39.822222-68.266667 56.888889-119.466667 56.888888 5.688889 0 0 0 0 0z" p-id="2389" fill="#cdcdcd"></path></svg></i>
-      <ul>
-        <li>关键词</li>
-        <li>编号</li>
-      </ul>
-    </div>
-    <input type="text" class="ipt">
-    <div class="search-btn">
-      <i>
+    <%- include('./nav.html') %>
+        <div class="search">
+            <div class="select-box">
+                <div class="key">编号</div>
+                <i class="down"><svg t="1616316749591" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2388" width="20" height="20"><path d="M517.688889 796.444444c-45.511111 0-85.333333-17.066667-119.466667-51.2L73.955556 381.155556c-22.755556-22.755556-17.066667-56.888889 5.688888-79.644445 22.755556-22.755556 56.888889-17.066667 79.644445 5.688889l329.955555 364.088889c5.688889 5.688889 17.066667 11.377778 28.444445 11.377778s22.755556-5.688889 34.133333-17.066667l312.888889-364.088889c22.755556-22.755556 56.888889-28.444444 79.644445-5.688889 22.755556 22.755556 28.444444 56.888889 5.688888 79.644445L637.155556 739.555556c-28.444444 39.822222-68.266667 56.888889-119.466667 56.888888 5.688889 0 0 0 0 0z" p-id="2389" fill="#cdcdcd"></path></svg></i>
+                <ul>
+                    <li>关键词</li>
+                    <li>编号</li>
+                </ul>
+            </div>
+            <input type="text" class="ipt">
+            <div class="search-btn">
+                <i>
         <svg t="1616322755522" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3532" width="32" height="32"><path d="M446.112323 177.545051c137.567677 0.219798 252.612525 104.59798 266.162424 241.493333 13.562828 136.895354-78.778182 261.818182-213.617777 289.008485-134.852525 27.203232-268.386263-52.156768-308.945455-183.608889s25.018182-272.252121 151.738182-325.779394A267.235556 267.235556 0 0 1 446.112323 177.545051m0-62.060607c-182.794343 0-330.989899 148.195556-330.989899 330.989899s148.195556 330.989899 330.989899 330.989899 330.989899-148.195556 330.989899-330.989899-148.195556-330.989899-330.989899-330.989899z m431.321212 793.341415a30.849293 30.849293 0 0 1-21.94101-9.102223l-157.220202-157.220202c-11.752727-12.179394-11.584646-31.534545 0.37495-43.50707 11.972525-11.972525 31.327677-12.140606 43.494141-0.37495l157.220202 157.220202a31.036768 31.036768 0 0 1 6.723232 33.810101 31.004444 31.004444 0 0 1-28.651313 19.174142z m0 0" p-id="3533" fill="#dbdbdb"></path></svg>
       </i>
-    </div>
-  </div>
-  <div class="list">
-    <% if (articles) {%>
-    <% articles.forEach(function(article){ %>
-      <%- include('./item.html', {article}); %>
-    <% }); %>
-    <%}%>
-  </div>
+            </div>
+        </div>
+        <div class="list">
+            <% if (articles) {%>
+                <% articles.forEach(function(article){ %>
+                    <%- include('./item.html', {article}); %>
+                        <% }); %>
+                            <%}%>
+        </div>
 </body>
 <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>
-  $(function(){
-    $('.down').on({
-      'click': function(){
-        $('.select-box ul').stop().fadeToggle()
-      }
+    $(function() {
+        $('.down').on({
+            'click': function() {
+                $('.select-box ul').stop().fadeToggle()
+            }
+        })
+        $('.select-box ul li').on({
+            'click': function() {
+                $('.key').html(this.innerHTML)
+                $('.select-box ul').stop().fadeToggle()
+            }
+        })
     })
-    $('.select-box ul li').on({
-      'click': function() {
-        $('.key').html(this.innerHTML)
-        $('.select-box ul').stop().fadeToggle()
-      }
-    })
-  })
-  
 </script>
+
 </html>
