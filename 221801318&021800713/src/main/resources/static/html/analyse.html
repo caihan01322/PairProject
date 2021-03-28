@@ -179,201 +179,319 @@
 
     <!--排行榜-->
     <div id="topList">
-        <div  id="personList"></div>
+        <div  clss="box" id="ECCVList">
             <script type="text/javascript">
-            var chartDom = document.getElementById('personList');
-            var myChart = echarts.init(chartDom);
-            var option;
-
-            var dataAxis = ['赵','钱','孙','李','周'];
-            var data = [100,90,80,70,60];
-            var yMax = 500;
-            var dataShadow = [];
-
-            for (var i = 0; i < data.length; i++) {
-                dataShadow.push(yMax);
-            }
-
-            option = {
-                title: {
-                    text: '发表论文数量Top5',
-                    subtext: '取自xxx、xxx、xxx'
-                },
-                xAxis: {
-                    data: dataAxis,
-                    axisLabel: {
-                        inside: true,
-                        textStyle: {
-                            color: '#fff'
-                        }
-                    },
-                    axisTick: {
-                        show: false
-                    },
-                    axisLine: {
-                        show: false
-                    },
-                    z: 10
-                },
-                yAxis: {
-                    axisLine: {
-                        show: false
-                    },
-                    axisTick: {
-                        show: false
-                    },
-                    axisLabel: {
-                        textStyle: {
-                            color: '#999'
-                        }
-                    }
-                },
-                dataZoom: [
-                    {
-                        type: 'inside'
-                    }
-                ],
-                series: [
-                    {
-                        type: 'bar',
-                        showBackground: true,
-                        itemStyle: {
-                            color: new echarts.graphic.LinearGradient(
-                                0, 0, 0, 1,
-                                [
-                                    {offset: 0, color: '#83bff6'},
-                                    {offset: 0.5, color: '#188df0'},
-                                    {offset: 1, color: '#188df0'}
-                                ]
-                            )
-                        },
-                        emphasis: {
-                            itemStyle: {
-                                color: new echarts.graphic.LinearGradient(
-                                    0, 0, 0, 1,
-                                    [
-                                        {offset: 0, color: '#2378f7'},
-                                        {offset: 0.7, color: '#2378f7'},
-                                        {offset: 1, color: '#83bff6'}
-                                    ]
-                                )
-                            }
-                        },
-                        data: data
-                    }
-                ]
-            };
-
-            // Enable data zoom when user click bar.
-            var zoomSize = 6;
-            myChart.on('click', function (params) {
-                console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
-                myChart.dispatchAction({
-                    type: 'dataZoom',
-                    startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
-                    endValue: dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
-                });
-            });
-
-            option && myChart.setOption(option);
-        </script>
-        <div id="paperList">
-            <script type="text/javascript">
-                var chartDom = document.getElementById('paperList');
-                var myChart = echarts.init(chartDom);
+                var myChart = echarts.init(document.getElementById('ECCVList'));
                 var option;
-
-                var dataAxis = ['赵','钱','孙','李','周'];
-                var data = [100,90,80,70,60];
-                var yMax = 500;
-                var dataShadow = [];
-
-                for (var i = 0; i < data.length; i++) {
-                    dataShadow.push(yMax);
-                }
-
                 option = {
                     title: {
-                        text: '发表论文数量Top5',
-                        subtext: '取自xxx、xxx、xxx'
+                        text: "ECCV热词变化趋势",
+                        x:"center"
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        orient:"horizontal",
+                        x:"right",
+                        y:"bottom",
+                        padding: 0,
+                        data: ['word1', 'word2', 'word3', 'word4', 'word5', 'word6', 'word7', 'word8', 'word9', 'word10']
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    toolbox: {
+                        feature: {
+                            saveAsImage: {}
+                        }
                     },
                     xAxis: {
-                        data: dataAxis,
-                        axisLabel: {
-                            inside: true,
-                            textStyle: {
-                                color: '#fff'
-                            }
-                        },
-                        axisTick: {
-                            show: false
-                        },
-                        axisLine: {
-                            show: false
-                        },
-                        z: 10
+                        type: 'category',
+                        boundaryGap: false,
+                        data: ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020']
                     },
                     yAxis: {
-                        axisLine: {
-                            show: false
-                        },
-                        axisTick: {
-                            show: false
-                        },
-                        axisLabel: {
-                            textStyle: {
-                                color: '#999'
-                            }
-                        }
+                        type: 'value'
                     },
-                    dataZoom: [
-                        {
-                            type: 'inside'
-                        }
-                    ],
                     series: [
                         {
-                            type: 'bar',
-                            showBackground: true,
-                            itemStyle: {
-                                color: new echarts.graphic.LinearGradient(
-                                    0, 0, 0, 1,
-                                    [
-                                        {offset: 0, color: '#83bff6'},
-                                        {offset: 0.5, color: '#188df0'},
-                                        {offset: 1, color: '#188df0'}
-                                    ]
-                                )
-                            },
-                            emphasis: {
-                                itemStyle: {
-                                    color: new echarts.graphic.LinearGradient(
-                                        0, 0, 0, 1,
-                                        [
-                                            {offset: 0, color: '#2378f7'},
-                                            {offset: 0.7, color: '#2378f7'},
-                                            {offset: 1, color: '#83bff6'}
-                                        ]
-                                    )
-                                }
-                            },
-                            data: data
-                        }
+                            name: 'word1',
+                            type: 'line',
+                            stack: '总量',
+                            data: [120, 132, 101, 134, 90, 230, 210,200]
+                        },
+                        {
+                            name: 'word2',
+                            type: 'line',
+                            stack: '总量',
+                            data: [220, 182, 191, 234, 290, 330, 310,200]
+                        },
+                        {
+                            name: 'word3',
+                            type: 'line',
+                            stack: '总量',
+                            data: [150, 232, 201, 154, 190, 330, 410,200]
+                        },
+                        {
+                            name: 'word4',
+                            type: 'line',
+                            stack: '总量',
+                            data: [320, 332, 301, 334, 390, 330, 320,200]
+                        },
+                        {
+                            name: 'word5',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
+                        },
+                        {
+                            name: 'word6',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
+                        },
+                        {
+                            name: 'word7',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
+                        },
+                        {
+                            name: 'word8',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
+                        },
+                        {
+                            name: 'word9',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
+                        },
+                        {
+                            name: 'word10',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
+                        },
                     ]
                 };
 
-                // Enable data zoom when user click bar.
-                var zoomSize = 6;
-                myChart.on('click', function (params) {
-                    console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
-                    myChart.dispatchAction({
-                        type: 'dataZoom',
-                        startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
-                        endValue: dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
-                    });
-                });
+                myChart.setOption(option);
+            </script>
+        </div>
+        <div  clss="box" id="ICCVList">
+            <script type="text/javascript">
+                var myChart = echarts.init(document.getElementById('ICCVList'));
+                var option;
+                option = {
+                    title: {
+                        text: "ICCV热词变化趋势",
+                        x:"center"
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        orient:"horizontal",
+                        x:"right",
+                        y:"bottom",
+                        padding: 0,
+                        data: ['word1', 'word2', 'word3', 'word4', 'word5', 'word6', 'word7', 'word8', 'word9', 'word10']
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    toolbox: {
+                        feature: {
+                            saveAsImage: {}
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020']
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                            name: 'word1',
+                            type: 'line',
+                            stack: '总量',
+                            data: [120, 132, 101, 134, 90, 230, 210,200]
+                        },
+                        {
+                            name: 'word2',
+                            type: 'line',
+                            stack: '总量',
+                            data: [220, 182, 191, 234, 290, 330, 310,200]
+                        },
+                        {
+                            name: 'word3',
+                            type: 'line',
+                            stack: '总量',
+                            data: [150, 232, 201, 154, 190, 330, 410,200]
+                        },
+                        {
+                            name: 'word4',
+                            type: 'line',
+                            stack: '总量',
+                            data: [320, 332, 301, 334, 390, 330, 320,200]
+                        },
+                        {
+                            name: 'word5',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
+                        },
+                        {
+                            name: 'word6',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
+                        },
+                        {
+                            name: 'word7',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
+                        },
+                        {
+                            name: 'word8',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
+                        },
+                        {
+                            name: 'word9',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
+                        },
+                        {
+                            name: 'word10',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
+                        },
+                    ]
+                };
 
-                option && myChart.setOption(option);
+                myChart.setOption(option);
+            </script>
+        </div>
+        <div  clss="box" id="CVPRList">
+            <script type="text/javascript">
+                var myChart = echarts.init(document.getElementById('CVPRList'));
+                var option;
+                option = {
+                    title: {
+                        text: "CVPR热词变化趋势",
+                        x:"center"
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        orient:"horizontal",
+                        x:"right",
+                        y:"bottom",
+                        padding: 0,
+                        data: ['word1', 'word2', 'word3', 'word4', 'word5', 'word6', 'word7', 'word8', 'word9', 'word10']
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    toolbox: {
+                        feature: {
+                            saveAsImage: {}
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020']
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                            name: 'word1',
+                            type: 'line',
+                            stack: '总量',
+                            data: [120, 132, 101, 134, 90, 230, 210,200]
+                        },
+                        {
+                            name: 'word2',
+                            type: 'line',
+                            stack: '总量',
+                            data: [220, 182, 191, 234, 290, 330, 310,200]
+                        },
+                        {
+                            name: 'word3',
+                            type: 'line',
+                            stack: '总量',
+                            data: [150, 232, 201, 154, 190, 330, 410,200]
+                        },
+                        {
+                            name: 'word4',
+                            type: 'line',
+                            stack: '总量',
+                            data: [320, 332, 301, 334, 390, 330, 320,200]
+                        },
+                        {
+                            name: 'word5',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
+                        },
+                        {
+                            name: 'word6',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
+                        },
+                        {
+                            name: 'word7',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
+                        },
+                        {
+                            name: 'word8',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
+                        },
+                        {
+                            name: 'word9',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
+                        },
+                        {
+                            name: 'word10',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
+                        },
+                    ]
+                };
+
+                myChart.setOption(option);
             </script>
         </div>
     </div>

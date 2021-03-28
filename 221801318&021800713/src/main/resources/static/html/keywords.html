@@ -1,202 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>keywords</title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/bootstrap-grid.css">
-    <link rel="stylesheet" href="../css/bootstrap-reboot.css">
-    <link rel="stylesheet" href="../css/style.default.css">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>keywords</title>
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap-grid.css">
+        <link rel="stylesheet" href="../css/bootstrap-reboot.css">
+        <link rel="stylesheet" href="../css/style.default.css">
+        <script src="../js/bootstrap.js"></script>
+        <script src="../js/bootstrap.bundle.js"></script>
+        <script src="../js/jquery_2.0.0_jquery.js"></script>
+        <script src="../js/echarts.min.js"></script>
+    </head>
+    <body>
+        <a class="logoName" href="paperList.html">
+            <img class="logo" src="../img/websiteName.png" alt="Logo"/>
+        </a>
+        <div class="content">
+            <div class="sidebarArea">
+                <div class="wrapper">
 
-</head>
-<body>
-    <a class="logoName" href="paperList.html">
-        <img class="logo" src="../img/websiteName.png" alt="Logo"/>
-    </a>
-    <div class="content">
-        <div class="sidebarArea">
-            <div class="wrapper">
+                    <nav id="sidebar">
 
-                <nav id="sidebar">
-
-                    <div class="sidebar-header">
-                        <h3>Welcome</h3>
-                    </div>
+                        <div class="sidebar-header">
+                            <h3>Welcome</h3>
+                        </div>
 
 
-                    <ul class="list-unstyled components">
-                        <li ><a href="paperList.html">论文列表</a></li>
-                        <li><a href="paperSearch.html">论文检索</a></li>
-                        <li class="active"><a href="#">关键词图谱</a></li>
-                        <li><a href="analyse.html">热词分析</a></li>
-                    </ul>
+                        <ul class="list-unstyled components">
+                            <li ><a href="paperList.html">论文列表</a></li>
+                            <li><a href="paperSearch.html">论文检索</a></li>
+                            <li class="active"><a href="#">关键词图谱</a></li>
+                            <li><a href="analyse.html">热词分析</a></li>
+                        </ul>
 
-                </nav>
+                    </nav>
+                </div>
+            </div>
+            <div class="contentArea">
+
+                <!--用户已添加的论文数量-->
+                <div class="paperNum">
+                    <h5>已添加论文数</h5>
+                    <h2 class="number">999</h2>
+                </div>
+
+                <!--展示十个热门词汇/方向-->
+                 <div class="keyword">
+                     <h5>最近热词</h5>
+                     <button class="word">word1</button>
+                     <button class="word">word2</button>
+                     <button class="word">word3</button>
+                     <button class="word">word4</button>
+                     <button class="word">word5</button>
+                     <br/>
+                     <button class="word">word6</button>
+                     <button class="word">word7</button>
+                     <button class="word">word8</button>
+                     <button class="word">word9</button>
+                     <button class="word">word10</button>
+                 </div>
+                <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+
+
             </div>
         </div>
-        <div class="contentArea">
 
-            <!--用户已添加的论文数量-->
-            <div class="paperNum">
-                <h5>已添加论文数</h5>
-                <h2 class="number">999</h2>
+        <div class="tab">
+            <h2 style="margin-left: 40px">关键词图谱</h2>
+            <div class="box" id="main">
+                <!--三大论坛总共的-->
+                <script type="text/javascript">
+                    var chartDom = document.getElementById('main');
+                    var myChart = echarts.init(chartDom);
+                    var option;
+
+                    option = {
+                        legend: {
+                            top: 'bottom'
+                        },
+                        toolbox: {
+                            show: true,
+                            feature: {
+                                mark: {show: true},
+                                dataView: {show: true, readOnly: false},
+                                restore: {show: true},
+                                saveAsImage: {show: true}
+                            }
+                        },
+                        series: [
+                            {
+                                name: '面积模式',
+                                type: 'pie',
+                                radius: [50, 120],
+                                center: ['50%', '50%'],
+                                roseType: 'area',
+                                itemStyle: {
+                                    borderRadius: 4
+                                },
+                                data: [
+                                    {value: 40, name: 'rose 1'},
+                                    {value: 38, name: 'rose 2'},
+                                    {value: 32, name: 'rose 3'},
+                                    {value: 30, name: 'rose 4'},
+                                    {value: 28, name: 'rose 5'},
+                                    {value: 26, name: 'rose 6'},
+                                    {value: 22, name: 'rose 7'},
+                                    {value: 18, name: 'rose 8'}
+                                ]
+                            }
+                        ]
+                    };
+
+                    option && myChart.setOption(option);
+
+                    //图谱点击，跳转代码
+                    myChart.on('click', function (param){
+                        //test
+                        window.location.href="paperList.html";
+
+                        /**
+                         var name=param.name;
+                         if(name=="用户数"){
+                            window.location.href="${base}/admin/user/list.htm";
+                        }else if(name=="栏目数"){
+                            window.location.href="${base}/admin/classify/list.htm";
+                        }else if(name=="新闻数"){
+                            window.location.href="${base}/admin/news/list.htm";
+                        }else{
+                            window.location.href="${base}/admin/file/list.htm";
+                        }**/
+                    });
+                    myChart.on('click',eConsole);
+
+                </script>
             </div>
+            <div class="box" id="smain">
 
-            <!--展示十个热门词汇/方向-->
-             <div class="keyword">
-                 <h5>最近热词</h5>
-                 <button class="word">word1</button>
-                 <button class="word">word2</button>
-                 <button class="word">word3</button>
-                 <button class="word">word4</button>
-                 <button class="word">word5</button>
-                 <br/>
-                 <button class="word">word6</button>
-                 <button class="word">word7</button>
-                 <button class="word">word8</button>
-                 <button class="word">word9</button>
-                 <button class="word">word10</button>
-             </div>
-            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+                <!--三大论坛分开-->
+                <script type="text/javascript">
+                    var chartDom = document.getElementById('smain');
+                    var myChart = echarts.init(chartDom);
+                    var option;
 
+                    option = {
+                        series: [{
 
+                            type: 'treemap',
+                            data: [{
+                                name: 'CVPR',            // First tree
+                                value: 10,
+                                children: [{
+                                    name: 'CVPRw1',  // Granson of first tree
+                                    value: 20
+                                },{
+                                    name: 'w2',  // Granson of first tree
+                                    value: 20
+                                },{
+                                    name: 'w3',  // Granson of first tree
+                                    value: 20
+                                }]
+                            }, {
+                                name: 'ICCV',            // Second tree
+                                value: 20,
+                                children: [{
+                                    name: 'nodeBa',       // Son of first tree
+                                    value: 20,
+                                    children: [{
+                                        name: 'ICCVw1',  // Granson of first tree
+                                        value: 20
+                                    },{
+                                        name: 'w2',  // Granson of first tree
+                                        value: 20
+                                    },{
+                                        name: 'w3',  // Granson of first tree
+                                        value: 20
+                                    }]
+                                }]
+                            },{
+                                name: 'ECCV',            // Second tree
+                                value: 20,
+                                children: [{
+                                    name: 'nodeCa',       // Son of first tree
+                                    value: 20,
+                                    children: [{
+                                        name: 'w1',  // Granson of first tree
+                                        value: 20
+                                    },{
+                                        name: 'w2',  // Granson of first tree
+                                        value: 20
+                                    },{
+                                        name: 'w3',  // Granson of first tree
+                                        value: 20
+                                    }]
+                                }]
+                            }
+                            ]
+                        }]
+                    };
+                    option && myChart.setOption(option);
+
+                    //echarts图表点击跳转,js代码
+                    myChart.on('click', function (param){
+
+                        //test
+                        window.location.href="paperList.html";
+
+                        /**
+                        var name=param.name;
+                        if(name=="用户数"){
+                            window.location.href="${base}/admin/user/list.htm";
+                        }else if(name=="栏目数"){
+                            window.location.href="${base}/admin/classify/list.htm";
+                        }else if(name=="新闻数"){
+                            window.location.href="${base}/admin/news/list.htm";
+                        }else{
+                            window.location.href="${base}/admin/file/list.htm";
+                        }**/
+                    });
+                    myChart.on('click',eConsole);
+                </script>
+            </div>
         </div>
-    </div>
-    <div class="tab">
-        <a class="btn_word_active btn">热词走势</a>
-        <a class="btn_key btn">关键词图谱</a>
-        <div class="box" id="main"></div>
-        <div class="box2 box">456</div>
-    </div>
-    <script type="text/javascript">
-        var myChart = echarts.init(document.getElementById('main'));
-        var option;
-        option = {
-            title: {
-                text: '热词变化趋势',
-                x:"center"
-            },
-            tooltip: {
-                trigger: 'axis'
-            },
-            legend: {
-                orient:"horizontal",
-                x:"right",
-                y:"bottom",
-                padding: 0,
-                data: ['word1', 'word2', 'word3', 'word4', 'word5', 'word6', 'word7', 'word8', 'word9', 'word10']
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            toolbox: {
-                feature: {
-                    saveAsImage: {}
-                }
-            },
-            xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                data: ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020']
-            },
-            yAxis: {
-                type: 'value'
-            },
-            series: [
-                {
-                    name: 'word1',
-                    type: 'line',
-                    stack: '总量',
-                    data: [120, 132, 101, 134, 90, 230, 210,200]
-                },
-                {
-                    name: 'word2',
-                    type: 'line',
-                    stack: '总量',
-                    data: [220, 182, 191, 234, 290, 330, 310,200]
-                },
-                {
-                    name: 'word3',
-                    type: 'line',
-                    stack: '总量',
-                    data: [150, 232, 201, 154, 190, 330, 410,200]
-                },
-                {
-                    name: 'word4',
-                    type: 'line',
-                    stack: '总量',
-                    data: [320, 332, 301, 334, 390, 330, 320,200]
-                },
-                {
-                    name: 'word5',
-                    type: 'line',
-                    stack: '总量',
-                    data: [820, 932, 901, 934, 1290, 1330, 1320,200]
-                },
-                {
-                    name: 'word6',
-                    type: 'line',
-                    stack: '总量',
-                    data: [820, 932, 901, 934, 1290, 1330, 1320,200]
-                },
-                {
-                    name: 'word7',
-                    type: 'line',
-                    stack: '总量',
-                    data: [820, 932, 901, 934, 1290, 1330, 1320,200]
-                },
-                {
-                    name: 'word8',
-                    type: 'line',
-                    stack: '总量',
-                    data: [820, 932, 901, 934, 1290, 1330, 1320,200]
-                },
-                {
-                    name: 'word9',
-                    type: 'line',
-                    stack: '总量',
-                    data: [820, 932, 901, 934, 1290, 1330, 1320,200]
-                },
-                {
-                    name: 'word10',
-                    type: 'line',
-                    stack: '总量',
-                    data: [820, 932, 901, 934, 1290, 1330, 1320,200]
-                },
-            ]
-        };
-
-        myChart.setOption(option);
-    </script>
-
-    <script>
-        var btn = document.querySelectorAll(".btn");
-        var box = document.querySelectorAll('.box');
-        for(var i = 0; i < btn.length;i++){
-            btn[i].index = i;
-            btn[i].addEventListener('click',function(e){
-
-                for(let j = 0; j <box.length;j++){
-                    box[j].style.display = 'none';
-                }
-                for(let j = 0; j <btn.length;j++){
-                    btn[j].style.backgroundColor = '#fff';
-                    btn[j].style.color = '#BEBEBE';
-                }
-
-                var index = e.target.index;
-                btn[index].style.backgroundColor = '#599AEF';
-                btn[index].style.color = '#fff';
-                box[index].style.display = 'block'
-            })
-        }
-
-    </script>
-
-</body>
+    </body>
 </html>
