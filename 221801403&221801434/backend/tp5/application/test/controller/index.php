@@ -33,6 +33,25 @@ public function keyword()
 
 
     }
+    
+//查找功能返回数据
+public function search()
+{
+    
+    $content=input('searchContent');
+    $data=paper::where('title like "%'.$content.'%"')->select();
+    $this->assign('income', $data);
+    return $this->fetch('informshow');
+
+}
+//点击关键词返回数据
+public function searchkey($keyword)
+{
+    $data=paper::where('keywords like "%'.$keyword.'%"')->select();
+    $this->assign('income', $data);
+    return $this->fetch('informshow');
+
+}
 
 
 
