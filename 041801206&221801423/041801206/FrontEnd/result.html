@@ -58,7 +58,7 @@
 
                     <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="爬爬爬" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchbtn_2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                             </svg>
@@ -69,82 +69,106 @@
         </div>
     </div>
 
-    <div class="row" style="margin-top: 30px">
-        <div class="col" id="searchResult">
-            <button type="button" class="btn btn-primary" id="abc">获取论文</button>
+    <div class="row" style="margin-top: 30px" id="firstcol">
+        <div class="col-lg-5"></div>
+        <div class="col-lg-2" id="mcol"></div>
+        <div class="col-lg-5"></div>
+    </div>
 
 
+    <div class="row" style="margin-top: 30px" id="searchResult">
+        <div class="col"  style="border-radius: 8px;">
+            <button type="button" class="btn btn-primary" >获取论文</button>
         </div>
 
+
     </div>
-    <script>
+    <script type="text/javascript" src="js/all.js"></script>
+<!--    <script>-->
 
-        var btn = document.getElementById("abc");
-        var word = document.getElementById("bbb");
-        var par=document.getElementById("searchResult");
-        var xmlhttp;
-        var url = "http://47.119.130.124:90/searchPaperByKeyword";
-        btn.onclick= function(){
+<!--        var btn = document.getElementById("abc");-->
+<!--        var word = document.getElementById("bbb");-->
+<!--        var par=document.getElementById("searchResult");-->
+<!--        var lodpar=document.getElementById("mcol");-->
+<!--        var xmlhttp;-->
+<!--        var searchPaperByKeywordUrl = "http://47.119.130.124:90/searchPaperByKeyword";-->
+<!--        btn.onclick= function(){-->
 
-            if(window.XMLHttpRequest){
-                xmlhttp = new XMLHttpRequest();
-            }else{
-                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
+<!--            if(window.XMLHttpRequest){-->
+<!--                xmlhttp = new XMLHttpRequest();-->
+<!--            }else{-->
+<!--                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")-->
 
-            }
-            var lod = document.createElement("div");
-            lod.setAttribute('class', 'spinner-border');
-            lod.setAttribute('id', 'lodTemp');
-            var lods=document.createElement("span");
-            lods.setAttribute('class', 'sr-only');
-            lod.appendChild(lods);
-            par.appendChild(lod);
+<!--            }-->
+<!--            var lod = document.createElement("div");-->
+<!--            lod.setAttribute('class', 'spinner-border');-->
+<!--            lod.setAttribute('id', 'lodTemp');-->
+<!--            var lods=document.createElement("span");-->
+<!--            lods.setAttribute('class', 'sr-only');-->
+<!--            lod.appendChild(lods);-->
+<!--            lodpar.appendChild(lod);-->
 
-        // <div class="card">
-        //         <div class="card-header">
-        //         Featured
-        //         </div>
-        //         <div class="card-body">
-        //         <h5 class="card-title">Special title treatment</h5>
-        //     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        //     <a href="#" class="btn btn-primary">Go somewhere</a>
-        //     </div>
-        //     </div>
+<!--        // <div class="card">-->
+<!--        //         <div class="card-header">-->
+<!--        //         Featured-->
+<!--        //         </div>-->
+<!--        //         <div class="card-body">-->
+<!--        //         <h5 class="card-title">Special title treatment</h5>-->
+<!--        //     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
+<!--        //     <a href="#" class="btn btn-primary">Go somewhere</a>-->
+<!--        //     </div>-->
+<!--        //     </div>-->
 
-            xmlhttp.onreadystatechange = function() {
+<!--            xmlhttp.onreadystatechange = function() {-->
 
-                if(xmlhttp.readyState == 4){
+<!--                if(xmlhttp.readyState == 4){-->
 
-                    if(xmlhttp.status == 200) {
-                        var str = xmlhttp.responseText;
-                        alert(str);
-                        var tempRem=document.getElementById("lodTemp");
-                        par.removeChild(tempRem);
-                        var arr = eval('('+str+')');
-                        for(var i=0;i<arr.length;i++){
-                            console.log(arr[i].link);
-                            var cardDiv = document.createElement("div");
-                            cardDiv.setAttribute('class', 'card');
-                            var cardHeaderDiv=document.createElement("div");
-                            cardHeaderDiv.innerText=arr[i].typeandyear;
-                            var  cardBodyDiv=document.createElement("div");
-                            cardBodyDiv.setAttribute("class","card-body");
-                            var bodyH5=document.createElement("h5");
-                            bodyH5.setAttribute("class","card-title");
-                            bodyH5.innerText=arr[i].title;
-                            cardBodyDiv.appendChild(bodyH5);  //到H5
+<!--                    if(xmlhttp.status == 200) {-->
+<!--                        var str = xmlhttp.responseText;-->
+<!--                        var tempRem=document.getElementById("lodTemp");-->
+<!--                        lodpar.removeChild(tempRem);-->
+<!--                        var arr = eval('('+str+')');-->
+<!--                        for(var i=0;i<arr.length;i++){-->
+<!--                            console.log(arr[i].link);-->
 
-                            // div2.innerText=resJson.get(i).toString();
-                            par.appendChild(cardDiv);
-                        }
-                    }
-                }
-            }
-            xmlhttp.open("POST",url,true);
-            xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
-            xmlhttp.send("{\"searchKeyword\":\"Shape\"}");
-        }
-    </script>
+
+<!--                            var cardHeaderDiv=document.createElement("div");-->
+<!--                            cardHeaderDiv.innerText=arr[i].typeandyear+" —— "+arr[i].releasetime;-->
+
+<!--                            var  cardBodyDiv=document.createElement("div");-->
+<!--                            cardBodyDiv.setAttribute("class","card-body");-->
+
+<!--                            var bodyH5=document.createElement("h5");-->
+<!--                            bodyH5.setAttribute("class","card-title");-->
+<!--                            bodyH5.innerText=arr[i].title;-->
+<!--                            cardBodyDiv.appendChild(bodyH5);-->
+
+<!--                            var bodyP = document.createElement("p");-->
+<!--                            bodyP.setAttribute("class","card-text");-->
+<!--                            bodyP.innerText=arr[i].abstractcontext;-->
+<!--                            cardBodyDiv.appendChild(bodyP);-->
+
+<!--                            var bodyA = document.createElement("a");-->
+<!--                            bodyA.setAttribute("href",arr[i].link);-->
+<!--                            bodyA.setAttribute("class","btn btn-primary");-->
+<!--                            bodyA.innerText="查阅原文";-->
+<!--                            cardBodyDiv.appendChild(bodyA);-->
+
+<!--                            var cardDiv = document.createElement("div");-->
+<!--                            cardDiv.setAttribute('class', 'card');-->
+<!--                            cardDiv.setAttribute('style', 'margin:15px;padding:10px;border-radius: 8px;');-->
+<!--                            cardDiv.appendChild(cardHeaderDiv);-->
+<!--                            cardDiv.appendChild(cardBodyDiv);-->
+<!--                            par.appendChild(cardDiv);-->
+<!--                        }-->
+<!--                    }-->
+<!--                }-->
+<!--            }-->
+<!--            xmlhttp.open("POST",searchPaperByKeywordUrl,true);-->
+<!--            xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");-->
+<!--            xmlhttp.send("{\"searchKeyword\":\"Shape\"}");-->
+<!--        }-->
+<!--    </script>-->
 
 
 
