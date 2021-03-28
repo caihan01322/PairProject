@@ -70,6 +70,7 @@
 
 <div id="analysis_container">
 <div id="analysis_left_container"></div>
+<div id="analysis_right_container"></div>
 
 <?php
     $servername = "localhost";
@@ -77,6 +78,7 @@
     $password = "";
     $dbname = "paperdb";
     $year = array('2016', '2018', '2020');
+    $ICCV_year = array('2015', '2017', '2019');
     // 数据库连接
     $conn = new mysqli($servername, $username, $password, $dbname);
     // Check connection
@@ -102,10 +104,10 @@
                 $value = ucfirst($value);
                 //$value = str_replace(' ', '<br>', $value);  //词组遇空格则分行
                 if(array_key_exists($value, $key_array)){
-                    $key_array[$value] += 10;   //+=1
+                    $key_array[$value] += 1;
                 }
                 else{
-                    $key_array[$value] = 10;   //=1
+                    $key_array[$value] = 1;
                 }
             }
         }
@@ -113,7 +115,7 @@
         return array_slice($key_array, 0, $nums);
     }
     
-    function getKeyNum($conn, $key_arr, $year_arr){
+    function getKeyNum($conn, $key_arr, $year_arr, $ICCV_year_arr){
         $arr = array();
         $arr['ECCV'] = array();
         $arr['ICCV'] = array();
@@ -122,7 +124,7 @@
         for($i = 0; $i < count($year_arr); $i++){
             for ($j = 0; $j < $size; $j++){
                 $arr['ECCV'][$year_arr[$i]][$j] = 0;
-                $arr['ICCV'][$year_arr[$i]][$j] = 0;
+                $arr['ICCV'][$ICCV_year_arr[$i]][$j] = 0;
                 $arr['CVPR'][$year_arr[$i]][$j] = 0;
             }
         }
@@ -131,7 +133,10 @@
                 ."(key1 REGEXP '".$key_arr[$i]."' OR key2 REGEXP '".$key_arr[$i]."' OR key3 REGEXP '".$key_arr[$i]."' OR key4 REGEXP '".$key_arr[$i]."' OR key5 REGEXP '".$key_arr[$i]."')");
             while($row = $result->fetch_assoc()) {
                 if($row["year"] == $year_arr[0] || $row["year"] == $year_arr[1] || $row["year"] == $year_arr[2]){
-                        $arr[$row["meeting"]][$row["year"]][$i] += 10;   //+=1
+                        $arr[$row["meeting"]][$row["year"]][$i] += 1;
+                }
+                else if(($row["meeting"] == "ICCV") && ($row["year"] == $ICCV_year_arr[0] || $row["year"] == $ICCV_year_arr[1] || $row["year"] == $ICCV_year_arr[2])){
+                    $arr["ICCV"][$row["year"]][$i] += 1;
                 }
             }
         }
@@ -142,17 +147,8 @@
     $top_key_array = array_keys($top_ten_key);
     $top_value_array = array_values($top_ten_key);
     
-    $arr = getKeyNum($conn, array_slice($top_key_array, 0, 5), $year);
-    
-    /*$arr = array();
-    $arr['ECCV'] = array();
-    $arr['ECCV'][$year[0]] = getTopKeys("SELECT key1, key2, key3, key4, key5 FROM paper WHERE meeting = 'ECCV' AND year = '".$year[0]."'", $conn, 5);
-    $arr['ECCV'][$year[1]] = getTopKeys("SELECT key1, key2, key3, key4, key5 FROM paper WHERE meeting = 'ECCV' AND year = '".$year[1]."'", $conn, 5);
-    $arr['ECCV'][$year[2]] = getTopKeys("SELECT key1, key2, key3, key4, key5 FROM paper WHERE meeting = 'ECCV' AND year = '".$year[2]."'", $conn, 5);
-    $arr['CVPR'][$year[0]] = getTopKeys("SELECT key1, key2, key3, key4, key5 FROM paper WHERE meeting = 'CVPR' AND year = '".$year[0]."'", $conn, 5);
-    $arr['CVPR'][$year[1]] = getTopKeys("SELECT key1, key2, key3, key4, key5 FROM paper WHERE meeting = 'CVPR' AND year = '".$year[1]."'", $conn, 5);
-    $arr['CVPR'][$year[2]] = getTopKeys("SELECT key1, key2, key3, key4, key5 FROM paper WHERE meeting = 'CVPR' AND year = '".$year[2]."'", $conn, 5);
-    */
+    $arr = getKeyNum($conn, array_slice($top_key_array, 0, 5), $year, $ICCV_year);
+
     echo 
 "<script>
 	var chart = Highcharts.chart('analysis_left_container', {
@@ -167,11 +163,6 @@
 		},
 		xAxis: {
 			categories: ".json_encode(array_slice($top_key_array, 0, 5)).",
-			/*title: {
-				text: '热词', style: {
-					fontSize: '18px'
-				}
-			},*/
 			labels: {
 				style: {
 					fontSize: '14px'
@@ -187,7 +178,7 @@
 			labels: {
 				overflow: 'justify',
 				style: {
-					fontSize: '15px'
+					fontSize: '14px'
 				}
 			}
 		},
@@ -209,8 +200,8 @@
 			layout: 'vertical',
 			align: 'right',
 			verticalAlign: 'top',
-			x: -40,
-			y: 100,
+			x: -65,
+			y: 150,
 			floating: true,
 			borderWidth: 1,
 			backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
@@ -226,19 +217,20 @@
 		    		enabled: true
 		    	},
 		    	firstYearButton: {
-		    		y: 25,
-		    		x: -770,
-		    		align: 'right',
-		    		text: ".$year[0].",
+		    		y: 30,
+		    		x: 30,
+		    		align: 'left',
+		    		text: \"".($year[0] - 1)."-".$year[0]."\",
 		    		hoverSymbolFill: null,
 		    		onclick: function() {
                         chart.series[0].setData(".json_encode(array_values($arr['CVPR'][$year[0]])).");
-		    			chart.series[2].setData(".json_encode(array_values($arr['ECCV'][$year[0]])).");
+		    			chart.series[1].setData(".json_encode(array_values($arr['ICCV'][$ICCV_year[0]])).");
+                        chart.series[2].setData(".json_encode(array_values($arr['ECCV'][$year[0]])).");
 		    		},
 		    		theme: {
 		    			style: {
 							color: 'grey',
-							fontSize: '15px',
+							fontSize: '14px',
 							textDecoration: 'underline'
 						},
 		    			stroke: 'white',
@@ -260,19 +252,20 @@
 		    		}
 		    	},
 		    	secondYearButton: {
-		    		y: 25,
-		    		x: -700,
-		    		align: 'right',
-		    		text: ".$year[1].",
+		    		y: 30,
+		    		x: 130,
+		    		align: 'left',
+		    		text: \"".($year[1] - 1)."-".$year[1]."\",
 		    		hoverSymbolFill: null,
 		    		onclick: function() {
                         chart.series[0].setData(".json_encode(array_values($arr['CVPR'][$year[1]])).");
+                        chart.series[1].setData(".json_encode(array_values($arr['ICCV'][$ICCV_year[1]])).");
 		    			chart.series[2].setData(".json_encode(array_values($arr['ECCV'][$year[1]])).");
 		    		},
 		    		theme: {
 		    			style: {
 							color: 'grey',
-							fontSize: '15px',
+							fontSize: '14px',
 							textDecoration: 'underline'
 						},
 		    			stroke: 'white',
@@ -294,19 +287,20 @@
 		    		}
 		    	},
 		    	thirdYearButton: {
-		    		y: 25,
-		    		x: -630,
-		    		align: 'right',
-		    		text: ".$year[2].",
+		    		y: 30,
+		    		x: 230,
+		    		align: 'left',
+		    		text: \"".($year[2] - 1)."-".$year[2]."\",
 		    		hoverSymbolFill: null,
 		    		onclick: function() {
                         chart.series[0].setData(".json_encode(array_values($arr['CVPR'][$year[2]])).");
+                        chart.series[1].setData(".json_encode(array_values($arr['ICCV'][$ICCV_year[2]])).");
 		    			chart.series[2].setData(".json_encode(array_values($arr['ECCV'][$year[2]])).");
 		    		},
 		    		theme: {
 		    			style: {
 							color: 'grey',
-							fontSize: '15px',
+							fontSize: '14px',
 							textDecoration: 'underline'
 						},
 		    			stroke: 'white',
@@ -344,21 +338,18 @@
 		},
 		series: [{
 			name: 'CVPR',
-			//data: [507, 931, 2635, 203, 1522],
             data: ".json_encode(array_values($arr['CVPR'][$year[2]]))."
 		}, {
 			name: 'ICCV',
-			data: [833, 156, 947, 408, 2006]
+            data: ".json_encode(array_values($arr['ICCV'][$ICCV_year[2]]))."
 		}, {
 			name: 'ECCV',
-			//data: [973, 914, 2054, 732, 34]
             data: ".json_encode(array_values($arr['ECCV'][$year[2]]))."
 		}]
 	});
 </script>"; 
     
     echo "
-<div id=\"analysis_right_container\"></div>
 <script>
     Highcharts.chart('analysis_right_container', {
         chart: {
@@ -385,7 +376,7 @@
 					//enabled: true,
 					//allowOverlap: true, // 允许数据标签重叠
 					style: {
-		                'fontSize' : '15px'
+		                'fontSize' : '16px'
 		            }
 				}
 			},
