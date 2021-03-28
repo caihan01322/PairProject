@@ -22,5 +22,7 @@ public interface essayDao {
     List<Keywords> keywordsGetCVPRALL();
     List<Keywords> keywordsGetECCVALL();
     List<Keywords> keywordsGetICCVALL();
-  
+    List<Essay> labelSearchByTitle(@Param("title")String title,@Param("user")String user);
+    List<Essay> labelSearchByNum(@Param("num")String num,@Param("user")String user);
+    List<Essay> labelSearchByKeywords(@Param("words")String words,@Param("user")String user);
 }

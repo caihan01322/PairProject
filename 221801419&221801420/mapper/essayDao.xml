@@ -64,5 +64,25 @@ select keywords from essay_cvpr where meeting in (select essaytype from collect 
 union all
 select keywords from essay_iccv where meeting in (select essaytype from collect where name = #{name}) and id in (select essaynum from collect where name = #{name});
 </select>
-
+<select id="labelSearchByKeywords" resultType="Entity.Essay">
+select * from essay_eccv where meeting in (select essaytype from collect where name =#{user}) and id in (select essaynum from collect where name =#{user}) and keywords like concat('%','${words}','%')
+union all
+select * from essay_iccv where meeting in (select essaytype from collect where name =#{user}) and id in (select essaynum from collect where name =#{user}) and keywords like concat('%','${words}','%')
+union all
+select * from essay_cvpr where meeting in (select essaytype from collect where name =#{user}) and id in (select essaynum from collect where name =#{user}) and keywords like concat('%','${words}','%');
+</select>
+<select id="labelSearchByNum" resultType="Entity.Essay">
+select * from essay_eccv where meeting in (select essaytype from collect where name =#{user}) and id in (select essaynum from collect where name =#{user}) and articlenumber like concat('%','${num}','%')
+union all
+select * from essay_iccv where meeting in (select essaytype from collect where name =#{user}) and id in (select essaynum from collect where name =#{user}) and articlenumber like concat('%','${num}','%')
+union all
+select * from essay_cvpr where meeting in (select essaytype from collect where name =#{user}) and id in (select essaynum from collect where name =#{user}) and articlenumber like concat('%','${num}','%');
+</select>
+<select id="labelSearchByTitle" resultType="Entity.Essay">
+select * from essay_eccv where meeting in (select essaytype from collect where name =#{user}) and id in (select essaynum from collect where name =#{user}) and title like concat('%','${title}','%')
+union all
+select * from essay_iccv where meeting in (select essaytype from collect where name =#{user}) and id in (select essaynum from collect where name =#{user}) and title like concat('%','${title}','%')
+union all
+select * from essay_cvpr where meeting in (select essaytype from collect where name =#{user}) and id in (select essaynum from collect where name =#{user}) and title like concat('%','${title}','%');
+</select>
 </mapper>

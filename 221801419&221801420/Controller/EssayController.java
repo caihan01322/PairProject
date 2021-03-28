@@ -112,5 +112,16 @@ public class EssayController {
         return essayService.keywordsGet(keywordsType, year);
     }
     
+  //论文列表的标签查询
+    /*
+     * searchStr：搜索的内容
+     * searchLabel：搜索的标签（keywords,title,articlenum)
+     */
+    @RequestMapping("/labelSearch")
+    @ResponseBody
+    public List<Essay> labelSearch(String searchStr,String searchLabel,String username){
+        return essayService.labelSearch(searchStr, searchLabel, username);
+    }
     
+
 }

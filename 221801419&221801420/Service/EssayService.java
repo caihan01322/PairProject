@@ -98,6 +98,23 @@ public class EssayService {
        return temp;
    }
    
-
+   //论文标签搜索
+   public static List<Essay> labelSearch(String serachStr,String searchLabel,String username){
+       ArrayList<Essay> essays = new ArrayList<>();
+       switch (searchLabel) {
+           case "title":
+               essays = (ArrayList<Essay>) e.labelSearchByTitle(serachStr, username);
+               break;
+           case "keywords":
+               essays = (ArrayList<Essay>) e.labelSearchByKeywords(serachStr, username);
+               break;
+           case "articlenum":
+               essays = (ArrayList<Essay>) e.labelSearchByNum(serachStr, username);
+               break;
+           default:
+               break;
+       }
+       return essays;
+   }
    
 }

@@ -81,5 +81,17 @@ public class EssayDaoImpl implements essayDao {
     public List<Keywords> keywordsGetICCVALL() {
         return e.keywordsGetICCVALL();
     }
+    @Override
+    public List<Essay> labelSearchByKeywords(String words,String user) {
+        return e.labelSearchByKeywords(words,user);
+    }
+    @Override
+    public List<Essay> labelSearchByNum(String num,String user) {
+        return e.labelSearchByNum(num,user);
+    }
+    @Override
+    public List<Essay> labelSearchByTitle(String title,String user) {
+        return e.labelSearchByTitle(title,user);
+    }
     
 }
