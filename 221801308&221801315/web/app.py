@@ -244,8 +244,13 @@ def delete():
     return render_template("search.html")
 
 
-@app.route("/top_10_keyword")
-def top_10_keyword():
+@app.route("/hot_keywords_view")
+def hot_keywords_view():
+    return render_template("hot_keywords_view.html")
+
+
+@app.route("/hot_keywords")
+def hot_keywords():
     """获取Top10的关键词
 
     获取频率最高的前10个关键词，返回json格式
