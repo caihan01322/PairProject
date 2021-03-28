@@ -67,7 +67,6 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.10.0</version>
         </dependency>
-
         <!-- 添加对应的 jackson-core -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -75,12 +74,25 @@
             <version>2.10.0</version>
         </dependency>
 
-        <!-- Mybatis分页 -->
-        <dependency>
+        <!-- Mybatis分页 [ 与mybatis-plus分页不可共存！]-->
+        <!--<dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.10</version>
+        </dependency>-->
+
+        <!-- mybatis-plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>2.1.8</version>
         </dependency>
+        <!--<dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>3.1.1</version>
+        </dependency>-->
+
 
     </dependencies>
 

@@ -1,9 +1,11 @@
 package com.practice.pairproject.service;
 
+//import com.baomidou.mybatisplus.core.metadata.IPage;
+//import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.practice.pairproject.pojo.Paper;
-import org.apache.ibatis.annotations.Param;
+import com.practice.pairproject.util.MyPage;
 
-import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
@@ -33,24 +35,27 @@ public interface PaperService {
     /**
      * 多条件联合模糊查询
      * @param paramMap
+     * @param page
      * @return  List<Paper>
      */
-    List<Paper> searchPaper(Map<String, String> paramMap);
+    Page<Paper> searchPaper(MyPage<Paper> page, Map<String, String> paramMap);
 
 
     /**
      * 【分页】
      * 得到所有论文
+     * @param page
      * @return
      */
-    List<Paper> selectAll();
+    Page<Paper> selectAll(MyPage<Paper> page);
 
 
     /**
      * 根据keyword查询相关的论文列表
      * @param keyword
+     * @param page
      * @return
      */
-    List<Paper> selectPaperByKeyword(String keyword);
+    Page<Paper> selectPaperByKeyword(MyPage<Paper> page, String keyword);
 
 }

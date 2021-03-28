@@ -4,6 +4,10 @@ import com.practice.pairproject.pojo.Paper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 class PaperServiceImplTest {
 
     @Autowired
@@ -37,5 +41,35 @@ class PaperServiceImplTest {
         /*if(paperService.insertPaper(paper) >0 ){
             System.out.println("------插入论文成功【+" + "pid" + "+】: " + paper);
         }*/
+    }
+
+    @Test
+    void testInsertPaper() {
+    }
+
+    @Test
+    void deleteByPrimaryKey() {
+    }
+
+    @Test
+    void deleteByPrimaryKeyList() {
+    }
+
+    @Test
+    void searchPaper() {
+    }
+
+    @Test
+    void selectAll() {
+    }
+
+    @Test
+    void selectPaperByKeyword() {
+    }
+
+    @Test
+    void setMyPage() {
+        List<Integer> plist = IntStream.rangeClosed(1, 10).boxed().collect(Collectors.toList());
+        System.out.println("【plist】：" + plist);
     }
 }
