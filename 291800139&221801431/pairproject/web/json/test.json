@@ -1,0 +1,13 @@
+{
+    "摘要": "We propose a general unsupervised multiscale approach towards image segmentation. The novelty of our method is based on the following points: firstly, it is general in the sense of being independent of the feature extraction process; secondly, it is unsupervised in that the number of classes is not assumed to be known a priori; thirdly, it is flexible as the decomposition sensitivity can be robustly adjusted to produce segmentations into varying number of classes and fourthly, it is robust through the use of the mean shift clustering and Bayesian multiscale processing. Clusters in the joint spatio-feature domain are assumed to be properties of underlying classes, the recovery of which is achieved by the use of the mean shift procedure, a robust non-parametric decomposition method. The subsequent classification procedure consists of Bayesian multiscale processing which models the inherent uncertainty in the joint specification of class and position via a Multiscale Random Field model which forms a Markov Chain in scale. At every scale, the segmentation map and model parameters are determined by sampling from their conditional posterior distributions using Markov Chain Monte Carlo simulations with stochastic relaxation. The method is then applied to perform both colour and texture segmentation. Experimental results show the proposed method performs well even for complicated images.",
+    "会议和年份": "ECCV 2000",
+    "关键词": [
+      "Image Segmentation",
+      "Cluster Centre",
+      "Coarse Scale",
+      "Shift Vector",
+      "Texture Segmentation"
+    ],
+    "发布时间": "18 April 2003",
+    "论文名称": "A General Method for Unsupervised Segmentation of Images Using a Multiscale Approach"
+  }
