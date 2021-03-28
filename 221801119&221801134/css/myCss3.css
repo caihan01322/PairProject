@@ -1,16 +1,29 @@
 /*登录框*/
-
+body{
+	width:1500px;
+}
 .login{
     position:absolute;
-    left:55%;
-    top:15%;
-    width:25%;
+    left:950px;
+    top:120px;
+    width:350px;
     height: 500px;
     background-color: #fffdfd;
     border-radius: 26px;
     text-align: center;
 }
 input[type=text], select {
+    width: 60%;
+    height: 40px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=password]{
     width: 60%;
     height: 40px;
     padding: 12px 20px;
@@ -33,7 +46,7 @@ input[type=text], select {
 }
 
 #submitLogin:hover {
-    background-color: #45a049;
+    background-color: #FE4365;
 }
 
 /*论文列表*/
@@ -102,6 +115,42 @@ input[type=text], select {
 
 /*收藏列表*/
  .mainPaper2{
- 	 margin:0 auto;
+ 	 margin:0 0 0 14%;
+     width: 60%;
+     float:left;
+ }
+ 
+ .collectFolder{
+ 	background-color: white;
+ 	padding:3% 5% 1% 10%;
+ }
+ 
+ .collectFolder:hover {
+    background-color: #FFCCCC	;
+    color:white;
+}
+
+  .mainPaper3{
+ 	 margin:0% auto;
      width: 70%;
  }
+ 
+#note{
+ 	background-color: white;
+ 	padding:6% 5% 4% 8%;
+ 	
+ }
+ 
+#note2{
+  display:none;
+ 	padding:6% 5% 4% 10%;
+ 	background-color:#F8F8F8 ;
+ 	 
+ }
+
+.notenote:hover #note {
+	color:white;
+	background-color:#FFCCCC ;
+ 	 
+}
+ 

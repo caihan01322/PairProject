@@ -28,3 +28,21 @@ a{background-color:transparent;text-decoration:none;color:inherit}
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+.moveButton{
+}
+
+.collect-content {
+  display: none;
+  background-color:#F8F8F8 ;
+  padding:10px;
+	position:relative;
+	left:75%;
+	width:20% ;
+  border-radius:20px;
+}
+
+.moveButton:hover .collect-content {
+  display: block;
+}
+

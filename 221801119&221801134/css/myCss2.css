@@ -1,19 +1,13 @@
 /*动态分析*/
-#analysis_container {
-    width: 1550px;
-    display: flex;
-}
 #analysis_left_container {
-    width: 900px;
     height: 600px;
-    margin: 40px auto;
-    float: left;
+    width: 100%;
+    padding: 3% 2%;
 }
 #analysis_right_container {
-    width: 550px;
-    height: 600px;
-    margin: 40px auto;
-    float: right;
+	height: 600px;
+    width: 100%;
+    padding: 3% 2%;
 }
 
 /*论文导入*/

@@ -8,6 +8,7 @@ $username = preg_replace("/\s|　/", "", $_POST['name']);
 $password1 =$_POST['password1'] ;
 $password2 =$_POST['password2'];
 $conn = new mysqli('localhost','root','','paperdb');
+$conn->query("SET NAMES utf8");
 if ($conn->connect_error){
     echo '数据库连接失败！';
     exit(0);
@@ -34,6 +35,12 @@ if ($conn->connect_error){
     
     $sql="insert into user(username,password) values('$username','$password1')";
     if( $conn->query($sql) === TRUE )  {
+        $sql="select * from user where username='$username' ";
+        $result = $conn->query($sql);
+        $row= $result->fetch_assoc();
+        $userid=$row["userid"];
+        $sql="insert into collection values('$userid','默认收藏夹')";
+        $conn->query($sql);
         echo '<script>alert("注册成功！");window.location="../view/login.php";</script>';
     }
        
