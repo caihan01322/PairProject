@@ -2,6 +2,7 @@ package com.pair.util;
 
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * 数据工具
@@ -30,5 +31,12 @@ public abstract class DataUtil {
 	public static boolean checkVerify(String verify, HttpSession session) {
 		String rand = (String) session.getAttribute("rand");
 		return rand.equals(verify);
+	}
+
+	/**
+	 * 判断List的有效性
+	 */
+	public static boolean isValid(List<?> list) {
+		return ! (list == null || list.size() == 0);
 	}
 }

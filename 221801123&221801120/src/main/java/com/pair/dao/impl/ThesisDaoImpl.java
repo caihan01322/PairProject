@@ -1,5 +1,6 @@
 package com.pair.dao.impl;
 
+import com.pair.dao.ThesisDao;
 import com.pair.dao.base.BaseDao;
 import com.pair.dao.base.BaseDaoImpl;
 import com.pair.model.Thesis;
@@ -11,7 +12,7 @@ import java.sql.SQLException;
 
 
 @Repository("thesisDao")
-public class ThesisDaoImpl extends BaseDaoImpl<Thesis> implements BaseDao<Thesis> {
+public class ThesisDaoImpl extends BaseDaoImpl<Thesis> implements ThesisDao {
 
     private static RowMapper<Thesis> rowMapper;
     private static String sql = "select * from thesis";

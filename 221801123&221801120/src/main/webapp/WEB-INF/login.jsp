@@ -1,12 +1,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title>登录</title>
-	<link rel="stylesheet" href="css/login.css">
-	<script src="script/login.js"></script>
+	<%
+		String path = request.getContextPath();
+		String basePath = request.getScheme() + "://" + request.getServerName() + ":" +
+				request.getServerPort() + path + "/";
+	%>
+	<base href="<%=basePath%>">
+	<link rel="stylesheet" href="<%=basePath%>css/login.css">
+	<script src="<%=basePath%>script/login.js"></script>
 </head>
 <body>
 	<div class="header">
@@ -30,7 +40,7 @@
 			<div class="form-inline">
 				<label for="vcode">验证码：</label>
 				<input type="text" name="verify" class="verify_input" id="vcode">
-				<img src="varify_code.jsp" onclick="image(this);" class="verify_image">
+				<img src="<%=basePath%>varify_code.jsp" onclick="image(this);" class="verify_image">
 			</div>
 
 			<div class="form-group" style="text-align: center;">
@@ -43,7 +53,7 @@
 			<c:if test="${! empty error}" >
 				<strong>${error}</strong>
 				<button >
-					<span>&times;</span>
+					<span>x</span>
 				</button>
 			</c:if>
 		</div>

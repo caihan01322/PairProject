@@ -5,9 +5,6 @@ function image(image) {
 
 // 登录验证
 function check(form) {
-    if(form == null || form == undefined) {
-        throw new Error("The form element shouldn't be null or undefined");
-    }
     var error = document.getElementById("login_error");
     return _validate(form.username, error, "用户名不能为空") && _validate(form.password, error, "密码不能为空")
         && _validate(form.verify, error, "验证码不能为空") && _checkVerify(form.verify, error, "error");
