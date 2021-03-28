@@ -10,9 +10,6 @@ import (
 )
 
 func main() {
-	// prepare templates
-
-	// crawler.Start()
 	StartCrawler()
 
 	r := routers.InitRouter()
@@ -28,4 +25,5 @@ func main() {
 	if err := s.ListenAndServe(); err != nil {
 		log.Fatalln(err)
 	}
+
 }

@@ -1,6 +1,9 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"fmt"
+	"gorm.io/gorm"
+)
 
 // all paper
 type Paper struct {
@@ -23,6 +26,20 @@ func GetPapersByID(ids []uint) (papers []Paper) {
 	return
 }
 
+func GetPapersByStrID(ids []string) (papers []Paper) {
+	db.Find(&papers, ids)
+	return
+}
+
+func GetPaperIDsBySearch(q string) (ids []int) {
+	realQ := fmt.Sprintf("%%%s%%", q)
+	db.Model(&Paper{}).
+		Select("id").
+		Where("title like ? or content like ?", realQ, realQ).
+		Find(&ids)
+	return
+}
+
 func IsPaperExist(code string) bool {
 	return db.Where("code = ?", code).Find(&Paper{}).Error == nil
 }
@@ -35,14 +52,6 @@ func GetPaperByCode(code string) (paper Paper) {
 func UpdatePaperContent(paper *Paper) {
 	db.Model(paper).
 		Update("content", paper.Content)
-}
-
-func SearchPaper(q string, offset, limit int) (papers []Paper) {
-	db.Where("title like ? or content like ?", q, q).
-		Offset(offset).
-		Limit(limit).
-		Find(&papers)
-	return
 }
 
 func GetPaperCount() (total int64) {

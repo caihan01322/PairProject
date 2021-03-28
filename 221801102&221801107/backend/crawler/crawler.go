@@ -2,6 +2,7 @@ package crawler
 
 import (
 	"backend/models"
+	"backend/pkg/cache"
 	"bytes"
 	"fmt"
 	"github.com/gocolly/colly/v2"
@@ -131,10 +132,8 @@ func Start() {
 
 	// redis for scraping cache
 	storage := &redisstorage.Storage{
-		Address:  "127.0.0.1:6379",
-		Password: "",
-		DB:       0,
-		Prefix:   "colly_pair_project",
+		Client: cache.RDB,
+		Prefix: "colly_pair_project",
 	}
 	err := c.SetStorage(storage)
 	if err != nil {
@@ -292,8 +291,4 @@ func newSearchRequest(param *searchParam) *colly.Request {
 		},
 		Body: reader,
 	}
-}
-
-func Search(q []string, page int) (ids []uint, total int) {
-	return []uint{}, 0
 }

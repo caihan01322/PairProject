@@ -2,8 +2,8 @@ package api
 
 import (
 	"backend/conf"
-	"backend/crawler"
 	"backend/models"
+	"backend/pkg/cache"
 	"backend/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -21,15 +21,26 @@ func Search(c *gin.Context) {
 
 	var body searchBody
 	if err := c.ShouldBindJSON(&body); err != nil {
-		msg = err.Error()
+		// msg = err.Error()
 	} else {
-		ids, total := crawler.Search(body.Search, body.Page)
-		papers := models.GetPapersByID(ids)
+		ids := cache.GetSearch(body.Search)
+		total := len(ids)
+
+		if total == 0 {
+			data["list"] = []interface{}{}
+		} else {
+			offset := conf.PageSize * (body.Page - 1)
+			limit := conf.PageSize
+			if offset+limit >= len(ids) {
+				limit = len(ids) - offset
+			}
+			papers := models.GetPapersByStrID(ids[offset : offset+limit])
+			data["list"] = papers
+		}
 
 		data["total"] = total
 		data["page_size"] = conf.PageSize
 		data["page"] = body.Page
-		data["list"] = papers
 
 		code = http.StatusOK
 		msg = http.StatusText(code)
