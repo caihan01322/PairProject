@@ -1,12 +1,18 @@
 package com.pair.controller;
 
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pair.dao.KeywordMapper;
 import com.pair.dao.PaperKeywordMapper;
 import com.pair.dao.PaperMapper;
+import com.pair.pojo.Keyword;
 import com.pair.pojo.Paper;
+import com.pair.service.KeywordService;
+import com.pair.service.PaperKeywordService;
+import com.pair.service.PaperService;
+import com.sun.java.browser.plugin2.liveconnect.v1.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +26,12 @@ import java.util.Map;
 
 @Controller
 public class PaperController {
+    @Autowired
+    KeywordService keywordService;
+    @Autowired
+    PaperService paperService;
+    @Autowired
+    PaperKeywordService paperKeywordService;
     private List<String> paperIds=new ArrayList<>();
     private int begin;
     private int end;
@@ -27,19 +39,13 @@ public class PaperController {
     private int pages;
     private int currentPage;
 
-    @Autowired
-    PaperMapper paperMapper;
-    @Autowired
-    KeywordMapper keywordMapper;
-    @Autowired
-    PaperKeywordMapper paperKeywordMapper;
 
     @RequestMapping("/paperList")
     public String getPaperList(Model model, @RequestParam(defaultValue = "1") Integer pageNum) {
         PageHelper.startPage(pageNum,10);
-        List<Paper> papers = paperMapper.selectPaperListWithoutKeywords();
+        List<Paper> papers = paperService.selectPaperListWithoutKeywords();
         for (int i = 0; i < papers.size(); i++) {
-            papers.get(i).setKeywords(keywordMapper.getKeyWordsByPid(papers.get(i).getPid()));
+            papers.get(i).setKeywords(keywordService.getKeyWordsByPid(papers.get(i).getPid()));
         }
         model.addAttribute("pageInfo",new PageInfo<Paper>(papers));
         return "showPaper";
@@ -47,17 +53,23 @@ public class PaperController {
 
     @RequestMapping("/paperSelect")
     public String paperSelect(HttpServletRequest request,Model model) {
-        String selectTerm = request.getParameter("selectTerm");
-        String selectItem = request.getParameter("selectItem");
-        String selectMode = request.getParameter("selectMode");
+        String selectTerm,selectItem,selectMode;
+        if(request.getAttribute("selectItem")==null){
+            selectTerm = request.getParameter("selectTerm");
+            selectItem = request.getParameter("selectItem");
+            selectMode = request.getParameter("selectMode");
+        }else{
+            selectTerm = (String) request.getAttribute("selectTerm");
+            selectItem = (String) request.getAttribute("selectItem");
+            selectMode = (String) request.getAttribute("selectMode");
+        }
         //查询的内容
         Map<String, Object> map = new HashMap<>();
         map.put(selectTerm, selectItem);
-
         if (selectMode.equals("fuzzy")) {//模糊查询
-            paperIds = paperMapper.getPaperIdByFuzzyMode(map);
+            paperIds = paperService.getPaperIdByFuzzyMode(map);
         } else {//精确查询
-            paperIds = paperMapper.getPaperIdByPreciseMode(map);
+            paperIds = paperService.getPaperIdByPreciseMode(map);
         }
         begin=0;
         if(paperIds.size()-1<8){
@@ -67,7 +79,7 @@ public class PaperController {
         }
         List<Paper> papers=new ArrayList<>();
         for(int i=begin;i<=end;i++){
-            papers.add(paperMapper.getPaperById(paperIds.get(i)));
+            papers.add(paperService.getPaperById(paperIds.get(i)));
         }
         model.addAttribute("papers",papers);
         model.addAttribute("pages",paperIds.size()/9+1);
@@ -78,7 +90,7 @@ public class PaperController {
     public String selectAgain(Model model){
         List<Paper> papers=new ArrayList<>();
         for(int i=begin;i<=end;i++){
-            papers.add(paperMapper.getPaperById(paperIds.get(i)));
+            papers.add(paperService.getPaperById(paperIds.get(i)));
         }
         model.addAttribute("papers",papers);
         model.addAttribute("pages",paperIds.size()/9+1);
@@ -88,9 +100,9 @@ public class PaperController {
 
     @RequestMapping("/deletePaper/{pid}")
     public String paperSelect(@PathVariable("pid") String pid) {
-        keywordMapper.updateKeywordByPid(pid);
-        paperKeywordMapper.deletePKByPid(pid);
-        paperMapper.deletePaperByPid(pid);
+        keywordService.updateKeywordByPid(pid);
+        paperKeywordService.deletePKByPid(pid);
+        paperService.deletePaperByPid(pid);
         return "redirect:/paperList";
     }
     @RequestMapping("/previousPage")
@@ -129,5 +141,4 @@ public class PaperController {
         begin=paperIds.size()-1-(paperIds.size()-1)%9;
         return "redirect:/selectAgain";
     }
-
 }

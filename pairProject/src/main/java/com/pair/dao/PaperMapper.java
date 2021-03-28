@@ -18,9 +18,6 @@ public interface PaperMapper {
 
     public List<Paper> selectPaperListWithoutKeywords();
 
-    public List<Paper> selectPaperByFuzzyMode(Map<String, Object> map);//模糊查询
-
-    public List<Paper> selectPaperByPreciseMode(Map<String, Object> map);//精确查询
 
     public void deletePaperByPid(String pid);
 

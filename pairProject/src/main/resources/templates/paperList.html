@@ -47,10 +47,7 @@
         <div class="layui-logo" style="font-size: 35px">论文网</div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="javascript:;">
-                    <img src="https://images.cnblogs.com/cnblogs_com/WangWeijia0720/1927441/o_21020305013414.jpg"
-                         class="layui-nav-img">
-                </a>
+
             </li>
         </ul>
     </div>
@@ -137,13 +134,12 @@
         </table>
     </div>
     <div class="layui-footer">
-        <a th:href="@{/beginPage}">首页</a>
-        <a th:href="@{/previousPage}">上一页</a>
+        <a th:href="@{/beginPage}">&lt;首页&gt;</a>
+        <a th:href="@{/previousPage}">&lt;上一页&gt;</a>
         <div th:text="${currentPages}" style="display: inline"></div>
-        <a th:href="@{/nextPage}">下一页</a>
+        <a th:href="@{/nextPage}">&lt;下一页&gt;</a>
         <div th:text="${pages}" style="display: inline"></div>
-        <a th:href="@{/endPage}">尾页</a>
-
+        <a th:href="@{/endPage}">&lt;尾页&gt;</a>
     </div>
 </div>
 </body>
