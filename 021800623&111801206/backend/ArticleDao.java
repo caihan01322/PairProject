@@ -321,10 +321,6 @@ public static ArrayList<HotWord> getCVPRChart() {
 		}
 	}
 	
-	for (int i = 0; i < hotWordList.size(); i++) {
-		HotWord hotWord = hotWordList.get(i);
-		ArrayList<Integer> tArrayList = hotWord.getWordList();		
-	}
 	
 	return hotWordList;
 }
@@ -332,7 +328,7 @@ public static ArrayList<HotWord> getCVPRChart() {
 public static ArrayList<HotWord> getICCVChart() {
 	
 	ArrayList<HotWord> hotWordList = new ArrayList<HotWord>();
-	ArrayList<Map.Entry<String, Integer>> wordList2018 = ArticleDao.selectYearData("2018", "ICCV");
+	ArrayList<Map.Entry<String, Integer>> wordList2018 = ArticleDao.selectYearData("2017", "ICCV");
 	for (Map.Entry<String,Integer> entry:wordList2018)
 	{
 		HotWord hotWord = new HotWord();
@@ -342,7 +338,7 @@ public static ArrayList<HotWord> getICCVChart() {
 		hotWord.setWordList(tArrayList);
 		hotWordList.add(hotWord);
 	}
-	ArrayList<Map.Entry<String, Integer>> wordList2019 = ArticleDao.selectYearData("2019", "ICCV");
+	ArrayList<Map.Entry<String, Integer>> wordList2019 = ArticleDao.selectYearData("2018", "ICCV");
 	for (Map.Entry<String,Integer> entry:wordList2019)
 	{
 		boolean exist = false;
@@ -365,7 +361,7 @@ public static ArrayList<HotWord> getICCVChart() {
 		}
 	}
 	
-	ArrayList<Map.Entry<String, Integer>> wordList2020 = ArticleDao.selectYearData("2020", "ICCV");
+	ArrayList<Map.Entry<String, Integer>> wordList2020 = ArticleDao.selectYearData("2019", "ICCV");
 	for (Map.Entry<String,Integer> entry:wordList2020)
 	{
 		boolean exist = false;
@@ -388,11 +384,7 @@ public static ArrayList<HotWord> getICCVChart() {
 		}
 	}
 	
-	for (int i = 0; i < hotWordList.size(); i++) {
-		HotWord hotWord = hotWordList.get(i);
-		ArrayList<Integer> tArrayList = hotWord.getWordList();
-		
-	}
+	
 	
 	return hotWordList;
 }
@@ -454,11 +446,6 @@ public static ArrayList<HotWord> getECCVChart() {
 			hotWord.setWordList(tArrayList);
 			hotWordList.add(hotWord);
 		}
-	}
-	
-	for (int i = 0; i < hotWordList.size(); i++) {
-		HotWord hotWord = hotWordList.get(i);
-		ArrayList<Integer> tArrayList = hotWord.getWordList();		
 	}
 	
 	return hotWordList;
