@@ -76,7 +76,7 @@ def searchInsertPages():
 
 
 # 插入页面，导入论文
-@pages.route('insert/add/<isbn>', methods=['GET'])
+@pages.route('/insert/add/<isbn>', methods=['GET'])
 def insertPage(isbn):
     insert = models.Page_list.query.filter(
         models.Page_list.isbn == isbn).first()
@@ -233,12 +233,13 @@ def showTopTagsByLine():
     result['cv_data'] = cv_data
     result['ic_data'] = ic_data
     result['ec_data'] = ec_data
+    result['hot_word'] = hot_word
 
     return jsonify(errno=0, data=result)
 
 
 # 获取本年不同顶会top5热词数量
-@pages.route('tag/radar', methods=['GET'])
+@pages.route('/tag/radar', methods=['GET'])
 def showTopTagsByRadar():
     year = models.Tag_list.query.with_entities(
         models.Tag_list.year).distinct().limit(1)[0].year

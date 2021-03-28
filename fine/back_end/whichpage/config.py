@@ -22,6 +22,5 @@ class Config(object):
 
     # 数据库
     SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}?charset=UTF8MB4'.format(
-        DIALECT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DATABASE
-    )
+        DIALECT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DATABASE)
     SQLALCHEMY_TRACK_MODIFICATIONS = True

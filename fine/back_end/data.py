@@ -79,7 +79,7 @@ def get_message(num):
 
 # 获取tag
 def get_tag(num):
-    pointer_url = "https://ieeexplore.ieee.org/document/90221" + str(
+    pointer_url = "https://ieeexplore.ieee.org/document/66188" + str(
         num) + "/keywords#keywords"
     br.get(pointer_url)
     time.sleep(2)
@@ -130,7 +130,7 @@ def save_tag(key_word):
     con = db.cursor()
 
     belong = "CVPR"
-    year = "2019"
+    year = "2013"
 
     for k in key_word:
         key = (k, belong, year)
@@ -164,6 +164,6 @@ def save_tag(key_word):
 # 主程序
 if __name__ == '__main__':
     br = webdriver.Chrome()
-    for i in range(10, 99):
+    for i in range(10, 60):
         # pointer(i)
         get_tag(i)
