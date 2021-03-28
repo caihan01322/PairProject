@@ -67,6 +67,12 @@
                         bodyP.innerText=arr[i].abstractcontext;
                         cardBodyDiv.appendChild(bodyP);
 
+                        var bodyPB = document.createElement("p");
+                        bodyPB.setAttribute("class","card-text");
+                        bodyPB.setAttribute("style","font-weight: bold;");
+                        bodyPB.innerText="KeyWord: "+arr[i].keyword;
+                        cardBodyDiv.appendChild(bodyPB);
+
                         var bodyA = document.createElement("a");
                         bodyA.setAttribute("href",arr[i].link);
                         bodyA.setAttribute("class","btn btn-primary");
@@ -144,6 +150,12 @@
                         bodyP.setAttribute("class","card-text");
                         bodyP.innerText=arr[i].abstractcontext;
                         cardBodyDiv.appendChild(bodyP);
+
+                        var bodyPB = document.createElement("p");
+                        bodyPB.setAttribute("class","card-text");
+                        bodyPB.setAttribute("style","font-weight: bold;");
+                        bodyPB.innerText="KeyWord: "+arr[i].keyword;
+                        cardBodyDiv.appendChild(bodyPB);
 
                         var bodyA = document.createElement("a");
                         bodyA.setAttribute("href",arr[i].link);
