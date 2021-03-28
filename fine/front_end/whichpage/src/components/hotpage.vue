@@ -98,14 +98,14 @@ export default {
         });
 
         this.$axios({
-            method:"GET",
-            url:`/tag/radar`,
-        }).then((re)=>{
+            method: "GET",
+            url: `/tag/radar`,
+        }).then((re) => {
             console.log(re);
-            if(re.data.error==0) {
-                this.radar_data=re.data.data;
+            if (re.data.error == 0) {
+                this.radar_data = re.data.data;
             }
-        })
+        });
     },
 
     mounted() {

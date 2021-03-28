@@ -57,6 +57,22 @@ export default {
         };
     },
 
+    created() {
+        this.$axios({
+            method: "GET",
+            url: `/page/detail/${this.isbn}`,
+        }).then((re) => {
+            console.log(re);
+            if (re.data.error == 0) {
+                this.page_abstract = re.data.abstract;
+                this.page_tag = re.data.tag;
+                this.page_link = re.data.link;
+                this.page_name = re.data.title;
+                this.page_time = re.data.year;
+            }
+        });
+    },
+
     methods: {
         go_home() {
             this.$router.push({ name: "listpage" });

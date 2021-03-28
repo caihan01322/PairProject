@@ -61,10 +61,17 @@ export default {
 
     created() {
         this.$axios({
-            method: "get",
-            url: ``,
+            method: "GET",
+            url: `/page/detail/${this.page_isbn}`,
         }).then((re) => {
             console.log(re);
+            if (re.data.error == 0) {
+                this.page_abstract = re.data.abstract;
+                this.page_tag = re.data.tag;
+                this.page_link = re.data.link;
+                this.page_name = re.data.title;
+                this.page_time = re.data.year;
+            }
         });
     },
 
@@ -92,22 +99,24 @@ export default {
                 title: this.page_name,
                 link: this.page_link,
             };
+
             this.$axios({
-                method: "put",
-                url: ``,
+                method: "PUT",
+                url: `/page/detail/${this.page_isbn}`,
                 data: data,
             }).then((re) => {
                 console.log(re);
+                if (re.data.error == 0) {
+                    this.$message({
+                        message: "修改成功！",
+                        type: "success",
+                    });
 
-                this.$message({
-                    message: "修改成功！",
-                    type: "success",
-                });
-
-                this.$router.push({
-                    name: "detailpage",
-                    params: { isbn: this.page_isbn },
-                });
+                    this.$router.push({
+                        name: "detailpage",
+                        params: { isbn: this.page_isbn },
+                    });
+                }
             });
         },
     },

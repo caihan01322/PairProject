@@ -40,6 +40,18 @@ export default {
         };
     },
 
+    created() {
+        this.$axios({
+            method: "GET",
+            url: `tag`,
+        }).then((re) => {
+            console.log(re);
+            if (re.data.error == 0) {
+                this.items = re.data.data;
+            }
+        });
+    },
+
     methods: {
         go_search(title) {
             localStorage.setItem("tag", title);
