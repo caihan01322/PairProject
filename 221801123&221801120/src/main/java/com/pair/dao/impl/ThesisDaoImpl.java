@@ -34,4 +34,12 @@ public class ThesisDaoImpl extends BaseDaoImpl<Thesis> implements ThesisDao {
         return rowMapper;
     }
 
+    public String getSql() {
+        return sql;
+    }
+
+    public String getCountSql() {
+        return "select count(id) from thesis";
+    }
+
 }

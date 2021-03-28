@@ -43,6 +43,60 @@ public class PageBean<T> {
 	 * 总页数
 	 */
 	private int pageCount;
+
+	/**
+	 * 这四个参数需要从service传来，其他3个参数可以由这些计算而来
+	 */
+	public PageBean(List<T> records, int pageSize, int currentPage,
+					int recordCount, int pageNumber) {
+		this.pageNumber = (pageNumber < 2) ? 10 : pageNumber;
+		this.records = records;
+		this.pageSize = pageSize;
+		this.currentPage = currentPage;
+		this.recordCount = recordCount;
+		count();
+	}
+
+	/**
+	 * 计算页码
+	 */
+	private void count() {
+		//计算总页数
+		this.pageCount = (recordCount + pageSize - 1) / pageSize;
+		//计算起止页码
+		//当总页数不超过pageNumber页
+		if(pageCount <= pageNumber) {
+			pageBeginIndex = 1;
+			pageEndIndex = pageCount;
+		}
+		else  {
+			//计算pageNumber的一半
+			int pre = 0;
+			int rear = 0;
+			if(pageNumber % 2 == 0) {
+				//偶数
+				pre = (pageNumber >> 1) - 1;
+				rear = pageNumber >> 1;
+			}else {
+				//奇数
+				pre = pageNumber >> 1;
+				rear = pageNumber >> 1;
+			}
+			pageBeginIndex = currentPage - pre;
+			pageEndIndex = currentPage + rear;
+			//当前页之前不足pre页,显示pageNumber页
+			System.out.println(this.toString());
+			if(pageBeginIndex < 1) {
+				pageBeginIndex = 1;
+				pageEndIndex = pageNumber;
+			}
+			//当前页之后不足rear页，显示后pageNumber页
+			else if(pageEndIndex > pageCount) {
+				pageEndIndex = pageCount;
+				pageBeginIndex = pageEndIndex - pageNumber + 1;
+			}
+		}
+	}
 	
 	public List<T> getRecords() {
 		return records;

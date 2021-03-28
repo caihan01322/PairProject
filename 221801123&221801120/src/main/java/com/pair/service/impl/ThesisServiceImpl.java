@@ -4,11 +4,14 @@ package com.pair.service.impl;
 import com.pair.dao.ThesisDao;
 import com.pair.dao.base.BaseDao;
 import com.pair.model.Thesis;
+import com.pair.model.page.PageBean;
 import com.pair.service.ThesisService;
 import com.pair.service.base.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
 
 @Service("thesisService")
 public class ThesisServiceImpl extends BaseServiceImpl<Thesis> implements ThesisService {

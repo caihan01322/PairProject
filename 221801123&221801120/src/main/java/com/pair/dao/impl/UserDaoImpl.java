@@ -27,6 +27,14 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao {
         };
     }
 
+    public String getCountSql() {
+        return "select count(id) from user";
+    }
+
+    public String getSql() {
+        return "select * from user";
+    }
+
     public RowMapper<User> getRowMapper() {
         return rowMapper;
     }
