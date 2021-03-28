@@ -6,6 +6,10 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\Keyword;
+use common\models\Paper;
+use common\models\PaperSearch;
+use yii\rest\Serializer;
 
 /**
  * Site controller
@@ -18,20 +22,7 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
+
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -55,7 +46,15 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $searchModel =new PaperSearch();
+        $dataProvider=$searchModel->search(Yii::$app->request->queryParams);
+        $keywords=Keyword::findKeywordWeights();
+        return $this->render('index',[
+            'searchModel' => $searchModel,
+            'keywords'=>$keywords,
+            'searchModel'=>$searchModel,
+            'dataProvider'=>$dataProvider,
+        ]);
     }
 
     public function actionLogin()
@@ -79,5 +78,13 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+    protected function findModel($link)
+    {
+        if (($model = Paper::findOne($link)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 }
