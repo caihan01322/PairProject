@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entity.Article;
+import utils.WordCountUtils;
 
 
 public class ArticleDao {
@@ -251,4 +252,29 @@ public class ArticleDao {
         }
     }
 
+    /*
+     * 查询top10关键词
+     * @param 无
+     * @return list
+     * */
+    public List<String> findTop(){
+        List<String> list = new ArrayList();
+        String sql = "select * from cvpr union select * from eccv union select * from iccv;";
+        String str = "";
+        try {
+            Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            while(result.next()) {
+                String kwds = result.getString("kwds").toString();
+                str += kwds;
+            }
+            result.close();
+            statement.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        list = WordCountUtils.sortHashmap(str);
+        return list;
+    }
 }

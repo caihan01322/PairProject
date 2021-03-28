@@ -75,5 +75,15 @@ public class ArticleController {
     public void deleteArt(String title) {
         ArticleDao dao = new ArticleDao();
         dao.setConnection(DatabaseUtils.connectToArticles());
+        dao.deleteArt(title);
+    }
+    
+    @RequestMapping("/kwds/top10")
+    @ResponseBody
+    public List<String> findTop(){
+        ArticleDao dao = new ArticleDao();
+        dao.setConnection(DatabaseUtils.connectToArticles());
+        List<String> a = dao.findTop();
+        return a;
     }
 }
