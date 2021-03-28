@@ -70,8 +70,9 @@ public class PaperDaoImpl implements BaseCRUD<Paper>{
     }
 
     public List<Paper> readAll(){
-        String sql="select  * from paper";
-        List<Paper> paperList = baseDao.query(sql,null,null);
+        String sql="select * from paper";
+        List<Paper> paperList = baseDao.query(sql,null,Paper.class);
+        System.out.println(paperList.size());
         return paperList;
     }
 

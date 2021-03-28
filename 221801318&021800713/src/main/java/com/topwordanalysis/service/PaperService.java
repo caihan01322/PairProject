@@ -40,6 +40,13 @@ public class PaperService {
         return paperList;
     }
 
+    public List<Paper> searchByKeyWord(String keyword){
+        List<Paper> paperList = new ArrayList<>();
+        PaperDaoImpl paperDao = new PaperDaoImpl();
+        paperList = paperDao.readByKey(new String[]{"paperAbstract"},new Object[]{keyword});
+        return paperList;
+    }
+
     public List<Paper> selectType(String type){
         List<Paper> paperList = new ArrayList<>();
         PaperDaoImpl paperDao = new PaperDaoImpl();
