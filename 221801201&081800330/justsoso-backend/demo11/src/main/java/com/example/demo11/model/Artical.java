@@ -15,4 +15,5 @@ public class Artical
     public String Abstract;
     public int academicNum;
     public String magazine;
+    public int year;
 }
