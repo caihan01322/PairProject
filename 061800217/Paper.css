@@ -2,20 +2,40 @@ body {
     margin: 0;
     background-color: #101010;
     height: 1043px;
-    position: relative;
+
 }
 div {
     font-family: 微软雅黑;
+    vertical-align: top;
+}
+#main{
+    height: 100%;
+    width: 100%;
 }
 #wrap{
     background-color: #101010;
     color: #EAE9E9;
+    height: 100%;
 }
 #main {
     height: 100%;
-}
+} 
 #userInfo, #modular {
     display: inline-block;
+        
+}
+#userInfo{
+    width: 22%;
+    height: 607px;
+    margin-top:39px;
+
+    position: relative;
+
+}
+#modular{
+    width: 77%;
+    height: 89%;
+
     position: relative;
 }
 #face{
@@ -27,8 +47,8 @@ div {
     height: 122px;
 
     position: absolute;
-    left: 97px;
-    top: 59px;
+    left: 90px;
+    top: 22px;
     z-index: 3;
 }
 #face img{
@@ -38,11 +58,11 @@ div {
 }
 #personInf{
     position: absolute;
-    left: 30px;
-    top: 110px;
+    left: 40px;
+    top: 70px;
 
     background-color: #292F37;
-    width: 258px;
+    width: 220px;
     height: 493px;
     z-index: 1;
 }
@@ -60,7 +80,7 @@ div {
 }
 #historyTit{
     text-align: left;
-    margin-left: 33px;
+    margin-left: 25px;
 }
 #name p{
     margin:  12px;
@@ -68,7 +88,6 @@ div {
 #nav, #footer {
     height: 61px;
     background-color: #353D48;
-
 }
 #sign{
     width: 41px;
@@ -99,10 +118,8 @@ input#loginOut{
     padding-right: 126px;   
 }
 #footer{
-   position: absolute;
-   bottom: 0%;
-   left: 0%;
-   width: 100%;
+    margin-top: -61px;
+    
    border-top: 1px solid;   
    border-color: #EAE9E9;
 }
@@ -119,4 +136,59 @@ input.footer-button#indexButton{
     padding-right: 280px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 14px;
+}
+
+#modular #hotArea,#modular #hotAnal{
+    display: inline-block;
+}
+#hotArea{
+    width: 71.5%;
+    height: 828px;
+    margin: 38px 0 0 0;
+
+    position: relative;
+}
+#hotArea h2, h3 , #hotAnal h3{
+    padding: 0;
+    margin: 0;
+
+    color: #BBE1FA;
+    line-height: 27px;
+    letter-spacing: 4px;
+}
+#hotArea p, #hotAnal p{
+    color: #9A9696;
+    font-size: 14px;
+    font-family: "思源黑体";
+}
+#hotArea #hot{
+    width: 680px;
+    height: 740px;
+    padding: 14px 0 0 14px;
+    background-color: #495464;
+}
+#hotArea #areaAnal, #hotArea #wordAnal{
+    width: 659px;
+    height: 334px;
+    margin-top: 9px;
+    margin-bottom: 14px;
+
+    border: #D4D7DD 3px solid;
+    background-color: #353D48;
+}
+#hotArea #wordAnal{
+    height: 292px;
+}
+#hotAnal{
+    height: 828px;
+    width: 27%;
+    margin: 38px 0 0 0;
+}
+#hotWord #words, #hotWordGo #go{
+    width: 259px;
+    height: 269px;
+    margin: 0;
+
+    border: #D4D7DD 3px solid;
+    background-color: #353D48;
 }
