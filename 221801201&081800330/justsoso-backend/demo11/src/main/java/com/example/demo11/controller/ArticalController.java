@@ -24,7 +24,6 @@ public class ArticalController
     public ajAxResponse search(@RequestParam String keyword,@RequestParam(required = false)Integer pageNum)
     {
         List<Artical> list = articalService.searchArtical(keyword);
-
         List<FullArtical> full = new ArrayList<FullArtical>();
         int totalNum = (list.size()/5 )+(list.size()==0?0:1);
 
@@ -160,6 +159,145 @@ public class ArticalController
         }
         return ajAxResponse.successfully(map);
     }
+    @GetMapping("/hotTrend")
+    public ajAxResponse getHotTrend(@RequestParam String keyword)
+    {
+        List<Artical> list = articalService.searchArtical(keyword);
+        HashMap<String,Object> map = new HashMap<>();
+        hotTrend cvpr = new hotTrend();
+        hotTrend eccv = new hotTrend();
+        hotTrend iccv = new hotTrend();
+        HashMap<String,hotTrend> hot = new HashMap<>();
+        hot.put("cvpr",cvpr);
+        hot.put("eccv",eccv);
+        hot.put("iccv",iccv);
+        map.put("data",hot);
+        for (Artical art:  list
+             ) {
+            int year = art.year;
+            if(year > 2020 || year < 2014)
+                continue;
+            if(art.magazine.equals("CVPR"))
+            {
+                switch (year)
+                {
+                    case 2014:{
+                        cvpr._2014++;
+                        break;
+                    }
+                    case 2015:{
+                        cvpr._2015++;
+                        break;
+                    }
+                    case 2016:
+                    {
+                        cvpr._2016++;
+                        break;
+                    }
+                    case 2017:
+                    {
+                        cvpr._2017++;
+                        break;
+                    }
+                    case 2018:
+                    {
+                        cvpr._2018++;
+                        break;
+                    }
+                    case 2019:
+                    {
+                        cvpr._2019++;
+                        break;
+                    }
+                    case 2020:
+                    {
+                        cvpr._2020++;
+                        break;
+                    }
+                }
+            }
+            else if(art.magazine.equals("ECCV"))
+            {
+                switch (year)
+                {
+                    case 2014:{
+                        eccv._2014++;
+                        break;
+                    }
+                    case 2015:{
+                        eccv._2015++;
+                        break;
+                    }
+                    case 2016:
+                    {
+                        eccv._2016++;
+                        break;
+                    }
+                    case 2017:
+                    {
+                        eccv._2017++;
+                        break;
+                    }
+                    case 2018:
+                    {
+                        eccv._2018++;
+                        break;
+                    }
+                    case 2019:
+                    {
+                        eccv._2019++;
+                        break;
+                    }
+                    case 2020:
+                    {
+                        eccv._2020++;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                switch (year)
+                {
+                    case 2014:{
+                        iccv._2014 ++;
+                        break;
+                    }
+                    case 2015:{
+                        iccv._2015 ++;
+                        break;
+                    }
+                    case 2016:
+                    {
+                        iccv._2016++;
+                                break;
+                    }
+                    case 2017:
+                    {
+                        iccv._2017++;
+                        break;
+                    }
+                    case 2018:
+                    {
+                        iccv._2018++;
+                        break;
+                    }
+                    case 2019:
+                    {
+                        iccv._2019++;
+                        break;
+                    }
+                    case 2020:
+                    {
+                        iccv._2020++;
+                        break;
+                    }
+                }
+            }
 
+
+        }
+        return ajAxResponse.successfully(hot);
+    }
 
 }
