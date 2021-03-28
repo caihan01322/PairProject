@@ -45,27 +45,29 @@
         </div>
         <div class="keyword">
             <h5>最近热词</h5>
-            <span class="word">word1</span>
-            <span class="word">word2</span>
-            <span class="word">word3</span>
+            <button class="word">word1</button>
+            <button class="word">word2</button>
+            <button class="word">word3</button>
+            <button class="word">word4</button>
+            <button class="word">word5</button>
             <br/>
-            <span class="word">word1</span>
-            <span class="word">word2</span>
-            <span class="word">word3</span>
+            <button class="word">word6</button>
+            <button class="word">word7</button>
+            <button class="word">word8</button>
+            <button class="word">word9</button>
+            <button class="word">word10</button>
         </div>
 
         <div class="tab">
             <a class="btn_word_active btn">热词走势</a>
-            <a class="btn_key btn">关键词图谱</a>
             <div class="box" id="main"></div>
-            <div class="box2 box" id="tagmain"></div>
         </div>
             <script type="text/javascript">
                 var myChart = echarts.init(document.getElementById('main'));
                 var option;
                 option = {
                     title: {
-                        text: '热词变化趋势',
+                        text: "top热词变化趋势",
                         x:"center"
                     },
                     tooltip: {
@@ -164,29 +166,6 @@
                 myChart.setOption(option);
             </script>
 
-            <script>
-                var btn = document.querySelectorAll(".btn");
-                var box = document.querySelectorAll('.box');
-                for(var i = 0; i < btn.length;i++){
-                    btn[i].index = i;
-                    btn[i].addEventListener('click',function(e){
-
-                        for(let j = 0; j <box.length;j++){
-                            box[j].style.display = 'none';
-                        }
-                        for(let j = 0; j <btn.length;j++){
-                            btn[j].style.backgroundColor = '#fff';
-                            btn[j].style.color = '#BEBEBE';
-                        }
-
-                        var index = e.target.index;
-                        btn[index].style.backgroundColor = '#599AEF';
-                        btn[index].style.color = '#fff';
-                        box[index].style.display = 'block'
-                    })
-
-                }
-            </script>
 
             <script type="text/javascript">
 
