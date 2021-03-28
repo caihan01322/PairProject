@@ -245,6 +245,7 @@ def delete():
 
 
 @app.route("/hot_keywords_view")
+@login_required
 def hot_keywords_view():
     return render_template("hot_keywords_view.html")
 
