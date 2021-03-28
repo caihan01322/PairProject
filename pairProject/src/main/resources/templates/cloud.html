@@ -9,7 +9,7 @@
     <script src="https://www.layuicdn.com/layui-v2.5.6/layui.js"></script>
     <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui-v2.5.6/css/layui.css"/>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
 
     <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
 </head>
@@ -45,17 +45,19 @@
         <br/>
         <div>
             <form th:action="@{/clouds}" method="post" style="margin-top: auto;margin-bottom: auto">
-                <select name="meeting" id="meeting" class="ui fluid dropdown" style="width: 100px;height: 35px;display: inline">
+                <select name="meeting" id="meeting" class="ui fluid dropdown"
+                        style="width: 100px;height: 35px;display: inline">
                     <option value="CVPR">CVPR</option>
                     <option value="ICCV">ICCV</option>
                     <option value="ECCV">ECCV</option>
                 </select>
-                <input type="submit" value="确定"class="ui inverted blue button" style="height: 33px"/>
+                <input type="submit" value="确定" class="ui inverted blue button" style="height: 33px"/>
             </form>
             <br/>
             <div>
                 <a class="ui teal tag label">
-                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;" th:text="${meeting}"></font></font>
+                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"
+                                                                 th:text="${meeting}"></font></font>
                 </a>
             </div>
 

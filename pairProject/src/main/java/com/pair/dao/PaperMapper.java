@@ -2,9 +2,7 @@ package com.pair.dao;
 
 import com.pair.pojo.Paper;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Map;
@@ -29,6 +27,8 @@ public interface PaperMapper {
 
 
     public List<String> getPaperIdByFuzzyMode(Map<String, Object> map);
+
     public List<String> getPaperIdByPreciseMode(Map<String, Object> map);
+
     public Paper getPaperById(String pid);
 }

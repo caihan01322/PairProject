@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 public class PaperKeywordService {
     @Autowired
     PaperKeywordMapper paperKeywordMapper;
-    public void deletePKByPid(String pid){
+
+    public void deletePKByPid(String pid) {
         paperKeywordMapper.deletePKByPid(pid);
     }
 }

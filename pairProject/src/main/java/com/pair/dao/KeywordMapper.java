@@ -31,11 +31,10 @@ public interface KeywordMapper {
     public List<Keyword> getKeyWordsByPid(String pid);
 
     //模糊查询 通过keyword
-    public List<String> getKidByFuzzyMode(Map<String,String> map);
+    public List<String> getKidByFuzzyMode(Map<String, String> map);
 
     //精确查询 通过keyword
-    public List<String> getKidByByPreciseMode(Map<String,String> map);
-
+    public List<String> getKidByByPreciseMode(Map<String, String> map);
 
 
 }

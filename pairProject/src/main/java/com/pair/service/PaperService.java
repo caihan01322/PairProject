@@ -13,26 +13,33 @@ import java.util.Map;
 public class PaperService {
     @Autowired
     PaperMapper paperMapper;
-    public void getPapersByKeyword(Model model,String keyword){
+
+    public void getPapersByKeyword(Model model, String keyword) {
         List<Paper> papers = paperMapper.getPapersByKeyword(keyword);
         model.addAttribute("papers", papers);
     }
+
     public int getPaperNum(Map map) {
         return paperMapper.getPaperNum(map);
     }
-    public List<Paper> selectPaperListWithoutKeywords(){
+
+    public List<Paper> selectPaperListWithoutKeywords() {
         return paperMapper.selectPaperListWithoutKeywords();
     }
-    public Paper getPaperById(String pid){
+
+    public Paper getPaperById(String pid) {
         return paperMapper.getPaperById(pid);
     }
-    public List<String> getPaperIdByFuzzyMode(Map map){
+
+    public List<String> getPaperIdByFuzzyMode(Map map) {
         return paperMapper.getPaperIdByFuzzyMode(map);
     }
-    public List<String> getPaperIdByPreciseMode(Map map){
+
+    public List<String> getPaperIdByPreciseMode(Map map) {
         return paperMapper.getPaperIdByPreciseMode(map);
     }
-    public void deletePaperByPid(String pid){
+
+    public void deletePaperByPid(String pid) {
         paperMapper.deletePaperByPid(pid);
     }
 
