@@ -2,12 +2,10 @@ const bodyParser = require('body-parser');
 var express = require('express');
 var router = express.Router();
 let mysql = require("mysql");
-let sqlInf = require('./util/dbUtil.js')
-let db = require('./connectMysql.js');
+
+let db = require('./util/dbUtil.js');
 let sh = require('./stringHandle.js');
-const {
-    route
-} = require('./postTest/routeTest.js');
+
 // var db_config=sqlInf.db_config
 // var connect=mysql.createConnection(db_config);//开始链接数据库
 var userid = 0;
