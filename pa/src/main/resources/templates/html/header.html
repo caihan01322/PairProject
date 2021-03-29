@@ -18,11 +18,11 @@
             </a>
         </li>
         <li class="layui-nav-item">
-            <form class="layui-form" th:action="@{/}">
+            <form class="layui-form" th:action="@{/easySearch}" method="post">
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <div class="layui-form-mid">
-                            <input type="text" name="information" placeholder="请输入标题（支持模糊查询）"
+                            <input type="text" name="title" placeholder="请输入标题（支持模糊查询）"
                                    id="search" autocomplete="off" required class="layui-input-block" style="margin-top:4px;width: 400px;">
                         </div>
                         <div class="layui-input-inline" >

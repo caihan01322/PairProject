@@ -21,36 +21,28 @@ public class PaperController
   //分页类
   private PageHelper pageHelper;
 
-  //每页展示5篇论文
+  //每页展示10篇论文
   private final int paperNum=10;
 
   @Autowired
   private PaperService paperService;
 
-
-  @GetMapping("/index")
-  public String searchEssay(Model model)
+  //首页
+  @GetMapping("/")
+  public String searchEssay()
   {
-    model.addAttribute("user","zcx");
     return "index";
   }
 
+  //高级搜索页面
   @GetMapping("/advancedSearch")
   public String advancedSearch(Model model)
   {
     return "advancedSearch";
   }
 
-  @GetMapping("/essayDetail")
-  public String essayDetail(Model model)
-  {
-    return "essayDetail";
-  }
 
-
-
-
-
+  //根据id获得论文
   @GetMapping("/paper/{id}")
   public String getPaperById(@PathVariable("id") String id,Model model)
   {
@@ -58,12 +50,15 @@ public class PaperController
     return "essayDetail";
   }
 
+
+  //根据id删除论文
   @GetMapping("/delete/{id}")
   public void deletePaperById(@PathVariable("id") String id)
   {
     paperService.deletePaperById(id);
   }
 
+  //高级搜索
   @PostMapping("/search")
   public String search(@RequestParam("title") String title,@RequestParam("tmode") int tmode,
                        @RequestParam("keyword") String keyword,@RequestParam("kmode") int kmode,
@@ -108,13 +103,97 @@ public class PaperController
     return "redirect:/page/1";
   }
 
-    @GetMapping("/page/{id}")
-    public String page(@PathVariable("id") int id,Model model)
+    //普通搜索
+    @PostMapping("/easySearch")
+    public String easySearch(@RequestParam("title") String title)
     {
-      model.addAttribute("paperList",paperService.getPapersByPidlist(pageHelper.getPageByNum(id)));
+      Map<String,Object> params=new HashMap<>();
+      params.put("vtitle",title);
+
+      pageHelper=new PageHelper(paperService.queryPidlistByMap(params),paperNum);
+      return "redirect:/page/1";
+    }
+
+    @PostMapping("/page")
+    public String toPage(@RequestParam("id") String id,Model model)
+    {
+      int num;
+      if(id.equals(""))
+      {
+        num=pageHelper.getCurrentPage();
+      }
+      else
+      {
+        num=Integer.parseInt(id);
+      }
+      if(num<1)
+      {
+        num=1;
+      }
+      if(num>pageHelper.getTotalPage())
+      {
+        num=pageHelper.getTotalPage();
+      }
+      model.addAttribute("paperList",paperService.getPapersByPidlist(pageHelper.getPageByNum(num)));
+      model.addAttribute("currentPage",pageHelper.getCurrentPage());
+      model.addAttribute("totalNum",pageHelper.getTotalPage());
       return "papers";
     }
 
+    @GetMapping("/currentPage")
+    public String currentPage()
+    {
+      return "redirect:/page/"+pageHelper.getCurrentPage();
+    }
+
+    //根据页号获得内容
+    @GetMapping("/page/{id}")
+    public String page(@PathVariable("id") int id,Model model)
+    {
+      if(id<1)
+      {
+        id=1;
+      }
+      if(id>pageHelper.getTotalPage())
+      {
+        id=pageHelper.getTotalPage();
+      }
+      model.addAttribute("paperList",paperService.getPapersByPidlist(pageHelper.getPageByNum(id)));
+      model.addAttribute("currentPage",pageHelper.getCurrentPage());
+      model.addAttribute("totalNum",pageHelper.getTotalPage());
+      return "papers";
+    }
+
+    //获得上一页内容
+    @GetMapping("/prePage")
+    public String prePage()
+    {
+        return "redirect:/page/"+(pageHelper.getCurrentPage()-1);
+    }
+
+    //获得下一页内容
+    @GetMapping("/nextPage")
+    public String nextPage()
+    {
+        return "redirect:/page/"+(pageHelper.getCurrentPage()+1);
+    }
+
+    //获得第一页
+    @GetMapping("/firstPage")
+    public String firstPage()
+    {
+      return "redirect:/page/1";
+    }
+
+    //获得最后一页
+    @GetMapping("/lastPage")
+    public String lastPage()
+    {
+      return "redirect:/page/"+(pageHelper.getTotalPage());
+    }
+
+
+    //根据关键词获得相关论文
     @GetMapping("/getPapersByKeyword/{keyword}")
     public String getPapersByKeyword(@PathVariable("keyword") String keyword,Model model)
     {

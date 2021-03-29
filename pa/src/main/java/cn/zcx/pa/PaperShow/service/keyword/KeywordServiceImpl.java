@@ -7,6 +7,7 @@ import cn.zcx.pa.PaperShow.pojo.YearCount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,5 +28,13 @@ public class KeywordServiceImpl implements KeywordService
   public List<YearCount> getYearCountByMap(Map<String, Object> params)
   {
     return keywordDao.selectYearCountByMap(params);
+  }
+
+  @Override
+  public List<KeywordCount> getTopKeyCountBySize(int size)
+  {
+    Map<String,Object> params=new HashMap<>();
+    params.put("size",10);
+    return keywordDao.selectKeywordCountByMap(params);
   }
 }

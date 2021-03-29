@@ -38,9 +38,9 @@
                     <a th:href="@{/paper/}+${paper.getPid()}">
                         <button type="button" class="layui-btn layui-btn-sm">详情</button>
                     </a>
-                    <button type="button" class="layui-btn layui-btn-danger layui-btn-sm ">
+                    <a th:href="@{/delete/}+${paper.getPid()}" type="button" class="layui-btn layui-btn-danger layui-btn-sm ">
                         <i class="layui-icon">&#xe640;</i>
-                    </button>
+                    </a>
                 </div>
             </td>
         </tr>

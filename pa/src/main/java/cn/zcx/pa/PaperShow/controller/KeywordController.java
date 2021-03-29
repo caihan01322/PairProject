@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,12 +23,23 @@ public class KeywordController
   @Autowired
   private EchartsService echartsService;
 
+  @Autowired
+  private KeywordService keywordService;
+
+  //echarts图表展示
   @GetMapping("/echarts")
   public String echarts()
     {
       return "echarts";
     }
 
+  //词云展示
+  @GetMapping("/cloud")
+  public String cloud(Model model)
+  {
+    model.addAttribute("kclist",keywordService.getTopKeyCountBySize(10));
+    return "cloud";
+  }
 
   @ResponseBody
   @PostMapping("/getTop10Keywords")

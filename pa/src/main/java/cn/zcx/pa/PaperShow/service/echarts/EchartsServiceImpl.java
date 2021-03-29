@@ -30,7 +30,10 @@ public class EchartsServiceImpl implements EchartsService
     Map<String,Object> params=new HashMap<>();
     params.put("beginYear",beginYear);
     params.put("endYear",endYear);
-    params.put("conference",conference);
+    if(!conference.equals(""))
+    {
+      params.put("conference",conference);
+    }
     params.put("size",10);    //取前10位
     List<KeywordCount> list = keywordService.getKeyCountByMap(params);  //查询
 
