@@ -1,9 +1,9 @@
 <template>
  <div style="margin-top:80px">
      <el-row type="flex" class="row-bg" justify="center">
-  <el-col :span="6"></el-col>
+  <el-col :span="8"></el-col>
   <el-col :span="8"><el-avatar :size="80" :src='iconurl'></el-avatar></el-col>
-  <el-col :span="6"></el-col>
+  <el-col :span="8"></el-col>
 </el-row>
 <el-row type="flex" class="row-bg" justify="center">
   <el-col :span="6"></el-col>
