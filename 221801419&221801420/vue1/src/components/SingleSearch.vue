@@ -56,16 +56,17 @@
                                   <el-main style="background-color:transparent">
                                    <div> <p style="text-align:left;font-size:13px;width:100%">论文题目</p></div>
                                     <div><p style="text-align:left;font-size:13px;width:100%">原文网址</p></div>
-                                    <div><p style="font-size:13px;width:30%;text-align:left;   overflow: hidden;
-    -webkit-line-clamp: 2;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;">摘要
-                                      1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
-                                      </p>
+                                    <div><p style="font-size:13px;width:100%;text-align:left">摘要</p> 
                                       </div>
+                                    <div style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 5;overflow: hidden;  word-break: break-all;word-wrap: break-word;margin-top:0px">
+                                      <p style="font-size:13px;width:100%;text-align:left;">摘要11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</p>
+                                    </div>
                                   </el-main>
-                                  <el-footer style="background-color:red">footer</el-footer>
+                                  <el-footer style="background-color:transparent;height:20px">
+                                    <div>
+                                       <a  style="float:left;color:blue" href="">详细信息</a>
+                                    </div>
+                                  </el-footer>
                                   </el-container>
                               </el-main>
                                <el-main class="essay">main</el-main>
@@ -84,7 +85,7 @@
                         </el-main>
                       </el-container>
                     </el-main>
-         <el-aside width="300px" class="sideraside">
+         <el-aside width="350px" class="sideraside">
            <el-container>
              <el-header class="header">                  
                <el-input
@@ -283,7 +284,7 @@ import icon from "@/assets/vcicon.jpg";
     padding-top:0px !important;
   }
   .resultbutton{
-    width:240px ;
+    width:260px ;
     margin-left:0px;
   }
   .resultbutton span{
@@ -309,7 +310,7 @@ import icon from "@/assets/vcicon.jpg";
     height:500px;
     background-color:transparent;
     margin-right: 200px;
-    margin-top:100px;
+    margin-top:90px;
   }
   .essay{
     background-color: rgba(64, 224, 208, 0.144) !important;
