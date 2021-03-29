@@ -13,8 +13,8 @@ import java.util.List;
 public class PaperDaoImpl implements BaseCRUD<Paper>{
     @Override
     public int create(Paper dataClass) {
-        String sql="insert into paper(title,link,paperAbstract,type,year) values(?,?,?,?,?)";
-        Object[] paramsValue={dataClass.getTitle(), dataClass.getLink(), dataClass.getPaperAbstract(),dataClass.getType(),dataClass.getYear()};
+        String sql="insert into paper(title,link,paperAbstract,type,year,keyword) values(?,?,?,?,?,?)";
+        Object[] paramsValue={dataClass.getTitle(), dataClass.getLink(), dataClass.getPaperAbstract(),dataClass.getType(),dataClass.getYear(),dataClass.getKeyword()};
         baseDao.update(sql,paramsValue);
         return -1;
     }

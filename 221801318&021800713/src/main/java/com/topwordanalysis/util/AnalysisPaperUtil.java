@@ -45,6 +45,12 @@ public class AnalysisPaperUtil {
             paper.setLink(jsonObject.getString("原文链接"));
             paper.setType("ECCV");
             paper.setYear(jsonObject.getString("会议和年份").split(" ")[1]);
+            JSONArray keys = jsonObject.getJSONArray("关键词");
+            StringBuilder sb = new StringBuilder();
+            for (Object key : keys) {
+                sb.append(key).append(",");
+            }
+            paper.setKeyword(sb.toString());
             papers.add(paper);
         }
         return papers;
@@ -83,6 +89,21 @@ public class AnalysisPaperUtil {
             paper.setLink(jsonObject.getString("doiLink"));
             paper.setType("ICCV");
             paper.setYear(jsonObject.getString("publicationYear"));
+            if (jsonObject.getJSONArray("keywords")==null){
+                continue;
+            }
+            if(jsonObject.getJSONArray("keywords").getJSONObject(0)==null){
+                continue;
+            }
+            if (jsonObject.getJSONArray("keywords").getJSONObject(0).getJSONArray("kwd")==null){
+                continue;
+            }
+            JSONArray keys = jsonObject.getJSONArray("keywords").getJSONObject(0).getJSONArray("kwd");
+            StringBuilder sb = new StringBuilder();
+            for (Object key : keys) {
+                sb.append(key).append(",");
+            }
+            paper.setKeyword(sb.toString());
             papers.add(paper);
         }
         return papers;
@@ -132,6 +153,21 @@ public class AnalysisPaperUtil {
             paper.setLink(jsonObject.getString("doiLink"));
             paper.setType("CVPR");
             paper.setYear(jsonObject.getString("publicationYear"));
+            if (jsonObject.getJSONArray("keywords")==null){
+                continue;
+            }
+            if(jsonObject.getJSONArray("keywords").getJSONObject(0)==null){
+                continue;
+            }
+            if (jsonObject.getJSONArray("keywords").getJSONObject(0).getJSONArray("kwd")==null){
+                continue;
+            }
+            JSONArray keys = jsonObject.getJSONArray("keywords").getJSONObject(0).getJSONArray("kwd");
+            StringBuilder sb = new StringBuilder();
+            for (Object key : keys) {
+                sb.append(key).append(",");
+            }
+            paper.setKeyword(sb.toString());
             papers.add(paper);
         }
         return papers;

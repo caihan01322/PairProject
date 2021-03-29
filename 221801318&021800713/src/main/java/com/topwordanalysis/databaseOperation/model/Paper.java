@@ -20,6 +20,7 @@ public class Paper {
     private String paperAbstract;   //这个如果用abstract命名会报错
     private String type;
     private String year;
+    private String keyword;
 
     public String getTitle() {
         return title;
@@ -67,6 +68,14 @@ public class Paper {
 
     public void setYear(String year) {
         this.year = year;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }
 
