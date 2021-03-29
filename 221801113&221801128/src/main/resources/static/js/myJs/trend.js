@@ -9,8 +9,8 @@ $(function(){
     var countryColors = {"Australia":"#00008b","Canada":"#f00","China":"#ffde00","Cuba":"#002a8f","Finland":"#003580","France":"#ed2939","Germany":"#000","Iceland":"#003897","India":"#f93","Japan":"#bc002d","North Korea":"#024fa2","South Korea":"#000","New Zealand":"#00247d","Norway":"#ef2b2d","Poland":"#dc143c","Russia":"#d52b1e","Turkey":"#e30a17","United Kingdom":"#00247d","United States":"#b22234"};
 
     $.when(
-        $.getJSON('http://118.25.6.96:8080/json1'),
-        $.getJSON('http://118.25.6.96:8080/json2')
+        $.getJSON('/json1'),
+        $.getJSON('/json2')
     ).done(function (res0, res1) {
         var flags = res0[0];
         var data = res1[0];

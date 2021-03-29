@@ -2,6 +2,7 @@ package com.pairing.service;
 
 
 import com.pairing.mapper.HotwordMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,4 +18,11 @@ public class HotwordService {
         return hotwordMapper.getAllWord();
     }
 
+    public void insertHotword(String json){
+        hotwordMapper.insertHotword(json);
+    }
+
+    public String getHotwordjson(){
+        return hotwordMapper.getHotwordjson();
+    }
 }

@@ -1,9 +1,10 @@
 package com.pairing.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pairing.bean.HotWord;
 import com.pairing.bean.NameAndYear;
 import com.pairing.bean.Worditem;
-import com.pairing.service.HotwordService;
 import com.pairing.service.HotwordService;
 import com.pairing.service.TrendService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,9 @@ public class HotwordController {
     }
 
 
-
-
-    @GetMapping("/hot")
+    @GetMapping("/hot2")
     @ResponseBody
-    public HashMap<String,Integer> getword() {
+    public void getword2() throws JsonProcessingException {
 
         HashMap<String,Integer> hashMap = new HashMap<String,Integer>();
         List<HotWord> list = new ArrayList<>();
@@ -54,12 +53,12 @@ public class HotwordController {
             chars = str.split(",");
 
             for (int j = 0; j < chars.length; j++) {
-               if(hashMap.containsKey(chars[j])){
-                   hashMap.put(chars[j],hashMap.get(chars[j])+1);
-               }
-               else {
-                   hashMap.put(chars[j],1);
-               }
+                if(hashMap.containsKey(chars[j])){
+                    hashMap.put(chars[j],hashMap.get(chars[j])+1);
+                }
+                else {
+                    hashMap.put(chars[j],1);
+                }
             }
         }
         List<HashMap.Entry<String, Integer>> sortedList = getSortedList(hashMap);
@@ -71,7 +70,17 @@ public class HotwordController {
             if (cnt >= 10)//仅需要输出前十位
                 break;
         }
-        return hashMap2;
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonlist = mapper.writeValueAsString(hashMap2).toString();
+        hotwordService.insertHotword(jsonlist);
+    }
+
+    @GetMapping("/hot")
+    @ResponseBody
+    public String getword() {
+
+        String str =  hotwordService.getHotwordjson();
+        return str;
     }
 
 
@@ -110,7 +119,14 @@ public class HotwordController {
 
     @GetMapping("/json1")
     @ResponseBody
-    public List<Worditem> getfirstjson(){
+    public String getfirstjson1() throws JsonProcessingException {
+        String str =  trendService.getjson1();
+        return str;
+    }
+    //
+    @GetMapping("/json11")
+    @ResponseBody
+    public void getfirstjson() throws JsonProcessingException {
         List<List<String>> json2 = new ArrayList<>();
         List<String> jsonson2 = new ArrayList<>();
         HashMap<String,Integer> hashMap = new HashMap<String,Integer>();
@@ -194,13 +210,21 @@ public class HotwordController {
             }
 
         }
-        return json11;//可以输出
-
+        ObjectMapper mapper2 = new ObjectMapper();
+        String jsonlist = mapper2.writeValueAsString(json11).toString();
+        trendService.insertTrend(jsonlist);
     }
     //第二个json文件的获取
     @GetMapping("/json2")
     @ResponseBody
-    public List<List<String>> getsecondjson(){
+    public String getsecondjson(){
+        String str =  trendService.getjson2();
+        return str;
+    }
+
+    @GetMapping("/json22")
+    @ResponseBody
+    public void getsecondjson2() throws JsonProcessingException {
         List<List<String>> json2 = new ArrayList<>();
         List<String> jsonson2 = new ArrayList<>();
         HashMap<String,Integer> hashMap = new HashMap<String,Integer>();
@@ -282,8 +306,8 @@ public class HotwordController {
             jsonson.add(year);
             json2.add(jsonson);
         }
-        return json2;
+        ObjectMapper mapper3 = new ObjectMapper();
+        String jsonlist = mapper3.writeValueAsString(json2).toString();
+        trendService.insertTrend2(jsonlist);
     }
-
-
 }
