@@ -14,6 +14,9 @@ public interface PaperService {
     List<Paper> queryPaperByKeyword(String keyword,Integer start,Integer rows);
     List<Paper> queryPaperByAuthor(String Author,Integer start,Integer rows);
     List<Map<String,String>> queryTop10ByYear();
-
+    void register(String username,String password);
+    boolean login(String username,String password);
+    void addLike(Integer userId,Integer paperId);
+    List<Paper> queryLikes(Integer userId,Integer strat,Integer rows);
 
 }

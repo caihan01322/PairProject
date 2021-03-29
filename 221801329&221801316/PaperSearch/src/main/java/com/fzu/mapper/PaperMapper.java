@@ -36,7 +36,18 @@ public interface PaperMapper {
                                     @Param("start")Integer start,
                                     @Param("rows")Integer rows);
     //统计某会议某一年前10的关键词及其数量
-
     List<Keyword> queryTop10ByYear(@Param("year")Integer year, @Param("meet")String meet);
 
+    //注册
+    void insertUser(@Param("username") String username,@Param("password") String password);
+
+    //登录
+    String selectPassword(@Param("username")String username);
+
+    //添加收藏
+    void insertLike(@Param("userId")Integer userId,@Param("paperId")Integer paperId);
+    //查看收藏
+    List<Paper> queryLikes(@Param("userId")Integer userId,
+                           @Param("start")Integer start,
+                           @Param("rows")Integer rows);
 }

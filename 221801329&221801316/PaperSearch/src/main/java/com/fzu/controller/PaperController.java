@@ -1,20 +1,22 @@
 package com.fzu.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.fzu.Util.Result;
 import com.fzu.pojo.Paper;
 import com.fzu.service.PaperService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
+@CrossOrigin(origins = "*")
 public class PaperController {
     @Autowired
     PaperService paperService;
@@ -59,7 +61,7 @@ public class PaperController {
     public List<Paper> queryByKeyword(@RequestParam("keyword")String keyword,
                                       @RequestParam("start")Integer start,
                                       @RequestParam("rows")Integer rows){
-        List<Paper> paperList=paperService.queryPaperByKeyword("digital",start,rows);
+        List<Paper> paperList=paperService.queryPaperByKeyword(keyword,start,rows);
         return paperList;
     }
     /**
@@ -104,6 +106,43 @@ public class PaperController {
         data.replace("\"","\'");
         return  data;
     }
+    @ResponseBody
+    @RequestMapping("/register")
+    public void register(@RequestBody JSONObject jsonObject){
+        String username=jsonObject.getString("username");
+        String password=jsonObject.getString("password");
+        paperService.register(username,password);
+    }
 
+    @ResponseBody
+    @RequestMapping("/login")
+    public String login(@RequestBody JSONObject jsonObject){
+        String username=jsonObject.getString("username");
+        String password=jsonObject.getString("password");
+        Map<String,Integer> result=new HashMap<>();
+        if(paperService.login(username,password)){
+            result.put("status",1);
+        }
+        else result.put("status",0);
+        return JSON.toJSONString(result);
+    }
+
+    @ResponseBody
+    @RequestMapping("/addLike")
+    public String addLike(@RequestBody JSONObject jsonObject){
+        Integer userId=jsonObject.getInteger("userId");
+        Integer paperId=jsonObject.getInteger("paperId");
+        Map<String,Integer> result=new HashMap<>();
+        paperService.addLike(userId,paperId);
+        result.put("status",1);
+        return JSON.toJSONString(result);
+    }
+
+    @ResponseBody
+    @RequestMapping("/queryLike")
+    public List<Paper>  queryLike(@RequestParam("userId")Integer userId, @RequestParam("start")Integer start,@RequestParam("rows")Integer rows){
+        List<Paper> paperList=paperService.queryLikes(userId,start,rows);
+        return paperList;
+    }
 
 }

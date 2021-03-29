@@ -144,7 +144,39 @@ public class PaperServiceImpl implements PaperService {
             }
         }
         return data;
+    }
 
+    @Override
+    public void register(String username, String password) {
+        paperMapper.insertUser(username,password);
+    }
+
+    @Override
+    public boolean login(String username, String password) {
+        String result=paperMapper.selectPassword(username);
+        if(result.equals(password))
+            return true;
+        else return false;
+
+    }
+
+    @Override
+    public void addLike(Integer userId, Integer paperId) {
+        paperMapper.insertLike(userId,paperId);
+    }
+
+    @Override
+    public List<Paper> queryLikes(Integer userId,Integer start,Integer rows) {
+        List<Paper> paperList;
+        paperList=paperMapper.queryLikes(userId,start,rows);
+        for (Paper paper : paperList) {
+            Integer paperId=paper.getId();
+            List<String> keywords=paperMapper.queryKeywords(paperId);
+            List<String> authors=paperMapper.queryAuthors(paperId);
+            paper.setKeywords(keywords);
+            paper.setAuthor(authors);
+        }
+        return paperList;
     }
 
 
