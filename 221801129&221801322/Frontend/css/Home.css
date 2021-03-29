@@ -1,0 +1,84 @@
+#homeLogo {
+    width: 1024px;
+    height: 230px;
+    line-height: 230px;
+    text-align: center;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 40px;
+    color: rgb(85, 85, 85);
+}
+#search {
+    width: 1024px;
+    height: 80px;
+}
+#searchBox {
+    width: 584px;
+    height: 48px;
+    margin: 10px auto;
+    background-color: rgb(255, 255, 255);
+    box-sizing: border-box;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb(121, 121, 121);
+    border-radius: 30px;
+    box-shadow: rgb(0 0 0 / 35%) 5px 5px 5px;
+}
+#searchBox input {
+    display: block;
+    float: left;
+    width: 470px;
+    height: 41px;
+    border: 0;
+    margin-top: 3px;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 17px;
+    letter-spacing: normal;
+    color: rgb(0, 0, 0);
+    text-transform: none;
+    outline: none;
+    background-color: transparent;
+    border-color: transparent;
+}
+#searchLogo {
+    float: left;
+    margin: auto 10px;
+    width: 35.25px;
+    height: 36px;
+}
+#upload {
+    float: right;
+    margin: 5px 10px;
+    width: 29.6px;
+    height: 32.8px;
+    cursor: pointer;
+}
+#login {
+    position: absolute;
+    display: none;
+    width: 628px;
+    height: 409px;
+    top: 50px;
+    left: 198px;
+    z-index: 100;
+    background: inherit;
+    background-color: rgba(255, 255, 255, 1);
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(121, 121, 121, 1);
+    border-radius: 0px;
+    -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.349019607843137);
+    -webkit-box-shadow: 5px 5px 5px rgb(0 0 0 / 35%);
+    box-shadow: 5px 5px 5px rgb(0 0 0 / 35%);
+}
+#loginLogo {
+    margin-top: 40px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 40px;
+    color: rgb(85, 85, 85);
+}
