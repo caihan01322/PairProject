@@ -41,4 +41,29 @@ class EditDetail extends Controller{
             return $this->error("编辑失败");
         }
     }
+    public function deletePaper(){
+        $listString = $_COOKIE["deleteList"];
+        $list = json_decode($listString,true);
+        
+        $title = $list["title"];
+      
+        $link = $list["link"];
+        
+        $abstract = $list["abstract"];
+        
+        $keyword = $list["keyword"];
+
+        $result = Db::table('paper')
+            ->where("title",$title)
+            ->where("link",$link)
+            ->where("abstract",$abstract)
+            ->where("keyword",$keyword)
+            ->delete();
+        if($result!==false){
+            return $this->success("删除成功");
+        }
+        else {
+            return $this->error("删除失败");
+        }
+    }
 }

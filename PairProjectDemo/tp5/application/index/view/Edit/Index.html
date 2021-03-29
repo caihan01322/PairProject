@@ -69,7 +69,7 @@
                 <el-table-column fixed prop = "operation" label="操作" align="center" min-width="15%">
                     <template slot-scope="scope">
                         <el-button @click="handleClick(scope.row)" type="primary" size="small">编辑</el-button>
-                        <el-button @click="handleClick(scope.row)" type="danger" size="small">删除</el-button>
+                        <el-button @click="handleDelete(scope.row)" type="danger" size="small">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -125,6 +125,31 @@
                 currentChange:function(val){
                     console.log(val);
                     this.currPage = val;
+                },
+                handleDelete:function(row){
+                    var list = {
+                        "abstract":row.abstract,
+                        "title":row.title,
+                        "link":row.link,
+                        "keyword":row.keyword
+                    }
+                    $.cookie("deleteList",JSON.stringify(list));
+                    $.cookie("page",this.currPage);
+
+                    $.ajax({
+                        type:"POST",
+                        contentType: "application/x-www-form-urlencoded",
+                        url:'http://localhost/PairProject/PairProjectDemo/tp5/public/index/index/editDetail/deletePaper',
+                        data:{},
+                        success:function(result){
+                            window.location.href = "http://localhost/PairProject/PairProjectDemo/tp5/public/index/index/edit";
+                            console.log("修改成功");
+                        },
+                        error:function(msg){
+                            console.log("传输失败");
+                        }
+                    });
+                    window.location.href = "http://localhost/PairProject/PairProjectDemo/tp5/public/index/index/edit";
                 }
             },
             data(){
