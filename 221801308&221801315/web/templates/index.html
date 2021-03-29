@@ -10,7 +10,7 @@
     <link rel="stylesheet" href={{url_for("static",filename="css/header.css")}}>
     <link rel="stylesheet" href={{url_for("static",filename="css/index.css")}}>
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-    <title>主页</title>
+    <title>Home</title>
 </head>
 
 <body>
@@ -22,7 +22,7 @@
                     <h3 class="title">iPaper</h3>
                 </div>
                 <ul class=" menu">
-                    <li class="nav-item"><a href={{url_for("index")}} class="nav-href">Home</a></li>
+                    <li class="nav-item"><a href={{url_for("index")}} class="nav-href active">Home</a></li>
                 <li class="nav-item"><a href={{url_for("search_view")}} class="nav-href">Search</a></li>
                 <li class="nav-item"><a href="./contact.html" class="nav-href">Contact</a></li>
                 <!-- <li class="nav-item"><a href="{{url_for("hot_keywords_view")}}" class="nav-href">热词</a></li> -->
@@ -36,7 +36,7 @@
                 <p class="introduce">To provide a more simple, user-friendly way to login users, access to the field of computer vision from the world's three top conferences CVPR, ICCV, ECCV papers</p>
                 <p class="tips">No acount？Click the button below！</p>
                 <button class="mdc-button mdc-button--raised">
-                    <a href={{url_for("login_view")}} class="mdc-button__label">Sign up</a>
+                    <a href={{url_for("login_view")}}><span class="mdc-button__label main-left-btn">Sign up</span></a>
                 </button>
             </div>
             <div class="main-right">

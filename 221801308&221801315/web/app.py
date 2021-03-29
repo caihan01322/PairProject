@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import abort, flash, jsonify, render_template, redirect, request, url_for
 from flask_login import login_user, login_required, current_user, logout_user
-from flask_wtf import FlaskForm
 from config import *
 from login_manager import get_login_manager
 

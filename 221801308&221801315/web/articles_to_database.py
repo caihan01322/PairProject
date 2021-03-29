@@ -5,10 +5,12 @@ from config import *
 
 
 # 论文json所在的文件夹路径
-CVPR_PATH = "C:/Users/MI/Desktop/论文数据/CVPR"
-ECCV_PATH = "C:/Users/MI/Desktop/论文数据/ECCV"
-ICCV_PATH = "C:/Users/MI/Desktop/论文数据/ICCV"
-
+# CVPR_PATH = "C:/Users/MI/Desktop/论文数据/CVPR"
+# ECCV_PATH = "C:/Users/MI/Desktop/论文数据/ECCV"
+# ICCV_PATH = "C:/Users/MI/Desktop/论文数据/ICCV"
+CVPR_PATH = "C:/Users/Willa/Desktop/论文数据/CVPR"
+ECCV_PATH = "C:/Users/Willa/Desktop/论文数据/ECCV"
+ICCV_PATH = "C:/Users/Willa/Desktop/论文数据/ICCV"
 
 def deal_data(path):
     """对助教爬取的论文json数据进行处理
@@ -131,8 +133,8 @@ def eccv_data_insert(context):
 
 
 if __name__ == "__main__":
-    # deal_data(CVPR_PATH)
-    # deal_data(ICCV_PATH)
+    deal_data(CVPR_PATH)
+    deal_data(ICCV_PATH)
     add_data("CVPR", CVPR_PATH)
     add_data("ECCV", ECCV_PATH)
     add_data("ICCV", ICCV_PATH)
