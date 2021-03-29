@@ -19,7 +19,7 @@
     <div>
         <div th:replace="~{html/sidebar::sidebar}"></div>
     </div>
-    <div class="layui-main">
+    <div style="margin-left: 15%; width: 70%;">
         <div th:replace="~{html/searchbox::searchbox}"></div>
     </div>
 </div>
@@ -30,6 +30,19 @@
 
 <script th:src="@{/layui/layui.js}" charset="utf-8"></script>
 
+<script>
+    function check() {
+        var obj = document.getElementsByName("conference");
+        var flag = false;
+        for(var i = 0; i < obj.length; i++){
+            if(obj[i].checked === true)
+                flag = true;
+        }
+        if(flag === false)
+            alert("请至少选中一个会议");
+        return flag;
+    }
+</script>
 
     <script>
         //Demo
@@ -37,10 +50,10 @@
             var form = layui.form;
 
             //监听提交
-            form.on('submit(formDemo)', function(data){
-                layer.msg(JSON.stringify(data.field));
-                return false;
-            });
+            // form.on('submit(formDemo)', function(data){
+            //     layer.msg(JSON.stringify(data.field));
+            //     return false;
+            // });
         });
     </script>
 

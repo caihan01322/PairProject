@@ -1,22 +1,7 @@
-textarea.conceal{
-    border: none;
-    resize: none;
-}
-textarea.short{
-    width: 10%;
-}
-textarea.long{
-    width: 60%;
-}
-.high{
-    height: 70px;
-}
-.higher{
-    height: 180px;
-}
 .interval{
     margin-left: 10%;
     margin-top: 50px;
+    font-size: 1.2em;
 }
 .btn{
     width: 30%;
