@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/test.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css') }}" type="text/css">
 </head>
 <body>
-<script src="../static/js/navbar.js">
-</script>
+{% include 'navbar.html' %}
+<!--<script src="{{ url_for('static',filename='js/navbar.js') }}"></script>-->
 <form method="POST">
     <input type="text" value="" name="text">
-    <input type="submit" value="点我" name="转到login">
+    <input type="submit" value="搜索">
 </form>
-<p>是了，就在这下面</p>
-{{text}}
+<p>我是index</p>
 </body>
 </html>
