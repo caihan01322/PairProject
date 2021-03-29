@@ -82,3 +82,30 @@
     font-size: 40px;
     color: rgb(85, 85, 85);
 }
+#user,#pw {
+    display: block;
+    width: 368px;
+    height: 40px;
+    margin: 25px auto;
+    padding-left: 15px;
+    background-color: rgba(255, 255, 255, 1);
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(217, 217, 217, 1);
+    border-radius: 4px;
+    font-size: 16px;
+}
+#loginBtn {
+    width: 368px;
+    height: 40px;
+    display: block;
+    margin: 25px auto;
+    background-color: rgba(102, 153, 204, 1);
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
