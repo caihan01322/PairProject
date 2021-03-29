@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>用户表</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+</head>
+
+<body>
+
+<!-- 内容主体区域 -->
+<div style="margin-left: 10px;margin-right: 10px;margin-top: 15px;border: 5px solid rgba(55,55,9,0.57);border-radius: 10px;height: 50px;background-color:#202020">
+    <label style="margin-left: 5px;margin-top: 20px;color: white">搜索条件：</label>
+    <div class="layui-inline">
+        <input class="layui-input" id="uacademicNum" placeholder="id"
+               style="margin-left: 15px;margin-top:5px;width: 150px;border: 2px solid white;border-radius: 5px"
+               autocomplete="off">
+    </div>
+    <div class="layui-inline">
+        <input class="layui-input" id="uauthor" placeholder="作者"
+               style="margin-left: 30px;margin-top:5px;width: 150px;border: 2px solid white;border-radius: 5px"
+               autocomplete="off">
+    </div>
+    <div class="layui-inline">
+        <input class="layui-input" id="utitle" placeholder="标题"
+               style="margin-left: 30px;margin-top:5px;width: 150px;border: 2px solid white;border-radius: 5px"
+               autocomplete="off">
+    </div>
+    <div class="layui-inline">
+        <input class="layui-input" id="ukeyWord" placeholder="关键词"
+               style="margin-left: 30px;margin-top:5px;width: 150px;border: 2px solid white;border-radius: 5px"
+               autocomplete="off">
+    </div>
+    <button type="button" id="qingKong" class="layui-btn layui-btn-sm layui-btn-danger"
+            style="margin-left: 30px;margin-top:5px"><i class="layui-icon">&#xe669;</i>清空
+    </button>
+    <button id="utb" type="button" class="layui-btn layui-btn-sm" data-type="reload"
+            style="margin-left: 30px;margin-top:5px"><i class="layui-icon">&#xe615;</i>搜索
+    </button>
+</div>
+
+<table id="tb-user" lay-filter="tb-user"></table>
+
+
+<!--编辑表单-->
+<div class="layui-row" id="editUser" style="display:none;">
+    <div class="layui-col-md10">
+        <form class="layui-form layui-from-pane" id="saveUser" style="margin-top:30px">
+
+            <input type="hidden" name="academicNum" id="academicNum">
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">作者</label>
+                <div class="layui-input-block">
+                    <input type="text" name="author" id="author" required lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">关键词</label>
+                <div class="layui-input-block">
+                    <input type="text" name="keyword" id="keyword" required lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">标题</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" id="title" required lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">杂志</label>
+                <div class="layui-input-block">
+                    <input type="text" name="magazine" id="magazine" required lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">链接</label>
+                <div class="layui-input-block">
+                    <input type="text" name="link" id="link" required lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">主体</label>
+                <div class="layui-input-block">
+                    <textarea name="abstra" id="abstra" required class="layui-textarea"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item" style="margin-top:40px" id="check">
+                <div class="layui-input-block">
+                    <button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="saveUser">保存</button>
+                    <button type="reset" class="layui-btn layui-btn-danger">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
