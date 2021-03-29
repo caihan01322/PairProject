@@ -51,10 +51,10 @@
     </div>
     <div class="page">
     	共${tsum}条记录，当前在${cpage}/${tpage}页
-    	<a class="btn_page" href="DoSearchSelect?cp=1">首页</a>
-    	<a class="btn_page" href="DoSearchSelect?cp=${cpage>1?cpage-1:1}">上一页</a>
-    	<a class="btn_page" href="DoSearchSelect?cp=${cpage>tpage-1?tpage:cpage+1}">下一页</a>
-    	<a class="btn_page" href="DoSearchSelect?cp=${tpage}">尾页</a>
+    	<a class="btn_page" href="DoSearchSelect?cp=1&condition=${condition}">首页</a>
+    	<a class="btn_page" href="DoSearchSelect?cp=${cpage>1?cpage-1:1}&condition=${condition}">上一页</a>
+    	<a class="btn_page" href="DoSearchSelect?cp=${cpage>tpage-1?tpage:cpage+1}&condition=${condition}">下一页</a>
+    	<a class="btn_page" href="DoSearchSelect?cp=${tpage}&condition=${condition}">尾页</a>
     </div>
 </body>
 </html>
