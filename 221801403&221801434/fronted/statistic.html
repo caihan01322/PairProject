@@ -23,5 +23,137 @@
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
         </nav>
+
+        <div id="CVPR" style="width: 1536px;height:864px;"></div>
+        <script type="text/javascript">
+          // 基于准备好的dom，初始化echarts实例
+  var chartDom = document.getElementById('CVPR');
+  var myChart = echarts.init(chartDom);
+  var option;
+  option = {
+      baseOption: {
+          timeline: {
+              axisType: 'category',
+              // realtime: false,
+              // loop: false,
+              autoPlay: true,
+              // currentIndex: 2,
+              playInterval: 3000,
+              // controlStyle: {
+              //     position: 'left'
+              // },
+           
+              data: [
+                 'CVPR2018','CVPR2019','CVPR2020'
+              ],
+          },
+          title: {
+              subtext: '数据来自国家统计局'
+          },
+          tooltip: {
+          },
+          calculable : true,
+          grid: { containLabel: true },
+          xAxis: [{
+          type: 'category',
+          name: 'KeyWord',
+        },],
+        yAxis: { type: 'value', name: '频率' },
+        series: [
+              { type: 'bar'},
+              {
+                  name: 'GDP占比',
+                  type: 'pie',
+                  center: ['90%', '35%'],
+                  radius: '28%',
+                  z: 100
+              }
+          ]
+      },
+      options: [
+        {
+          xAxis: [{
+            data: ['learning (artificial intelligence)', 'feature extraction', 'training','image reconstruction','neural nets','task analysis','computer vision','cameras','object detection','convolutional neural nets']
+          }],
+          title: {
+            text: 'CVPR2020',
+            subtext: '从频率高到低'
+          },
+          series: [
+          {
+              data: [284,192,152,143,140,127,113,111,88,86]
+            },
+                  {data: [
+              {name: 'learning (artificial intelligence)', value:284},
+              {name: 'feature extraction', value:192},
+              {name:  'training', value:152},
+              {name: 'image reconstruction', value:143},
+              {name:'neural nets', value:140},
+              {name: 'task analysis', value:127},
+              {name:'computer vision', value:113},
+              {name: 'cameras', value:111},
+              {name: 'object detection', value:88},
+              {name: 'convolutional neural nets', value:86},
+                  ]}
+              ]
+        },
+        {
+          xAxis: [{
+            data: ['learning (artificial intelligence)', 'feature extraction', 'object detection','image segmentation','image classification','neural nets','deep learning','categorization','computer vision','training']
+          }],
+          title: {
+            text: 'CVPR2019',
+            subtext: '从频率高到低'
+          },
+          series: [
+          {
+              data: [184,96,84,83,70,61,59,57,53,52]
+            },
+                  {data: [
+                      {name: 'learning (artificial intelligence)', value:184},
+              {name: 'feature extraction', value:96},
+              {name: 'object detection', value:84},
+              {name: 'image segmentation', value:83},
+              {name: 'image classification', value:70},
+              {name: 'neural nets', value:61},
+              {name: 'deep learning', value:59},
+              {name: 'categorization', value:57},
+              {name: 'computer vision', value:53},
+              {name: 'training', value:52},
+                  ]}
+              ]
+        },
+        {
+          xAxis: [{
+            data: ['feature extraction', 'learning (artificial intelligence)', 'image segmentation','computer vision','training','task analysis','cameras','object detection','image reconstruction','convolution']
+          }],
+          title: {
+            text: 'CVPR2018',
+            subtext: '从频率高到低'
+          },
+          series: [
+          {
+              data: [158,145,99,94,94,89,88,82,69,59]
+            },
+                  {data: [
+                      {name: 'feature extraction', value:158},
+              {name: 'learning (artificial intelligence)', value:145},
+              {name: 'image segmentation', value:99},
+              {name: 'computer vision', value:94},
+              {name: 'training', value:94},
+              {name: 'task analysis', value:89},
+              {name: 'cameras', value:88},
+              {name: 'object detection', value:82},
+              {name: 'image reconstruction', value:69},
+              {name: 'convolution', value:59},
+                  ]}
+              ]
+        }
+      ]
+    
+  };
+  option && myChart.setOption(option);
+  
+      </script>
 </body>
 </html>
