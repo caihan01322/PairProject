@@ -6,6 +6,9 @@ import com.example.thesisSearch.utils.DBUtil;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.thesisSearch.dao.ThesisDAO.setThesis;
+
 //收藏列表dao层
 public class LikeListDao {
 
@@ -150,22 +153,4 @@ public class LikeListDao {
         return results;
     }
 
-    public Thesis  setThesis(ResultSet Rs )
-    {
-        Thesis result=new Thesis();
-        try {
-            result.setDate(Rs.getString("publishdate"));
-            result.setAbstractContent(Rs.getString("abstract"));
-            result.setId(Rs.getInt("id"));
-            result.setLink(Rs.getString("link"));
-            result.setMeeting(Rs.getString("meeting"));
-            result.setYear(Rs.getInt("thesisyear"));
-            result.setTitle(Rs.getString("title"));
-            result.setKeyword(Rs.getString("keyword"));
-            result.setIsliked(true);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return result;
-    }
 }

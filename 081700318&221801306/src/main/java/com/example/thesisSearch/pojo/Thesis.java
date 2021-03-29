@@ -1,6 +1,8 @@
 package com.example.thesisSearch.pojo;
 
 
+import java.util.List;
+//用于显示论文的包装类
 public class Thesis {
     private  String title;
     private  String date;
@@ -11,6 +13,15 @@ public class Thesis {
     private  int id;
     private String keyword;
     private  boolean isliked;
+    private  List<String> keywordList;
+
+    public void setKeywordList(List<String> keywordList) {
+        this.keywordList = keywordList;
+    }
+
+    public List<String> getKeywordList() {
+        return keywordList;
+    }
 
     public void setIsliked(boolean isliked) {
         this.isliked = isliked;

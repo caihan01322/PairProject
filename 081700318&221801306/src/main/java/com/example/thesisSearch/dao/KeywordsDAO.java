@@ -58,8 +58,8 @@ public class KeywordsDAO {
         }
         return results;
     }
-
-    public HotWord setHotWord(ResultSet Rs) throws SQLException {
+    public HotWord setHotWord(ResultSet Rs) throws SQLException
+    {
         HotWord temp=new HotWord();
         temp.setKeyword(Rs.getString("keyword"));
         temp.setNums(Rs.getInt("count"));

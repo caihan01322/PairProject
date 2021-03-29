@@ -1,7 +1,10 @@
 package com.example.thesisSearch.dao;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.example.thesisSearch.pojo.Thesis;
 import com.example.thesisSearch.utils.DBUtil;
+import com.mysql.cj.xdevapi.JsonArray;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -108,7 +111,7 @@ public class ThesisDAO {
         }
         return results;
     }
-    public Thesis  setThesis(ResultSet Rs )
+    public static Thesis  setThesis(ResultSet Rs )
     {
         Thesis result=new Thesis();
         try {
@@ -120,6 +123,8 @@ public class ThesisDAO {
             result.setYear(Rs.getInt("thesisyear"));
             result.setTitle(Rs.getString("title"));
             result.setKeyword(Rs.getString("keyword"));
+            List<String> KeyWordList= JSON.parseArray(result.getKeyword(),String.class);
+            result.setKeywordList(KeyWordList);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
