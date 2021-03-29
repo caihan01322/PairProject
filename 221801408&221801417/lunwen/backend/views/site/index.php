@@ -56,7 +56,12 @@ $this->title = '论文管理系统';
 				'id'=>'paperList',
 				'dataProvider'=>$dataProvider,
 				'itemView'=>'_listitem',//子视图,显示一篇文章的标题等内容.
-			    'layout'=>'{items} {pager}',
+                'layout'=>'{items} {pager}',
+				'pager'=>[
+						'maxButtonCount'=>10,
+						'nextPageLabel'=>Yii::t('app','下一页'),
+						'prevPageLabel'=>Yii::t('app','上一页'),
+                ],
 		])?>
         </div>
 
