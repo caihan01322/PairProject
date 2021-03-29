@@ -6,8 +6,12 @@
 
 use common\models\overall;
 use common\models\taganalysis;
+
 $pdata=overall::getOverall();
-$qdata=taganalysis::getDataPagertw();
+
+$cvrp=taganalysis::getDataPagercvrp();
+$eccv=taganalysis::getDataPagereccv();
+$iccv=taganalysis::getDataPagericcv();
 
 $this->title = 'My Yii Application';
 ?>
@@ -32,8 +36,23 @@ $this->title = 'My Yii Application';
         </div>
         <script type="text/javascript" >
             // 基于准备好的dom，初始化echarts实例
-            var chartDom = document.getElementById('main');
-var myChart = echarts.init(chartDom);
+        var chartDom = document.getElementById('main');
+        var myChartz = echarts.init(chartDom);
+
+        var a=<?php echo json_encode($cvrp) ?>;
+        var cvrp_arr = a.map(item => {
+            return Object.values(item)
+        })
+        var b=<?php echo json_encode($eccv) ?>;
+        var eccv_arr = b.map(item => {
+           return Object.values(item)
+        })
+        var c=<?php echo json_encode($iccv) ?>;
+        var iccv_arr = c.map(item => {
+            return Object.values(item)
+        })
+        var p=<?php echo json_encode($pdata) ?>;
+
 var option;
 
 option = {
@@ -66,27 +85,59 @@ option = {
             name: 'CVPR',
             type: 'line',
             stack: '总量',
-            data: [230,210,204,198,184,154,144,122,90,87]
+            data: [
+            {value:cvrp_arr[0][2]},
+            {value:cvrp_arr[1][2]},
+            {value:cvrp_arr[2][2]},
+            {value:cvrp_arr[3][2]},
+            {value:cvrp_arr[4][2]},
+            {value:cvrp_arr[5][2]},
+            {value:cvrp_arr[6][2]},
+            {value:cvrp_arr[7][2]},
+            {value:cvrp_arr[8][2]},
+            {value:cvrp_arr[9][2]},
+            ]
         },
         {
             name: 'ECCV',
             type: 'line',
             stack: '总量',
-            data: [284,192,152,143,140,127,113,111,88,86]
+            data: [
+            {value:eccv_arr[0][2]},
+            {value:eccv_arr[1][2]},
+            {value:eccv_arr[2][2]},
+            {value:eccv_arr[3][2]},
+            {value:eccv_arr[4][2]},
+            {value:eccv_arr[5][2]},
+            {value:eccv_arr[6][2]},
+            {value:eccv_arr[7][2]},
+            {value:eccv_arr[8][2]},
+            {value:eccv_arr[9][2]},
+            ]
         },
         {
             name: 'ICCV',
             type: 'line',
             stack: '总量',
-            data: [263,261,201,168,162,158,142,119,111,91]
+            data:  [
+            {value:iccv_arr[0][2],name:iccv_arr[0][1]},
+            {value:iccv_arr[1][2]},
+            {value:iccv_arr[2][2]},
+            {value:iccv_arr[3][2]},
+            {value:iccv_arr[4][2]},
+            {value:iccv_arr[5][2]},
+            {value:iccv_arr[6][2]},
+            {value:iccv_arr[7][2]},
+            {value:iccv_arr[8][2]},
+            {value:iccv_arr[9][2]},
+            ]
         },
       
     ]
 };
 
-option && myChart.setOption(option);
-
-        </script>
+option && myChartz.setOption(option);
+</script>
 
 <div id="main2" style="width: 550px;height:400px;float:left;"></div>
 
@@ -103,7 +154,7 @@ var option2 = {
             {
                 name: '评论详情',
                 type: 'pie',
-                radius: 80,
+                radius: 120,
                 data:[
                     {value:js_arr[0][2], name:js_arr[0][1]},
                     {value:js_arr[1][2], name:js_arr[1][1]},
