@@ -12,6 +12,21 @@ $(function () {
         //数据接收与展示
     });
 
+    $("#trend_nav div").click(function(){
+        var nav_div = document.getElementById("trend_nav").getElementsByTagName("div");
+        var content_div = document.getElementById("trend").getElementsByClassName("chart");
+        for(var i = 0, len = nav_div.length; i < len; i++){
+            if(nav_div[i] === this){
+                nav_div[i].className = 'nav_selected';
+                content_div[i].className = 'chart display_chart';
+            }
+            else{
+                nav_div[i].className = '';
+                content_div[i].className = 'chart content_selected';
+            }                    
+        }
+    })
+
     $("#searchPaper").on('keypress',function(event){
         if(event.keyCode == 13){
             var urlStr = "/Result";

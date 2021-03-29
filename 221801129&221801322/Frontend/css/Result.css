@@ -8,9 +8,20 @@
     height: 600px;
     float: left;
 }
+#trend_nav {
+    margin: 10px auto;
+}
+#trend > div {
+    width: 300px;
+    height: 250px;
+    margin: 0 auto;
+}
+#trend > div canvas {
+    height: 240px !important;
+}
 /* 搜索
    ------------------------------------------ */
-   #search {
+#search {
     width: 624px;
     height: 50px;
 }
@@ -229,4 +240,35 @@
     line-height: 30px;
     color: #b3b3b3;
     text-align: left;
+}
+/* 趋势图
+   ------------------------------------------ */
+   #trend_nav div {
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    background-color: rgba(102, 153, 204, 1);
+    box-sizing: border-box;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgba(127, 127, 127, 1);
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+}
+#trend_nav .nav_selected {
+    color: rgb(85, 85, 85);
+    background-color: white;
+    font-weight: 700;
+    transition: .5s;
+}
+#trend .content_selected {
+    display: none;
+}
+#trend_nav:first-child {
+    margin-left: 50px;
 }
