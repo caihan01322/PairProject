@@ -121,7 +121,7 @@ public class PaperController {
      * @return
      */
     @GetMapping("/search")
-    public String searchUser(
+    public String searchPapers(
             @RequestParam(name = "pageNum", defaultValue = "1") int pageNum,
             @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
             @RequestParam(name= "title" , defaultValue = "") String title,
@@ -152,6 +152,37 @@ public class PaperController {
 
         model.addAttribute("paperList", paperList);
         return "index";
+    }
+
+    @ResponseBody
+    @GetMapping("/search/list")
+    public AjaxResponse searchPaper(
+            @RequestParam(name = "pageNum", defaultValue = "1") int pageNum,
+            @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+            @RequestParam(name= "title" , defaultValue = "") String title,
+            @RequestParam(name= "sort" , defaultValue = "1") String sort, Model model){
+        if( pageSize <= 0 ){
+            pageSize = this.pageSize;
+        }
+
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put("title", title);
+        paramMap.put("sort", sort);
+
+        //第一个参数：表示当前第几页;
+        //第二个参数：每页显示的条数据;
+        MyPage<Paper> page = new MyPage<>(pageNum, pageSize);
+        paperService.searchPaper(page, paramMap);
+        List<Paper> paperList = page.getRecords();
+
+        if( paperList.isEmpty()){
+            log.info("【未查询到数据】 " );
+            return AjaxResponse.success("【未查询到数据】");
+        }
+        return AjaxResponse.success(page, "【查询成功！】");
+
+        //model.addAttribute("paperList", paperList);
+        //return "index";
     }
 
 

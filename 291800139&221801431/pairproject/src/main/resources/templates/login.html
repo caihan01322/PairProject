@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>首页</title>
+    <title>登录</title>
 
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../LayUI/css/layui.css">
@@ -24,7 +24,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <!--首页图标-->
-                <a class="navbar-brand glyphicon glyphicon-home" href="#"> 首页 </a>
+                <a class="navbar-brand glyphicon glyphicon-home" href="Index.html"> 首页 </a>
             </div>
     
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -40,7 +40,7 @@
                         <button type="submit" class="btn btn-default glyphicon glyphicon-search"> 搜索 </button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="login.html">登录</a></li>
+                    <li><a href="#">登录</a></li>
                     <li><a href="register.html">注册</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">昵称 <span class="caret"></span></a>
@@ -56,53 +56,57 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-
     <div class="container">
-        <div class="row col-md-offset-6" id="index">
-            Search
+        <div class="row col-md-offset-5" id="register">
+            登录
         </div>
-        <div class="row col-md-5 col-md-offset-4" id="content">
-            <div class="input-group">
-                <input type="text" class="form-control" onkeydown="onKeyDown(event)"/>
-                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-            </div>
+        <div class="row col-md-offset-4" id="content">
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                  <label class="layui-form-label">用户名</label>
+                  <div class="layui-input-inline">
+                    <input type="text" name="title" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                  </div>
+                </div>
+                <div class="layui-form-item">
+                  <label class="layui-form-label">密码</label>
+                  <div class="layui-input-inline">
+                    <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                  </div>
+                </div>
+                <div class="layui-form-item">
+                  <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">登录</button>
+                  </div>
+                </div>
+            </form>
+               
+
+            
+              <script>
+              //Demo
+              layui.use('form', function(){
+                var form = layui.form;
+                
+                //监听提交
+                form.on('submit(formDemo)', function(data){
+                  layer.msg(JSON.stringify(data.field));
+                  return false;
+                });
+              });
+              </script>
+                
         </div>
-
-        <table class="table">
-            <tr>
-                <td>ID</td>
-                <td>论文链接</td>
-                <td>论文标题</td>
-                <td>发布时间</td>
-            </tr>
-
-            <tr th:each="item : ${paperList}">
-                <td th:text="${item.pid}"></td>
-                <td th:text="${item.link}"></td>
-                <td th:text="${item.title}"></td>
-                <td th:text="${item.publicDate}"></td>
-            </tr>
-        </table>
-
-        <script type="text/javascript">
-            function onKeyDown(event){
-                var e = event || window.event || arguments.callee.caller.arguments[0];
-                if(e && e.keyCode==13){ // enter键进行搜索跳转到爬取结果页面
-                    alert("显示搜索结果");
-                }
-            }
- 
-        </script>
-
-
 
     </div>
+
+
 
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../bootstrap/js/bootstrap.min.js"></script>    
+<script src="../bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
