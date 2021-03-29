@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章详情</title>
+    <!-- 引入 Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="register_login.css">
+
+    <style>
+        #main{
+            margin: 100px 200px;
+        }
+        h4{
+            margin:20px 0px;
+        }
+        hr {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: 0;
+            border-top: 1.5px solid #eee;
+            margin-right: 400px;
+        }
+        #left{
+            float: left;
+            margin-left: 130px;
+        }
+
+        #like{
+            float: right;
+            margin-right: 230px;
+        }
+        #buttons{
+            float:right;
+            margin-right:260px;
+        }
+        #buttons button{
+            margin:20px
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper" style="background-image: none;">
+    
+    <div id="header">
+            
+        <div class="container">
+            <h1 style="display: inline;">顶会论文爬取平台</h1>
+            <button id="login_btn" type="button" class="btn btn-default">登录</button>
+            <div class="row" style="float: right;">
+                <div class="span6">
+                    <ul class="nav nav-tabs">
+                        <li><a href="index.html">&nbsp;首&nbsp;&nbsp;页&nbsp;</a></li>
+                        <li><a @click="doIt" href="add_articles.html">爬取论文</a></li>
+                        <li class="active"><a href="article.html">论文列表</a></li>
+                        <li><a href="hotwords_graph.html">热词分析</a></li>
+                        <li><a href="personal_page.html">个人中心</a></li>
+                    </ul>
+                </div>
+                
+            </div>
+           
+        </div>
+            
+    </div>
+
+    <div id="article">
+        <img id="left" alt="" src="icon_left.png">
+        <img id="like" alt="" src="icon_like.png">
+            
+        <div id="main">
+            <h3>
+                企业文化对品牌价值影响的实证研究——企业家精神和CSR的调节作用</h3>
+    
+                <h4>关键词：企业文化;品牌价值;企业家精神;企业社会责任;</h4>
+    
+                <hr />
+                <h4>摘要：</h4>
+                啦啦啦啦啦lallala
+
+                <h4>原文链接：</h4>asdjflksdajklfdl
+
+        </div>
+
+        <div id="buttons">
+            <button type="button" class="btn btn-default">修改</button>
+            <button type="button" class="btn btn-default">删除</button>
+
+        </div>
+    </div>
+
+
+    </div>
+
+</body>
+</html>

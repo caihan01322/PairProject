@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <!-- 引入 Bootstrap -->
+     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+     <title>Document</title>
+     <link rel="stylesheet" type="text/css" href="register_login.css">
+     
+     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+ 
+     <style>
+        #wrapper{
+            background-image: none;
+        }
+     </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+           
+            
+                <div class="container">
+                    <h1 style="display: inline;">
+                        <img alt="" src="icon0.png" id="main_icon"/>
+                        顶会论文爬取平台</h1>
+
+                        <button id="login_btn" type="button" class="btn btn-default">登录</button>
+                    <div class="row" style="float: right;">
+                        <div class="span6">
+                            <ul class="nav nav-tabs">
+                                <li><a href="index.html">&nbsp;首&nbsp;&nbsp;页&nbsp;</a></li>
+                                <li><a @click="doIt" href="add_articles.html">爬取论文</a></li>
+                                <li class="active"><a href="article.html">论文列表</a></li>
+                                <li><a href="hotwords_graph.html">热词分析</a></li>
+                                <li><a href="personal_page.html">个人中心</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+           
+        </div>
+
+        <div id="article_list" style="text-align:center"
+        >
+            <div id="top">
+                <h2 style="display: inline;">已爬取论文列表</h2>
+                是否还有没有检索到的论文？
+                <button type="button" class="btn btn-default">添加</button>
+
+                <input type="text" style="width: 300px;display: inline" class="form-control" placeholder="查询"/>
+
+                
+                <div class="dropdown" id="dropdown" style="display: inline;">
+                    <button 
+                    class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        {{ message }}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1"
+                    >
+                        <li><a href="#" @click="showValue($event)">2021</a></li>
+                        <li><a href="#" @click="showValue($event)">2015-2020</a></li>
+                        <li><a href="#"@click="showValue($event)">2010-2015</a></li>
+                    </ul>
+
+                    <button type="button" class="btn btn-primary"> 搜 索 </button>
+                </div>    
+
+
+
+                    
+
+            
+                
+            </div>
+                <div id="list">
+                    <h1>这里放的是表格</h1>
+                </div>
+        </div>
+
+            
+
+
+        </div>
+        
+
+    </div>
+
+    <script>
+        var app = new Vue({
+         el:"#article_list",
+         data:{
+             message:"2021"
+         },
+         methods: {
+
+         showValue(event){
+             var e = event.currentTarget;
+             msg = e.innerHTML;
+             
+             this.message = msg;
+         }
+     }
+     })
+   </script>
+
+</body>
+</html>
