@@ -8,20 +8,15 @@
     <title>论文导入</title>
     <link rel='stylesheet' href='../css/myCss.css' type='text/css'/>
     <link rel='stylesheet' href='../css/myCss2.css' type='text/css'/>
-    <link rel='stylesheet' href='../css/myCss4.css' type='text/css'/>
-    
+    <link rel='stylesheet' href='../css/myCss4.css' type='text/css'/>  
     <script src='https://cdn.bootcss.com/echarts/3.7.0/echarts.simple.js'></script>
     <script src='../plug-in/echarts-wordcloud.js'></script>
-
 </head>
 
 <body style="background-color: #F8F8F8;">
 <div id="app" class="surface--content">
     <header class="metabar">
         <div class="container u-flex">
-            <!--
-            <a href="/" class="u-flex u-relative"><img class="logo" src=".jpg" alt="图标"></a>
-            -->
             <nav class="header-nav">
                 <ul class="subnav-ul">
                     <li class="menu-item"><a href="../index.php">首页</a></li>
@@ -42,23 +37,23 @@
                 <metabar-notice v-bind:noticenum="noticeNum" v-bind:islogin="islogin"></metabar-notice>
                 <div class="metabarItem u-flex u-paddingLeft20 dropdown" >
                     <a href="" class="u-flex" title="用户" >
-                    <svg t="1616238407449" class="icon" width="40" height="39" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2253" width="200" height="200"><path d="M512 0a512 512 0 1 0 512 512A512 512 0 0 0 512 0zM213.333 832A298.667 298.667 0 0 1 512 533.333a170.667 170.667 0 1 1 170.667-170.666A170.667 170.667 0 0 1 512 533.333 298.667 298.667 0 0 1 810.667 832z" p-id="2254" fill="#e6e6e6"></path></svg>
+                        <svg t="1616238407449" class="icon" width="40" height="39" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2253" width="200" height="200"><path d="M512 0a512 512 0 1 0 512 512A512 512 0 0 0 512 0zM213.333 832A298.667 298.667 0 0 1 512 533.333a170.667 170.667 0 1 1 170.667-170.666A170.667 170.667 0 0 1 512 533.333 298.667 298.667 0 0 1 810.667 832z" p-id="2254" fill="#e6e6e6"></path></svg>
                     </a>
                     <?php 
-                    $conn = new mysqli('localhost','root','','paperdb');
-                    if(!isset($_SESSION["userid"])){
-                        echo '<script>alert("请先登录！");window.location.href="login.php";</script>';
-                    }
-                    $userid=$_SESSION["userid"];
-                    $sql = "select * from user where userid = '$userid' ";
-                    $result = $conn->query($sql);
-                    $number = mysqli_num_rows($result);
-                    $row=$result ->fetch_assoc();
-                    echo $row["username"];
+                        $conn = new mysqli('localhost','root','','paperdb');
+                        if(!isset($_SESSION["userid"])){
+                            echo '<script>alert("请先登录！");window.location.href="login.php";</script>';
+                        }
+                        $userid=$_SESSION["userid"];
+                        $sql = "select * from user where userid = '$userid' ";
+                        $result = $conn->query($sql);
+                        $number = mysqli_num_rows($result);
+                        $row=$result ->fetch_assoc();
+                        echo $row["username"];
                     ?>
                     <div class="dropdown-content">
-    				<a href="">个人中心</a><br/>
-    				<a onclick="exitLogin()">退出登录</a>
+    				    <a onclick="myMessage()">个人中心</a><br>
+    				    <a onclick="exitLogin()">退出登录</a>
   					</div>
                 </div>
             </div>
@@ -95,7 +90,6 @@
         foreach($result_array as $value){
             if(!empty($value)){
                 $value = ucfirst($value);
-                //$value = str_replace(' ', '<br>', $value);  //词组遇空格则分行
                 if(array_key_exists($value, $key_array)){
                     $key_array[$value] += 10;   //+=1
                 }
@@ -156,7 +150,6 @@
         		        textStyle: {
         		            normal: {
         		               color: function() {
-                                    //var colors = new Array('#FE4365', '#FC9D9A', '#F9CDAD', '#FFAEB9', '#EEA2AD', '#CD8C95', '#8B5F65');
                                     var colors = new Array('#D3D3D3', '#FFC1C1', '#CDA49E', '#C51F1F', '#9C2632', '#471F1F');
                                     var index = Math.ceil(Math.random() * (colors.length - 1));
         		                    return colors[index];
@@ -205,25 +198,22 @@
 <div style="height:40px;float:left;width:100%;magin:0;padding:20px 0;text-align:center;font:"黑体">
 	<small>Copyright ©2020-2021 - XXL&XXY</small> 
 </div>
-
 </body>
 
-<script type="text/javascript">
+<script>
 	function exitLogin(){
-	window.event.returnValue=false;     
-	window.location.href="../form/exit.php";
-}
-</script>
-    <script>
-        function findFile(){
-        	var inputObj=document.createElement('input');
-            inputObj.setAttribute('id','file');
-            inputObj.setAttribute('type','file');
-            inputObj.setAttribute("style",'visibility:hidden');
-            document.body.appendChild(inputObj);
-            inputObj.click();
-            inputObj.onchange=readFile;
-        }
+		window.event.returnValue=false;     
+		window.location.href="../form/exit.php";
+	}
+    function findFile(){
+        var inputObj = document.createElement('input');
+        inputObj.setAttribute('id','file');
+        inputObj.setAttribute('type','file');
+        inputObj.setAttribute("style",'visibility:hidden');
+        document.body.appendChild(inputObj);
+        inputObj.click();
+        inputObj.onchange=readFile;
+    }
     function readFile() {
     	var objFile = document.getElementById('file');
     	var files = objFile.files;	
@@ -237,14 +227,17 @@
     	}
   	}
   	function copyLink(){
-window.event.returnValue=false;if (window.event.preventDefault) window.event.preventDefault();
-	if (!!window.ActiveXObject || "ActiveXObject" in window){
-		window.clipboardData.setData("text",'http://222.77.0.199:8090/');
-		alert("已复制网址http://222.77.0.199:8090/至剪切板");
-	}
-  	else{
-  alert("当前浏览器暂不支持改功能！");
-	}
-}
+  	  	window.event.returnValue=false;if (window.event.preventDefault) window.event.preventDefault();
+  	  	if (!!window.ActiveXObject || "ActiveXObject" in window){
+  	  	  	window.clipboardData.setData("text",'http://222.77.0.199:8090/');
+  	  	  	alert("已复制网址http://222.77.0.199:8090/至剪切板");
+  	  	} 
+  	  	else{
+  	  	  	alert("当前浏览器暂不支持改功能！");
+  	  	}
+  	}
+  	function myMessage(){
+  		alert("抱歉！该功能暂未开放！");
+  	}
     </script>
 </html>
