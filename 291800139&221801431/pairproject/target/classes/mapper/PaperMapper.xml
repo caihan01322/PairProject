@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.practice.pairproject.dao.PaperMapper">
+  <resultMap id="BaseResultMap" type="com.practice.pairproject.pojo.Paper">
+    <constructor>
+      <idArg column="pid" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="meeting" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="year" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="publicDate" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="link" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="authors" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="abstractContent" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
+    </constructor>
+  </resultMap>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from paper
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="deleteByPrimaryKeyList2" parameterType="java.lang.Integer">
+    delete from paper
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
+
+
+
+  <!--
+      values (#{meeting,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, #{publicDate,jdbcType=VARCHAR},
+      #{title,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR}, #{authors,jdbcType=VARCHAR},
+      #{abstractContent,jdbcType=LONGVARCHAR})
+  -->
+  <insert id="insertPaper" parameterType="com.practice.pairproject.pojo.Paper">
+    <selectKey keyProperty="pid" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into paper
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="meeting != null and meeting != ''">meeting,</if>
+      <if test="year != null and year != ''">year,</if>
+      <if test="publicDate != null and publicDate != ''">publicDate,</if>
+      <if test="title != null and title != ''">title,</if>
+      <if test="link != null and link != ''">link,</if>
+      <if test="authors != null and authors != ''">authors,</if>
+      <if test="abstractContent != null and abstractContent != ''">abstractContent,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="meeting != null and meeting != ''">#{meeting,jdbcType=VARCHAR},</if>
+      <if test="year != null and year != ''">#{year,jdbcType=VARCHAR},</if>
+      <if test="publicDate != null and publicDate != ''">#{publicDate,jdbcType=VARCHAR},</if>
+      <if test="title != null and title != ''">#{title,jdbcType=VARCHAR},</if>
+      <if test="link != null and link != ''">#{link,jdbcType=VARCHAR},</if>
+      <if test="authors != null and authors != ''">#{authors,jdbcType=LONGVARCHAR},</if>
+      <if test="abstractContent != null and abstractContent != ''">#{abstractContent,jdbcType=LONGVARCHAR},</if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.practice.pairproject.pojo.Paper">
+    update paper
+    set meeting = #{meeting,jdbcType=VARCHAR},
+      "year" = #{year,jdbcType=VARCHAR},
+      publicDate = #{publicDate,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      link = #{link,jdbcType=VARCHAR},
+      authors = #{authors,jdbcType=LONGVARCHAR},
+      abstractContent = #{abstractContent,jdbcType=LONGVARCHAR}
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select pid, meeting, "year", publicDate, title, link, authors, abstractContent
+    from paper
+    where pid = #{pid,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select pid, meeting, year, publicDate, title, link, authors, abstractContent
+    from paper
+  </select>
+
+
+  <delete id="deleteByPrimaryKeyList" parameterType="java.util.List">
+    delete from paper where pid in
+    <foreach collection="pids" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
+  <select id="selelctByIDlist" parameterType="java.util.List" resultMap="BaseResultMap">
+    <include refid="selectUserVo"/>
+    where pid in
+    <foreach collection="pids" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+
+
+  <!-- map里的key直接用 -->
+  <select id="searchPaper" parameterType="java.util.Map" resultMap="BaseResultMap">
+    <include refid="selectUserVo"/>
+    <where>
+      <if test="title != null and title != ''">
+        AND title like "%"#{title,jdbcType=VARCHAR}"%"
+      </if>
+      <if test="pid != null">
+        AND pid like #{pid,jdbcType=INTEGER}"%"
+      </if>
+      <if test="keyword != null and keyword != ''">
+        AND pid in (select pid from keyword where content like "%"#{keyword,jdbcType=VARCHAR}"%" )
+      </if>
+    </where>
+    order by
+    <trim  suffixOverrides=",">
+      <if test='sort =="1"'>
+        pid
+      </if>
+      <if test='sort =="2"'>
+        year
+      </if>
+    </trim>
+    asc
+  </select>
+
+  <sql id="selectUserVo">
+    select pid, meeting, year, publicDate, title, link, authors, abstractContent
+    from paper
+    <!--
+    left join sys_dept d on u.dept_id = d.dept_id
+    left join sys_user_role ur on u.user_id = ur.user_id
+    left join sys_role r on r.role_id = ur.role_id
+    -->
+  </sql>
+
+</mapper>

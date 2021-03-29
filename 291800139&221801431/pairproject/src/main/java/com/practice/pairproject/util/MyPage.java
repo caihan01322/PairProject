@@ -54,8 +54,8 @@ public class MyPage<T> extends Page<T> {
         if(current < pages){
             this.setNext(current + 1);
         }
-        List<Integer> plist = IntStream.rangeClosed(1, pages).boxed().collect(Collectors.toList());
-        this.setShowPage(plist);
+        //List<Integer> plist = IntStream.rangeClosed(1, pages).boxed().collect(Collectors.toList());
+        //this.setShowPage(plist);
     }
 
     private Integer pre;

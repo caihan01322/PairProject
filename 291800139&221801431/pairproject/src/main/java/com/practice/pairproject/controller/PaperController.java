@@ -2,6 +2,7 @@ package com.practice.pairproject.controller;
 
 //import com.baomidou.mybatisplus.core.metadata.IPage;
 //import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import com.baomidou.mybatisplus.plugins.Page;
 import com.practice.pairproject.pojo.Paper;
 import com.practice.pairproject.service.PaperService;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,19 +65,25 @@ public class PaperController {
 
     /**
      * 删除一篇Paper，使用DELETE方法，参数是id
+     *
      * @param id
      * @return
      */
+    @ResponseBody
     @DeleteMapping("/delete/{id}")
-    public AjaxResponse deletePaper(@PathVariable("id") Integer id){
+    public Object deletePaper(@PathVariable("id") Integer id) {
 
         int result = paperService.deleteByPrimaryKey(id);
-        if(result < 1){
+        Map<String, Object> re = new HashMap<String, Object>();
+        if (result < 1) {
             log.error("【删除失败！】: " + id);
-            return AjaxResponse.fail(500, "【删除失败！】: " + id);
+            //return AjaxResponse.fail(500, "【删除失败！】: " + id);
+            re.put("code", 500);
         }
 
-        return AjaxResponse.success("【删除成功！】");
+        //return AjaxResponse.success("【删除成功！】");
+        re.put("code", 200);
+        return re;
     }
 
     /* AJAX:
@@ -93,16 +101,18 @@ public class PaperController {
             }
         });
     */
+
     /**
      * 删除选中的Paper，使用DELETE方法，参数是id-list
+     *
      * @param pids
      * @return
      */
     @DeleteMapping("/delete")
-    public AjaxResponse deletePapers(@RequestBody List<Integer> pids){
+    public AjaxResponse deletePapers(@RequestBody List<Integer> pids) {
         log.info("233333333");
         int result = paperService.deleteByPrimaryKeyList(pids);
-        if(result != pids.size()){
+        if (result != pids.size()) {
             log.error("【删除失败！】: " + result);
             return AjaxResponse.fail(500, "【删除失败！】: " + result);
         }
@@ -113,6 +123,7 @@ public class PaperController {
     /**
      * 【分页】
      * 多条件联合模糊查询
+     *
      * @param title
      * @param pid
      * @param keyword
@@ -124,11 +135,11 @@ public class PaperController {
     public String searchPapers(
             @RequestParam(name = "pageNum", defaultValue = "1") int pageNum,
             @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
-            @RequestParam(name= "title" , defaultValue = "") String title,
-            @RequestParam(name= "pid" , defaultValue = "") String pid,
-            @RequestParam(name= "keyword" , defaultValue = "") String keyword,
-            @RequestParam(name= "sort" , defaultValue = "1") String sort, Model model){
-        if( pageSize <= 0 ){
+            @RequestParam(name = "title", defaultValue = "") String title,
+            @RequestParam(name = "pid", defaultValue = "") String pid,
+            @RequestParam(name = "keyword", defaultValue = "") String keyword,
+            @RequestParam(name = "sort", defaultValue = "1") String sort, Model model) {
+        if (pageSize <= 0) {
             pageSize = this.pageSize;
         }
 
@@ -144,26 +155,29 @@ public class PaperController {
         paperService.searchPaper(page, paramMap);
         List<Paper> paperList = page.getRecords();
 
-        if( paperList.isEmpty()){
-            log.info("【未查询到数据】 " );
+        if (paperList.isEmpty()) {
+            log.info("【未查询到数据】 ");
             //return AjaxResponse.success("【未查询到数据】");
         }
         //return AjaxResponse.success(page, "【查询成功！】");
 
         model.addAttribute("paperList", paperList);
-        return "index";
+        model.addAttribute("page",page);
+        return "paperList";
     }
 
-    @ResponseBody
+    //@ResponseBody
     @GetMapping("/search/list")
-    public AjaxResponse searchPaper(
+    public String searchPaper(
             @RequestParam(name = "pageNum", defaultValue = "1") int pageNum,
             @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
-            @RequestParam(name= "title" , defaultValue = "") String title,
-            @RequestParam(name= "sort" , defaultValue = "1") String sort, Model model){
-        if( pageSize <= 0 ){
+            @RequestParam(name = "title", defaultValue = "") String title,
+            @RequestParam(name = "sort", defaultValue = "1") String sort, Model model) {
+        if (pageSize <= 0) {
             pageSize = this.pageSize;
         }
+
+        log.info("【title】：" + title);
 
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put("title", title);
@@ -175,14 +189,15 @@ public class PaperController {
         paperService.searchPaper(page, paramMap);
         List<Paper> paperList = page.getRecords();
 
-        if( paperList.isEmpty()){
-            log.info("【未查询到数据】 " );
-            return AjaxResponse.success("【未查询到数据】");
+        if (paperList.isEmpty()) {
+            log.info("【未查询到数据】 ");
+            //return AjaxResponse.success("【未查询到数据】");
         }
-        return AjaxResponse.success(page, "【查询成功！】");
+        //return AjaxResponse.success(page, "【查询成功！】");
 
-        //model.addAttribute("paperList", paperList);
-        //return "index";
+        model.addAttribute("paperList", paperList);
+        model.addAttribute("page", page);
+        return "paperList";
     }
 
 
@@ -207,16 +222,18 @@ public class PaperController {
     /**
      * 【分页】
      * 查询所有论文列表
+     *
      * @param pageNum  第几页
      * @param pageSize
      * @param model
      * @return
      */
+    //@ResponseBody
     @GetMapping("/show")
     public String showPage(@RequestParam(name = "pageNum", defaultValue = "1") int pageNum,
-                                 @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
-                                 Model model){
-        if( pageSize <= 0 ){
+                           @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+                           Model model) {
+        if (pageSize <= 0) {
             pageSize = this.pageSize;
         }
 
@@ -231,7 +248,7 @@ public class PaperController {
         paperService.selectAll(page);
         List<Paper> paperList = page.getRecords();
 
-        if(paperList.isEmpty()){
+        if (paperList.isEmpty()) {
             log.error("【查询所有论文列表失败！】");
             //return AjaxResponse.fail(500, "【查询所有论文列表失败！】");
         }
@@ -241,12 +258,19 @@ public class PaperController {
         */
         //return AjaxResponse.success(page, "【查询所有论文列表成功！】");
 
+        //Map<String, Object> result = new HashMap<>();
+
         model.addAttribute("paperList", paperList);
-        return "index";
+        model.addAttribute("page", page);
+        return "paperList";
+        /*result.put("paperList",paperList);
+        result.put("page",page);
+        return result;*/
     }
 
     /**
      * 点击某个keyword->相关的论文列表
+     *
      * @param keyword
      * @return
      */
@@ -255,7 +279,7 @@ public class PaperController {
                                 @RequestParam(name = "pageNum", defaultValue = "1") int pageNum,
                                 @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
                                 Model model) {
-        if( pageSize <= 0 ){
+        if (pageSize <= 0) {
             pageSize = this.pageSize;
         }
 
@@ -265,7 +289,7 @@ public class PaperController {
         paperService.selectPaperByKeyword(page, keyword);
         List<Paper> paperList = page.getRecords();
 
-        if(paperList.isEmpty()){
+        if (paperList.isEmpty()) {
             log.error("【查询keyword-->论文列表失败！】");
             return AjaxResponse.fail(500, "【查询keyword-->论文列表失败！】");
         }
