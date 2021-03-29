@@ -27,7 +27,7 @@
     </div>
 
     <div class="tab">
-        <a class="btn_word btn">热词走势</a>
+        <a class="btn_word btn href="DoICCVSelect?">热词走势</a>
         <a class="btn_key_active btn">关键词图谱</a>
         <div id="map">
         456</div>
