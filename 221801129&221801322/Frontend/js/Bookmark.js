@@ -1,6 +1,8 @@
 $(function () {
     $("#mark").css("display","block");
     $("#status").text(localStorage.getItem("username"));
+    $("#status").css("pointer-events","none");
+    $("#status").css("cursor","none");
     $("#searchBox input").removeAttr("disabled");
 
     var urlStr = "/Bookmark";

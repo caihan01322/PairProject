@@ -26,6 +26,8 @@ $(function () {
                     alert(data.message);
                     $("#mark").css("display","block");
                     $("#status").text(data.userName);
+                    $("#status").css("pointer-events","none");
+                    $("#status").css("cursor","none");
                     localStorage.setItem("username",data.userName);
                     $("#searchBox input").removeAttr("disabled");
                     $("#login").fadeOut("slow");
