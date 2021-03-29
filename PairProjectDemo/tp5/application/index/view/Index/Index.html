@@ -42,13 +42,22 @@
               style="text-align: center;" @current-change="handleCurrentChange">
             </el-pagination>
           </div>
+
         </div>
+
       </el-tab-pane>
       <el-tab-pane label="编辑" name="second">配置管理</el-tab-pane>
       <el-tab-pane label="概况" name="third">
+        <div id="top" style="width: 280px;height: 800px; float:right;">
+          <el-table :data="wordTableData" stripe @cell-click="handleCellClick" style="width: 100%">
+            <el-table-column prop="hot" label="TOP 10" align="center">
+            </el-table-column>
+          </el-table>
+        </div>
         <div id="CVPR" style="height: 400px;width: 900px;"></div>
         <div id="ECCV" style="height: 400px;width: 900px;"></div>
         <div id="ICCV" style="height: 400px;width: 900px;"></div>
+        
       </el-tab-pane>
       <el-tab-pane label="导入" name="fourth">定时任务补偿</el-tab-pane>
     </el-tabs>
@@ -77,6 +86,27 @@
         devfilter: '',
         tableData: da,
         sourceData: da,
+        wordTableData:[{
+          hot:'computer vision'
+        },{
+          hot:'feature extraction'
+        },{
+          hot:'image segmentation'
+        },{
+          hot:'learning (artificial intelligence)'
+        },{
+          hot:'cameras'
+        },{
+          hot:'object detection'
+        },{
+          hot:'image reconstruction'
+        },{
+          hot:'training'
+        },{
+          hot:'image classification'
+        },{
+          hot:'face recognition'
+        }],
         currpage: 1,
         currentPage1: 1,
         activeName: 'first',
@@ -122,6 +152,11 @@
       },
       handleClick(tab, event) {
         console.log(tab, event);
+      },
+      
+      handleCellClick(row, event, column,cell) {
+        console.log(row['hot']);
+        
       },
     },
 
