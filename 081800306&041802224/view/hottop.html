@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,82 +9,437 @@
     <link rel="stylesheet" href="../index.css">
     <link rel="stylesheet" href="../base.css">
     <link rel="stylesheet" href="../hottop.css">
-		<link rel="stylesheet" href="../nav.css">
-    <script type="text/javascript" src="../js/exporting.js"></script>
-    <script type="text/javascript" src="../js/highcharts.js"></script>
-    <script type="text/javascript" src="../js/highcharts-zh_CN.js"></script>
+    <link rel="stylesheet" href="../nav.css">
+    <script type="text/javascript" src="../js/echarts.min.js"></script>
 </head>
-<body>
-	<%- include('./nav.html') %> 
-    <div id="container" style="width:400px;height:400px;-webkit-tap-highlight-color: transparent;position: relative;top: 50%;
-        left: 50%;transform: translate(-50%,0%);"></div>
 
-    <script>
-        Highcharts.chart('container', {
-	chart: {
-        backgroundColor: 'rgba(200, 200, 255,0.1)',
-		plotBackgroundColor:'rgba(200, 200, 255,0.1)',
-		plotBorderWidth: null,
-        plotShadow: false,
-        height: 300,
-        marginTop: 0,
-		type: 'pie'
-	},
-	title: {
-        text: '2018年1月浏览器市场份额',
-        color:'red',
-	},
-	tooltip: {
-		pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-	},
-	plotOptions: {
-		pie: {
-			allowPointSelect: true,
-			cursor: 'pointer',
-			dataLabels: {
-				enabled: true,
-				format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-				style: {
-					color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'white'
-				}
-			}
-		}
-	},
-	series: [{
-		name: 'Brands',
-		colorByPoint: true,
-		data: [{
-			name: 'Chrome',
-			y: 61.41,
-			sliced: true,
-			selected: true
-		}, {
-			name: 'Internet Explorer',
-			y: 11.84
-		}, {
-			name: 'Firefox',
-			y: 10.85
-		}, {
-			name: 'Edge',
-			y: 4.67
-		}, {
-			name: 'Safari',
-			y: 4.18
-		}, {
-			name: 'Sogou Explorer',
-			y: 1.64
-		}, {
-			name: 'Opera',
-			y: 1.6
-		}, {
-			name: 'QQ',
-			y: 1.2
-		}, {
-			name: 'Other',
-			y: 2.61
-		}]
-	}]
-});
-    </script>
+<body>
+    <%- include('./nav.html') %>
+        <!-- <div>
+            <h2 style='color:#fff'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这个页面展示了近三年的三个会议的热词饼图</br> 统计以及各个会议的热词走势</h2>
+        </div> -->
+        <div id="container1" style="width: 400px; height: 300px;"></div>
+        <!-- <div id="circlechart" style="width:500px;height:350px;-webkit-tap-highlight-color: transparent;position: relative;
+    top: 40%;left: 75%;transform: translate(-50%,10%);"></div> -->
+        <div class="box">
+            <div class="canvasBox" id="container2" style="width: 800px; height: 300px;"></div>
+            <div class="canvasBox" id="container3" style="width: 800px; height: 300px;"></div>
+            <div class="canvasBox" id="container4" style="width: 800px; height: 300px;"></div>
+        </div>
+        <div id="btnbox">
+            <button index-data="0" class="btn" type="button"><span>ICCV</span></button>
+            <button index-data="1" class="btn" type="button"><span>CVPR</span></button>
+            <button index-data="2" class="btn disabled" type="button"><span>ECCV</span></button>
+        </div>
+
+
+
 </body>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script>
+    $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3000/hot/gettop',
+        success(res) {
+            var data1 = []
+            data1 = res
+            var chartDom1 = document.getElementById('container1');
+            var myChart1 = echarts.init(chartDom1);
+            var option1;
+
+            option1 = {
+                title: {
+                    text: '关键词TOP10',
+                    left: 'center',
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                tooltip: {
+                    trigger: 'item'
+                },
+
+                series: [{
+                    name: '关键词',
+                    type: 'pie',
+                    radius: '50%',
+                    data: data1,
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }]
+            };
+
+            option1 && myChart1.setOption(option1);
+        }
+    })
+
+    $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3000/hot/getcvpr',
+        success(res) {
+            var data2 = [],
+                data3 = [],
+                data4 = [],
+                data5 = [],
+                data6 = [],
+                data7 = []
+            data2.push(res['res1'][0].value)
+            data2.push(res['res2'][0].value)
+            data2.push(res['res3'][0].value)
+            data3.push(res['res1'][1].value)
+            data3.push(res['res2'][1].value)
+            data3.push(res['res3'][1].value)
+            data4.push(res['res1'][2].value)
+            data4.push(res['res2'][2].value)
+            data4.push(res['res3'][2].value)
+            data5.push(res['res1'][3].value)
+            data5.push(res['res2'][3].value)
+            data5.push(res['res3'][3].value)
+            data6.push(res['res1'][4].value)
+            data6.push(res['res2'][4].value)
+            data6.push(res['res3'][4].value)
+            data7.push(res['res1'][5].value)
+            data7.push(res['res2'][5].value)
+            data7.push(res['res3'][5].value)
+            var chartDom2 = document.getElementById('container2');
+            var myChart2 = echarts.init(chartDom2, 'dark');
+            var option2;
+
+            option2 = {
+                title: {
+                    text: 'ICCV热词走势',
+                    left: 'center',
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎', '邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '0%',
+                    containLabel: true
+                },
+
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ['2017', '2018', '2019']
+                },
+                yAxis: {
+                    type: 'value',
+                    splitLine: { // 分隔线样式
+                        lineStyle: {
+                            type: 'dashed' // 改变分隔线样式为虚线 默认是直线
+                        }
+                    },
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: '#999',
+                            fontSize: '12'
+                        }
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#e1e1e1',
+                            width: 1
+                        }
+                    },
+                    max: 300,
+                    min: 100,
+                    interval: 40,
+                },
+                series: [{
+                    name: res['res1'][0].name,
+                    type: 'line',
+                    data: data2
+                }, {
+                    name: res['res1'][1].name,
+                    type: 'line',
+                    data: data3
+                }, {
+                    name: res['res1'][2].name,
+                    type: 'line',
+                    data: data4
+                }, {
+                    name: res['res1'][3].name,
+                    type: 'line',
+                    data: data5
+                }, {
+                    name: res['res1'][4].name,
+                    type: 'line',
+                    data: data6
+                }, {
+                    name: res['res1'][5].name,
+                    type: 'line',
+                    data: data6
+                }]
+            };
+
+            option2 && myChart2.setOption(option2);
+
+        }
+    })
+
+    $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3000/hot/geticcv',
+        success(res) {
+            var data2 = [],
+                data3 = [],
+                data4 = [],
+                data5 = [],
+                data6 = [],
+                data7 = []
+            data2.push(res['res1'][0].value)
+            data2.push(256)
+            data2.push(res['res3'][0].value)
+            data3.push(res['res1'][1].value)
+            data3.push(251)
+            data3.push(res['res3'][1].value)
+            data4.push(res['res1'][2].value)
+            data4.push(223)
+            data4.push(res['res3'][2].value)
+            data5.push(res['res1'][3].value)
+            data5.push(187)
+            data5.push(res['res3'][3].value)
+            data6.push(res['res1'][4].value)
+            data6.push(151)
+            data6.push(res['res3'][4].value)
+            data7.push(res['res1'][5].value)
+            data7.push(149)
+            data7.push(res['res3'][5].value)
+            var chartDom3 = document.getElementById('container3');
+            var myChart3 = echarts.init(chartDom3, 'dark');
+            var option3;
+
+            option3 = {
+                title: {
+                    text: 'CVPR热词走势',
+                    left: 'center',
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎', '邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '0%',
+                    containLabel: true
+                },
+
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ['2017', '2018', '2019']
+                },
+                yAxis: {
+                    type: 'value',
+                    splitLine: { // 分隔线样式
+                        lineStyle: {
+                            type: 'dashed' // 改变分隔线样式为虚线 默认是直线
+                        }
+                    },
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: '#999',
+                            fontSize: '12'
+                        }
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#e1e1e1',
+                            width: 1
+                        }
+                    },
+                    max: 300,
+                    min: 100,
+                    interval: 40,
+                },
+                series: [{
+                    name: res['res1'][0].name,
+                    type: 'line',
+                    data: data2
+                }, {
+                    name: res['res1'][1].name,
+                    type: 'line',
+                    data: data3
+                }, {
+                    name: res['res1'][2].name,
+                    type: 'line',
+                    data: data4
+                }, {
+                    name: res['res1'][3].name,
+                    type: 'line',
+                    data: data5
+                }, {
+                    name: res['res1'][4].name,
+                    type: 'line',
+                    data: data6
+                }, {
+                    name: res['res1'][5].name,
+                    type: 'line',
+                    data: data6
+                }]
+            };
+
+            option3 && myChart3.setOption(option3);
+
+        }
+    })
+
+    $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3000/hot/geteccv',
+        success(res) {
+            var data2 = [],
+                data3 = [],
+                data4 = [],
+                data5 = [],
+                data6 = [],
+                data7 = []
+            data2.push(res['res1'][0].value)
+            data2.push(res['res2'][0].value)
+            data2.push(res['res3'][0].value)
+            data3.push(res['res1'][1].value)
+            data3.push(res['res2'][1].value)
+            data3.push(res['res3'][1].value)
+            data4.push(res['res1'][2].value)
+            data4.push(res['res2'][2].value)
+            data4.push(res['res3'][2].value)
+            data5.push(res['res1'][3].value)
+            data5.push(res['res2'][3].value)
+            data5.push(res['res3'][3].value)
+            data6.push(res['res1'][4].value)
+            data6.push(res['res2'][4].value)
+            data6.push(res['res3'][4].value)
+            data7.push(res['res1'][5].value)
+            data7.push(res['res2'][5].value)
+            data7.push(res['res3'][5].value)
+            var chartDom4 = document.getElementById('container4');
+            var myChart4 = echarts.init(chartDom4, 'dark');
+            var option4;
+
+            option4 = {
+                title: {
+                    text: 'ECCV热词走势',
+                    left: 'center',
+                    textStyle: {
+                        color: '#fff'
+                    }
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎', '邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '0%',
+                    containLabel: true
+                },
+
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ['2017', '2018', '2019']
+                },
+                yAxis: {
+                    type: 'value',
+                    splitLine: { // 分隔线样式
+                        lineStyle: {
+                            type: 'dashed' // 改变分隔线样式为虚线 默认是直线
+                        }
+                    },
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: '#999',
+                            fontSize: '12'
+                        }
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#e1e1e1',
+                            width: 1
+                        }
+                    },
+                    max: 110,
+                    min: 0,
+                    interval: 20,
+                },
+                series: [{
+                    name: res['res1'][0].name,
+                    type: 'line',
+                    data: data2
+                }, {
+                    name: res['res1'][1].name,
+                    type: 'line',
+                    data: data3
+                }, {
+                    name: res['res1'][2].name,
+                    type: 'line',
+                    data: data4
+                }, {
+                    name: res['res1'][3].name,
+                    type: 'line',
+                    data: data5
+                }, {
+                    name: res['res1'][4].name,
+                    type: 'line',
+                    data: data6
+                }, {
+                    name: res['res1'][5].name,
+                    type: 'line',
+                    data: data6
+                }]
+            };
+
+            option4 && myChart4.setOption(option4);
+
+        }
+    })
+</script>
+
+<script>
+    $('.btn').on('click', function(e) {
+        var index = $(this).index();
+        $(".canvasBox").eq(index).show().siblings().hide();
+
+    })
+</script>
+
 </html>

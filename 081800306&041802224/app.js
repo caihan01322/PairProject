@@ -15,6 +15,7 @@ app.use(views('view', {
   root: path.join(__dirname, '/view'),
   map: { html: 'ejs' },
 }));
+
 function registerRouters(item) {
   if (item instanceof Router) {
     app.use(item.routes());

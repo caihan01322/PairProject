@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="../list.css">
-  <link rel="stylesheet" href="../base.css">
-  <link rel="stylesheet" href="../nav.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../list.css">
+    <link rel="stylesheet" href="../base.css">
+    <link rel="stylesheet" href="../nav.css">
 </head>
+
 <body>
   <%- include('./nav.html') %> 
   <div class="search">
@@ -76,11 +78,11 @@
                 </p>
                 <a class="link" href="${res[i].link}" target="_blank">原文链接</a>
               </div>`
-            }
-            $('.list').append($lis)
-          }
-        })
-      }
+                        }
+                        $('.list').append($lis)
+                    }
+                })
+        }
     $(window).on('click',function() {
       $('.select-box ul').fadeOut()
       
@@ -131,24 +133,27 @@
                 </p>
                 <a class="link" href="${res[i].link}" target="_blank">原文链接</a>
               </div>`
+                        }
+                        $('.list').append($lis)
+                        page++;
+                    }
+                })
             }
-            $('.list').append($lis)
-            page++;
-          }
-        })
-      }
-   }
-    function throttle(method,delay){
-      var timer = null;
-      return function(){
-        var context = this, args=arguments;
-        clearTimeout(timer);
-        timer=setTimeout(function(){
-          method.apply(context,args);
-        },delay);
-      }
-	  }
-	
-  })
+        }
+
+        function throttle(method, delay) {
+            var timer = null;
+            return function() {
+                var context = this,
+                    args = arguments;
+                clearTimeout(timer);
+                timer = setTimeout(function() {
+                    method.apply(context, args);
+                }, delay);
+            }
+        }
+
+    })
 </script>
+
 </html>

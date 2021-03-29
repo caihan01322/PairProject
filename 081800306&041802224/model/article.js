@@ -1,3 +1,4 @@
+/* eslint-disable */
 const {
   Model,
   DataTypes,
@@ -12,14 +13,13 @@ class Article extends Model {
     for (let i = page * 5; i < page * 5 + 5; i++) {
       ids.push(list[i].arcid);
     }
-    let articles = Article.findAll({
+    return await Article.findAll({
       where: {
         id: {
           [Op.in]: ids,
         },
       },
     });
-    return articles;
   }
 
   static async getArticleByid(id) {
@@ -49,22 +49,33 @@ class Article extends Model {
       },
     });
   }
+
+  static async getIdsCVPR() {
+      let sql = `select id from article where magazine = 'CVPR' and year = 2017;`
+      return await Article.findAll({
+          attributes: ['id'],
+          where: {
+              magazine,
+              year
+          }
+      })
+  }
 }
 Article.init({
-  id: {
-    type: DataTypes.STRING,
-    primaryKey: true,
-  },
-  title: DataTypes.STRING,
-  year: DataTypes.INTEGER,
-  conclude: DataTypes.STRING,
-  link: DataTypes.STRING,
-  magazine: DataTypes.STRING,
+    id: {
+        type: DataTypes.STRING,
+        primaryKey: true,
+    },
+    title: DataTypes.STRING,
+    year: DataTypes.INTEGER,
+    conclude: DataTypes.STRING,
+    link: DataTypes.STRING,
+    magazine: DataTypes.STRING,
 }, {
-  sequelize,
-  tableName: 'article',
+    sequelize,
+    tableName: 'article',
 });
 
 module.exports = {
-  Article,
+    Article,
 };
