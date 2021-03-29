@@ -1,5 +1,27 @@
 $(function(){
 
+    /**
+     * 提示框参数配置
+     * @type {{hideEasing: string, positionClass: string, hideDuration: string, debug: boolean, showMethod: string, closeButton: boolean, extendedTimeOut: string, showEasing: string, progressBar: boolean, onclick: null, showDuration: string, hideMethod: string}}
+     */
+    toastr.options = {
+        closeButton: false,
+        debug: false,
+        progressBar: false,
+        positionClass: "toast-top-center",
+        onclick: null,
+        showDuration: "300",
+        hideDuration: "1000",
+        // timeOut: "1500",
+        extendedTimeOut: "1000",
+        showEasing: "swing",
+        hideEasing: "linear",
+        showMethod: "fadeIn",
+        hideMethod: "fadeOut"
+    };
+
+
+
     getHotSearch();
     function getHotSearch() {
         if (localStorage.getItem("hot") != null) {
@@ -39,7 +61,6 @@ $(function(){
             let userName = $(".menu-right a").eq(0).text().replace('"', "").trim();
             getCollectPaperData(searchInfo, userName);
         }
-
     })
 
     /**
@@ -83,8 +104,6 @@ $(function(){
             url: "/get_search_paper",
             data: {searchInfo: searchInfo, pageNum: pageNum},
             success: function(res) {
-                console.log("我是论文列表");
-                console.log(res)
                 initPagination(res);
                 renderCard(res.list);
             },
@@ -208,13 +227,9 @@ $(function(){
             $("#edit-abstract").val($(this).find(".paper-abstract span").eq(1).html());
     })
 
-    $(".close").click(function(){
-
-    });
-
     function updateCollection(url) {
         if ($("#edit-id").val() == "-1") {
-            console.log(123456)
+            toastr.warning('该卡片没有东西哦！');
         } else {
             $.ajax({
                 type: "GET",
@@ -229,7 +244,11 @@ $(function(){
                     persistentLink: $("#edit-link").val().trim(),
                 },
                 success: function(res) {
-                    console.log(res);
+                    if (res == '收藏失败！(可能原因：该论文已被收藏)' || res == '修改失败！' || res == '删除失败！') {
+                        toastr.error(res);
+                    } else {
+                        toastr.success(res);
+                    }
                 },
                 //请求失败，包含具体的错误信息
                 error: function(res){
@@ -246,7 +265,6 @@ $(function(){
      */
     $("#btn-collect").click(() => {
         updateCollection("/collect");
-        getPaperData("", 0);
     })
 
     /**
@@ -255,6 +273,7 @@ $(function(){
     $("#btn-update").click(() => {
         updateCollection("/update");
         getCollectPaperData("", $(".menu-right a").eq(0).text().replace('"', "").trim(), 0);
+        location.reload();
     })
 
     /**
@@ -263,5 +282,15 @@ $(function(){
     $("#btn-delete").click(() => {
         updateCollection("/delete");
         getCollectPaperData("", $(".menu-right a").eq(0).text().replace('"', "").trim(),0);
+        location.reload();
     })
+
+    /**
+     * 随机头像
+     */
+    function randAvatar() {
+        $('.menu-right img').eq(0).attr('src', 'images/photos/'
+            + Math.floor(Math.random()*10+1) + '.png');
+    }
+    randAvatar();
 })

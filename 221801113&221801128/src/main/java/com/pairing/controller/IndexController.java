@@ -25,6 +25,7 @@ public class IndexController {
         return "login";
     }
 
+
     @GetMapping(value = "/register")
     public String registerPage() {
         return "login";
