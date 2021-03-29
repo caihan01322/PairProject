@@ -52,7 +52,32 @@
         var Main = {
             methods: {
                 commit:function(){
-                    alert()
+                    var list = {
+                        "oldTitle":oldPaper.title,
+                        "title":editPaper.title,
+                        "oldLink":oldPaper.link,
+                        "link":editPaper.link,
+                        "oldAbstract":oldPaper.abstract,
+                        "abstract":editPaper.abstract,
+                        "oldKeyword":oldPaper.keyword,
+                        "keyword":editPaper.keyword
+                    }
+                    $.cookie("updateList",JSON.stringify(list));
+                    
+                    $.ajax({
+                        type:"POST",
+                        contentType: "application/x-www-form-urlencoded",
+                        url:'http://localhost/PairProject/PairProjectDemo/tp5/public/index/index/editDetail/updatePaper',
+                        data:{},
+                        success:function(result){
+                            window.location.href = "http://localhost/PairProject/PairProjectDemo/tp5/public/index/index/edit";
+                            console.log("修改成功");
+                            alert(result);
+                        },
+                        error:function(msg){
+                            console.log("传输失败");
+                        }
+                    });
                 },
                 recover:function(){
                     this.form=JSON.parse(oldPaperString);
