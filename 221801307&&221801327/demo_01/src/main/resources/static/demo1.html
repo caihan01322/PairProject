@@ -175,3 +175,108 @@
 
     <a class="layui-btn layui-btn-sm layui-btn-sm" lay-event="watch"><i class="layui-icon">&#xe63c;</i>查看 </a>
 </script>
+
+<div class="layui-footer">
+    <!-- 底部固定区域 -->
+</div>
+<script src="layui/jquery.min.js"></script>
+<script src="layui/layui.all.js"></script>
+<script src="layui/layui_exts/excel.js"></script>
+<script>
+    // 使用模块
+    layui.use(['element', 'layer', 'laydate', 'table', 'form'], function () {
+        var layer = layui.layer,//弹层
+            table = layui.table,//表格
+            form = layui.form;//表单
+
+        var userTable = table.render({
+
+            elem: '#tb-user'
+            , title: '用户信息表',
+            height: 515
+            , type: 'post'
+            , url: '/my/list'//数据接口
+            , page: {
+                limits: [5, 10, 20, 10000]
+            }
+            , toolbar: '#toolbarDemo'
+            , cols: [[ //表头
+                {type: 'checkbox', fixed: 'left'}
+                , {field: 'academicNum', title: 'ID', width: 80, sort: true, fixed: 'left'}
+                , {field: 'author', title: '用户名'}
+                , {field: 'title', title: '标题'}
+                , {field: 'keyword', title: '关键词', sort: true}
+                , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 170}
+            ]],
+        });
+        //重载
+        var $ = layui.$, active = {
+            reload: function () {
+                var uacademicNum = $('#uacademicNum');
+                var utitle = $('#utitle');
+                var ukeyWord = $('#ukeyWord');
+                var uauthor = $('#uauthor');
+                //执行重载
+                userTable.reload({
+                    url: '/my/queryByParam',
+                    where: {
+                        title: utitle.val(),//标题
+                        uacademicNum: uacademicNum.val(),//用户id
+                        keyword: ukeyWord.val(),
+                        uauthor: uauthor.val()//用户名
+                    },
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                }, 'data');
+            }
+        };
+
+        $('#utb').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        $('#qingKong').on('click', function () {
+            $('#uacademicNum').val('');
+            $('#utitle').val('');
+            $('#ukeyWord').val('');
+            $('#uauthor').val('')
+
+        });
+        //监听表单提交
+        // 修改
+        form.on('submit(saveUser)', function (data) {
+            layer.alert(JSON.stringify(data.field));
+            $.ajax({
+                url: '/my/save',
+                type: 'POST',
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(data.field),
+                success: function (result) {
+                    if (result.code == 200) {
+                        layer.msg("操作成功！", {icon: 6});
+                        setTimeout(function () {
+                            
+                            userTable.reload();
+                        }, 300);
+                    } else {
+                        layer.msg("操作失败！", {icon: 5});
+                    }
+                }
+            });
+
+            return false;
+
+        });
+
+
+
+    });
+
+</script>
+
+</body>
+
+</html>
