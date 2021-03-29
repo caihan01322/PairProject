@@ -42,7 +42,7 @@
             
           </div>
 
-          <el-table :data="tableData.slice((currpage-1)*4,currpage*4)" stripe style="width: 100%">
+          <el-table :data="tableData.slice((currpage-1)*4,currpage*4)" stripe style="width: 100%" @cell-click="handleMainCellClick">
             <el-table-column prop="title" label="标题·" width="180">
             </el-table-column>
             <el-table-column prop="abstract" label="摘要">
@@ -208,6 +208,10 @@
         this.value='keyword';
         this.devfilter=row['hot'];
       },
+      handleMainCellClick(row, event, column,cell){
+        console.log(row['link']);
+        window.open(row['link']);
+      }
     },
 
   })
