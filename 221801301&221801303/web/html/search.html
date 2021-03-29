@@ -6,38 +6,7 @@
 	<link rel="stylesheet" href="../layui/css/layui.css"  media="all">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="../layui/layui.js" charset="utf-8"></script>
-	<script type="text/javascript">
-		function search(){
-			var sel=document.getElementById("selection").value;
-			var content=document.getElementById("input").value;
-			var searchData={
-				name:content,
-			}
-			if(sel=='title'){
-				alert(content);
-				$.ajax({
-					type : "POST",
-					url : "http://47.111.17.116:8080/queryName",
-					data : JSON.stringify(searchData),
-					dataType:"json",
-					contentType:"application/json",
-					//请求成功
-					success : function(data) {
-						
-						console.log(data);
-					},
-					//请求失败，包含具体的错误信息
-					error : function(e){
-						console.log(e.status);
-						console.log(e.responseText);
-					}
-				});
-			}
-			else{
-				alert("sss");
-			}
-		}
-	</script>
+	
 </head>
 <body> 
 	<div class="demoTable">
@@ -58,51 +27,53 @@
 		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 	</script>
 			  
+
 	<script>
+		var tableIns;
 		layui.use('table', function(){
-		  var table = layui.table;
+			var table = layui.table;
 		  
 		  //方法级渲染
-		  table.render({
-			elem: '#LAY_table_user'
-			,url: 'http://47.111.17.116:8080/queryName'
-			,method : "POST"
-			,contentType:"application/json"
-			,where:{
-				name:"mit",
-			}
-			,parseData: function(res){ //res 即为原始返回的数据
-				console.log(res);
-			    return {
-					"code": 0, //解析接口状态
-					"msg": "", //解析提示文本
-					"count": res.length, //解析数据长度
-					"data": res //解析数据列表
-				};
-			  }
-			,cols: [[
-			  {field:'name', title: '标题', width:100, sort: true, fixed: true},
-			  {field:'abstract', title: '摘要', width:300},
-			  {field:'keyword', title: '关键词', width:300},
-			  {field:'author', title: '作者', width:100},
-			  {field:'year', title: '发表年份', width:100},
-			  {field:'link', title: '链接', width:300},
-			  {fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
-			]]
-			,id: 'testReload'
-			,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
-			      layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
-			      //,curr: 5 //设定初始在第 5 页
-			      ,groups: 1 //只显示 1 个连续页码
-			      ,first: false //不显示首页
-			      ,last: false //不显示尾页
-			      
-			    }
-			,limit:10
-			,height: 500
-		  });
-		  
-		  table.on('tool(user)', function(obj){
+			tableIns=table.render({
+				elem: '#LAY_table_user'
+				,url: 'http://47.111.17.116:8080/queryName'
+				,method : "POST"
+				,contentType:"application/json"
+				,where:{
+					name:"computer",	
+				}
+				,parseData: function(res){ //res 即为原始返回的数据
+					console.log(res);
+					return {
+						"code": 0, //解析接口状态
+						"msg": "", //解析提示文本
+						"count": res.length, //解析数据长度
+						"data": res //解析数据列表
+					};
+				  }
+				,cols: [[
+				  {field:'name', title: '标题', width:100, sort: true, fixed: true},
+				  {field:'abstract', title: '摘要', width:300},
+				  {field:'keyword', title: '关键词', width:300},
+				  {field:'author', title: '作者', width:100},
+				  {field:'year', title: '发表年份', width:100},
+				  {field:'link', title: '链接', width:300},
+				  {fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+				]]
+				,id: 'testReload'
+				,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+					  layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+					  //,curr: 5 //设定初始在第 5 页
+					  ,groups: 1 //只显示 1 个连续页码
+					  ,first: false //不显示首页
+					  ,last: false //不显示尾页
+					  
+				}
+				,limit:10
+				,height: 500
+			});
+			  
+			table.on('tool(user)', function(obj){
 				if(obj.event==='detail'){
 					var data = obj.data.title;//获取选中行的标题
 					var url="detail.html?"+"title="+data;//向url中传递论文标题信息
@@ -110,13 +81,42 @@
 				}
 				else{
 					layer.confirm('要删除改行吗', function(index){
-					  obj.del();
-					  layer.close(index);
+						obj.del();
+						layer.close(index);
 					});
 				}
 			});
+			
+			
 		});
+		
 	</script>
-
+	<script type="text/javascript">
+		function search(){
+			var sel=document.getElementById("selection").value;
+			var content=document.getElementById("input").value;
+			
+			if(sel=='title'){
+				tableIns.reload({
+					where: { //设定异步数据接口的额外参数，任意设
+						name: content,
+					}
+					,page: {
+						curr: 1 //重新从第 1 页开始
+					}
+				});
+			}
+			else{
+				tableIns.reload({
+					where: { //设定异步数据接口的额外参数，任意设
+						author: content,
+					}
+					,page: {
+						curr: 1 //重新从第 1 页开始
+					}
+				});
+			}
+		}
+	</script>
 </body>
 </html>
