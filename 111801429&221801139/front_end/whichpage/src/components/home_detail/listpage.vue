@@ -91,6 +91,7 @@ export default {
             total_page: 1,
             isShowPre: true,
             isShowNext: true,
+            isSearch: false,
             page_isbn: "",
             page_name: "",
             page_tag: "",
@@ -108,26 +109,6 @@ export default {
         }
     },
 
-    watch: {
-        now_page: {
-            handler(newValue) {
-                if (newValue == 1) {
-                    this.isShowPre = false;
-                } else {
-                    this.isShowPre = true;
-                }
-
-                if (newValue == this.total_page) {
-                    this.isShowNext = false;
-                } else {
-                    this.isShowNext = true;
-                }
-            },
-
-            immediate: true,
-        },
-    },
-
     methods: {
         search_page() {
             // let target = e.target;
@@ -135,6 +116,7 @@ export default {
             //     target = target.parentNode;
             // }
             // target.blur();
+            this.isSearch = true;
             this.show_page();
         },
 
@@ -167,9 +149,8 @@ export default {
                         this.page_data.some((item, i) => {
                             if (item.isbn == isbn) {
                                 this.page_data.splice(i, 1);
+                                return true;
                             }
-
-                            return true;
                         });
                     }
                 });
@@ -207,6 +188,11 @@ export default {
                 tag: this.page_tag,
             };
 
+            if (this.isSearch) {
+                this.now_page = 1;
+                this.isSearch = false;
+            }
+
             this.$axios({
                 method: "post",
                 url: `/page/search/${this.now_page}`,
@@ -220,6 +206,18 @@ export default {
 
                     if (this.total_page == 0) {
                         this.total_page = 1;
+                    }
+
+                    if (this.now_page == 1) {
+                        this.isShowPre = false;
+                    } else {
+                        this.isShowPre = true;
+                    }
+
+                    if (this.now_page == this.total_page) {
+                        this.isShowNext = false;
+                    } else {
+                        this.isShowNext = true;
                     }
                 }
             });

@@ -46,14 +46,11 @@ export default {
     data() {
         return {
             isbn: this.$route.params.isbn,
-            page_name:
-                "FaceForensics++: Learning to Detect Manipulated Facial Images",
-            page_time: "2020.01.20",
-            page_link: "https://www.bilibili.com",
-            page_tag:
-                "facial manipulation detection,Deep-Fakes,Face2Face,facial manipulations,random compression level,forgery datasets",
-            page_abstract:
-                "FaceForensics++: Learning to Detect Manipulated Facial ImagesFaceForensics++: Learning to Detect Manipulated Facial ImagesFaceForensics++: Learning to Detect Manipulated Facial ImagesFaceForensics++: Learning to Detect Manipulated Facial ImagesFaceForensics++: Learning to Detect Manipulated Facial ImagesFaceForensics++: Learning to Detect Manipulated Facial ImagesFaceForensics++: Learning to Detect Manipulated Facial ImagesFaceForensics++: Learning to Detect Manipulated Facial ImagesFaceForensics++: Learning to Detect Manipulated Facial Imagesv",
+            page_name: "",
+            page_time: "",
+            page_link: "",
+            page_tag: "",
+            page_abstract: "",
         };
     },
 

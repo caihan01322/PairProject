@@ -90,6 +90,7 @@ def insertPage(isbn):
     page.abstract = insert.abstract
 
     db.session.add(page)
+    db.session.delete(insert)
     db.session.commit()
 
     return jsonify(errno=0)
