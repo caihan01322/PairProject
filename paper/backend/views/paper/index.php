@@ -7,7 +7,11 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\PaperSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$cssString = ".grid-view td{white-space:inherit;},";
+$cssString = "
+.form-group {
+    display: inline-block;
+};
+.grid-view td {white-space:inherit;}; ";
 $this->registerCss($cssString);
 $this->title = '论文管理';
 $this->params['breadcrumbs'][] = $this->title;
@@ -20,7 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
   
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'pager' => [
             'firstPageLabel' => '第一页',
             'lastPageLabel' => '最后一页',
@@ -29,7 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             [
                 'attribute' => 'title',
-                'label' => '标题',
                 'format'=>'raw',
                 'value'=>function($model){
                     return "<div style=\"width:180px;display: -webkit-box;
@@ -40,7 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'abstract',
-                'label' => '摘要',
                 'format'=>'raw',
                 'value'=>function($model){
                     return "<div style=\"width:300px;display: -webkit-box;
@@ -52,19 +53,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'typeandyear',
-                'label' => '所属顶会',
                 'format'=>'raw',
                 'value'=>function($model){
-                    return "<div style=\"width:75px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis\">".$model->typeandyear."</div>";
+                    return "<div style=\"width:110px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis\">".$model->typeandyear."</div>";
                 },
 
             ],
             [
                 'attribute' => 'keywords',
-                'label' => '关键词',
                 'format'=>'raw',
                 'value'=>function($model){
-                    return "<div style=\"width:200px;display: -webkit-box;
+                    return "<div style=\"width:150px;display: -webkit-box;
                                         -webkit-box-orient: vertical;
                                         -webkit-line-clamp: 3;
                                         overflow: hidden;\">".$model->keywords."</div>";
@@ -73,7 +72,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'releasetime',
-                'label' => '发布时间',
                 'format'=>'raw',
                 'value'=>function($model){
                     return "<div style=\"width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis\">".$model->releasetime."</div>";
@@ -81,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ],
             [
-                'attribute' => '链接',
+                'attribute' => 'link',
                 'value' => function ($model) {
                     return Html::a($model->link, "{$model->link}", ['target' => '_blank']);
                 },
