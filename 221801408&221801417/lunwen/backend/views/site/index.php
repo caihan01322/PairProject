@@ -6,6 +6,7 @@ use common\models\Paper;
 use yii\grid\GridView;
 use yii\widgets\ListView;
 use common\models\PaperSearch;
+use yii\bootstrap\Carousel;
 
 $this->title = '论文管理系统';
 ?>
@@ -15,6 +16,39 @@ $this->title = '论文管理系统';
     <h1>论文管理系统</h1>
  
 </div>
+<div class="img-wall" style="width:660">
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="4000" >
+
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="http://5b0988e595225.cdn.sohucs.com/images/20190731/98a8e684a10240d4ba4be9c1cca522f8.jpeg" alt="First slide">
+            <div class="carousel-caption">ICCV</div>
+        </div>
+        <div class="item">
+            <img src="http://p4.itc.cn/q_70/images03/20200703/0cfcf8427e884ca99ed1f45f984a9d44.png" alt="Second slide">
+            <div class="carousel-caption">ECCV</div>
+        </div>
+        <div class="item">
+            <img src="https://img-blog.csdnimg.cn/img_convert/80b20f224cf3cd6300f106ea6e57c268.png" alt="Third slide">
+            <div class="carousel-caption">CVPR</div>
+        </div>
+    </div>
+
+    <a class="carousel-control left" href="#myCarousel"
+       data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel"
+       data-slide="next">&rsaquo;</a>
+</div>
+</div>
+<br/>
+<br/>
 <div class="container">
 
 
