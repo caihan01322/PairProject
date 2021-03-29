@@ -1,5 +1,11 @@
 <template>
   <div class="home">
+    <transition name="fade">
+      <!--    登录弹窗-->
+      <Login v-model="loginVisible" id="login" v-if="loginVisible"/>
+
+      <ManageAccountPop v-model="manageAccountVisible" id="manage_account" v-if="manageAccountVisible"/>
+    </transition>
 
     <el-row align="middle" type="flex">
       <el-col :span="4">
@@ -16,8 +22,10 @@
       </el-col>
       <el-col :span="4">
         <div style="display: flex;margin-left: 50px ">
-          <img id="avatar_home" src="../assets/avatar.png" alt="avatar"
-               @click="loginVisible=!loginVisible">
+          <img id="avatar_home"
+               alt="avatar"
+               :src="avatarUrl!=='' ? avatarUrl : defaultAvatar"
+               @click="clickAvatar">
           <div id="nickname">{{ this.$store.state.username }}</div>
         </div>
       </el-col>
@@ -45,16 +53,24 @@
 import SearchList from "@/components/SearchList";
 import CollectionList from "@/components/collectionList";
 import StatisticList from "@/components/statisticList";
+import Login from "@/components/LoginPop";
+import ManageAccountPop from "@/components/ManageAccountPop";
 
 export default {
   name:'Home',
-  components:{StatisticList,CollectionList,SearchList},
+  components:{
+    StatisticList,CollectionList,SearchList,
+    Login,ManageAccountPop
+  },
   data(){
     return {
       searchInput:'',
       message:'testtest',
       searchWord:'',
-
+      loginVisible:false,
+      manageAccountVisible:false,
+      avatarUrl:this.$store.state.avatarUrl,
+      defaultAvatar:require('../assets/avatar.png'),
       currentTab: 1
     }
   },
@@ -68,6 +84,14 @@ export default {
         this.currentTab=3
       }else{
         this.$message.warning("请先登录")
+      }
+    },
+
+    clickAvatar(){
+      if(this.$store.state.account===''){
+        this.loginVisible=!this.loginVisible
+      }else{
+        this.manageAccountVisible=!this.manageAccountVisible
       }
     }
 

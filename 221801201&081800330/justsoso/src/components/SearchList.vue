@@ -1,6 +1,6 @@
 <template>
   <div id="main_frame">
-    <div class="collection_frame">
+    <div class="collection_frame" v-loading="loading">
       <el-button id="crawl_paper" round @click="crawl">爬取论文</el-button>
       <el-checkbox id="select_all" :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange"
                    size="medium"></el-checkbox>
