@@ -1,7 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 
-<link rel="stylesheet" href="/css/head.css">
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://"
+            + request.getServerName() + ":" + request.getServerPort()
+            + path + "/";
+    pageContext.setAttribute("basePath", basePath);
+%>
+
+<link rel="stylesheet" href="css/head.css">
 
 <div class="header">
     <div class="logo">
