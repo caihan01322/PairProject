@@ -26,6 +26,7 @@ public class HotWord {
 		wordList.add(0);
 		wordList.add(0);
 		wordList.add(0);
+		wordList.add(0);
 	}
 	
 
