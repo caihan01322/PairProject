@@ -55,11 +55,11 @@
             <div class="layui-inline">
               <label class="layui-form-label">年份</label>
               <div class="layui-input-inline" style="width: 15%;">
-                <input type="text" id="beginYear" placeholder="2000" autocomplete="off" class="layui-input">
+                <input type="number" id="beginYear" placeholder="2000" autocomplete="off" class="layui-input">
               </div>
               <div class="layui-form-mid">-</div>
               <div class="layui-input-inline" style="width: 15%;">
-                <input type="text" id="endYear" placeholder="2020" autocomplete="off" class="layui-input">
+                <input type="number" id="endYear" placeholder="2020" autocomplete="off" class="layui-input">
               </div>
               <div class="layui-input-inline" style="width: 15%;">
                 <button class="layui-btn layui-btn-warm" id="bar-refresh">查询</button>
@@ -214,21 +214,22 @@
     $('#cloud').css('display','block');
   })
 
+
   $('#bar-refresh').click(function() {
-    BarLoad($('#beginYear').val()==''?2000:$('#beginYear').val(),
-        $('#endYear').val()==''?2020:$('#endYear').val(),
+    BarLoad(($('#beginYear').val()==''||$('#beginYear').val()<2000||$('#beginYear').val()>2020)?2000:$('#beginYear').val(),
+        ($('#endYear').val()==''||$('#endYear').val()>2020||$('#endYear').val()<2000)?2020:$('#endYear').val(),
         $('input[type=radio][name=conference]:checked').val());
   })
 
   $('#line-refresh').click(function() {
-    LineLoad($('#beginYear').val()==''?2000:$('#beginYear').val(),
-        $('#endYear').val()==''?2020:$('#endYear').val(),
+    LineLoad(($('#beginYear').val()==''||$('#beginYear').val()<2000||$('#beginYear').val()>2020)?2000:$('#beginYear').val(),
+        ($('#endYear').val()==''||$('#endYear').val()>2020||$('#endYear').val()<2000)?2020:$('#endYear').val(),
         $('#keyword').val());
   })
 
   $('input[type=radio][name=conference]').change(function() {
-    BarLoad($('#beginYear').val()==''?2000:$('#beginYear').val(),
-        $('#endYear').val()==''?2020:$('#endYear').val(),
+    BarLoad(($('#beginYear').val()==''||$('#beginYear').val()<2000||$('#beginYear').val()>2020)?2000:$('#beginYear').val(),
+        ($('#endYear').val()==''||$('#endYear').val()>2020||$('#endYear').val()<2000)?2020:$('#endYear').val(),
         $('input[type=radio][name=conference]:checked').val());
   });
 

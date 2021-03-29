@@ -47,7 +47,7 @@ public class PageHelper
    */
   public List<String> getListByIndex(int start,int end)
   {
-    if(start>=totalNum)
+    if(start>=totalNum || end<=0)
     {
       return new LinkedList<>();
     }
