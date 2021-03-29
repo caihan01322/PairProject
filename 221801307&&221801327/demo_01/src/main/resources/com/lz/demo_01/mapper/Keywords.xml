@@ -1,0 +1,21 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lz.demo_01.dao.KeywordsDao">
+    <!--查询所有关键词-->
+    <select id="findAllKeywords" resultType="com.lz.demo_01.pojo.Keywords">
+            select * from keywords;
+    </select>
+
+    <select id="findAllKeywordsCVPR" resultType="com.lz.demo_01.pojo.Keywords">
+        select * from keywords where keywords.academicNum in (select academicNum from academics where magazine = "CVPR");
+    </select>
+
+    <select id="findAllKeywordsECCV" resultType="com.lz.demo_01.pojo.Keywords">
+        select * from keywords where keywords.academicNum in (select academicNum from academics where magazine = "ECCV");
+    </select>
+
+    <select id="findAllKeywordsICCV" resultType="com.lz.demo_01.pojo.Keywords">
+        select * from keywords where keywords.academicNum in (select academicNum from academics where magazine = "ICCV");
+    </select>
+
+</mapper>
