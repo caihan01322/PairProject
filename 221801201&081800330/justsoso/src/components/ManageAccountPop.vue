@@ -35,7 +35,7 @@ export default {
   },
   methods:{
     manageAccount(){
-
+      this.$router.push("/manageAccount")
     },
     logout(){
       this.$message.success("已退出登录")
@@ -44,6 +44,7 @@ export default {
       this.$store.commit('setUsername',"")
       this.$store.commit('setAvatarUrl',"")
       this.$store.commit('setAccount',"")
+      this.$router.push("/")
     },
   }
 }

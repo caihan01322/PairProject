@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Search from "@/views/Search";
 import Home from "@/views/Home";
+import ManageAccount from "@/views/ManageAccount";
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,11 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/manageAccount',
+    name: 'ManageAccount',
+    component: ManageAccount
   }
 ]
 

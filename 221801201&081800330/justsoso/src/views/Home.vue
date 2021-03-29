@@ -44,7 +44,7 @@
     <CollectionList v-if="currentTab===3"
                  :searchInput="searchInput"/>
 
-
+    <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop>
     <div id="background_home"/>
   </div>
 </template>
