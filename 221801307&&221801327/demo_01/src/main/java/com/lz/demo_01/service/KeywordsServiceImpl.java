@@ -8,11 +8,25 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class KeywordsServiceImpl implements KeywordsService{
+public class KeywordsServiceImpl implements KeywordsService {
     @Autowired
     private KeywordsDao keywordsdao;
-    public List<Keywords> findAllKeywords(){ return keywordsdao.findAllKeywords();};
-    public List<Keywords> findAllKeywordsCVPR(){return keywordsdao.findAllKeywordsCVPR();}
-    public List<Keywords> findAllKeywordsICCV(){return keywordsdao.findAllKeywordsICCV();}
-    public List<Keywords> findAllKeywordsECCV(){return keywordsdao.findAllKeywordsECCV();}
+
+    public List<Keywords> findAllKeywords() {
+        return keywordsdao.findAllKeywords();
+    }
+
+    ;
+
+    public List<Keywords> findAllKeywordsCVPR() {
+        return keywordsdao.findAllKeywordsCVPR();
+    }
+
+    public List<Keywords> findAllKeywordsICCV() {
+        return keywordsdao.findAllKeywordsICCV();
+    }
+
+    public List<Keywords> findAllKeywordsECCV() {
+        return keywordsdao.findAllKeywordsECCV();
+    }
 }

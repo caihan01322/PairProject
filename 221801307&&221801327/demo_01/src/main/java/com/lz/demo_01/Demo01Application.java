@@ -12,6 +12,7 @@ public class Demo01Application extends SpringBootServletInitializer {
 
         SpringApplication.run(Demo01Application.class, args);
     }
+
     @Override//为了打包springboot项目
     protected SpringApplicationBuilder configure(
             SpringApplicationBuilder builder) {

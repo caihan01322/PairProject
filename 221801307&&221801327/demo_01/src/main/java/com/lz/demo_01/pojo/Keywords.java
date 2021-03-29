@@ -7,12 +7,13 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
 @ToString
 public class Keywords implements Serializable {
-    private  int academicNum;
+    private int academicNum;
     private String keyword;
 }

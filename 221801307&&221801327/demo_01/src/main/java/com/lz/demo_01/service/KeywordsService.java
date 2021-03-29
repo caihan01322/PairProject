@@ -6,7 +6,10 @@ import java.util.List;
 
 public interface KeywordsService {
     List<Keywords> findAllKeywords();
+
     List<Keywords> findAllKeywordsCVPR();
+
     List<Keywords> findAllKeywordsICCV();
+
     List<Keywords> findAllKeywordsECCV();
 }

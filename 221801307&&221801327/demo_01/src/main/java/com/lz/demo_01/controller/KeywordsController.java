@@ -18,6 +18,7 @@ public class KeywordsController {
     @Autowired
     private KeywordsService keywordsService;
 
+    //picture2的折线图和柱状图
     @RequestMapping("dataTozhuAndzhe")
     public Map<String, List> dataToPic2() {
         List<Keywords> list = keywordsService.findAllKeywords();
@@ -81,6 +82,7 @@ public class KeywordsController {
         return map;
     }
 
+    //picture2的饼状图
     @RequestMapping("dataTobin")
     public Map<String, List<Map<String, String>>> dataToPic1() {
         List<Keywords> list = keywordsService.findAllKeywords();
@@ -146,6 +148,7 @@ public class KeywordsController {
         return map;
     }
 
+    //picture3柱状图1
     @RequestMapping("dataTozhuAndzhe31")
     public Map<String, List> dataToPic31() {
         List<Keywords> list = keywordsService.findAllKeywordsCVPR();
@@ -210,6 +213,7 @@ public class KeywordsController {
         return map;
     }
 
+    //picture3柱状图2
     @RequestMapping("dataTozhuAndzhe32")
     public Map<String, List> dataToPic32() {
         List<Keywords> list = keywordsService.findAllKeywordsICCV();
@@ -274,6 +278,7 @@ public class KeywordsController {
         return map;
     }
 
+    //picture3柱状图3
     @RequestMapping("dataTozhuAndzhe33")
     public Map<String, List> dataToPic33() {
         List<Keywords> list = keywordsService.findAllKeywordsECCV();
