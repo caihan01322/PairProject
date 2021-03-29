@@ -10,7 +10,5 @@ class Paper(db.Model):
     publication_year = db.Column(db.String(255))
     abstract = db.Column(db.Text)
 
-
     def __repr__(self):
         return '<Paper %r>' % self.title
-
