@@ -8,11 +8,11 @@
 </head>
 <body>
 {% include 'navbar.html' %}
-<!--<script src="{{ url_for('static',filename='js/navbar.js') }}"></script>-->
 <form method="POST">
     <input type="text" value="" name="text">
-    <input type="submit" value="搜索">
+    <input type="submit" name="search" value="搜索">
 </form>
+{{text}}
 <p>我是index</p>
 </body>
 </html>
