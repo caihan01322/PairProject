@@ -100,12 +100,19 @@
     </insert>
 
     <select id="getPaperByName" resultType="com.fzu.server.pojo.Paper">
-        <bind name="name" value="'%'+_parameter+'%'"/>
-        select * from paper where name like #{name} limit 50;
+        select * from paper where name like CONCAT('%',#{name},'%') limit #{start},#{lim};
     </select>
     <select id="getPaperByAuthor" resultType="com.fzu.server.pojo.Paper">
-        <bind name="name" value="'%'+_parameter+'%'"/>
-        select * from paper where id in (select DISTINCT pid from author where author like #{name}) limit 50;
+        select * from paper where id in (select DISTINCT pid from author where author like CONCAT('%',#{author},'%')) limit #{start},#{lim};
+    </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        select COUNT(*) from paper where 1=1
+        <if test="state==0">
+            and name like CONCAT('%',#{str},'%');
+        </if>
+        <if test="state==1">
+            and id in (select DISTINCT pid from author where author like CONCAT('%',#{author},'%'));
+        </if>
     </select>
     <select id="getKeyword" resultType="java.lang.String">
         select keyword from keyword where pid = #{id} limit 5;
@@ -119,20 +126,20 @@
         from CVPR_keyword
         group by keyword
         order by COUNT(*) DESC
-        limit 5;
+        limit 10;
     </select>
     <select id="getECCV" resultType="java.util.Map">
         select keyword,COUNT(*) num
         from ECCV_keyword
         group by keyword
         order by COUNT(*) DESC
-        limit 5;
+        limit 10;
     </select>
     <select id="getICCV" resultType="java.util.Map">
         select keyword,COUNT(*) num
         from ICCV_keyword
         group by keyword
         order by COUNT(*) DESC
-        limit 5;
+        limit 10;
     </select>
 </mapper>
