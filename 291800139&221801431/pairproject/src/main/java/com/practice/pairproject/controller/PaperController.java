@@ -16,9 +16,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -105,14 +109,20 @@ public class PaperController {
     /**
      * 删除选中的Paper，使用DELETE方法，参数是id-list
      *
-     * @param pids
+     * @param request
      * @return
      */
-    @DeleteMapping("/delete")
-    public AjaxResponse deletePapers(@RequestBody List<Integer> pids) {
-        log.info("233333333");
-        int result = paperService.deleteByPrimaryKeyList(pids);
-        if (result != pids.size()) {
+    @ResponseBody
+    @DeleteMapping("/deletes")
+    public AjaxResponse deletePapers(HttpServletRequest request) {
+        String[] pids = request.getParameterValues("pids");
+        //@RequestBody String[] pids,
+        log.info("【pids】：" + pids);
+
+        List<String> ps = Arrays.asList(pids);
+        List<Integer> pidList = ps.stream().map(Integer::parseInt).collect(Collectors.toList());
+        int result = paperService.deleteByPrimaryKeyList(pidList);
+        if (result != pidList.size()) {
             log.error("【删除失败！】: " + result);
             return AjaxResponse.fail(500, "【删除失败！】: " + result);
         }
@@ -163,6 +173,7 @@ public class PaperController {
 
         model.addAttribute("paperList", paperList);
         model.addAttribute("page",page);
+        log.info("【查询到数据--title】： " + title);
         return "paperList";
     }
 
@@ -197,6 +208,7 @@ public class PaperController {
 
         model.addAttribute("paperList", paperList);
         model.addAttribute("page", page);
+        log.info("【查询到数据--title】： " + title);
         return "paperList";
     }
 

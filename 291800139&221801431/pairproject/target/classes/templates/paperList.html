@@ -110,21 +110,21 @@
             <!--                </div>-->
 
             <div class="row">
-                <form method="Get" action="/paper/search">
+                <form method="get" action="/paper/search">
                     <div class="form-inline col-md-12 my-3">
                         <div class="mx-1 form-inline">
                             <label for="title">论文标题:</label>
-                            <input type="text" class="form-control" id="title">
+                            <input type="text" class="form-control" id="title" name="title">
                         </div>
 
                         <div class="mx-1 form-inline">
                             <label for="keyword">关键词:</label>
-                            <input type="text" class="form-control" id="keyword">
+                            <input type="text" class="form-control" id="keyword" name="keyword">
                         </div>
 
                         <div class="mx-1 form-inline">
                             <label for="pid">ID:</label>
-                            <input type="text" class="form-control" id="pid">
+                            <input type="text" class="form-control" id="pid" name="pid">
                         </div>
 
                         <div class="mx-1 form-inline">
@@ -139,12 +139,14 @@
                         </div>
 
                         <div class="mx-1 form-inline pl-5" style="float:right">
-                            <input class="mx-1 btn btn-info" type="submit" value="提 交">
-                            <input class="mx-1 btn btn-info" type="reset" value="重 置">
+<!--                            <button type="text" class="btn btn-outline-warning mr-5" style="float:right"-->
+<!--                                    th:text="删除"-->
+<!--                                    th:onclick="deletePaper([[${paper.pid}])">-->
+<!--                            </button>-->
+                            <button class="mx-1 btn btn-info" type="submit" >提 交</button>
+                            <button class="mx-1 btn btn-info" type="reset" >重 置</button>
                         </div>
-
                     </div>
-
                 </form>
             </div>
         </div>
@@ -155,6 +157,9 @@
                 <table class="table table-striped">
                     <THEAD>
                     <tr>
+                        <th align="center" width="3%" >
+                            <input type="checkbox" id="allChecks" onclick="ckAll()" />
+                        </th>
                         <th>ID</th>
                         <th>会议</th>
                         <th>年份</th>
@@ -162,11 +167,17 @@
                         <th>标题</th>
                         <th>作者</th>
                         <!--<th>摘要</th>-->
-                        <th style="float: inherit;">删除</th>
+                        <th style="float: inherit;">
+                            <button th:onclick="delAllPaper()" class="btn btn-outline-danger">删除</button>
+                        </th>
                     </tr>
                     </THEAD>
                     <TBODY>
                     <tr th:each="paper:${paperList}">
+                        <td style="CURSOR: hand; HEIGHT: 20px" align="center"
+                            width="3%">
+                            <input type="checkbox" name="check" th:value="${paper.pid}"/>
+                        </td>
                         <td th:text="${paper.pid}"></td>
                         <td th:text="${paper.meeting}"></td>
                         <td th:text="${paper.year}"></td>
@@ -211,6 +222,60 @@
                 } else {
                     //layer.msg("修改失败");
                     alert("修改失败");
+                }
+            },
+            error: function () {
+                alert(".......页面出错了.......");
+            }
+        });
+    }
+
+    //全选
+    function ckAll(){
+        var flag=document.getElementById("allChecks").checked;
+        var cks=document.getElementsByName("check");
+        for(var i=0;i<cks.length;i++){
+            cks[i].checked=flag;
+        }
+    }
+
+    //批量删除
+    function delAllPaper(){
+        if(!confirm("确定要删除这些论文呢吗？")){
+            return ;
+        }
+         cks = document.getElementsByName("check");
+         pids = [];
+        //var pids = [];
+        //拼接所有的图书id
+        for(var i=0;i<cks.length;i++){
+            if(cks[i].checked){
+                //pids[i] = cks[i].value;
+                //alert(cks[i].value);
+                pids.push(cks[i].value);
+            }
+        }
+        alert(pids);
+
+        $.ajax({
+            url: encodeURI("/paper/deletes"),
+            type: "delete",  //请求的方法
+            cache: false, //去除缓存
+            async: false,  //async:false同步。true异步方式
+            dataType: "json",  //指定响应得到的数据类型：【“list”必须严格为一个json数据！】
+            traditional: true,
+            data: {
+                'pids' : pids,
+                //"pids" : JSON.stringify(pids),
+            },
+            success: function (result) {
+                if (result.code == 200) { //修改成功
+                    //layer.msg("修改成功");
+                    alert("删除成功");
+                    window.location.reload();
+                } else {
+                    //layer.msg("修改失败");
+                    alert("删除失败");
                 }
             },
             error: function () {
