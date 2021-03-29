@@ -3,8 +3,6 @@
     height: 40px;
     float: left;
     clear: both; */
-    float: left;
-    clear: both;
     border-radius: 4px;
     background-color: #fff;
     border: none;
@@ -16,11 +14,7 @@
     transition: all 0.5s;
     cursor: pointer;
     margin: 5px;
-}
-
-.disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+    display: block;
 }
 
 .btn span {
@@ -46,4 +40,40 @@
 .btn:hover span:after {
     opacity: 1;
     right: 0;
+}
+
+#btnbox {
+    position: absolute;
+    bottom: 30%;
+    left: 5%；;
+}
+
+#container1 {
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    transform: translateX(-50%);
+}
+
+#container2 {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#container3 {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+}
+
+#container4 {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
 }

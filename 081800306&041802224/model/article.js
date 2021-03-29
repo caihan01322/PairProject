@@ -25,6 +25,16 @@ class Article extends Model {
         let ids = await keywords.getIdByKey(key);
         return ids;
     }
+    static async getIdsCVPR() {
+        let sql = `select id from article where magazine = 'CVPR' and year = 2017;`
+        return await Article.findAll({
+            attributes: ['id'],
+            where: {
+                magazine,
+                year
+            }
+        })
+    }
 }
 Article.init({
     id: {
@@ -35,6 +45,7 @@ Article.init({
     year: DataTypes.INTEGER,
     conclude: DataTypes.STRING,
     link: DataTypes.STRING,
+    magazine: DataTypes.STRING,
 }, {
     sequelize,
     tableName: 'article',
