@@ -50,6 +50,7 @@ CREATE TABLE keyword
 
 CREATE TABLE keyword_to_paper
 (
+    id int primary key auto_increment,
     keyword_id  int not null ,
     paper_id int not null,
     foreign key (keyword_id) references keyword(keyword_id) ,

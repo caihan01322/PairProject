@@ -1,8 +1,10 @@
 import os
 import json
 from flask import Blueprint
+from sqlalchemy import create_engine
+
 from app.exts import db
-from app.models import Paper
+from app.models import *
 
 blue = Blueprint('first_blue', __name__)
 
@@ -13,8 +15,6 @@ def init_blue(app):
 
 @blue.route('/')
 def index():
-    # s = db.Session()
-    # p = Paper()
     PAPER_PATH = os.path.join(os.getcwd(), "paper/")
     paper_class = os.listdir(PAPER_PATH)
 
@@ -30,10 +30,14 @@ def index():
                 f_obj = open(filename, "rb")
                 paper_json = json.loads(f_obj.read().decode('utf-8'))
                 f_obj.close()
-                print(paper_json)
-                j += 1
-                if j == 1:
-                    break
+                # p = Paper(title=paper_json['论文名称'], abstract=paper_json['摘要'], url=paper_json['原文链接'], time=paper_json['发布时间'], conference="ECCV")
+                keyword = Paper
+                # print(paper_json['论文名称']+"    "+paper_json['摘要']+"   "+paper_json['原文链接']+"    "+paper_json['发布时间'])
+                db.session.add(p)
+                j=0
+                j+=1
+                print(j)
         else:
             pass
+    db.session.commit()
     return 'Hello Flask'
