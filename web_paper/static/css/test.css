@@ -3,7 +3,6 @@ margin:0px auto;
 width:1100px;
 height:1200px;
 border:1px solid #000;
-background-color: #DDD;
 }
 form{
 margin:auto;
@@ -28,4 +27,18 @@ div.center
 {
 margin:0px auto;
 width:1000px;
+background-color: #DDD;
+}
+div.list
+{
+margin:10px auto;
+width:650;
+background-color: #fff;
+}
+div.item
+{
+border:1px solid #000;
+margin:0px auto;
+width:600px;
+background-color: #fff;
 }

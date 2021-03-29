@@ -16,12 +16,15 @@
         <input type="submit" name="submit" value="点击进入login">
     </form>
         <p>搜索词：</p>
-        {{session.text}}
-        {{text}}
         {%for u in paper_list%}
-            {{u.id}}
-            {{u.title}}
-            <br/>
+            <div class="list">
+                <div class="item">
+                    <h3>标题:{{u.title}}</h3>
+                    <h4>来自峰会:{{u.meeting}}</h4>
+                    <p>摘要:{{u.paper_abstract}}</p>
+                    <p><a href={{u.url}}>链接:{{u.url}}</a></p>
+                </div>
+            </div>
         {% endfor %}
     </div>
     <div class="right">

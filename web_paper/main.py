@@ -18,14 +18,21 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    froms = Login()
+    forms = Login()
     if request.method == 'POST':
         if request.form.get('submit') == '还没有账号？':
             return redirect(url_for('signup'))
         else:
-            return render_template('login.html', forms=froms)
-    return render_template('login.html', forms=froms)
-
+            if len(request.form.get('username')) <= 3 or len(request.form.get('username')) > 20:
+                return render_template('login.html', forms=forms, text1='用户名不能少于三个字符，最多不超过20个')
+            if User.query.filter(User.username == request.form.get('username'),
+                                 User.password == request.form.get('password')).count() == 0:
+                return render_template('login.html', forms=forms, text2='用户名或密码错误！')
+            session['username'] = request.form.get('username')
+            return render_template('temp.html', text="登录成功")
+    if 'username' in session:
+        return render_template('collection.html', forms=forms)
+    return render_template('login.html', forms=forms)
 
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
@@ -41,9 +48,9 @@ def signup():
             return render_template('signup.html', forms=forms, text1='用户名已被注册')
         user = User(username=request.form.get('username'), password=request.form.get('password'))
         db.session.add(user)
-        flash('成功创建')
         db.session.commit()
-        return render_template('signup.html', forms=forms)
+        session['username'] = request.form.get('username')
+        return render_template('temp.html', text="注册成功，已登录")
     return render_template('signup.html', forms=forms)
 
 
@@ -71,6 +78,13 @@ def list():
                 text = "还没搜索哦"
                 return render_template('list.html', text=text)
         return render_template('list.html')
+
+@app.route('/collection',methods=['POST','GET'])
+def collection():
+    if 'username' in session:
+        return render_template('collection.html')
+    return redirect(url_for('login'))
+
     # if request.method == 'POST':
     #     text = request.form.get('text')
     #     flash(text)

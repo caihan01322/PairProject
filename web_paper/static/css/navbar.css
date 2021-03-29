@@ -15,7 +15,7 @@ li.right{
 float:right;
 }
 
-a{
+a.block{
 display:block;/*将a变成块状*/
 width:100px;
 height:50px;
@@ -27,7 +27,7 @@ text-decoration:none;/*去下划线*/
 font-size:15px;
 }
 
-a:hover{
+a.block:hover{
 background-color:#fff;
 color:#000;
 }
