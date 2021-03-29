@@ -1,12 +1,15 @@
 <template>
   <div id="app">
+    <Test></Test>
     <img src="./assets/logo.png">
     <router-view/>
   </div>
 </template>
 
 <script>
+import Test from './components/Test.vue'
 export default {
+  components: { Test },
   name: 'App'
 }
 </script>
