@@ -25,7 +25,7 @@ public class ArticalController
     {
         List<Artical> list = articalService.searchArtical(keyword);
         List<FullArtical> full = new ArrayList<FullArtical>();
-        int totalNum = (list.size()/5 )+(list.size()==0?0:1);
+        int totalNum = (list.size()/5 )+(list.size()%5==0?0:1) -1;
 
         if(pageNum == null)
         {
@@ -118,46 +118,32 @@ public class ArticalController
     {
 
         List<hotkey> hotkeys = articalService.top20();
-        Collections.sort(hotkeys, new Comparator<hotkey>() {
-            @Override
-            public int compare(hotkey o1, hotkey o2) {
-                if(o1.getNumber() == o2.getNumber())
-                    return 0;
-                else if(o1.getNumber() > o2.getNumber())
-                    return 1;
-                else return -1;
-                //return o1.getNumber().compareTo(o2.getNumber());
-            }
-        });
-        Map<String,Integer> map = new LinkedHashMap<>();
-        for (hotkey key :
-                hotkeys) {
-            map.put(key.keyword,key.Number);
+        ArrayList<Map<String,Object>> array = new ArrayList<>();
+        for (hotkey key:hotkeys
+        ) {
+            Map<String,Object> map = new HashMap<>();
+            map.put("value",key.Number);
+            map.put("name",key.keyword);
+            array.add(map);
+
         }
-       return ajAxResponse.successfully(map);
+        return ajAxResponse.successfully(array);
     }
     @GetMapping("/Top10")
     public ajAxResponse top10()
     {
 
         List<hotkey> hotkeys = articalService.top20().subList(0,10);
-        Collections.sort(hotkeys, new Comparator<hotkey>() {
-            @Override
-            public int compare(hotkey o1, hotkey o2) {
-                if(o1.getNumber() == o2.getNumber())
-                    return 0;
-                else if(o1.getNumber() > o2.getNumber())
-                    return 1;
-                else return -1;
-                //return o1.getNumber().compareTo(o2.getNumber());
-            }
-        });
-        Map<String,Integer> map = new LinkedHashMap<>();
-        for (hotkey key :
-                hotkeys) {
-            map.put(key.keyword,key.Number);
+        ArrayList<Map<String,Object>> array = new ArrayList<>();
+        for (hotkey key:hotkeys
+             ) {
+            Map<String,Object> map = new HashMap<>();
+            map.put("value",key.Number);
+            map.put("name",key.keyword);
+            array.add(map);
+
         }
-        return ajAxResponse.successfully(map);
+        return ajAxResponse.successfully(array);
     }
     @GetMapping("/hotTrend")
     public ajAxResponse getHotTrend(@RequestParam String keyword)
