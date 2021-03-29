@@ -9,6 +9,17 @@ if (isIE()) {
     + ' Please switch to more recent versions of Microsoft Edge, Google Chrome, or Firefox.'
   );
 }
+
+if($("#status").text()!="登录"){
+    $("#status").css("pointer-events","none");
+}
+$("#mark").click(function(){
+  window.location.href = "../html/Bookmark.html";
+})
+$("#logo").click(function(){
+    window.location.href = "../html/Home.html";
+})
+
 function PostHandle(url,data,callback) {
   $.ajax({
       type: "POST",

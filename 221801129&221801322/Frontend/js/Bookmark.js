@@ -1,4 +1,8 @@
 $(function () {
+    $("#mark").css("display","block");
+    $("#status").text(localStorage.getItem("username"));
+    $("#searchBox input").removeAttr("disabled");
+
     var urlStr = "/Bookmark";
     var uid = {
         uid:localStorage.getItem("uid")

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+    <link rel="stylesheet" href="../css/public.css" />
+    <link rel="stylesheet" href="../css/Result.css" />
+</head>
+<body>
+    <div id="nav">
+        <ul>
+			<li id="logo">PaperCrawler</li>
+            <li id="mark">收藏夹</li>
+            <li id="status">登录</li>
+        </ul>
+    </div>
+    <div id="contentWrap">
+        <div id="content">
+            <div id="search">
+                <select>
+                    <option value="  论文题目">&nbsp; 论文题目</option>
+                    <option class="optionSelect" value="  论文编号">&nbsp; 论文编号</option>
+                    <option value="  关键词">&nbsp; 关键词</option>
+                </select>
+                <div id="searchBox">
+                    <img id="searchLogo" src="../img/Home/search.png" alt="搜索" />
+                    <input type="text" id="searchPaper"/>
+                </div>
+            </div>
+            <div class="list">
+                <div class="listContent" v-for="list in lists">
+                    <div class="title" data-paper-uid="paper-uid">
+                        <h2>PaperTitle</h2>
+                    </div>
+                    <div class="abstract">
+                        <span>摘要：</span>
+                        <div>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. 
+                                Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar
+                                sic tempor. Sociis natoque penatibus et magnis dis parturient montes,
+                                sic tempor. Sociis natoque penatibus et magnis dis parturient montes,
+                                sic tempor. Sociis natoque penatibus et magnis dis parturient montes,
+                                sic tempor. Sociis natoque penatibus et magnis dis parturient montes,
+                            </p>
+                        </div>
+                    </div>
+                    <div class="listBottom">
+                        <span>关键词：</span>
+                        <div class="keyword lineBreak">AI</div>
+                        <div class="keyword lineBreak">Algorithm</div>
+                        <div class="keyword lineBreak lastKey">Cloud Computing</div>
+                    </div>
+                    <img src="../img/Result/delete.svg" class="deleteSvg" alt="delete" title="删除">
+                    <img src="../img/Result/mark.svg" class="markSvg" alt="mark" title="收藏">
+                </div>
+            </div>
+        </div>
+        <div id="sidebar">
+            
+        </div>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script src="../lib/jquery-3.6.0.min.js"></script>
+    <script src="../js/public.js"></script>
+    <script src="../js/Result.js"></script>
+</body>
+</html>

@@ -1,14 +1,4 @@
 $(function () {
-    var url = window.location.href;
-    if($("#status").text()!="登录"){
-        $("#status").css("pointer-events","none");
-    }
-    $("#logo").click(function(){
-        window.location.href = url;
-    })
-    $("#mark").click(function(){
-        window.location.href = "../html/Bookmark.html";
-    })
     $("#status").click(function(){
         $("#login").fadeIn("slow");
     });
@@ -36,6 +26,7 @@ $(function () {
                     alert(data.message);
                     $("#mark").css("display","block");
                     $("#status").text(data.userName);
+                    localStorage.setItem("username",data.userName);
                     $("#searchBox input").removeAttr("disabled");
                     $("#login").fadeOut("slow");
                     localStorage.setItem("uid",data.uid);
