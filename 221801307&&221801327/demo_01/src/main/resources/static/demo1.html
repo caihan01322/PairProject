@@ -163,17 +163,17 @@
 <script type="text/html" id="toolbarDemo">
 
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="ad"><i class="layui-icon">&#xe608;</i>新增</button>
-        <button class="layui-btn layui-btn-sm layui-btn-danger" ><i class="layui-icon">&#xe640;</i>删除
+        <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon">&#xe608;</i>新增</button>
+        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="remove"><i class="layui-icon">&#xe640;</i>删除
         </button>
     </div>
 
 </script>
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑 </a>
+    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑 </a>
 
-    <a class="layui-btn layui-btn-sm layui-btn-sm" lay-event="watch"><i class="layui-icon">&#xe63c;</i>查看 </a>
+    <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="watch"><i class="layui-icon">&#xe63c;</i>查看 </a>
 </script>
 
 <div class="layui-footer">
@@ -258,7 +258,7 @@
                     if (result.code == 200) {
                         layer.msg("操作成功！", {icon: 6});
                         setTimeout(function () {
-                            
+                            layer.closeAll();//关闭所有的弹出层
                             userTable.reload();
                         }, 300);
                     } else {
@@ -271,8 +271,100 @@
 
         });
 
+        //工具栏事件
+        table.on('toolbar(tb-user)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            var checkData = checkStatus.data;
+            var ids = [];
+            switch (obj.event) {
+                // 新增
+                case 'add':
+                    $("#author").val('');
+                    $("#title").val('');
+                    $("#keyword").val('');
+                    $("#magazine").val('');
+                    $("#abstra").val('');
+                    $("#link").val('');
+                    $("#academicNum").val('');
+
+                    layer.open({
+                        type: 1,
+                        offset: '10px',
+                        title: "新增用户",
+                        area: ['800px', '550px'],
+                        content: $("#editUser")
+                    });
 
 
+                    break;
+                // 删除
+                case 'remove':
+                    if (checkData.length == 0) {
+                        layer.alert('请选择要操作的行');
+                    } else {
+                        layer.confirm('确定要删除吗？', function (index) {
+                            for (var i = 0; i < checkData.length; i++) {
+                                ids.push(checkData[i].academicNum);
+                            }
+                            layer.alert(JSON.stringify(ids));
+                            $.ajax({
+                                url: '/my/remove',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: JSON.stringify(ids),
+                                success: function (result) {
+                                    if (result.code == 200) {
+                                        setTimeout(function () {
+                                            layer.closeAll();//关闭所有的弹出层
+                                            userTable.reload();
+                                        }, 300);
+                                    }
+                                }
+                            });
+                        });
+                    }
+                    break;
+            }
+            ;
+        });
+
+        // 监听工具条
+        table.on('tool(tb-user)', function (obj) {
+            var data = obj.data;
+            // 修改
+            if (obj.event === 'edit') {
+                $("#author").val(data.author);
+                $("#title").val(data.title);
+                $("#keyword").val(data.keyword);
+                $("#magazine").val(data.magazine);
+                $("#abstra").val(data.abstra);
+                $("#link").val(data.link);
+                $("#academicNum").val(data.academicNum);
+
+                layer.open({
+                    type: 1,
+                    offset: '10px',
+                    title: "修改用户",
+                    area: ['800px', '550px'],
+                    content: $("#editUser")
+                });
+            } else if (obj.event === 'watch') {
+                $("#Wauthor").val(data.author);
+                $("#Wtitle").val(data.title);
+                $("#Wmagazine").val(data.magazine);
+                $("#Wabstra").val(data.abstra);
+                $("#Wlink").val(data.link);
+
+                layer.open({
+                    type: 1,
+                    offset: '10px',
+                    title: "查看文章",
+                    area: ['800px', '450px'],
+                    content: $("#WatchAcademic")
+                });
+            }
+        });
     });
 
 </script>
