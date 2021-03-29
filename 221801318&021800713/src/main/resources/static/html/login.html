@@ -11,6 +11,39 @@
     <script src="../js/bootstrap.js"></script>
     <script src="../js/bootstrap.bundle.js"></script>
     <script src="../js/jquery_2.0.0_jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#loginBtn").click(function(){
+                let data={
+                    mail:$('#username').val(),
+                    password:$('#password').val()
+                };
+                $.ajax({
+                    url: "http://localhost:8080/pairwork/user/login",
+                    data: JSON.stringify(data),
+                    type: "post",
+                    cache:false,
+                    contentType:"application/json",
+                    crossDomain:true,
+                    async:false,
+                    success: function (data){
+                        if(data.toString() != 'ok') {
+                            //用户名或密码有误，弹出提示
+                            alert(data);
+                        }
+                        else{
+                            window.open('http://localhost:8080/pairwork/index/papersearch') ;
+                        }
+                    }
+                });
+            });
+
+            $("#rigisterBtn").click(function(){
+                window.open('http://localhost:8080/pairwork/index/register') ;
+            });
+
+        });
+    </script>
 </head>
 <body>
     <a class="logoName" href="">
@@ -27,12 +60,12 @@
                 <table>
                     <tr>
                         <td>用户名：</td>
-                        <td><input type="text" class="form-control" id="username" placeholder="用户名" required>
+                        <td><input type="text" class="form-control" id="username" placeholder="用户名">
                         </td>
                     </tr>
                     <tr>
                         <td>密码：</td>
-                        <td><input type="password" class="form-control" id="password" placeholder="密码" required>
+                        <td><input type="password" class="form-control" id="password" placeholder="密码">
                         </td>
                     </tr>
 
@@ -43,9 +76,6 @@
 
                     <tr>
                         <td colspan="2"><button id="rigisterBtn" ></button></td>
-                    </tr>
-                    <tr>
-                        <td><a href="">游客模式</a></td>
                     </tr>
                 </table>
             </form>

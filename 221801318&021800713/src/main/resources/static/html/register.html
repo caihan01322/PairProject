@@ -1,56 +1,95 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>register</title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/bootstrap-grid.css">
-    <link rel="stylesheet" href="../css/bootstrap-reboot.css">
-    <link rel="stylesheet" href="../css/style.default.css">
-    <script src="../js/bootstrap.js"></script>
-    <script src="../js/bootstrap.bundle.js"></script>
-    <script src="../js/jquery_2.0.0_jquery.js"></script>
-</head>
-<body>
-<a class="logoName" href="">
-    <img class="logo" src="../img/websiteName.png" alt="Logo"/>
-</a>
-<div class="loginContainer">
-    <div class="description">
-        <h3>欢迎使用顶会热词统计系统</h3>
-        <h5>以游客模式使用或者登录使用更多功能</h5>
-    </div>
-    <img src="../img/iccv.jpg" alt="iccv会议" class="iccvImg">
-    <div class="loginForm">
-        <form method="post" action="">
-            <table>
-                <tr>
-                    <td>用户名：</td>
-                    <td><input type="text" class="form-control" id="username" placeholder="用户名" required/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>密码：</td>
-                    <td><input type="password" class="form-control" id="password" placeholder="密码" required/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>请重复密码密码：</td>
-                    <td><input type="password" class="form-control" id="verficationPassword" placeholder="密码" required/>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2"><button id="rigisterBtn" ></button></td>
-                </tr>
-                <tr>
-                    <td><a href="login.html">返回登录</a></td>
-                </tr>
-            </table>
-        </form>
-    </div>
-</div>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>register</title>
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/bootstrap-grid.css">
+        <link rel="stylesheet" href="../css/bootstrap-reboot.css">
+        <link rel="stylesheet" href="../css/style.default.css">
+        <script src="../js/bootstrap.js"></script>
+        <script src="../js/bootstrap.bundle.js"></script>
+        <script src="../js/jquery_2.0.0_jquery.js"></script>
+        <script src="../js/echarts.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#registerBtn").click(function(){
+                    if($('#password').val()==$('#verficationPassword').val()){
+                        let data={
+                            mail:$('#username').val(),
+                            password:$('#password').val()
+                        };
+                        $.ajax({
+                            url: "http://localhost:8080/pairwork/user/register",//待验证
+                            data: JSON.stringify(data),
+                            type: "post",
+                            cache:false,
+                            contentType:"application/json",
+                            crossDomain:true,
+                            async:false,
+                            success: function (data){
+                                if(data.toString() != 'ok') {
+                                    //用户名或密码有误，弹出提示
+                                    alert(data);
+                                }
+                                else{
+                                    window.open('http://localhost:8080/pairwork/index/papersearch') ;
+                                }
+                            }
+                        });
+                    }else{
+                        alert("两次密码输入不一致")
+                    }
+
+                });
+
+                $("#rigisterBtn").click(function(){
+                    window.open('http://localhost:8080/pairwork/index/register') ;
+                });
+
+            });
+        </script>
+    </head>
+    <body>
+        <a class="logoName" href="">
+            <img class="logo" src="../img/websiteName.png" alt="Logo"/>
+        </a>
+        <div class="loginContainer">
+            <div class="description">
+                <h3>欢迎使用顶会热词统计系统</h3>
+                <h5>以游客模式使用或者登录使用更多功能</h5>
+            </div>
+            <img src="../img/iccv.jpg" alt="iccv会议" class="iccvImg">
+            <div class="loginForm">
+                <form method="post" action="">
+                    <table>
+                        <tr>
+                            <td>用户名：</td>
+                            <td><input type="text" class="form-control" id="username" placeholder="用户名" required/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>密码：</td>
+                            <td><input type="password" class="form-control" id="password" placeholder="密码" required/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>请重复密码密码：</td>
+                            <td><input type="password" class="form-control" id="verficationPassword" placeholder="密码" required/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><button id="rigisterBtn" ></button></td>
+                        </tr>
+                        <tr>
+                            <td><a href="login.html">返回登录</a></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
 
 
-</body>
+    </body>
 </html>

@@ -11,6 +11,7 @@
     <script src="../js/bootstrap.js"></script>
     <script src="../js/bootstrap.bundle.js"></script>
     <script src="../js/echarts.min.js"></script>
+    <script src="../js/vue.js"></script>
 
 </head>
 <body>
@@ -43,20 +44,81 @@
             <h5>已添加论文数</h5>
             <h2 class="number">999</h2>
         </div>
-        <div class="keyword">
+        <div id="wordsapp" class="keyword">
             <h5>最近热词</h5>
-            <button class="word">word1</button>
-            <button class="word">word2</button>
-            <button class="word">word3</button>
-            <button class="word">word4</button>
-            <button class="word">word5</button>
+            <button class="word" onclick="onclickw1">{{ word[0]}}</button>
+            <button class="word" onclick="onclickw2">{{ word[1]}}</button>
+            <button class="word" onclick="onclickw3">{{ word[2]}}</button>
+            <button class="word" onclick="onclickw4">{{ word[3]}}</button>
+            <button class="word" onclick="onclickw5">{{ word[4]}}</button>
             <br/>
-            <button class="word">word6</button>
-            <button class="word">word7</button>
-            <button class="word">word8</button>
-            <button class="word">word9</button>
-            <button class="word">word10</button>
+            <button class="word" onclick="onclickw6">{{ word[5]}}</button>
+            <button class="word" onclick="onclickw7">{{ word[6]}}</button>
+            <button class="word" onclick="onclickw8">{{ word[7]}}</button>
+            <button class="word" onclick="onclickw9">{{ word[8]}}</button>
+            <button class="word" onclick="onclickw10">{{ word[9]}}</button>
+
+            <!--右上角十大热词在此传入-->
+            <script>
+                //实际为获得后端数据,此处仅为实验
+                var words={list:["word","word","word","word","word","hello","world","word","word","word"]}.list//实际为获得后端数据
+
+                new Vue({
+                    el: '#wordsapp',
+                    data: {
+                        word:[
+                            words[0],
+                            words[1],
+                            words[2],
+                            words[3],
+                            words[4],
+                            words[5],
+                            words[6],
+                            words[7],
+                            words[8],
+                            words[9]
+                        ]
+                    }
+                })
+
+                //热词点击事件
+                //将图谱点击的值传入处理搜索结果的函数，并将结果写入paperList下方表格js代码中对应的json文件中,搜索词为对应words[i]并进入搜索页面
+                function onclickw1() {
+
+                }
+                function onclickw2() {
+
+                }
+                function onclickw3() {
+
+                }
+                function onclickw4() {
+
+                }
+                function onclickw5() {
+
+                }
+                function onclickw6() {
+
+                }
+                function onclickw7() {
+
+                }
+                function onclickw8() {
+
+                }
+                function onclickw9() {
+
+                }
+                function onclickw10() {
+
+                }
+
+            </script>
         </div>
+
+
+
 
         <div class="tab">
             <a class="btn_word_active btn">热词走势</a>
@@ -65,6 +127,12 @@
             <script type="text/javascript">
                 var myChart = echarts.init(document.getElementById('main'));
                 var option;
+
+                //获取三大论坛总的十大热词
+                var words={words:["w1","w2","w3","w4","w5","w6","w7","w8","w9","w10"]};
+                var word=words.words;
+
+
                 option = {
                     title: {
                         text: "top热词变化趋势",
@@ -94,68 +162,68 @@
                     xAxis: {
                         type: 'category',
                         boundaryGap: false,
-                        data: ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020']
+                        data: ['2016', '2017', '2018', '2019', '2020']
                     },
                     yAxis: {
                         type: 'value'
                     },
                     series: [
                         {
-                            name: 'word1',
+                            name: word[0],
                             type: 'line',
                             stack: '总量',
                             data: [120, 132, 101, 134, 90, 230, 210,200]
                         },
                         {
-                            name: 'word2',
+                            name: word[1],
                             type: 'line',
                             stack: '总量',
                             data: [220, 182, 191, 234, 290, 330, 310,200]
                         },
                         {
-                            name: 'word3',
+                            name: word[2],
                             type: 'line',
                             stack: '总量',
                             data: [150, 232, 201, 154, 190, 330, 410,200]
                         },
                         {
-                            name: 'word4',
+                            name: word[3],
                             type: 'line',
                             stack: '总量',
                             data: [320, 332, 301, 334, 390, 330, 320,200]
                         },
                         {
-                            name: 'word5',
+                            name: word[4],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word6',
+                            name: word[5],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word7',
+                            name: word[6],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word8',
+                            name: word[7],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word9',
+                            name: word[8],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word10',
+                            name: word[9],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
@@ -167,22 +235,25 @@
             </script>
 
 
-            <script type="text/javascript">
 
-
-            </script>
 
 
 
         </div>
-    </div>
+
 
     <!--排行榜-->
     <div id="topList">
-        <div  clss="box" id="ECCVList">
+        <div  class="box" id="ECCVList">
             <script type="text/javascript">
                 var myChart = echarts.init(document.getElementById('ECCVList'));
                 var option;
+
+                //获取ECCV论坛总的十大热词
+                var words={words:["w1","w2","w3","w4","w5","w6","w7","w8","w9","w10"]};
+                var word=words.words;
+
+
                 option = {
                     title: {
                         text: "ECCV热词变化趋势",
@@ -196,7 +267,7 @@
                         x:"right",
                         y:"bottom",
                         padding: 0,
-                        data: ['word1', 'word2', 'word3', 'word4', 'word5', 'word6', 'word7', 'word8', 'word9', 'word10']
+                        data: [word[0],word[1],word[2],word[3],word[4],word[5],word[6],word[7],word[8],word[9]]
                     },
                     grid: {
                         left: '3%',
@@ -212,68 +283,68 @@
                     xAxis: {
                         type: 'category',
                         boundaryGap: false,
-                        data: ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020']
+                        data: ['2016', '2017', '2018', '2019', '2020']
                     },
                     yAxis: {
                         type: 'value'
                     },
                     series: [
                         {
-                            name: 'word1',
+                            name: word[0],
                             type: 'line',
                             stack: '总量',
                             data: [120, 132, 101, 134, 90, 230, 210,200]
                         },
                         {
-                            name: 'word2',
+                            name: word[1],
                             type: 'line',
                             stack: '总量',
                             data: [220, 182, 191, 234, 290, 330, 310,200]
                         },
                         {
-                            name: 'word3',
+                            name: word[2],
                             type: 'line',
                             stack: '总量',
                             data: [150, 232, 201, 154, 190, 330, 410,200]
                         },
                         {
-                            name: 'word4',
+                            name: word[3],
                             type: 'line',
                             stack: '总量',
                             data: [320, 332, 301, 334, 390, 330, 320,200]
                         },
                         {
-                            name: 'word5',
+                            name: word[4],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word6',
+                            name: word[5],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word7',
+                            name: word[6],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word8',
+                            name: word[7],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word9',
+                            name: word[8],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word10',
+                            name: word[9],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
@@ -284,10 +355,15 @@
                 myChart.setOption(option);
             </script>
         </div>
-        <div  clss="box" id="ICCVList">
+        <div  class="box" id="ICCVList">
             <script type="text/javascript">
                 var myChart = echarts.init(document.getElementById('ICCVList'));
                 var option;
+
+                //获取ICCV论坛的十大热词
+                var words={words:["w1","w2","w3","w4","w5","w6","w7","w8","w9","w10"]};
+                var word=words.words;
+
                 option = {
                     title: {
                         text: "ICCV热词变化趋势",
@@ -301,7 +377,7 @@
                         x:"right",
                         y:"bottom",
                         padding: 0,
-                        data: ['word1', 'word2', 'word3', 'word4', 'word5', 'word6', 'word7', 'word8', 'word9', 'word10']
+                        data: [word[0],word[1],word[2],word[3],word[4],word[5],word[6],word[7],word[8],word[9]]
                     },
                     grid: {
                         left: '3%',
@@ -317,68 +393,68 @@
                     xAxis: {
                         type: 'category',
                         boundaryGap: false,
-                        data: ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020']
+                        data: ['2016', '2017', '2018', '2019', '2020']
                     },
                     yAxis: {
                         type: 'value'
                     },
                     series: [
                         {
-                            name: 'word1',
+                            name: word[0],
                             type: 'line',
                             stack: '总量',
                             data: [120, 132, 101, 134, 90, 230, 210,200]
                         },
                         {
-                            name: 'word2',
+                            name: word[1],
                             type: 'line',
                             stack: '总量',
                             data: [220, 182, 191, 234, 290, 330, 310,200]
                         },
                         {
-                            name: 'word3',
+                            name: word[2],
                             type: 'line',
                             stack: '总量',
                             data: [150, 232, 201, 154, 190, 330, 410,200]
                         },
                         {
-                            name: 'word4',
+                            name: word[3],
                             type: 'line',
                             stack: '总量',
                             data: [320, 332, 301, 334, 390, 330, 320,200]
                         },
                         {
-                            name: 'word5',
+                            name: word[4],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word6',
+                            name: word[5],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word7',
+                            name: word[6],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word8',
+                            name: word[7],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word9',
+                            name: word[8],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word10',
+                            name: word[9],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
@@ -389,10 +465,15 @@
                 myChart.setOption(option);
             </script>
         </div>
-        <div  clss="box" id="CVPRList">
+        <div  class="box" id="CVPRList">
             <script type="text/javascript">
                 var myChart = echarts.init(document.getElementById('CVPRList'));
                 var option;
+
+                //获取CVPR论坛的十大热词
+                var words={words:["w1","w2","w3","w4","w5","w6","w7","w8","w9","w10"]};
+                var word=words.words;
+
                 option = {
                     title: {
                         text: "CVPR热词变化趋势",
@@ -406,7 +487,7 @@
                         x:"right",
                         y:"bottom",
                         padding: 0,
-                        data: ['word1', 'word2', 'word3', 'word4', 'word5', 'word6', 'word7', 'word8', 'word9', 'word10']
+                        data: [word[0],word[1],word[2],word[3],word[4],word[5],word[6],word[7],word[8],word[9]]
                     },
                     grid: {
                         left: '3%',
@@ -422,68 +503,68 @@
                     xAxis: {
                         type: 'category',
                         boundaryGap: false,
-                        data: ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020']
+                        data: ['2016', '2017', '2018', '2019', '2020']
                     },
                     yAxis: {
                         type: 'value'
                     },
                     series: [
                         {
-                            name: 'word1',
+                            name: word[0],
                             type: 'line',
                             stack: '总量',
                             data: [120, 132, 101, 134, 90, 230, 210,200]
                         },
                         {
-                            name: 'word2',
+                            name: word[1],
                             type: 'line',
                             stack: '总量',
                             data: [220, 182, 191, 234, 290, 330, 310,200]
                         },
                         {
-                            name: 'word3',
+                            name: word[2],
                             type: 'line',
                             stack: '总量',
                             data: [150, 232, 201, 154, 190, 330, 410,200]
                         },
                         {
-                            name: 'word4',
+                            name: word[3],
                             type: 'line',
                             stack: '总量',
                             data: [320, 332, 301, 334, 390, 330, 320,200]
                         },
                         {
-                            name: 'word5',
+                            name: word[4],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word6',
+                            name: word[5],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word7',
+                            name: word[6],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word8',
+                            name: word[7],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word9',
+                            name: word[8],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]
                         },
                         {
-                            name: 'word10',
+                            name: word[9],
                             type: 'line',
                             stack: '总量',
                             data: [820, 932, 901, 934, 1290, 1330, 1320,200]

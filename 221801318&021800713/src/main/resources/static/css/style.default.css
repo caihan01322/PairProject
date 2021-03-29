@@ -249,7 +249,7 @@ ul ul a {
   position: absolute;
   top:300px;
   left: 350px;
-  width: 700px;
+  width: 30%;
 
 }
 
@@ -268,18 +268,28 @@ ul ul a {
 }
 
 #personList{
-  width: 400px;
-  height:280px;
+  width: 30%;
   position: absolute;
   top:850px;
   left: 260px;
 }
-#paperList{
-  width: 400px;
-  height:280px;
-  position: absolute;
-  top:850px;
-  left: 700px;
+#ECCVList{
+  width: 800px;
+  height:400px;
+  margin-top: 450px;
+  margin-left: 250px;
+}
+#CVPRList{
+  width: 800px;
+  height:400px;
+  margin-top: 50px;
+  margin-left: 250px;
+}
+#ICCVList{
+  width: 800px;
+  height:400px;
+  margin-top: 50px;
+  margin-left: 250px;
 }
 
 .resultArea th{
@@ -355,4 +365,12 @@ td {
   white-space: nowrap; //不换行
 text-overflow: ellipsis; //超出部分用....代替
 overflow: hidden; //超出隐藏
+}
+
+
+#smain{
+  width: 800px;
+  height:400px;
+  margin-top: 50px;
+  margin-left: 50px;
 }

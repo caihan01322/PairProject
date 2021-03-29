@@ -13,6 +13,8 @@
         <script src="../js/bootstrap.bundle.js"></script>
         <script src="../js/jquery_2.0.0_jquery.js"></script>
         <script src="../js/echarts.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+        <script src="../js/vue.js"></script>
     </head>
     <body>
         <a class="logoName" href="paperList.html">
@@ -48,21 +50,79 @@
                 </div>
 
                 <!--展示十个热门词汇/方向-->
-                 <div class="keyword">
-                     <h5>最近热词</h5>
-                     <button class="word">word1</button>
-                     <button class="word">word2</button>
-                     <button class="word">word3</button>
-                     <button class="word">word4</button>
-                     <button class="word">word5</button>
-                     <br/>
-                     <button class="word">word6</button>
-                     <button class="word">word7</button>
-                     <button class="word">word8</button>
-                     <button class="word">word9</button>
-                     <button class="word">word10</button>
-                 </div>
-                <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+                <div id="wordsapp" class="keyword">
+                    <h5>最近热词</h5>
+                    <button class="word" onclick="onclickw1">{{ word[0]}}</button>
+                    <button class="word" onclick="onclickw2">{{ word[1]}}</button>
+                    <button class="word" onclick="onclickw3">{{ word[2]}}</button>
+                    <button class="word" onclick="onclickw4">{{ word[3]}}</button>
+                    <button class="word" onclick="onclickw5">{{ word[4]}}</button>
+                    <br/>
+                    <button class="word" onclick="onclickw6">{{ word[5]}}</button>
+                    <button class="word" onclick="onclickw7">{{ word[6]}}</button>
+                    <button class="word" onclick="onclickw8">{{ word[7]}}</button>
+                    <button class="word" onclick="onclickw9">{{ word[8]}}</button>
+                    <button class="word" onclick="onclickw10">{{ word[9]}}</button>
+
+                    <!--右上角十大热词在此传入-->
+                    <script>
+                        //实际为获得后端数据,此处仅为实验
+                        var words={list:["word","word","word","word","word","hello","world","word","word","word"]}.list//实际为获得后端数据
+
+                        new Vue({
+                            el: '#wordsapp',
+                            data: {
+                                word:[
+                                    words[0],
+                                    words[1],
+                                    words[2],
+                                    words[3],
+                                    words[4],
+                                    words[5],
+                                    words[6],
+                                    words[7],
+                                    words[8],
+                                    words[9]
+                                ]
+                            }
+                        })
+
+                        //热词点击事件
+                        //将图谱点击的值传入处理搜索结果的函数，并将结果写入paperList下方表格js代码中对应的json文件中,搜索词为对应words[i]并进入搜索页面
+                        function onclickw1() {
+
+                        }
+                        function onclickw2() {
+
+                        }
+                        function onclickw3() {
+
+                        }
+                        function onclickw4() {
+
+                        }
+                        function onclickw5() {
+
+                        }
+                        function onclickw6() {
+
+                        }
+                        function onclickw7() {
+
+                        }
+                        function onclickw8() {
+
+                        }
+                        function onclickw9() {
+
+                        }
+                        function onclickw10() {
+
+                        }
+
+                    </script>
+                </div>
+
 
 
             </div>
@@ -76,6 +136,10 @@
                     var chartDom = document.getElementById('main');
                     var myChart = echarts.init(chartDom);
                     var option;
+
+                    //获取后端的三大论坛的十大热词
+                    var words={words:["w1","w2","w3","w4","w5","w6","w7","w8","w9","w10"]};
+                    var word=words.words;
 
                     option = {
                         legend: {
@@ -101,14 +165,16 @@
                                     borderRadius: 4
                                 },
                                 data: [
-                                    {value: 40, name: 'rose 1'},
-                                    {value: 38, name: 'rose 2'},
-                                    {value: 32, name: 'rose 3'},
-                                    {value: 30, name: 'rose 4'},
-                                    {value: 28, name: 'rose 5'},
-                                    {value: 26, name: 'rose 6'},
-                                    {value: 22, name: 'rose 7'},
-                                    {value: 18, name: 'rose 8'}
+                                    {value: 40, name: word[0]},
+                                    {value: 38, name:  word[1]},
+                                    {value: 32, name:  word[2]},
+                                    {value: 30, name:  word[3]},
+                                    {value: 28, name:  word[4]},
+                                    {value: 26, name: word[5]},
+                                    {value: 22, name: word[6]},
+                                    {value: 18, name: word[7]},
+                                    {value: 14, name: word[8]},
+                                    {value: 10, name: word[9]}
                                 ]
                             }
                         ]
@@ -118,20 +184,34 @@
 
                     //图谱点击，跳转代码
                     myChart.on('click', function (param){
-                        //test
-                        window.location.href="paperList.html";
 
-                        /**
+                        //用word[i]对应搜索处理，并跳转页面至paperSearch,搜索内容为word[i]
                          var name=param.name;
-                         if(name=="用户数"){
-                            window.location.href="${base}/admin/user/list.htm";
-                        }else if(name=="栏目数"){
-                            window.location.href="${base}/admin/classify/list.htm";
-                        }else if(name=="新闻数"){
-                            window.location.href="${base}/admin/news/list.htm";
-                        }else{
-                            window.location.href="${base}/admin/file/list.htm";
-                        }**/
+                         if(name==word[0]){
+                             //alert(word[0]);
+
+                         }else if(name==word[1]){
+                             //alert(word[1]);
+                         }
+                         else if(name==word[2]){
+
+                         }else if(name==word[3]){
+
+                         }else if(name==word[4]){
+
+                         }else if(name==word[5]){
+
+                         }else if(name==word[6]){
+
+                         }else if(name==word[7]){
+
+                         }else if(name==word[8]){
+
+                         }else if(name==word[9]){
+
+                         }
+
+
                     });
                     myChart.on('click',eConsole);
 
@@ -139,11 +219,21 @@
             </div>
             <div class="box" id="smain">
 
+
+
                 <!--三大论坛分开-->
                 <script type="text/javascript">
                     var chartDom = document.getElementById('smain');
                     var myChart = echarts.init(chartDom);
                     var option;
+
+                    var words={words1:["CVPR","w2","w3","w4","w5","w6","w7","w8","w9","w10"],
+                               words2:["ECCV","w2","w3","w4","w5","w6","w7","w8","w9","w10"],
+                               words3:["ICCV","w2","w3","w4","w5","w6","w7","w8","w9","w10"]
+                               };
+                    var CVPRword=words.words1;
+                    var ECCVword=words.words2;
+                    var ICCVword=words.words3;
 
                     option = {
                         series: [{
@@ -153,49 +243,104 @@
                                 name: 'CVPR',            // First tree
                                 value: 10,
                                 children: [{
-                                    name: 'CVPRw1',  // Granson of first tree
+                                    name: CVPRword[0],  // Granson of first tree
                                     value: 20
                                 },{
-                                    name: 'w2',  // Granson of first tree
-                                    value: 20
+                                    name: CVPRword[1],  // Granson of first tree
+                                    value: 19
                                 },{
-                                    name: 'w3',  // Granson of first tree
-                                    value: 20
-                                }]
+                                    name: CVPRword[2] , // Granson of first tree
+                                    value: 18
+                                },{
+                                    name: CVPRword[3],  // Granson of first tree
+                                    value: 17
+                                },{
+                                    name: CVPRword[4],  // Granson of first tree
+                                    value: 16
+                                },{
+                                    name: CVPRword[5],  // Granson of first tree
+                                    value: 15
+                                },{
+                                    name: CVPRword[6],  // Granson of first tree
+                                    value: 14
+                                },{
+                                    name: CVPRword[7],  // Granson of first tree
+                                    value: 13
+                                },{
+                                    name: CVPRword[8],  // Granson of first tree
+                                    value: 12
+                                },{
+                                    name: CVPRword[9],  // Granson of first tree
+                                    value: 11
+                                },]
                             }, {
                                 name: 'ICCV',            // Second tree
                                 value: 20,
                                 children: [{
-                                    name: 'nodeBa',       // Son of first tree
-                                    value: 20,
-                                    children: [{
-                                        name: 'ICCVw1',  // Granson of first tree
-                                        value: 20
-                                    },{
-                                        name: 'w2',  // Granson of first tree
-                                        value: 20
-                                    },{
-                                        name: 'w3',  // Granson of first tree
-                                        value: 20
-                                    }]
-                                }]
+                                    name: ICCVword[0],  // Granson of first tree
+                                    value: 20
+                                },{
+                                    name: ICCVword[1],  // Granson of first tree
+                                    value: 19
+                                },{
+                                    name: ICCVword[2] , // Granson of first tree
+                                    value: 18
+                                },{
+                                    name: ICCVword[3],  // Granson of first tree
+                                    value: 17
+                                },{
+                                    name: ICCVword[4],  // Granson of first tree
+                                    value: 16
+                                },{
+                                    name: ICCVword[5],  // Granson of first tree
+                                    value: 15
+                                },{
+                                    name: ICCVword[6],  // Granson of first tree
+                                    value: 14
+                                },{
+                                    name: ICCVword[7],  // Granson of first tree
+                                    value: 13
+                                },{
+                                    name: ICCVword[8],  // Granson of first tree
+                                    value: 12
+                                },{
+                                    name: ICCVword[9],  // Granson of first tree
+                                    value: 11
+                                },]
                             },{
                                 name: 'ECCV',            // Second tree
                                 value: 20,
                                 children: [{
-                                    name: 'nodeCa',       // Son of first tree
-                                    value: 20,
-                                    children: [{
-                                        name: 'w1',  // Granson of first tree
-                                        value: 20
-                                    },{
-                                        name: 'w2',  // Granson of first tree
-                                        value: 20
-                                    },{
-                                        name: 'w3',  // Granson of first tree
-                                        value: 20
-                                    }]
-                                }]
+                                    name: ECCVword[0],  // Granson of first tree
+                                    value: 20
+                                },{
+                                    name: ECCVword[1],  // Granson of first tree
+                                    value: 19
+                                },{
+                                    name: ECCVword[2] , // Granson of first tree
+                                    value: 18
+                                },{
+                                    name: ECCVword[3],  // Granson of first tree
+                                    value: 17
+                                },{
+                                    name: ECCVword[4],  // Granson of first tree
+                                    value: 16
+                                },{
+                                    name: ECCVword[5],  // Granson of first tree
+                                    value: 15
+                                },{
+                                    name: ECCVword[6],  // Granson of first tree
+                                    value: 14
+                                },{
+                                    name: ECCVword[7],  // Granson of first tree
+                                    value: 13
+                                },{
+                                    name: ECCVword[8],  // Granson of first tree
+                                    value: 12
+                                },{
+                                    name: ECCVword[9],  // Granson of first tree
+                                    value: 11
+                                },]
                             }
                             ]
                         }]
@@ -206,7 +351,7 @@
                     myChart.on('click', function (param){
 
                         //test
-                        window.location.href="paperList.html";
+                        window.location.href="paperSearch.html";
 
                         /**
                         var name=param.name;
@@ -222,6 +367,9 @@
                     });
                     myChart.on('click',eConsole);
                 </script>
+                <span style="background-color: #005cbf">ECCV</span>
+                <span style="background-color: orange">CVPR</span>
+                <span style="background-color: green">ICCV</span>
             </div>
         </div>
     </body>

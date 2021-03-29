@@ -11,6 +11,8 @@
     <script src="../js/bootstrap.js"></script>
     <script src="../js/bootstrap.bundle.js"></script>
     <script src="../js/jquery_2.0.0_jquery.js"></script>
+    <script src="../js/echarts.min.js"></script>
+    <script src="../js/vue.js"></script>
 </head>
 <body>
     <a class="logoName" href="">
@@ -43,42 +45,126 @@
             <h5>已添加论文数</h5>
             <h2 class="number">999</h2>
         </div>
-        <div class="keyword">
+        <div id="wordsapp" class="keyword">
             <h5>最近热词</h5>
-            <button class="word">word1</button>
-            <button class="word">word2</button>
-            <button class="word">word3</button>
-            <button class="word">word4</button>
-            <button class="word">word5</button>
+            <button class="word" onclick="onclickw1">{{ word[0]}}</button>
+            <button class="word" onclick="onclickw2">{{ word[1]}}</button>
+            <button class="word" onclick="onclickw3">{{ word[2]}}</button>
+            <button class="word" onclick="onclickw4">{{ word[3]}}</button>
+            <button class="word" onclick="onclickw5">{{ word[4]}}</button>
             <br/>
-            <button class="word">word6</button>
-            <button class="word">word7</button>
-            <button class="word">word8</button>
-            <button class="word">word9</button>
-            <button class="word">word10</button>
+            <button class="word" onclick="onclickw6">{{ word[5]}}</button>
+            <button class="word" onclick="onclickw7">{{ word[6]}}</button>
+            <button class="word" onclick="onclickw8">{{ word[7]}}</button>
+            <button class="word" onclick="onclickw9">{{ word[8]}}</button>
+            <button class="word" onclick="onclickw10">{{ word[9]}}</button>
+
+            <!--右上角十大热词在此传入-->
+            <script>
+                //实际为获得后端数据,此处仅为实验
+                var words={list:["word","word","word","word","word","hello","world","word","word","word"]}.list//实际为获得后端数据
+
+                new Vue({
+                    el: '#wordsapp',
+                    data: {
+                        word:[
+                            words[0],
+                            words[1],
+                            words[2],
+                            words[3],
+                            words[4],
+                            words[5],
+                            words[6],
+                            words[7],
+                            words[8],
+                            words[9]
+                        ]
+                    }
+                })
+
+                //热词点击事件
+                //将图谱点击的值传入处理搜索结果的函数，并将结果写入paperList下方表格js代码中对应的json文件中,搜索词为对应words[i]并进入搜索页面
+                function onclickw1() {
+
+                }
+                function onclickw2() {
+
+                }
+                function onclickw3() {
+
+                }
+                function onclickw4() {
+
+                }
+                function onclickw5() {
+
+                }
+                function onclickw6() {
+
+                }
+                function onclickw7() {
+
+                }
+                function onclickw8() {
+
+                }
+                function onclickw9() {
+
+                }
+                function onclickw10() {
+
+                }
+
+            </script>
         </div>
-        <div class="paperList">
+
+
+
+        <div  id="app" class="paperList">
             <h2>论文列表</h2>
-            <div class="panel panel-default paperdiv" >
-                <div class="panel-heading">
-                    <h3 class="panel-title" align="center">论文标题</h3>
+            <div v-for="item in list ">
+                <div class="panel panel-default paperdiv" >
+                    <div class="panel-heading">
+                        <h3 class="panel-title" align="center">{{item.title}}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <span style="margin-left: 18px;color: #007bff">{{item.time}}</span>
+                        <p >{{item.content}}</p>
+                    </div>
+                    <button  v-bind:id="item.links"  onclick="deletePaper(this.id)" style="background: red">delete</button>
+                    <script type="text/javascript">
+
+                        //根据id来删除用户论文库，如果觉得用链接不行，可以改v-bind:id
+                        function deletePaper(value) {
+                            alert(value)
+                        }
+
+
+                    </script>
                 </div>
-                <div class="panel-body">
-                    <span style="margin-left: 18px">时间</span>
-                    <p >xxxxxxxxxxxxxxxxxxxx</p>
-                </div>
-                <button>delete</button>
+
             </div>
-            <div class="panel panel-default paperdiv" >
-                <div class="panel-heading">
-                    <h3 class="panel-title" align="center">论文标题</h3>
-                </div>
-                <div class="panel-body">
-                    <span style="margin-left: 18px">时间</span>
-                    <p >xxxxxxxxxxxxxxxxxxxx</p>
-                </div>
-                <button>delete</button>
-            </div>
+
+
+            <!--论文页表数据传入-->
+            <script type="text/javascript">
+
+                var paperlist;//实际将数据传入该值
+                new Vue({
+                    el: '#app',
+                    data: {
+                        list:[//test
+                            {title:"hello world",time:"2020CCPR",content:"hello html,java,js,css,云计算",links:123},
+                            {title:"hello world",time:"2020CCPR",content:"hello html,java,js,css,云计算",links:456},
+                            {title:"hello world",time:"2020CCPR",content:"hello html,java,js,css,云计算",links:789},
+                            {title:"hello world",time:"2020CCPR",content:"hello html,java,js,css,云计算",links:111},
+                        ]
+                    }
+                })
+
+
+            </script>
+
         </div>
     </div>
 
