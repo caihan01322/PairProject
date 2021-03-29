@@ -9,9 +9,8 @@
 <body>
 {% include 'navbar.html' %}
 <form method="POST">
-    {{forms.csrf_token()}}
     {{forms.username.label}}{{forms.username}}<br>
-    {{forms.password.label}}{{forms.password}}<br>
+    {{forms.password.label}}{{forms.password}}{{text}}<br>
     {{forms.submit}}<br>
 </form>
 <form method="POST">

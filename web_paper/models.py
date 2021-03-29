@@ -1,10 +1,3 @@
-from flask import Flask, render_template, flash
-from flask import request
-from flask_sqlalchemy import SQLAlchemy
-from config import Config
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField
-from wtforms.validators import DataRequired
 from __init__ import db
 
 
@@ -12,36 +5,32 @@ class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50))
-    name = db.Column(db.String(50))
     password = db.Column(db.String(50))
 
 
 class UserCollection(db.Model):
-    __tablename__ ="usercolletion"
+    __tablename__ = "usercolletion"
     id = db.Column(db.Integer, primary_key=True)
-    user_id=db.Column(db.Integer)
-    paper_id=db.Column(db.Integer)
+    user_id = db.Column(db.Integer)
+    paper_id = db.Column(db.Integer)
 
 
 class Paper(db.Model):
-    __tablename__="paper"
-    id = db.Column(db.Integer,primary_key=True)
-    title=db.Column(db.Text)
-    meeting=db.Column(db.String(10))
-    url=db.Column(db.String(50))
-    paper_abstract=db.Column(db.Text)
-    date=db.Column(db.Date)
+    __tablename__ = "paper"
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.Text)
+    meeting = db.Column(db.String(10))
+    url = db.Column(db.String(50))
+    paper_abstract = db.Column(db.Text)
+    date = db.Column(db.Date)
 
 
 class PaperToKeyword(db.Model):
-    __tablename__="papertokeyword"
+    __tablename__ = "papertokeyword"
 
     id = db.Column(db.Integer, primary_key=True)
-    paper_id=db.Column(db.Integer)
-    keyword=db.Column(db.Text)
-
-
-
+    paper_id = db.Column(db.Integer)
+    keyword = db.Column(db.Text)
 
 # class Role(db.Model):  # 继承数据库模型
 #     # 定义表明
@@ -55,4 +44,3 @@ class PaperToKeyword(db.Model):
 #     #建立引用，外键直接使用role.user返回user对象
 #     def __repr__(self):#可以用于打印数据，相当于类里的方法
 #         return '<Role: %s>' % (self.id)
-

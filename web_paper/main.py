@@ -1,13 +1,7 @@
-from flask import Flask, render_template, flash, redirect, url_for, session
-from flask import request
-from flask_sqlalchemy import SQLAlchemy
-from config import Config
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField
-from wtforms.validators import DataRequired
 from __init__ import *
 from models import *
 from forms import *
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -36,11 +30,25 @@ def login():
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
     forms = Signup()
+    if request.method == 'POST':
+        if len(request.form.get('username')) <= 3 or len(request.form.get('username')) > 20:
+            return render_template('signup.html', forms=forms, text1='用户名不能少于三个字符，最多不超过20个')
+        if len(request.form.get('password')) < 6 or len(request.form.get('password')) > 20:
+            return render_template('signup.html', forms=forms, text2='请输入6-20个字符')
+        if request.form.get('password') != request.form.get('password2'):
+            return render_template('signup.html', forms=forms, text3='上下文密码不一致')
+        if User.query.filter(User.username == request.form.get('username')).count() != 0:
+            return render_template('signup.html', forms=forms, text1='用户名已被注册')
+        user = User(username=request.form.get('username'), password=request.form.get('password'))
+        db.session.add(user)
+        flash('成功创建')
+        db.session.commit()
+        return render_template('signup.html', forms=forms)
     return render_template('signup.html', forms=forms)
 
 
 @app.route('/list', methods=['GET', 'POST'])
-def listshow():
+def list():
     if request.method == 'POST':
         if request.form.get('submit') == '点我搜说':
             if len(request.form.get('text')) > 2:
@@ -51,17 +59,17 @@ def listshow():
             else:
                 text = "请输入三个以上字符"
                 return render_template('list.html', text=text)
-            session['text'] = request.form.get('text')
         else:
             return redirect(url_for('login'))
     else:
-        if len(session['text']) > 2:
-            text = session['text']
-            paper_list = Paper.query.filter(Paper.title.like('%' + text + '%'))
-            return render_template('list.html', paper_list=paper_list)
-        else:
-            text = "还没搜索哦"
-            return render_template('list.html', text=text)
+        if 'text' in session:
+            if len(session['text']) > 2:
+                text = session['text']
+                paper_list = Paper.query.filter(Paper.title.like('%' + text + '%'))
+                return render_template('list.html', paper_list=paper_list)
+            else:
+                text = "还没搜索哦"
+                return render_template('list.html', text=text)
         return render_template('list.html')
     # if request.method == 'POST':
     #     text = request.form.get('text')
@@ -110,10 +118,10 @@ def listshow():
 #        print(e)
 
 # if request.form.get('转到login')=='点我':
-    #     return redirect('login')#重定向到路由
-    # else:
-    #     user_list=User.query.all()
-    #     print(user_list.id)
+#     return redirect('login')#重定向到路由
+# else:
+#     user_list=User.query.all()
+#     print(user_list.id)
 
 # class loginForm(FlaskForm):  # 自创表单函数
 #     text = StringField('输入框:', validators=[DataRequired('啊这，你怎么不输入')])  # u用于转码

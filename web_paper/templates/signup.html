@@ -10,10 +10,14 @@
 {% include 'navbar.html' %}
 <form method="POST">
     {{forms.csrf_token()}}
-    {{forms.username.label}}{{forms.username}}<br>
-    {{forms.password.label}}{{forms.password}}<br>
-    {{forms.submit}}<br>
+    {{forms.username.label}}{{forms.username}}{{text1}}<br>
+    {{forms.password.label}}{{forms.password}}{{text2}}<br>
+    {{forms.password2.label}}{{forms.password2}}{{text3}}<br>
+    {{forms.submit}}
 </form>
+{% for message in get_flashed_messages() %}
+    {{ message }}
+ {% endfor %}
 <p>我是注册</p>
 </body>
 </html>
