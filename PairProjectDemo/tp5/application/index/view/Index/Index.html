@@ -26,12 +26,22 @@
         <div id="main">
           <div class="search">
             <el-input placeholder="请输入关键字" icon="search" v-model="devfilter" class="search-input" clearable></el-input>
+            <el-select v-model="value" placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
           </div>
 
           <el-table :data="tableData.slice((currpage-1)*4,currpage*4)" stripe style="width: 100%">
             <el-table-column prop="title" label="标题·" width="180">
             </el-table-column>
             <el-table-column prop="abstract" label="摘要">
+            </el-table-column>
+            <el-table-column prop="keyword" label="关键字" width="180">
             </el-table-column>
             <el-table-column prop="releasetime" label="发布日期" width="180">
             </el-table-column>
@@ -110,11 +120,42 @@
         currpage: 1,
         currentPage1: 1,
         activeName: 'first',
+        options: [{
+          value: 'title',
+          label: 'title'
+        }, {
+          value: 'abstract',
+          label: 'abstract'
+        }, {
+          value: 'keyword',
+          label: 'keyword'
+        }],
+        value: 'title'
       };
     },
     watch: {
       devfilter: function (val, oldVal) {
-        this.tableData = this.sourceData.filter(item => (~item.title.indexOf(val)));
+        console.log(this.value);
+        if(this.value=='title'){
+          this.tableData = this.sourceData.filter(dataNews => {
+          return Object.keys(dataNews).some(key => {
+            return String(dataNews['title']).toLowerCase().indexOf(val) > -1
+          })
+          });
+        }else if(this.value=='abstract'){
+          this.tableData = this.sourceData.filter(dataNews => {
+          return Object.keys(dataNews).some(key => {
+            return String(dataNews['abstract']).toLowerCase().indexOf(val) > -1
+          })
+          });
+        }else if(this.value=='keyword'){
+          this.tableData = this.sourceData.filter(dataNews => {
+          return Object.keys(dataNews).some(key => {
+            return String(dataNews['keyword']).toLowerCase().indexOf(val) > -1
+          })
+          });
+        }
+        
       }
     },
     methods: {
@@ -155,8 +196,9 @@
       },
       
       handleCellClick(row, event, column,cell) {
+
         console.log(row['hot']);
-        
+        this.activeName='first';
       },
     },
 
