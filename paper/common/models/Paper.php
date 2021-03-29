@@ -55,7 +55,7 @@ class Paper extends \yii\db\ActiveRecord
     public function getUrl()
     {
         return Yii::$app->urlManager->createUrl(
-            ['paper/detial','link'=>$this->link,'title'=>$this->title]
+            ['site/detial','link'=>$this->link,'title'=>$this->title]
         );
     }
 
@@ -77,4 +77,5 @@ class Paper extends \yii\db\ActiveRecord
         }
         return $links;
     }
+
 }
