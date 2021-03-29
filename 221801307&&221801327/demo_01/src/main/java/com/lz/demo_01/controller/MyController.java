@@ -16,6 +16,7 @@ public class MyController {
     @Autowired
     private MyService myService;
 
+    //分页查询
     @RequestMapping("list")
     public ResultBean list(@RequestParam(defaultValue = "1") int page,
                            @RequestParam(defaultValue = "10") int limit

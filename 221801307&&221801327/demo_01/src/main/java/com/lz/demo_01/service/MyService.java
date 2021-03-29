@@ -8,9 +8,10 @@ import java.util.List;
 public interface MyService {
     //查询所有用户数集合
     List<Academics> findAllArticlesList();
+
     int findAllArticles();
 
-    //分页获取用户
+    //分页获取文章
     List<Academics> getPage(int page, int limit);
 
     void addAcademic(Academics academics);
@@ -26,16 +27,13 @@ public interface MyService {
                                  int academicNum,
                                  String title,
                                  String keyword);
+
     //按条件查询分页
     List<Academics> queryByParamPage(int page,
-                              int limit,
-                              String author,
-                              int academicNum,
-                              String title,
-                              String keyword);
-//    //查询所有用户集合
-//    List<author> findAllAuthorList();
-//    //更新用户
-//    void updateAuthor(author author);
+                                     int limit,
+                                     String author,
+                                     int academicNum,
+                                     String title,
+                                     String keyword);
 
 }
