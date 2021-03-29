@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -52,6 +53,30 @@ public class paperController {
         System.out.println(formatter.format(date) + " ====> 搜索文章 ##搜索关键词：" + searchKeyword + "  ##搜索结果数：" + paperList.size());
 
         return array;
+    }
 
+    @ResponseBody
+    @RequestMapping(value = "/searchPaper" , method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public JSONArray search(@RequestBody String JSONBody){
+        JSONObject object = JSONObject.parseObject(JSONBody);
+        String searchKeyword = (String) object.get("searchKeyword");
+        List<paper> paperList1 = paperService.selectLikeKeyword("%"+ searchKeyword +"%");
+        List<paper> paperList2 =paperService.selectLikeWord("%"+ searchKeyword +"%");
+        for (paper p2:paperList2
+             ) {
+            int flag = 0;
+            for (paper p1:paperList1
+                 ) {
+                 flag = 0;
+                if(p1.equals(p2))  flag = 1;
+            }
+            if(flag ==0 ) paperList1.add(p2);
+        }
+        JSONArray array= JSONArray.parseArray(JSON.toJSONString(paperList1));
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date date = new Date(System.currentTimeMillis());
+        System.out.println(formatter.format(date) + " ====> 搜索文章 ##搜索关键词：" + searchKeyword + "  ##搜索结果数：" + paperList1.size());
+
+        return array;
     }
 }

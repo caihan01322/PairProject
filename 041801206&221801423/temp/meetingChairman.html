@@ -1,136 +1,33 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-  <meta charset="UTF-8">
-  <title>会议主席</title>
-  <link href="https://cdn.bootcss.com/Chart.js/2.8.0/Chart.css" rel="stylesheet">
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<head>
+    <meta charset="utf-8">
+    <title>奇葩天地网</title>
 </head>
 <body>
-    <nav class="navbar navbar-default mz-navbar">
-        <div class="container">
-          <!-- 这个navbar-header是给内部两个元素包了一层通栏盒子，自身是清除浮动的作用,控制的是导航垂直布局 -->
-          <div class="navbar-header">
-              <!-- 右边按钮 -->
-              <!-- navbar-toggle控制按钮只在移动端显示。data-toggle是js功能标志，js会找到这个元素注册点击事件 -->
-              <!-- <button type="button" class="navbar-toggle" data-toggle='collapse' data-target='.navbar-collapse'>
-                  <div class="icon-bar"></div>
-                  <div class="icon-bar"></div>
-                  <div class="icon-bar"></div>
-              </button> -->
-              <!-- 左边logo -->
-              <a class="navbar-brand " href="./">会议网站(会议主席页面)</a>
-          </div>
-          <div class="navbar-collapse collapse">
-              <ul class="nav navbar-nav navbar-right">
-                  <li><span class="glyphicon glyphicon-login"></span>&nbsp;&nbsp;主席好！</li>
-                  <li><a href="main.html"><span class="glyphicon glyphicon-account"></span>&nbsp;&nbsp;退出</a></li>
-              </ul>
-          </div>
-      </div>
-      </nav>
-      <div id="main" style="width:800px;height:600px;float:left"></div>
-      <div id="small" style="width:300px;height:200px;float:left;margin-left:30px;"></div>
-    <script type="text/javascript">
-        var fenhuiyi=[];
-        var list = {"id": 1 };
-            $.ajax({
-                //请求方式
-                type : 'get',
-                //请求的媒体类型
-                contentType: "application/json;charset=UTF-8",
-                //请求地址
-                url : "http://120.77.222.192:90/sForum/getlSForumByChairmanid",
-                //数据，json字符串
-                data : JSON.stringify(list),
-                //请求成功
-                success : function(result) {
-                    $.each(reasult.list,function(index,item){
-                        fenhuiyi.push({
-                            belongname:item.meetingTitle,
-                            fhyname:item.sForumTitle,
-                            sum:item.sForumSize
-                        })
+<ul class="list2">
+    <li>
+        <img alt="" src="qipa250_1.jpg"/>
+        <div>每日奇葩</div>
+        <a onclick="deleteQipaElement(this)">删除</a>
+    </li>
+    <li>
+        <img alt="" src="qipa250_2.jpg"/>
+        <div>奇葩网</div>
+        <a onclick="deleteQipaElement(this)">删除</a>
+    </li>
+    <li>
+        <img alt="" src="qipa250_3.jpg"/>
+        <div>我是小奇葩</div>
+        <a onclick="deleteQipaElement(this)">删除</a>
+    </li>
+</ul>
 
-                    });
-                },
-                //请求失败，包含具体的错误信息
-                error : function (erroMsg){
-                    alert("图表请求数据失败!");
-                }
-            });
-            var meetName=[];
-            var meetpSum=[];
-            
-            $.ajax({
-                //请求方式
-                type : 'get',
-                //请求的媒体类型
-                contentType: "application/json;charset=UTF-8",
-                //请求地址
-                url : "http://120.77.222.192:90/meeting/getMeetingByChairmanid",
-                //数据，json字符串
-                data : JSON.stringify(list),
-                //请求成功
-                success : function(result) {
-                    $.each(reasult.list,function(index,item){
-                        meetName.push(item.meetingTitle);
-                        meetpSum.push(item.num);
-                    });
-                },
-                //请求失败，包含具体的错误信息
-                error : function (erroMsg){
-                    alert("图表请求数据失败!");
-                }
-            });
-        
-        var mainChart = echarts.init(document.getElementById('main'));
-        var smallChart = echarts.init(document.getElementById('small'));
-        var optionMain = {
-            title: {
-                text: '会议人数情况查看表（点击柱状图查看详情）'
-            },
-            tooltip: {},
-            legend: {
-                data:meetName
-            },
-            xAxis: {
-                data: meetName
-            },
-            yAxis: {},
-            series: [{
-                name: '人数',
-                type: 'bar',
-                data: meetpSum
-            }]
-        };
-        mainChart.setOption(optionMain);
-        mainChart.on('click', function (params) {
-            var fhy=[]
-            for(var i in fenhuiyi){
-                if(fenhuiyi[i].belongname==param){
-                    fhy.push({
-                        value:fenhuiyi[i].sForumSize,
-                        name:fenhuiyi[i].sForumTitle
-                    })
-                }
-            }
-            var optionSmall = {
-                tooltip: {},
-                legend: {
-                  data:['人数']
-                },
-                series: [{
-                    name: '人数',
-                    type: 'pie',
-                    data: fhy
-                }]
-            };
-            smallChart.setOption(optionSmall);
-        }); 
-    </script>
+<script type="text/javascript">
+    function deleteQipaElement(Obj) {
+        Obj.parentNode.parentNode.removeChild(Obj.parentNode);
+    }
+</script>
 </body>
 </html>
+

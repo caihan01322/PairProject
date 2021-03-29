@@ -1,14 +1,14 @@
 
-    var searchbtn_1 = document.getElementById("searchbtn_1");
+    var searchWord_2 = document.getElementById("searchWord_2");
     var searchbtn_2 = document.getElementById("searchbtn_2");
     var aaa= document.getElementById("aaa");
     var par=document.getElementById("searchResult");
     var lodpar=document.getElementById("mcol");
-    var searchword ;
+    var resNumDiv = document.getElementById("resNumDiv");
     var xmlhttp;
-    var searchPaperByKeywordUrl = "http://47.119.130.124:90/searchPaperByKeyword";
+    var searchPaperByKeywordUrl = "http://47.119.130.124:90/searchPaper";
 
-
+    // var searchPaperByKeywordUrl = "http://localhost:90/searchPaper";
 
     function getQueryVariable(variable)
     {
@@ -21,8 +21,17 @@
         return(false);
     }
 
+
+
+        function deleteItem(Obj) {
+            Obj.parentNode.parentNode.removeChild(Obj.parentNode);
+        }
+
+
     window.onload=function(){
-        var sw=getQueryVariable("sw");alert(sw);
+
+        var sw=getQueryVariable("sw");
+        if(sw == false) sw="learning (artificial intelligence)";
         if(window.XMLHttpRequest){
             xmlhttp = new XMLHttpRequest();
         }else{
@@ -30,29 +39,33 @@
 
         }
         var lod = document.createElement("div");
-        lod.setAttribute('class', 'spinner-border');
+        lod.setAttribute('class', 'spinner-grow');
+        lod.setAttribute('style', 'width: 3rem; height: 3rem;');
         lod.setAttribute('id', 'lodTemp');
         var lods=document.createElement("span");
         lods.setAttribute('class', 'sr-only');
         lod.appendChild(lods);
         lodpar.appendChild(lod);
 
-
         xmlhttp.onreadystatechange = function() {
 
             if(xmlhttp.readyState == 4){
 
                 if(xmlhttp.status == 200) {
-                    var str = xmlhttp.responseText;alert(str);
+                    var str = xmlhttp.responseText;
                     var tempRem=document.getElementById("lodTemp");
                     lodpar.removeChild(tempRem);
                     var arr = eval('('+str+')');
+                    var resNumDiv2=document.createElement("div");
+                    resNumDiv2.setAttribute("class","alert alert-primary");
+                    resNumDiv2.setAttribute("role","alert");
+                    resNumDiv2.innerText="搜索词：\""+sw+"\"    已为您搜索到"+arr.length+"个结果！";
+                    resNumDiv.appendChild(resNumDiv2);
                     for(var i=0;i<arr.length;i++){
-                        console.log(arr[i].link);
-
-
                         var cardHeaderDiv=document.createElement("div");
-                        cardHeaderDiv.innerText=arr[i].typeandyear+" —— "+arr[i].releasetime;
+                        cardHeaderDiv.setAttribute("class","typeAndyear");
+                        cardHeaderDiv.setAttribute("style","text-align: right;");
+                        cardHeaderDiv.innerText=arr[i].typeandyear + " —— " + arr[i].releasetime;
 
                         var  cardBodyDiv=document.createElement("div");
                         cardBodyDiv.setAttribute("class","card-body");
@@ -82,10 +95,20 @@
                         var cardDiv = document.createElement("div");
                         cardDiv.setAttribute('class', 'card');
                         cardDiv.setAttribute('style', 'margin:15px;padding:10px;border-radius: 8px;');
+
+                        var deleteButton = document.createElement("button");
+                        deleteButton.setAttribute("type","button");
+                        deleteButton.setAttribute("onclick","deleteItem(this)");
+                        deleteButton.setAttribute("class","btn btn-light");
+                        deleteButton.setAttribute("style","width: 40px;")
+                        deleteButton.innerText = "X";
+                        cardDiv.appendChild(deleteButton);
+
                         cardDiv.appendChild(cardHeaderDiv);
                         cardDiv.appendChild(cardBodyDiv);
                         par.appendChild(cardDiv);
                     }
+
                 }
             }
         }
@@ -94,85 +117,102 @@
         xmlhttp.send("{\"searchKeyword\":\""+sw+"\"}");
     }
 
-
     searchbtn_2.onclick= function(){
-        var sw=getQueryVariable("sw");alert(sw);
-        if(window.XMLHttpRequest){
-            xmlhttp = new XMLHttpRequest();
-        }else{
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
 
+        sw = searchWord_2.value;
+        if (sw.length == 0 ){
+            alert("输入有误！");
         }
-        var lod = document.createElement("div");
-        lod.setAttribute('class', 'spinner-border');
-        lod.setAttribute('id', 'lodTemp');
-        var lods=document.createElement("span");
-        lods.setAttribute('class', 'sr-only');
-        lod.appendChild(lods);
-        lodpar.appendChild(lod);
+        else {
 
-        // <div class="card">
-        //         <div class="card-header">
-        //         Featured
-        //         </div>
-        //         <div class="card-body">
-        //         <h5 class="card-title">Special title treatment</h5>
-        //     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        //     <a href="#" class="btn btn-primary">Go somewhere</a>
-        //     </div>
-        //     </div>
+            try {
+                var id3Div= resNumDiv.getElementsByTagName('div');
+                resNumDiv.removeChild(id3Div[0]);
 
-        xmlhttp.onreadystatechange = function() {
+                var id2Div= par.getElementsByTagName('div');
+                var length = id2Div.length;
+                for (var i = 0; i <length; i++) {
+                    par .removeChild(id2Div[0]);
+                }
+            }catch (e) {
 
-            if(xmlhttp.readyState == 4){
+            }
 
-                if(xmlhttp.status == 200) {
-                    var str = xmlhttp.responseText;alert(str);
-                    var tempRem=document.getElementById("lodTemp");
-                    lodpar.removeChild(tempRem);
-                    var arr = eval('('+str+')');
-                    for(var i=0;i<arr.length;i++){
-                        console.log(arr[i].link);
+            if(window.XMLHttpRequest){
+                xmlhttp = new XMLHttpRequest();
+            }else{
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
+            }
+            var lod = document.createElement("div");
+            lod.setAttribute('class', 'spinner-grow');
+            lod.setAttribute('style', 'width: 3rem; height: 3rem;');
+            lod.setAttribute('id', 'lodTemp');
+            var lods=document.createElement("span");
+            lods.setAttribute('class', 'sr-only');
+            lod.appendChild(lods);
+            lodpar.appendChild(lod);
 
 
-                        var cardHeaderDiv=document.createElement("div");
-                        cardHeaderDiv.innerText=arr[i].typeandyear+" —— "+arr[i].releasetime;
+            xmlhttp.onreadystatechange = function() {
 
-                        var  cardBodyDiv=document.createElement("div");
-                        cardBodyDiv.setAttribute("class","card-body");
+                if(xmlhttp.readyState == 4){
 
-                        var bodyH5=document.createElement("h5");
-                        bodyH5.setAttribute("class","card-title");
-                        bodyH5.innerText=arr[i].title;
-                        cardBodyDiv.appendChild(bodyH5);
+                    if(xmlhttp.status == 200) {
+                        var str = xmlhttp.responseText;
+                        var tempRem=document.getElementById("lodTemp");
+                        lodpar.removeChild(tempRem);
+                        var arr = eval('('+str+')');
+                        var resNumDiv2=document.createElement("div");
+                        resNumDiv2.setAttribute("class","alert alert-primary");
+                        resNumDiv2.setAttribute("role","alert");
+                        resNumDiv2.innerText="搜索词：\""+sw+"\"    已为您搜索到"+arr.length+"个结果！";
+                        resNumDiv.appendChild(resNumDiv2);
+                        for(var i=0;i<arr.length;i++){
+                            console.log(arr[i].link);
 
-                        var bodyP = document.createElement("p");
-                        bodyP.setAttribute("class","card-text");
-                        bodyP.innerText=arr[i].abstractcontext;
-                        cardBodyDiv.appendChild(bodyP);
 
-                        var bodyPB = document.createElement("p");
-                        bodyPB.setAttribute("class","card-text");
-                        bodyPB.setAttribute("style","font-weight: bold;");
-                        bodyPB.innerText="KeyWord: "+arr[i].keyword;
-                        cardBodyDiv.appendChild(bodyPB);
 
-                        var bodyA = document.createElement("a");
-                        bodyA.setAttribute("href",arr[i].link);
-                        bodyA.setAttribute("class","btn btn-primary");
-                        bodyA.innerText="查阅原文";
-                        cardBodyDiv.appendChild(bodyA);
+                            var cardHeaderDiv=document.createElement("div");
+                            cardHeaderDiv.innerText=arr[i].typeandyear+" —— "+arr[i].releasetime;
 
-                        var cardDiv = document.createElement("div");
-                        cardDiv.setAttribute('class', 'card');
-                        cardDiv.setAttribute('style', 'margin:15px;padding:10px;border-radius: 8px;');
-                        cardDiv.appendChild(cardHeaderDiv);
-                        cardDiv.appendChild(cardBodyDiv);
-                        par.appendChild(cardDiv);
+                            var  cardBodyDiv=document.createElement("div");
+                            cardBodyDiv.setAttribute("class","card-body");
+
+                            var bodyH5=document.createElement("h5");
+                            bodyH5.setAttribute("class","card-title");
+                            bodyH5.innerText=arr[i].title;
+                            cardBodyDiv.appendChild(bodyH5);
+
+                            var bodyP = document.createElement("p");
+                            bodyP.setAttribute("class","card-text");
+                            bodyP.innerText=arr[i].abstractcontext;
+                            cardBodyDiv.appendChild(bodyP);
+
+                            var bodyPB = document.createElement("p");
+                            bodyPB.setAttribute("class","card-text");
+                            bodyPB.setAttribute("style","font-weight: bold;");
+                            bodyPB.innerText="KeyWord: "+arr[i].keyword;
+                            cardBodyDiv.appendChild(bodyPB);
+
+                            var bodyA = document.createElement("a");
+                            bodyA.setAttribute("href",arr[i].link);
+                            bodyA.setAttribute("class","btn btn-primary");
+                            bodyA.innerText="查阅原文";
+                            cardBodyDiv.appendChild(bodyA);
+
+                            var cardDiv = document.createElement("div");
+                            cardDiv.setAttribute('class', 'card');
+                            cardDiv.setAttribute('style', 'margin:15px;padding:10px;border-radius: 8px;');
+                            cardDiv.appendChild(cardHeaderDiv);
+                            cardDiv.appendChild(cardBodyDiv);
+                            par.appendChild(cardDiv);
+                        }
+
                     }
                 }
             }
         }
+
         xmlhttp.open("POST",searchPaperByKeywordUrl,true);
         xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
         xmlhttp.send("{\"searchKeyword\":\""+sw+"\"}");
