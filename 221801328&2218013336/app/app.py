@@ -89,52 +89,5 @@ def user_register():
     db.session.commit()
     return jsonify({'status':'ok'})
 
-@app.route('/user/login',methods=['POST'])
-def user_login():
-    pass
-
-#论文导入ECCV
-@app.route('/paper/add',methods=['POST'])
-def addPaper():
-    pass
-
-def judge(key,Json):
-    if (key in Json):
-        return True
-    else:
-        return False
-
-#ECCV
-def resolveJson(path):
-    pass
-
-#论文列表查看
-@app.route('/paper/list',methods=['GET'])
-def getPaper():
-    pass
-
-#论文详情
-@app.route('/paper/<int:numberid>',methods=['GET','POST'])
-def paper_show(numberid):
-    pass
-
-# 论文模糊查询
-@app.route('/paper/search/1/<string:keyword>',methods=['GET'])
-def paper_search1(keyword):
-    pass
-
-#论文模糊查询
-@app.route('/paper/search/2/<string:abstract>',methods=['GET'])
-def paper_search2(abstract):
-    pass
-
-#论文删除
-@app.route('/paper/delete/<string:numberid>',methods=['POST'])
-def paper_delete(numberid):
-    pass
-
-
-
-
 if __name__ == '__main__':
     app.run(debug=True)
