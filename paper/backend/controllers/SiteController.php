@@ -6,6 +6,8 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\PaperSearch;
+use common\models\Keyword;
 
 /**
  * Site controller
@@ -55,7 +57,15 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $keywords=Keyword::findKeywordWeights();
+        $searchModel = new PaperSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'keywords' => $keywords,
+        ]);
     }
 
     public function actionLogin()
