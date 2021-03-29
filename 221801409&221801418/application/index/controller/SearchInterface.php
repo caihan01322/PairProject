@@ -14,4 +14,10 @@ class SearchInterface extends Controller
         $this->assign('try',$haha);
         return view('SearchInterface');
     }
+
+    public function getNoModelData(){
+        $Db = new Db;
+        $data = Db::table('paper')->select();
+        $this->assign("user",$data);
+    }
 }
