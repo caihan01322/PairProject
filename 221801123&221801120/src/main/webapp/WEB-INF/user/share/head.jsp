@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme() + "://"
-            + request.getServerName() + ":" + request.getServerPort()
-            + path + "/";
-    pageContext.setAttribute("basePath", basePath);
-%>
 
 <link rel="stylesheet" href="css/head.css">
 
@@ -18,8 +11,8 @@
     <!-- 导航栏 -->
     <div class="navbar">
         <ul>
-            <li><a href="#">首页</a></li>
-            <li><a href="#">论文列表</a></li>
+            <li><a href="user/index">首页</a></li>
+            <li><a href="user/thesis/list">论文列表</a></li>
             <li><a href="#">热门分析</a></li>
             <li><a href="#">我的收藏</a></li>
             <li><a href="#">帮助</a></li>

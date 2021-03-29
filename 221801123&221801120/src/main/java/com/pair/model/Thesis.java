@@ -39,4 +39,14 @@ public class Thesis implements Serializable {
     public void setLink(String link) {
         this.link = link;
     }
+
+    @Override
+    public String toString() {
+        return "Thesis{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", keyword='" + keyword + '\'' +
+                ", link='" + link + '\'' +
+                '}';
+    }
 }

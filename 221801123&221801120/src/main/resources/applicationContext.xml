@@ -14,7 +14,7 @@
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 自动扫描所有包下面的@Component的bean，千万不能写./ -->
-    <context:component-scan base-package="com.pair.dao.impl,com.pair.service.impl"></context:component-scan>
+    <context:component-scan base-package="com.pair"></context:component-scan>
 
     <context:property-placeholder location="classpath:jdbc.properties"></context:property-placeholder>
 

@@ -47,7 +47,7 @@
     OutputStream os = response.getOutputStream();
     ImageIO.write(image, "JPEG", os);
 
-    //解决非法状态exception
+    /*//解决非法状态exception
     os.flush();
     os.close();
     os=null;
@@ -58,5 +58,5 @@
     catch(IllegalStateException e)
     {
     System.out.println(e.getMessage());
-    e.printStackTrace();
+    e.printStackTrace();*/
 %>

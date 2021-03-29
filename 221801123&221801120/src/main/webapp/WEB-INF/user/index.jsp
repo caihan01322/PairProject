@@ -5,6 +5,13 @@
 <head>
 	<title>主页</title>
 	<meta charset="UTF-8">
+	<%
+		String path = request.getContextPath();
+		String basePath = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ path + "/";
+		pageContext.setAttribute("basePath", basePath);
+	%>
 	<base href="<%=basePath%>">
 </head>
 <body>

@@ -40,7 +40,7 @@
 			<div class="form-inline">
 				<label for="vcode">验证码：</label>
 				<input type="text" name="verify" class="verify_input" id="vcode">
-				<img src="<%=basePath%>varify_code.jsp" onclick="image(this);" class="verify_image">
+				<img id="code" src="varify_code.jsp" onclick="image(this);" class="verify_image">
 			</div>
 
 			<div class="form-group" style="text-align: center;">
@@ -59,4 +59,7 @@
 		</div>
 	</div>
 </body>
+<script>
+	image(document.getElementById("code"));
+</script>
 </html>

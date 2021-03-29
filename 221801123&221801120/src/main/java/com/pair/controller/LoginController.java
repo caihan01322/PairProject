@@ -31,7 +31,7 @@ public class LoginController {
 	/**
 	 * 真正的登录
 	 */
-	@RequestMapping("/login/do")
+	@RequestMapping(value = "/login/do")
 	public String doLogin(String username, String password, String verify, Model model, HttpServletRequest request) {
 
 		if (!DataUtil.isValid(username, password)) {

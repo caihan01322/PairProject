@@ -85,7 +85,6 @@ public class PageBean<T> {
 			pageBeginIndex = currentPage - pre;
 			pageEndIndex = currentPage + rear;
 			//当前页之前不足pre页,显示pageNumber页
-			System.out.println(this.toString());
 			if(pageBeginIndex < 1) {
 				pageBeginIndex = 1;
 				pageEndIndex = pageNumber;

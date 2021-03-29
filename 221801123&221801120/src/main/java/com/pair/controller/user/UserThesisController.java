@@ -29,7 +29,7 @@ public class UserThesisController {
      * 论文列表
      */
     @RequestMapping("/list")
-    public String list(String pn, String title, String id, String keyword, Model model) {
+    public String list(String pn, String title, String id, String content, Model model) {
         int pageCode = DataUtil.getPageCode(pn);
         String where = " where 1 = 1 ";
         List<Object> params = new ArrayList<Object>(1);
@@ -41,7 +41,6 @@ public class UserThesisController {
         }
         PageBean<Thesis> pageBean = thesisService.pageSearch(pageCode, pageSize, pageNumber, where, params, null);
         model.addAttribute("pageBean", pageBean);
-        //model.addAttribute("name", name);
         return "user/thesis_list";
     }
 }
