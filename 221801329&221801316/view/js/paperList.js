@@ -7,11 +7,22 @@ var instance = axios.create({
 })
 var searchStmt = '';
 
+// var isLogin = window.sessionStorage.getItem('isLogin')
+// if (!isLogin) window.location.href = 'login.html'
+
+
 function getPaperList(pageNum) {
+
     searchStmt = document.getElementById("search-text").value;
-    instance.get('/queryByAuthor', {
+    var offset = document.getElementById('checklist').value;
+    console.log(offset)
+    var router = '';
+    if (offset === 'author') router = '/queryByAuthor'
+    else if (offset === 'title') router = '/queryByTitle'
+    else if (offset === 'keyword') router = '/queryByKeyword'
+    instance.get(router, {
             params: {
-                start: pageNum,
+                start: pageNum * 10,
                 rows: 10,
                 author: searchStmt
             }
@@ -47,6 +58,12 @@ function getPaperList(pageNum) {
                         }
                     }
                     keywordStr = keywordStr.slice(0, -1);
+                    var sytle = "like";
+                    var link = globalBaseURL + '/'
+                    var src = '../img/gary-star.svg'
+                    if (list[k].isLike === true) {
+                        src = '../img/orange-star.svg'
+                    }
                     panel.innerHTML = panel.innerHTML +
                         "<div class=\"paper-list\" id=" +
                         element.id +
@@ -64,7 +81,9 @@ function getPaperList(pageNum) {
                         "<p><span class=\"paper-keyword\">[Keyword]</span>" +
                         "<span class=\"paper-keyword-list\">" +
                         keywordStr +
-                        "</span></p></div>"
+                        "</span></p>" +
+                        "<img src=" + src + ' onclick=like(' + list[k].id + ')' + ' id=Like' + list[k].id + ' class=' + sytle + '>'
+                    "</div>"
                 }
                 initPagination(pageNum, list['totalPage']);
             }
@@ -72,8 +91,15 @@ function getPaperList(pageNum) {
         .then(function(error) {
             console.log(error);
         })
+}
 
+function like(data) {
 
+    console.log(data)
+    var ID = 'Like' + data;
+    var star = document.getElementById(ID);
+    var src = star.getAttribute('src');
+    star.setAttribute('src', (src == '../img/gary-star.svg') ? '../img/orange-star.svg' : '../img/gary-star.svg');
 }
 
 function initPagination(currentPage, totalPage) {
@@ -96,12 +122,8 @@ function initPagination(currentPage, totalPage) {
         }
     }
     var str = '<nav aria-label="Page navigation">' +
-        '<ul class="pagination">' +
-        '<li>' +
-        '<a href=' +
-        ' aria-label="Previous">' +
-        '<span aria-hidden="true">&laquo;</span>' +
-        '</a></li>';
+        '<ul class="pagination">';
+
     for (var i = start; i <= end; i++) {
         if (currentPage == i - 1) {
             var li = "<li class=\"active\"><a onclick=getPaperList(" + (i - 1) + ")>" + i + "</a></li>";
@@ -110,10 +132,7 @@ function initPagination(currentPage, totalPage) {
         }
         str += li;
     }
-    str += '<li>' +
-        '<a href=' + +' aria-label="Next">' +
-        '<span aria-hidden="true">&raquo;</span>' +
-        '</a></li></ul></nav>'
+    str += '</ul></nav>'
     panel.innerHTML = panel.innerHTML + str;
 }
 

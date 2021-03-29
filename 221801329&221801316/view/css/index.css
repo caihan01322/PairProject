@@ -1,21 +1,31 @@
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+}
+
 .block {
     text-align: center;
     margin: 0, auto;
-    height: auto;
+    height: 100%;
     margin: auto;
 }
 
 .left-bar,
 .right-bar {
     width: 20%;
-    height: 780px;
+    height: 100%;
     /* background-color: aqua; */
     float: left;
 }
 
 .main-content {
     width: 60%;
-    height: 780px;
+    height: 100%;
     /* overflow: auto; */
     /* background-color:black; */
     float: left;
@@ -27,12 +37,11 @@
     /*background-color: blue;*/
     display: flex;
     align-items: center;
-
 }
 
 .bottom-box {
     width: 100%;
-    height: 93%;
+    height: 100%;
     border-style: solid;
     border-width: 1px;
     border-color: #efefef;
@@ -56,7 +65,6 @@
 .main-panel::-webkit-scrollbar-track {
     background: rgb(202, 202, 202);
     border-radius: 2px;
-
 }
 
 .main-panel::-webkit-scrollbar-thumb {
@@ -150,7 +158,6 @@
     font-style: normal;
     font-size: 20px;
     color: rgb(85, 85, 85);
-
 }
 
 .project-title {
@@ -221,15 +228,20 @@
     float: left;
 }
 
+.search-checklist {
+    width: 10%;
+    margin-left: 3%;
+}
+
 #search-form {
-    width: 100%;
+    width: 90%;
 }
 
 #search-text {
     width: 90%;
     height: 50%;
     vertical-align: middle;
-    margin-left: 3%;
+    /* margin-left: 3%; */
     float: left;
 }
 
@@ -239,6 +251,7 @@
 }
 
 .paper-list {
+    position: relative;
     margin-top: 20px;
     margin-left: 5%;
     width: 90%;
@@ -292,7 +305,6 @@ li {
     height: auto;
     transition: all 1.5s;
     cursor: pointer;
-
 }
 
 .img-box:hover {
@@ -318,4 +330,19 @@ li {
     background-color: wheat;
     top: 58%;
     left: 5%;
+}
+
+#container {
+    min-width: 310px;
+    max-width: 800px;
+    margin: 0 auto
+}
+
+.like {
+    position: absolute;
+    top: 2%;
+    left: 95%;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
 }
