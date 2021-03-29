@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>图表分析</title>
+    <title>关键词TOP10</title>
     <link rel="stylesheet" type="text/css" href="css/indexmain.css"/>
     <script src="./echarts.min.js"></script>
 </head>

@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>热门领域</title>
+    <title>热词走势</title>
     <link rel="stylesheet" type="text/css" href="css/indexmain.css"/>
     <script src="./echarts.min.js"></script>
 </head>
@@ -33,8 +33,8 @@
                  <li class="icon"><a href="dopapersearch?cp=1"><i><img src="./ImageResources/database.png"></i>论文管理</a></li>
                  <li class="icon">
                  	<div><a href="index.jsp"><i><img src="./ImageResources/fund.png"></i>论文分析</a></div>
-                 	<div class="titleright"><a href="DoPaperPie?">图表分析</a></div>
-                 	<div class="titleright"><a href="DoPaperLine?year=2017">热门领域</a></div>
+                 	<div class="titleright"><a href="DoPaperPie?">关键词TOP10</a></div>
+                 	<div class="titleright"><a href="DoPaperLine?year=2017">热词走势</a></div>
                  </li>
                  <li class="icon"><a href="index_four.jsp"><i><img src="./ImageResources/read.png"></i>背景知识</a></li>
             </ul>

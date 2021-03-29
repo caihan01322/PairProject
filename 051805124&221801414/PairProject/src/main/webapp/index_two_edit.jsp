@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>论文列表修改</title>
+    <title>论文详情</title>
     <link rel="stylesheet" type="text/css" href="css/indexmain.css"/>
 </head>
 <body>
