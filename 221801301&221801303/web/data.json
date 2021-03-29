@@ -1,8 +1,0 @@
-{"code":0,
-	"msg":"",
-	"count":1000,
-	"data":[
-	{"title":"论文1","abstract":"论文研究了一个非常新颖的课题，那就是研究视觉任务之间的关系，根据得出的关系可以帮助在不同任务之间做迁移学习。该论文提出了「Taskonomy」——一种完全计算化的方法，可以量化计算大量任务之间的关系，从它们之间提出统一的结构，并把它作为迁移学习的模型。实验设置上，作者首先找来一组一共 26 个任务，当中包括了语义、 2D、2.5D、3D 任务，接着为任务列表里的这 26 个任务分别训练了 26 个任务专用神经网络。","keywords":"Taskonomy,Disentangling,Task,Transfer,Learning","authors":"城市-0","doilink":"http://taskonomy.stanford.edu/taskonomy_CVPR2018.pdf"},
-	{"title":"论文2","abstract":"论文研究了一个非常新颖的课题，那就是研究视觉任务之间的关系，根据得出的关系可以帮助在不同任务之间做迁移学习。该论文提出了「Taskonomy」——一种完全计算化的方法，可以量化计算大量任务之间的关系，从它们之间提出统一的结构，并把它作为迁移学习的模型。实验设置上，作者首先找来一组一共 26 个任务，当中包括了语义、 2D、2.5D、3D 任务，接着为任务列表里的这 26 个任务分别训练了 26 个任务专用神经网络。","keywords":"Taskonomy,Disentangling,Task,Transfer,Learning","authors":"城市-0","doilink":"http://taskonomy.stanford.edu/taskonomy_CVPR2018.pdf"},
-	{"title":"论文3","abstract":"论文研究了一个非常新颖的课题，那就是研究视觉任务之间的关系，根据得出的关系可以帮助在不同任务之间做迁移学习。该论文提出了「Taskonomy」——一种完全计算化的方法，可以量化计算大量任务之间的关系，从它们之间提出统一的结构，并把它作为迁移学习的模型。实验设置上，作者首先找来一组一共 26 个任务，当中包括了语义、 2D、2.5D、3D 任务，接着为任务列表里的这 26 个任务分别训练了 26 个任务专用神经网络。","keywords":"Taskonomy,Disentangling,Task,Transfer,Learning","authors":"城市-0","doilink":"http://taskonomy.stanford.edu/taskonomy_CVPR2018.pdf"}
-	]}

@@ -8,6 +8,7 @@
 	  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	  <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
     <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.js"></script>
 </head>
 <body>
 	<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
@@ -16,104 +17,171 @@
 	    <li>ICCV</li>
 	    <li>ECCV</li>
 	  </ul>
-	  <div class="layui-tab-content" style="height: 100px;">
+	<div class="layui-tab-content" style="height: 100px;">
 	    <div class="layui-tab-item layui-show">
-		
 			<!-- cvpr的数据展示 -->
-			<div id="CVPR" style="width: 600px;height:400px;"></div>
+			<div id="CVPR" style="width: 1000px;height:600px;"></div>
 			<script type="text/javascript">
-			    // 基于准备好的dom，初始化echarts实例
-			    var myChart = echarts.init(document.getElementById('CVPR'));
-			
-			    // 指定图表的配置项和数据
-			    var option = {
-			        title: {
-			            text: 'CVPR热词走势'
-			        },
-			        tooltip: {},
-			        legend: {
-			            data:['销量']
-			        },
-			        xAxis: {
-			            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-			        },
-			        yAxis: {},
-			        series: [{
-			            name: '销量',
-			            type: 'bar',
-			            data: [5, 20, 36, 10, 10, 20]
-			        }]
-			    };
-			
-			    // 使用刚指定的配置项和数据显示图表。
-			    myChart.setOption(option);
+				$(function(){
+					$.ajax({
+						"url":"http://47.111.17.116:8080/getCVPR",
+						"type":"Get",
+						"success":function(data){
+							// 基于准备好的dom，初始化echarts实例
+							var myChart = echarts.init(document.getElementById('CVPR'));
+							var keyword=[];
+							var num=[];
+							for(var i=0;i<data.length;i++){
+								keyword.push(data[i].keyword);
+								num.push(data[i].num);
+							}
+							console.log(keyword);
+							console.log(num);		
+							// 指定图表的配置项和数据
+							var option = {
+							    title: {
+							        text: 'CVPR热词走势'
+							    },
+							    tooltip: {},
+							    legend: {
+							        data:['点击量']
+							    },
+							    xAxis: {
+							        data:keyword,
+									axisLabel:{
+										interval:0,
+										rotate:30
+									}
+							    },
+								grid:{
+									left:"10%",
+									bottom:"35%"
+								},
+							    yAxis: {},
+							    series: [{
+							        name: '点击量',
+							        type: 'bar',
+							        data: num
+							    }]
+							};
+										
+							// 使用刚指定的配置项和数据显示图表。
+							myChart.setOption(option);
+						}
+					})
+				})
 			</script>
 		</div>
 		
 		<!-- iccv -->
 	    <div class="layui-tab-item">
-			<div id="ICCV" style="width: 600px;height:400px;"></div>
-			<script type="text/javascript">
-			    // 基于准备好的dom，初始化echarts实例
-			    var myChart = echarts.init(document.getElementById('ICCV'));
-			
-			    // 指定图表的配置项和数据
-			    var option = {
-			        title: {
-			            text: 'ICCV热词走势'
-			        },
-			        tooltip: {},
-			        legend: {
-			            data:['销量']
-			        },
-			        xAxis: {
-			            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-			        },
-			        yAxis: {},
-			        series: [{
-			            name: '销量',
-			            type: 'bar',
-			            data: [5, 20, 36, 10, 10, 20]
-			        }]
-			    };
-			
-			    // 使用刚指定的配置项和数据显示图表。
-			    myChart.setOption(option);
+			<div id="ICCV" style="width: 1000px;height:600px;"></div>
+			<script>
+				$(function(){
+						$.ajax({
+							"url":"http://47.111.17.116:8080/getICCV",
+							"type":"Get",
+							"success":function(data){
+								// 基于准备好的dom，初始化echarts实例
+								var myChart = echarts.init(document.getElementById('ICCV'));
+								var keyword=[];
+								var num=[];
+								for(var i=0;i<data.length;i++){
+									keyword.push(data[i].keyword);
+									num.push(data[i].num);
+								}
+								console.log(keyword);
+								console.log(num);		
+								// 指定图表的配置项和数据
+								var option = {
+									title: {
+										text: 'ICCV热词走势'
+									},
+									tooltip: {},
+									legend: {
+										data:['点击量']
+									},
+									xAxis: {
+										data:keyword,
+										axisLabel:{
+											interval:0,
+											rotate:30
+										}
+									},
+									grid:{
+										left:"10%",
+										bottom:"35%"
+									},
+									yAxis: {},
+									series: [{
+										name: '点击量',
+										type: 'bar',
+										data: num
+									}]
+								};
+											
+								// 使用刚指定的配置项和数据显示图表。
+								myChart.setOption(option);
+							}
+						})
+					})
 			</script>
 		</div>
 		
 	    <div class="layui-tab-item">
-			<div id="ECCV" style="width: 600px;height:400px;"></div>
-			<script type="text/javascript">
-			    // 基于准备好的dom，初始化echarts实例
-			    var myChart = echarts.init(document.getElementById('ECCV'));
-			
-			    // 指定图表的配置项和数据
-			    var option = {
-			        title: {
-			            text: 'ECCV热词走势'
-			        },
-			        tooltip: {},
-			        legend: {
-			            data:['销量']
-			        },
-			        xAxis: {
-			            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-			        },
-			        yAxis: {},
-			        series: [{
-			            name: '销量',
-			            type: 'bar',
-			            data: [5, 20, 36, 10, 10, 20]
-			        }]
-			    };
-			
-			    // 使用刚指定的配置项和数据显示图表。
-			    myChart.setOption(option);
+			<div id="ECCV" style="width: 1000px;height:600px;"></div>
+			<script>
+				$(function(){
+						$.ajax({
+							"url":"http://47.111.17.116:8080/getECCV",
+							"type":"Get",
+							"success":function(data){
+								// 基于准备好的dom，初始化echarts实例
+								var myChart = echarts.init(document.getElementById('ECCV'));
+								var keyword=[];
+								var num=[];
+								for(var i=0;i<data.length;i++){
+									keyword.push(data[i].keyword);
+									num.push(data[i].num);
+								}
+								console.log(keyword);
+								console.log(num);		
+								// 指定图表的配置项和数据
+								var option = {
+									title: {
+										text: 'ECCV热词走势'
+									},
+									tooltip: {},
+									legend: {
+										data:['点击量']
+									},
+									xAxis: {
+										data:keyword,
+										axisLabel:{
+											interval:0,
+											rotate:30
+										}
+									},
+									grid:{
+										left:"10%",
+										bottom:"35%"
+									},
+									yAxis: {},
+									series: [{
+										name: '点击量',
+										type: 'bar',
+										data: num
+									}]
+								};
+											
+								// 使用刚指定的配置项和数据显示图表。
+								myChart.setOption(option);
+							}
+						})
+					})
 			</script>
-		</div>
-	  </div>
-	</div> 
+		</div> 
+	</div>
 	
 	<script src="../layui/layui.js" charset="utf-8"></script>
 	<!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
