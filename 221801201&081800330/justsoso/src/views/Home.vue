@@ -39,7 +39,7 @@
 
 
     <SearchList v-if="currentTab===1"
-                 v-model="searchWord" :searchInput="searchInput"/>
+                 :searchWord="searchWord" :searchInput="searchInput"/>
     <statisticList v-if="currentTab===2"/>
     <CollectionList v-if="currentTab===3"
                  :searchInput="searchInput"/>

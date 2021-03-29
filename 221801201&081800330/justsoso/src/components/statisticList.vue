@@ -24,8 +24,8 @@
 
     </div>
 
-      <SearchList ref="searchList"
-          v-model="hotTrendWord" :searchInput="searchInput"/>
+<!--      <SearchList ref="searchList2" v-if="hotTrendWord!==''"-->
+<!--          :searchWord="this.hotTrendWord" :searchInput="searchInput"/>-->
   </div>
 </template>
 
@@ -33,13 +33,13 @@
 
 import wordcloud from 'vue-wordcloud'
 import axios from "axios";
-import SearchList from "@/components/SearchList";
+// import SearchList from "@/components/SearchList";
 
 export default {
   name:"statisticList",
   components:{
     wordcloud,
-    SearchList
+    // SearchList
   },
   data(){
     return {
@@ -47,7 +47,7 @@ export default {
       top40Data:[],
       top10LegendData:[],
       top10Data:[],
-      hotTrendWord:'',
+      hotTrendWord:'training',
       CVPRData:[],
       ICCVData:[],
       ECCVData:[]
@@ -60,7 +60,9 @@ export default {
     hotTrendWord(){
       this.$message.success('!!!!!!!!!!!!!!!!!!!!')
       this.fillHotWordChart()
-      this.$refs.searchList.search()
+      // this.$refs.searchList2.$props.searchWord=this.hotTrendWord
+      // Object.assign(this.$refs.searchList2.$data, this.$refs.searchList2.$options.data())
+      // this.$refs.searchList2.search()
     },
     CVPRData(){
       this.drawLineChart()

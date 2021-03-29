@@ -6,7 +6,6 @@
                    size="medium"></el-checkbox>
       <el-checkbox-group v-model="checkedPapers" @change="handleCheckedPapersChange">
         <Essay v-for="paper in searchPapers"
-               v-model="searchWord"
                v-bind:id="paper.artical.academicNum"
                v-bind:link="paper.artical.link"
                v-bind:title="paper.artical.title"
@@ -28,12 +27,9 @@ import axios from "axios";
 export default {
   name:'SearchList',
   components:{Essay},
-  model:{
-    prop:"searchWord",
-    event:"search-event"
-  },
   props:{
     searchInput:{},
+    searchWord:{}
   },
   data(){
     return{
@@ -170,10 +166,11 @@ export default {
     }
   },
   created(){
-    this.searchWord=this.$route.query.searchWord;
-    this.search()
+
   },
   mounted(){
+    this.searchWord=this.$route.query.searchWord;
+    this.search()
     //事件监听
     window.addEventListener('scroll',this.listenBottomOut)
   },
