@@ -114,5 +114,12 @@ class PaperController extends Controller
      * @return Paper the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-
+    protected function findModel($id)
+    {
+        if (($model = Paper::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
 }
