@@ -10,46 +10,65 @@
     <link rel="stylesheet" href={{url_for("static",filename="css/header.css" )}}>
     <link rel="stylesheet" href={{url_for("static",filename="css/login.css" )}}>
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src={{url_for("static",filename="js/ajax.js")}}></script>
     <title>Sign in</title>
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <nav class="navigater">
-                <div class="logo">
-                    <img src={{url_for("static",filename="images/favicon.png" )}} alt="logo" class="image" />
-                    <h3 class="title">iPaper</h3>
-                </div>
-                <ul class=" menu">
-                    <li class="nav-item"><a href={{url_for("index")}} class="nav-href">Home</a></li>
-                    <li class="nav-item"><a href={{url_for("search_view")}} class="nav-href">Search</a></li>
-                    <li class="nav-item"><a href="./contact.html" class="nav-href">Contact</a></li>
-                    <!-- <li class="nav-item"><a href="{{url_for("hot_keywords_view")}}" class="nav-href">热词</a></li> -->
-                    <li class="nav-item"><a href={{url_for("login_view")}} class="nav-href active">Sign in</a></li>
-                </ul>
-            </nav>
-        </header>
-        <main>
-            <div class="main-top">
-                <h3 class="login-title">Sign in</h3>
-                <p class="main-para">You don't have a password? Then please</p>
-                <p class="main-href"><a href={{url_for("register_view")}} class="main-href ">Sign up</a></p>
+    <header>
+        <nav class="navigater">
+            <div class="logo">
+                <img src={{url_for("static",filename="images/favicon.png" )}} alt="logo" class="image" />
+                <h3 class="title">iPaper</h3>
             </div>
-            <form method="POST" action="/login">
-                <fieldset class="login-form">
-                    <input type="text" name="email" placeholder="  请输入邮箱账号" class="form-item">
-                    <input type="password" name="password" placeholder="  请输入密码" class="form-item"><br />
-                    <div class="choose"><input type="checkbox" name="remember" class="form-check"><span
-                            class="check-content">Remember
-                            me</span></div>
-                    <input type="submit" value="Sign in" class="mdc-button mdc-button--raised form-btn" id="login">
-                </fieldset>
-            </form>
-        </main>
-    </div>
+            <ul class=" menu">
+                <li class="nav-item"><a href={{url_for("index")}} class="nav-href">Home</a></li>
+                <li class="nav-item"><a href={{url_for("search_view")}} class="nav-href">Search</a></li>
+                <li class="nav-item"><a href="./contact.html" class="nav-href">Contact</a></li>
+                <!-- <li class="nav-item"><a href="{{url_for("hot_keywords_view")}}" class="nav-href">热词</a></li> -->
+                <li class="nav-item"><a href={{url_for("login_view")}} class="nav-href active">Sign in</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="main-top">
+            <h3 class="login-title">Sign in</h3>
+            <p class="main-para">You don't have a password? Then please</p>
+            <p class="main-href"><a href={{url_for("register_view")}} class="main-href ">Sign up</a></p>
+        </div>
+        <form method="POST">
+            <fieldset class="login-form">
+                <input type="text" placeholder="  请输入邮箱账号" class="form-item" id="email">
+                <input type="password" placeholder="  请输入密码" class="form-item" id="password"><br />
+                <div class="choose"><input type="checkbox" class="form-check" name="remember"><span
+                        class="check-content">Remember
+                        me</span></div>
+                <button class="mdc-button mdc-button--raised form-btn" id="login">Sign in</button>
+            </fieldset>
+        </form>
+    </main>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script>
+        $("#login").click(function () {
+            var email=$("#email").val();
+            var password=$("#password").val();
+            var remember;
+            $("input[name='remember']").each(function(){
+                remember=$(this).val();
+            })
+            $.ajax({
+                data: { 'email': email, 'password': password, 'remember': remember },
+                url: '/login',
+                type: 'post',
+                cache: false,
+                dataType: 'json',
+                async: false,
+                success: function (data) {
+                    alert(data.message);
+                    console.log(data);
+                }
+            })
+        })
+    </script>
 </body>
 
 </html>
