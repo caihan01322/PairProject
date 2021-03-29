@@ -23,10 +23,9 @@ public class ArticalController
     @GetMapping("/search")
     public ajAxResponse search(@RequestParam String keyword,@RequestParam(required = false)Integer pageNum)
     {
-
         List<Artical> list = articalService.searchArtical(keyword);
         List<FullArtical> full = new ArrayList<FullArtical>();
-        int totalNum = (list.size()/5 )+(list.size()==0?0:1);
+        int totalNum = (list.size()/5 )+(list.size()%5==0?0:1) -1;
 
         if(pageNum == null)
         {
