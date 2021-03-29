@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="test.HotWord" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,143 +19,127 @@
             Paper管理平台
         </div>
         <div class="items">
-        <a class="btn_head" href="Head.jsp">首页</a>
+        <a class="btn_head" href="DoUserSelcet?">首页</a>
         <a class="btn_manage" href="Delete.jsp">论文管理</a>
-        <a class="btn_analysis_active" href="Analysis.jsp">论文分析</a>
+        <a class="btn_analysis_active" href="DoICCVSelect?">论文分析</a>
         </div>
     </div>
 
     <div class="tab">
         <a class="btn_word_active btn">热词走势</a>
-        <a class="btn_key btn">关键词图谱</a>
+        <a class="btn_key btn" href="DoTopSelect?">关键词图谱</a>
+        <a class="btn_ICCV mt" href="DoICCVSelect?">ICCV</a>
+	    <a class="btn_ECCV mt" href="DoECCVSelect?">ECCV</a>
+	    <a class="btn_CVPR mt" href="DoCVPRSelect?">CVPR</a>
         <div class="box" id="main"></div>
-        <div class="box2 box">456</div>
     </div>
+    
     <script type="text/javascript">
-        var myChart = echarts.init(document.getElementById('main'));
+    	var myChart = echarts.init(document.getElementById('main'));
+    	var mt = document.querySelectorAll('.mt')
+    	var arr=[];
+    	var names=[];
+    	var obj={
+    		name:'',
+    		type:'',
+    		data:[],
+    	};
+    	<%
+    	ArrayList<HotWord> list = (ArrayList<HotWord>)request.getAttribute("dataList");
+    	String title = (String)request.getAttribute("title");
+    	if(title != null){
+    	if(title.equals("ICCV")){
+    	%>
+    		mt[0].style.backgroundColor = '#599AEF';
+        	mt[0].style.color = '#fff'
+    	<%
+    	}
+    	if(title.equals("ECCV")){
+    	%>
+    		mt[1].style.backgroundColor = '#599AEF';
+        	mt[1].style.color = '#fff'
+    	<%
+    	}
+    	if(title.equals("CVPR")){
+    	%>
+    		mt[2].style.backgroundColor = '#599AEF';
+        	mt[2].style.color = '#fff'
+    	<%	
+    	}
+    	}
+    	if(list != null){
+    	for(HotWord hw : list)
+    	{
+    	%>
+    		console.log("<%=hw.getWordString()%>");
+    		names.push("<%=hw.getWordString()%>");
+    		obj.name= ("<%=hw.getWordString()%>");
+    		obj.type='line';
+    		obj.data= <%=hw.getWordList()%>;
+    		arr.push(Object.assign({},obj));
+    	<%
+    	}
+    	}
+    	%>
         var option;
         option = {
-    title: {
-        text: '热词变化趋势',
-        x:"center"
-    },
-    tooltip: {
-        trigger: 'axis'
-    },
-    legend: {
-        orient:"horizontal",
-        x:"right",
-        y:"bottom",
-        padding: 0,
-        data: ['word1', 'word2', 'word3', 'word4', 'word5', 'word6', 'word7', 'word8', 'word9', 'word10']
-    },
-    grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-    },
-    toolbox: {
-        feature: {
-            saveAsImage: {}
-        }
-    },
-    xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020']
-    },
-    yAxis: {
-        type: 'value'
-    },
-    series: [
-        {
-            name: 'word1',
-            type: 'line',
-            stack: '总量',
-            data: [120, 132, 101, 134, 90, 230, 210,200]
-        },
-        {
-            name: 'word2',
-            type: 'line',
-            stack: '总量',
-            data: [220, 182, 191, 234, 290, 330, 310,200]
-        },
-        {
-            name: 'word3',
-            type: 'line',
-            stack: '总量',
-            data: [150, 232, 201, 154, 190, 330, 410,200]
-        },
-        {
-            name: 'word4',
-            type: 'line',
-            stack: '总量',
-            data: [320, 332, 301, 334, 390, 330, 320,200]
-        },
-        {
-            name: 'word5',
-            type: 'line',
-            stack: '总量',
-            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
-        },
-        {
-            name: 'word6',
-            type: 'line',
-            stack: '总量',
-            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
-        },
-        {
-            name: 'word7',
-            type: 'line',
-            stack: '总量',
-            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
-        },
-        {
-            name: 'word8',
-            type: 'line',
-            stack: '总量',
-            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
-        },
-        {
-            name: 'word9',
-            type: 'line',
-            stack: '总量',
-            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
-        },
-        {
-            name: 'word10',
-            type: 'line',
-            stack: '总量',
-            data: [820, 932, 901, 934, 1290, 1330, 1320,200]
-        },
-    ]
-};
-        
-        myChart.setOption(option);
+		    title: {
+		        text: '2017~2020<%=title%>热词变化趋势',
+		        x:"center"
+		    },
+		    tooltip: {
+		        trigger: 'axis'
+		    },
+		    legend: {
+		    	type:'scroll',
+		        orient:"horizontal",
+		        x:"right",
+		        y:"bottom",
+		        padding: 0,
+		        data:names,
+		    },
+		    grid: {
+		        left: '3%',
+		        right: '4%',
+		        bottom: '3%',
+		        containLabel: true
+		    },
+		    toolbox: {
+		        feature: {
+		            saveAsImage: {}
+		        }
+		    },
+		    xAxis: {
+		        type: 'category',
+		        boundaryGap: false,
+		        data: ['2017', '2018', '2019','2020']
+		    },
+		    yAxis: {
+		        type: 'value',
+		    },
+		    series:arr,
+		};
+	myChart.setOption(option);
     </script>
     <script>
         var btn = document.querySelectorAll(".btn")
         var box = document.querySelectorAll('.box')
-        for(var i = 0; i < btn.length;i++){
-            btn[i].index = i
-            btn[i].addEventListener('click',function(e){
+        var mt = document.querySelectorAll('.mt')
+      
+        for(var i = 0;i < mt.length;i++){
+        	mt[i].index = i;
+        	mt[i].addEventListener('click',function(e){
+        		for(let j = 0;j < mt.length;j++){
+        			mt[index].style.display = 'inline-block'
+                	mt[j].style.backgroundColor = '#fff';
+                    mt[j].style.color = '#BEBEBE';
+            	}
+        		var index = e.target.index;
+        		mt[index].style.backgroundColor = '#599AEF';
+                mt[index].style.color = '#fff'
                 
-                for(let j = 0; j <box.length;j++){
-                    box[j].style.display = 'none';
-                }
-                for(let j = 0; j <btn.length;j++){
-                    btn[j].style.backgroundColor = '#fff';
-                    btn[j].style.color = '#BEBEBE';
-                }
-
-                var index = e.target.index;
-                btn[index].style.backgroundColor = '#599AEF';
-                btn[index].style.color = '#fff'
-                box[index].style.display = 'block'
-            })
+        	})
         }
-        
     </script>
 </body>
 </html>
