@@ -11,23 +11,44 @@ class taganalysis extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'data—_pager';
+        return 'taganalysis';
     }
 
-    public static function getDataPagertw(){
-        return taganalysis::find()->where(['year'=>2020])->all();
+    public static function getDataPagercvrp(){
+        return taganalysis::find()->where([
+
+            'AND',
+        
+            ['year' => 2020],
+        
+            ['type' => 'CVPR'],
+        
+        ])->orderBy('frequency DESC')->asArray()->all();
 
     }
-    public static function getDataPagerni(){
-        return taganalysis::find()->where(['year'=>2019])->all();
+    public static function getDataPagereccv(){
+        return taganalysis::find()->where([
+
+            'AND',
+        
+            ['year' => 2020],
+        
+            ['type' => 'ECCV'],
+        
+        ])->orderBy('frequency DESC')->asArray()->all();
 
     }
-    public static function getDataPagerei(){
-        return taganalysis::find()->where(['year'=>2018])->all();
+    public static function getDataPagericcv(){
+        return taganalysis::find()->where([
+
+            'AND',
+        
+            ['year' => 2019],
+        
+            ['type' => 'ICCV'],
+        
+        ])->orderBy('frequency DESC')->asArray()->all();
 
     }
-    public static function getDataPagerse(){
-        return taganalysis::find()->where(['year'=>2017])->all();
 
-    }
 }
