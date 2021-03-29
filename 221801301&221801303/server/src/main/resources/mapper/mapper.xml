@@ -105,7 +105,7 @@
     </select>
     <select id="getPaperByAuthor" resultType="com.fzu.server.pojo.Paper">
         <bind name="name" value="'%'+_parameter+'%'"/>
-        select * from paper where id = (select pid from author where author like #{name}) limit 50;
+        select * from paper where id in (select DISTINCT pid from author where author like #{name}) limit 50;
     </select>
     <select id="getKeyword" resultType="java.lang.String">
         select keyword from keyword where pid = #{id} limit 5;
