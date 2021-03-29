@@ -1,0 +1,35 @@
+.list{
+    margin: 15px;
+}
+table{
+    background: rgba(255, 255, 255, 0.705);
+}
+.table-item{
+    height: 50px;
+    margin:5px 0 5px;
+}
+.art-title{
+    border-bottom: 1px solid rgb(180, 180, 180);
+}
+.art-btn{
+    margin: 10px 0;
+}
+.table-href{
+    color: white;
+}
+.list-foot{ 
+    margin:5px auto;
+    width: max-content;   
+}
+.current-page{
+    display: block;
+    margin: 10px auto;
+    color: #514A4A;
+    text-align: center;
+}
+.page-href{
+    color:white;    
+}
+.page-choose{
+    color: #514A4A;
+}

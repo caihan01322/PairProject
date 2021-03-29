@@ -1,7 +1,7 @@
 .nav-left{
     float: left;
     width: 15%;
-    margin-top: 30px;
+    margin-top: 10px;
     background: #BDC9FB;
 }
 .menu-item{
@@ -22,8 +22,8 @@ i{
     float: left;
     width: 85%;
     min-height: 600px;
-    margin-top: 30px;
-    background: #FDCCC8;
+    margin-top: 10px;
+    background: #fdccc88e;
 
 }
 .form-item{
