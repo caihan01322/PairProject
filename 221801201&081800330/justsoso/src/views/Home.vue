@@ -32,6 +32,7 @@
 
     <SearchList v-if="currentTab===1"
                  v-model="searchWord" :searchInput="searchInput"/>
+    <statisticList v-if="currentTab===2"/>
     <CollectionList v-if="currentTab===3"
                  :searchInput="searchInput"/>
 
@@ -43,10 +44,11 @@
 <script>
 import SearchList from "@/components/SearchList";
 import CollectionList from "@/components/collectionList";
+import StatisticList from "@/components/statisticList";
 
 export default {
   name:'Home',
-  components:{CollectionList,SearchList},
+  components:{StatisticList,CollectionList,SearchList},
   data(){
     return {
       searchInput:'',
