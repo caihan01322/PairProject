@@ -6,6 +6,7 @@
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
     <script src="js/myJs/loginJs.js"></script>
     <link rel="stylesheet" type="text/css" href="css/myCss/loginCss.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 </head>
 <body>
 <div class="login-register">
@@ -13,21 +14,21 @@
         <div class="big-box">
             <div class="big-contain login">
                 <div class="btitle">用户登录</div>
-                <form class="bform" th:action="@{/login}" method="post">
+                <form id="login-form" class="bform" th:action="@{/login}" method="post">
                     <span class="errTips" th:text="${msg}"></span>
-                    <input type="text" placeholder="用户名" name="userName"/>
-                    <input type="password" placeholder="密码" name="password"/>
-                    <button type="submit" id="login" class="bbutton">登录</button>
+                    <input id="login-username" type="text" placeholder="用户名" name="userName"/>
+                    <input id="login-password" type="password" placeholder="密码" name="password"/>
                 </form>
+                <button id="login" class="bbutton">登录</button>
             </div>
             <div class="big-contain register" style="display: none">
                 <div class="btitle">注册账户</div>
-                <form class="bform" th:action="@{/register}" method="post">
+                <form id="register-form" class="bform" th:action="@{/register}" method="post">
                     <span class="errTips" th:text="${msg}"></span>
-                    <input type="text" placeholder="用户名" name="userName"/>
-                    <input type="password" placeholder="密码" name="password"/>
-                    <button id="register" class="bbutton" type="submit">注册</button>
+                    <input id="register-username" type="text" placeholder="用户名" name="userName"/>
+                    <input id="register-password" type="password" placeholder="密码" name="password"/>
                 </form>
+                <button id="register" class="bbutton" >注册</button>
             </div>
         </div>
         <div class="small-box">
@@ -44,5 +45,6 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 </body>
 </html>

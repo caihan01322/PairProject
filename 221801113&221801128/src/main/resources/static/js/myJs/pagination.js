@@ -245,9 +245,11 @@ $(function(){
                 },
                 success: function(res) {
                     if (res == '收藏失败！(可能原因：该论文已被收藏)' || res == '修改失败！' || res == '删除失败！') {
-                        toastr.error(res);
+                        console.log(res)
+                         toastr.error(res);
                     } else {
-                        toastr.success(res);
+                         toastr.success(res);
+                        console.log(res)
                     }
                 },
                 //请求失败，包含具体的错误信息
