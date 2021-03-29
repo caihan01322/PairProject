@@ -12,6 +12,8 @@
 
     <script src="//unpkg.com/vue/dist/vue.js"></script>
     <script src="//unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 </head>
 
 <body>
@@ -22,7 +24,7 @@
                 </el-input>
             </el-form-item>
             <el-form-item label="论文链接">
-                <el-input v-model="form.url" type="textarea" :autosize="{minRows:1,maxRows:3}">
+                <el-input v-model="form.link" type="textarea" :autosize="{minRows:1,maxRows:3}">
                 </el-input>
             </el-form-item>
             <el-form-item label="论文关键词">
@@ -40,9 +42,11 @@
         </el-form>
         
     </div>
-    <script type="text.javascript" src=""></script>
     <script type="text/javascript">
-        var editPaper = {$editPaper|raw};
+        var formJSON = $.cookie("list");
+        $.cookie("list",null);
+        var editPaper = JSON.parse(formJSON);
+        console.log(editPaper);
         var oldPaperString = JSON.stringify(editPaper);
         var oldPaper = JSON.parse(oldPaperString);
         var Main = {

@@ -27,7 +27,9 @@
 
     <script src="//unpkg.com/vue/dist/vue.js"></script>
     <script src="//unpkg.com/element-ui/lib/index.js"></script>
-    
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>    
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>   
 </head>
 <body>
     <div id = "app">
@@ -90,14 +92,37 @@
     
     <script type = "text/javascript">
         var aa = {$tableData|raw};
-        
         var Main = {
             methods:{
-                handlerClick(row){
-                    var b = aa[row];
-                    console.log(row);
+                handleClick:function(row){
+                    var list = {
+                        "abstract":row.abstract,
+                        "title":row.title,
+                        "link":row.link,
+                        "keyword":row.keyword
+                    }
+                    console.log(JSON.stringify(list));
+                    // $.ajax({
+                    //     type:"POST",
+                    //     contentType: "application/x-www-form-urlencoded",
+                        
+                    //     url:'http://localhost/PairProject/PairProjectDemo/tp5/public/index/index/editDetail',
+                    //     data:JSON.stringify(list),
+                    //     success:function(result){
+                            
+                    //         window.location.href = "http://localhost/PairProject/PairProjectDemo/tp5/public/index/index/editDetail";
+                    //         console.log("传输成功");
+                    //         alert(result);
+                    //     },
+                    //     error:function(msg){
+                    //         console.log("传输失败");
+                    //     }
+                    // });
+                    $.cookie("list",JSON.stringify(list));
+                    $.cookie("page",this.currPage);
+                    window.location.href = "http://localhost/PairProject/PairProjectDemo/tp5/public/index/index/editDetail";
                 },
-                currentChange(val){
+                currentChange:function(val){
                     console.log(val);
                     this.currPage = val;
                 }
@@ -106,7 +131,7 @@
                 return {
                     tableData:aa,
                     limitCount:4,
-                    currPage : 1,
+                    currPage : parseInt($.cookie("page")??1),
                     input:'',
                 }
             },
