@@ -19,7 +19,7 @@ use yii\helpers\Url;
 
 	<div class="row">
 	
-		<div class="col-md-7">
+		<div class="col-md-8">
 		
 			<ol class="breadcrumb">
 			<li><a href="<?= Yii::$app->homeUrl;?>">首页</a></li>
@@ -50,8 +50,8 @@ use yii\helpers\Url;
 		</div>
 
 		
-		<div class="col-md-5">
-            <div class="searchbox">
+		<div class="col-md-4">
+            <div class="introduce">
                 <ul class="list-group">
                    <li class="list-group-item">
                    <span class="glyphion-search" aria-hidden="true"></span>背景介绍
@@ -60,7 +60,7 @@ use yii\helpers\Url;
                 </ul>
             </div>
 			
-			<div class="searchbox">
+			<div class="keyword">
 				<ul class="list-group">
 				  <li class="list-group-item">
 				  <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> 关键词

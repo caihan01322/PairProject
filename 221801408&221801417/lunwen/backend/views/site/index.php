@@ -50,22 +50,18 @@ $this->title = '论文管理系统';
 <br/>
 <br/>
 <div class="container">
-
-
-
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-8">
         <?= ListView::widget([
 				'id'=>'paperList',
 				'dataProvider'=>$dataProvider,
 				'itemView'=>'_listitem',//子视图,显示一篇文章的标题等内容.
 			    'layout'=>'{items} {pager}',
 		])?>
-
         </div>
 
-        <div class="col-md-5">
-            <div class="searchbox">
+        <div class="col-md-4">
+            <div class="introduce">
                 <ul class="list-group">
                    <li class="list-group-item">
                    <span class="glyphion-search" aria-hidden="true"></span>背景介绍
@@ -75,7 +71,7 @@ $this->title = '论文管理系统';
             </div>
         
 
-            <div class="searchbox">
+            <div class="keyword">
                 <ul class="list-group">
                    <li class="list-group-item">
                    <span class="glyphion-search" aria-hidden="true"></span>关键词top10
@@ -85,12 +81,9 @@ $this->title = '论文管理系统';
                    </li>
                 </ul>
             </div>
-
-            
-                </ul>
-            </div>
         </div>
     </div>
+</div>
 </div>
 
 
