@@ -51,6 +51,11 @@ $(document).ready(function () {
         });
       },
     });
+    return {
+      legendData: legendData,
+      seriesData: seriesData,
+    };
+  }
     function ymData(year,meeting)
     {
       var legendData = [];
@@ -74,12 +79,36 @@ $(document).ready(function () {
           });
         },
       });
+      var myChart = echarts.init(document.getElementById("chart1"));
+      myChart.setOption({
+            title: {
+              text: "TOP10关键词统计",
+              left: "center",
+            },
+            tooltip: {
+              trigger: "item",
+              formatter: "{a} <br/>{b} : {c} ({d}%)",
+            },
+            series: [
+              {
+                name: "热词",
+                type: 'pie',
+                radius: ['20%', '80%'],
+                avoidLabelOverlap: false,
+                roseType: 'radius',
+                data: seriesData,
+                emphasis: {
+                  itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: "rgba(0, 0, 0, 0.5)",
+                  },
+                },
+              },
+            ],
+          }
+      )
     }
-    return {
-      legendData: legendData,
-      seriesData: seriesData,
-    };
-  }
   myChart.setOption(option);
   myChart.on("click", function (param) {
     //console.log(param);
@@ -87,7 +116,7 @@ $(document).ready(function () {
     window.location.href = url;
   });
   cloud();
-  line();
+  ymData("2015","ICCV");
 
 function cloud () {
     var myChart = echarts.init(document.getElementById("chart2"));
@@ -137,79 +166,6 @@ function cloud () {
     });
   }
 
-
-  function line () {
-    var myChart = echarts.init(document.getElementById("chart3"));
-    var data = genData(50);
-    option = {
-      title: {
-        text: '折线图堆叠'
-      },
-      tooltip: {
-        trigger: 'axis'
-      },
-      legend: {
-        data: ['ICCB', 'ECCV', 'CVPR']
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      toolbox: {
-        feature: {
-          saveAsImage: {}
-        }
-      },
-      xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: ['2001', '2002', '2003', '2004', '2005', '2006', '2007']
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [
-        {
-          name: '邮件营销',
-          type: 'line',
-          stack: '总量',
-          data: [120, 132, 101, 134, 90, 230, 210]
-        },
-        {
-          name: '联盟广告',
-          type: 'line',
-          stack: '总量',
-          data: [220, 182, 191, 234, 290, 330, 310]
-        },
-        {
-          name: '视频广告',
-          type: 'line',
-          stack: '总量',
-          data: [150, 232, 201, 154, 190, 330, 410]
-        },
-        {
-          name: '直接访问',
-          type: 'line',
-          stack: '总量',
-          data: [320, 332, 301, 334, 390, 330, 320]
-        },
-        {
-          name: '搜索引擎',
-          type: 'line',
-          stack: '总量',
-          data: [820, 932, 901, 934, 1290, 1330, 1320]
-        }
-      ]
-    };
-    myChart.setOption(option);
-    myChart.on("click", function (param) {
-      //console.log(param);
-      var url = param.data.url;
-      window.location.href = url;
-    });
-  }
 });
 
 

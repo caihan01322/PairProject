@@ -23,19 +23,39 @@
 <div id="info"></div>
     <div  class='main row'>
         <div class="col-md-4 col-lg-offset-0 ">
-        <div id="chart1" style="width: 800px;height:500px">
+        <div id="chart1" style="width: 800px;height:600px">
         </div>
         </div>
     <div class="col-md-4 col-lg-offset-2 ">
-        <div id="chart2" style="width: 600px;height:500px">
+        <div id="chart2" style="width: 800px;height:600px">
         </div>
     </div>
-    <div class="col-md-10 col-lg-offset-1 ">
-        <div id="chart3" style="width: 1400px;height:800px">
-        </div>
+    <div class="col-md-10 col-lg-offset-0 ">
+        <div class="col-lg-4 col-lg-offset-2">
+            <form class="form-horizontal" action="Search" method="GET">
+                <div class="form-group">
+                    <select class="form-control  thesis-select col-sm-4" name="searchtype" type="text">
+                        <option>2007</option>
+                        <option >2009</option>
+                        <option >2011</option>
+                        <option >2013</option>
+                        <option >2015</option>
+                        <option >2017</option>
+                        <option >2019</option>
+                    </select>
+                    <select class="form-control  thesis-select col-sm-4" name="searchtype" type="text">
+                        <option value ="all">ECCV</option>
+                        <option value ="title">ICCV</option>
+                        <option value ="keyword">CVPR</option>
+                    </select>
+                    <button type="button" class="btn btn-default col-sm-2">确定</button>
+                </div>
+            </form>
     </div>
     </div>
-    <nav class="navbar navbar-default ">
+
+
+    <nav class="navbar navbar-default navbar-fixed-bottom">
         <div class="container">
             <p class="navbar-text navbar-right"> <a href="#" class="navbar-link">copyright@aaagx</a></p>
         </div>
