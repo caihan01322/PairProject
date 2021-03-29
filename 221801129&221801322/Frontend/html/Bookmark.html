@@ -2,11 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bookmark</title>
+    <link rel="stylesheet" href="../css/public.css" />
+    <link rel="stylesheet" href="../css/Bookmark.css" />
 </head>
 <body>
-    
+    <div id="nav">
+        <ul>
+			<li id="logo">PaperCrawler</li>
+            <li id="mark">收藏夹</li>
+            <li id="status">登录</li>
+        </ul>
+    </div>
+    <div id="contentWrap">
+        <div class="markPart" v-for="mark in marks">
+            <div class="markContent">
+                <div class="title">
+                    <h2>论文标题</h2>
+                </div>
+                <div class="abstract">
+                    <span>摘要：</span>
+                    <div>
+                        <p class="wrapBreak">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. 
+                            Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar
+                            sic tempor. Sociis natoque penatibus et magnis dis parturient montes,
+                            sic tempor. Sociis natoque penatibus et magnis dis parturient montes,
+                            sic tempor. Sociis natoque penatibus et magnis dis parturient montes,
+                            sic tempor. Sociis natoque penatibus et magnis dis parturient montes,
+                        </p>
+                    </div>
+                </div>
+                <div class="listBottom">
+                    <span>关键词：</span>
+                    <div class="keyword lineBreak">AI</div>
+                    <div class="keyword lineBreak">Algorithm</div>
+                    <div class="keyword lineBreak lastKey">Cloud Computing</div>
+                </div>
+                <img src="../img/Bookmark/marked.svg" class="markedSvg" alt="marked" title="已收藏">
+            </div>
+            <div class="dash"></div>
+        </div>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script src="../lib/jquery-3.6.0.min.js"></script>
+    <script src="../js/public.js"></script>
+    <script src="../js/Bookmark.js"></script>
 </body>
 </html>
