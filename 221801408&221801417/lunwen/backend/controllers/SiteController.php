@@ -79,6 +79,17 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+    public function actionDetail($link)
+    {
+    	$model = $this->findModel($link);
+    	$keywords=Keyword::findKeywordWeights();
+    	
+    	return $this->render('detail',[
+    			'model'=>$model,
+    			'keywords'=>$keywords,
+    	]);
+    	
+    }
     protected function findModel($link)
     {
         if (($model = Paper::findOne($link)) !== null) {
