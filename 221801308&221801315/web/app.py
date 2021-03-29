@@ -225,6 +225,25 @@ def search_by_keyword(keyword, page):
     return pagination
 
 
+@app.route("/view", methods=["GET"])
+def view():
+    """查看论文
+
+    在查询列表，每篇论有一个查看按钮，点击查看后看到论文详细内容
+
+    Args:
+        title: 在列表视图中点击查看按钮时会自动获取title
+
+    Return:
+        返回模板渲染
+    """
+    title = request.args.get("title")
+
+    article = Articles.query.filter(Articles.title == title).first()
+
+    return render_template("view.html", article=article)
+
+
 @app.route("/delete", methods=["GET"])
 def delete():
     """删除论文
@@ -239,7 +258,7 @@ def delete():
     """
     title = request.args.get("title")
 
-    article = Articles.query.filter(Articles.title == title)
+    article = Articles.query.filter(Articles.title == title).first()
 
     db.session.delete(article)
     db.session.commit()
@@ -295,4 +314,4 @@ def hot_keywords():
 
 if __name__ == "__main__":
     app.config['JSON_AS_ASCII'] = False
-    app.run(port=5000, debug=True)
+    app.run(port=8080, debug=True)

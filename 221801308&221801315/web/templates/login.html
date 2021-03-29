@@ -35,7 +35,7 @@
             <p class="main-para">You don't have a password? Then please</p>
             <p class="main-href"><a href={{url_for("register_view")}} class="main-href ">Sign up</a></p>
         </div>
-        <form method="POST">
+        <form>
             <fieldset class="login-form">
                 <input type="text" placeholder="  请输入邮箱账号" class="form-item" id="email">
                 <input type="password" placeholder="  请输入密码" class="form-item" id="password"><br />
@@ -44,31 +44,31 @@
                         me</span></div>
                 <button class="mdc-button mdc-button--raised form-btn" id="login">Sign in</button>
             </fieldset>
+            <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+            <script>
+                $("#login").click(function () {
+                    var email=$("#email").val();
+                    var password=$("#password").val();
+                    var remember;
+                    $("input[name='remember']").each(function(){
+                        remember=$(this).val();
+                    })
+                    $.ajax({
+                        data: { 'email': email, 'password': password, 'remember': remember },
+                        url: '/login',
+                        type: 'post',
+                        cache: false,
+                        dataType: 'json',
+                        async: false,
+                        success: function (data) {
+                            alert(data.message);
+                            console.log(data);
+                        }
+                    })
+                })
+            </script>
         </form>
     </main>
-    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
-    <script>
-        $("#login").click(function () {
-            var email=$("#email").val();
-            var password=$("#password").val();
-            var remember;
-            $("input[name='remember']").each(function(){
-                remember=$(this).val();
-            })
-            $.ajax({
-                data: { 'email': email, 'password': password, 'remember': remember },
-                url: '/login',
-                type: 'post',
-                cache: false,
-                dataType: 'json',
-                async: false,
-                success: function (data) {
-                    alert(data.message);
-                    console.log(data);
-                }
-            })
-        })
-    </script>
 </body>
 
 </html>
