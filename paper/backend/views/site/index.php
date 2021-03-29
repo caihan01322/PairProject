@@ -1,6 +1,7 @@
 <?php
 use yii\widgets\ListView;
 use common\models\Keyword;
+use backend\components\KeywordCloud;
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
@@ -32,7 +33,16 @@ $this->title = 'My Yii Application';
             ])?>
             </div>
             <div class="col-md-4">
-                词云
+            <div class="keywordcloud">
+                    <ul class="list-group">
+                        <li class="list-group">
+                            关键词云
+                        </li>
+                        <li class="list-group-item">
+                            <?= KeywordCloud::widget(['keywords'=>$keywords])?>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
 
