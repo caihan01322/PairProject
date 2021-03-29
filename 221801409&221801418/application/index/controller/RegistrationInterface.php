@@ -35,9 +35,8 @@ class RegistrationInterface extends Controller
                     return $this->error("该用户已存在");
                 }         
                 if ($db->insert($data) ) {
-                    $id=$db->getLastInsID();
                     $sql = <<<sql
-                    CREATE TABLE IF NOT EXISTS `paper_$id`(
+                    CREATE TABLE IF NOT EXISTS `paper_$account`(
                         `title` longtext NOT NULL,
                         `abstract` longtext,
                         `typeandyear` varchar(255) DEFAULT NULL,

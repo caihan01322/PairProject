@@ -9,7 +9,8 @@ class FavorateInterface extends Controller
 {
     public function create(){
         $Db = new Db;
-        $data  = Db::table('paper')->select();
+        $value=session('account');
+        $data  = Db::table("paper_$value")->select();
         $haha=json_encode($data);
         $this->assign('try',$haha);
         return view('FavorateInterface');
