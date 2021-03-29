@@ -24,6 +24,26 @@ public interface BaseDao<T> {
 	 */
 	RowMapper<T> getRowMapper();
 
+	void executeSql(String sql, Object[] params);
+
+	List<T> find(T entity);
+
+	/**
+	 * 执行一条sql语句
+	 */
+	void executeSql(String sql);
+
+	/**
+	 * 根据sql查询
+	 */
+	List<T> queryBySQL(String sql);
+
+	List<T> queryBySQL(String sql, Object...params);
+
+	/**
+	 * 单值查询
+	 */
+	Object queryForObject(String sql, Class<?> clazz);
 
 	/**
 	 * 分页查询
