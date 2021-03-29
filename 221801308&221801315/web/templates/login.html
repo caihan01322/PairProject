@@ -7,10 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
     <link rel="stylesheet" href="https://fonts.g.forms.cn/icon?family=Material+Icons">
-    <link rel="stylesheet" href={{url_for("static",filename="css/header.css" )}}>
-    <link rel="stylesheet" href={{url_for("static",filename="css/login.css" )}}>
+    <link rel="stylesheet" href={{url_for("static",filename="css/header.css")}}>
+    <link rel="stylesheet" href={{url_for("static",filename="css/login.css")}}>
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-
     <title>Sign in</title>
 </head>
 
@@ -18,7 +17,7 @@
     <header>
         <nav class="navigater">
             <div class="logo">
-                <img src={{url_for("static",filename="images/favicon.png" )}} alt="logo" class="image" />
+                <img src={{url_for("static",filename="images/favicon.png")}} alt="logo" class="image" />
                 <h3 class="title">iPaper</h3>
             </div>
             <ul class=" menu">
@@ -38,27 +37,13 @@
         </div>
         <form method="POST" action="/login">
             <fieldset class="login-form">
-                <input type="text" name="email" placeholder="  请输入邮箱账号" class="form-item">
-                <input type="password" name="password" placeholder="  请输入密码" class="form-item"><br />
-                <div class="choose"><input type="checkbox" name="remember" class="form-check"><span class="check-content">Remember
-                    me</span></div>
-                <input type="submit" value="Sign in" class="mdc-button mdc-button--raised form-btn" id="login">
+                <input type="text" name="email" placeholder="请输入邮箱账号" class="form-item">
+                <input type="password" name="password" placeholder="请输入密码" class="form-item"><br/>
+                <input type="checkbox" name="remember" class="form-check"><span class="check-content">Remember me</span><br/>
+                <input type="submit" value="Sign in" class="mdc-button mdc-button--raised form-btn">
             </fieldset>
-            <script src="https://code.jquery.com/jquery.js"></script>
-            <script>
-                $("#login").click(function () {
-                    $.ajax({
-                        url: "http://127.0.0.1:5000/login",
-                        method: 'POST',
-                        type: "json",
-                        async: false,
-                        success: function (message) {
-                            alert(message.message);
-                        }
-                    })
-                })
-            </script>
         </form>
+        <br>
     </main>
 </body>
 

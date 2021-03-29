@@ -39,11 +39,8 @@ main{
     margin: 20px auto 30px;
 
 }
-.choose{
-    width: 250px;
-    margin: 0 auto;
-}
 .form-check{
+    margin-left: 78px;
     margin-top: 10px;
 }
 .check-content{
