@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>论文爬取平台</title>
 	<link rel="stylesheet" href="../layui/css/layui.css"  media="all">
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../data/jquery-3.6.0.js"></script>
 	<script src="../layui/layui.js" charset="utf-8"></script>
 	
 </head>
@@ -47,36 +47,33 @@
 					return {
 						"code": 0, //解析接口状态
 						"msg": "", //解析提示文本
-						"count": res.length, //解析数据长度
-						"data": res //解析数据列表
+						"count": res.count, //解析数据长度
+						"data": res.data //解析数据列表
 					};
 				  }
 				,cols: [[
-				  {field:'name', title: '标题', width:100, sort: true, fixed: true},
-				  {field:'abstract', title: '摘要', width:300},
-				  {field:'keyword', title: '关键词', width:300},
-				  {field:'author', title: '作者', width:100},
-				  {field:'year', title: '发表年份', width:100},
-				  {field:'link', title: '链接', width:300},
-				  {fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+				  {field:'name', title: '标题',  sort: true, fixed: true},
+				  {field:'abstract', title: '摘要',  sort: true},
+				  {field:'keyword', title: '关键词'},
+				  {field:'author', title: '作者',  sort: true},
+				  {field:'year', title: '发表年份',  sort: true},
+				  {field:'link', title: '链接'},
+				  {fixed: 'right', title:'操作', toolbar: '#barDemo'}
 				]]
 				,id: 'testReload'
-				,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
-					  layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
-					  //,curr: 5 //设定初始在第 5 页
-					  ,groups: 1 //只显示 1 个连续页码
-					  ,first: false //不显示首页
-					  ,last: false //不显示尾页
-					  
-				}
+				,page: true
 				,limit:10
 				,height: 500
 			});
 			  
 			table.on('tool(user)', function(obj){
 				if(obj.event==='detail'){
-					var data = obj.data.title;//获取选中行的标题
-					var url="detail.html?"+"title="+data;//向url中传递论文标题信息
+					var item=obj.data.iD;
+					//alert(item);
+					//var jsonStr=JSON.stringify(item);
+					var url= "detail.html?id="+item;
+					// var data = obj.data.name;//获取选中行的标题
+					// var url="detail.html?"+"name="+data;//向url中传递论文标题信息
 					window.open(url);
 				}
 				else{
