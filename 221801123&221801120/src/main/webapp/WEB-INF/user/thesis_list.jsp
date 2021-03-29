@@ -1,20 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://"
+            + request.getServerName() + ":" + request.getServerPort()
+            + path + "/";
+    pageContext.setAttribute("basePath", basePath);
+%>
 <html>
 <head>
     <title>论文列表</title>
-    <%
-        String path = request.getContextPath();
-        String basePath = request.getScheme() + "://"
-                + request.getServerName() + ":" + request.getServerPort()
-                + path + "/";
-        pageContext.setAttribute("basePath", basePath);
-    %>
+    <meta charset="UTF-8">
     <base href="<%=basePath%>">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/list_main.css">
     <link rel="stylesheet" href="css/thesis_list.css">
+
 </head>
+<%-- 头部 --%>
 <jsp:include page="share/head.jsp"/>
+
 <body>
     <div class="list">
         <!-- 论文列表 -->
@@ -49,9 +55,11 @@
                     window.location.href = "${pageContext.request.contextPath}/user/thesis/list?pn=" + pageCode;
                 }
             </script>
-            <%--<jsp:include page="../share/page.jsp"></jsp:include>--%>
+            <jsp:include page="../share/page.jsp"></jsp:include>
         </div>
     </div>
 <jsp:include page="share/footer.jsp"/>
 </body>
+<script type="text/javascript" src="script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </html>
