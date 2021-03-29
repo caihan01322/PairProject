@@ -38,8 +38,27 @@
             <fieldset class="login-form">
                 <input type="text" name="email" placeholder="请输入邮箱账号" class="form-item">
                 <input type="password" name="password" placeholder="请输入密码" class="form-item"><br/>
-                <input type="submit" value="Sign up" class="mdc-button mdc-button--raised form-btn">
+                <input type="submit" value="Sign up" class="mdc-button mdc-button--raised form-btn" id="register">
             </fieldset>
+            <script src="https://code.jquery.com/jquery.js"></script>
+            <script>
+                $("#register").click(function () {
+                    $.ajax({
+                        url: "/register",
+                        method: 'POST',
+                        type: 'text',
+                        async: false,
+                        cache: false,
+                        success: function (msg) {
+                            alert(msg);
+                        },
+                        error: function(message){
+                            alert(message);
+
+                        }
+                    })
+                })
+            </script>
         </form>
         <br>
     </main>
