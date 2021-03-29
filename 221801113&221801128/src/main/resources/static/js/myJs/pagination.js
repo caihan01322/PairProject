@@ -273,7 +273,9 @@ $(function(){
     $("#btn-update").click(() => {
         updateCollection("/update");
         getCollectPaperData("", $(".menu-right a").eq(0).text().replace('"', "").trim(), 0);
-        location.reload();
+        setTimeout(() => {
+            location.reload();
+        }, 1500)
     })
 
     /**
@@ -282,15 +284,31 @@ $(function(){
     $("#btn-delete").click(() => {
         updateCollection("/delete");
         getCollectPaperData("", $(".menu-right a").eq(0).text().replace('"', "").trim(),0);
-        location.reload();
+        setTimeout(() => {
+            location.reload();
+        }, 1500)
+
+    })
+
+    /**
+     * 监听登出事件
+     */
+    $('.leave').click(() => {
+        localStorage.removeItem('avatarSrc');
     })
 
     /**
      * 随机头像
      */
     function randAvatar() {
-        $('.menu-right img').eq(0).attr('src', 'images/photos/'
-            + Math.floor(Math.random()*10+1) + '.png');
+        let avatarSrc = null;
+        if (localStorage.getItem('avatarSrc') == null) {
+            avatarSrc = 'images/photos/' + Math.floor(Math.random()*10+1) + '.png'
+            localStorage.setItem('avatarSrc', avatarSrc);
+        } else {
+            avatarSrc = localStorage.getItem('avatarSrc');
+        }
+        $('.menu-right img').eq(0).attr('src', avatarSrc);
     }
     randAvatar();
 })
