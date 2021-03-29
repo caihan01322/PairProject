@@ -1,95 +1,122 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>论文爬取平台</title>
-  <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.js"></script>
+	<meta charset="utf-8">
+	<title>论文爬取平台</title>
+	<link rel="stylesheet" href="../layui/css/layui.css"  media="all">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="../layui/layui.js" charset="utf-8"></script>
+	
 </head>
 <body> 
- 
-<div class="demoTable">
-  <select id="selection">
-	  <option value="title" onclick="changeHint('title')">标题</option>
-	  <option value="authors" onclick="changeHint('authors')">作者</option>
-  </select>
-  <div class="layui-inline">
-    <input class="layui-input" name="id" id="demoReload" autocomplete="off" placeholder="请输入想要查询的内容">
-  </div>
-  <button class="layui-btn" data-type="reload">搜索</button>
-</div>
+	<div class="demoTable">
+		<select id="selection">
+			<option value="title"">标题</option>
+			<option value="authors"">作者</option>
+		</select>
+		<div class="layui-inline">
+			<input class="layui-input" name="id" id="input" autocomplete="off" placeholder="请输入想要查询的内容">
+		</div>
+		<button class="layui-btn" type="button" onclick="search()">搜索</button>
+	</div>
+	 
+	<table class="layui-hide" id="LAY_table_user" lay-filter="user"></table> 
+				   
+	<script type="text/html" id="barDemo">
+		<a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="detail" >详情</a>
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+	</script>
+			  
 
-
- 
-<table class="layui-hide" id="LAY_table_user" lay-filter="user"></table> 
-               
-<script type="text/html" id="barDemo">
-	<a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="detail" >详情</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-</script>
-          
-<script src="../layui/layui.js" charset="utf-8"></script>
-<!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
-<script>
-layui.use('table', function(){
-  var table = layui.table;
-  
-  //方法级渲染
-  table.render({
-    elem: '#LAY_table_user'
-    ,url: 'data.json'
-    ,cols: [[
-      {field:'title', title: '标题', width:100, sort: true, fixed: true},
-      {field:'abstract', title: '摘要', width:300},
-      {field:'keywords', title: '关键词', width:300},
-      {field:'authors', title: '作者', width:100},
-	  {field:'year', title: '发表年份', width:100},
-	  {field:'doilink', title: '链接', width:300},
-	  {fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
-    ]]
-    ,id: 'testReload'
-    ,page: true
-    ,height: 310
-  });
-  
-  table.on('tool(user)', function(obj){
-		if(obj.event==='detail'){
-			var data = obj.data.title;//获取选中行的标题
-			var url="detail.html?"+"title="+data;//向url中传递论文标题信息
-			window.open(url);
-		}
-		else{
-			layer.confirm('要删除改行吗', function(index){
-			  obj.del();
-			  layer.close(index);
+	<script>
+		var tableIns;
+		layui.use('table', function(){
+			var table = layui.table;
+		  
+		  //方法级渲染
+			tableIns=table.render({
+				elem: '#LAY_table_user'
+				,url: 'http://47.111.17.116:8080/queryName'
+				,method : "POST"
+				,contentType:"application/json"
+				,where:{
+					name:"computer",	
+				}
+				,parseData: function(res){ //res 即为原始返回的数据
+					console.log(res);
+					return {
+						"code": 0, //解析接口状态
+						"msg": "", //解析提示文本
+						"count": res.length, //解析数据长度
+						"data": res //解析数据列表
+					};
+				  }
+				,cols: [[
+				  {field:'name', title: '标题', width:100, sort: true, fixed: true},
+				  {field:'abstract', title: '摘要', width:300},
+				  {field:'keyword', title: '关键词', width:300},
+				  {field:'author', title: '作者', width:100},
+				  {field:'year', title: '发表年份', width:100},
+				  {field:'link', title: '链接', width:300},
+				  {fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+				]]
+				,id: 'testReload'
+				,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+					  layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+					  //,curr: 5 //设定初始在第 5 页
+					  ,groups: 1 //只显示 1 个连续页码
+					  ,first: false //不显示首页
+					  ,last: false //不显示尾页
+					  
+				}
+				,limit:10
+				,height: 500
 			});
+			  
+			table.on('tool(user)', function(obj){
+				if(obj.event==='detail'){
+					var data = obj.data.title;//获取选中行的标题
+					var url="detail.html?"+"title="+data;//向url中传递论文标题信息
+					window.open(url);
+				}
+				else{
+					layer.confirm('要删除改行吗', function(index){
+						obj.del();
+						layer.close(index);
+					});
+				}
+			});
+			
+			
+		});
+		
+	</script>
+	<script type="text/javascript">
+		function search(){
+			var sel=document.getElementById("selection").value;
+			var content=document.getElementById("input").value;
+			
+			if(sel=='title'){
+				tableIns.reload({
+					where: { //设定异步数据接口的额外参数，任意设
+						name: content,
+					}
+					,page: {
+						curr: 1 //重新从第 1 页开始
+					}
+				});
+			}
+			else{
+				tableIns.reload({
+					where: { //设定异步数据接口的额外参数，任意设
+						author: content,
+					}
+					,page: {
+						curr: 1 //重新从第 1 页开始
+					}
+				});
+			}
 		}
-    });
-  
-  
-  
-  var $ = layui.$, active = {
-    reload: function(){
-      var demoReload = $('#demoReload');
-      
-      //执行重载
-      table.reload('testReload', {
-        page: {
-          curr: 1 //重新从第 1 页开始
-        }
-        ,where: {
-          title: demoReload.val()
-        }
-      }, 'data');
-    }
-  };
-  
-  $('.demoTable .layui-btn').on('click', function(){
-    var type = $(this).data('type');
-    active[type] ? active[type].call(this) : '';
-  });
-});
-</script>
-
+	</script>
 </body>
 </html>
