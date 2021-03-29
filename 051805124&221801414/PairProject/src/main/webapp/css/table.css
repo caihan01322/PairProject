@@ -1,18 +1,43 @@
 @charset "UTF-8";
 .tdcontent{
-	width:100%;
 	overflow:hidden;
 	text-overflow:ellipsis;
 	display:-webkit-box;
 	-webkit-box-orient:vertical;
 	-webkit-line-clamp:2;
-	margin: 10px 20px 10px 20px;
+	margin: 12px 15px 11px 15px;
 }
 .td{
-	width:20%;
-	text-align: center;
+	width: 22%;
+    max-width:120px;
 }
 .tableFooter{
 	text-align: center;
+	margin-top: 15px;
+}
+.tdlast{
+	width: 10%;
+    max-width:50px;
+	text-align: center;
+}
+table {
+	font-family: verdana,arial,sans-serif;
+	font-size:14px;
+	border-bottom: 1px solid #666; 
+	border-collapse: collapse; 
 	margin-top: 20px;
+	width:97%;
+}
+table th {
+	border-width: 1px;
+	padding: 10px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #E6E6E6;
+}
+table td {
+	border-width: 1px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
 }

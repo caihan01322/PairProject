@@ -28,7 +28,7 @@
         <div class="contentleft">
             <ul>
                  <li class="icon"><a href="index_one_add.jsp"><i><img src="./ImageResources/folderadd.png"></i>论文爬取</a></li>
-                 <li class="icon"><a href="index_two_search.jsp"><i><img src="./ImageResources/database.png"></i>论文管理</a></li>
+                 <li class="icon"><a href="dopapersearch?cp=1"><i><img src="./ImageResources/database.png"></i>论文管理</a></li>
                  <li class="icon"><a href="DoPaperPie?"><i><img src="./ImageResources/fund.png"></i>论文分析</a></li>
                  <li class="icon"><a href="index_four.jsp"><i><img src="./ImageResources/read.png"></i>背景知识</a></li>
             </ul>
@@ -60,14 +60,6 @@
             
         </div>
     </div>
-</div>
-<div>
-	<div class="footer">
-		<label>Copyright © 2021 </label>
-	</div>
-	<div class="footer">
-		<label>Powered by .NET 5.0 on Kubernetes & Theme Silence v3.0.0</label>
-	</div>
 </div>
 </body>
 </html>

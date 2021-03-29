@@ -50,9 +50,13 @@ public class DoPaperSearch extends HttpServlet {
 		}
 		
 		int itemNum = PaperDao.getItemNum(content, option);
-		int totalPage = itemNum/5;
-		if(itemNum%5 != 0)
+		int totalPage = itemNum/6;
+		if(itemNum%6 != 0) {
 			totalPage++;
+		}
+			
+		request.setAttribute("option", option);
+		request.setAttribute("content", content);
 		request.setAttribute("totalPage", totalPage);
 		request.setAttribute("curPage", curPage);
 		request.setAttribute("totalNum", itemNum);
@@ -61,5 +65,4 @@ public class DoPaperSearch extends HttpServlet {
 		System.out.print(list.size());
 		request.getRequestDispatcher("index_two_search.jsp").forward(request, response);
 	}
-
 }

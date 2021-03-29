@@ -113,6 +113,7 @@ public class DoPaperLine extends HttpServlet {
 	        j++;
 	    }
 		
+		request.setAttribute("year", year);
 		request.setAttribute("keyword", keywords);
 		request.setAttribute("CVPR", occurCVPR);
 		request.setAttribute("ICCV", occurICCV);

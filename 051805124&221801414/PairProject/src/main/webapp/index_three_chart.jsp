@@ -31,11 +31,11 @@
         <div class="contentleft">
             <ul>
                  <li class="icon"><a href="index_one_add.jsp"><i><img src="./ImageResources/folderadd.png"></i>论文爬取</a></li>
-                 <li class="icon"><a href="index_two_search.jsp"><i><img src="./ImageResources/database.png"></i>论文管理</a></li>
+                 <li class="icon"><a href="dopapersearch?cp=1"><i><img src="./ImageResources/database.png"></i>论文管理</a></li>
                  <li class="icon">
                  	<div><a href="index.jsp"><i><img src="./ImageResources/fund.png"></i>论文分析</a></div>
-                 	<div class="titleright"><a href="DoPaperPie?">图表分析</a></div>
-                 	<div class="titleright"><a href="DoPaperLine?year=2018">热门领域</a></div>
+                 	<div class="titleright"><a href="DoPaperPie?">关键词TOP10</a></div>
+                 	<div class="titleright"><a href="DoPaperLine?year=2017">热词走势</a></div>
                  </li>
                  <li class="icon"><a href="index_four.jsp"><i><img src="./ImageResources/read.png"></i>背景知识</a></li>
             </ul>
@@ -48,12 +48,12 @@
         %>
         		
         <div class="contentright">
-        <div id="mypie" style="width: 800px;height:450px; float:left"></div>
+        <div id="mypie" style="width: 900px;height:450px; float:left"></div>
         <script type="text/javascript">
         var myChart = echarts.init(document.getElementById('mypie'));
         option = {
                 title : {
-                    text: '关键词Top10',       //大标题
+                    text: '近五年关键词Top10',       //大标题
                     x:'center'                 //标题位置   居中
                 },
                 tooltip : {
@@ -71,7 +71,7 @@
                         name: '关键词占比',
                         type: 'pie',
                         radius : '55%',
-                        center: ['50%', '60%'],
+                        center: ['60%', '60%'],
                         data:[
                             {value:<%="\""+occur[0]+"\""%>, name:<%="\""+keyword[0]+"\""%>,url: "dopapersearch?plugin=keyword&searchContent="+<%="\""+keyword[0]+"\""%>},
                             {value:<%="\""+occur[1]+"\""%>, name:<%="\""+keyword[1]+"\""%>,url: "dopapersearch?plugin=keyword&searchContent="+<%="\""+keyword[1]+"\""%>},
@@ -88,7 +88,7 @@
                             emphasis: {
                                 shadowBlur: 10,
                                 shadowOffsetX: 0,
-                                shadowColor: 'rgba(1, 2, 3, 0.5)'
+                                shadowColor: 'rgba(1, 2, 3, 4)'
                             }
                         }
                     }
@@ -102,14 +102,6 @@
         </script>
     	</div>
     </div>
-</div>
-<div>
-	<div class="footer">
-		<label>Copyright © 2021 </label>
-	</div>
-	<div class="footer">
-		<label>Powered by .NET 5.0 on Kubernetes & Theme Silence v3.0.0</label>
-	</div>
 </div>
 </body>
 </html>

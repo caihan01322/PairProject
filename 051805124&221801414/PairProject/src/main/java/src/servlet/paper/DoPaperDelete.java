@@ -27,9 +27,8 @@ public class DoPaperDelete extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		
 		int count = PaperDao.deletePaper(id);
-		System.out.println(request.getParameter("content")+"1");
 		if(count > 0) {
-			response.sendRedirect("dopapersearch?cp=" + request.getParameter("cp") + "&searchContent=" + request.getParameter("content"));
+			response.sendRedirect("dopapersearch?cp=" + request.getParameter("cp"));
 		}else {
 			PrintWriter out = response.getWriter();
 			out.write("<script>");

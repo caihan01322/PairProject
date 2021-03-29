@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,11 +30,11 @@
         <div class="contentleft">
             <ul>
                  <li class="icon"><a href="index_one_add.jsp"><i><img src="./ImageResources/folderadd.png"></i>论文爬取</a></li>
-                 <li class="icon"><a href="index_two_search.jsp"><i><img src="./ImageResources/database.png"></i>论文管理</a></li>
+                 <li class="icon"><a href="dopapersearch?cp=1"><i><img src="./ImageResources/database.png"></i>论文管理</a></li>
                  <li class="icon">
                  	<div><a href="index.jsp"><i><img src="./ImageResources/fund.png"></i>论文分析</a></div>
                  	<div class="titleright"><a href="DoPaperPie?">图表分析</a></div>
-                 	<div class="titleright"><a href="index_three_hot.jsp">热门领域</a></div>
+                 	<div class="titleright"><a href="DoPaperLine?year=2017">热门领域</a></div>
                  </li>
                  <li class="icon"><a href="index_four.jsp"><i><img src="./ImageResources/read.png"></i>背景知识</a></li>
             </ul>
@@ -51,21 +52,46 @@
         <div>
     		<form action="DoPaperLine" method="get">
     			<select name="year">
-  					<option value ="2016">2016</option>
-  					<option value = "2017">2017</option>
-  					<option value = "2018">2018</option>
-  					<option value = "2019">2019</option>
-  					<option value = "2020">2020</option>
+    				<c:if test="${year=='2016'}">
+						<option value ="2016" selected="selected" >2016</option>
+					</c:if>
+  					<c:if test="${year!='2016'}">
+						<option value ="2016" >2016</option>
+					</c:if>
+					<c:if test="${year=='2017'}">
+						<option value ="2017" selected="selected" >2017</option>
+					</c:if>
+  					<c:if test="${year!='2017'}">
+						<option value ="2017" >2017</option>
+					</c:if>
+					<c:if test="${year=='2018'}">
+						<option value ="2018" selected="selected" >2018</option>
+					</c:if>
+  					<c:if test="${year!='2018'}">
+						<option value ="2018" >2018</option>
+					</c:if>
+					<c:if test="${year=='2019'}">
+						<option value ="2019" selected="selected" >2019</option>
+					</c:if>
+  					<c:if test="${year!='2019'}">
+						<option value ="2019" >2019</option>
+					</c:if>
+  					<c:if test="${year=='2020'}">
+						<option value ="2020" selected="selected" >2020</option>
+					</c:if>
+  					<c:if test="${year!='2020'}">
+						<option value ="2020" >2020</option>
+					</c:if>
 				</select>
 				<input class="searchBtn" id="button" type="submit" value="切换"/>
             </form>
     	</div>
-        <div id="myline" style="width: 1100px;height:450px; float:left"></div>
+        <div id="myline" style="width: 1100px;height:450px; float:left; margin-top: 20px;"></div>
         <script type="text/javascript">
         	var myChart = echarts.init(document.getElementById('myline'));
         	option = {
         		    title: {
-        		        text: '多年论文关键词对比'
+        		        text: '近五年年度关键词TOP10各顶会占比'
         		    },
         		    tooltip: {
         		        trigger: 'axis'
@@ -155,14 +181,6 @@
         </script>
     	</div>
     </div>
-</div>
-<div>
-	<div class="footer">
-		<label>Copyright © 2021 </label>
-	</div>
-	<div class="footer">
-		<label>Powered by .NET 5.0 on Kubernetes & Theme Silence v3.0.0</label>
-	</div>
 </div>
 </body>
 </html>

@@ -35,13 +35,5 @@
         </div>
     </div>
 </div>
-<div>
-	<div class="footer">
-		<label>Copyright © 2021 </label>
-	</div>
-	<div class="footer">
-		<label>Powered by .NET 5.0 on Kubernetes & Theme Silence v3.0.0</label>
-	</div>
-</div>
 </body>
 </html>
