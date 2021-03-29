@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>搜索论文</title>
+    <title>收藏夹</title>
     <style>
       @import url("//unpkg.com/element-ui@2.15.1/lib/theme-chalk/index.css");
       .demo-table-expand {
@@ -38,7 +38,7 @@
 <template>
   <el-table
     :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)" border
-    style="width: 80%;margin-top: 15px;">
+    style="width: 90%;margin: 15px auto;">
     <el-table-column type="expand">
       <template slot-scope="props">
         <el-form label-position="left" inline class="demo-table-expand" >
@@ -86,7 +86,8 @@
           @click.native="buttonHandler">查看</el-button>
         <el-button
           size="mini"
-          @click="handleDelete(scope.$index, scope.row)">收藏</el-button>
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -101,7 +102,6 @@
 </template>
 </div>
 <script>
-
 var fromDb={$try|raw};
 var DDB=[];
 var Main = {
@@ -116,11 +116,11 @@ var Main = {
   },
   methods:{
     buttonHandler(){
-      alert('hello');
+      alert('点击左侧小箭头查看详细信息！');
     },
     pageChange(val) {
       this.currentPage = val;
-    }
+    },
   },
   computed:{
     tableData() {
