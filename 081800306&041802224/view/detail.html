@@ -15,19 +15,19 @@
     <p>论文详情</p>
     <p>
       <span>标题：</span>
-      <input type="text">
+      <input class="title" type="text" value="<%= article.title %>">
     </p>
     <p>
       <span>链接：</span>
-      <input type="text">
+      <input class="link" type="text" value="<%= article.link %>">
     </p>
     <p>
-      <span>关键词：</span>
-      <input type="text">
+      <span>峰会：</span>
+      <input class="magazine" type="text" value="<%= article.magazine %>">
     </p>
     <p>
       <span>摘要：</span>
-      <textarea name="" id="" cols="30" rows="10"></textarea>
+      <textarea name="" class="conclude" cols="30" rows="10"><%= article.conclude %></textarea>
     </p>
       <div class="btn-group">
         <a href="javascript:;" class="change">修改</a>
@@ -36,4 +36,46 @@
     
   </div>
 </body>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+$(function() {
+  $('.change').on('click', function() {
+    let searchParams =  new URLSearchParams(window.location.search)
+    let id = searchParams.get('id')
+    let conclude = $('.conclude').html();
+    let title = $('.title').val()
+    let link = $('.link').val()
+    let magazine = $('.magazine').val()
+    let obj = {
+      id,
+      conclude,
+      title,
+      link,
+      magazine,
+    }
+    console.log(obj);
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:3000/detail/update',
+      data: obj,
+      success(res) {
+        console.log(res);
+      }
+    })
+  })
+  $('del').on('click', function() {
+    let searchParams =  new URLSearchParams(window.location.search)
+    let id = searchParams.get('id')
+    let obj = { id }
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:3000/detail/del',
+      data: obj,
+      success(res) {
+        console.log(res);
+      }
+    })
+  })
+})
+</script>
 </html>
