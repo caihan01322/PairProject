@@ -1,0 +1,41 @@
+.nav-left{
+    float: left;
+    width: 15%;
+    margin-top: 30px;
+    background: #BDC9FB;
+}
+.menu-item{
+    display: block;
+    height: 40px;
+    text-align: center;
+    border: 1px solid rgb(76, 68, 80);
+}
+.nav-title{
+    margin: 10px;
+}
+i{
+    width: 16px;
+    height: 16px;
+    margin-top: 10px;
+}
+.content{
+    float: left;
+    width: 85%;
+    min-height: 600px;
+    margin-top: 30px;
+    background: #FDCCC8;
+
+}
+.form-item{
+    width: 500px;
+    height: 40px;
+    margin: 30px 80px 0 ;
+    border: none;
+}
+.form-btn{
+    height: 40px;
+    width: 100px;
+}
+.choose-item{
+    margin: 10px 10px 10px 80px ;
+}
