@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-var dir = "C:\\Users\\xpy91\\Desktop\\json\\data\\CVPR"
+var dir = "C:\\Users\\xpy91\\Desktop\\json\\data\\ECCV"
 
 func MergeFilename(info os.FileInfo) string {
 	return dir + "\\" + info.Name()
@@ -19,36 +19,36 @@ func InsertArticle() {
 		fmt.Println("目录错误")
 		return
 	}
-	total, articlenum, key_id := 0, 0, 0
+
+	total := 0
 	for _, info := range rd {
 		total++
-		title := gojsonq.New().File(MergeFilename(info)).Find("title")
-		abstract := gojsonq.New().File(MergeFilename(info)).Find("abstract")
-		article_id := gojsonq.New().File(MergeFilename(info)).Find("articleNumber")
-		link := gojsonq.New().File(MergeFilename(info)).Find("doiLink")
-		keywords := gojsonq.New().File(MergeFilename(info)).Find("keywords")
-		year := gojsonq.New().File(MergeFilename(info)).Find("publicationYear").(string)
+		title := gojsonq.New().File(MergeFilename(info)).Find("论文名称")
+		abstract := gojsonq.New().File(MergeFilename(info)).Find("摘要")
+		articleId := gojsonq.New().File(MergeFilename(info)).Find("原文链接")
+		link := gojsonq.New().File(MergeFilename(info)).Find("原文链接")
+		keywords := gojsonq.New().File(MergeFilename(info)).Find("关键词")
+		year := gojsonq.New().File(MergeFilename(info)).Find("会议和年份")
 
 		article := make(map[string]interface{})
 		article["title"] = title
 		article["abstract"] = abstract
-		article["article_id"] = article_id
+		article["article_id"] = articleId.(string)[24:]
 		article["link"] = link
-		AddArticle(article)
-		articlenum++
 
+		var kwds []Keyword
 		if keywords != nil {
-			list := keywords.([]interface{})
-
-			for i := 0; i < len(list); i++ {
-				item := list[i].(map[string]interface{})
-				key := item["kwd"].([]interface{})
-
-				for _, one := range key {
-					AddKeyword(one.(string), year)
-					key_id++
-				}
+			key_list := keywords.([]interface{})
+			for _, key := range key_list {
+				kwds = append(kwds, Keyword{
+					Name:  key.(string),
+					Year:  year.(string)[len(year.(string))-4:],
+					Forum: "ECCV",
+				})
 			}
 		}
+		article["keywords"] = kwds
+		AddArticle(article)
 	}
+	fmt.Println(total)
 }

@@ -13,7 +13,7 @@ import (
 var db *gorm.DB
 
 type Model struct {
-	ID int `gorm:"primary_key" json:"id"`
+	ID uint `gorm:"primary_key" json:"id"`
 }
 
 func init() {
