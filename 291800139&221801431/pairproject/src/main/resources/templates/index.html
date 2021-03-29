@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>首页</title>
+
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../LayUI/css/layui.css">
+    <link rel="stylesheet" href="../css/Register.css">
+
+    <script src="../LayUI/layui.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar">15</span>
+                    <span class="icon-bar">test</span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!--首页图标-->
+                <a class="navbar-brand glyphicon glyphicon-home" href="#"> 首页 </a>
+            </div>
+    
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="PaperList.html">论文检索 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="KeywordAtlas.html">数据分析</a></li>
+                </ul>
+                <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default glyphicon glyphicon-search"> 搜索 </button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="Login.html">登录</a></li>
+                    <li><a href="Register.html">注册</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">昵称 <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">个人主页</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">收藏夹</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">问答中心</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
+        <div class="row col-md-offset-6" id="index">
+            Search
+        </div>
+        <div class="row col-md-5 col-md-offset-4" id="content">
+            <div class="input-group">
+                <input type="text" class="form-control" onkeydown="onKeyDown(event)"/>
+                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+            </div>
+        </div>
+
+        <table class="table">
+            <tr>
+                <td>ID</td>
+                <td>论文链接</td>
+                <td>论文标题</td>
+                <td>发布时间</td>
+            </tr>
+
+            <tr th:each="item : ${paperList}">
+                <td th:text="${item.pid}"></td>
+                <td th:text="${item.link}"></td>
+                <td th:text="${item.title}"></td>
+                <td th:text="${item.publicDate}"></td>
+            </tr>
+        </table>
+
+        <script type="text/javascript">
+            function onKeyDown(event){
+                var e = event || window.event || arguments.callee.caller.arguments[0];
+                if(e && e.keyCode==13){ // enter键进行搜索跳转到爬取结果页面
+                    alert("显示搜索结果");
+                }
+            }
+ 
+        </script>
+
+
+
+    </div>
+
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../bootstrap/js/bootstrap.min.js"></script>    
+</body>
+</html>

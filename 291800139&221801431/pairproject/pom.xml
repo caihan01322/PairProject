@@ -47,11 +47,12 @@
         </dependency>
 
 
-        <!--热部署-->
+        <!-- 项目热部署 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
+            <optional>true</optional> <!-- 表示依赖不会传递 -->
+            <scope>true</scope>
         </dependency>
 
         <!--lombok-->
@@ -93,6 +94,29 @@
             <version>3.1.1</version>
         </dependency>-->
 
+        <!-- jquery bootstrap -->
+        <!--<dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>3.5.1</version>
+        </dependency>-->
+        <!--<dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator</artifactId>
+            <version>0.30</version>
+        </dependency>-->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>4.5.0</version>
+        </dependency>
+
+        <!--thymeleaf-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
 
     </dependencies>
 
@@ -101,8 +125,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
+                </configuration>
             </plugin>
-
 
             <!-- 自动生成代码 -->
             <plugin>

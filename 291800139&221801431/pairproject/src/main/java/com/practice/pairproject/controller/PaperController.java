@@ -11,6 +11,7 @@ import com.practice.pairproject.util.MyPage;
 import com.practice.pairproject.util.StoragePaper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@RestController
+@Controller
 @RequestMapping("/paper")
 public class PaperController {
 
@@ -120,7 +121,7 @@ public class PaperController {
      * @return
      */
     @GetMapping("/search")
-    public AjaxResponse searchUser(
+    public String searchUser(
             @RequestParam(name = "pageNum", defaultValue = "1") int pageNum,
             @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
             @RequestParam(name= "title" , defaultValue = "") String title,
@@ -145,11 +146,12 @@ public class PaperController {
 
         if( paperList.isEmpty()){
             log.info("【未查询到数据】 " );
-            return AjaxResponse.success("【未查询到数据】");
+            //return AjaxResponse.success("【未查询到数据】");
         }
-        //model.addAttribute("paperList",paperList);
+        //return AjaxResponse.success(page, "【查询成功！】");
 
-        return AjaxResponse.success(page, "【查询成功！】");
+        model.addAttribute("paperList", paperList);
+        return "index";
     }
 
 
@@ -180,7 +182,7 @@ public class PaperController {
      * @return
      */
     @GetMapping("/show")
-    public AjaxResponse showPage(@RequestParam(name = "pageNum", defaultValue = "1") int pageNum,
+    public String showPage(@RequestParam(name = "pageNum", defaultValue = "1") int pageNum,
                                  @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
                                  Model model){
         if( pageSize <= 0 ){
@@ -200,13 +202,16 @@ public class PaperController {
 
         if(paperList.isEmpty()){
             log.error("【查询所有论文列表失败！】");
-            return AjaxResponse.fail(500, "【查询所有论文列表失败！】");
+            //return AjaxResponse.fail(500, "【查询所有论文列表失败！】");
         }
         /*
         //该分页的json数据
         PageInfo<Paper> papers = PageInfo.of(paperList);
         */
-        return AjaxResponse.success(page, "【查询所有论文列表成功！】");
+        //return AjaxResponse.success(page, "【查询所有论文列表成功！】");
+
+        model.addAttribute("paperList", paperList);
+        return "index";
     }
 
     /**
