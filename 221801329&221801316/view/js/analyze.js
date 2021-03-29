@@ -1,5 +1,5 @@
-var globalBaseURL = 'http://120.77.84.235:8080';
-var instance = axios.create({
+let globalBaseURL = 'http://120.77.84.235:8080';
+let instance = axios.create({
     baseURL: 'http://120.77.84.235:8080',
     headers: {
         'X-Requested-With': 'XMLHttpRequest'
@@ -38,10 +38,10 @@ function getSunBurst() {
                 cursor: 'pointer',
                 dataLabels: {
                     formatter: function() {
-                        var shape = this.point.node.shapeArgs;
-                        var innerArcFraction = (shape.end - shape.start) / (2 * Math.PI);
-                        var perimeter = 2 * Math.PI * shape.innerR;
-                        var innerArcPixels = innerArcFraction * perimeter;
+                        let shape = this.point.node.shapeArgs;
+                        let innerArcFraction = (shape.end - shape.start) / (2 * Math.PI);
+                        let perimeter = 2 * Math.PI * shape.innerR;
+                        let innerArcPixels = innerArcFraction * perimeter;
                         if (innerArcPixels > 16) {
                             return this.point.name;
                         }
@@ -55,13 +55,13 @@ function getSunBurst() {
                     }
                 }, {
                     level: 3,
-                    colorVariation: {
+                    colorletiation: {
                         key: 'brightness',
                         to: -0.5
                     }
                 }, {
                     level: 4,
-                    colorVariation: {
+                    colorletiation: {
                         key: 'brightness',
                         to: 0.5
                     }
