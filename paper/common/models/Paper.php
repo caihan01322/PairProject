@@ -52,4 +52,29 @@ class Paper extends \yii\db\ActiveRecord
         return Html::a($this->link, "//{$this->link}", ['target' => '_blank']);
     }
 
+    public function getUrl()
+    {
+        return Yii::$app->urlManager->createUrl(
+            ['paper/detial','link'=>$this->link,'title'=>$this->title]
+        );
+    }
+
+    public function getBeginning($length=288)
+    {
+        $tmpStr = strip_tags($this->abstract);
+        $tmpLen = mb_strlen($tmpStr);
+
+        $tmpStr = mb_substr($tmpStr,0,$length,'utf-8');
+        return $tmpStr.($tmpLen>$length?'...':'');
+    }
+
+    public function getKeywordLinks()
+    {
+        $links=array();
+        foreach(Keyword::string2array($this->keywords) as $keyword)
+        {
+            $links[]=Html::a(Html::encode($keyword),array('paper/index','PaperFrontSearch[keywords]'=>$keyword));
+        }
+        return $links;
+    }
 }
