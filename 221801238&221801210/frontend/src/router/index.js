@@ -13,6 +13,11 @@ const routes = [
     path: '/search',
     name: 'Search',
     component: () => import("@/views/search")
+  },
+  {
+    path: '/favourite',
+    name: 'Favorite',
+    component: () => import("@/views/favourite")
   }
 ]
 

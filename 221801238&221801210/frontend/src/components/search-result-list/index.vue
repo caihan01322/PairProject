@@ -9,7 +9,8 @@
         <p>{{ '摘要：' + paper.abstract }}</p>
         <p>{{ '原文链接：' + paper.url }}</p>
       </div>
-      <el-checkbox class="collect_button" v-model="collection" :label="paper.id" border>添加至收藏夹</el-checkbox>
+      <el-checkbox class="collect_button" v-model="collection" :label="paper.id" border v-if=" mode === 'search' ">添加至收藏夹</el-checkbox>
+      <el-button class="collect_button"  v-if=" mode === 'favorite' " type="danger">删除</el-button>
     </div>
   </div>
 </template>
@@ -17,6 +18,11 @@
 <script>
 export default {
   name: "search-result-list",
+  props: {
+    mode: {
+      type: String
+    }
+  },
   data() {
     return {
       paperList: [],
@@ -73,6 +79,7 @@ export default {
     position: absolute;
     bottom: 29px;
     right: 0;
+    z-index: -1;
   }
 
 }

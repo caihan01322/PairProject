@@ -1,8 +1,19 @@
 <template>
   <div id="app">
+    <sideNavBar v-if=" $route.path !== '/' "/>
     <router-view class="fullHeight"/>
   </div>
 </template>
+
+<script>
+import sideNavBar from '@/components/side-nav-bar'
+export default {
+  name: 'app',
+  components: {
+    sideNavBar
+  }
+}
+</script>
 
 <style lang="scss">
 html {
@@ -24,5 +35,9 @@ body {
 
 .full_width {
   width: 100%;
+}
+
+#app {
+  display: flex;
 }
 </style>

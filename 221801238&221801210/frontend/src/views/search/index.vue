@@ -1,16 +1,13 @@
 <template>
   <div class="search_page_contianer full_height">
-    <sideNavBar />
     <div class="search_result_contianer"  style="overflow: scroll; ">
       <div style="position: absolute; background-color: white; z-index: 1; padding: 29px">
         <searchInput />
         <searchOption />
       </div>
-      <searchResultList style="margin-top: 200px; " />
+      <searchResultList style="margin-top: 200px; " mode="search"/>
     </div>
     <hotWordsList style="margin-left: 50px"/>
-
-
   </div>
 </template>
 
@@ -18,7 +15,7 @@
 import sideNavBar from '@/components/side-nav-bar'
 import searchInput from '@/components/search-input'
 import searchOption from './components/search-option'
-import searchResultList from './components/search-result-list'
+import searchResultList from '../../components/search-result-list/index'
 import hotWordsList from '@/components/hot-words-list'
 
 export default {
