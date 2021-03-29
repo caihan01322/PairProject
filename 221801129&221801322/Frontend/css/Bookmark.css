@@ -46,7 +46,7 @@
     width: 700px;
     height: 55px;
     font-weight: 400;
-    display: inline-block;
+    display: -webkit-box;
     color: #7F7F7F;
 }
 .abstract span{

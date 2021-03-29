@@ -105,7 +105,7 @@
     box-shadow: rgb(0 0 0 / 35%) 3px 3px 5px;
 }
 .title {
-    width: 591px;
+    width: 570px;
     height: 35px;
     line-height: 35px;
     margin-top: 5px;
@@ -126,12 +126,7 @@
     width: 500px;
     height: 55px;
     font-weight: 400;
-    display: inline-block;
-    -webkit-line-clamp: 3; /*用来限制在一个块元素显示的文本的行数*/
-    display: -webkit-box;  /*将对象作为弹性伸缩盒子模型显示*/
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    display: -webkit-box;
     color: #7F7F7F;
 }
 .abstract span{
