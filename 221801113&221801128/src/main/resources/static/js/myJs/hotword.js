@@ -14,7 +14,8 @@ $(function(){
         type: "GET",
         contentType: "application/json;charset=UTF-8",
         url: "/hot",
-        success: function(res) {
+        success: function(re) {
+            let res= JSON.parse(re);
             for(var key in res){
                 str2[cnt2] = key;
                 data2[cnt2] = res[key];
