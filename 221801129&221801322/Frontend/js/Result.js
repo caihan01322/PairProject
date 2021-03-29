@@ -25,6 +25,17 @@ $(function () {
         }
     })
 
+    $(".name").click(function(){
+        var urlStr = "/Result";
+        var searchVal = {
+            searchStatus:"list",
+            searchVal:$(this).text()
+        };
+        PostHandle(urlStr, JSON.stringify(searchVal), function(data){
+            //搜索结果展示
+        });
+    })
+
     $(".markSvg").click(function(){
         alert("收藏成功！");
         $(".markSvg").attr("src","../img/Result/marked.svg");
