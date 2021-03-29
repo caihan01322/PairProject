@@ -43,4 +43,10 @@ public class WorkController {
     public Object getICCV(){
         return ws.getICCV();
     }
+
+    @RequestMapping(value = "/getDetail",method = {RequestMethod.POST})
+    @ResponseBody
+    public Object getDetail(@RequestBody Map<String,Object> req){
+        return ws.getDetail(req);
+    }
 }

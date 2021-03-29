@@ -15,6 +15,7 @@ import java.util.Map;
 public class WorkService {
     @Autowired
     PaperDao dao;
+    int count;
 
     public Object queryName(Map<String, Object> req) {
 //        System.out.println(name.get("name"));
@@ -25,7 +26,6 @@ public class WorkService {
 //        for (String s : arr) {
 //            System.out.println(s);
 //        }
-        int count=0;
         String name;
         if(req.get("name")==""||req.get("name")==null)
             name="computer";
@@ -50,7 +50,6 @@ public class WorkService {
     }
 
     public Object queryAuthor(Map<String, Object> req) {
-        int count = 0;
         String author;
         author = req.get("author").toString();
         int page = (int) req.get("page");
@@ -85,5 +84,13 @@ public class WorkService {
         List<Map<String, String>> iccv = dao.getICCV();
         Object obj = JSONArray.toJSON(iccv);
         return obj;
+    }
+
+    public Object getDetail(Map<String,Object> req){
+        int id = (int)req.get("id");
+        Paper paper = dao.getDetail(id);
+        paper.setAuthor(dao.getAuthor(id));
+        paper.setKeyword(dao.getKeyword(id));
+        return JSONObject.toJSON(paper);
     }
 }

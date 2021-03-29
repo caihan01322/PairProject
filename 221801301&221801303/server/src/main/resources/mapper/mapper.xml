@@ -74,11 +74,11 @@
 
     <insert id="addPaper" parameterType="com.fzu.server.pojo.Paper" useGeneratedKeys="true" keyProperty="ID">
         insert into paper(abstract,
-                               year,
-                               time,
-                               name,
-                               link,
-                            meeting)
+                          year,
+                          time,
+                          name,
+                          link,
+                          meeting)
         values (#{Abstract},
                 #{year},
                 #{time},
@@ -88,22 +88,28 @@
     </insert>
     <insert id="addKeyword">
         insert into keyword(pid,
-                                 keyword)
+                            keyword)
         values (#{pID},
                 #{keyword})
     </insert>
     <insert id="addAuthor">
         insert into author(pid,
-                                author)
+                           author)
         VALUES (#{pID},
                 #{author})
     </insert>
 
     <select id="getPaperByName" resultType="com.fzu.server.pojo.Paper">
-        select * from paper where name like CONCAT('%',#{name},'%') limit #{start},#{lim};
+        select *
+        from paper
+        where name like CONCAT('%', #{name}, '%')
+        limit #{start},#{lim};
     </select>
     <select id="getPaperByAuthor" resultType="com.fzu.server.pojo.Paper">
-        select * from paper where id in (select DISTINCT pid from author where author like CONCAT('%',#{author},'%')) limit #{start},#{lim};
+        select *
+        from paper
+        where id in (select DISTINCT pid from author where author like CONCAT('%', #{author}, '%'))
+        limit #{start},#{lim};
     </select>
     <select id="getCount" resultType="java.lang.Integer">
         select COUNT(*) from paper where 1=1
@@ -114,29 +120,40 @@
             and id in (select DISTINCT pid from author where author like CONCAT('%',#{author},'%'));
         </if>
     </select>
+    <select id="getDetail" resultType="com.fzu.server.pojo.Paper">
+        select *
+        from paper
+        where id = #{id};
+    </select>
     <select id="getKeyword" resultType="java.lang.String">
-        select keyword from keyword where pid = #{id} limit 5;
+        select keyword
+        from keyword
+        where pid = #{id}
+        limit 5;
     </select>
     <select id="getAuthor" resultType="java.lang.String">
-        select author from author where pid = #{id} limit 5;
+        select author
+        from author
+        where pid = #{id}
+        limit 5;
     </select>
 
     <select id="getCVPR" resultType="java.util.Map">
-        select keyword,COUNT(*) num
+        select keyword, COUNT(*) num
         from CVPR_keyword
         group by keyword
         order by COUNT(*) DESC
         limit 10;
     </select>
     <select id="getECCV" resultType="java.util.Map">
-        select keyword,COUNT(*) num
+        select keyword, COUNT(*) num
         from ECCV_keyword
         group by keyword
         order by COUNT(*) DESC
         limit 10;
     </select>
     <select id="getICCV" resultType="java.util.Map">
-        select keyword,COUNT(*) num
+        select keyword, COUNT(*) num
         from ICCV_keyword
         group by keyword
         order by COUNT(*) DESC
