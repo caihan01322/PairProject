@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KeywordsDAO {
-    public List<HotWord> getHotkey()
+    public List<HotWord> getHotkey(int count)
     {
         List<HotWord> results=new ArrayList<>();
         Connection ThesisConnection = null;
@@ -21,8 +21,10 @@ public class KeywordsDAO {
                     "from Keywords " +
                     "GROUP BY keyword " +
                     "ORDER BY count DESC " +
-                    "LIMIT 20";
+                    "LIMIT ?";
+
             PreparedStatement Ptmt = ThesisConnection.prepareStatement(sql);
+            Ptmt.setInt(1,count);
             ResultSet Rs = Ptmt.executeQuery();
             while (Rs.next()) {
                 results.add(setHotWord(Rs));

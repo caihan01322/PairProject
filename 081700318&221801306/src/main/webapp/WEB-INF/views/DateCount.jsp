@@ -7,7 +7,7 @@
     <title>Title</title>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>测试使用bootstrap框架</title>
+        <title>统计页面</title>
         <!-- 引入jQuery -->
         <script type="text/javascript" src="static/js/jquery-3.6.0.min.js"></script>
         <!-- 引入样式 -->
@@ -15,19 +15,27 @@
         <script src="static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
         <link href="static/css/myEdit.css" rel="stylesheet">
         <script src="static/echart/echarts.min.js"></script>
+        <script type="text/javascript" src="static/echart/echarts-wordcloud.min.js"></script>
         <script src="static/js/charts.js"></script>
     </head>
 
 <body>
 <div id="info"></div>
     <div  class='main row'>
-        <div class="col-md-8 col-sm-offset-2">
-        <div id="chart1" style="width: 1200px;height:800px">
+        <div class="col-md-4 col-lg-offset-0 ">
+        <div id="chart1" style="width: 800px;height:500px">
         </div>
         </div>
+    <div class="col-md-4 col-lg-offset-2 ">
+        <div id="chart2" style="width: 600px;height:500px">
         </div>
     </div>
-    <nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="col-md-10 col-lg-offset-1 ">
+        <div id="chart3" style="width: 1400px;height:800px">
+        </div>
+    </div>
+    </div>
+    <nav class="navbar navbar-default ">
         <div class="container">
             <p class="navbar-text navbar-right"> <a href="#" class="navbar-link">copyright@aaagx</a></p>
         </div>

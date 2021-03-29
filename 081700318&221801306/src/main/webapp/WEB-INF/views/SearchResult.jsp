@@ -49,12 +49,20 @@
                 {
                 for(Thesis i:result)
                     {%>
-                    <li class="list-group-item">
+                    <li class="list-group-item thesis-item">
+
                         <h3><a  href="<%=i.getLink()%>"><%=i.getTitle()%></a></h3>
+                        <span class="label label-default"><%=i.getMeeting()%></span>
+                        <span class="label label-default"><%=i.getYear()%></span>
                         <div class='thesis-content'><%=i.getAbstractContent()%>
                         </div>
-                        <div class='thesis-content'><%=i.getKeyword()%>
-                        </div>
+                        关键词:
+                        <%for(String j:i.getKeywordList())
+                        {%>
+                        <a class="btn btn-default" href="Search?searchtype=keyword&input=<%=j%>"><%=j%>
+                        </a>
+                        <%
+                        }%>
                         <%if(i.isIsliked()){%>
                         <a class="btn btn-default thesis-star star-y" ThesisId="<%=i.getId()%>"  ole="button">已收藏</a>
                         <%}else{ %>
