@@ -91,14 +91,15 @@
     	   $sql="select * from paper ";
     	   $result = $conn->query($sql);
     	   $resultNum=0;
+    	   $sql = "select * from userPaper where userid = '$userid' ";
+    	   $res = $conn->query($sql);
+    	   if($res->num_rows >0){
+    	       $row=$res->fetch_assoc();
     	   if( $result->num_rows >0 ){
     	       while( $row2=$result->fetch_assoc()){
-    	           $pid=$row2["pid"];
-    	           $sql = "select * from userPaper where userid = '$userid' and pid='$pid' ";
-    	           $res = $conn->query($sql);
-    	           if($res->num_rows >0){
+    	           $pid=$row2["pid"];        
+    	           if($pid==$row["pid"]){
     	               $resultNum++;
-    	               $row= $res->fetch_assoc();
     	               echo '
     	                       <div class="paper">
 	                               <div class="page-wrapper">
@@ -166,13 +167,15 @@
                         </div>
                     </div>
                         ';  
+    	               if(!($row=$res->fetch_assoc()))
+    	                   break;
     	           }
     	       }
     	       if($resultNum==0)
     	           echo '<div class="paper" style="text-align:center;">暂无论文</div>';
     	       else 
     	           echo '<div class="paper" style="text-align:center;">没有更多了……</div>';
-    	   }
+    	   }}
     	   else{
     	       echo '<div class="paper" style="text-align:center;">暂无论文</div>';
     	   }
