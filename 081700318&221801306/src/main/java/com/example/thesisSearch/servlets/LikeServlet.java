@@ -25,10 +25,22 @@ public class LikeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LikeListDao lld=new LikeListDao();
         String input =req.getParameter("input");
-        req.setAttribute("result",lld.getLikeList());
+        List<Thesis> result=null;
         if(input!=null)
-            req.setAttribute("result",lld.getLikeListByTitle(input));
+        {
+            result = lld.getLikeListByTitle(input);
+        }
+        else
+            {
+            result = lld.getLikeList();
+        }
+        for(Thesis t:result)
+        {
+            t.setIsliked(lld.isliked(t.getId()));
+        }
+
         try {
+            req.setAttribute("result",result);
             req.getRequestDispatcher("/WEB-INF/views/LikeList.jsp").forward(req,resp);
         } catch (ServletException e) {
             e.printStackTrace();

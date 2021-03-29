@@ -51,7 +51,30 @@ $(document).ready(function () {
         });
       },
     });
-
+    function ymData(year,meeting)
+    {
+      var legendData = [];
+      var seriesData = [];
+      $.ajax({
+        url: "http://localhost:8080/thesisSearch_war_exploded/Count?year=" + year + "&meeting=" + meeting,
+        dataType: "json", //数据格式
+        type: "get", //请求方式
+        async: false, //是否异步请求
+        success: function (data) {
+          //如果请求成功，返回数据。
+          $.each(data, function (i, item) {
+            legendData.push(item.keyword);
+            seriesData.push({
+              name: item.keyword,
+              value: item.nums,
+              url:
+                  "http://localhost:8080/thesisSearch_war_exploded/Search?searchtype=title&input=" +
+                  item.keyword,
+            });
+          });
+        },
+      });
+    }
     return {
       legendData: legendData,
       seriesData: seriesData,

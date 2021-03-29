@@ -22,11 +22,25 @@ public class CountServlet extends HttpServlet {
         response.setContentType("application/json;charset=utf-8");// 指定返回的格式为JSON格式
         response.setCharacterEncoding("UTF-8");// setContentType与setCharacterEncoding的顺序不能调换，否则无法解决中文乱码的问题
         response.setHeader("Access-Control-Allow-Origin", "*");//跨域
+        int count=0;
+        int year=0;
+        if(request.getParameter("count")!=null)
+            count=Integer.parseInt(request.getParameter("count"));
+        if(request.getParameter("year")!=null)
+            year = Integer.parseInt(request.getParameter("year"));
+        String meeting=request.getParameter("meeting");
+        List<HotWord> list=null;
         PrintWriter out = null;
         try {
             out = response.getWriter();
             KeywordsDAO Kd = new KeywordsDAO();
-            List<HotWord> list= Kd.getHotkey();
+            if(meeting==null)
+            {
+            list= Kd.getHotkey(count);
+            }
+            else {
+                list = Kd.getHotkeyByYearAndMeeting(year, meeting);
+            }
             JSONArray Jarray = (JSONArray) JSON.toJSON(list);
             out.write(Jarray.toJSONString());
         } catch (IOException e) {
