@@ -63,12 +63,13 @@ export default {
             url: `/page/detail/${this.isbn}`,
         }).then((re) => {
             console.log(re);
-            if (re.data.error == 0) {
-                this.page_abstract = re.data.abstract;
-                this.page_tag = re.data.tag;
-                this.page_link = re.data.link;
-                this.page_name = re.data.title;
-                this.page_time = re.data.year;
+            if (re.data.errno == 0) {
+                let { data } = re.data;
+                this.page_abstract = data.abstract;
+                this.page_tag = data.tag;
+                this.page_link = data.link;
+                this.page_name = data.title;
+                this.page_time = data.year;
             }
         });
     },
@@ -119,7 +120,7 @@ export default {
 }
 
 #detail_part {
-    width: 67%;
+    width: 70%;
     /* height: 60%;
     overflow: auto; */
     color: #033;
@@ -130,7 +131,7 @@ export default {
 .detail_item {
     display: flex;
     justify-content: space-between;
-    height: 40px;
+    height: 50px;
 }
 
 .list_title {
@@ -174,6 +175,7 @@ export default {
 .page_abstract > .message_part {
     justify-content: flex-start;
     text-align: left;
+    height: 250px;
 }
 
 .el-button {

@@ -10,7 +10,7 @@ import echarts from 'echarts'
 Vue.config.productionTip = false;
 
 // axios.defaults.withCredentials = true;
-axios.defaults.baseURL = 'http://47.98.191.214/api/pages/'
+// axios.defaults.baseURL = 'http://118.31.56.126/api/pages/'
 
 Vue.prototype.$axios = axios
 Vue.prototype.$echarts = echarts

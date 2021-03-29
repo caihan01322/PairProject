@@ -65,12 +65,13 @@ export default {
             url: `/page/detail/${this.page_isbn}`,
         }).then((re) => {
             console.log(re);
-            if (re.data.error == 0) {
-                this.page_abstract = re.data.abstract;
-                this.page_tag = re.data.tag;
-                this.page_link = re.data.link;
-                this.page_name = re.data.title;
-                this.page_time = re.data.year;
+            if (re.data.errno == 0) {
+                let { data } = re.data;
+                this.page_abstract = data.abstract;
+                this.page_tag = data.tag;
+                this.page_link = data.link;
+                this.page_name = data.title;
+                this.page_time = data.year;
             }
         });
     },
@@ -106,7 +107,7 @@ export default {
                 data: data,
             }).then((re) => {
                 console.log(re);
-                if (re.data.error == 0) {
+                if (re.data.errno == 0) {
                     this.$message({
                         message: "修改成功！",
                         type: "success",

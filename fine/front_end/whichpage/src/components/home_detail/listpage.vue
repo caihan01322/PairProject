@@ -22,7 +22,7 @@
                 clearable
             >
             </el-input>
-            <el-button @click="search_page" plain>搜索</el-button>
+            <el-button @click.native="search_page" plain>搜索</el-button>
         </div>
 
         <div id="table_part">
@@ -158,10 +158,18 @@ export default {
                     method: "delete",
                     url: `/page/${isbn}`,
                 }).then((re) => {
-                    if (re.data.error == 0) {
+                    if (re.data.errno == 0) {
                         this.$message({
                             type: "success",
                             message: "删除成功!",
+                        });
+
+                        this.page_data.some((item, i) => {
+                            if (item.isbn == isbn) {
+                                this.page_data.splice(i, 1);
+                            }
+
+                            return true;
                         });
                     }
                 });
@@ -205,10 +213,14 @@ export default {
                 data: data,
             }).then((re) => {
                 // console.log(re);
-                if (re.data.error == 0) {
-                    let { data } = re.data.data;
+                if (re.data.errno == 0) {
+                    let { data } = re.data;
                     this.page_data = data.pages;
                     this.total_page = data.total_num;
+
+                    if (this.total_page == 0) {
+                        this.total_page = 1;
+                    }
                 }
             });
         },

@@ -31,7 +31,7 @@ export default {
             ic_data: [220, 182, 191, 234, 290, 330, 310, 334, 390, 330],
             ec_data: [150, 232, 201, 154, 190, 330, 410, 820, 932, 901],
             pie_data: [
-                { value: 1048, name: "搜索引擎" },
+                { value: "1048", name: "搜索引擎" },
                 { value: 735, name: "直接访问" },
                 { value: 580, name: "邮件营销" },
                 { value: 484, name: "联盟广告" },
@@ -63,16 +63,17 @@ export default {
         };
     },
 
-    created() {
+    mounted() {
         this.$axios({
             method: "GET",
             url: `/tag/pie`,
         }).then((re) => {
             console.log(re);
-            if (re.data.error == 0) {
-                let { pie_data, radar_data } = re.data.data;
-                this.pie_data = pie_data;
-                this.radar_tag = radar_data;
+            if (re.data.errno == 0) {
+                let { data } = re.data;
+                this.pie_data = data.pie_data;
+                this.radar_tag = data.radar_data;
+                this.draw_pie();
             }
         });
 
@@ -81,7 +82,7 @@ export default {
             url: `/tag/line`,
         }).then((re) => {
             console.log(re);
-            if (re.data.error == 0) {
+            if (re.data.errno == 0) {
                 let {
                     ic_data,
                     cv_data,
@@ -94,6 +95,7 @@ export default {
                 this.hot_word = hot_word;
                 this.ec_data = ec_data;
                 this.year = year;
+                this.draw_line();
             }
         });
 
@@ -102,16 +104,11 @@ export default {
             url: `/tag/radar`,
         }).then((re) => {
             console.log(re);
-            if (re.data.error == 0) {
+            if (re.data.errno == 0) {
                 this.radar_data = re.data.data;
+                this.draw_radar();
             }
         });
-    },
-
-    mounted() {
-        this.draw_pie();
-        this.draw_radar();
-        this.draw_line();
     },
 
     methods: {

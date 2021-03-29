@@ -79,8 +79,8 @@ export default {
                 data: data,
             }).then((re) => {
                 console.log(re);
-                if (re.data.error == 0) {
-                    let { data } = re.data.data;
+                if (re.data.errno == 0) {
+                    let { data } = re.data;
                     this.insert_data = data.pages;
                 }
             });
@@ -112,7 +112,7 @@ export default {
                 url: `/insert/add/${isbn}`,
             }).then((re) => {
                 console.log(re);
-                if (re.data.error == 0) {
+                if (re.data.errno == 0) {
                     this.$message({
                         message: "导入成功",
                         type: "success",

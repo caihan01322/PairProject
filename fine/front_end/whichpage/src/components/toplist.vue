@@ -23,30 +23,17 @@ export default {
 
     data() {
         return {
-            items: [
-                {
-                    title: "李嘉林李嘉林李嘉林了解了解了解了解了",
-                },
-                { title: "bbb" },
-                { title: "aaa" },
-                { title: "bbb" },
-                { title: "aaa" },
-                { title: "bbb" },
-                { title: "aaa" },
-                { title: "bbb" },
-                { title: "aaa" },
-                { title: "bbb" },
-            ],
+            items: [],
         };
     },
 
     created() {
         this.$axios({
             method: "GET",
-            url: `tag`,
+            url: `/tag`,
         }).then((re) => {
             console.log(re);
-            if (re.data.error == 0) {
+            if (re.data.errno == 0) {
                 this.items = re.data.data;
             }
         });
