@@ -45,7 +45,9 @@
     <script type="text/javascript">
         var formJSON = $.cookie("list");
         $.cookie("list",null);
+        console.log(formJSON);
         var editPaper = JSON.parse(formJSON);
+        
         console.log(editPaper);
         var oldPaperString = JSON.stringify(editPaper);
         var oldPaper = JSON.parse(oldPaperString);
@@ -67,10 +69,10 @@
                     $.ajax({
                         type:"POST",
                         contentType: "application/x-www-form-urlencoded",
-                        url:'http://localhost/PairProject/PairProjectDemo/tp5/public/index/index/editDetail/updatePaper',
+                        url:'editdetail/updatePaper',
                         data:{},
                         success:function(result){
-                            window.location.href = "http://localhost/PairProject/PairProjectDemo/tp5/public/index/index/edit";
+                            window.location.href = "edit";
                             console.log("修改成功");
                         },
                         error:function(msg){

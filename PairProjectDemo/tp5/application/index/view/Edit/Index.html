@@ -120,8 +120,8 @@
                     // });
                     $.cookie("list",JSON.stringify(list));
                     $.cookie("page",this.currPage);
-                    document.getElementById("app").innerHTML = 
-                    window.location.href = "http://localhost/PairProject/PairProjectDemo/tp5/public/index/index/editDetail";
+                    // document.getElementById("app").innerHTML = 
+                    window.location.href = "editdetail";
                 },
                 currentChange:function(val){
                     console.log(val);
@@ -140,12 +140,12 @@
                     $.ajax({
                         type:"POST",
                         contentType: "application/x-www-form-urlencoded",
-                        url:'http://localhost/PairProject/PairProjectDemo/tp5/public/index/index/editDetail/deletePaper',
+                        url:'editdetail/deletePaper',
                         data:{},
                         success:function(result){
                         //     document.getElementById("app").innerHTML = 
                         // '<iframe  src="http://localhost/PairProject/PairProjectDemo/tp5/public/index/index/edit" width="100%" height="900"  frameborder="no" scrolling="no"></iframe>';
-                            location.href = "http://localhost/PairProject/PairProjectDemo/tp5/public/index/index/edit" 
+                            location.href = "edit" 
                             console.log("修改成功");
                             alert("删除成功")
                         },
