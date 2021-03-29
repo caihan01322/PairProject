@@ -55,19 +55,24 @@ $(function () {
 
     $(".markSvg").click(function(){
         alert("收藏成功！");
-        $(".markSvg").attr("src","../img/Result/marked.svg");
-        $(".markSvg").attr("title","已收藏");
-        $(".markSvg").css("cursor","default");
+        $(this).attr("src","../img/Result/marked.svg");
+        $(this).attr("title","已收藏");
+        $(this).css("cursor","default");
+        $(this).css("pointer-events","none");
     });
 
     $(".deleteSvg").click(function(){
         alert("删除成功！");
-        $(".deleteSvg").attr("src","../img/Result/deleted.svg");
-        $(".deleteSvg").attr("title","已删除");
-        $(".deleteSvg").css("cursor","default");
+        $(this).attr("src","../img/Result/deleted.svg");
+        $(this).attr("title","已删除");
+        $(this).css("cursor","default");
+        $(this).css("pointer-events","none");
+        $(this).parent().children("div.title").css("text-decoration","line-through");
+        $(this).next().css("cursor","default");
+        $(this).next().css("pointer-events","none");
         var urlStr = "/Delete";
         var paperUid = {
-            paperUid:$(".title").attr("data-paper-uid")
+            paperUid:$(this).parent().children("div.title").attr("data-paper-uid")
         };
         PostHandle(urlStr, JSON.stringify(paperUid), function(data){
             //删除论文列表

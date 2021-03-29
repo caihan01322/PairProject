@@ -15,8 +15,9 @@ $(function () {
     
     $(".markedSvg").click(function(){
         alert("取消收藏！");
-        $(".markedSvg").attr("src","../img/Bookmark/mark.svg");
-        $(".markedSvg").attr("title","未收藏");
-        $(".markedSvg").css("cursor","default");
+        $(this).attr("src","../img/Bookmark/mark.svg");
+        $(this).attr("title","未收藏");
+        $(this).css("cursor","default");
+        $(this).css("pointer-events","none");
     });
 })
