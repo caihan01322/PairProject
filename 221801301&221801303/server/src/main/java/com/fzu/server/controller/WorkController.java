@@ -16,14 +16,14 @@ public class WorkController {
     WorkService ws;
     @RequestMapping(value = "/queryName",method = {RequestMethod.POST})
     @ResponseBody
-    public Object queryName(@RequestBody Map<String,Object> name){
-        return ws.queryName(name);
+    public Object queryName(@RequestBody Map<String,Object> req){
+        return ws.queryName(req);
     }
 
     @RequestMapping(value = "/queryAuthor",method = {RequestMethod.POST})
     @ResponseBody
-    public Object queryAuthor(@RequestBody Map<String,Object> name){
-        return ws.queryAuthor(name);
+    public Object queryAuthor(@RequestBody Map<String,Object> req){
+        return ws.queryAuthor(req);
     }
 
     @RequestMapping(value = "/getCVPR",method = {RequestMethod.GET})

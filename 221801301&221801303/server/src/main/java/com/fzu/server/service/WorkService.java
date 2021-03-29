@@ -7,6 +7,7 @@ import com.fzu.server.pojo.Paper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,8 @@ import java.util.Map;
 public class WorkService {
     @Autowired
     PaperDao dao;
-    public Object queryName(Map<String,Object>name){
+
+    public Object queryName(Map<String, Object> req) {
 //        System.out.println(name.get("name"));
 //        Object data = name.get("data");
 //        Map<String,Object> map = (Map<String, Object>) data;
@@ -23,39 +25,63 @@ public class WorkService {
 //        for (String s : arr) {
 //            System.out.println(s);
 //        }
-        List<Paper> paper = dao.getPaperByName(name.get("name").toString());
-        for (Paper paper1 : paper) {
-            paper1.setKeyword(dao.getKeyword(paper1.getID()));
-            paper1.setAuthor(dao.getAuthor(paper1.getID()));
+        int count=0;
+        String name;
+        if(req.get("name")==""||req.get("name")==null)
+            name="computer";
+        else
+            name=req.get("name").toString();
+
+        int page = (int) req.get("page");
+        int limit = (int) req.get("limit");
+        int start = (page - 1) * limit;
+        if(page==1)count=dao.getCount(name,0);
+        List<Paper> paper = dao.getPaperByName(name, start, limit);
+        for (Paper pp : paper) {
+            pp.setKeyword(dao.getKeyword(pp.getID()));
+            pp.setAuthor(dao.getAuthor(pp.getID()));
 
         }
-        Object obj = JSONArray.toJSON(paper);
-        return obj;
+        Map<String,Object> result=new HashMap<>();
+        result.put("data",paper);
+        result.put("count",count);
+
+        return JSONObject.toJSON(result);
     }
 
-    public Object queryAuthor(Map<String,Object>name){
-        List<Paper> paper = dao.getPaperByAuthor(name.get("name").toString());
-        for (Paper paper1 : paper) {
-            paper1.setKeyword(dao.getKeyword(paper1.getID()));
-            paper1.setAuthor(dao.getAuthor(paper1.getID()));
+    public Object queryAuthor(Map<String, Object> req) {
+        int count = 0;
+        String author;
+        author = req.get("author").toString();
+        int page = (int) req.get("page");
+        int limit = (int) req.get("limit");
+        int start = (page - 1) * limit;
+        if (page == 1) count = dao.getCount(author, 1);
+        List<Paper> paper = dao.getPaperByAuthor(author, start, limit);
+        for (Paper pp : paper) {
+            pp.setKeyword(dao.getKeyword(pp.getID()));
+            pp.setAuthor(dao.getAuthor(pp.getID()));
         }
-        Object obj = JSONArray.toJSON(paper);
-        return obj;
+        Map<String, Object> result = new HashMap<>();
+        result.put("count", count);
+        result.put("data", paper);
+
+        return JSONObject.toJSON(result);
     }
 
-    public Object getCVPR(){
+    public Object getCVPR() {
         List<Map<String, String>> cvpr = dao.getCVPR();
         Object obj = JSONArray.toJSON(cvpr);
         return obj;
     }
 
-    public Object getECCV(){
+    public Object getECCV() {
         List<Map<String, String>> eccv = dao.getECCV();
         Object obj = JSONArray.toJSON(eccv);
         return obj;
     }
 
-    public Object getICCV(){
+    public Object getICCV() {
         List<Map<String, String>> iccv = dao.getICCV();
         Object obj = JSONArray.toJSON(iccv);
         return obj;

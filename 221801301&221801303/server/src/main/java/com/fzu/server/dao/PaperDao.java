@@ -23,8 +23,10 @@ public interface PaperDao {
     void addKeyword(int pID,String keyword);
     void addAuthor(int pID,String author);
 
-    List<Paper> getPaperByName(String name);
-    List<Paper> getPaperByAuthor(String name);
+    List<Paper> getPaperByName(String name,int start,int lim);
+    List<Paper> getPaperByAuthor(String author,int start,int lim);
+    int getCount(String str,int state);
+
     List<String> getKeyword(Integer id);
     List<String> getAuthor(Integer id);
 
