@@ -25,15 +25,21 @@
       <el-tab-pane label="首页" name="first">
         <div id="main">
           <div class="search">
-            <el-input placeholder="请输入关键字" icon="search" v-model="devfilter" class="search-input" clearable></el-input>
-            <el-select v-model="value" placeholder="请选择">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
+            <el-row>
+              <el-col :span="20"><el-input placeholder="请输入小写字母" icon="search" v-model="devfilter" class="search-input" clearable></el-input></el-col>
+              <el-col :span="4">
+                <el-select v-model="value" placeholder="请选择">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-col>
+            </el-row>
+            
+            
           </div>
 
           <el-table :data="tableData.slice((currpage-1)*4,currpage*4)" stripe style="width: 100%">
@@ -69,7 +75,7 @@
         <div id="ICCV" style="height: 400px;width: 900px;"></div>
         
       </el-tab-pane>
-      <el-tab-pane label="导入" name="fourth">定时任务补偿</el-tab-pane>
+      <el-tab-pane label="导入" name="fourth">正在开发，敬请期待</el-tab-pane>
     </el-tabs>
     <!-- <el-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal" @select="handleSelect"
       background-color="#DCDCDC" text-color="#696969" active-text-color="#4682D4">
