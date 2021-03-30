@@ -1,31 +1,31 @@
 import { initialState as UserInitialState } from '@/models/user';
-import { initialState as HomeInitialState } from '@/pages/models';
-import { initialState as SearchInitialState } from '@/pages/search/models';
-import { initialState as FavoriteInitialState } from '@/pages/favorite/models';
+import { initialState as SearchInitialState } from '@/models/search';
+import { initialState as FavoriteInitialState } from '@/models/favorite';
+import { initialState as StatisticInitialState } from '@/models/statistic';
 
 type UserModel = typeof UserInitialState;
-type HomeModel = typeof HomeInitialState;
 type SearchModel = typeof SearchInitialState;
 type FavoriteModel = typeof FavoriteInitialState;
+type StatisticModel = typeof StatisticInitialState;
 
 enum ModelNameSpaces {
   User = 'User',
-  Home = 'Home',
   Search = 'Search',
   Favorite = 'Favorite',
+  Statistic = 'Statistic',
 }
 
 type RootStore = {
   [key in ModelNameSpaces.User]: UserModel;
 } &
   {
-    [key in ModelNameSpaces.Home]: HomeModel;
-  } &
-  {
     [key in ModelNameSpaces.Search]: SearchModel;
   } &
   {
     [key in ModelNameSpaces.Favorite]: FavoriteModel;
+  } &
+  {
+    [key in ModelNameSpaces.Statistic]: StatisticModel;
   };
 
 export { ModelNameSpaces, RootStore };

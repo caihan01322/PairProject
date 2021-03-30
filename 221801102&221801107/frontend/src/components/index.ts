@@ -5,3 +5,5 @@ export { default as IconText } from './iconText';
 export { default as RoseChart } from './roseChart';
 export { default as WordCloud } from './wordCloud';
 export { default as LineChart } from './lineChart';
+export { default as SmallLineChart } from './smallLineChart';
+export { default as EditModal } from './editModal';

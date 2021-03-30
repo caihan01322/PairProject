@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal } from 'antd';
 import { setClsPrefixHOC } from '@/utils/setClsPrefixHOC';
+import { history } from 'umi';
 import Prefix from '../constants';
 import './index.less';
 
@@ -17,7 +18,8 @@ const LoginModal = ({
   setVisible,
   githubClientId,
 }: LoginModalProps) => {
-  const githubAuthorizeUrl = `https://github.com/login/oauth/authorize?client_id=${githubClientId}`;
+  const pathname = history.location.pathname;
+  const githubAuthorizeUrl = `https://github.com/login/oauth/authorize?client_id=${githubClientId}&redirect=${pathname}`;
 
   return (
     <Modal

@@ -7,6 +7,9 @@ enum Prefix {
 
   // 登录组件
   loginModal = 'LoginModal',
+
+  // 编辑框组件
+  editModal = 'EditModal'
 }
 
 export default Prefix;

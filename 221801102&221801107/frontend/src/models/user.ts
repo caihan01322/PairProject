@@ -1,6 +1,6 @@
 import { Effect, ImmerReducer } from 'umi';
 import { ModelNameSpaces } from '@/types';
-import * as UserServices from '../services';
+import * as UserServices from '../services/user';
 
 export interface UserModelState {
   isLogin: boolean;

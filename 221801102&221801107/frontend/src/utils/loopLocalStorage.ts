@@ -7,6 +7,9 @@ const loopLocalStorage = (localStorage: Storage) => {
   const arr = [];
   for (let i = 0; i < len; i++) {
     const key = localStorage.key(i) as string;
+    if (key === 'token' || key === 'username') {
+      continue;
+    }
     const value = parseInt(localStorage.getItem(key) as string);
 
     arr.push({
@@ -23,7 +26,7 @@ const loopLocalStorage = (localStorage: Storage) => {
  */
 const sortLocalStorage = (localStorage: Storage) => {
   return loopLocalStorage(localStorage).sort(
-    (item1, item2) => item1.value - item2.value,
+    (item1, item2) => item2.value - item1.value,
   );
 };
 

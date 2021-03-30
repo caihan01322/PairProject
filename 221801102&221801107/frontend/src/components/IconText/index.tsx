@@ -1,18 +1,23 @@
 import React, { ReactNode } from 'react';
-import { Space } from 'antd';
+import { Space, Button } from 'antd';
 
-interface IconTextProps {
+type IconTextProps = {
   icon: ReactNode;
   text: string;
-}
+  onClick:
+    | ((event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void)
+    | undefined;
+};
 
 const IconText = (props: IconTextProps) => {
-  const { icon, text } = props;
+  const { icon, text, onClick } = props;
   return (
-    <Space>
-      {icon}
-      {text}
-    </Space>
+    <Button type="link" onClick={onClick}>
+      <Space>
+        {icon}
+        {text}
+      </Space>
+    </Button>
   );
 };
 
