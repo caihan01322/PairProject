@@ -5,13 +5,15 @@
 }
 .list-table{
     width: 100%;
-    background: rgba(255, 255, 255, 0.705);
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
 }
 .table-item{
     height: 50px;
     margin:5px 0 5px;
 }
 .art-title{
+    padding: 0 0 0 20px;
     border-bottom: 1px solid rgb(180, 180, 180);
 }
 .table-href{
