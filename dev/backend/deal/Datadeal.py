@@ -1,13 +1,14 @@
 import pymysql
 import requests
 from spide.spfile import Spider
-import json,datetime
+import json,datetime,time
+from spide.spfile import Spider
 
 class DataBase(object):
     def __init__(self,):
         self.db = pymysql.connect(host="localhost",user="root",password="Fxn03166",db="spider",port=3306)
 
-    def Search(self,title,keywords,page,status):   #论文检索
+    def Search(self,title,keywords,page,status):   #论文检索  测试
         self.db.ping(reconnect=True)
         cursor = self.db.cursor()
         limit = 10
@@ -20,58 +21,70 @@ class DataBase(object):
                 sql = "SELECT title,id,meeting,author,link FROM article WHERE title=%s "
                 cursor.execute(sql,(title))
             result = cursor.fetchone()
-            sql = "SELECT keyword FROM k_a WHERE article=%s "
-            cursor.execute(sql,title)
-            key = cursor.fetchall()
-            keyword = []
-            for i in key:
-                keyword.append(i[0])
-            data = {
-                "error":0,
-                "total":1,
-                "result":[
-                    {
-                        "id":result[1],
-                        "title":result[0],
-                        "link":result[4],
-                        "keyword":keyword,
-                        "meeting":result[2],
-                        "author":result[3]
-                    }
-                ]
-            }
+            if result is not None:
+                sql = "SELECT keyword FROM k_a WHERE article=%s "
+                cursor.execute(sql,title)
+                key = cursor.fetchall()
+                keyword = []
+                for i in key:
+                    keyword.append(i[0])
+                data = {
+                    "error":0,
+                    "total":1,
+                    "result":[
+                        {
+                            "id":result[1],
+                            "title":result[0],
+                            "link":result[4],
+                            "keyword":keyword,
+                            "meeting":result[2],
+                            "author":result[3]
+                        }
+                    ]
+                }
+            else:
+                data = {
+                    "error":0,
+                    "total":0,
+                    "result":[]
+                }
         else:
-            titleset = {}
+            titleset = set()
             for key in keywords:
                 sql = "SELECT article FROM k_a WHERE keyword=%s"
                 cursor.execute(sql,key)
                 result = cursor.fetchall()
                 for i in result:
-                    titleset.add(result[0])
+                    titleset.add(i[0])
             rex = []
-            for tit in titleset[offset:offset+limit]:
+            tset = []
+            for tit in titleset:
+                tset.append(tit)
+            tset = tset[offset:offset+limit]
+            for tit in tset:
                 if status == 0:
                     sql = "SELECT title,id,meeting,author,link FROM article WHERE title=%s "
-                    cursor.execute(sql, (title))
+                    cursor.execute(sql, (tit))
                 else:
                     sql = "SELECT title,id,meeting,author,link FROM article WHERE title=%s AND meeting=%s "
-                    cursor.execute(sql, (title, status))
+                    cursor.execute(sql, (tit, status))
                 result = cursor.fetchone()
-                sql = "SELECT keyword FROM k_a WHERE article=%s "
-                cursor.execute(sql, title)
-                key = cursor.fetchall()
-                keyword = []
-                for i in key:
-                    keyword.append(i[0])
-                subkey = {
-                    "id": result[1],
-                    "title": result[0],
-                    "link": result[4],
-                    "keyword": keyword,
-                    "meeting": result[2],
-                    "author": result[3]
-                }
-                rex.append(subkey)
+                if result is not None:
+                    sql = "SELECT keyword FROM k_a WHERE article=%s "
+                    cursor.execute(sql, tit)
+                    key = cursor.fetchall()
+                    keyword = []
+                    for i in key:
+                        keyword.append(i[0])
+                    subkey = {
+                        "id": result[1],
+                        "title": result[0],
+                        "link": result[4],
+                        "keyword": keyword,
+                        "meeting": result[2],
+                        "author": result[3]
+                    }
+                    rex.append(subkey)
             data = {
                 "error": 0,
                 "total": len(titleset),
@@ -81,7 +94,7 @@ class DataBase(object):
         self.db.close()
         return data
 
-    def TitleTip(self,keyword):              #文章提示
+    def TitleTip(self,keyword):              #文章提示  测试
         self.db.ping(reconnect=True)
         cursor = self.db.cursor()
         sql = "SELECT title FROM article WHERE title LIKE %s "
@@ -102,7 +115,7 @@ class DataBase(object):
         self.db.close()
         return resultx
 
-    def KeywordTip(self,keyword):                  #关键词提示
+    def KeywordTip(self,keyword):                  #关键词提示  测试
         self.db.ping(reconnect=True)
         cursor = self.db.cursor()
         sql = "SELECT keyword FROM k_a WHERE keyword LIKE %s "
@@ -123,12 +136,30 @@ class DataBase(object):
         self.db.close()
         return resultx
 
-    def DeleteArticle(self,ids):                        #删除文章
+    def DeleteArticle(self,ids):                        #删除文章   测试
         self.db.ping(reconnect=True)
         cursor = self.db.cursor()
         for i in ids:
+            sql = "SELECT keyword FROM k_a,article WHERE id=%s AND article.title=k_a.article "
+            cursor.execute(sql,i)
+            kset = cursor.fetchall()
+            for key in kset:
+                sql = "SELECT count FROM hotword WHERE hotword=%s "
+                cursor.execute(sql,key[0])
+                if cursor.fetchone()[0] == 1:
+                    sql = "DELETE FROM hotword WHERE hotword=%s "
+                else:
+                    sql = "UPDATE hotword SET count=count-1 WHERE hotword=%s "
+                cursor.execute(sql,key[0])
+                self.db.commit()
+            sql = "SELECT title FROM article WHERE id=%s "
+            cursor.execute(sql,i)
+            title = cursor.fetchone()[0]
+            sql = "DELETE FROM k_a WHERE article=%s "
+            cursor.execute(sql, title)
+            self.db.commit()
             sql = "DELETE FROM article WHERE id=%s "
-            cursor.execute(sql,id)
+            cursor.execute(sql,i)
             self.db.commit()
         data = {
             "error_code":0
@@ -137,7 +168,7 @@ class DataBase(object):
         self.db.close()
         return data
 
-    def SearchHot(self,keyword,stime,etime):                   #热词查询
+    def SearchHot(self,keyword,stime,etime):                   #热词查询  测试
         self.db.ping(reconnect=True)
         cursor = self.db.cursor()
         result = []
@@ -152,7 +183,7 @@ class DataBase(object):
             cursor.execute(sql, (stime, keyword))
             cvpr = cursor.fetchone()[0]
             data = {
-                "data":stime,
+                "date":stime,
                 "CVPR":cvpr,
                 "ICCV":iccv,
                 "ECCV":eccv
@@ -167,7 +198,7 @@ class DataBase(object):
         self.db.close()
         return rex
 
-    def CaculateHot(self,meeting,page):     #热门关键词统计
+    def CaculateHot(self,meeting,page):     #热门关键词统计   待测试
         self.db.ping(reconnect=True)
         cursor = self.db.cursor()
         start = (page-1)*10
@@ -184,13 +215,14 @@ class DataBase(object):
             data.append(da)
         res = {
             "error_code":0,
+            "total":len(result),
             "result":data
         }
         cursor.close()
         self.db.close()
         return res
 
-    def ReHot(self):               #热词图谱
+    def ReHot(self):               #热词图谱  测试
         self.db.ping(reconnect=True)
         cursor = self.db.cursor()
         sql = "SELECT hotword,count FROM hotword "
@@ -211,15 +243,16 @@ class DataBase(object):
         self.db.close()
         return rexa
 
-    def DeleteTask(self,task):
+    def DeleteTask(self,tasklist):     #删除任务  测试
         self.db.ping(reconnect=True)
         cursor = self.db.cursor()
-        sql = "DELETE FROM task WHERE task_key=%s "
-        cursor.execute(sql,task)
-        self.db.commit()
-        sql = "DELETE FROM task_title WHERE task=%s "
-        cursor.execute(sql, task)
-        self.db.commit()
+        for task in tasklist:
+            sql = "DELETE FROM task WHERE task_key=%s "
+            cursor.execute(sql,task)
+            self.db.commit()
+            sql = "DELETE FROM task_title WHERE task_key=%s "
+            cursor.execute(sql, task)
+            self.db.commit()
         data = {
             "error":0
         }
@@ -227,7 +260,7 @@ class DataBase(object):
         self.db.close()
         return data
 
-    def AddTaskAll(self,titlelist):
+    def AddTaskAll(self,titlelist):      #添加任务 多 测试
         for i in titlelist:
             self.AddTaskOne(i)
         data = {
@@ -235,21 +268,21 @@ class DataBase(object):
         }
         return data
 
-    def AddTaskOne(self,title):
+    def AddTaskOne(self,title):            #添加任务 单  测试
         self.db.ping(reconnect=True)
         cursor = self.db.cursor()
-        start = datetime.datetime.now()
-        sql = "INSERT INTO task (stime) VALUES (%s) "
+        start = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        sql = "INSERT INTO task (datetime) VALUES (%s) "
         cursor.execute(sql,start)
         self.db.commit()
         cursor.close()
         self.db.close()
         self.db.ping(reconnect=True)
         cursor = self.db.cursor()
-        sql = "SELECT task_key FROM task WHERE stime=%s "
+        sql = "SELECT task_key FROM task WHERE datetime=%s "
         cursor.execute(sql,start)
         key = cursor.fetchone()[0]
-        sql = "INSERT INTO task_title (task, title) VALUES (%s,%s) "
+        sql = "INSERT INTO task_title (task_key, title) VALUES (%s,%s) "
         cursor.execute(sql,(key,title))
         self.db.commit()
         cursor.close()
@@ -259,7 +292,7 @@ class DataBase(object):
         }
         return data
 
-    def InsertHot(self,keyword):
+    def InsertHot(self,keyword):            #插入关键词   测试
         self.db.ping(reconnect=True)
         cursor = self.db.cursor()
         sql = "SELECT * FROM hotword WHERE hotword=%s "
@@ -280,11 +313,11 @@ class DataBase(object):
         self.db.close()
         return data
 
-    def ReSpider(self,page):
+    def ReSpider(self,page):                #返回爬虫任务  测试
         self.db.ping(reconnect=True)
         cursor = self.db.cursor()
         start = (page-1)*10
-        sql = "SELECT task.task_key,task.stime,task_title.title FROM task,task_title WHERE task.task_key=task_title.task "
+        sql = "SELECT task.task_key,task.datetime,task_title.title FROM task,task_title WHERE task.task_key=task_title.task_key "
         cursor.execute(sql)
         result = []
         data = cursor.fetchall()
@@ -302,10 +335,63 @@ class DataBase(object):
         }
         return rex
 
+    def InsertArticle(self,title, abstract, name, link, year, meeting):        #插入文章  测试
+        self.db.ping(reconnect=True)
+        cursor = self.db.cursor()
+        sql = "INSERT INTO article (title, abstract, author, link, year,meeting,author) values (%s,%s,%s,%s,%s,%s) "
+        cursor.execute(sql, (title, abstract, name, link, year, meeting))
+        self.db.commit()
+        cursor.close()
+        self.db.close()
+
+    def Spider(self,tasks):          #爬虫
+        self.db.ping(reconnect=True)
+        cursor = self.db.cursor()
+        titles = []
+        for task in tasks:
+            sql = "SELECT title FROM task_title WHERE task=%s "
+            cursor.execute(sql,task)
+            titles.append(cursor.fetchone()[0])
+        cursor.close()
+        self.db.close()
+        sp = Spider()
+        for title in titles:
+            data = sp.SpiderOne(title)
+            eccv = data["1"]
+            iccv = data["2"]
+            cvpr = data["3"]
+            for ec in eccv:
+                self.InsertArticle(ec["title"],ec["abstract"],"NO",ec["titlelink"],ec["year"],1)
+            for icc in iccv:
+                for ic in icc:
+                    self.InsertArticle(ic["title"], ic["abstract"], "NO", ic["titlelink"], ic["year"], 2)
+            for cvp in cvpr:
+                for cv in cvp:
+                    self.InsertArticle(cv["title"], cv["abstract"], "NO", cv["titlelink"], cv["year"], 3)
+        result = {
+            "error":0
+        }
+        return result
+
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
     d = DataBase()
     #print(d.TitleTip("3"))
     #print(d.InsertHot("0"))
-    print(d.test())
+    #print(d.Search("",["Temporal coherence"],1,1))
+    #print(d.KeywordTip('object'))
+    #print(d.SearchHot('Surface alignment',2000,2020))
+    #print(d.CaculateHot(1,1))
+    #print(d.ReHot())
+    #print(d.DeleteArticle([15520,15521]))
+    #print(d.AddTaskAll(["test1","test2"]))
+    #print(d.DeleteTask([7]))
+    #print(d.ReSpider(1))
