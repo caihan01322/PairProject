@@ -106,9 +106,51 @@ public function login($username,$password)
     }
 }
 
+//删除论文
 
+public function dele()
+{
+    $link = isset($_POST['link']) ? htmlspecialchars($_POST['link']) : '';
+    //$url=isset($_POST['url']) ? htmlspecialchars($_POST['url']) : '';
+    paper::where('link',$link)->delete();
+    //return $data;
+    return '删除成功';
+
+}
+//增加论文
+public function add()
+{
+    $title = isset($_POST['title']) ? htmlspecialchars($_POST['title']) : '';
+    $abstract = isset($_POST['abstract']) ? htmlspecialchars($_POST['abstract']) : '';
+    $typeandyear = isset($_POST['typeandyear']) ? htmlspecialchars($_POST['typeandyear']) : '';
+    $keywords = isset($_POST['keywords']) ? htmlspecialchars($_POST['keywords']) : '';
+    $releasetime = isset($_POST['releasetime']) ? htmlspecialchars($_POST['releasetime']) : '';
+    $link = isset($_POST['link']) ? htmlspecialchars($_POST['link']) : '';
+    $da=[
+        'title'=>$title,
+        'abstract'=>$abstract,
+        'typeandyear'=>$typeandyear,
+        'keywords'=>$keywords,
+        'releasetime'=>$releasetime,
+        'link'=>$link,
+
+    ];
+    paper::insert($da);
+    return "添加成功";
+}
     
+public function see()
+    {
+        
+        return $this->fetch('login');
+    }
 
+    public function seesta()
+    {
+        
+        return $this->fetch('statistic');
+        
+    }
 
 
 
