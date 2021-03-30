@@ -160,6 +160,49 @@ public class PaperOperationController {
         return response;
     }
 
+    @RequestMapping(value = "/collectPaper")
+    public JSONObject collectPaper(@RequestBody JSONObject request){
+        String title = request.getString("title");
+        int number = request.getInteger("number");
+        String paperabstract = request.getString("paperabstract");
+        String link = request.getString("link");
+        String year = request.getString("year");
+        paperOperationDao.insertCollection(title,number,paperabstract,link,year);
+        JSONArray jsonArray = request.getJSONArray("keyword");
+        for(int i = 0;i < jsonArray.size();i++){
+            paperOperationDao.insertCollectionKwd(number,jsonArray.getString(i));
+        }
+
+        JSONObject result = new JSONObject();
+        result.put("status","200");
+        return result;
+    }
+
+    /**
+     * 删除编号对应的文章
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/deletePaper")
+    public JSONObject deletePaper(@RequestBody JSONObject request){
+        String type = request.getString("type");
+        int number = request.getInteger("number");
+
+        if(type.equals("cvpr")){
+            paperOperationDao.deleteFromCvpr(number);
+        }
+        else if(type.equals("eccv")){
+            paperOperationDao.deleteFromEccv(number);
+        }
+        else if(type.equals("iccv")){
+            paperOperationDao.deleteFromIccv(number);
+        }
+
+        JSONObject result = new JSONObject();
+        result.put("status","200");
+
+        return result;
+    }
 
     /**
      * 获取关键词model的列表
