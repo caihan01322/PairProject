@@ -43,14 +43,14 @@
 
 	<script>
 		var tableIns;
-		var keyword=getQueryVariable();
-		var key=keyword.replace("%20"," ");
-		console.log(key);
+		var key=getQueryVariable();
+		var keyword=(!key?0:key.replace("%20"," "));
+		alert(keyword);
 		
 		layui.use('table', function(){
 			var table = layui.table;
 		
-			if(keyword='')
+			if(!keyword)
 			{//无关键词按照name=computer填充表格
 				tableIns=table.render({
 					elem: '#LAY_table_user'
@@ -93,7 +93,7 @@
 					,method : "POST"
 					,contentType:"application/json"
 					,where:{
-						keyword:key,	
+						keyword:keyword,	
 					}
 					,parseData: function(res){ //res 即为原始返回的数据
 						console.log(res);
