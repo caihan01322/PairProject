@@ -43,52 +43,224 @@
 	</script>
 
 	<script>
-		var tableIns;
-		var key=getQueryVariable();
-		var keyword=(!key?0:key.replace("%20"," "));
-		//alert(keyword);
-		
+		var tableByName;
 		layui.use('table', function(){
-			var table = layui.table;
+			var table1 = layui.table;
 		
-			if(!keyword)
-			{//无关键词按照name=computer填充表格
-				tableIns=table.render({
-					elem: '#LAY_table_user'
-					,url: 'http://47.111.17.116:8080/queryName'
-					,method : "POST"
-					,contentType:"application/json"
-					,where:{
-						name:"computer",	
+			tableByName=table1.render({
+				elem: '#LAY_table_user'
+				,url: 'http://47.111.17.116:8080/queryName'
+				,method : "POST"
+				,contentType:"application/json"
+				,where:{
+					// name:"computer",	
+				}
+				,parseData: function(res){ //res 即为原始返回的数据
+					console.log(res);
+					return {
+						"code": 0, //解析接口状态
+						"msg": "", //解析提示文本
+						"count": res.count, //解析数据长度
+						"data": res.data //解析数据列表
+					};
+				  }
+				,cols: [[
+				  {field:'name', title: '标题',  sort: true, fixed: true},
+				  {field:'abstract', title: '摘要',  sort: true},
+				  {field:'keyword', title: '关键词'},
+				  {field:'author', title: '作者',  sort: true},
+				  {field:'year', title: '发表年份',  sort: true},
+				  {field:'link', title: '链接'},
+				  {fixed: 'right', title:'操作', toolbar: '#barDemo'}
+				]]
+				,id: 'testReload'
+				,page: true
+				,limit:10
+				,height: 500
+			});
+			
+			table1.on('tool(user)', function(obj){
+				if(obj.event==='detail'){
+					var item=obj.data.iD;
+					//alert(item);
+					//var jsonStr=JSON.stringify(item);
+					var url= "detail/index.html?id="+item;
+					// var data = obj.data.name;//获取选中行的标题
+					// var url="detail.html?"+"name="+data;//向url中传递论文标题信息
+					window.open(url);
+				}
+				else{
+					layer.confirm('要删除改行吗', function(index){
+						obj.del();
+						layer.close(index);
+					});
+				}
+			});
+		});
+	</script>
+	
+	<script>
+		var tableByAuthor;
+		// layui.use('table', 
+		function tableauthor(){
+			var table2 = layui.table;
+		
+			tableByAuthor=table2.render({
+				elem: '#LAY_table_user'
+				,url: 'http://47.111.17.116:8080/queryAuthor'
+				,method : "POST"
+				,contentType:"application/json"
+				,where:{
+					// author:"Alex",	
+				}
+				,parseData: function(res){ //res 即为原始返回的数据
+					console.log(res);
+					return {
+						"code": 0, //解析接口状态
+						"msg": "", //解析提示文本
+						"count": res.count, //解析数据长度
+						"data": res.data //解析数据列表
+					};
+				  }
+				,cols: [[
+				  {field:'name', title: '标题',  sort: true, fixed: true},
+				  {field:'abstract', title: '摘要',  sort: true},
+				  {field:'keyword', title: '关键词'},
+				  {field:'author', title: '作者',  sort: true},
+				  {field:'year', title: '发表年份',  sort: true},
+				  {field:'link', title: '链接'},
+				  {fixed: 'right', title:'操作', toolbar: '#barDemo'}
+				]]
+				,id: 'testReload'
+				,page: true
+				,limit:10
+				,height: 500
+			});
+			
+			table2.on('tool(user)', function(obj){
+				if(obj.event==='detail'){
+					var item=obj.data.iD;
+					var url= "detail/index.html?id="+item;
+					window.open(url);
+				}
+				else{
+					layer.confirm('要删除改行吗', function(index){
+						obj.del();
+						layer.close(index);
+					});
+				}
+			});
+		}
+		// );
+		
+	</script>
+	
+	<script>
+		var tableByKeywords;
+		// layui.use('table', 
+		function tablekeywords(){
+			var table3 = layui.table;
+		
+			tableByKeywords=table3.render({
+				elem: '#LAY_table_user'
+				,url: 'http://47.111.17.116:8080/queryKeyword'
+				,method : "POST"
+				,contentType:"application/json"
+				,where:{
+					// keyword:"Computer vision",	
+				}
+				,parseData: function(res){ //res 即为原始返回的数据
+					console.log(res);
+					return {
+						"code": 0, //解析接口状态
+						"msg": "", //解析提示文本
+						"count": res.count, //解析数据长度
+						"data": res.data //解析数据列表
+					};
+				  }
+				,cols: [[
+				  {field:'name', title: '标题',  sort: true, fixed: true},
+				  {field:'abstract', title: '摘要',  sort: true},
+				  {field:'keyword', title: '关键词'},
+				  {field:'author', title: '作者',  sort: true},
+				  {field:'year', title: '发表年份',  sort: true},
+				  {field:'link', title: '链接'},
+				  {fixed: 'right', title:'操作', toolbar: '#barDemo'}
+				]]
+				,id: 'testReload'
+				,page: true
+				,limit:10
+				,height: 500
+			});
+			
+			table3.on('tool(user)', function(obj){
+				if(obj.event==='detail'){
+					var item=obj.data.iD;
+					var url= "detail/index.html?id="+item;
+					window.open(url);
+				}
+				else{
+					layer.confirm('要删除改行吗', function(index){
+						obj.del();
+						layer.close(index);
+					});
+				}
+			});
+		}
+		// );
+	</script>
+	
+	
+	<script type="text/javascript">
+		function search(){
+			var sel=document.getElementById("selection").value;
+			var content=document.getElementById("input").value;
+			
+			if(sel=='title'){
+				tableByName.reload({
+					where: { //设定异步数据接口的额外参数，任意设
+						name: content,
 					}
-					,parseData: function(res){ //res 即为原始返回的数据
-						console.log(res);
-						return {
-							"code": 0, //解析接口状态
-							"msg": "", //解析提示文本
-							"count": res.count, //解析数据长度
-							"data": res.data //解析数据列表
-						};
-					  }
-					,cols: [[
-					  {field:'name', title: '标题',  sort: true, fixed: true},
-					  {field:'abstract', title: '摘要',  sort: true},
-					  {field:'keyword', title: '关键词'},
-					  {field:'author', title: '作者',  sort: true},
-					  {field:'year', title: '发表年份',  sort: true},
-					  {field:'link', title: '链接'},
-					  {fixed: 'right', title:'操作', toolbar: '#barDemo'}
-					]]
-					,id: 'testReload'
-					,page: true
-					,limit:10
-					,height: 500
+					,page: {
+						curr: 1 //重新从第 1 页开始
+					}
 				});
 			}
+			else if(sel=='authors'){
+				tableauthor();
+				tableByAuthor.reload({
+					where: { //设定异步数据接口的额外参数，任意设
+						author: content,
+					}
+					,page: {
+						curr: 1 //重新从第 1 页开始
+					}
+				});
+			}
+			else{
+				tablekeywords();
+				tableByKeywords.reload({
+					where: { //设定异步数据接口的额外参数，任意设
+						keyword: content,
+					}
+					,page: {
+						curr: 1 //重新从第 1 页开始
+					}
+				});
+			}
+		}
+	</script>
+	<script>
+		var key=getQueryVariable();
+		var keyword=(!key?0:key.replace("%20"," "));
+		setTimeout(function () {
+		}, 2000);
+		if(keyword!=0){
+			layui.use('table',
+			function tablekeywords(){
+				var table3 = layui.table;
 			
-			else
-			{//有关键词按照关键词渲染表格
-				tableIns=table.render({
+				tableByKeywords=table3.render({
 					elem: '#LAY_table_user'
 					,url: 'http://47.111.17.116:8080/queryKeyword'
 					,method : "POST"
@@ -119,66 +291,22 @@
 					,limit:10
 					,height: 500
 				});
-			}
-			
-			  
-			table.on('tool(user)', function(obj){
-				if(obj.event==='detail'){
-					var item=obj.data.iD;
-					//alert(item);
-					//var jsonStr=JSON.stringify(item);
-					var url= "detail/index.html?id="+item;
-					// var data = obj.data.name;//获取选中行的标题
-					// var url="detail.html?"+"name="+data;//向url中传递论文标题信息
-					window.open(url);
-				}
-				else{
-					layer.confirm('要删除改行吗', function(index){
-						obj.del();
-						layer.close(index);
-					});
-				}
-			});
-			
-			
-		});
-		
-	</script>
-	<script type="text/javascript">
-		function search(){
-			var sel=document.getElementById("selection").value;
-			var content=document.getElementById("input").value;
-			
-			if(sel=='title'){
-				tableIns.reload({
-					where: { //设定异步数据接口的额外参数，任意设
-						name: content,
+				
+				table3.on('tool(user)', function(obj){
+					if(obj.event==='detail'){
+						var item=obj.data.iD;
+						var url= "detail/index.html?id="+item;
+						window.open(url);
 					}
-					,page: {
-						curr: 1 //重新从第 1 页开始
+					else{
+						layer.confirm('要删除改行吗', function(index){
+							obj.del();
+							layer.close(index);
+						});
 					}
 				});
 			}
-			else if(sel=='authors'){
-				tableIns.reload({
-					where: { //设定异步数据接口的额外参数，任意设
-						author: content,
-					}
-					,page: {
-						curr: 1 //重新从第 1 页开始
-					}
-				});
-			}
-			else{
-				tableIns.reload({
-					where: { //设定异步数据接口的额外参数，任意设
-						keyword: content,
-					}
-					,page: {
-						curr: 1 //重新从第 1 页开始
-					}
-				});
-			}
+			);
 		}
 	</script>
 </body>
