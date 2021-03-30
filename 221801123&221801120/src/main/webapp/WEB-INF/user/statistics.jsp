@@ -14,6 +14,7 @@
     <base href="<%=basePath%>">
     <link rel="stylesheet" href="css/head.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
+    <link rel="stylesheet" href="css/echart.css">
     <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
     <script src="${pageContext.request.contextPath}/script/echarts-wordcloud.js"></script>
 
@@ -23,17 +24,16 @@
 <jsp:include page="share/head.jsp"/>
 <!--中间主体部分-->
 
-<div id="main" style="width: 400px;height: 300px">
-</div>
+<div id="wordcloudDiv"></div>
 <script>
-    var chart = echarts.init(document.getElementById("main"));
+    var chart = echarts.init(document.getElementById("wordcloudDiv"));
     var option = {
         title: {
             text: 'Top10',
             x: 'center',
             textStyle: {
-                fontSize: 23,
-                color:'#FFFFFF'
+                fontSize: 35,
+                color:'#a9aaac'
             }
         },
         tooltip: {
@@ -42,12 +42,12 @@
         series: [ {
             type: 'wordCloud',
             gridSize: 1,
-            sizeRange: [10, 30],
+            sizeRange: [15, 35],
             rotationRange: [-45, 90],
             shape: 'triangle',
             width: 400,
             height: 300,
-            drawOutOfBound: true,
+            drawOutOfBound: false,
             textStyle: {
                 color: function () {
                     return 'rgb(' + [
@@ -121,9 +121,6 @@
             ]
         } ]
     };
-
-
-
 
     chart.setOption(option);
 
