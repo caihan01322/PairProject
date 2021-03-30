@@ -188,7 +188,25 @@ def paper_show(numberid):
 # 论文模糊查询
 @app.route('/paper/search/Keyword',methods=['POST'])
 def paper_search_keyword():
-    pass
+    paper1 = request.get_json()
+    key = str(paper1.get("keyword"))
+    str1 = '%' + key + '%'
+    papers = db.session.query(Paper).filter(Paper.keyWord.like(str1))
+    Infos = []
+    for p in papers:
+        id = p.id
+        title = p.title
+        datetime = p.datetime
+        classify = p.classify
+        Infos.append({
+            "id": id,
+            "title": title,
+            "datetime": datetime,
+            "classify": classify
+        })
+    return jsonify(data = {
+        'data': Infos
+    })
 
 
 #论文模糊查询
