@@ -97,7 +97,50 @@
             内容三
           </div>
           <div class="tab_content" v-else-if="tab==3">
-            内容四
+            <!-- 内容四 -->
+              <div>
+                <el-avatar style="margin-top:100px" :size="150" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/4ZWR3V/f2/5f/0b/f25f0b8a8a354b97879b76719e319cf8/images/论文列表/u22.svg?token=97bb5bafada96da5d048a20f601fd183fb436b10ff76c40e10d1c000a2e73a68"></el-avatar>
+              </div>
+              <el-row>
+                <el-col :span="12">
+              <div>
+              账号: <el-input v-model="input" placeholder="fzu123"></el-input>
+              </div>
+              </el-col>
+              <el-col :span="12">
+              <div>
+              昵称: <el-input v-model="input" placeholder="zhlzsy"></el-input>
+              </div>
+              </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="12">
+              <div>
+                学校:
+                  <el-select v-model="value1" placeholder="请选择">
+                    <el-option
+                      v-for="item in options1"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
+              </div>
+              </el-col>
+              <el-col :span="12">
+              <div>
+                专业:
+                  <el-select v-model="value2" placeholder="请选择">
+                    <el-option
+                      v-for="item in options2"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
+              </div>
+              </el-col>
+              </el-row>
           </div>
         </div>
       </div>
@@ -148,7 +191,40 @@ export default {
         value: '选项3',
         label: '关键词'
       }],
-      value: ''
+      options1: [{
+        value: '选项1',
+        label: '福州大学'
+      }, {
+        value: '选项2',
+        label: '厦门大学'
+      }, {
+        value: '选项3',
+        label: '福建师范大学'
+      }, {
+        value: '选项4',
+        label: '福建农林大学'
+      }, {
+        value: '选项5',
+        label: '其他'
+      }],
+      options2: [{
+        value: '选项1',
+        label: '软件工程'
+      }, {
+        value: '选项2',
+        label: '计算机'
+      }, {
+        value: '选项3',
+        label: '数学'
+      }, {
+        value: '选项4',
+        label: '土木工程'
+      }, {
+        value: '选项5',
+        label: '其他'
+      }],
+      value1: '选项1',
+      value2: '选项1'
     }
   }
 }
@@ -216,4 +292,13 @@ export default {
   width: 100%;
   height: 100%;
 }
+  .el-row {
+    margin-bottom: 20px;
+  }
+  .el-col {
+    border-radius: 4px;
+  }
+  .el-input {
+    width: 221.4px;
+  }
 </style>
