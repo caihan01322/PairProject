@@ -5,11 +5,12 @@
     <title>Result</title>
     <link rel="stylesheet" href="../css/public.css" />
     <link rel="stylesheet" href="../css/Result.css" />
+    <link rel="stylesheet" href="../css/page.css">
 </head>
 <body>
     <div id="nav">
         <ul>
-			<li id="logo">PaperCrawler</li>
+            <li id="logo">PaperCrawler</li>
             <li id="mark">收藏夹</li>
             <li id="status">登录</li>
         </ul>
@@ -54,6 +55,18 @@
                     <img src="../img/Result/delete.svg" class="deleteSvg" alt="delete" title="删除">
                     <img src="../img/Result/mark.svg" class="markSvg" alt="mark" title="收藏">
                 </div>
+            </div>
+            <div class="page-bar">
+                <ul>
+                    <li v-if="cur > 1"><a v-on:click="cur--,pageClick()">上一页</a></li>
+                    <li v-if="cur == 1"><a class="banclick">上一页</a></li>
+                    <li v-for="index in indexs"  v-bind:class="{ 'active': cur == index}">
+                        <a v-on:click="btnClick(index)">{{ index }}</a>
+                    </li>
+                    <li v-if="cur < all"><a v-on:click="cur++,pageClick()">下一页</a></li>
+                    <li v-if="cur == all"><a class="banclick">下一页</a></li>
+                    <li><a>共<i>{{all}}</i>页</a></li>
+                </ul>
             </div>
         </div>
         <div id="sidebar">
@@ -192,5 +205,6 @@
     <script src="../lib/jquery-3.6.0.min.js"></script>
     <script src="../js/public.js"></script>
     <script src="../js/Result.js"></script>
+    <script src="../js/page.js"></script>
 </body>
 </html>
