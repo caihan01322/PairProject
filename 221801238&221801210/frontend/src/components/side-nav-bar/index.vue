@@ -5,8 +5,11 @@
       <p class="username">用户XXXX</p>
       <div class="menu">
         <p class="title">菜单 Menu</p>
-        <div v-for="menuItem in menuList" :key="menuItem.pageName" class="button">
-          <i :class="'page_icon ' + menuItem.pageIcon" />
+        <div v-for="menuItem in menuList" :key="menuItem.pageName"
+             :class="{'button': $route.path !== menuItem.path,
+             'button_active':  $route.path === menuItem.path}"
+             @click="$router.push(menuItem.path)" >
+          <i :class="'page_icon ' + menuItem.pageIcon"/>
           <span class="page_name">{{ menuItem.pageName }}</span>
         </div>
       </div>
@@ -26,23 +29,28 @@ export default {
       menuList: [
         {
           pageIcon: 'el-icon-s-home',
-          pageName: '主页'
+          pageName: '主页',
+          path: '/'
         },
         {
           pageIcon: 'el-icon-user-solid',
-          pageName: '个人中心'
+          pageName: '个人中心',
+          path: '/center'
         },
         {
           pageIcon: 'el-icon-folder',
-          pageName: '收藏夹'
+          pageName: '收藏夹',
+          path: '/favourite'
         },
         {
           pageIcon: 'el-icon-s-data',
-          pageName: '数据分析'
+          pageName: '数据分析',
+          path: '/data'
         },
         {
           pageIcon: 'el-icon-switch-button',
-          pageName: '登出'
+          pageName: '登出',
+          path: '/logout'
         }
       ]
     }
@@ -91,6 +99,7 @@ export default {
     margin-left: 36px;
     display: flex;
     align-items: center;
+    cursor: pointer;
 
     .page_icon {
       font-size: 30px;
@@ -100,6 +109,39 @@ export default {
 
     .page_name {
       color: rgba(255, 255, 255, 100);
+      font-size: 18px;
+    }
+  }
+
+  .button:hover {
+
+    .page_icon {
+      font-size: 30px;
+      color: rgba(255, 208, 75, 100);
+      margin-right: 30px;
+    }
+
+    .page_name {
+      color: rgba(255, 208, 75, 100);
+      font-size: 18px;
+    }
+  }
+
+  .button_active {
+    margin-bottom: 24px;
+    margin-left: 36px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    .page_icon {
+      font-size: 30px;
+      color: rgba(255, 208, 75, 100);
+      margin-right: 30px;
+    }
+
+    .page_name {
+      color: rgba(255, 208, 75, 100);
       font-size: 18px;
     }
   }
