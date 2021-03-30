@@ -1,5 +1,5 @@
 <template>
-  <div id="recordEdit"></div>
+  <div id="recordEdit">edit</div>
 </template>
 
 <script>

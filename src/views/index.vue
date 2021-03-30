@@ -127,7 +127,7 @@ export default {
     }
   }
   #indexContent {
-    min-height: 800px;
+    min-height: 700px;
   }
 
 </style>

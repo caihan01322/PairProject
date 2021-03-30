@@ -1,10 +1,10 @@
 <template>
-  <div id="drecordDelete">delete</div>
+  <div id="myInfo"></div>
 </template>
 
 <script>
 export default {
-  name: 'delete.vue'
+  name: 'myInfo.vue'
 }
 </script>
 

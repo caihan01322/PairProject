@@ -150,18 +150,34 @@
     <div id="myPage">
       <Page :total="totle" :page-size="10" />
     </div>
+    <div id="recordCover" v-show="showCover">
+      <myadd v-show="coverType === 1"></myadd>
+      <mydelete v-show="coverType === 2"></mydelete>
+      <myedit v-show="coverType === 3"></myedit>
+    </div>
   </div>
 </template>
 
 <script>
+import mydelete from './record/delete.vue'
+import myadd from './record/add'
+import myedit from './record/edit'
+
 export default {
   name: 'record',
   data () {
     return {
       searchType: '标题',
       searchContent: '',
-      totle: 100
+      totle: 100,
+      showCover: true,
+      coverType: 1
     }
+  },
+  components: {
+    myadd,
+    mydelete,
+    myedit
   }
 }
 </script>
@@ -254,5 +270,12 @@ export default {
         }
       }
     }
+  }
+  #recordCover {
+    position: absolute;
+    top: -0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,1,1,0.2);
   }
 </style>

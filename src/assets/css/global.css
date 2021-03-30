@@ -9,3 +9,10 @@ body,
 hr{
     color: #f5f6fa;
 }
+div.tooltip {
+    padding: 10px 9px !important;
+    border-radius: 10px !important;
+    height: 66px !important;
+    width: auto !important;
+    min-width: 150px !important;
+}

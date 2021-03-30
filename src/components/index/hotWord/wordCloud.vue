@@ -1,15 +1,189 @@
 <template>
   <div id="indexWordCloud">
-    wordcloud
+    <div id="wordCloudTitle">
+      <div>关键词图谱（Top10）</div>
+    </div>
+    <div id="wordCloudBody">
+      <Carousel  v-model="value" loop dots="outside" class="myCarouse">
+        <CarouselItem>
+          <div class="demo-carousel">
+            <wordcloud
+              :data="defaultWords"
+              nameKey="name"
+              valueKey="value"
+              :color="myColors"
+              :showTooltip="true"
+              :rotate="rotate"
+              :wordClick="wordClickHandler">
+            </wordcloud>
+          </div>
+        </CarouselItem>
+        <CarouselItem>
+          <div class="demo-carousel">
+            <wordcloud
+              :data="defaultWords1"
+              nameKey="name"
+              valueKey="value"
+              :color="myColors"
+              :showTooltip="true"
+              :rotate="rotate"
+              :wordClick="wordClickHandler">
+            </wordcloud>
+          </div>
+        </CarouselItem>
+        <CarouselItem>
+          <div class="demo-carousel">
+          </div>
+        </CarouselItem>
+        <CarouselItem>
+          <div class="demo-carousel">
+          </div>
+        </CarouselItem>
+      </Carousel>
+    </div>
   </div>
 </template>
 
 <script>
+
+import wordcloud from 'vue-wordcloud'
+
 export default {
-  name: 'wordCloud'
+  name: 'wordCloud',
+  data () {
+    return {
+      value: 0,
+      myColors: ['#4699f1', '#cb2981', '#9eafb2', '#abe3b7', '#a73774'],
+      defaultWords: [
+        {
+          name: 'Cat',
+          value: 26
+        },
+        {
+          name: 'fish',
+          value: 19
+        },
+        {
+          name: 'things',
+          value: 18
+        },
+        {
+          name: 'look',
+          value: 16
+        },
+        {
+          name: 'two',
+          value: 15
+        },
+        {
+          name: 'fun',
+          value: 9
+        },
+        {
+          name: 'know',
+          value: 9
+        },
+        {
+          name: 'good',
+          value: 9
+        },
+        {
+          name: 'play',
+          value: 6
+        }
+      ],
+      defaultWords1: [
+        {
+          name: 'Cat',
+          value: 26
+        },
+        {
+          name: 'fish',
+          value: 19
+        },
+        {
+          name: 'things',
+          value: 18
+        },
+        {
+          name: 'look',
+          value: 16
+        },
+        {
+          name: 'two',
+          value: 15
+        },
+        {
+          name: 'fun',
+          value: 9
+        },
+        {
+          name: 'know',
+          value: 9
+        },
+        {
+          name: 'good',
+          value: 9
+        },
+        {
+          name: 'play',
+          value: 6
+        }
+      ],
+      rotate: {
+        from: -10,
+        to: 10,
+        numOfOrientation: 5
+      }
+    }
+  },
+  methods: {
+    wordClickHandler (name, value, vm) {
+      console.log('wordClickHandler', name, value, vm)
+    }
+  },
+  components: {
+    wordcloud
+  }
 }
 </script>
 
 <style scoped lang="less">
+#indexWordCloud {
+  width: 100%;
+  height: 600px;
+  top: 0;
+  background-color: #7F7F7F;
+}
+#wordCloudTitle {
+  width: 100%;
+  height: 50px;
+  background-color: #555555;
+  color: white;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  >div{
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 20px;
+  }
+}
+  .myCarouse {
+    width: 100%;
+    height: 550px;
+    .demo-carousel {
+      width: 100%;
+      height: 550px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 
 </style>
