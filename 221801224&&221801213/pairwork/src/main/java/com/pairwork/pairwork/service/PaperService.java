@@ -50,4 +50,10 @@ public class PaperService {
         return word;
     }
 
+    public List<Integer> getKeywordsV(Long paper_id){
+        Paper p = paperDao.findById(paper_id).get();
+        Lib lib = new Lib(p.getSummary());
+        List<Integer> fre = lib.getWordFreV() ;
+        return fre;
+    }
 }

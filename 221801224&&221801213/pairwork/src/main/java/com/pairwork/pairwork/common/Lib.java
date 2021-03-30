@@ -17,8 +17,8 @@ public class Lib {
     private List<String> list = new ArrayList<String>();
     private Map<String,Integer> map = new TreeMap<String, Integer>();//利用 TreeMap进行统计并且排序
     private String[] wordSet = new String[11];
-    private int[] freSet = new int[11];
-
+//    private int[] freSet = new int[11];
+    private  List<Integer> freSet = new ArrayList<Integer>();
     public Lib(String con){
         content = con;
         charNum = 0;
@@ -68,7 +68,8 @@ public class Lib {
 
             for (int i = 0; i < (newList.size() > 10 ? 10 : newList.size()); i++) {
                 wordSet[i] = newList.get(i).getKey();
-                freSet[i] = newList.get(i).getValue();
+//                freSet[i] = newList.get(i).getValue();
+                freSet.add(newList.get(i).getValue());
             }
 
     }
@@ -109,7 +110,7 @@ public class Lib {
     public String[] getWordFreK(){//返回词频前十的键
         return  wordSet;
     }
-    public int[] getWordFreV(){//返回词频前十的值
+    public List<Integer> getWordFreV(){//返回词频前十的值
         return freSet;
     }
 }

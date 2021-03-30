@@ -55,4 +55,9 @@ public class PaperController {
     public Result<List<String>>  getKeyWordK(@PathVariable Long paper_id){
        return  Result.success(paperService.getKeywords(paper_id));
     }
+
+    @GetMapping("/getKeyWordFre/{paper_id}")
+    public Result<List<Integer>>  getKeyWordFre(@PathVariable Long paper_id){
+        return  Result.success(paperService.getKeywordsV(paper_id));
+    }
 }
