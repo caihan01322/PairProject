@@ -15,7 +15,7 @@
     <!-- 引入 ECharts 文件 -->
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.0.2/dist/echarts.min.js"></script>
     <script type="text/javascript">
-        var meeting = "iccv"
+        var meeting = ""
 
         axios({
             method:'get',
@@ -36,11 +36,11 @@
                     link:"http://localhost:8811/?searchType=hotword&keyword="+keywords[i].keyword+"&meeting="+meeting
                 })
             }
+            $(function() {
+                // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
+                $("#example").jQCloud(word_array);
+            });
 
-            // $(function() {
-            //     // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
-            //     $("#example").jQCloud(word_array);
-            // });
         });
         /*!
          * Create an array of word objects, each representing a word in the cloud
@@ -81,6 +81,35 @@
             meeting:meeting
         },
         methods: {
+        },
+        watch:{
+            meeting (cur,pre){
+                axios({
+                    method:'get',
+                    // url:'user/del/'+id,
+                    url:'/hotword/trends',
+                    params: {
+                        meeting: cur
+                    },
+                    // responseType:'stream'
+                }).then(function(response) {
+                    console.log(response);
+                    var keywords = response.data.keywords;
+                    var word_array = [];
+                    for (var i=0 ; i < keywords.length ; i++){
+                        word_array.push({
+                            text:keywords[i].keyword,
+                            weight:keywords[i].frequency,
+                            link:"http://localhost:8811/?searchType=hotword&keyword="+keywords[i].keyword+"&meeting="+meeting
+                        })
+                    }
+
+                    $(function() {
+                        // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
+                        $("#example").jQCloud(word_array);
+                    });
+                });
+            }
         }
     })
 </script>
