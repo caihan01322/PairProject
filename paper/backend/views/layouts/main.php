@@ -11,20 +11,7 @@ use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 
 AppAsset::register($this);
-$cssString = "
-.jumbotron{color:#fff;background:url(img/bg.jpg);}
-.grid-view td{white-space:inherit}
-.list-group{
-    display: initial;
-    font-style: italic;
-    color: blueviolet;
-    margin: 50px;
-    font-size: xx-large;
-}
-.list-group-item{
-    border: none;
-}
-";
+$cssString = "";
 $this->registerCss($cssString);
 ?>
 <?php $this->beginPage() ?>
@@ -51,7 +38,7 @@ $this->registerCss($cssString);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => '论文管理', 'url' => ['/paper/index']],
+        ['label' => '论文查找', 'url' => ['/paper/index']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];

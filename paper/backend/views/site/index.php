@@ -33,16 +33,18 @@ $this->title = 'My Yii Application';
             ])?>
             </div>
             <div class="col-md-4">
-            <div class="keywordcloud">
+                <div class="keywordcloud">
                     <ul class="list-group">
                         <li class="list-group">
-                            关键词云
+                            可能感兴趣
                         </li>
                         <li class="list-group-item">
                             <?= KeywordCloud::widget(['keywords'=>$keywords])?>
                         </li>
                     </ul>
                 </div>
+                <div class=""
+
             </div>
         </div>
 

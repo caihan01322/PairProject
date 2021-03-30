@@ -2,7 +2,10 @@ html,
 body {
     height: 100%;
 }
-
+.a {
+    color: #3800ff;
+    text-decoration: none;
+}
 .wrap {
     min-height: 100%;
     height: auto;
@@ -17,7 +20,7 @@ body {
 }
 
 .footer {
-    width:auto;
+    width:0;
     height: 60px;
     background-color: #f5f5f5;
     border-top: 1px solid #ddd;

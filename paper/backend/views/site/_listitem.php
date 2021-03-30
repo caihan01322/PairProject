@@ -10,9 +10,10 @@ use yii\helpers\Html;
     <div class="content">
         摘要：<?= $model->beginning;?>
     </div>
-    
+
     <br>
     <div class="nav">
         关键词：<?= implode(',',$model->keywordLinks);?>
     </div>
+
 </div>

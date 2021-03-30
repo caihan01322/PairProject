@@ -10,16 +10,16 @@ use yii\grid\GridView;
 $cssString = "
 .form-group {
     display: inline-block;
+    margin: auto 7px;
 };
 .grid-view td {white-space:inherit;}; ";
 $this->registerCss($cssString);
-$this->title = '论文管理';
+$this->title = '论文查找';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="paper-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <h3>搜索</h3>
     <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
   
     <?= GridView::widget([
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'title',
                 'format'=>'raw',
                 'value'=>function($model){
-                    return "<div style=\"width:180px;display: -webkit-box;
+                    return "<div style=\"width:150px;display: -webkit-box;
                                         -webkit-box-orient: vertical;
                                         -webkit-line-clamp: 3;
                                         overflow: hidden;\">".$model->title."</div>";
