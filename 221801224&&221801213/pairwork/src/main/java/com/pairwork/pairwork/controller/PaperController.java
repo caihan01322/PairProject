@@ -22,6 +22,11 @@ public class PaperController {
     @Resource
     PaperService paperService;
 
+    /**
+     * 论文列表模糊查询
+     * @param name
+     * @return List<Paper>
+     */
     @GetMapping("/findNameLike/{name}")
     public Result<List<Paper>> findNameLike(@PathVariable String name){
         return Result.success(paperService.findPage(name));
@@ -38,6 +43,13 @@ public class PaperController {
 //        return Result.success(paperService.findCollecion(user_id));
 //    }
 
+    /**
+     * 个人收藏所有查询页面
+     * @param pageNum
+     * @param pageSize
+     * @param user_id
+     * @return 一个分好页的页面
+     */
     @GetMapping("/getUserCollection/{user_id}")
     public Result<Page<Paper>> findCollection(@RequestParam(required = false,value = "1") Integer pageNum,
                                               @RequestParam(required = false,value = "10") Integer pageSize,
@@ -59,5 +71,10 @@ public class PaperController {
     @GetMapping("/getKeyWordFre/{paper_id}")
     public Result<List<Integer>>  getKeyWordFre(@PathVariable Long paper_id){
         return  Result.success(paperService.getKeywordsV(paper_id));
+    }
+
+    @GetMapping("/getKeyWordBySeg")
+    public Result<List<String>> getKeyWordBySeg(){
+        return Result.success(paperService.getKeywordsBySeg());
     }
 }
