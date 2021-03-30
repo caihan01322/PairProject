@@ -1,8 +1,8 @@
 var pageBar = new Vue({
     el: '.page-bar',
     data: {
-        all: 8, //总页数
-        cur: 1//当前页码
+        all: localStorage.getItem("totalPage"), //总页数
+        cur: 1  //当前页码
     },
     /*watch: {
         cur: function(oldValue , newValue){
@@ -15,22 +15,26 @@ var pageBar = new Vue({
                 this.cur = data;
             }
             console.log(this.cur+'页');
-            var url = "/page";
-            var data = {
-                pageNum:this.cur
+            var urlStr = "/list";
+            var searchVal = {
+                pagenum: this.cur,
+                type: 1,
+                searchval: localStorage.getItem("searchVal")
             };
-            PostHandle(url,JSON.stringify(data),function(data){
-                //返回数据
+            PostHandle(urlStr, JSON.stringify(searchVal), function(data){
+                //论文列表展示
             });
         },
         pageClick: function(){
             console.log('现在在'+this.cur+'页');
-            var url = "/page";
-            var data = {
-                pageNum:this.cur
+            var urlStr = "/list";
+            var searchVal = {
+                pagenum: this.cur,
+                type: 1,
+                searchval: localStorage.getItem("searchVal")
             };
-            PostHandle(url,JSON.stringify(data),function(data){
-                //返回数据
+            PostHandle(urlStr, JSON.stringify(searchVal), function(data){
+                //论文列表展示
             });
         }
     },

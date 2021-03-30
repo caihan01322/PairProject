@@ -28,8 +28,7 @@ $(function () {
         }
         else if($("pw").val() == ""){
             alert("请输入密码");
-        }
-        else {
+        } else {
             var info = {
                 phonenumber: user.value,
                 password: pw.value
@@ -52,6 +51,7 @@ $(function () {
             });
         }
     });
+
     $("#searchPaper").on('keypress',function(event){
         if(event.keyCode == 13){
             var searchVal = $("#searchPaper").val();

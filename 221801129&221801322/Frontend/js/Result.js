@@ -5,13 +5,32 @@ $(function () {
     $("#status").css("cursor","none");
     $("#searchBox input").removeAttr("disabled");
 
-    var urlStr = "/Result";
+    var urlStr = "/list";
     var searchVal = {
-        searchStatus:"all",
-        searchVal:localStorage.getItem("searchVal")
+        pagenum: 1,
+        type: 1,
+        searchval: localStorage.getItem("searchVal")
     };
     PostHandle(urlStr, JSON.stringify(searchVal), function(data){
-        //数据接收与展示
+        var totalPage;
+        localStorage.setItem("totalPage",totalPage);
+        //论文列表展示
+    });
+
+    var urlStr = "/trend";
+    var trendVal = {
+        type:"trend"
+    };
+    PostHandle(urlStr, JSON.stringify(trendVal), function(data){
+        //趋势图与展示
+    });
+
+    var urlStr = "/rank";
+    var rankVal = {
+        type:"rank"
+    };
+    PostHandle(urlStr, JSON.stringify(rankVal), function(data){
+        //排名展示
     });
 
     $("#trend_nav div").click(function(){
@@ -25,31 +44,32 @@ $(function () {
             else{
                 nav_div[i].className = '';
                 content_div[i].className = 'chart content_selected';
-            }                    
+            }
         }
     })
 
     $("#searchPaper").on('keypress',function(event){
         if(event.keyCode == 13){
-            var urlStr = "/Result";
+            console.log($("#search option:selected").val());
+            var urlStr = "/list";
             var searchVal = {
-                searchStatus:"list",
-                searchVal:$("#searchPaper").val()
+                pagenum: 1,
+                type: $("#search option:selected").val(),
+                searchval: localStorage.getItem("searchVal")
             };
-            PostHandle(urlStr, searchVal, function(data){
-                //搜索结果展示
+            GetHandle(urlStr, searchVal, function(data){
+                //论文列表展示
             });
         }
     })
 
     $(".name").click(function(){
-        var urlStr = "/Result";
+        var urlStr = "/list";
         var searchVal = {
-            searchStatus:"list",
             searchVal:$(this).text()
         };
-        PostHandle(urlStr, JSON.stringify(searchVal), function(data){
-            //搜索结果展示
+        GetHandle(urlStr, JSON.stringify(searchVal), function(data){
+            //论文列表展示
         });
     })
 
@@ -74,7 +94,7 @@ $(function () {
         var paperUid = {
             paperUid:$(this).parent().children("div.title").attr("data-paper-uid")
         };
-        PostHandle(urlStr, JSON.stringify(paperUid), function(data){
+        GetHandle(urlStr, JSON.stringify(paperUid), function(data){
             //删除论文列表
         });
     });
