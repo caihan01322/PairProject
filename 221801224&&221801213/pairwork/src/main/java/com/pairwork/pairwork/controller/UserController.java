@@ -22,7 +22,12 @@ public class UserController {
     @Resource
     private UserService userService;
 
-    @PostMapping
+    /**
+     * 注册
+     * @param user
+     * @return 注册成功/失败信息
+     */
+    @PostMapping("/addUser")
     //（注！！！）@PostMapping和@PutMapping作用等同，都是用来向服务器提交信息。
     // 如果是添加信息，倾向于用@PostMapping，如果是更新信息，倾向于用@PutMapping。两者差别不是很明显。
     public Result add(User user){//将传过来的json对象转化为user对象
@@ -30,6 +35,12 @@ public class UserController {
         return  Result.success();//若执行成功则返回成功
     }
 
+    /**
+     * 查询是否存在这个账号的用户
+     * @param account
+     * @return List<User>
+     * 若存在返回该用户，不存在返回NULL
+     */
     @GetMapping("/getAccount/{account}")
     public List<User> findByAccount(@PathVariable String account){
         return userService.findByAccount(account);
@@ -45,9 +56,14 @@ public class UserController {
 //        return Result.success(userService.findCollecion(user_id));
 //    }
 
+
+    /**
+     * 接口测试
+     * @param money
+     * @return
+     */
     @GetMapping("/example1/{money}")//测试接口链接
-    public Result example1(Float money, String product){
-//        System.out.println("product:"+ product);//product:洗洁精
+    public Result example1(Float money){
         System.out.println("money:"+ money);//money:123.0
         return Result.success();
     }
