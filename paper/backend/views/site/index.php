@@ -4,7 +4,7 @@ use common\models\Keyword;
 use backend\components\KeywordCloud;
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'Bookstore Freeloader';
 ?>
 <div class="site-index">
 

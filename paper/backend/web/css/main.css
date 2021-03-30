@@ -25,5 +25,5 @@
 .list-group-item{
     border: none;
     opacity: 0.8;
-    width: min-content;
+    width: auto;
 }

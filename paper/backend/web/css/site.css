@@ -17,6 +17,7 @@ body {
     margin:60px;
     width:auto;
     padding: 70px 15px 20px;
+    background-color: aliceblue;
 }
 
 .footer {
@@ -115,3 +116,5 @@ a.desc:after {
 .nav > li > form > button:hover {
     text-decoration: none;
 }
+
+
