@@ -115,6 +115,42 @@ class Mysql(object):
         print(paperJSON)
         return paperJSON
 
+    def getECCV(self):
+        global ECCV
+        datalist =[]
+        a="2016"
+        b="2018"
+        c="2020"
+        ECCV=[]
+        ECCV.append(a)
+        ECCV.append(b)
+        ECCV.append(c)
+
+        for index in range(len(ECCV)):
+
+            SQL = "SELECT keyword,frequency,publishyear FROM `article`.`keywordanalysis`" \
+                  " WHERE `type` LIKE '%ECCV%' AND `publishyear` LIKE '%"+ECCV[index]+"%' ORDER BY `frequency` DESC LIMIT 1"
+            # print(SQL)
+            self.cursor.execute(SQL)
+            alldata = self.cursor.fetchall()
+            datalist.append(alldata[0])
+            print(datalist)
+            # print(index)
+            continue
+
+        papers = []
+        for r in datalist:
+            paper = {}
+            paper['year'] = r[2]
+            paper['keyword'] = r[0]
+            paper['count'] = r[1]
+            papers.append(paper)
+            continue
+
+        paperJSON = json.dumps(papers)
+        print(paperJSON)
+        return paperJSON
+
 if __name__ == '__main__':
  app.run(app.run(debug=True))
 
