@@ -37,10 +37,10 @@
                 })
             }
 
-            $(function() {
-                // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
-                $("#example").jQCloud(word_array);
-            });
+            // $(function() {
+            //     // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
+            //     $("#example").jQCloud(word_array);
+            // });
         });
         /*!
          * Create an array of word objects, each representing a word in the cloud
@@ -54,21 +54,34 @@
         返回
     </a>
 </button>
-<form class="ui form">
-<label>顶会</label>
-    <div class="ui selection dropdown">
-        <input type="hidden" name="gender">
-        <i class="dropdown icon"></i>
-        <div class="default text">Gender</div>
-        <div class="menu">
-            <div class="item" data-value="1">Male</div>
-            <div class="item" data-value="0">Female</div>
+<form class=" ">
+
+    <div class="">
+        <div  id="meeting-selector" class="field">
+            <label>顶会</label>
+            <select v-model="meeting" class="ui fluid dropdown">
+                <option value="">三大顶会</option>
+                <option value="ICCV">ICCV</option>
+                <option value="ECCV">ECCV</option>
+                <option value="CVPR">CVPR</option>
+            </select>
         </div>
     </div>
+
 </form>
 
 
 <!-- You should explicitly specify the dimensions of the container element -->
 <div id="example" style="width: 550px; height: 350px;"></div>
 </body>
+<script>
+    var meetingSelector = new Vue({
+        el: "#meeting-selector",
+        data:{
+            meeting:meeting
+        },
+        methods: {
+        }
+    })
+</script>
 </html>
