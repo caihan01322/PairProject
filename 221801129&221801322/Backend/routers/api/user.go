@@ -21,7 +21,6 @@ func LoginUser(c *gin.Context) {
 			"msg":  err.MsgFlags[code],
 			"data": data,
 		})
-
 		return
 	}
 	log.Printf("%v", json)

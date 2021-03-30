@@ -20,7 +20,6 @@ func InitRouter() *gin.Engine {
 	{
 		//用户登录
 		apiv1.POST("", api.LoginUser)
-
 	}
 
 	return router
