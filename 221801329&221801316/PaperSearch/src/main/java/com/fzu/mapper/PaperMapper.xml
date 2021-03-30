@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fzu.mapper.PaperMapper">
 
+
    <insert id="addPaper" parameterType="com.fzu.pojo.Paper" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
        insert into paper_search.paper(title,abstract_content,meet,`year`,link) values (#{title},#{abstractContent},#{meet},#{year},#{link})
    </insert>
@@ -12,7 +13,7 @@
         insert into paper_search.paper_keyword(paper_id, keyword) values (#{paperId},#{keyword})
     </insert>
     <select id="queryPaper" resultType="com.fzu.pojo.Paper">
-        select * from paper_search.paper limit #{start},#{rows}
+        select id,title,abstract_content as "abstractContent",meet,`year`,link from paper_search.paper limit #{start},#{rows}
     </select>
     <select id="queryKeywords" resultType="java.lang.String">
         select keyword from paper_search.paper_keyword where paper_id=#{paperId}
@@ -21,11 +22,43 @@
         select author from paper_search.paper_author where paper_id=#{paperId}
     </select>
     <select id="queryPaperByKeyword" resultType="com.fzu.pojo.Paper">
-        select a.id,a.title,a.abstract_content as "abstractContent",a.meet,a.year,a.link from paper a,paper_keyword b
+        select distinct a.id,a.title,a.abstract_content as "abstractContent",a.meet,a.year,a.link from paper a,paper_keyword b
         where b.keyword like '%${keyword}%' and a.id=b.paper_id limit #{start},#{rows}
     </select>
+    <select id="queryByTitle" resultType="com.fzu.pojo.Paper">
+        select distinct a.id,a.title,a.abstract_content as "abstractContent",a.meet,a.year,a.link from paper a
+        where a.title like '%${title}%' limit #{start},#{rows}
+    </select>
     <select id="queryPaperByAuthor" resultType="com.fzu.pojo.Paper">
-        select a.id,a.title,a.abstract_content as "abstractContent",a.meet,a.year,a.link from paper a,paper_author b
+        select distinct a.id,a.title,a.abstract_content as "abstractContent",a.meet,a.year,a.link from paper a,paper_author b
         where b.author like '%${author}%' and a.id=b.paper_id limit #{start},#{rows}
+    </select>
+    <select id="queryTop10ByYear" resultType="com.fzu.pojo.Keyword">
+        select keyword as name,count(*) as `count`  from(select b.keyword from paper a,paper_keyword b where
+        a.id=b.paper_id and a.year=#{year} and a.meet =#{meet}) as tmp group by keyword order by count(*) desc limit 10
+    </select>
+    <select id="">
+        select keyword as name,count(*) as `count`  from(select b.keyword from paper a,paper_keyword b where
+        a.id=b.paper_id and a.year=#{year} ) as tmp group by keyword order by count(*) desc limit 10
+    </select>
+    <insert id="insertUser" parameterType="java.lang.String">
+        insert into paper_search.user(username, password) values (#{username},#{password})
+    </insert>
+    <select id="selectPassword" parameterType="java.lang.String" resultType="com.fzu.pojo.User">
+        select * from paper_search.user where username =#{username};
+    </select>
+    <insert id="insertLike">
+        replace into paper_search.user_like(user_id,paper_id) values (#{userId},#{paperId})
+    </insert>
+    <delete id="deleteLike">
+        delete from paper_search.user_like where user_id=#{userId} and paper_id=#{paperId}
+    </delete>
+    <select id="queryLikes" resultType="com.fzu.pojo.Paper">
+         select a.id,title,abstract_content as "abstractContent",meet,`year`,link from paper_search.paper a,paper_search.user_like b
+         where   a.id=b.paper_id and b.user_id=#{userId}
+         limit #{start},#{rows}
+    </select>
+    <select id="isLike" resultType="java.lang.Integer">
+        select count(*) from user_like where user_id=#{userId} and paper_id=#{paperId}
     </select>
 </mapper>

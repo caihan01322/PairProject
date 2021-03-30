@@ -16,9 +16,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-@Component
+//@Component
 public class ApplicationRunnerImpl implements ApplicationRunner {
-    @Autowired
+//    @Autowired
     PaperService paperService;
     public List<Paper> cvprJsonParse() {
         List<Paper> paperList=new ArrayList<>();
