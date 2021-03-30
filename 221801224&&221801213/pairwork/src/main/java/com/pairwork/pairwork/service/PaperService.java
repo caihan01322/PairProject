@@ -1,15 +1,16 @@
 package com.pairwork.pairwork.service;
 
 
+import com.pairwork.pairwork.common.Lib;
 import com.pairwork.pairwork.dao.PaperDao;
 import com.pairwork.pairwork.entity.Paper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -37,8 +38,16 @@ public class PaperService {
 //        return paperDao.findUserCollecion(user_id);
 //    }
 
-    public void del(Long paper_id){
+    public void delPaper(Long paper_id){
         paperDao.deleteById(paper_id);
+    }
+
+
+    public List<String> getKeywords(Long paper_id){
+        Paper p = paperDao.findById(paper_id).get();
+        Lib lib = new Lib(p.getSummary());
+        List<String> word = Arrays.asList(lib.getWordFreK().clone());
+        return word;
     }
 
 }
