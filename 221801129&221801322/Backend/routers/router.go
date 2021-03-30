@@ -30,6 +30,9 @@ func InitRouter() *gin.Engine {
 		//显示论文列表
 		apiv1.POST("/list", api.ShowArticles)
 
+		//显示收藏列表
+		apiv1.POST("/showmark", api.ShowMarkArticles)
+
 		//收藏文章
 		apiv1.POST("/mark", api.MarkArticle)
 

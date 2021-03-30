@@ -67,3 +67,13 @@ func DisMarkArticle(user_id, article_id int) bool {
 
 	return true
 }
+
+func ExistMarkArticle(user_id int) bool {
+	var bookmark Bookmark
+	db.Table("crawler_bookmark").Where("user_id = ?", user_id).First(&bookmark)
+	if bookmark.ID > 0 {
+		return true
+	}
+
+	return false
+}
