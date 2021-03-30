@@ -191,10 +191,39 @@ def paper_search_abstract():
 def paper_search_title():
     pass
 
+# {
+#     "numberid":"",
+# }
+# {
+#     'abstract': paper.abstract,
+#     'classify':paper.classify,
+#     'datetime':paper.datetime,
+#     'href':paper.href
+#     'keyword':paper.keyWord,
+#     'numberid':paper.numberid
+#     'title':paper.title,
+#
+#     }
+
 #论文删除
 @app.route('/paper/delete/<string:numberid>',methods=['GET'])
 def paper_delete(numberid):
-    pass
+    paper = db.session.query(Paper).filter(Paper.id == numberid).first()
+    if (paper != None):
+        print(jsonify({
+            'numberID': paper.id,
+            'title': paper.title,
+            'abstract': paper.abstract,
+            'keyword': paper.keyWord,
+            'datetime': paper.datetime,
+            'href': paper.href,
+            'classify': paper.classify
+        }))
+        db.session.delete(paper)
+        db.session.commit()
+        return jsonify({"status": "ok"})
+    else:
+        return jsonify({"status": "error"})
 
 
 if __name__ == '__main__':
