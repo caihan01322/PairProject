@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/list_main.css">
     <link rel="stylesheet" href="css/thesis_list.css">
+    <link rel="stylesheet" href="css/head.css">
+    <link rel="stylesheet" href="css/footer.css">
 
 </head>
 <%-- 头部 --%>

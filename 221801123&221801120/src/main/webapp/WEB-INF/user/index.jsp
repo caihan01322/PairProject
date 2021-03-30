@@ -13,6 +13,9 @@
 		pageContext.setAttribute("basePath", basePath);
 	%>
 	<base href="<%=basePath%>">
+	<link rel="stylesheet" href="css/head.css">
+	<link rel="stylesheet" href="css/footer.css">
+
 </head>
 <body>
 <!--头部-->

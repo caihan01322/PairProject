@@ -2,8 +2,6 @@
          pageEncoding="UTF-8"%>
 
 
-<link rel="stylesheet" href="css/head.css">
-
 <div class="header">
     <div class="logo">
         <font class="logofont">Crawler</font>
@@ -13,7 +11,7 @@
         <ul>
             <li><a href="user/index">首页</a></li>
             <li><a href="user/thesis/list">论文列表</a></li>
-            <li><a href="#">热门分析</a></li>
+            <li><a href="user/statistics">热门分析</a></li>
             <li><a href="#">我的收藏</a></li>
             <li><a href="#">帮助</a></li>
         </ul>

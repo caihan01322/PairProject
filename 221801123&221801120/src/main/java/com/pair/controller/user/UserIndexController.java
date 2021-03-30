@@ -24,4 +24,12 @@ public class UserIndexController {
         return "user/index";
     }
 
+    /**
+     * 转向热门分析
+     */
+    @RequestMapping("/statistics")
+    public String statistics() {
+        return "user/statistics";
+    }
+
 }
