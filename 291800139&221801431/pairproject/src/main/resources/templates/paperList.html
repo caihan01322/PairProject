@@ -241,13 +241,13 @@
 
     //批量删除
     function delAllPaper(){
-        if(!confirm("确定要删除这些论文呢吗？")){
+        if(!confirm("确定要删除这些论文吗？")){
             return ;
         }
          cks = document.getElementsByName("check");
          pids = [];
         //var pids = [];
-        //拼接所有的图书id
+        //拼接所有的论文id
         for(var i=0;i<cks.length;i++){
             if(cks[i].checked){
                 //pids[i] = cks[i].value;
