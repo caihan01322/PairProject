@@ -5,53 +5,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>注册界面</title>
-	<style type="text/css">
-		#one{
-	         float: left;
-	         width: 55%;
-	         height: 100%;
-	         word-wrap: break-word;
-	         margin-top: 45px;
-	   }
-       #one img{
-   			width: 100%;
-   			vertical-align: middle;
-       }
-	  #two{
-            float: right;
-            position: relative;
-            width: 45%;
-            height: 100%;
-            margin-top: 140px;
-	  }
-	  h1{
-            width: 50%;
-            height: 100%;
-            word-wrap: break-word;
-            font-size: 200%;
-            color:#3A62D7;
-	  }
-	  #button1{
-	  		width: 60%;	
-	  		margin-top : 30px;
-	  		background: #3A62D7;
-	  		color:#FFFFFF;
-	  		border-radius: 30px;
-	  		padding: 8px;
-	  }
-	  input{
-	  		width: 50%;	
-	  		border-color: #DCDCDC;
-	  		border-radius: 30px;
-	  		padding: 8px;
-	  }
-	  #divTop{
-	  		height:50px;
-	  		width: 100%;	
-	  		margin-top : 30px;
-	  }
-	  
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/login.css"/>
 </head>
 <body>
 <div id="one">
@@ -83,7 +37,7 @@
                 
             </form>
         </div>
-        <div>
+        <div class="label">
         	<label>已有账号？去</label><label><a href="login.jsp">登录</a></label>
         </div>
     </div>
