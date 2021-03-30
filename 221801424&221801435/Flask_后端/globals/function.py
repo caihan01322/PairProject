@@ -140,3 +140,34 @@ def getLineChart():
         return responseError(Responses.PARAMETERS_ERROR)
 
 
+@functions.route('/getTop10',methods=['POST'])
+def getTop10():
+    try:
+        date=datetime.datetime.strptime('2020-01-01', '%Y-%m-%d')
+        Articles=Meeting_article.query.filter_by(create_time=date).all()
+        keywordDict={}
+        for i in Articles:
+            temp_list=list(i.keyword.split(';'))
+            for j in temp_list:
+                if (j not in keywordDict.keys()):
+                    keywordDict[j]=1
+                else:
+                    keywordDict[j]+=1
+        keywordDict['']=0
+        keywordDict['暂无关键词']=0
+        keyInfo=[]
+        valueInfo=[]
+        num=0
+        i=0
+        for k in sorted(keywordDict, key=keywordDict.__getitem__, reverse=True):
+            if(i<10):
+                keyInfo.append(k)
+                valueInfo.append(keywordDict[k])
+                num+=keywordDict[k]
+                i+=1
+        return responseBody(data=[{'key':keyInfo,'value':valueInfo,'num':num}])
+
+    except Exception as e:
+        print(e)
+        return responseError(Responses.PARAMETERS_ERROR)
+
