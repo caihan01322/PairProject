@@ -27,6 +27,7 @@
       <el-table
           :data="tableData"
           stripe
+          @row-click="searchKeyword"
           style="width: 100%">
           <el-table-column
             prop="keyword"
@@ -52,32 +53,30 @@ import * as echarts from 'echarts'
 export default {
 data () {
   return {
-    tableData: [{
-      keyword: '2016-05-02',
-      count: '王小虎',
-    }, {
-      keyword: '2016-05-04',
-      count: '王小虎',
-    }, {
-      keyword: '2016-05-01',
-      count: '王小虎',
-    }, {
-      keyword: '2016-05-03',
-      count: '王小虎',
-    }],
-
+    tableData:'',
     chartData:'',
     myChart:'',
-    TYPE:['ECCV','ICCV','CVPR']
+    TYPE:['ECCV','ICCV','CVPR'],
+    selectedObj:''
   }
 },
 methods: {
-  getChartInfo (type) {
+  getTotalRank(){
+    axios.get('http://localhost:5000/totalrank').then((res) => {
+      this.tableData = res.data
+    })
+  },
+  getChartInfo () {
     //这里需要字符串拼接
-    axios.get('../static/chart.json').then((res) => {
-      console.log(res)
-      this.chartData = res.data
-      this.draw(type)
+    axios.get('http://localhost:5000/chartInfo').then((res) => {
+      //console.log(res.data.length)
+      for(var i=0;i<res.data.length;i++){
+        //console.log(res.data[i])
+        this.chartData = res.data[i]
+        this.draw(this.TYPE[i])
+      }
+      //this.chartData = res.data
+      //this.draw(type)
     })
   },
   getyears(){
@@ -89,7 +88,7 @@ methods: {
     this.chartData.forEach(e => {
         arrnew.push(e.year)
     })
-    console.log(arrnew)
+    //console.log(arrnew)
     return arrnew
 
   },
@@ -98,6 +97,12 @@ methods: {
         return Object.assign(this.chartData[index],{'value':item.count})
     })
     return arrnew
+  },
+  searchKeyword(row, column, event){
+    this.selectedObj=row
+    let str=JSON.stringify(this.selectedObj.keyword)
+    console.log(str)
+    this.$router.push({path:'/',query:{keyword:str}})
   },
   draw(type){
     //console.log(document.getElementById('myChart'))
@@ -161,15 +166,8 @@ methods: {
 },
 
 mounted() {
-  for (var i = 0; i < this.TYPE.length; i++) {
-        this.getChartInfo(this.TYPE[i])
-        console.log(this.TYPE[i])
-  }
-},
-computed:{
-},
-
-components:{
+  this.getTotalRank()
+  this.getChartInfo()
 }
 }
 </script>
@@ -199,7 +197,6 @@ components:{
   width: 300px;
   height: 800px;
 }
-
 
 .el-row {
   &:last-child {
