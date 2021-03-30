@@ -19,6 +19,10 @@ a{
     text-decoration: none;
 }
 
+a:hover{
+    text-decoration: none;
+}
+
 li{
     list-style: none;
 }
@@ -53,6 +57,7 @@ li{
 .navbar{
     float: left;
     margin-left: 60px;
+    padding: 0;
 }
 
 .navbar ul li{

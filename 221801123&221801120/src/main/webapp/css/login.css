@@ -73,6 +73,7 @@ input:hover{
     text-align: center;
     color: #ffffff;
     background-color: #2f8df0;
+    padding: 0;
 }
 
 .btn:hover{

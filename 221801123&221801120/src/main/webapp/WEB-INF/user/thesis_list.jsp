@@ -13,8 +13,8 @@
     <title>论文列表</title>
     <meta charset="UTF-8">
     <base href="<%=basePath%>">
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/list_main.css">
     <link rel="stylesheet" href="css/thesis_list.css">
     <link rel="stylesheet" href="css/head.css">
@@ -44,7 +44,9 @@
                             <td>${thesis.keyword}</td>
                             <td>${thesis.link}</td>
                             <td>
-                                <a href="#">查看</a><a href="#">编辑</a><a href="#">删除</a>
+                                <button class="btn-info" onclick="LookCard()">查看</button>
+                                <button class="btn-info" onclick="EditCard()">编辑</button>
+                                <button class="btn-danger" onclick="DeleteCard()">删除</button>
                             </td>
                         </tr>
                     </c:forEach>
@@ -129,7 +131,6 @@
     </div>
 <jsp:include page="share/footer.jsp"/>
 </body>
-<script type="text/javascript" src="script/jquery-1.11.1.min.js"></script>
 <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <script src="<%=basePath%>script/thesis_list.js"></script>
