@@ -24,7 +24,8 @@
             
             <div class="container">
                 <h1 style="display: inline;">顶会论文爬取平台</h1>
-                <button id="login_btn" @click="signIn()" type="button" class="btn btn-default">登录</button>
+                <button id="login_btn" v-show="isLogin==0" @click="signIn()" type="button" class="btn btn-default">登录</button>
+                <button id="logout_btn" v-show="isLogin==1" @click="signOut()" type="button" class="btn btn-default">退出登录</button>
            
                 <div class="row" style="float: right;">
                     <div class="span6">
@@ -53,9 +54,11 @@
                 <input type="text" v-model="phone" class="form-control" name="phone" placeholder="请输入您的手机号"><br>
                 <label for="pwd">&nbsp; 密&nbsp; &nbsp; 码&nbsp;  </label>
                 <input type="password" v-model="password" class="form-control" name="pwd_again" placeholder="请再次输入您的密码"/>
-                
+                <br />
                 <a href="register.html">还没有账号？注册一个</a>
+                
                 <button type="button" @click="startLogin()" class="btn btn-primary btn-lg btn-block">&nbsp;登&nbsp; &nbsp; 录&nbsp;</button>
+                
             </div>
             </form>
             
@@ -76,7 +79,14 @@
             data:{
                 message:"请先登录",
                 phone:'',
-                password:''
+                password:'',
+                isLogin:1,
+
+            },
+            mounted(){
+                this.isLogin = 0;
+                //alert('hi');
+               // this.judgeLogin();
             },
             methods: {
             doIt:function(){
@@ -85,10 +95,13 @@
             signIn:function(){
                 window.location.href="login.html";
             },
+            signOut:function(){
+                this.isLogin = 0;
+            },
             startLogin:function(){
+                this.isLogin = 1;
 
-
-                 axios
+                /* axios
                  .post('http://127.0.0.1:5000/user/login',
                  {
                      telephone: this.phone,        // 参数 telephone
@@ -106,8 +119,11 @@
                  })
                  .catch(function (error) { // 请求失败处理
                      console.log(error);
-                 });
+                 });*/
   
+            },
+            judgeLogin:function(){
+                //this.isLogin = 1;
             },
             
             }

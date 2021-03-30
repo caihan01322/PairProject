@@ -64,7 +64,7 @@ button{
     margin: 20px 0px;
 }
 
-#login_btn{
+#login_btn,#logout_btn{
     font-size: 22px;
     float: right;
     margin-left: 30px;
