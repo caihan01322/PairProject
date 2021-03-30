@@ -1,5 +1,6 @@
-from flask import Flask
+import json
 import pymysql
+from flask import Flask, request
 from flask import render_template
 app = Flask(__name__)
 
@@ -10,7 +11,12 @@ def name():
     db = Mysql()
     keyword = request.args.get('keyword')
     items = db.getItems(keyword)
-    key = db.getECCV()
+    # keyhot = db.getECCV()
+    key = db.getCVPR()
+    key1 = db.getECCV()
+    key2 = db.getICCV()
+    # print(keyhot)
+    # print(items)
     page_range = range(int(page) - 3, int(page) + 2)
     if int(page) < 4:
         page_range = range(1, int(page) + 4)
@@ -150,6 +156,43 @@ class Mysql(object):
         paperJSON = json.dumps(papers)
         print(paperJSON)
         return paperJSON
+
+    def getICCV(self):
+        global ICCV
+        datalist = []
+        a = "2015"
+        b = "2017"
+        c = "2019"
+        ICCV = []
+        ICCV.append(a)
+        ICCV.append(b)
+        ICCV.append(c)
+
+        for index in range(len(ICCV)):
+            SQL = "SELECT keyword,frequency,publishyear FROM `article`.`keywordanalysis`" \
+                  " WHERE `type` LIKE '%ICCV%' AND `publishyear` LIKE '%" + ICCV[
+                      index] + "%' ORDER BY `frequency` DESC LIMIT 1"
+            # print(SQL)
+            self.cursor.execute(SQL)
+            alldata = self.cursor.fetchall()
+            datalist.append(alldata[0])
+            print(datalist)
+            # print(index)
+            continue
+
+        papers = []
+        for r in datalist:
+            paper = {}
+            paper['year'] = r[2]
+            paper['keyword'] = r[0]
+            paper['count'] = r[1]
+            papers.append(paper)
+            continue
+
+        paperJSON = json.dumps(papers)
+        print(paperJSON)
+        return paperJSON
+
 
 if __name__ == '__main__':
  app.run(app.run(debug=True))
