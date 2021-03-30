@@ -350,3 +350,9 @@ li {
     width: 18px;
     height: 18px;
 }
+
+#race {
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+}

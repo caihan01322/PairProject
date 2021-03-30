@@ -17,7 +17,6 @@ Highcharts.setOptions({
 Highcharts.getOptions().colors.splice(0, 0, 'transparent');
 
 function initPaperList() {
-    // searchStmt = '';
     document.getElementById("search-text").value = "";
     getPaperList(0);
 }
@@ -42,9 +41,7 @@ function getPaperList(pageNum) {
             searchType = "list";
             panel = document.getElementById('main-panel');
             panel.innerHTML = "";
-            //console.log(response.data);
             let data = response.data;
-            // console.log(JSON.stringify(data))
             setList(data, pageNum, searchType);
 
         })
@@ -57,7 +54,7 @@ function getLikeList(pageNum) {
     instance.get('/queryLike', {
             params: {
                 start: pageNum * 10,
-                rows: 1000,
+                rows: 10,
                 userId: sessionStorage.getItem('userId')
             }
         })
@@ -65,11 +62,8 @@ function getLikeList(pageNum) {
             searchType = "like";
             panel = document.getElementById('main-panel');
             panel.innerHTML = "";
-            //console.log(response.data);
             let data = response.data;
-            // console.log(JSON.stringify(data))
             setList(data, pageNum, searchType);
-
         })
         .then(function(error) {
             console.log(error);
@@ -131,23 +125,19 @@ function setList(data, pageNum, type) {
             "</div>"
 
         }
-        initPagination(pageNum, data.total / 10 + 1, type);
+        initPagination(pageNum, Math.floor(data.total / 10) + 1, type);
     }
 
 }
 
 function like(data) {
-
-    console.log(data)
     let ID = 'Like' + data;
     let star = document.getElementById(ID);
     let src = star.getAttribute('src');
     let router = '';
     if (src === '../img/gary-star.svg') {
-        //收藏路由
         router = '/addLike'
     } else {
-        //取消收藏路由
         router = '/deleteLike'
     }
     instance.get(router, { params: { userId: sessionStorage.getItem('userId'), paperId: data } })
@@ -159,7 +149,6 @@ function like(data) {
             }
             star.setAttribute('src', (src == '../img/gary-star.svg') ? '../img/orange-star.svg' : '../img/gary-star.svg');
         })
-
 }
 
 function initPagination(currentPage, totalPage, type) {
@@ -231,10 +220,7 @@ function getSunBurst() {
     panel.innerHTML = '<div id="container"></div>';
 
     instance.post('/queryTop10ByYear', {}).then(res => {
-
         list = res.data
-            // console.log(Highcharts.getOptions().colors)
-
         Highcharts.chart('container', {
             chart: {
                 height: '100%'
@@ -286,10 +272,100 @@ function getSunBurst() {
                 pointFormat: '<b>{point.name}</b>收录论文共计：<b>{point.value}篇</b>'
             }
         });
+
     })
 }
 
 function logout() {
     sessionStorage.clear();
     window.location.href = 'login.html';
+}
+
+function getRaceChart() {
+    panel = document.getElementById("")
+    panel = document.getElementById('main-panel');
+    panel.innerHTML += '<div id="race"></div>';
+    var dom = document.getElementById("race");
+    var myChart = echarts.init(dom);
+    var app = {};
+
+    var option;
+
+    instance.get('/keywordTrends', {}).then(res => {
+        setTimeout(function() {
+            console.log(JSON.stringify(res.data))
+            option = {
+                legend: {},
+                tooltip: {
+                    trigger: 'axis',
+                    showContent: false
+                },
+                dataset: {
+                    source: res.data
+                },
+                xAxis: { type: 'category' },
+                yAxis: { gridIndex: 0 },
+                grid: { top: '55%' },
+                series: [
+                    { type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: { focus: 'series' } },
+                    { type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: { focus: 'series' } },
+                    { type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: { focus: 'series' } },
+                    { type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: { focus: 'series' } },
+                    { type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: { focus: 'series' } },
+                    { type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: { focus: 'series' } },
+                    { type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: { focus: 'series' } },
+                    { type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: { focus: 'series' } },
+                    { type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: { focus: 'series' } },
+                    { type: 'line', smooth: true, seriesLayoutBy: 'row', emphasis: { focus: 'series' } },
+                    {
+                        type: 'pie',
+                        id: 'pie',
+                        radius: '30%',
+                        center: ['50%', '25%'],
+                        emphasis: { focus: 'data' },
+                        label: {
+                            formatter: '{b}: {@2016} ({d}%)'
+                        },
+                        encode: {
+                            itemName: 'product',
+                            value: '2016',
+                            tooltip: '2016'
+                        }
+                    }
+                ]
+            };
+
+            myChart.on('updateAxisPointer', function(event) {
+                var xAxisInfo = event.axesInfo[0];
+                if (xAxisInfo) {
+                    var dimension = xAxisInfo.value + 1;
+                    myChart.setOption({
+                        series: {
+                            id: 'pie',
+                            label: {
+                                formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+                            },
+                            encode: {
+                                value: dimension,
+                                tooltip: dimension
+                            }
+                        }
+                    });
+                }
+            });
+
+            myChart.setOption(option);
+
+        });
+
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
+        }
+    })
+
+}
+
+function initCharts() {
+    getSunBurst()
+    getRaceChart()
 }
