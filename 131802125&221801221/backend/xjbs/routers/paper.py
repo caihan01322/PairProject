@@ -1,8 +1,10 @@
 from flask import *
 from ..models import *
 from ..util import *
+from flask_cors import CORS
 
 paper = Blueprint('paper', __name__)
+CORS(app, supports_credentials=True)
 
 
 @paper.route('/search', methods=['GET'])
