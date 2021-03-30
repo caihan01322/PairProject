@@ -131,5 +131,100 @@ def resolveJson(path):
     file.close()
     return jsonify({"status":"ok"})
 
+
+#论文列表查看
+@app.route('/paper/list',methods=['GET'])
+def getPaper():
+    paper1 = request.get_json()
+    page = int (paper1.get("page"))
+    # 第几页 每页几条
+    page_item = int(paper1.get("item"))
+    m = int(page * page_item)
+    print('select * from paper limit ' + str(m) + ',' + str(page_item) + ';')
+    paper = db.session.execute('select * from paper limit ' + str(m) + ',' + str(page_item) + ';')
+    Infos = []
+    for p in paper:
+        id = p.id
+        title = p.title
+        datetime = p.datetime
+        classify = p.classify
+        Infos.append({
+            "id": id,
+            "title": title,
+            "datetime": datetime,
+            "classify": classify
+        })
+    print(Infos)
+    items = db.session.execute('select count(*) count from paper;')
+    for i in items:
+        counts = i.count
+    counts = int(counts)#总共几条
+    page = int(int(counts)/int(page_item))+1
+
+
+    return jsonify(
+        {'count':counts,
+        'page':page,
+        'data': Infos}
+    )
+
+
+#论文详情
+@app.route('/paper/<int:numberid>',methods=['GET','POST'])
+def paper_show(numberid):
+    pass
+
+
+# 论文模糊查询
+@app.route('/paper/search/Keyword',methods=['POST'])
+def paper_search_keyword():
+    pass
+
+
+#论文模糊查询
+@app.route('/paper/search/abstract',methods=['POST'])
+def paper_search_abstract():
+    pass
+
+#论文模糊查询
+@app.route('/paper/search/title',methods=['POST'])
+def paper_search_title():
+    pass
+
+# {
+#     "numberid":"",
+# }
+# {
+#     'abstract': paper.abstract,
+#     'classify':paper.classify,
+#     'datetime':paper.datetime,
+#     'href':paper.href
+#     'keyword':paper.keyWord,
+#     'numberid':paper.numberid
+#     'title':paper.title,
+#
+#     }
+
+#论文删除
+@app.route('/paper/delete/<string:numberid>',methods=['GET'])
+def paper_delete(numberid):
+    paper = db.session.query(Paper).filter(Paper.id == numberid).first()
+    if (paper != None):
+        print(jsonify({
+            'numberID': paper.id,
+            'title': paper.title,
+            'abstract': paper.abstract,
+            'keyword': paper.keyWord,
+            'datetime': paper.datetime,
+            'href': paper.href,
+            'classify': paper.classify
+        }))
+        db.session.delete(paper)
+        db.session.commit()
+        return jsonify({"status": "ok"})
+    else:
+        return jsonify({"status": "error"})
+
+
 if __name__ == '__main__':
     app.run(debug=True)
