@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
-@RestController//标识此接口中所有都是返回json数据
+//标识此接口中所有都是返回json数据
 @RequestMapping("/user")//给访问链接加个前缀
 public class UserController {
 
@@ -26,5 +26,6 @@ public class UserController {
     public boolean findByAccount(@PathVariable String account){
         return userService.findByAccount(account);
     }
+
 
 }
