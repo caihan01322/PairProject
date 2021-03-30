@@ -1,7 +1,7 @@
 body{
 margin:0px auto;
 width:1100px;
-height:1200px;
+min-height:800px;
 border:1px solid #000;
 }
 form{
@@ -9,17 +9,18 @@ margin:auto;
 }
 div.left
 {
+position: relative;
 margin:20px 0px;
-height:1000px;
 width:700px;
+min-height:1000px;
 border:1px solid #200;
 float:left;
 }
 div.right
 {
-margin:20px 0px;
-height:500px;
+margin:20px auto;
 width:250px;
+height:300px;
 border:1px solid #200;
 float:right;
 }
@@ -27,18 +28,23 @@ div.center
 {
 margin:0px auto;
 width:1000px;
+min-height:1200px;
 background-color: #DDD;
 }
 div.list
 {
 margin:10px auto;
 width:650;
-background-color: #fff;
+background-color: #000;
 }
 div.item
 {
 border:1px solid #000;
 margin:0px auto;
 width:600px;
-background-color: #fff;
+background-color: #DDD;
+}
+form.center
+{
+    margin:20px auto;
 }

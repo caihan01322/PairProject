@@ -1,8 +1,10 @@
 .body-container{
+
     overflow: hidden;
 }
 
 .informs{
+    margin:auto;
     width: 560px;
     margin: 20px;
     padding: 5px;

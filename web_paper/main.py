@@ -34,6 +34,7 @@ def login():
         return render_template('collection.html', forms=forms)
     return render_template('login.html', forms=forms)
 
+
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
     forms = Signup()
@@ -59,30 +60,71 @@ def list():
     if request.method == 'POST':
         if request.form.get('submit') == '点我搜说':
             if len(request.form.get('text')) > 2:
-                session['text'] = request.form.get('text')
-                text = session['text']
-                paper_list = Paper.query.filter(Paper.title.like('%' + text + '%'))
-                return render_template('list.html', paper_list=paper_list)
+                text = request.form.get('text')
+                session['text']=text
+                paper_list = Paper.query.filter(Paper.title.like('%' + text + '%')).all()
+                all_page = int(len(paper_list)/6)+1
+                show_list = paper_list[0:6]
+                paper_map=[]
+                for p in show_list:
+                    key_list=PaperToKeyword.query.filter(PaperToKeyword.paper_id==p.id).all()
+                    paper_map.append([p,key_list])
+                return render_template('list.html', paper_map=paper_map,all_page=range(0,all_page),search_word='text')
             else:
                 text = "请输入三个以上字符"
                 return render_template('list.html', text=text)
         else:
-            return redirect(url_for('login'))
+            if request.form.get("submit")=="收藏":
+                if 'username' in session:
+                    paper_id = int(request.form.get("collect"))
+                    user_id=User.query.filter(User.username==session['username']).first().id
+                    if UserCollection.query.filter(UserCollection.user_id==user_id,UserCollection.paper_id==paper_id).count() ==0:
+                        us=UserCollection(user_id=user_id,paper_id=paper_id)
+                        db.session.add(us)
+                        db.session.commit()
+                        return redirect(url_for('list'))
+                    else:
+                        return '该文章已经收藏'
+                return redirect(url_for('login'))
+            elif request.form.get("submit")=="跳转":
+                page= int(request.form.get("select"))
+                text=session['text']
+                paper_list = Paper.query.filter(Paper.title.like('%' + text + '%')).all()
+                all_page = int(len(paper_list) / 6) + 1
+                show_list = paper_list[6*(page-1):6*page]
+                paper_map = []
+                page_show="当前为第"+str(page)+"页"
+                for p in show_list:
+                    key_list = PaperToKeyword.query.filter(PaperToKeyword.paper_id == p.id).all()
+                    paper_map.append([p, key_list])
+                return render_template('list.html', paper_map=paper_map, all_page=range(0, all_page),
+                                       search_word='text',page=page_show)
+            return redirect(url_for('index'))
     else:
         if 'text' in session:
-            if len(session['text']) > 2:
-                text = session['text']
-                paper_list = Paper.query.filter(Paper.title.like('%' + text + '%'))
-                return render_template('list.html', paper_list=paper_list)
+            print('判断成功')
+            if len(session.get('text')) > 2:
+                text = session.get('text')
+                paper_list = Paper.query.filter(Paper.title.like('%' + text + '%')).all()
+                all_page = int(len(paper_list)/ 6 ) + 1
+                show_list = paper_list[0:6]
+                paper_map = []
+                for p in show_list:
+                    key_list = PaperToKeyword.query.filter(PaperToKeyword.paper_id == p.id).all()
+                    paper_map.append([p, key_list])
+                return render_template('list.html', paper_map=paper_map,all_page=range(0,all_page),search_word=session['text'])
             else:
                 text = "还没搜索哦"
                 return render_template('list.html', text=text)
+        print("异常进入")
         return render_template('list.html')
 
 @app.route('/collection',methods=['POST','GET'])
 def collection():
     if 'username' in session:
-        return render_template('collection.html')
+        user_id = User.query.filter(User.username == session['username']).first().id
+        UserCollection.query.filter(UserCollection.user_id==user_id).all()
+
     return redirect(url_for('login'))
 
     # if request.method == 'POST':
@@ -155,3 +197,5 @@ def collection():
 
 if __name__ == '__main__':
     app.run()
+    db.drop_all()
+    db.create_all()

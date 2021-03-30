@@ -27,9 +27,8 @@ class Paper(db.Model):
 
 class PaperToKeyword(db.Model):
     __tablename__ = "papertokeyword"
-
     id = db.Column(db.Integer, primary_key=True)
-    paper_id = db.Column(db.Integer)
+    paper_id = db.Column(db.Integer, db.ForeignKey('User.id'))
     keyword = db.Column(db.Text)
 
 # class Role(db.Model):  # 继承数据库模型
