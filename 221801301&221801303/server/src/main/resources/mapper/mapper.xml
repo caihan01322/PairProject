@@ -111,13 +111,22 @@
         where id in (select DISTINCT pid from author where author like CONCAT('%', #{author}, '%'))
         limit #{start},#{lim};
     </select>
+    <select id="getPaperByKeyword" resultType="com.fzu.server.pojo.Paper">
+        select *
+        from paper
+        where id in (select DISTINCT pid from keyword where keyword = #{keyword})
+        limit #{start},#{lim};
+    </select>
     <select id="getCount" resultType="java.lang.Integer">
         select COUNT(*) from paper where 1=1
         <if test="state==0">
             and name like CONCAT('%',#{str},'%');
         </if>
         <if test="state==1">
-            and id in (select DISTINCT pid from author where author like CONCAT('%',#{author},'%'));
+            and id in (select DISTINCT pid from author where author like CONCAT('%',#{str},'%'));
+        </if>
+        <if test="state==2">
+            and id in (select DISTINCT pid from keyword where keyword = #{str});
         </if>
     </select>
     <select id="getDetail" resultType="com.fzu.server.pojo.Paper">
@@ -155,6 +164,13 @@
     <select id="getICCV" resultType="java.util.Map">
         select keyword, COUNT(*) num
         from ICCV_keyword
+        group by keyword
+        order by COUNT(*) DESC
+        limit 10;
+    </select>
+    <select id="getTOP" resultType="java.util.Map">
+        select keyword, COUNT(*) num
+        from keyword
         group by keyword
         order by COUNT(*) DESC
         limit 10;

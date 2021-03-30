@@ -68,22 +68,43 @@ public class WorkService {
         return JSONObject.toJSON(result);
     }
 
+    public Object queryKeyword(Map<String, Object> req) {
+        String keyword;
+        keyword = req.get("keyword").toString();
+        int page = (int) req.get("page");
+        int limit = (int) req.get("limit");
+        int start = (page - 1) * limit;
+        if (page == 1) count = dao.getCount(keyword, 2);
+        List<Paper> paper = dao.getPaperByKeyword(keyword, start, limit);
+        for (Paper pp : paper) {
+            pp.setKeyword(dao.getKeyword(pp.getID()));
+            pp.setAuthor(dao.getAuthor(pp.getID()));
+        }
+        Map<String, Object> result = new HashMap<>();
+        result.put("count", count);
+        result.put("data", paper);
+
+        return JSONObject.toJSON(result);
+    }
+
     public Object getCVPR() {
         List<Map<String, String>> cvpr = dao.getCVPR();
-        Object obj = JSONArray.toJSON(cvpr);
-        return obj;
+        return JSONArray.toJSON(cvpr);
     }
 
     public Object getECCV() {
         List<Map<String, String>> eccv = dao.getECCV();
-        Object obj = JSONArray.toJSON(eccv);
-        return obj;
+        return JSONArray.toJSON(eccv);
     }
 
     public Object getICCV() {
         List<Map<String, String>> iccv = dao.getICCV();
-        Object obj = JSONArray.toJSON(iccv);
-        return obj;
+        return JSONArray.toJSON(iccv);
+    }
+
+    public Object getTOP() {
+        List<Map<String, String>> top = dao.getTOP();
+        return JSONArray.toJSON(top);
     }
 
     public Object getDetail(Map<String,Object> req){
