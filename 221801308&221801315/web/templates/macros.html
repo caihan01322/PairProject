@@ -4,7 +4,9 @@
         {% for article in pagination.items %}
         <tr class="table-item">
             <td class="art-title">{{article.title}}</td>
-            <td class="art-btn"><a href={{url_for("delete", title=article.title)}}><i class="fa fa-trash"
+            <td class="art-btn"><a href={{url_for("view", title=article.title)}} class="item-href"><i class="fa fa-eye font-icon"
+                        aria-hidden="true"></i></a></td>
+            <td class="art-btn"><a href={{url_for("delete", title=article.title)}} class="item-href"><i class="fa fa-trash font-icon"
                         aria-hidden="true"></i></a></td>
         </tr>
         {% endfor %}
@@ -26,7 +28,7 @@
             class="page-href">{{i}}</a>
         {% endif %}
         {% else %}
-        <a href="#">&hellip;</a>
+        <a href="#" class="page-href">&hellip;</a>
         {% endif %}
         {% endfor %}
 

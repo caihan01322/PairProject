@@ -11,9 +11,6 @@ table{
 .art-title{
     border-bottom: 1px solid rgb(180, 180, 180);
 }
-.art-btn{
-    margin: 10px 0;
-}
 .table-href{
     color: white;
 }
@@ -28,8 +25,14 @@ table{
     text-align: center;
 }
 .page-href{
-    color:white;    
+    color:rgb(96, 169, 211);    
 }
 .page-choose{
     color: #514A4A;
+}
+.item-href{
+    color: #394044;
+}
+.font-icon{
+    margin:10px
 }
