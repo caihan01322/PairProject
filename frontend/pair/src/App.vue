@@ -1,14 +1,20 @@
 <template>
   <div id="app">
-    <login></login>
+    <!-- <login></login> -->
+    <!-- <register></register> -->
+    <!-- <mycenter></mycenter> -->
+    <articles></articles>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Login from './views/login'
+import Articles from './views/Articles.vue'
+// import Mycenter from './views/mycenter.vue'
+// import Register from './views/register.vue'
+// import Login from './views/login'
 export default {
-  components: { Login },
+  components: { Articles },
   name: 'App'
 }
 </script>
