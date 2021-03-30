@@ -19,7 +19,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/index_logined.html")
+@app.route("/index_logined")
 def index_logined():
     """登陆后的主页"""
     return render_template("index_logined.html")
@@ -238,11 +238,15 @@ def view():
         返回模板渲染
     """
     title = request.args.get("title")
+    condition = request.args.get("condition")
+    page = request.args.get("page")
+    search_way = request.args.get("search_way")
+    pagination_func = request.args.get("pagination_func")
 
     article = Articles.query.filter(Articles.title == title).first()
 
-    return render_template("view.html", article=article)
-    
+    return render_template("view.html", article=article, pagination_func=pagination_func, page=page, condition=condition, search_way=search_way)
+
 
 @app.route("/delete", methods=["GET"])
 def delete():
@@ -257,12 +261,16 @@ def delete():
         返回模板渲染
     """
     title = request.args.get("title")
+    condition = request.args.get("condition")
+    page = request.args.get("page")
+    search_way = request.args.get("search_way")
+    pagination_func = request.args.get("pagination_func")
 
     article = Articles.query.filter(Articles.title == title).first()
 
     db.session.delete(article)
     db.session.commit()
-    return render_template("search.html")
+    return redirect(url_for(pagination_func, page=page, condition=condition, search_way=search_way))
 
 
 @app.route("/hot_keywords_view")
@@ -314,4 +322,4 @@ def hot_keywords():
 
 if __name__ == "__main__":
     app.config['JSON_AS_ASCII'] = False
-    app.run(port=5000, debug=True)
+    app.run(port=8080, debug=True)
