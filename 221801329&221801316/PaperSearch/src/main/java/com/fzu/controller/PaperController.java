@@ -24,26 +24,6 @@ public class PaperController {
     /**
      * showdoc
      * @catalog 论文相关
-     * @title 论文查询
-     * @description 论文分页查询的接口
-     * @method post
-     * @url https://ip:8080/queryPage
-     * @param start 必选 Integer 初始偏移
-     * @param rows 必选 Integer 页面大小
-     * @return {"error_code":0,"data":{"uid":"1","username":"12154545","name":"吴系挂","groupid":2,"reg_time":"1436864169","last_login_time":"0"}}
-     * @return_param groupid int 用户组id
-     * @return_param name string 用户昵称
-     * @remark 这里是备注信息
-     */
-    @ResponseBody
-    @RequestMapping("/queryPage")
-    public List<Paper>  queryByPage(@RequestParam("start")Integer start,@RequestParam("rows")Integer rows){
-        List<Paper> paperList=paperService.queryPaperByPage(start,rows);
-        return paperList;
-    }
-    /**
-     * showdoc
-     * @catalog 论文相关
      * @title 论文按照关键词模糊查询
      * @description 论文按照关键词分页查询的接口
      * @method post
@@ -58,11 +38,13 @@ public class PaperController {
      */
     @ResponseBody
     @RequestMapping("/queryByKeyword")
-    public List<Paper> queryByKeyword(@RequestParam("keyword")String keyword,
+    public List<JSONObject> queryByKeyword(@RequestParam("userId")Integer userId, @RequestParam("word")String keyword,
                                       @RequestParam("start")Integer start,
                                       @RequestParam("rows")Integer rows){
-        List<Paper> paperList=paperService.queryPaperByKeyword(keyword,start,rows);
-        return paperList;
+        if(keyword=="")
+            return paperService.queryPaperByPage(userId,start,rows);
+        else
+        return  paperService.queryPaperByKeyword(userId,keyword,start,rows);
     }
     /**
      * showdoc
@@ -81,11 +63,40 @@ public class PaperController {
      */
     @ResponseBody
     @RequestMapping("/queryByAuthor")
-    public List<Paper> queryByAuthor(@RequestParam("author")String author,
-                                     @RequestParam("start")Integer start,
-                                     @RequestParam("rows")Integer rows){
-        List<Paper> paperList=paperService.queryPaperByAuthor(author,start,rows);
-        return paperList;
+    public List<JSONObject> queryByAuthor(@RequestParam("userId")Integer userId,
+                                          @RequestParam("word")String author,
+                                          @RequestParam("start")Integer start,
+                                          @RequestParam("rows")Integer rows){
+        if(author=="")
+            return paperService.queryPaperByPage(userId,start,rows);
+        else
+            return  paperService.queryPaperByAuthor(userId,author,start,rows);
+    }
+    /**
+     * showdoc
+     * @catalog 论文相关
+     * @title 论文按照关键词模糊查询
+     * @description 论文按照关键词分页查询的接口
+     * @method post
+     * @url https://ip:8080/queryByAuthor
+     * @param author 必选 String 作者姓名
+     * @param start 必选 Integer 初始偏移
+     * @param rows 必选 Integer 页面大小
+     * @return {"error_code":0,"data":{"uid":"1","username":"12154545","name":"吴系挂","groupid":2,"reg_time":"1436864169","last_login_time":"0"}}
+     * @return_param groupid int 用户组id
+     * @return_param name string 用户昵称
+     * @remark 这里是备注信息
+     */
+    @ResponseBody
+    @RequestMapping("/queryByTitle")
+    public List<JSONObject> queryByTitle(@RequestParam("userId")Integer userId,
+                                          @RequestParam("word")String title,
+                                          @RequestParam("start")Integer start,
+                                          @RequestParam("rows")Integer rows){
+        if(title=="")
+            return paperService.queryPaperByPage(userId,start,rows);
+        else
+            return  paperService.queryPaperByTitle(userId,title,start,rows);
     }
     /**
      * showdoc
@@ -101,10 +112,10 @@ public class PaperController {
      */
     @ResponseBody
     @RequestMapping("/queryTop10ByYear")
-    public String queryTop10ByYear(){
-        String data=JSON.toJSONString(paperService.queryTop10ByYear());
-        data.replace("\"","\'");
-        return  data;
+    public List<JSONObject> queryTop10ByYear(){
+  /*      String data=JSON.toJSONString(paperService.queryTop10ByYear());
+        data.replace("\"","\'");*/
+        return  paperService.queryTop10ByYear();
     }
     @ResponseBody
     @RequestMapping("/register")
@@ -116,22 +127,15 @@ public class PaperController {
 
     @ResponseBody
     @RequestMapping("/login")
-    public String login(@RequestBody JSONObject jsonObject){
+    public Map<String,Integer> login(@RequestBody JSONObject jsonObject){
         String username=jsonObject.getString("username");
         String password=jsonObject.getString("password");
-        Map<String,Integer> result=new HashMap<>();
-        if(paperService.login(username,password)){
-            result.put("status",1);
-        }
-        else result.put("status",0);
-        return JSON.toJSONString(result);
+        return paperService.login(username,password);
     }
 
     @ResponseBody
     @RequestMapping("/addLike")
-    public String addLike(@RequestBody JSONObject jsonObject){
-        Integer userId=jsonObject.getInteger("userId");
-        Integer paperId=jsonObject.getInteger("paperId");
+    public String addLike(@RequestParam("userId") Integer userId,@RequestParam("paperId") Integer paperId){
         Map<String,Integer> result=new HashMap<>();
         paperService.addLike(userId,paperId);
         result.put("status",1);
@@ -143,6 +147,14 @@ public class PaperController {
     public List<Paper>  queryLike(@RequestParam("userId")Integer userId, @RequestParam("start")Integer start,@RequestParam("rows")Integer rows){
         List<Paper> paperList=paperService.queryLikes(userId,start,rows);
         return paperList;
+    }
+    @ResponseBody
+    @RequestMapping("/deleteLike")
+    public String deleteLike(@RequestParam("userId") Integer userId,@RequestParam("paperId") Integer paperId){
+        Map<String,Integer> result=new HashMap<>();
+        paperService.deleteLike(userId,paperId);
+        result.put("status",1);
+        return JSON.toJSONString(result);
     }
 
 }

@@ -25,6 +25,10 @@
         select distinct a.id,a.title,a.abstract_content as "abstractContent",a.meet,a.year,a.link from paper a,paper_keyword b
         where b.keyword like '%${keyword}%' and a.id=b.paper_id limit #{start},#{rows}
     </select>
+    <select id="queryByTitle" resultType="com.fzu.pojo.Paper">
+        select distinct a.id,a.title,a.abstract_content as "abstractContent",a.meet,a.year,a.link from paper a
+        where a.title like '%${title}%' limit #{start},#{rows}
+    </select>
     <select id="queryPaperByAuthor" resultType="com.fzu.pojo.Paper">
         select distinct a.id,a.title,a.abstract_content as "abstractContent",a.meet,a.year,a.link from paper a,paper_author b
         where b.author like '%${author}%' and a.id=b.paper_id limit #{start},#{rows}
@@ -40,15 +44,21 @@
     <insert id="insertUser" parameterType="java.lang.String">
         insert into paper_search.user(username, password) values (#{username},#{password})
     </insert>
-    <select id="selectPassword" parameterType="java.lang.String" resultType="java.lang.String">
-        select password from paper_search.user where username =#{username};
+    <select id="selectPassword" parameterType="java.lang.String" resultType="com.fzu.pojo.User">
+        select * from paper_search.user where username =#{username};
     </select>
     <insert id="insertLike">
-        replace into paper_search.user_like values (#{userId},#{paperId})
+        replace into paper_search.user_like(user_id,paper_id) values (#{userId},#{paperId})
     </insert>
+    <delete id="deleteLike">
+        delete from paper_search.user_like where user_id=#{userId} and paper_id=#{paperId}
+    </delete>
     <select id="queryLikes" resultType="com.fzu.pojo.Paper">
          select a.id,title,abstract_content as "abstractContent",meet,`year`,link from paper_search.paper a,paper_search.user_like b
          where   a.id=b.paper_id and b.user_id=#{userId}
          limit #{start},#{rows}
+    </select>
+    <select id="isLike" resultType="java.lang.Integer">
+        select count(*) from user_like where user_id=#{userId} and paper_id=#{paperId}
     </select>
 </mapper>

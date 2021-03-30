@@ -2,6 +2,7 @@ package com.fzu.mapper;
 
 import com.fzu.pojo.Keyword;
 import com.fzu.pojo.Paper;
+import com.fzu.pojo.User;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -30,6 +31,10 @@ public interface PaperMapper {
     List<Paper> queryPaperByKeyword(@Param("keyword")String keyword,
                                     @Param("start")Integer start,
                                     @Param("rows")Integer rows);
+    //根据标题模糊查询论文
+    List<Paper> queryByTitle(@Param("title")String title,
+                                    @Param("start")Integer start,
+                                    @Param("rows")Integer rows);
 
     //根据作者查询论文
     List<Paper> queryPaperByAuthor(@Param("author")String author,
@@ -42,12 +47,17 @@ public interface PaperMapper {
     void insertUser(@Param("username") String username,@Param("password") String password);
 
     //登录
-    String selectPassword(@Param("username")String username);
+    User selectPassword(@Param("username")String username);
 
     //添加收藏
     void insertLike(@Param("userId")Integer userId,@Param("paperId")Integer paperId);
+    //删除收藏
+    void deleteLike(@Param("userId")Integer userId,@Param("paperId")Integer paperId);
     //查看收藏
     List<Paper> queryLikes(@Param("userId")Integer userId,
                            @Param("start")Integer start,
                            @Param("rows")Integer rows);
+    //查看是否被收藏
+    Integer isLike(@Param("userId")Integer userId,
+                   @Param("paperId")Integer paperId);
 }
