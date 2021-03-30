@@ -29,4 +29,4 @@ class AppAsset extends AssetBundle
         $view->registerCssFile($cssfile, [AppAsset::className(), 'depends' => 'api\assets\AppAsset']);  
     }  
 }
-}
+
