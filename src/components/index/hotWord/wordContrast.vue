@@ -1,13 +1,15 @@
 <template>
-    $END$
+  <div id="indexWordContrast">
+    wordcontrast
+  </div>
 </template>
 
 <script>
-  export default {
-    name: 'wordContrast'
-  }
+export default {
+  name: 'wordContrast'
+}
 </script>
 
-<style scoped>
+<style scoped lang="less">
 
 </style>

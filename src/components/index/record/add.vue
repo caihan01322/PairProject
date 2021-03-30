@@ -1,13 +1,13 @@
 <template>
-    $END$
+  <div id="recordAdd"></div>
 </template>
 
 <script>
-  export default {
-    name: 'ad'
-  }
+export default {
+  name: 'ad'
+}
 </script>
 
-<style scoped>
+<style scoped lang="less">
 
 </style>

@@ -1,13 +1,15 @@
 <template>
-    $END$
+  <div id="indexWordCloud">
+    wordcloud
+  </div>
 </template>
 
 <script>
-  export default {
-    name: 'wordCloud'
-  }
+export default {
+  name: 'wordCloud'
+}
 </script>
 
-<style scoped>
+<style scoped lang="less">
 
 </style>

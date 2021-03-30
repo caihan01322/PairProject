@@ -1,13 +1,13 @@
 <template>
-    $END$
+  <div id="drecordDelete"></div>
 </template>
 
 <script>
-  export default {
-    name: 'delete.vue'
-  }
+export default {
+  name: 'delete.vue'
+}
 </script>
 
-<style scoped>
+<style scoped lang="less">
 
 </style>

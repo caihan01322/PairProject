@@ -1,13 +1,15 @@
 <template>
-    $END$
+  <div id="indexWordTrend">
+    wordtrend
+  </div>
 </template>
 
 <script>
-  export default {
-    name: 'wordTrend'
-  }
+export default {
+  name: 'wordTrend'
+}
 </script>
 
-<style scoped>
+<style scoped lang="less">
 
 </style>
