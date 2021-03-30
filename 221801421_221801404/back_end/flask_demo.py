@@ -52,32 +52,68 @@ class Mysql(object):
                 items = json.dumps(paper)
                 return  items
 
-        def getECCV(self):
-                global ECCV2016
-                global ECCV2018
-                global ECCV2020
-                global keyECCV
-                sql1 = "SELECT keyword FROM paper where typeandyear='ECCV 2016' "
-                sql2 = "SELECT keyword FROM paper where typeandyear='ECCV 2018' "
-                sql3 = "SELECT keyword FROM paper where typeandyear='ECCV 2020' "
-                self.cursor.execute(sql1)
-                datalist = []
-                alldata = self.cursor.fetchall()
-                for s in alldata:
-                    if s[0] is not None:
-                        datalist.append(s[0])
-                        str = ''.split(datalist) #将元组列表转化成字符串
+        # def getECCV(self):
+        #         global ECCV2016
+        #         global ECCV2018
+        #         global ECCV2020
+        #         global keyECCV
+        #         sql1 = "SELECT keyword FROM paper where typeandyear='ECCV 2016' "
+        #         sql2 = "SELECT keyword FROM paper where typeandyear='ECCV 2018' "
+        #         sql3 = "SELECT keyword FROM paper where typeandyear='ECCV 2020' "
+        #         self.cursor.execute(sql1)
+        #         datalist = []
+        #         alldata = self.cursor.fetchall()
+        #         for s in alldata:
+        #             if s[0] is not None:
+        #                 datalist.append(s[0])
+        #                 str = ''.split(datalist) #将元组列表转化成字符串
+        #
+        #         self.cursor.execute(sql2)
+        #         datalist1 = []
+        #         alldata1 = self.cursor.fetchall()
+        #         for s1 in alldata1:
+        #             if s1[0] is not None:
+        #                 datalist1.append(s1[0])
+        #
+        #                 str1 = ''.join(datalist1)
+        #
+        #     return str,str2018
 
-                self.cursor.execute(sql2)
-                datalist1 = []
-                alldata1 = self.cursor.fetchall()
-                for s1 in alldata1:
-                    if s1[0] is not None:
-                        datalist1.append(s1[0])
+    def getCVPR(self):
+        global CVPR
+        datalist =[]
+        a="2018"
+        b="2019"
+        c="2020"
+        CVPR=[]
+        CVPR.append(a)
+        CVPR.append(b)
+        CVPR.append(c)
 
-                        str1 = ''.join(datalist1)
+        for index in range(len(CVPR)):
 
-            return str,str2018
+            SQL = "SELECT keyword,frequency,publishyear FROM `article`.`keywordanalysis`" \
+                  " WHERE `type` LIKE '%CVPR%' AND `publishyear` LIKE '%"+CVPR[index]+"%' ORDER BY `frequency` DESC LIMIT 1"
+            # print(SQL)
+            self.cursor.execute(SQL)
+            alldata = self.cursor.fetchall()
+            datalist.append(alldata[0])
+            print(datalist)
+            # print(index)
+            continue
+
+        papers = []
+        for r in datalist:
+            paper = {}
+            paper['year'] = r[2]
+            paper['keyword'] = r[0]
+            paper['count'] = r[1]
+            papers.append(paper)
+            continue
+
+        paperJSON = json.dumps(papers)
+        print(paperJSON)
+        return paperJSON
 
 if __name__ == '__main__':
  app.run(app.run(debug=True))
