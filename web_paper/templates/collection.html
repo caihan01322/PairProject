@@ -5,31 +5,48 @@
     <title>Title</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/test.css') }}" type="text/css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/list.css') }}" type="text/css"/>
+    <link rel="shortcut icon" href="{{url_for('static',filename='bitbug_favicon.ico')}}" type="image/x-icon" />
 </head>
-<body background="{{url_for('static', filename='1.png')}}">
-<div class="grey">
+<body background="{{url_for('static', filename='1.png')}}" >
 {% include 'navbar.html' %}
+<div class="grey" align="center">
 <div class="center">
     <div class="left">
     <h2>收藏列表如下</h2>
-        <br>
         <h5>共{{all_paper}}条记录</h5>
-        <br>
         {%for u in paper_map%}
-            <div class="list">
+            <div class="list" align="left">
                 <div class="item">
-                    <h3>标题:{{u[0].title}}</h3>
-                    <h4>来自峰会:{{u[0].meeting}}</h4><span>日期:{{u[0].date}}</span>
-                    <p>关键词:</p>
-                    {%for k in u[1]%}
-                        {{"  "+k.keyword}}
-                    {%endfor%}
-                    <p>摘要:{{u[0].paper_abstract}}</p>
-                    <p><a href={{u.url}}>链接:{{u[0].url}}</a></p>
-                    <form method="post">
-                        <input type="text" style="visibility: hidden;" name="collect" value={{u[0].id}} />
-                        <input type="submit" name="submit" value="删除收藏">
-                    </form>
+                    <div class="main">
+                        <div class="fengmian">
+                            <img src="{{url_for('static',filename='fengmian.jpg')}}" alt="fengmian" width="200px"/>
+                        </div>
+                        <h3>{{u[0].title}}</h3>
+                        <p>{{u[0].meeting}} {{u[0].date}}</p>
+                        <p>关键词:
+                            <b>
+                                {%for k in u[1]%}
+                                    <span id="keyword">{{k.keyword}}</span>
+                                    <span>&nbsp;</span>
+                                {%endfor%}
+                            </b>
+                        </p>
+                        <p class="css-border" style="border-left:6px solid #2196F3;
+                background-color:#ddffff;">
+                            {{u[0].paper_abstract}}</p>
+                        <p>原文链接:<a href={{u[0].url}}>{{u[0].url}}</a></p>
+                    </div>
+                        <form method="post">
+                            <input type="text"
+                                   style="visibility: hidden;"
+                                   name="collect"
+                                   value={{u[0].id}}
+                            />
+                            <input type="submit" name="submit" value="收藏" class="form_float"
+                                   onmouseover="this.style.backgroundPosition='left -36px'"
+                                   onmouseout="this.style.backgroundPosition='left top'"/>
+                        </form>
                 </div>
             </div>
         {% endfor %}
@@ -42,8 +59,21 @@
             </select>
             <input type="submit" name="submit" value="跳转">
         </form>
+        <br>
     </div>
     <div class="right1">
+        <a href="http://iccv2021.thecvf.com/">
+            ICCV:
+            <img src={{url_for('static',filename='ICCV.png')}} alt="ICCV">
+        </a>
+        <a href="http://cvpr2020.thecvf.com/">
+            CVPR:
+            <img src={{url_for('static',filename='CVPR.png')}} alt="CVPR">
+        </a>
+        <a href="https://eccv2020.eu/">
+            ECCV:
+            <img src={{url_for('static',filename='ECCV.png')}} alt="ECCV">
+        </a>
     </div>
     <div class="right2">
     </div>

@@ -5,6 +5,7 @@
         <link rel="icon" href="https://jscdn.com.cn/highcharts/images/favicon.ico">
         <link rel="stylesheet" href="{{url_for('static', filename='css/test.css') }}" type="text/css">
         <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css') }}" type="text/css">
+        <link rel="shortcut icon" href="{{url_for('static',filename='bitbug_favicon.ico')}}" type="image/x-icon" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://code.highcharts.com.cn/highcharts/highcharts.js"></script>
         <script src="https://code.highcharts.com.cn/highcharts/modules/exporting.js"></script>
@@ -14,7 +15,9 @@
     </head>
     <body background="{{url_for('static', filename='1.png')}}">
     {% include 'navbar.html' %}
-        <div id="container" style="max-width:800px;height:400px"></div>
+    <div align="center" id="chart1">
+        <div id="container" style="max-width:800px;height:400px;"></div>
+    </div>
         <script>
             var chart = Highcharts.chart('container', {
 		title: {

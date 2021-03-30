@@ -30,7 +30,7 @@ def login():
                 return render_template('login.html', forms=forms, text2='用户名或密码错误！')
             session['username'] = request.form.get('username')
             return render_template('temp.html', text="登录成功")
-        elif request.form.get('submit') == '退出登录':
+        elif request.form.get('submit') == '退出登录' and 'suername' in session:
             session.pop('username')
             return render_template('login.html', forms=forms)
     if 'username' in session:

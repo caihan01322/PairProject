@@ -5,80 +5,85 @@
     <title>Title</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/test.css') }}" type="text/css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/list.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/warn.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/list.css') }}" type="text/css"/>
+    <link rel="shortcut icon" href="{{url_for('static',filename='bitbug_favicon.ico')}}" type="image/x-icon" />
 </head>
-<body>
+<body background="{{url_for('static', filename='1.png')}}">
 {% include 'navbar.html' %}
-<div class="center">
-    <div class="left">
-        <form method="POST" class="informs">
-            <input type="text" name="text" placeholder="请输入所查询内容" value={{search_word}}>
-            <input type="submit" name="submit" value="点我搜索">
-        </form>
-        <h2>所得结果如下：</h2>
-        <h5>共有{{all_paper}}条记录</h5>
-        {%for u in paper_map%}
-        <div class="list">
-            <div class="item">
-                <h3>{{u[0].title}}</h3>
-                <p>{{u[0].meeting}} {{u[0].date}}</p>
-                <p>关键词:
-                    <b>
-                        {%for k in u[1]%}
-                        {{" "+k.keyword}}
-                        {%endfor%}
-                    </b>
-                </p>
-                <p>原文链接:<a href={{u.url}}>{{u[0].url}}</a></p>
-                <p class="css-border" style="border-left:6px solid #2196F3;
-                background-color:#ddffff;">{{u[0].paper_abstract}}</p>
-                <div class="op">
-                    <form method="post">
-                        <input type="text"
-                               style="visibility: hidden;"
-                               name="collect"
-                               value={{u[0].id}}
-                        />
-                        <input type="button" class="btn" value="收藏"
-                               onmouseover="this.style.backgroundPosition='left -36px'"
-                               onmouseout="this.style.backgroundPosition='left top'"/>
-                    </form>
+<div class="grey" align="center">
+    <div class="center">
+        <div class="left">
+            <form method="POST" style="border:0px;width:500px;margin:10px auto;">
+                <input type="text" name="text" placeholder="请输入所查询内容" value={{search_word}}>
+                <input type="submit" name="submit" value="搜索">
+            </form>
+            <h2>所得结果如下：</h2>
+            <h5>共有{{all_paper}}条记录</h5>
+            {%for u in paper_map%}
+            <div class="list" align="left">
+                <div class="item">
+                    <div class="main">
+                        <div class="fengmian">
+                            <img src="{{url_for('static',filename='fengmian.jpg')}}" alt="fengmian" width="200px"/>
+                        </div>
+                        <h3>{{u[0].title}}</h3>
+                        <p>{{u[0].meeting}} {{u[0].date}}</p>
+                        <p>关键词:
+                            <b>
+                                {%for k in u[1]%}
+                                    <span id="keyword">{{k.keyword}}</span>
+                                    <span>&nbsp;</span>
+                                {%endfor%}
+                            </b>
+                        </p>
+                        <p class="css-border" style="border-left:6px solid #2196F3;
+                background-color:#ddffff;">
+                            {{u[0].paper_abstract}}</p>
+                        <p>原文链接:<a href={{u[0].url}}>{{u[0].url}}</a></p>
+                    </div>
+                        <form method="post">
+                            <input type="text"
+                                   style="visibility: hidden;"
+                                   name="collect"
+                                   value={{u[0].id}}
+                            />
+                            <input type="submit" name="submit" value="收藏" class="form_float"
+                                   onmouseover="this.style.backgroundPosition='left -36px'"
+                                   onmouseout="this.style.backgroundPosition='left top'"/>
+                        </form>
                 </div>
             </div>
+            {% endfor %}
+            <p>{{page}}</p>
+            <form class="center" method="POST">
+                <select name="select">
+                    {%for u in all_page%}
+                    <OPTION value={{u+1}}>第{{u+1}}页</OPTION>
+                    {%endfor%}
+                </select>
+                <input type="submit" name="submit" value="跳转">
+                <br>
+            </form>
         </div>
-        {%endfor%}
-        <div class="right">
+        <div class="right1" align="center">
+            <a href="http://iccv2021.thecvf.com/">
+                ICCV:
+                <img src={{url_for('static',filename='ICCV.png')}} alt="ICCV">
+            </a>
+            <a href="http://cvpr2020.thecvf.com/">
+                CVPR:
+                <img src={{url_for('static',filename='CVPR.png')}} alt="CVPR">
+            </a>
+            <a href="https://eccv2020.eu/">
+                ECCV:
+                <img src={{url_for('static',filename='ECCV.png')}} alt="ECCV">
+            </a>
+        </div>
+        <div class="right2">
+
         </div>
     </div>
 </div>
-<style>
-        div.item{
-            margin: 10px 10px;
-            padding: 20px;
-            font-family: "Microsoft JhengHei";
-
-            width: 500px;
-            height: 400px;
-            border: 0.5px solid rgba(0, 0, 0, 0.2);
-            border-radius: 25px;
-
-            letter-spacing: 0pt;
-            line-height: 2;
-            background: #ffffff;
-        }
-        div.item h3{
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        div.item p{
-            font-size: 15px;
-        }
-        div.op{
-            float: left;
-            clear: both;
-        }
-
-</style>
 </body>
 </html>
