@@ -2,13 +2,16 @@
     <el-container style="text-aligh: right; font-size: 12px">
   <el-header class="header">
       <span>LOGO</span>
+      <el-avatar float = right icon ="https://d1icd6shlvmxi6.cloudfront.net/gsc/4ZWR3V/f2/5f/0b/f25f0b8a8a354b97879b76719e319cf8/images/个人信息/u130.svg?token=7355a9e49eedf9f59c9b3abde069ebd945499a9ba5f19b0423db15e585fef8e3"></el-avatar>
   </el-header>
   <el-container>
     <el-aside width="400px">
         <el-row class="tac">
   <el-col :span="12">
     <el-menu
-    router :default-active="$route.path"
+    :default-active="this.$route.path"
+    :default-openeds="['1']"
+    :router = true
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose">
@@ -32,7 +35,9 @@
   </el-col>
         </el-row>
     </el-aside>
-    <el-main>Main</el-main>
+    <el-main>
+
+    </el-main>
   </el-container>
 </el-container>
 </template>
