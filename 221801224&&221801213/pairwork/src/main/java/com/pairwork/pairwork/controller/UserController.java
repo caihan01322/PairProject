@@ -24,7 +24,7 @@ public class UserController {
         return  Result.success();//若执行成功则返回成功
     }
 
-    @GetMapping("/{account}")
+    @GetMapping("/getAccount/{account}")
     public boolean findByAccount(@PathVariable String account){
         return userService.findByAccount(account);
     }

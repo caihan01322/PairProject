@@ -29,9 +29,13 @@ public class UserService {
         return userDao.findAccount(account);//在dao中自定义函数
     }
 
-    public Page<Paper> findCollection(Integer pageNum,Integer pageSize,Long id){
+    public Page<Paper> findCollection(Integer pageNum,Integer pageSize,Long id){//将用户收餐的所有论文以Page格式返回
         Sort sort = Sort.by(Sort.Direction.DESC,"id");//倒序
         Pageable pageable = PageRequest.of(pageNum - 1,pageSize,sort);
-        return userDao.findNameLike(id,pageable);
+        return userDao.findCollecion(id,pageable);
     }
+
+//    public void addCollection(){
+//
+//    }
 }

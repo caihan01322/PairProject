@@ -14,5 +14,5 @@ public interface UserDao extends JpaRepository<User,Long> {
     boolean findAccount(String account);
 
     @Query(value = "SELECT * FROM paper WHERE paperId = ANY(SELECT paperId FROM id_paper WHERE id_paper.userId = 1)",nativeQuery = true)
-    Page<Paper> findNameLike(Long id, Pageable pageable);
+    Page<Paper> findCollecion(Long id, Pageable pageable);
 }
