@@ -7,8 +7,9 @@ import pymysql
 
 # 获取后端实例
 app = Flask(__name__)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config["SECRET_KEY"] = "this is a secret key"
-
+app.config['JSON_AS_ASCII'] = False
 
 class Config(object):
     """配置参数"""
@@ -23,7 +24,7 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # 查询时会显示原始SQL语句
-    app.config['SQLALCHEMY_ECHO'] = True
+    app.config['SQLALCHEMY_ECHO'] = False
 
     # python3  连接数据库驱动是   pymysql
     # python2 连接数据驱动可以用  pymysql、MySQLdb

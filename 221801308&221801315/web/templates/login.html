@@ -57,8 +57,11 @@
             $("input[name='remember']").each(function(){
                 remember=$(this).val();
             })
+            var parms=location.search;
+            parms=parms.substr(1);
+            var next=(parms.split('='))[1];
             $.ajax({
-                data: { 'email': email, 'password': password, 'remember': remember },
+                data: { 'email': email, 'password': password, 'remember': remember, 'next':next },
                 url: '/login',
                 type: 'post',
                 cache: false,

@@ -61,6 +61,7 @@ def login():
     email = request.form.get("email")
     password = request.form.get("password")
     remember = bool(request.form.get("remember"))
+    next_url = request.form.get("next")
 
     if email == "":
         return jsonify(code=-1, message="未输入邮箱账号")
@@ -74,17 +75,17 @@ def login():
 
     if user.password == password:
         login_user(user, remember=remember)
-        next_url = request.args.get("next")
-        if not next_url or not next_url.startswith('/'):
-            next_url = url_for("index_logined")
-        return redirect(next_url)
+
+        if next_url == "" or (not next_url.startswith("%2F")):
+            return redirect(url_for("index_logined"))
+        else:
+            next_url = next_url.replace("%2F", "")
+            return redirect(url_for(next_url))
     else:
         return jsonify(code=-1, message="密码错误")
 
-    return render_template("index_logined.html")
 
-
-@app.route('/logout', methods=["GET"])
+@app.route("/logout", methods=["GET"])
 def logout():
     """登出"""
     # 如果是未登录用户访问，直接抛出 404 错误
@@ -95,7 +96,7 @@ def logout():
     return redirect(url_for("login_view"))
 
 
-@app.route("/register_view", methods=["GET", "POST"])
+@app.route("/register_view", methods=["GET"])
 def register_view():
     """"注册视图"""
     return render_template("register.html")
@@ -109,7 +110,7 @@ def register():
 
     Returns:
         出错时返回结果的json格式
-        code: -1为注册过程中出错，0为登陆成功
+        code: -1为注册过程中出错
         message: 解释code
         注册成功时返回登录视图
         example：
@@ -120,24 +121,24 @@ def register():
 
     if email == "":
         return jsonify(code=-1, message="未输入邮箱账号")
-    
+
     user = Users.query.filter(Users.email == email).first()
     if user is not None:
                 return jsonify(code=-1, message="该账号已注册")
-    
+
     if password == "":
                 return jsonify(code=-1, message="未输入密码")
 
-    else:
-        try:
-            user = Users(email=email, password=password)
-            db.session.add(user)
-            db.session.commit()
-            return render_template("login.html")
-        except Exception as e:
-            db.session.rollback()
-            print(e.values)
-            return jsonify(code=-1, message="未知错误")
+    try:
+        user = Users(email=email, password=password)
+        db.session.add(user)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        print(e)
+        return jsonify(code=-1, message="未知错误")
+
+    return render_template("login.html")
 
 
 @app.route("/search_view", methods=["GET"])
@@ -309,11 +310,13 @@ def hot_keywords():
 
     data = []
     for key in keyword:
+        total = 0
         CVPR = [0 for i in range(10)]
         ECCV = [0 for i in range(10)]
         ICCV = [0 for i in range(10)]
 
         for article in key.articles:
+            total += 1
             year = int(article.publicationYear)
             if year in range(BEGIN_YEAR, CURRENT_YEAR):
                 if article.meeting == "CVPR":
@@ -323,7 +326,7 @@ def hot_keywords():
                 else:
                     ICCV[year - BEGIN_YEAR] += 1
 
-        per_key = {"keyword": key.keyword, "url": url_for("search", condition=key.keyword, search_way="keyword"),
+        per_key = {"keyword": key.keyword, "total": total, "url": url_for("search", condition=key.keyword, search_way="keyword"),
                    "CVPR": CVPR, "ECCV": ECCV, "ICCV": ICCV}
         data.append(per_key)
 
@@ -331,5 +334,4 @@ def hot_keywords():
 
 
 if __name__ == "__main__":
-    app.config['JSON_AS_ASCII'] = False
-    app.run(port=8080, debug=True)
+    app.run(port=8000, debug=True)
