@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="./main.css">
+</head>
+
+<body>
+    <div id="wrap">
+
+        <div id="navBar">
+            <div class="logo">
+                logo
+            </div>
+        </div>
+
+        <div id="leftsideBar">
+            <button class="button">论文查询</button>
+            <!-- <button class="button">收藏列表</button> -->
+            <button class="button">分析统计</button>
+        </div>
+
+        <div id="main">
+            <div id="searchBar">
+                <input type="text" id="textSearch" placeholder="   请输入论文的相关信息" v-model="joke">
+                <button id="buttonSearch" @click="testfunc"><span>查询 </span></button>
+            </div>
+            <div id="resultBar">
+                <div id="itemBar">
+                    <div class="resultItem" v-for="item in listData">
+                        <div class="itemHeading">{{ item.heading }}</div>
+                        <div class="itemContent">{{ item.content }}</div>
+                        <div class="itemOperation">
+                            <button class="keyWord">关键词1</button>
+                            <button class="keyWord">关键词2</button>
+                            <button class="keyWord">关键词3</button>
+                            <div class="sourceLink">原文链接</div>
+                            <div class="operation">修改论文</div>
+                            <div class="deleteArt">删除论文</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="pageBar">
+
+                    <button class="PageButtoun" id="prePage">上一页</button>
+                    <button class="PageButtoun" id="nextPage">下一页</button>
+                    <!-- <input type="button" value="上一页" class="PageButtoun" id="prePage">
+                    <input type="button" value="下一页" class="PageButtoun" id="nextPage"> -->
+                </div>
+            </div>
+
+        </div>
+
+        <div id="rightsideBar">
+            <div id="hotWordRank">
+                热词榜
+            </div>
+
+            <div class="rank" v-for="item in hotWordArr">
+                {{item}}
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- axios在线地址 -->
+    <script src="https:/unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!--  -->
+    <script src="./main.js"></script>
+</body>
+
+</html>
