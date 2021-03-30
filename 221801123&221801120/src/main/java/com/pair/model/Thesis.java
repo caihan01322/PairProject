@@ -4,8 +4,10 @@ import java.io.Serializable;
 
 public class Thesis implements Serializable {
     private int id;
-    private String content;
-    private String keyword;
+    private String title;
+    private String abstractContent;
+    private String meet;
+    private String year;
     private String link;
 
     public int getId() {
@@ -16,20 +18,36 @@ public class Thesis implements Serializable {
         this.id = id;
     }
 
-    public String getContent() {
-        return content;
+    public String getTitle() {
+        return title;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getKeyword() {
-        return keyword;
+    public String getAbstractContent() {
+        return abstractContent;
     }
 
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
+    public void setAbstractContent(String abstractContent) {
+        this.abstractContent = abstractContent;
+    }
+
+    public String getMeet() {
+        return meet;
+    }
+
+    public void setMeet(String meet) {
+        this.meet = meet;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public String getLink() {
@@ -44,8 +62,10 @@ public class Thesis implements Serializable {
     public String toString() {
         return "Thesis{" +
                 "id=" + id +
-                ", content='" + content + '\'' +
-                ", keyword='" + keyword + '\'' +
+                ", title='" + title + '\'' +
+                ", abstractContent='" + abstractContent + '\'' +
+                ", meet='" + meet + '\'' +
+                ", year='" + year + '\'' +
                 ", link='" + link + '\'' +
                 '}';
     }

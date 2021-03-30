@@ -41,7 +41,7 @@
                     <c:forEach items="${pageBean.records}" var="thesis">
                         <tr>
                             <td><div class="articleDiv"><p class="articleFont">${thesis.id}</p></div></td>
-                            <td>${thesis.keyword}</td>
+                            <td>${thesis.title}</td>
                             <td>${thesis.link}</td>
                             <td>
                                 <button class="btn-info" onclick="LookCard()">查看</button>

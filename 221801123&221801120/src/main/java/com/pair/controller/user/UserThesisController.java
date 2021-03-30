@@ -29,15 +29,17 @@ public class UserThesisController {
      * 论文列表
      */
     @RequestMapping("/list")
-    public String list(String pn, String title, String id, String content, Model model) {
+    public String list(String pn, String title, String content, String keyword, Model model) {
         int pageCode = DataUtil.getPageCode(pn);
         String where = " where 1 = 1 ";
         List<Object> params = new ArrayList<Object>(1);
-        if (DataUtil.isValid(id)) {
-            where += "and id = ?";
-            params.add(id);
-        }else if (DataUtil.isValid(title)) {
-            where += "and content like '%" + title + "%'";
+        if (DataUtil.isValid(title)) {
+            where += "and titile = ?";
+            params.add(title);
+        }else if (DataUtil.isValid(keyword)) {
+            where += "and keyword like '%" + keyword + "%'";
+        }else if (DataUtil.isValid(content)) {
+            where += "and abstract_content like '%" + content + "%'";
         }
         PageBean<Thesis> pageBean = thesisService.pageSearch(pageCode, pageSize, pageNumber, where, params, null);
         model.addAttribute("pageBean", pageBean);

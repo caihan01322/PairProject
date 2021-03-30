@@ -22,8 +22,10 @@ public class ThesisDaoImpl extends BaseDaoImpl<Thesis> implements ThesisDao {
             public Thesis mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Thesis thesis = new Thesis();
                 thesis.setId(rs.getInt("id"));
-                thesis.setContent(rs.getString("content"));
-                thesis.setKeyword(rs.getString("keyword"));
+                thesis.setAbstractContent(rs.getString("abstract_content"));
+                thesis.setMeet(rs.getString("meet"));
+                thesis.setTitle(rs.getString("title"));
+                thesis.setYear(rs.getString("year"));
                 thesis.setLink(rs.getString("link"));
                 return thesis;
             }
