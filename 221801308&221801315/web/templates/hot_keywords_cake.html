@@ -41,6 +41,9 @@
                                 aria-hidden="true"></i> <span class="nav-title">论文检索</span></a></li>
                     <li class="menu-item"><a href={{url_for("hot_keywords_cake")}} class="nav-href active"><i
                                 class="fa fa-heart" aria-hidden="true"></i> <span class="nav-title">热词速递</span></a></li>
+                    <li class="menu-item"><a href={{url_for("hot_keywords_trend")}} class="nav-href"><i
+                                class="fa fa-line-chart" aria-hidden="true"></i> <span class="nav-title">热词走势</span></a>
+                    </li>
                 </ul>
             </div>
             <div class="content">
@@ -51,7 +54,6 @@
                         var myChart = echarts.init(document.getElementById('main'));
                         // 显示标题，图例和空的坐标轴
                         myChart.setOption({
-                           
                             tooltip: {
                                 trigger: 'item',
                                 formatter: "{b}:{c}({d}%)"
@@ -65,12 +67,10 @@
                                         show: true,
                                         formatter: "{b}:{c}({d}%)"
                                     }
-
                                 },
                                 data: []
                             }]
                         });
-
                         // 异步加载数据
                         $.get('/get_cake').done(function (data) {
                             // 填入数据
@@ -96,8 +96,34 @@
                                     data: content
                                 }]
                             });
+                            myChart.on('click', function (param) {
+                                //这个params可以获取你要的图中的当前点击的项的参数
+                                var keyword = param.name;
+                                console.log(keyword);
+                                $.ajax({
+                                    data: { 'keyword': keyword },
+                                    url: '/get_cake',
+                                    type: 'get',
+                                    cache: false,
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        console.log(data);
+                                        console.log(data.data.url);
+                                        $.each(data.data, function (index, item) {
+                                            console.log(item.keyword);
+                                            console.log(item.url);
+                                            if(item.keyword == keyword)
+                                            {
+                                                location.href=item.url; 
+                                            }
+                                        })
+                                        //location.href="URL"
+                                    }
+                                });
+                            });
+
                         });
-                    })
+                    });
                 </script>
             </div>
         </main>

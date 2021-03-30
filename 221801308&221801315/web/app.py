@@ -327,7 +327,7 @@ def hot_keywords_trend():
 
 
 @app.route("/get_trand", methods=["GET"])
-def get_trand():
+def get_trend():
     """热词走势图获取数据
 
     获取频率最高的前10个关键词，返回json格式
