@@ -55,11 +55,11 @@
             <div class="layui-inline">
               <label class="layui-form-label">年份</label>
               <div class="layui-input-inline" style="width: 15%;">
-                <input type="number" id="beginYear" placeholder="2000" autocomplete="off" class="layui-input">
+                <input type="number" id="beginYear" min="2000" max="2020" placeholder="2000" autocomplete="off" class="layui-input">
               </div>
               <div class="layui-form-mid">-</div>
               <div class="layui-input-inline" style="width: 15%;">
-                <input type="number" id="endYear" placeholder="2020" autocomplete="off" class="layui-input">
+                <input type="number" id="endYear" min="2000" max="2020" placeholder="2020" autocomplete="off" class="layui-input">
               </div>
               <div class="layui-input-inline" style="width: 15%;">
                 <button class="layui-btn layui-btn-warm" id="bar-refresh">查询</button>
@@ -71,11 +71,11 @@
 
       </div>
 
-      <div id="bar-main" style="margin-top:50px;width: 80%;height:400px;"></div>
+      <div id="bar-main" style="margin-top:50px;width: 80%; height:400px;"></div>
 
 
       <input type="hidden" id="keyword">
-      <div id="line-main" style="margin-top:50px;width: 1500px;height:400px; display: none"></div>
+      <div id="line-main" style="margin-top:50px;width: 1200px;height:400px; display: none"></div>
 
     </div>
     <div id="cloud"></div>
@@ -233,11 +233,6 @@
         $('input[type=radio][name=conference]:checked').val());
   });
 
-  // $("#cloud").jQCloud(array, {
-  //   removeOverflowing: true,
-  //   shape: "elliptic",
-  //   height: 200
-  // });
 
   function CloudLoad(data)
   {
