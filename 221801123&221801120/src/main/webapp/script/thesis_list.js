@@ -6,15 +6,128 @@ $(function(){
         $("td button").css("cursor","pointer")
     })
 })
-function LookCard(){
+function LookCard(btn){
     $(".lookCard").css("display","block")
     $("td button").css("cursor","not-allowed")
+    var $linkTd = $(btn).parent().prev();
+    $("#thesis_view_link").val($linkTd.html());
+    $("#thesis_view_abstractContent").val($linkTd.prev().html());
+    $("#thesis_view_keyword").val($linkTd.prev().prev().html());
+    $("#thesis_view_year").val($linkTd.prev().prev().prev().html());
+    $("#thesis_view_meet").val($linkTd.prev().prev().prev().prev().html());
+    $("#thesis_view_title").val($linkTd.prev().prev().prev().prev().prev().html());
+
 }
-function EditCard(){
+function EditCard(btn){
     $(".editCard").css("display","block")
-    $("td button").css("cursor","not-allowed")
+    $("td button").css("cursor","not-allowed");
+    var $linkTd = $(btn).parent().prev();
+    $("#thesis_edit_link").val($linkTd.html());
+    $("#thesis_edit_abstractContent").val($linkTd.prev().html());
+    $("#thesis_edit_keyword").val($linkTd.prev().prev().html());
+    $("#thesis_edit_year").val($linkTd.prev().prev().prev().html());
+    $("#thesis_edit_meet").val($linkTd.prev().prev().prev().prev().html());
+    $("#thesis_edit_title").val($linkTd.prev().prev().prev().prev().prev().html());
+    $("#thesis_edit_id").val($linkTd.prev().prev().prev().prev().prev().prev().html());
 }
-function DeleteCard(){
+function DeleteCard(btn){
     $(".deleteCard").css("display","block")
     $("td button").css("cursor","not-allowed")
+    var id = $(btn).parent().prev().prev().prev().prev().prev().prev().prev().html()
+    sendDeleteRequest(id);
 }
+
+function sendDeleteRequest(id) {
+    $.ajax({
+        "url" : "user/thesis/delete/" + id,
+        "dataType" : "json",
+        "async" : false,
+        "success" : function(json) {
+            if(json.result == 0) {
+                Tips.showError(json.message);
+            }else if(json.result == 1) {
+                Tips.showSuccess(json.message);
+                window.location.reload();
+            }
+        }
+    });
+}
+
+function editThesis(form) {
+    var error = document.getElementById("thesis_edit_error");
+    var result = _checkThesis(form, error);
+    if(result.result) {
+        $.ajax({
+            "url": "admin/teacher/edit",
+            "data": "id=" + result.id + "&name=" + result.name,
+            "async": false,
+            "dataType": "json",
+            "success": function(json) {
+                if(json.result == "0") {
+                    Tips.showError(json.message);
+                }else if(json.result == "1") {
+                    toggleTeacherEdit(false);
+                    _resetTeacher(form.name, error);
+                    Tips.showSuccess(json.message);
+                }
+            }
+        });
+    }
+    Tips.showError("失败");
+}
+
+function _checkThesis(form, error) {
+    var id = form.id;
+    var idValue = id.value.trim();
+    //校验姓名
+    var title = form.title;
+    var titleValue = title.value.trim();
+    if(titleValue == "") {
+        error.innerHTML = "请输入论文题目";
+        title.focus();
+    }
+    var meet = form.meet;
+    var meetValue = meet.value.trim();
+    if(meetValue == "") {
+        error.innerHTML = "请输入论文来源";
+        meet.focus();
+    }
+    var year = form.year;
+    var yearValue = year.value.trim();
+    if(yearValue == "") {
+        error.innerHTML = "请输入论文年份";
+        year.focus();
+    }
+    var keyword = form.keyword;
+    var keywordValue = keyword.value.trim();
+    if(keywordValue == "") {
+        error.innerHTML = "请输入论文关键词";
+        keyword.focus();
+    }
+    var abstract = form.abstract;
+    var abstractValue = abstract.value.trim();
+    if(abstractValue == "") {
+        error.innerHTML = "请输入论文摘要";
+        abstract.focus();
+    }
+    var link = form.link;
+    var linkValue = link.value.trim();
+    if(linkValue == "") {
+        error.innerHTML = "请输入论文原文链接";
+        link.focus();
+    }
+    return new CheckResult(true, idValue, titleValue, meetValue, yearValue, keywordValue, abstractValue, linkValue);
+}
+
+
+function CheckResult(result, id, title, meet, year, keyword, abstract, link) {
+    this.result = result;
+    this.id = id;
+    this.title = title;
+    this.meet = meet;
+    this.year = year;
+    this.keyword = keyword;
+    this.abstract = abstract;
+    this.link = link;
+}
+

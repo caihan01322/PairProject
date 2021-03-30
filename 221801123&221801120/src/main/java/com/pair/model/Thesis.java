@@ -9,6 +9,7 @@ public class Thesis implements Serializable {
     private String meet;
     private String year;
     private String link;
+    private String keyword;
 
     public int getId() {
         return id;
@@ -58,6 +59,14 @@ public class Thesis implements Serializable {
         this.link = link;
     }
 
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+
     @Override
     public String toString() {
         return "Thesis{" +
@@ -67,6 +76,7 @@ public class Thesis implements Serializable {
                 ", meet='" + meet + '\'' +
                 ", year='" + year + '\'' +
                 ", link='" + link + '\'' +
+                ", keyword='" + keyword + '\'' +
                 '}';
     }
 }

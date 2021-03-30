@@ -31,7 +31,6 @@
             <table>
                 <thead>
                     <tr>
-                        <th class="col-lg-1">id</th>
                         <th class="col-lg-5">标题</th>
                         <th class="col-lg-1">来源</th>
                         <th class="col-lg-1">年份</th>
@@ -41,14 +40,17 @@
                 <tbody>
                     <c:forEach items="${pageBean.records}" var="thesis">
                         <tr>
-                            <td><div class="articleDiv"><p class="articleFont">${thesis.id}</p></div></td>
+                            <td hidden>${thesis.id}</td>
                             <td>${thesis.title}</td>
                             <td>${thesis.meet}</td>
                             <td>${thesis.year}</td>
+                            <td hidden>${thesis.keyword}</td>
+                            <td hidden>${thesis.abstractContent}</td>
+                            <td hidden>${thesis.link}</td>
                             <td>
-                                <button class="btn-info" onclick="LookCard()">查看</button>
-                                <button class="btn-info" onclick="EditCard()">编辑</button>
-                                <button class="btn-danger" onclick="DeleteCard()">删除</button>
+                                <button class="btn-info" onclick="LookCard(this)">查看</button>
+                                <button class="btn-info" onclick="EditCard(this);">编辑</button>
+                                <button class="btn-danger" onclick="DeleteCard(this);">删除</button>
                             </td>
                         </tr>
                     </c:forEach>
@@ -64,17 +66,17 @@
                     <div class="card-body pre-scrollable">
                         <dl>
                             <dt><span class="buleFont">*</span>论文题目</dt>
-                            <dd>这是论文题目</dd>
+                            <dd><input id="thesis_view_title" class="eidtText" name="title" type="text" readonly></dd>
                             <dt><span class="buleFont">*</span>来源</dt>
-                            <dd>这是来源</dd>
+                            <dd><input id="thesis_view_meet" class="eidtText" type="text" name="meet" readonly></dd>
                             <dt><span class="buleFont">*</span>时间</dt>
-                            <dd>这是论文时间</dd>
+                            <dd><input id="thesis_view_year" class="eidtText" type="text" name="year"  readonly></dd>
                             <dt><span class="buleFont">*</span>关键词</dt>
-                            <dd>这是关键词</dd>
+                            <dd><input id="thesis_view_keyword" class="eidtText" type="text" name="keyword"  readonly></dd>
                             <dt><span class="buleFont">*</span>论文摘要</dt>
-                            <dd>这是论文摘要</dd>
+                            <dd><input id="thesis_view_abstractContent" class="eidtText" type="text" name="abstract" readonly></dd>
                             <dt><span class="buleFont">*</span>论文链接</dt>
-                            <dd><a href="#">这是论文链接</a></dd>
+                            <dd><input id="thesis_view_link" class="eidtText" type="text" name="link" readonly></dd>
                         </dl>
                     </div>
                     <div class="card-footer"></div>
@@ -88,22 +90,25 @@
                         <span class="close">&times;</span>
                     </div>
                     <div class="card-body pre-scrollable">
-                        <form>
+                        <form action="" method="post" onsubmit="return editThesis(this);">
                             <dl>
+                                <dt hidden>论文编号</dt>
+                                <dd hidden><input id="thesis_edit_id" class="eidtText" name="id" type="text" ></dd>
                                 <dt><span class="redFont">*</span>论文题目</dt>
-                                <dd><input class="eidtText" type="text" placeholder="这是论文题目"></dd>
+                                <dd><input id="thesis_edit_title" class="eidtText" name="title" type="text" ></dd>
                                 <dt><span class="redFont">*</span>来源</dt>
-                                <dd><input class="eidtText" type="text" placeholder="这是论文来源"></dd>
+                                <dd><input id="thesis_edit_meet" class="eidtText" type="text" name="meet" ></dd>
                                 <dt><span class="redFont">*</span>时间</dt>
-                                <dd><input class="eidtText" type="text" placeholder="这是论文时间"></dd>
+                                <dd><input id="thesis_edit_year" class="eidtText" type="text" name="year"  ></dd>
                                 <dt><span class="redFont">*</span>关键词</dt>
-                                <dd><input class="eidtText" type="text" placeholder="这是关键词"></dd>
+                                <dd><input id="thesis_edit_keyword" class="eidtText" type="text" name="keyword"  ></dd>
                                 <dt><span class="redFont">*</span>论文摘要</dt>
-                                <dd><input class="eidtText" type="text" placeholder="这是论文摘要"></dd>
+                                <dd><input id="thesis_edit_abstractContent" class="eidtText" type="text" name="abstract" ></dd>
                                 <dt><span class="redFont">*</span>论文链接</dt>
-                                <dd><input class="eidtText" type="text" placeholder="这是论文链接"></dd>
+                                <dd><input id="thesis_edit_link" class="eidtText" type="text" name="link" ></dd>
                             </dl>
                             <input class="btn-danger middleBtn btn-lg" type="submit" value="确认修改">
+                            <span class="error" id="thesis_edit_error">&nbsp;</span>
                         </form>
                     </div>
                     <div class="card-footer"></div>

@@ -27,6 +27,7 @@ public class ThesisDaoImpl extends BaseDaoImpl<Thesis> implements ThesisDao {
                 thesis.setTitle(rs.getString("title"));
                 thesis.setYear(rs.getString("year"));
                 thesis.setLink(rs.getString("link"));
+                thesis.setKeyword(rs.getString("keyword"));
                 return thesis;
             }
         };
