@@ -1,14 +1,15 @@
-<!doctype html>
+ <!doctype html>
 <html lang="zh-CN">
 <head>
     <!-- 必须的 meta 标签 -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut  icon" href="img/fav.ico" type="image/x-icon" />
     <!-- Bootstrap 的 CSS 文件 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <script src="js/Chart.bundle.js"></script>
-    <title>Hello, world!</title>
+    <title>analysis!</title>
 </head>
 <body>
 
@@ -88,23 +89,28 @@
     </div>
 
     <div class="row" style="margin-top: 30px">
-        <div class="col-lg-9" style="background-color: #aee1ff">
-            <button type="button"  id="option1"> CVPR</button>
-            <button type="button"  id="option2"> ECCV</button>
-            <button type="button"  id="option3"> ICCV</button>
+        <div class="col" id="searchResult">
+            <div class="shadow-lg p-3 mb-5 bg-white rounded">
+                <h1>各平台每年10大热词🔥</h1>
+                <button type="button" class="btn btn-primary btn-lg btn3d" id="option1"> CVPR</button>
+                <button type="button" class="btn btn-primary btn-lg btn3d" id="option2"> ECCV</button>
+                <button type="button" class="btn btn-primary btn-lg btn3d" id="option3"> ICCV</button>
+                <button type="button" class="btn btn-primary btn-lg btn3d" id="option4"> 所有</button>
+             </div>
         </div>
-
     </div>
+    
+    <div class="row">
+        <div class="shadow-lg p-3 mb-5 bg-white rounded" style="margin-top: 30px ">
+            <div class="chartcontent" id="CVPR" ></div>
 
-    <div class="row" style="margin-top: 30px">
-        <div class="chartcontent" id="CVPR" ></div>
+            <div class="chartcontent" id="ECCV" ></div>
 
-        <div class="chartcontent" id="ECCV" ></div>
+            <div class="chartcontent" id="ICCV" ></div>
 
-        <div class="chartcontent" id="ICCV" ></div>
-
+            <div class="chartcontent" id="allyearall"></div>
+        </div>
     </div>
-
     <script>
     /*
 
@@ -114,11 +120,13 @@
         var CVPRKeyword = new Array();
         var ECCVKeyword = new Array();
         var ICCVKeyword = new Array();
+        var AllKeyword = new Array();
 
         var CVPRfrequency = new Array();
         var ECCVfrequency = new Array();
         var ICCVfrequency = new Array();
-
+        var Allfrequency = new Array();
+        
         for(var publishyear=2000;publishyear<2022;publishyear++){
             CVPRKeyword[publishyear]= new Array();
             CVPRfrequency[publishyear]= new Array();
@@ -153,19 +161,35 @@
                         chartcontents[k].style.display = "none";
                     }
                     chartcontents[this.index].style.display = "block";
+                    finalmakechart();
                 }
             }
             
         }
-
+        
         var word = document.getElementById("bbb");
         var xmlhttp1;
         var xmlhttp2;
         var xmlhttp3;
+        var xmlhttp4;
         var url = "http://47.119.130.124:90/getTopkeywordsByType";
         var btn1 = document.getElementById("option1");
         var btn2 = document.getElementById("option2");
         var btn3 = document.getElementById("option3");
+        var btn4 = document.getElementById("option4");
+        btn1.onclick = function(){
+            finalmakechart();
+        }
+        btn2.onclick = function(){
+            finalmakechart();
+        }
+        btn3.onclick = function(){
+            finalmakechart();
+        }
+        btn4.onclick = function(){
+            makeTenHotWord();
+        }
+        var btn4 = document.getElementById("option4");
         {
                 //1.
                 if(window.XMLHttpRequest){
@@ -294,14 +318,41 @@
                 //4.
                 xmlhttp3.send("{\"type\":\"ICCV\"}");
         }
-        btn1.onclick = function(){
-            finalmakechart();
-        }
-        btn2.onclick = function(){
-            finalmakechart();
-        }
-        btn3.onclick = function(){
-            finalmakechart();
+        
+        {
+                //1.
+                
+                if(window.XMLHttpRequest){
+                    xmlhttp4 = new XMLHttpRequest();
+                }else{
+                    xmlhttp4 = new ActiveXObject("Microsoft.XMLHTTP")
+                   
+                }
+                //2.
+                xmlhttp4.onreadystatechange = function() {
+                    //
+                    //
+                    if(xmlhttp4.readyState == 4){
+                        //
+                        if(xmlhttp4.status == 200) {
+                            //
+                            var str = xmlhttp4.responseText;
+                            //
+                            var arr = eval('('+str+')');
+                            jsonlength = arr.length;
+                            for(var i = 0; i < 10; i++){
+                                AllKeyword[i] = arr[i].keyword;
+                                Allfrequency[i] = arr[i].frequency;
+                            }
+                            addall_canvas();
+                        }
+                    }
+                }
+                //3.
+                xmlhttp4.open("POST",url,true);
+                xmlhttp4.setRequestHeader("Access-Control-Allow-Origin","*");
+                //4.
+                xmlhttp4.send("{\"type\":\"all\"}");
         }
         //实现动态增加图表canvas，用于图表使用
         function add_canvas(type) {
@@ -379,7 +430,7 @@
                 },    
                 title: {
                     display: true,
-                    text: pyear+'年饼状图',
+                    text: pyear+'年热词分析',
                     fontColor: 'green',
                     fontSize: '24'
                 }
@@ -387,6 +438,45 @@
             var canvas = ptype+ "myChart" + pchartnum;
 
             var ctx = document.getElementById(canvas).getContext('2d');
+            var chart = new Chart(ctx, {
+                type: type,
+                data: data,
+                options: options
+            });
+        }
+        function makeallbbchart(keyword,frequency) {
+            var type = 'bar'; //line, bar, horizontalBar,...
+            var data = {
+                labels: [keyword[0], keyword[1], keyword[2], keyword[3], keyword[4],
+                keyword[5],keyword[6],keyword[7],keyword[8],keyword[9]],
+                datasets: [
+                    {
+                        label: '频率',
+                        data: [frequency[0], frequency[1], frequency[2], frequency[3], frequency[4], 
+                        frequency[5], frequency[6], frequency[7], frequency[8], frequency[9]],
+                        backgroundColor: 'rgb(202, 161, 123)',
+                        borderColor: 'black',
+                        borderWidth: 1,
+                    },
+                ]
+            };
+
+            var options = {            
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                        }
+                    }]
+                },    
+                title: {
+                    display: false,
+                    text: '历年最高热词分析🔥',
+                    fontColor: 'green',
+                    fontSize: '24'
+                }
+            };
+            var ctx = document.getElementById("allChart2").getContext('2d');
             var chart = new Chart(ctx, {
                 type: type,
                 data: data,
@@ -410,7 +500,7 @@
             var options = {
                 title: {
                     display: true,
-                    text: pyear+'年柱状图',
+                    text: pyear+'年热词分析',
                     fontColor: 'indigo',
                     fontSize: '24'
                 },
@@ -424,69 +514,65 @@
                 options: options
             });
         }
-        //生成饼图
-        function makepiechart(keyword,frequency) {
-            var type = 'bar';
+
+        //生成线棒图
+        function makexchart(keyword,frequency) {
+            var type = 'line';
             var data = {
-                labels: [2014, 2015, 2016, 2017, 2018],
+                labels: [keyword[0], keyword[1], keyword[2], keyword[3], keyword[4],
+                keyword[5],keyword[6],keyword[7],keyword[8],keyword[9]],
                 datasets: [
                     {
-                        label: '优酷',
-                        data: [100, 150, 300, 800, 1600],
-                        type: 'line',
-                        fill: false,
-                        yAxisID: 'youku-axes'
+                        label: '频率',
+                        data: [frequency[0], frequency[1], frequency[2], frequency[3], frequency[4], 
+                        frequency[5], frequency[6], frequency[7], frequency[8], frequency[9]],
+                        backgroundColor: 'rgba(146, 166, 209, 0.808)'
+ 
                     },
-                    {
-                        label: 'Youtube',
-                        data: [50, 100, 200, 400, 600],
-                        type: 'bar',
-                        yAxisID: 'youtube-axes'
-                    }
                 ]
             };
 
-            var options = {
-                scales: {
-                    yAxes: [
-                        {
-                            id: 'youku-axes',
-                            type: 'linear',
-                            position: 'left',
-                            ticks: {
-                                min: 0,
-                                max: 1800
-                            }
-                        },
-                        {
-                            id: 'youtube-axes',
-                            type: 'linear',
-                            position: 'right',
-                            ticks: {
-                                min: 0,
-                                max: 800
-                            },
-                            gridLines: {
-                                display: false
-                            }
-                        }
-                    ]
-                },
-                title: {
-                    display: true,
-                    text: '小马视频',
-                    fontColor: 'green',
-                    fontSize: '24'
-                }
-            };
-            var canvas = ptype+ "pieChart" + pchartnum;
-            var ctx = document.getElementById(canvas).getContext('2d');
+            var ctx = document.getElementById("allChart1").getContext('2d');
             var chart = new Chart(ctx, {
                 type: type,
                 data: data,
-                options: options
+                options: {
+                    title: {
+                        display: true,
+                        text: '历年最高热度词汇🔥',
+                        fontColor: 'blue',
+                        fontSize: '24'
+                    }
+                }
             });
+
         }
+         //实现动态增加图表canvas，用于图表使用
+         function add_canvas(type) {
+            var div1 = document.createElement("div");
+            div1.style.height="360px";
+            div1.style.width="540px";
+            div1.style.float="left";
+            var div2 = document.createElement("div");
+            div2.style.height="360px";
+            div2.style.width="540px";
+            div2.style.float="left";
+            if(type == "CVPR"){
+                chartnum1++;
+                div1.innerHTML = "<canvas id=\""+ type+ "myChart" + chartnum1 +"\"></canvas>";
+                div2.innerHTML = "<canvas id=\""+ type+ "pieChart" + chartnum1 +"\"></canvas>";
+            }else if(type == "ECCV"){
+                chartnum2++;
+                div1.innerHTML = "<canvas id=\""+ type+ "myChart" + chartnum2 +"\"></canvas>";
+                div2.innerHTML = "<canvas id=\""+ type+ "pieChart" + chartnum2 +"\"></canvas>";
+            }else if(type == "ICCV"){
+                chartnum3++;
+                div1.innerHTML = "<canvas id=\""+ type+ "myChart" + chartnum3 +"\"></canvas>";
+                div2.innerHTML = "<canvas id=\""+ type+ "pieChart" + chartnum3 +"\"></canvas>";
+            }
+            document.getElementById(type).appendChild(div1);
+            document.getElementById(type).appendChild(div2);
+        } 
         //最终实现
         function finalmakechart(){
 
@@ -505,7 +591,56 @@
                 makebbchart(year,"ICCV",ICCVKeyword[year],ICCVfrequency[year],i+1);
                 makepiechart(year,"ICCV",ICCVKeyword[year],ICCVfrequency[year],i+1);
             }
+            makeTenHotWord();
         }
+        //实现动态增加图表canvas，用于图表使用
+        function addall_canvas() {
+            var div1 = document.createElement("div");
+            div1.style.height="720px";
+            div1.style.width="540px";
+            div1.style.float="left";
+                div1.innerHTML = "<canvas id= \"allChart1\"></canvas><canvas id= \"allChart2\"></canvas>";
+            document.getElementById("allyearall").appendChild(div1);
+        } 
+        //十大热词
+        // <div class="list-group">
+        //             <button type="button" id="all1" class="list-group-item list-group-item-action"></button>
+        //             <button type="button" id="all2" class="list-group-item list-group-item-action"></button>
+        //             <button type="button" id="all3" class="list-group-item list-group-item-action"></button>
+        //             <button type="button" id="all4" class="list-group-item list-group-item-action"></button>
+        //             <button type="button" id="all5" class="list-group-item list-group-item-action"></button>
+        //             <button type="button" id="all6" class="list-group-item list-group-item-action"></button>
+        //             <button type="button" id="all7" class="list-group-item list-group-item-action"></button>
+        //             <button type="button" id="all8" class="list-group-item list-group-item-action"></button>
+        //             <button type="button" id="all9" class="list-group-item list-group-item-action"></button>
+                    
+        //         </div>
+        function addtenhot(){
+            var div = document.createElement("div");
+            div.style.height="660px";
+            div.style.width="470px";
+            div.style.float="left";
+            div.style.marginLeft="40px"
+            div.style.marginTop="40px"
+            div.style.marginRight="40px"
+            div.class="list-group";
+            for(var i=0;i<10;i++){
+                div.innerHTML=div.innerHTML+'<button type="button" id="all'+(i+1)+'" class="list-group-item list-group-item-action" onclick="totags(this)">'+(i+1)+'. '+AllKeyword[i]+'</button>';
+            }
+            document.getElementById("allyearall").appendChild(div);
+        }
+        function makeTenHotWord(){
+            makexchart(AllKeyword,Allfrequency);
+            makeallbbchart(AllKeyword,Allfrequency);
+            addtenhot();
+        }
+
+        function totags(obj){
+            var str = obj.innerText;
+            var x = str.split('. ');
+            window.open("result.html?sw="+x[1]);
+        }
+
     </script>
 
 
