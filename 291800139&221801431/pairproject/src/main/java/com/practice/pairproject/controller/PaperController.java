@@ -141,9 +141,9 @@ public class PaperController {
      * @param model
      * @return
      */
-    @GetMapping("/search")
+    @GetMapping("/search/{page}")
     public String searchPapers(
-            @RequestParam(name = "pageNum", defaultValue = "1") int pageNum,
+            @PathVariable(name = "pageNum") int pageNum,
             @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
             @RequestParam(name = "title", defaultValue = "") String title,
             @RequestParam(name = "pid", defaultValue = "") String pid,
@@ -177,10 +177,19 @@ public class PaperController {
         return "paperList";
     }
 
+    /**
+     * 首页查询
+     * @param pageNum
+     * @param pageSize
+     * @param title
+     * @param sort
+     * @param model
+     * @return
+     */
     //@ResponseBody
-    @GetMapping("/search/list")
+    @GetMapping("/search/list/{pageNum}")
     public String searchPaper(
-            @RequestParam(name = "pageNum", defaultValue = "1") int pageNum,
+            @PathVariable(name = "pageNum") int pageNum,
             @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
             @RequestParam(name = "title", defaultValue = "") String title,
             @RequestParam(name = "sort", defaultValue = "1") String sort, Model model) {
@@ -241,8 +250,8 @@ public class PaperController {
      * @return
      */
     //@ResponseBody
-    @GetMapping("/show")
-    public String showPage(@RequestParam(name = "pageNum", defaultValue = "1") int pageNum,
+    @GetMapping("/show/{pageNum}")
+    public String showPage(@PathVariable(name = "pageNum") int pageNum,
                            @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
                            Model model) {
         if (pageSize <= 0) {
