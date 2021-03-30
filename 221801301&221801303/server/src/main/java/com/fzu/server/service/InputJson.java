@@ -61,7 +61,7 @@ public class InputJson {
 //                    System.out.println(json);
                     parse = (JSONObject) JSON.parse(json.toString());
                     kw = parse.getJSONArray("关键词");
-                    if(parse.getString("摘要")!=null) {
+                    if (parse.getString("摘要") != null) {
                         if (parse.getString("摘要").length() < 200)
                             obj.setAbstract(parse.getString("摘要"));
                         else
@@ -74,13 +74,14 @@ public class InputJson {
                     obj.setTime(parse.getString("发布时间"));
 //                    obj.setKeyword(kw.toJavaList(String.class));
 
-                    dao.addECCVPaper(obj);
-//                    dao.addPaper(obj);
-                    if(kw!=null)
-                    for (int j = 0; j < kw.size(); j++) {
-                        dao.addECCVKeyword(obj.getID(), kw.getString(j));
-//                        dao.addKeyword(obj.getID(), kw.getString(j));
-                    }
+//                    dao.addECCVPaper(obj);
+                    dao.addPaper(obj);
+                    if (kw != null)
+                        for (int j = 0; j < kw.size(); j++) {
+                            if (dao.checkKeyword(obj.getID(), kw.getString(j)) == 0)
+//                            dao.addECCVKeyword(obj.getID(), kw.getString(j));
+                                dao.addKeyword(obj.getID(), kw.getString(j));
+                        }
 //                    break;
 
                 } catch (FileNotFoundException e) {
@@ -119,11 +120,11 @@ public class InputJson {
                         json.append(line);
                     }
 
-                    parse = (JSONObject) JSON.parse(json.substring(0,json.length()-1));
+                    parse = (JSONObject) JSON.parse(json.substring(0, json.length() - 1));
                     kw = parse.getJSONArray("keywords");
                     at = parse.getJSONArray("authors");
 
-                    if(parse.getString("abstract")!=null) {
+                    if (parse.getString("abstract") != null) {
                         if (parse.getString("abstract").length() < 200)
                             obj.setAbstract(parse.getString("abstract"));
                         else
@@ -136,24 +137,26 @@ public class InputJson {
                     obj.setTime(parse.getString("dateOfInsertion"));
 
 
-                    dao.addCVPRPaper(obj);
-//                    dao.addPaper(obj);
-                    if(kw!=null)
-                    for(int j=0;j<kw.size();j++){
-                        JSONObject ko=kw.getJSONObject(j);
-                        JSONArray ka=ko.getJSONArray("kwd");
-                        if(ka!=null)
-                        for(int k=0;k<ka.size();k++){
-                            dao.addCVPRKeyword(obj.getID(), ka.getString(k));
-//                            dao.addKeyword(obj.getID(), ka.getString(k));
+//                    dao.addCVPRPaper(obj);
+                    dao.addPaper(obj);
+                    if (kw != null)
+                        for (int j = 0; j < kw.size(); j++) {
+                            JSONObject ko = kw.getJSONObject(j);
+                            JSONArray ka = ko.getJSONArray("kwd");
+                            if (ka != null)
+                                for (int k = 0; k < ka.size(); k++) {
+                                    if (dao.checkKeyword(obj.getID(), ka.getString(k)) == 0)
+//                                dao.addCVPRKeyword(obj.getID(), ka.getString(k));
+                                        dao.addKeyword(obj.getID(), ka.getString(k));
+                                }
                         }
-                    }
-                    if(at!=null)
-                    for(int j=0;j<at.size();j++){
-                        JSONObject ao=at.getJSONObject(j);
-                        dao.addCVPRAuthor(obj.getID(), ao.getString("name"));
-//                        dao.addAuthor(obj.getID(), ao.getString("name"));
-                    }
+                    if (at != null)
+                        for (int j = 0; j < at.size(); j++) {
+                            JSONObject ao = at.getJSONObject(j);
+                            if (dao.checkAuthor(obj.getID(), ao.getString("name")) == 0)
+//                            dao.addCVPRAuthor(obj.getID(), ao.getString("name"));
+                                dao.addAuthor(obj.getID(), ao.getString("name"));
+                        }
 //                    break;
 
                 } catch (FileNotFoundException e) {
@@ -192,11 +195,11 @@ public class InputJson {
                         json.append(line);
                     }
 
-                    parse = (JSONObject) JSON.parse(json.substring(0,json.length()-1));
+                    parse = (JSONObject) JSON.parse(json.substring(0, json.length() - 1));
                     kw = parse.getJSONArray("keywords");
                     at = parse.getJSONArray("authors");
 
-                    if(parse.getString("abstract")!=null) {
+                    if (parse.getString("abstract") != null) {
                         if (parse.getString("abstract").length() < 200)
                             obj.setAbstract(parse.getString("abstract"));
                         else
@@ -209,24 +212,26 @@ public class InputJson {
                     obj.setTime(parse.getString("dateOfInsertion"));
 
 
-                    dao.addICCVPaper(obj);
-//                    dao.addPaper(obj);
-                    if(kw!=null)
-                    for(int j=0;j<kw.size();j++){
-                        JSONObject ko=kw.getJSONObject(j);
-                        JSONArray ka=ko.getJSONArray("kwd");
-                        if(ka!=null)
-                        for(int k=0;k<ka.size();k++){
-                            dao.addICCVKeyword(obj.getID(), ka.getString(k));
-//                            dao.addKeyword(obj.getID(), ka.getString(k));
+//                    dao.addICCVPaper(obj);
+                    dao.addPaper(obj);
+                    if (kw != null)
+                        for (int j = 0; j < kw.size(); j++) {
+                            JSONObject ko = kw.getJSONObject(j);
+                            JSONArray ka = ko.getJSONArray("kwd");
+                            if (ka != null)
+                                for (int k = 0; k < ka.size(); k++) {
+                                    if (dao.checkKeyword(obj.getID(), ka.getString(k)) == 0)
+//                                dao.addICCVKeyword(obj.getID(), ka.getString(k));
+                                        dao.addKeyword(obj.getID(), ka.getString(k));
+                                }
                         }
-                    }
-                    if(at!=null)
-                    for(int j=0;j<at.size();j++){
-                        JSONObject ao=at.getJSONObject(j);
-                        dao.addICCVAuthor(obj.getID(), ao.getString("name"));
-//                        dao.addAuthor(obj.getID(), ao.getString("name"));
-                    }
+                    if (at != null)
+                        for (int j = 0; j < at.size(); j++) {
+                            JSONObject ao = at.getJSONObject(j);
+                            if (dao.checkAuthor(obj.getID(), ao.getString("name")) == 0)
+//                            dao.addICCVAuthor(obj.getID(), ao.getString("name"));
+                                dao.addAuthor(obj.getID(), ao.getString("name"));
+                        }
 //                    break;
 
                 } catch (FileNotFoundException e) {

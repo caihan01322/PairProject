@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Paper {
     int ID;
-    int meeting;
+    int meeting;//0为CVPR,1为ECCV,2为ICCV
     String Abstract;
     String year;
     String time;
