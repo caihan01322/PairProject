@@ -2,7 +2,7 @@
 /shelf/
 /workspace.xml
 # 数据源本地存储已忽略文件
-/../../../../../../../../:\study\软工实践\221801210\PairProject\221801238&221801210\flask\.idea/dataSources/
+/../../../../../../../:\study\软工实践\221801210\PairProject\221801238&221801210\.idea/dataSources/
 /dataSources.local.xml
 # 基于编辑器的 HTTP 客户端请求
 /httpRequests/
