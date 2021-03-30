@@ -99,6 +99,19 @@
                 #{author})
     </insert>
 
+    <select id="checkKeyword" resultType="java.lang.Integer">
+        select COUNT(*)
+        from keyword
+        where keyword = #{keyword}
+          and pid = #{pID};
+    </select>
+    <select id="checkAuthor" resultType="java.lang.Integer">
+        select COUNT(*)
+        from author
+        where author = #{author}
+          and pid = #{pID};
+    </select>
+
     <select id="getPaperByName" resultType="com.fzu.server.pojo.Paper">
         select *
         from paper

@@ -24,6 +24,10 @@ public interface PaperDao {
     void addKeyword(int pID,String keyword);
     void addAuthor(int pID,String author);
 
+    //检验是否有重复
+    int checkKeyword(int pID,String keyword);
+    int checkAuthor(int pID,String author);
+
     List<Paper> getPaperByName(String name,int start,int lim);//通过文章名查询
     List<Paper> getPaperByAuthor(String author,int start,int lim);//通过作者名查询
     List<Paper> getPaperByKeyword(String keyword,int start,int lim);//通过关键词查询
