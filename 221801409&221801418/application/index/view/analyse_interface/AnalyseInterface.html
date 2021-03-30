@@ -22,6 +22,7 @@
     var mainChart = echarts.init(document.getElementById('main'));
     var smallChart = echarts.init(document.getElementById('small'));
     var smallerChart = echarts.init(document.getElementById('smaller'));
+    var optionSmall;
     var optionMain = {
       title: {
         text: '各会议热词情况表'
@@ -40,13 +41,14 @@
         data: [3212, 323, 4121]
       }]
     };
-    mainChart.setOption(optionMain);
+    mainChart.setOption(optionMain,true);
     mainChart.on('click', function (params) {
       if (params.name == "CVPR") {
         var optionSmall = {
           title: {
-            text: 'CVRP热度情况'
+            text: 'CVPR热度情况'
           },
+          tooltip: {},
           legend: {
             data: ['热度']
           },
@@ -66,6 +68,7 @@
           title: {
             text: 'ECCV热度情况'
           },
+          tooltip: {},
           legend: {
             data: ['热度']
           },
@@ -85,6 +88,7 @@
           title: {
             text: 'ICCV热度情况'
           },
+          tooltip: {},
           legend: {
             data: ['热度']
           },
@@ -99,72 +103,10 @@
           }]
         }
       }
-      smallChart.setOption(optionSmall);
+      smallChart.setOption(optionSmall,true);
       smallChart.on('click', function (a) {
-        if (params.name == "CVRP" && a.name == "2018") {
-          var optionSmaller = {
-            series: [{
-              name: '热度',
-              type: 'pie',
-              data: [
-                { value: 158, name: 'feature extraction' },
-                { value: 145, name: 'learning (artificial intelligence)' },
-                { value: 99, name: 'image segmentation' },
-                { value: 94, name: 'computer vision' },
-                { value: 94, name: 'training' },
-                { value: 89, name: 'task analysis' },
-                { value: 88, name: 'cameras' },
-                { value: 82, name: 'object detection' },
-                { value: 69, name: 'image reconstruction' },
-                { value: 59, name: 'convolution' }
-              ]
-            }]
-          }
-        }
-
-        else if (params.name == "CVRP" && a.name == "2019") {
-          var optionSmaller = {
-            series: [{
-              name: '热度',
-              type: 'pie',
-              data: [
-                { value: 184, name: 'learning (artificial intelligence)' },
-                { value: 96, name: 'feature extraction' },
-                { value: 84, name: 'object detection' },
-                { value: 83, name: 'image segmentation' },
-                { value: 70, name: 'image classification' },
-                { value: 61, name: 'neural nets' },
-                { value: 59, name: 'deep learning' },
-                { value: 57, name: 'categorization' },
-                { value: 53, name: 'computer vision' },
-                { value: 52, name: 'training' }
-              ]
-            }]
-          }
-        }
-        else if (params.name == "CVRP" && a.name == "2020") {
-          var optionSmaller = {
-            series: [{
-              name: '热度',
-              type: 'pie',
-              data: [
-                { value: 284, name: 'learning (artificial intelligence)' },
-                { value: 192, name: 'feature extraction' },
-                { value: 152, name: 'training' },
-                { value: 143, name: 'image reconstruction' },
-                { value: 140, name: 'neural nets' },
-                { value: 127, name: 'task analysis' },
-                { value: 113, name: 'computer vision' },
-                { value: 111, name: 'cameras' },
-                { value: 88, name: 'object detection' },
-                { value: 86, name: 'convolutional neural nets' }
-              ]
-            }]
-          }
-        }
-
-        else if (params.name == "ECCV" && a.name == "2016") {
-          var optionSmaller = {
+        if (params.name == "ECCV" && a.name == "2016") {
+          optionSmaller = {
             series: [{
               name: '热度',
               type: 'pie',
@@ -183,8 +125,8 @@
             }]
           }
         }
-        else if (params.name == "ECCV" && a.name == "2018") {
-          var optionSmaller = {
+        if (params.name == "ECCV" && a.name == "2018") {
+          optionSmaller = {
             series: [{
               name: '热度',
               type: 'pie',
@@ -203,8 +145,8 @@
             }]
           }
         }
-        else if (params.name == "ECCV" && a.name == "2020") {
-          var optionSmaller = {
+        if (params.name == "ECCV" && a.name == "2020") {
+          optionSmaller = {
             series: [{
               name: '热度',
               type: 'pie',
@@ -223,10 +165,69 @@
             }]
           }
         }
-
-
-        else if (params.name == "ICCV" && a.name == "2015") {
-          var optionSmaller = {
+        if (params.name == "CVPR" && a.name == "2018") {
+          optionSmaller = {
+            series: [{
+              name: '热度',
+              type: 'pie',
+              data: [
+                { value: 158, name: 'feature extraction' },
+                { value: 145, name: 'learning (artificial intelligence)' },
+                { value: 99, name: 'image segmentation' },
+                { value: 94, name: 'computer vision' },
+                { value: 94, name: 'training' },
+                { value: 89, name: 'task analysis' },
+                { value: 88, name: 'cameras' },
+                { value: 82, name: 'object detection' },
+                { value: 69, name: 'image reconstruction' },
+                { value: 59, name: 'convolution' }
+              ]
+            }]
+          }
+        }
+        if (params.name == "CVPR" && a.name == "2019") {
+          optionSmaller = {
+            series: [{
+              name: '热度',
+              type: 'pie',
+              data: [
+                { value: 184, name: 'learning (artificial intelligence)' },
+                { value: 96, name: 'feature extraction' },
+                { value: 84, name: 'object detection' },
+                { value: 83, name: 'image segmentation' },
+                { value: 70, name: 'image classification' },
+                { value: 61, name: 'neural nets' },
+                { value: 59, name: 'deep learning' },
+                { value: 57, name: 'categorization' },
+                { value: 53, name: 'computer vision' },
+                { value: 52, name: 'training' }
+              ]
+            }]
+          }
+        }
+        if (params.name == "CVPR" && a.name == "2020") {
+          optionSmaller = {
+            series: [{
+              name: '热度',
+              type: 'pie',
+              data: [
+                { value: 284, name: 'learning (artificial intelligence)' },
+                { value: 192, name: 'feature extraction' },
+                { value: 152, name: 'training' },
+                { value: 143, name: 'image reconstruction' },
+                { value: 140, name: 'neural nets' },
+                { value: 127, name: 'task analysis' },
+                { value: 113, name: 'computer vision' },
+                { value: 111, name: 'cameras' },
+                { value: 88, name: 'object detection' },
+                { value: 86, name: 'convolutional neural nets' }
+              ]
+            }]
+          }
+        }
+      
+        if (params.name == "ICCV" && a.name == "2015") {
+          optionSmaller = {
             series: [{
               name: '热度',
               type: 'pie',
@@ -245,8 +246,8 @@
             }]
           }
         }
-        else if (params.name == "ICCV" && a.name == "2017") {
-          var optionSmaller = {
+        if (params.name == "ICCV" && a.name == "2017") {
+          optionSmaller = {
             series: [{
               name: '热度',
               type: 'pie',
@@ -265,8 +266,8 @@
             }]
           }
         }
-        else if (params.name == "ICCV" && a.name == "2019") {
-          var optionSmaller = {
+        if (params.name == "ICCV" && a.name == "2019") {
+          optionSmaller = {
             series: [{
               name: '热度',
               type: 'pie',
@@ -285,7 +286,7 @@
             }]
           }
         }
-        smallerChart.setOption(optionSmaller);
+        smallerChart.setOption(optionSmaller,true);
       })
     });
   </script>
