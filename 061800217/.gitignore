@@ -6,6 +6,9 @@
 !.gitignore
 !.gitkeep
 */paper
+**/paper
+*/test
+**/test
 */node_modules
 **/node_modules
 xx/xx/node_modules/node_modules/
