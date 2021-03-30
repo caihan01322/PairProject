@@ -249,6 +249,25 @@
         });
     });
 
+    myChart1.on('click', function (param) {
+        window.open("demo1.html?keyname="+param.name+"")
+
+    })
+
+    myChart2.on('click', function (param) {
+        window.open("demo1.html?keyname="+param.name+"")
+
+    })
+
+    myChart3.on('click', function (param) {
+        window.open("demo1.html?keyname="+param.name+"")
+
+    })
+
+    myChart4.on('click', function (param) {
+        window.open("demo1.html?keyname="+param.name+"") ;
+    })
+
     // 当我们浏览器缩放的时候，图表也等比例缩放
     window.addEventListener("resize", function () {
         myChart1.resize();
