@@ -2,6 +2,7 @@ package com.pairwork.pairwork.dao;
 
 import com.pairwork.pairwork.entity.Paper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,7 +17,7 @@ public interface PaperDao extends JpaRepository<Paper,Long> {
 
 //    @Query(value = "select  * from paper",nativeQuery = true)
     @Query(value = "SELECT * FROM id_paper, paper WHERE id_paper.cuser_id = ?1 AND id_paper.cpaper_id = paper.paper_id",nativeQuery = true)
-    List<Paper> findUserCollecion(Long user_id);
+    Page<Paper> findUserCollecion(Long user_id, PageRequest pageRequest);
 //    Page<Paper> findNameLike(Pageable pageable);
 }
 
