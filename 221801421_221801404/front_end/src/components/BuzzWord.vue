@@ -114,6 +114,19 @@ methods: {
         tooltip: {
             show: true,
             trigger: 'axis',
+            backgroundColor: '#fff',  //背景色
+              padding: [5, 15, 5, 15],   //边距
+              borderColor: '#DDDDDF',  //边框颜色
+              borderWidth: 1,    //边框线宽度
+              textStyle: {     //文字样式
+                color: '#6A6A6A',
+                decoration: 'none',
+                fontFamily: 'Verdana, sans-serif',
+              },
+              extraCssText:'text-align: left;',  //文字对齐方式
+            formatter:function(params){
+              return "关键字: "+params[0].data.keyword+"<br/>引用次数: "+params[0].data.count
+            },
         },
         grid: {
             left: '3%',
