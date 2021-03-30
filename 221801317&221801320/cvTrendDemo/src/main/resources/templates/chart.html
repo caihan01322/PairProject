@@ -41,7 +41,13 @@
                     // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
                     $("#example").jQCloud(word_array);
                 });
+                chart.keywords = keywords;
+                chart.trendMaps = response.data.trends;
 
+                console.log(chart.trendMaps)
+                console.log(chart.trendMaps[1])
+
+                console.log(chart.trends)
             });
         }
 
@@ -79,6 +85,29 @@
 <div id="main" style="width: 600px;height:400px;"></div>
 
 <script type="text/javascript">
+
+    var chart = new Vue({
+        data: {
+            trendMaps:[],
+            keywords:[]
+        },
+        computed: {
+            // 计算属性的 getter
+            trends: function () {
+                var tempTrends = [];
+                for (let i = 0; i < this.trendMaps.length ; i++){
+                    var tempTrend = [];
+                    for (let j = 2016 ; j < 2021 ; j++){
+                        tempTrend.push(this.trendMaps[i][j])
+                    }
+                    tempTrends.push(tempTrend);
+                }
+                // console.log(tempTrends)
+                return tempTrends;
+            }
+        }
+
+    })
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('main'));
 
