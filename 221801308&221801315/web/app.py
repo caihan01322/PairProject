@@ -285,18 +285,71 @@ def delete():
     return redirect(url_for(pagination_func, page=page, condition=condition, search_way=search_way))
 
 
-@app.route("/hot_keywords_view")
+@app.route("/hot_keywords_cake")
 @login_required
-def hot_keywords_view():
-    """热词饼图"""
-    return render_template("hot_keywords_view.html")
+def hot_keywords_cake():
+    """热词饼图
+
+    获取频率最高的前10个关键词，返回json格式
+
+    Return:
+        json格式
+        code: 0正常
+        data: 含有10个关键词的list
+            keyword: 关键词
+            url: 查询跟该关键词相关的论文的路由
+            total: 每个词的总数
+    """
+    keyword = Keywords.query.order_by(Keywords.count.desc()).limit(10).all()
+
+    data = []
+    for key in keyword:
+        per_key = {"keyword": key.keyword, "total": key.count, "url": url_for("search", condition=key.keyword, search_way="keyword")}
+        data.append(per_key)
+
+    return jsonify(code=0, data=data)
+    # return render_template("hot_keywords_cake.html")
 
 
 @app.route("/hot_keywords_trend")
 @login_required
 def hot_keywords_trend():
-    """热词走势图"""
-    return render_template("hot_keywords_trend.html")
+    """热词走势图
+
+    获取频率最高的前10个关键词，返回json格式
+
+    Return:
+        json格式
+        code: 0正常
+        data: 含有10个关键词的list
+            keyword: 关键词
+            CVPR: 近10年间在每年在该会议出现的次数
+            ECCV: 近10年间在每年在该会议出现的次数
+            ICCV: 近10年间在每年在该会议出现的次数
+        """
+    keyword = Keywords.query.order_by(Keywords.count.desc()).limit(10).all()
+
+    data = []
+    for key in keyword:
+        CVPR = [0 for i in range(10)]
+        ECCV = [0 for i in range(10)]
+        ICCV = [0 for i in range(10)]
+
+        for article in key.articles:
+            total += 1
+            year = int(article.publicationYear)
+            if year in range(BEGIN_YEAR, CURRENT_YEAR):
+                if article.meeting == "CVPR":
+                    CVPR[year - BEGIN_YEAR] += 1
+                elif article.meeting == "ECCV":
+                    ECCV[year - BEGIN_YEAR] += 1
+                else:
+                    ICCV[year - BEGIN_YEAR] += 1
+
+        per_key = {"keyword": key.keyword, "CVPR": CVPR, "ECCV": ECCV, "ICCV": ICCV}
+        data.append(per_key)
+    return jsonify(code=0, data=data)
+    # return render_template("hot_keywords_trend.html")
 
 
 @app.route("/hot_keywords")
