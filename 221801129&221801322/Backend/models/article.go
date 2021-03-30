@@ -1,7 +1,5 @@
 package models
 
-import "fmt"
-
 type Article struct {
 	Model
 	Title     string    `json:"title"`
@@ -34,14 +32,12 @@ func GetArticleByTitle(title string, pageNum, pageSize int) (articles []Article)
 //根据论文编号搜索
 func GetArticleByArticleID(articleid string, pageNum, pageSize int) (articles []Article) {
 	db.Preload("Keywords").Where("article_id LIKE ?", "%"+articleid+"%").Offset(pageNum).Limit(pageSize).Find(&articles)
-	for i, article := range articles {
-		fmt.Println(i)
-		fmt.Println(article.ArticleID)
-	}
 	return
 }
 
 //根据关键词搜索
 func GetArticleByKeywords(keyword string, pageNum, pageSize int) (articles []Article) {
+	db.Preload("Keywords").Raw("select * from crawler_article where crawler_article.id in " +
+		"(select article_id from crawler_keyword where name like '%" + keyword + "%')").Offset(pageNum).Limit(pageSize).Find(&articles)
 	return
 }

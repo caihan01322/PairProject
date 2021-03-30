@@ -15,6 +15,5 @@ func main() {
 	//
 	//_ = s.ListenAndServe()
 
-	models.GetArticleByArticleID("855", 0, 10)
-
+	models.GetArticleByKeywords("feature extraction", 0, 10)
 }
