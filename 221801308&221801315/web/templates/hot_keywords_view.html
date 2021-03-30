@@ -1,12 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+    <link rel="stylesheet" href="https://fonts.g.forms.cn/icon?family=Material+Icons">
+    <link rel="stylesheet" href={{url_for("static",filename="css/header.css" )}}>
+    <link rel="stylesheet" href={{url_for("static",filename="css/index.css" )}}>
+    <link rel="stylesheet" href={{url_for("static",filename="css/search.css" )}}>
+    <link rel="stylesheet" href={{url_for("static",filename="css/keywords.css" )}}>
+    <script src="https://kit.fontawesome.com/cdc72c83b6.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <title>Key Words</title>
 </head>
+
 <body>
-    <a href={{url_for("hot_keywords")}}>获取热词</a>
+    <div class="container">
+        <header>
+            <nav class="navigater">
+                <div class="logo">
+                    <img src={{url_for("static",filename="images/favicon.png" )}} alt="logo" class="image" />
+                    <h3 class="title">iPaper</h3>
+                </div>
+                <ul class="menu">
+                    <li class="nav-item"><a href={{url_for("index_logined")}} class="nav-href">Home</a></li>
+                    <li class="nav-item"><a href={{url_for("search_view")}} class="nav-href active">Search</a></li>
+                    <li class="nav-item"><a href={{url_for("contact_view")}} class="nav-href">Contact</a></li>
+                    <li class="nav-item"> <a href={{url_for("logout")}} class="nav-href">Sign out</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <div class="nav-left">
+                <ul class="anothor-menu">
+                    <li class="menu-item"><a href={{url_for("search_view")}} class="nav-href"><i class="fa fa-list"
+                                aria-hidden="true"></i> <span class="nav-title">论文检索</span></a></li>
+                    <li class="menu-item"><a href={{url_for("hot_keywords_view")}} class="nav-href active"><i
+                                class="fa fa-heart" aria-hidden="true"></i> <span class="nav-title">热词速递</span></a></li>
+                </ul>
+            </div>
+            <div class="content">
+                <button class="mdc-button mdc-button--raised key-btn" id="key">点击获取热词Top10</button>
+                <div id="main"></div>
+                <script type="text/javascript">
+                    $("#key").click(function () {
+                        var myChart = echarts.init(document.getElementById('main'));
+                        // 显示标题，图例和空的坐标轴
+                        myChart.setOption({
+                           
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{b}:{c}({d}%)"
+                            },
+                            series: [{
+                                name: '次数',
+                                type: 'pie',
+                                radius: '55%',
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        formatter: "{b}:{c}({d}%)"
+                                    }
+
+                                },
+                                data: []
+                            }]
+                        });
+
+                        // 异步加载数据
+                        $.get('/hot_keywords').done(function (data) {
+                            // 填入数据
+                            var words = [];
+                            var times = [];
+                            var content = [];
+                            console.log(data)
+                            console.log(data.data)
+                            $.each(data.data, function (index, item) {
+                                console.log(item.keyword);
+                                console.log(item.total);
+                                content.push({
+                                    value: item.total,
+                                    name: item.keyword
+                                })
+                                // words.push(item.keyword);
+                                // times.push(item.total);
+                            })
+                            myChart.setOption({
+                                series: [{
+                                    // 根据名字对应到相应的系列
+                                    name: '次数',
+                                    data: content
+                                }]
+                            });
+                        });
+                    })
+                </script>
+            </div>
+        </main>
+    </div>
 </body>
+
 </html>
