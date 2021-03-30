@@ -24,17 +24,18 @@
             
             <div class="container">
                 <h1 style="display: inline;">顶会论文爬取平台</h1>
-                <button id="login_btn" @click="signIn()" type="button" class="btn btn-default">登录</button>
+                <button id="login_btn" v-show="isLogin==0" @click="signIn()" type="button" class="btn btn-default">登录</button>
+                <button id="logout_btn" v-show="isLogin==1" @click="signOut()" type="button" class="btn btn-default">退出登录</button>
            
                 <div class="row" style="float: right;">
                     <div class="span6">
                         <ul class="nav nav-tabs">
                             
                             <li><a href="index.html">&nbsp;首&nbsp;&nbsp;页&nbsp;</a></li>
-                            <li><a href="add_articles.html">爬取论文</a></li>
-                            <li><a href="article.html">论文列表</a></li>
-                            <li><a href="hotwords_graph.html">热词分析</a></li>
-                            <li><a href="personal_page.html">个人中心</a></li>
+                            <li><a :href="isLogin==0?'#':'add_articles.html'" @click="noPermission">爬取论文</a></li>
+                            <li><a :href="isLogin==0?'#':'article.html'" @click="noPermission">论文列表</a></li>
+                            <li><a :href="isLogin==0?'#':'hotwords_graph.html'" @click="noPermission">热词分析</a></li>
+                            <li><a :href="isLogin==0?'#':'personal_page.html'" @click="noPermission">个人中心</a></li>
         
                         </ul>
                     </div>
@@ -53,9 +54,11 @@
                 <input type="text" v-model="phone" class="form-control" name="phone" placeholder="请输入您的手机号"><br>
                 <label for="pwd">&nbsp; 密&nbsp; &nbsp; 码&nbsp;  </label>
                 <input type="password" v-model="password" class="form-control" name="pwd_again" placeholder="请再次输入您的密码"/>
-                
+                <br />
                 <a href="register.html">还没有账号？注册一个</a>
+                
                 <button type="button" @click="startLogin()" class="btn btn-primary btn-lg btn-block">&nbsp;登&nbsp; &nbsp; 录&nbsp;</button>
+                
             </div>
             </form>
             
@@ -76,19 +79,33 @@
             data:{
                 message:"请先登录",
                 phone:'',
-                password:''
+                password:'',
+                isLogin:0,
+
+            },
+            mounted(){
+                this.judgeLogin();
+                //alert('hi');
+               // this.judgeLogin();
             },
             methods: {
-            doIt:function(){
+            noPermission:function(){
+                if(this.isLogin==0)
                 alert("请先登录");
+                else{
+                    window.location.href="";
+                }
             },
             signIn:function(){
                 window.location.href="login.html";
             },
+            signOut:function(){
+                this.isLogin = 0;
+            },
             startLogin:function(){
+                this.isLogin = 1;
 
-
-                 axios
+                axios
                  .post('http://127.0.0.1:5000/user/login',
                  {
                      telephone: this.phone,        // 参数 telephone
@@ -99,8 +116,14 @@
                     //console.log(response);
                     console.log(response.data.status);
                     status = response.data.status;
-                    if(status==0) //console.log('登陆成功');
-                    window.location.href="article.html";
+                    userId = response.data.user_id;
+
+                    if(status==0){
+                        //console.log('登陆成功');
+                        localStorage.setItem('userid',userId);
+                        window.location.href="article.html";
+                        this.judgeLogin();
+                    } 
                     else if(status==1) console.log('用户不存在');
                     else console.log('密码错误');
                  })
@@ -108,6 +131,15 @@
                      console.log(error);
                  });
   
+            },
+            judgeLogin:function(){
+                var user = JSON.parse(localStorage.getItem('userid'));
+                console.log(user);
+                if(user!=null){
+                    this.isLogin = 1;
+                }else{
+                    this.isLogin = 0;
+                }
             },
             
             }

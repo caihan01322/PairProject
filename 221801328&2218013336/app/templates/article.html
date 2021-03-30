@@ -69,9 +69,9 @@
             <div id="top">
                 <h2 style="display: inline;">已爬取论文列表</h2>
                 是否还有没有检索到的论文？
-                <button type="button" class="btn btn-default">添加</button>
+                <button type="button" @click="addArticle" class="btn btn-default">添加</button>
 
-                <input id="searchInput" type="text" style="width: 300px;display: inline" class="form-control" placeholder="查询"/>
+                <input id="searchInput" v-model="searchMessage" type="text" style="width: 300px;display: inline" class="form-control" placeholder="查询"/>
 
                 
                 <div class="dropdown" id="dropdown" style="display: inline;">
@@ -146,7 +146,12 @@
         var app = new Vue({
          el:"#article_list",
          data:{
-             message:"论文标题"
+             message:"论文标题",
+             searchMessage:""
+         },
+         mounted(){
+            this.getData();
+            //再调用一下搜索功能
          },
          methods: {
 
@@ -155,23 +160,52 @@
              msg = e.innerHTML;
              
              this.message = msg;
+        
          },
-         search:function(){
+        search:function(){
+            if(this.message=="关键词"){
+                this.searchKeyword();
+                console.log('查关键词');
+            }
+            else if(this.message=="摘要"){
+                this.searchAbstract();
+                console.log('查摘要');
+            }
+        },
+        searchKeyword:function(){
                var that = this;
-               //alert(this.phone);
-                //alert(this.password);
-
-
-                axios
-                .get('http://127.0.0.1:5000/paper/search/1/'+'Foreground Objects')
+                /*axios
+                .get('http://127.0.0.1:5000/paper/search/1/' + this.searchMessage)
                 .then(function (response) {
+                    console.log(response.data);
+                    //返回的数据要分页显示
+
+                })
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });*/
+        },
+        searchAbstract:function(){
+               var that = this;
+                /*axios
+                .get('http://127.0.0.1:5000/paper/search/2/' + this.searchMessage)
+                .then(function (response) {
+                    //返回的数据要分页显示
                     console.log(response.data);
 
                 })
                 .catch(function (error) { // 请求失败处理
                     console.log(error);
-                });
-            }
+                });*/
+        },
+        getData:function() {
+            var data2 = JSON.parse(localStorage.getItem('keyword'));
+            console.log(data2.keyword);
+            this.searchMessage = data2.keyword;
+        } ,
+        addArticle:function(){
+            window.location.href = "add_articles.html";
+        }  
          
      }
      })

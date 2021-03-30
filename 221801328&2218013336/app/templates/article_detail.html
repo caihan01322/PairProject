@@ -69,7 +69,7 @@
     </div>
 
     <div id="article">
-        <img id="left" alt="" src="icon_left.png">
+        <img id="left" alt="" src="icon_left.png" @click="back">
         <img id="like" alt="" src="icon_like.png">
             
         <div id="main">
@@ -119,6 +119,9 @@
                 abstract:'摘要',
                 href:'链接'
             },
+            mounted(){
+                this.showDetail();
+            },
             methods: {
             doIt:function(){
                 alert("请先登录");
@@ -160,6 +163,9 @@
                     console.log(error);
                 });
             },
+            back:function(){
+                window.location.href = "article.html";
+            }
             
             }
         })
