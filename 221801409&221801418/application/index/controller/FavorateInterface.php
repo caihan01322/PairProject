@@ -15,15 +15,18 @@ class FavorateInterface extends Controller
         $this->assign('try',$haha);
         return view('FavorateInterface');
     }
-    public function deletePaper(){
+    public function favoritePaper(){
         $Db = new Db;
         $value=session('account');
         $listString = $_COOKIE["deleteList"];
         $list = json_decode($listString,true);
         $link=$list["link"];
-        $result=Db::table("paper_$value")
+        $result=Db::table("paper")
         ->where("link",$link)
-        ->delete();
+        ->find();
+        if(empty($result)){
+            $this->error("该用户不存在");
+        }
             if($result!==false){
                 return $this->success("删除成功");
             }
