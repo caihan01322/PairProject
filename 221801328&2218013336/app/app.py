@@ -189,9 +189,23 @@ def paper_show(numberid):
 @app.route('/paper/search/Keyword',methods=['POST'])
 def paper_search_keyword():
     paper1 = request.get_json()
+    page = int(paper1.get("page")) - 1
+    # 第几页 每页几条
+    page_item = int(paper1.get("item"))
     key = str(paper1.get("keyword"))
     str1 = '%' + key + '%'
-    papers = db.session.query(Paper).filter(Paper.keyWord.like(str1))
+    m = int(page * page_item)
+    print(m)
+    # papers = db.session.query(Paper).filter(Paper.keyWord.like(str1))[int(m):int(page_item)]
+    papers = db.session.execute(
+        'select * from paper where keyWord like \'' + str1 + '\' limit ' + str(m) + ',' + str(page_item) + ';')
+    # print(papers)
+    # print('select count(*) count from paper where keyWord like \'%' + key + '%\';')
+    items = db.session.execute('select count(*) count from paper where keyWord like \'%' + key + '%\';')
+    for i in items:
+        counts = i.count
+    counts = int(counts)  # 总共几条
+    print(counts)
     Infos = []
     for p in papers:
         id = p.id
@@ -204,7 +218,11 @@ def paper_search_keyword():
             "datetime": datetime,
             "classify": classify
         })
-    return jsonify(data = {
+
+    page = int(int(counts) / int(page_item)) + 1
+    return jsonify({
+        'count': counts,
+        'page': page,
         'data': Infos
     })
 
@@ -212,12 +230,80 @@ def paper_search_keyword():
 #论文模糊查询
 @app.route('/paper/search/abstract',methods=['POST'])
 def paper_search_abstract():
-    pass
+    paper1 = request.get_json()
+    page = int(paper1.get("page")) - 1
+    # 第几页 每页几条
+    page_item = int(paper1.get("item"))
+    key = str(paper1.get("abstract"))
+    str1 = '%' + key + '%'
+    m = int(page * page_item)
+
+    papers = db.session.execute(
+        'select * from paper where abstract like \'' + str1 + '\' limit ' + str(m) + ',' + str(page_item) + ';')
+    print('select count(*) count from paper where abstract like \'%' + key + '\'%;')
+    items = db.session.execute('select count(*) count from paper where abstract like \'%' + key + '%\';')
+    for i in items:
+        counts = i.count
+    counts = int(counts)  # 总共几条
+    print(counts)
+    Infos = []
+    for p in papers:
+        id = p.id
+        title = p.title
+        datetime = p.datetime
+        classify = p.classify
+        Infos.append({
+            "id": id,
+            "title": title,
+            "datetime": datetime,
+            "classify": classify
+        })
+
+    page = int(int(counts) / int(page_item)) + 1
+    return jsonify({
+        'count': counts,
+        'page': page,
+        'data': Infos
+    })
 
 #论文模糊查询
 @app.route('/paper/search/title',methods=['POST'])
 def paper_search_title():
-    pass
+    paper1 = request.get_json()
+    page = int(paper1.get("page")) - 1
+    # 第几页 每页几条
+    page_item = int(paper1.get("item"))
+    key = str(paper1.get("titles"))
+    str1 = '%' + key + '%'
+    m = int(page * page_item)
+
+    papers = db.session.execute(
+        'select * from paper where title like \'' + str1 + '\' limit ' + str(m) + ',' + str(page_item) + ';')
+    print('select count(*) count from paper where title like \'%' + key + '\'%;')
+    items = db.session.execute('select count(*) count from paper where title like \'%' + key + '%\';')
+    for i in items:
+        counts = i.count
+    counts = int(counts)  # 总共几条
+    print(counts)
+    Infos = []
+    for p in papers:
+        id = p.id
+        title = p.title
+        datetime = p.datetime
+        classify = p.classify
+        Infos.append({
+            "id": id,
+            "title": title,
+            "datetime": datetime,
+            "classify": classify
+        })
+
+    page = int(int(counts) / int(page_item)) + 1
+    return jsonify({
+        'count': counts,
+        'page': page,
+        'data': Infos
+    })
 
 # {
 #     "numberid":"",
