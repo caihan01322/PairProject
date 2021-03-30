@@ -172,7 +172,17 @@ def getPaper():
 #论文详情
 @app.route('/paper/<int:numberid>',methods=['GET','POST'])
 def paper_show(numberid):
-    pass
+    paper = db.session.query(Paper).filter(Paper.id == numberid).first()
+    # print(paper.title)
+    return jsonify({
+        'numberID': paper.id,
+        'title': paper.title,
+        'abstract': paper.abstract,
+        'keyword': paper.keyWord,
+        'datetime': paper.datetime,
+        'href': paper.href,
+        'classify': paper.classify
+    })
 
 
 # 论文模糊查询
