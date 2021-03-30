@@ -51,12 +51,8 @@ def login():
         remember: 是否记住我，勾选则cookie的保存时间变长
 
     Returns:
-        登陆出错时返回结果的json格式
-        code: -1为登录过程中出错，0为登陆成功
-        message: 解释code
-        登录成功时返回首页视图
-        example：
-            见接口文档
+        flash提示信息
+        登录成功时返回登陆后的首页视图
     """
     email = request.form.get("email")
     password = request.form.get("password")
@@ -105,15 +101,11 @@ def register_view():
 def register():
     """注册
 
-    获取前端通过POST方式提交的email、password，判断是否注册成功
+    获取前端通过POST方式提交的email、password、repetition，判断是否注册成功
 
     Returns:
-        出错时返回结果的json格式
-        code: -1为注册过程中出错
-        message: 解释code
+        flash消息提示
         注册成功时返回登录视图
-        example：
-            见接口文档
     """
     email = request.form.get("email")
     password = request.form.get("password")
@@ -296,7 +288,15 @@ def delete():
 @app.route("/hot_keywords_view")
 @login_required
 def hot_keywords_view():
+    """热词饼图"""
     return render_template("hot_keywords_view.html")
+
+
+@app.route("/hot_keywords_trend")
+@login_required
+def hot_keywords_trend():
+    """热词走势图"""
+    return render_template("hot_keywords_trend.html")
 
 
 @app.route("/hot_keywords")
