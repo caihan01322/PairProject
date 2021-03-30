@@ -148,7 +148,14 @@
                     chartcontents[i].style.display = "none";
                 }
                 
-
+                ftypebtns[i].onclick = function () {
+                    for(var k = 0;k<chartcontents.length;k++)
+                    {
+                        chartcontents[k].style.display = "none";
+                    }
+                    chartcontents[this.index].style.display = "block";
+                }
+            }
             
         }
 
@@ -301,7 +308,8 @@
         //实现动态增加图表canvas，用于图表使用
         function add_canvas(type) {
             var div1 = document.createElement("div");
-
+            div1.style.height="360px";
+            div1.style.width="540px";
             div1.style.float="left";
             var div2 = document.createElement("div");
             div2.style.height="360px";
@@ -316,7 +324,12 @@
                 div1.innerHTML = "<canvas id=\""+ type+ "myChart" + chartnum2 +"\"></canvas>";
                 div2.innerHTML = "<canvas id=\""+ type+ "pieChart" + chartnum2 +"\"></canvas>";
             }else if(type == "ICCV"){
-
+                chartnum3++;
+                div1.innerHTML = "<canvas id=\""+ type+ "myChart" + chartnum3 +"\"></canvas>";
+                div2.innerHTML = "<canvas id=\""+ type+ "pieChart" + chartnum3 +"\"></canvas>";
+            }
+            document.getElementById(type).appendChild(div1);
+            document.getElementById(type).appendChild(div2);
         }
         
         // function add_canvas(type) {
@@ -383,6 +396,102 @@
             });
         }
         //生成饼图
+        function makepiechart(pyear,ptype,keyword,frequency,pchartnum) {
+            var type = 'pie'; //pie, doughnut
+            var data = {
+                labels: [keyword[0], keyword[1], keyword[2], keyword[3], keyword[4],
+                keyword[5],keyword[6],keyword[7],keyword[8],keyword[9]],
+                datasets: [
+                    {
+                        data: [frequency[0], frequency[1], frequency[2], frequency[3], frequency[4], 
+                        frequency[5], frequency[6], frequency[7], frequency[8], frequency[9]],
+                        backgroundColor: ['#9dd398', '#ccc08a', '#989ed3','#b1b8f8','#cf9f96','#cf96a9','#b896cf','#96cfc7','#aebe8a','#8ab2c4']
+                    }
+                ]
+            };
+            var options = {
+                title: {
+                    display: true,
+                    text: pyear+'年柱状图',
+                    fontColor: 'indigo',
+                    fontSize: '24'
+                },
+                // cutoutPercentage: 20,
+            };
+            var canvas = ptype+ "pieChart" + pchartnum;
+            var ctx = document.getElementById(canvas).getContext('2d');
+            var chart = new Chart(ctx, {
+                type: type,
+                data: data,
+                options: options
+            });
+        }
+        //生成饼图
+        function makepiechart(keyword,frequency) {
+            var type = 'bar';
+            var data = {
+                labels: [2014, 2015, 2016, 2017, 2018],
+                datasets: [
+                    {
+                        label: '优酷',
+                        data: [100, 150, 300, 800, 1600],
+                        type: 'line',
+                        fill: false,
+                        yAxisID: 'youku-axes'
+                    },
+                    {
+                        label: 'Youtube',
+                        data: [50, 100, 200, 400, 600],
+                        type: 'bar',
+                        yAxisID: 'youtube-axes'
+                    }
+                ]
+            };
+
+            var options = {
+                scales: {
+                    yAxes: [
+                        {
+                            id: 'youku-axes',
+                            type: 'linear',
+                            position: 'left',
+                            ticks: {
+                                min: 0,
+                                max: 1800
+                            }
+                        },
+                        {
+                            id: 'youtube-axes',
+                            type: 'linear',
+                            position: 'right',
+                            ticks: {
+                                min: 0,
+                                max: 800
+                            },
+                            gridLines: {
+                                display: false
+                            }
+                        }
+                    ]
+                },
+                title: {
+                    display: true,
+                    text: '小马视频',
+                    fontColor: 'green',
+                    fontSize: '24'
+                }
+            };
+            var canvas = ptype+ "pieChart" + pchartnum;
+            var ctx = document.getElementById(canvas).getContext('2d');
+            var chart = new Chart(ctx, {
+                type: type,
+                data: data,
+                options: options
+            });
+        }
+
+    </script>
+
 
     
 </div>
