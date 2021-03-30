@@ -26,24 +26,50 @@ html {
     border-style: solid;
     border-color: rgb(252, 252, 252);
     margin: 3px;
+    float: left;
+    font-size: 40px;
+}
+
+#navBar .logOut {
+    width: 50px;
+    height: 20px;
+    margin-top: 30px;
+    float: right;
+    position: relative;
+    background-color: #111311;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+    border-style: solid;
+    border-color: rgb(240, 232, 232);
+    border-radius: 10px;
+    border-width: 0.01ch;
+    /* 不出现蓝色边框 */
+    outline: none;
 }
 
 #leftsideBar {
     background-color: rgb(36, 36, 36);
     float: left;
     width: 250px;
-    height: 820px;
+    height: 835px;
     border-style: solid;
     border-color: rgb(218, 197, 197);
     border-width: 0.1ch;
     opacity: 0.9;
+    border-radius: 10px;
 }
 
 #main {
     background-color: rgb(36, 36, 36);
     float: left;
     width: 1382px;
-    height: 820px;
+    height: 835px;
     border-style: solid;
     border-color: rgb(255, 255, 255);
     border-width: 0.1ch;
@@ -56,7 +82,7 @@ html {
     background-color: rgb(36, 36, 36);
     float: right;
     width: 250px;
-    height: 820px;
+    height: 835px;
     border-style: solid;
     border-color: rgb(218, 197, 197);
     border-width: 0.2ch;
@@ -281,7 +307,7 @@ html {
 .resultItem .itemOperation .keyWord {
     position: relative;
     height: 21px;
-    width: 80px;
+    width: 110px;
     color: #fdfdfd;
     background-color: rgb(36, 36, 36);
     border-style: solid;
@@ -290,7 +316,9 @@ html {
     border-radius: 5px;
     float: left;
     font-size: 13px;
-    margin: 5.5px 16px;
+    margin-top: 5.5px;
+    margin-bottom: 5.5px;
+    margin-left: 20px;
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
     text-decoration: none;
@@ -335,7 +363,7 @@ html {
     border-color: rgb(240, 232, 232);
     border-width: 0ch;
     float: left;
-    margin: 5.5px 16px;
+    margin: 5.5px 14px;
 }
 
 .resultItem .itemOperation .sourceLink {
@@ -345,7 +373,7 @@ html {
     border-color: rgb(240, 232, 232);
     border-width: 0ch;
     float: left;
-    margin: 5.5px 16px;
+    margin: 5.5px 14px;
     text-decoration: underline;
 }
 
@@ -356,7 +384,7 @@ html {
     border-color: rgb(240, 232, 232);
     border-width: 0ch;
     float: left;
-    margin: 5.5px 16px;
+    margin: 5.5px 10px;
     text-decoration: line-through;
 }
 

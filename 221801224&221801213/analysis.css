@@ -32,18 +32,19 @@ html {
     background-color: rgb(36, 36, 36);
     float: left;
     width: 250px;
-    height: 820px;
+    height: 835px;
     border-style: solid;
     border-color: rgb(218, 197, 197);
     border-width: 0.1ch;
     opacity: 0.9;
+    border-radius: 10px;
 }
 
 #main {
     background-color: rgb(36, 36, 36);
     float: left;
     width: 1382px;
-    height: 820px;
+    height: 835px;
     border-style: solid;
     border-color: rgb(255, 255, 255);
     border-width: 0.1ch;
@@ -66,7 +67,7 @@ html {
     background-color: rgb(36, 36, 36);
     float: right;
     width: 250px;
-    height: 820px;
+    height: 835px;
     border-style: solid;
     border-color: rgb(218, 197, 197);
     border-width: 0.2ch;

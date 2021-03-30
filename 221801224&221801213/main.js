@@ -75,7 +75,7 @@ var main = new Vue({
                 //向后端发送已有的userInput和当前page
                 this.update();
             } else {
-                alert("已经是第一页！");
+                //alert("已经是第一页！");
             }
         },
 
@@ -86,7 +86,7 @@ var main = new Vue({
                 //向后端发送已有的userInput和当前page
                 this.update();
             } else {
-                alert("已经是最后一页！");
+                //alert("已经是最后一页！");
             }
         },
 
