@@ -10,10 +10,12 @@
 </head>
 <body> 
 	<div class="demoTable">
-		<select id="selection">
-			<option value="title"">标题</option>
-			<option value="authors"">作者</option>
-		</select>
+		<div class="sel_wrap" style="display: inline;">
+			<select id="selection" >
+				<option value="title"">标题</option>
+				<option value="authors"">作者</option>
+			</select>
+		</div>
 		<div class="layui-inline">
 			<input class="layui-input" name="id" id="input" autocomplete="off" placeholder="请输入想要查询的内容">
 		</div>
@@ -71,7 +73,7 @@
 					var item=obj.data.iD;
 					//alert(item);
 					//var jsonStr=JSON.stringify(item);
-					var url= "detail.html?id="+item;
+					var url= "detail/index.html?id="+item;
 					// var data = obj.data.name;//获取选中行的标题
 					// var url="detail.html?"+"name="+data;//向url中传递论文标题信息
 					window.open(url);
