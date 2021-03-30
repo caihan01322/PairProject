@@ -51,6 +51,7 @@ export default {
         }
     },
     mounted() {
+        let that = this;
         request.getHotwords({})
         .then((res)=>{
             let words = res.result;
@@ -104,6 +105,10 @@ export default {
                 .shape('cloud')
                 .tooltip('value*category');
             chart.interaction('element-active');
+            chart.on('element:click', (args) => {
+                console.log(args.data.data.text);
+                that.$router.push("/related?key="+args.data.data.text);
+            });
             chart.render();
         })
         

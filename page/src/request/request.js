@@ -7,6 +7,7 @@ const request = {
         console.log(data);
         return {
             error: 0,
+            total: 25,
             result: [
                 {
                     id: "000001",
@@ -14,6 +15,8 @@ const request = {
                     number: "10.13722/j.cnki.jrme.2020.1183",
                     keyword: ['岩石力学', 'CO2致裂', '爆破'],
                     meeting: ['CVPR'],
+                    author: ['作者1', '作者2'],
+                    link: "https://www.baidu.com"
                 },
                 {
                     id: "000002",
@@ -21,6 +24,8 @@ const request = {
                     number: "10.13722/j.cnki.jrme.2020.1183",
                     keyword: ['岩石力学', 'CO2致裂', '爆破'],
                     meeting: ['CVPR','ICCV'],
+                    author: [],
+                    link: "https://www.baidu.com"
                 }
             ]
         }
@@ -61,12 +66,18 @@ const request = {
         console.log(data);
         return {
             error: 0,
+            total: 25,
             result: [
                 { title: "测试论文标题2他比较长测试论文标题1" },
                 { title: "测试论文标题2他比较长测试论文标题2" },
                 { title: "测试论文标题2他比较长测试论文标题3" },
                 { title: "测试论文标题2他比较长测试论文标题4" },
                 { title: "测试论文标题2他比较长测试论文标题5" },
+                { title: "测试论文标题2他比较长测试论文标题6" },
+                { title: "测试论文标题2他比较长测试论文标题7" },
+                { title: "测试论文标题2他比较长测试论文标题8" },
+                { title: "测试论文标题2他比较长测试论文标题9" },
+                { title: "测试论文标题2他比较长测试论文标题10" },
             ]
         }
     },
@@ -148,6 +159,7 @@ const request = {
         console.log(data);
         let res =  {
             error: 0,
+            total: 25,
             result: [
                 {
                     "keyword": "关键词1",
@@ -186,7 +198,10 @@ const request = {
             };
             newRes.push(inner);
         }
-        return newRes;
+        return {
+            total: res.total,
+            result: newRes
+        };
     },
     // 热词折线图数据获取
     getHotwordLine: async (data) => {

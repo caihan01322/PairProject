@@ -8,7 +8,7 @@
                         <h3>热门领域</h3>
                     </div>
                     <div class="table_container">
-                        <rank-table :tableData="tableData"></rank-table>
+                        <rank-table :tableData="tableData" :label="1"></rank-table>
                     </div>
                 </a-tab-pane>
                 <a-tab-pane key="2" tab="ICCV">
@@ -16,7 +16,7 @@
                         <h3>热门领域</h3>
                     </div>
                     <div class="table_container">
-                        <rank-table :tableData="tableData"></rank-table>
+                        <rank-table :tableData="tableData" :label="2"></rank-table>
                     </div>
                 </a-tab-pane>
                 <a-tab-pane key="3" tab="CVPR">
@@ -24,7 +24,7 @@
                         <h3>热门领域</h3>
                     </div>
                     <div class="table_container">
-                        <rank-table :tableData="tableData"></rank-table>
+                        <rank-table :label="3"></rank-table>
                     </div>
                 </a-tab-pane>
             </a-tabs>
@@ -43,28 +43,17 @@ export default {
     components: {RankTable},
     data () {
         return {
-            tableData: []
+            tableData: [],
+            label: 1
         }
     },
     methods: {
         changeTab(value){
             console.log(value);
-            this.getTableData(value, 1);
+            this.label = value;
         },
-        getTableData(label, page) {
-            let that = this;
-            request.getRank({
-                meeting: label,
-                page: page
-            })
-            .then((res)=>{
-                console.log(res);
-                that.tableData = res;
-            })
-        }
     },
     mounted() {
-        this.getTableData(1, 1);
     },
 }
 </script>

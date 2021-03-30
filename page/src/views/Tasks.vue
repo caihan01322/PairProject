@@ -98,14 +98,27 @@
             <div class="table_container" v-if="!loadingTasks">
                 <div class="ops">
                     <div class="item_op">
-                        <a-button icon="cloud-download" :disabled="selectedRowEmpty()" type="primary" @click="crawl">爬取</a-button>
-                        <a-button class="delete_btn" icon="delete" type="danger">删除</a-button>
+                        <a-button 
+                            icon="cloud-download" 
+                            :disabled="selectedRowEmpty()" 
+                            type="primary" 
+                            @click="crawl"
+                        >爬取</a-button>
+                        <a-button 
+                            class="delete_btn" 
+                            :disabled="selectedRowEmpty()" 
+                            @click="deleteTasks"
+                            icon="delete" 
+                            type="danger"
+                        >删除</a-button>
                     </div>
                 </div>
                 <div class="table">
                     <a-table 
                         :columns="columns" 
                         :data-source="listData"
+                        :pagination="pager"
+                        @change="reloadTable"
                         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
                     >
                         <router-link 
@@ -115,9 +128,9 @@
                             to="detail"
                         >{{text}}</router-link>
                         
-                        <span slot="action">
-                            <a>删除</a>
-                            <a :style="{ marginLeft: '12px' }">爬取</a>
+                        <span slot="action" slot-scope="pageTitle">
+                            <a @click="deletePerTask(pageTitle)">删除</a>
+                            <a @click="crawlPerTask(pageTitle)" :style="{ marginLeft: '12px' }">爬取</a>
                         </span>
 
                     </a-table>
@@ -174,6 +187,10 @@ export default {
                     title: "test",
                 }
             ],
+            pager: {
+                total: 1,
+                current: 1
+            },
 
             showImport: false,
             importing: false,
@@ -186,7 +203,6 @@ export default {
             showCrawl: false,
             crawling: true,
             crawlSuccess: false,
-            crawlKey: "",
 
             loadingTasks: false,
         }
@@ -219,6 +235,7 @@ export default {
             .then((res)=>{
                 console.log(res);
                 that.listData = res.result;
+                that.pager.total = res.total;
                 that.loadingTasks = false;
             })
         },
@@ -234,7 +251,6 @@ export default {
         crawl() {
             this.showCrawl = true;
             this.crawling = true;
-            this.crawlKey = "";
             let that = this;
             let keys = [];
             for(let i=0; i<this.selectedRowKeys.length; i++) {
@@ -248,7 +264,6 @@ export default {
                 console.log(res);
                 if(res.error==0) {
                     that.crawlSuccess = true;
-                    that.crawlKey = res.result
                 }
                 else {
                     that.crawlSuccess = false;
@@ -314,9 +329,84 @@ export default {
         // 文件是否上传过
         exectImportFile() {
             return this.fileList.length>0;
+        },
+        // 删除单个爬虫任务
+        deletePerTask(value) {
+            // console.log(value.title);
+            let that = this;
+            request.deleteTask({
+                task: [value.title]
+            })
+            .then((res)=>{
+                console.log(res);
+                if(res.error==0) {
+                    that.$message.success('已删除任务');
+                    that.requestList({
+                        page: that.pager.current
+                    });
+                }
+                else {
+                    that.$message.error('删除错误，请重试');
+                }
+            })
+        },
+        // 多选删除任务
+        deleteTasks() {
+            // console.log();
+            let keys = this.selectedRowKeys;
+            let titles = [];
+            for(let i=0; i<keys.length; i++) {
+                titles.push(this.listData[keys[i]].title);
+            }
+            // console.log(titles);
+            let that = this;
+            request.deleteTask({
+                task: titles
+            })
+            .then((res)=>{
+                console.log(res);
+                if(res.error==0) {
+                    that.$message.success('已删除任务');
+                    that.requestList({
+                        page: that.pager.current
+                    });
+                }
+                else {
+                    that.$message.error('删除错误，请重试');
+                }
+            })
+        },
+        //更新表格数据
+        reloadTable(a) {
+            console.log(a);
+            this.pager.current = a.current;
+            this.pager.total = a.total;
+            let that = this;
+            this.requestList({
+                page: that.pager.current
+            })
+        },
+        crawlPerTask(value) {
+            this.showCrawl = true;
+            this.crawling = true;
+            let that = this;
+            request.runCrawl({
+                task: [value.title]
+            })
+            .then((res)=>{
+                console.log(res);
+                if(res.error==0) {
+                    that.crawlSuccess = true;
+                }
+                else {
+                    that.crawlSuccess = false;
+                }
+                that.crawling = false;
+            }).then()
         }
     },
     mounted() {
+        this.pager.current = 1;
         this.requestList({
             page: 1
         });

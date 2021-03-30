@@ -1,7 +1,12 @@
 <!--  -->
 <template>
     <div class='table'>
-        <a-table :columns="columns" :data-source="tableData" size="small">
+        <a-table 
+            :columns="columns" 
+            :data-source="rankData" 
+            :pagination="pager"
+            @change="changeTable"
+            size="small">
             <router-link 
                 slot="keyword"
                 slot-scope="text"
@@ -12,6 +17,8 @@
 </template>
 
 <script>
+
+import request from '../request/request'
 
 export default {
     name: 'RankTable',
@@ -50,17 +57,40 @@ export default {
                     size: 100,
                     growth: "20%"
                 }
-            ]
+            ],
+            pager: {
+                current: 1,
+                total: 1,
+            }
         }
     },
     props: {
-        tableData: Array,
+        label: Number,
     },
     methods: {
-
+        changeTable(a) {
+            console.log(a);
+            this.pager.current = a.current;
+            this.pager.total = a.total;
+            let that = this;
+            this.requestTable(that.pager.current)
+        },
+        requestTable(page) {
+            let that = this;
+            request.getRank({
+                meeting: that.label,
+                page: page
+            })
+            .then((res)=>{
+                console.log(res);
+                that.pager.total = res.total;
+                that.rankData = res.result;
+            })
+        }
     },
     mounted() {
-        console.log(this.tableData);
+        // console.log(this.label);
+        this.requestTable(1);
     },
 }
 </script>
