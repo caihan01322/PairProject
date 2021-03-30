@@ -34,6 +34,11 @@ def login_view():
     return render_template("login.html")
 
 
+@app.route("/contact_view", methods=["GET"])
+def contact_view():
+    return render_template("contact.html")
+
+
 @app.route("/login", methods=["POST"])
 def login():
     """登录
@@ -115,19 +120,24 @@ def register():
 
     if email == "":
         return jsonify(code=-1, message="未输入邮箱账号")
-    if password == "":
-        return jsonify(code=-1, message="未输入密码")
-
+    
     user = Users.query.filter(Users.email == email).first()
-
     if user is not None:
-        return jsonify(code=-1, message="该账号已注册")
+                return jsonify(code=-1, message="该账号已注册")
+    
+    if password == "":
+                return jsonify(code=-1, message="未输入密码")
 
-    user = Users(email=email, password=password)
-    db.session.add(user)
-    db.session.commit()
-
-    return redirect(url_for("login_view"))
+    else:
+        try:
+            user = Users(email=email, password=password)
+            db.session.add(user)
+            db.session.commit()
+            return render_template("login.html")
+        except Exception as e:
+            db.session.rollback()
+            print(e.values)
+            return jsonify(code=-1, message="未知错误")
 
 
 @app.route("/search_view", methods=["GET"])

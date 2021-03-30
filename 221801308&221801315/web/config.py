@@ -16,17 +16,14 @@ class Config(object):
     user = 'root'
     password = '123456'
     database = 'paperweb'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://%s:%s@localhost:3306/%s' % (
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://%s:%s@localhost:3306/%s?charset=utf8' % (
         user, password, database)
 
     # 设置sqlalchemy自动跟踪数据库
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # 查询时会显示原始SQL语句
-    app.config['SQLALCHEMY_ECHO'] = False
-
-    # 禁止自动提交数据处理
-    app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+    app.config['SQLALCHEMY_ECHO'] = True
 
     # python3  连接数据库驱动是   pymysql
     # python2 连接数据驱动可以用  pymysql、MySQLdb
@@ -103,8 +100,8 @@ class Users(db.Model, UserMixin):
     __tablename__ = "users"
     # 定义字段
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    email = db.Column(db.String(255), primary_key=True)
-    password = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255))
+    password = db.Column(db.String(255))
     nickname = db.Column(db.String(255))
     # 收藏夹
     articles = db.relationship(

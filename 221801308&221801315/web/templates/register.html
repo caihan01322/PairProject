@@ -24,7 +24,7 @@
                 <ul class=" menu">
                     <li class="nav-item"><a href={{url_for("index")}} class="nav-href">Home</a></li>
                     <li class="nav-item"><a href={{url_for("search_view")}} class="nav-href">Search</a></li>
-                    <li class="nav-item"><a href="./contact.html" class="nav-href">Contact</a></li>
+                    <li class="nav-item"><a href={{url_for("contact_view")}} class="nav-href">Contact</a></li>
                     <!-- <li class="nav-item"><a href="{{url_for("hot_keywords_view")}}" class="nav-href">热词</a></li> -->
                     <li class="nav-item"><a href={{url_for("login_view")}} class="nav-href">Sign in</a></li>
                 </ul>
@@ -36,7 +36,7 @@
                 <p class="main-para">Fill out the form below to sign up for iPaper. Already signed up? Then just Sign in
                 </p>
             </div>
-            <form method="POST" action="/register">
+            <form>
                 <fieldset class="login-form">
                     <input type="text" id="email" placeholder="请输入邮箱账号" class="form-item">
                     <input type="password" id="password" placeholder="请输入密码" class="form-item"><br />

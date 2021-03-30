@@ -5,12 +5,12 @@ from config import *
 
 
 # 论文json所在的文件夹路径
-# CVPR_PATH = "C:/Users/MI/Desktop/论文数据/CVPR"
-# ECCV_PATH = "C:/Users/MI/Desktop/论文数据/ECCV"
-# ICCV_PATH = "C:/Users/MI/Desktop/论文数据/ICCV"
-CVPR_PATH = "C:/Users/Willa/Desktop/论文数据/CVPR"
-ECCV_PATH = "C:/Users/Willa/Desktop/论文数据/ECCV"
-ICCV_PATH = "C:/Users/Willa/Desktop/论文数据/ICCV"
+CVPR_PATH = "C:/Users/MI/Desktop/论文数据/CVPR"
+ECCV_PATH = "C:/Users/MI/Desktop/论文数据/ECCV"
+ICCV_PATH = "C:/Users/MI/Desktop/论文数据/ICCV"
+# CVPR_PATH = "C:/Users/Willa/Desktop/论文数据/CVPR"
+# ECCV_PATH = "C:/Users/Willa/Desktop/论文数据/ECCV"
+# ICCV_PATH = "C:/Users/Willa/Desktop/论文数据/ICCV"
 
 def deal_data(path):
     """对助教爬取的论文json数据进行处理
