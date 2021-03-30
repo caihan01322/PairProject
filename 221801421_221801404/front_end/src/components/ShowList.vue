@@ -53,10 +53,6 @@ export default {
       }
     },
 
-    tiaozhuan(){
-      this.$router.push('/PaperDetail')
-    },
-
     showDetail(row, column, event) {
       this.selectedObj=row
       let str=JSON.stringify(this.selectedObj)
@@ -74,7 +70,7 @@ export default {
   },
 
   mounted() {
-    //初始返回全部论文,最后参数应该是1," "
+    //初始返回全部论文,参数应该是1," "
     this.getSearchInfo()
   }
 }

@@ -7,7 +7,7 @@
           title="确定删除吗？"
           @confirm="deletePaper()"
         >
-          <el-button style="float: right; padding: 3px 0; font-size: 20px;" type="text" slot="reference">删除</el-button>
+        <el-button style="float: right; padding: 3px 0; font-size: 20px;" type="text" slot="reference">删除</el-button>
         </el-popconfirm>
       </div>
         <div class="item">
