@@ -169,5 +169,33 @@ def getPaper():
     )
 
 
+#论文详情
+@app.route('/paper/<int:numberid>',methods=['GET','POST'])
+def paper_show(numberid):
+    pass
+
+
+# 论文模糊查询
+@app.route('/paper/search/Keyword',methods=['POST'])
+def paper_search_keyword():
+    pass
+
+
+#论文模糊查询
+@app.route('/paper/search/abstract',methods=['POST'])
+def paper_search_abstract():
+    pass
+
+#论文模糊查询
+@app.route('/paper/search/title',methods=['POST'])
+def paper_search_title():
+    pass
+
+#论文删除
+@app.route('/paper/delete/<string:numberid>',methods=['GET'])
+def paper_delete(numberid):
+    pass
+
+
 if __name__ == '__main__':
     app.run(debug=True)
