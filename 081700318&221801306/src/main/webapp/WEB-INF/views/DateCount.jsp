@@ -34,7 +34,7 @@
         <div class="col-lg-4 col-lg-offset-2">
             <form class="form-horizontal" action="Search" method="GET">
                 <div class="form-group">
-                    <select class="form-control  thesis-select col-sm-4" name="searchtype" type="text">
+                    <select class="form-control  thesis-select col-sm-4" id="Year-Select" type="text">
                         <option>2007</option>
                         <option >2009</option>
                         <option >2011</option>
@@ -43,12 +43,12 @@
                         <option >2017</option>
                         <option >2019</option>
                     </select>
-                    <select class="form-control  thesis-select col-sm-4" name="searchtype" type="text">
-                        <option value ="all">ECCV</option>
-                        <option value ="title">ICCV</option>
-                        <option value ="keyword">CVPR</option>
+                    <select class="form-control  thesis-select col-sm-4" id="meeting-Select" type="text">
+                        <option >ICCV</option>
+                        <option >ECCV</option>
+                        <option >CVPR</option>
                     </select>
-                    <button type="button" class="btn btn-default col-sm-2">确定</button>
+                    <button type="button" class="btn btn-default col-sm-2 chart-button">确定</button>
                 </div>
             </form>
     </div>

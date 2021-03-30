@@ -116,8 +116,33 @@ $(document).ready(function () {
     window.location.href = url;
   });
   cloud();
-  ymData("2015","ICCV");
+  $('.chart-button').click(function (){
+  year=$('#Year-Select option:selected').text();
+  meeting=$('#meeting-Select option:selected').text();
+  ymData(year,meeting);
+})
 
+  $("#meeting-Select").change(function(){
+    meeting=$('#meeting-Select option:selected').text();
+    if(meeting=="ECCV")
+    {
+      optionArr=[{value:1,name:2016},{value:1,name:2018},{value:1,name:2020}];
+    }
+    else
+    {
+      optionArr=[{value:1,name:2009},{value:1,name:2011},{value:1,name:2013},{value:1,name:2015},{value:1,name:2017},{value:1,name:2019}];
+    }
+      select=$('#Year-Select');
+      select.empty();
+      for(i=0;i<optionArr.length;i++)
+      {
+      select.append(`<option value=${optionArr[i].value}>${optionArr[i].name}</option>`);
+      }
+
+
+
+
+  });
 function cloud () {
     var myChart = echarts.init(document.getElementById("chart2"));
     var data = genData(50);
