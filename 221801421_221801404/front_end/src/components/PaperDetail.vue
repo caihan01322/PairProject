@@ -40,26 +40,27 @@ export default {
   },
   methods: {
     getObj:function(){
-      console.log(this.$route.query.selectedObj)
+      //console.log(this.$route.query.selectedObj)
       this.selectedObj=JSON.parse(this.$route.query.selectedObj);
-      console.log(this.selectedObj)
+      //console.log(this.selectedObj)
     },
     goBack:function(){
       this.$router.go(-1)
     },
     deletePaper:function(){
-      //发送删除请求,接受返回的一个bool
-
-      if(this.res){
-        //回到上一页
-        this.$router.go(-1)
-        //提示删除成功
-        this.$notify({
-          title: '成功',
-          message: '这是一条成功的提示消息',
-          type: 'success'
-        })
-      }
+      axios.post('http://localhost:5000/delete',
+      {paperID: this.selectedObj.id+''}).then((res) => {          
+        if(res.data[0].state){
+          //回到上一页
+          this.$router.go(-1)
+          //提示删除成功
+          this.$notify({
+            title: '成功',
+            message: '这是一条成功的提示消息',
+            type: 'success'
+          })
+        }
+      })
     }
   },
   created() {
