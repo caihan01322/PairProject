@@ -148,14 +148,7 @@
                     chartcontents[i].style.display = "none";
                 }
                 
-                ftypebtns[i].onclick = function () {
-                    for(var k = 0;k<chartcontents.length;k++)
-                    {
-                        chartcontents[k].style.display = "none";
-                    }
-                    chartcontents[this.index].style.display = "block";
-                }
-            }
+
             
         }
 
@@ -308,8 +301,7 @@
         //实现动态增加图表canvas，用于图表使用
         function add_canvas(type) {
             var div1 = document.createElement("div");
-            div1.style.height="360px";
-            div1.style.width="540px";
+
             div1.style.float="left";
             var div2 = document.createElement("div");
             div2.style.height="360px";
@@ -324,12 +316,7 @@
                 div1.innerHTML = "<canvas id=\""+ type+ "myChart" + chartnum2 +"\"></canvas>";
                 div2.innerHTML = "<canvas id=\""+ type+ "pieChart" + chartnum2 +"\"></canvas>";
             }else if(type == "ICCV"){
-                chartnum3++;
-                div1.innerHTML = "<canvas id=\""+ type+ "myChart" + chartnum3 +"\"></canvas>";
-                div2.innerHTML = "<canvas id=\""+ type+ "pieChart" + chartnum3 +"\"></canvas>";
-            }
-            document.getElementById(type).appendChild(div1);
-            document.getElementById(type).appendChild(div2);
+
         }
         
         // function add_canvas(type) {
