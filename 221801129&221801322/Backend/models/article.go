@@ -24,19 +24,27 @@ func AddArticle(data map[string]interface{}) bool {
 }
 
 //根据论文标题搜索
-func GetArticleByTitle(title string, pageNum, pageSize int) (articles []Article) {
+func GetArticleByTitle(title string, pageNum, pageSize int) (articles []Article, count int) {
+	db.Table("crawler_article").Where("title LIKE ?", "%"+title+"%").Count(&count)
 	db.Preload("Keywords").Where("title LIKE ?", "%"+title+"%").Offset(pageNum).Limit(pageSize).Find(&articles)
 	return
 }
 
 //根据论文编号搜索
-func GetArticleByArticleID(articleid string, pageNum, pageSize int) (articles []Article) {
+func GetArticleByArticleID(articleid string, pageNum, pageSize int) (articles []Article, count int) {
+	db.Table("crawler_article").Where("article_id LIKE ?", "%"+articleid+"%").Count(&count)
 	db.Preload("Keywords").Where("article_id LIKE ?", "%"+articleid+"%").Offset(pageNum).Limit(pageSize).Find(&articles)
 	return
 }
 
 //根据关键词搜索
-func GetArticleByKeywords(keyword string, pageNum, pageSize int) (articles []Article) {
+func GetArticleByKeywords(keyword string, pageNum, pageSize int) (articles []Article, count int) {
+	temp := struct {
+		Count int
+	}{}
+	db.Raw("select count(*) as `count` from crawler_article where crawler_article.id in " +
+		"(select article_id from crawler_keyword where name like '%" + keyword + "%')").Scan(&temp)
+	count = temp.Count
 	db.Preload("Keywords").Raw("select * from crawler_article where crawler_article.id in " +
 		"(select article_id from crawler_keyword where name like '%" + keyword + "%')").Offset(pageNum).Limit(pageSize).Find(&articles)
 	return

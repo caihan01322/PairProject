@@ -48,13 +48,14 @@ func GetTopKeywordList() (results []KeyNum) {
 	defer rows.Close()
 	for rows.Next() {
 		rows.Scan(&tmp1, &tmp2)
-		count, _ := strconv.Atoi(string(tmp1.([]byte)))
-		name := string(tmp2.([]byte))
+		count, _ := strconv.Atoi(string(tmp2.([]byte)))
+		name := string(tmp1.([]byte))
 		results = append(results, KeyNum{
 			Name:  name,
 			Count: count,
 		})
 	}
+	fmt.Println(results)
 	return
 }
 
@@ -105,6 +106,5 @@ func GetChart(forum string, topkeys []TopKey) (chart Chart) {
 			chart.Years = append(chart.Years, strconv.Itoa(i))
 		}
 	}
-	fmt.Println(chart)
 	return
 }

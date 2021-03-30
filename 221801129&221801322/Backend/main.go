@@ -1,7 +1,6 @@
 package main
 
 import (
-	"Backend/models"
 	"Backend/pkg/setting"
 	"Backend/routers"
 	"fmt"
@@ -20,7 +19,5 @@ func main() {
 	}
 
 	_ = s.ListenAndServe()
-
-	models.GetChart("ECCV", models.GetTOPByForum("ECCV", 5))
 
 }

@@ -2,18 +2,18 @@ package models
 
 type User struct {
 	Model
-	PhoneNumber string `json:"phonenumber"`
-	Password    string `json:"password"`
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
-func GetUserByPhonenumber(phonenumber string) (user User) {
-	db.Where("phone_number = ?", phonenumber).First(&user)
+func GetUserByPhonenumber(username string) (user User) {
+	db.Where("username = ?", username).First(&user)
 	return
 }
 
-func ExistUserByPhoneNumber(phonenumber string) bool {
+func ExistUserByPhoneNumber(username string) bool {
 	var user User
-	db.Select("id").Where("phone_number = ?", phonenumber).First(&user)
+	db.Select("id").Where("username = ?", username).First(&user)
 	if user.ID > 0 {
 		return true
 	}
@@ -21,9 +21,9 @@ func ExistUserByPhoneNumber(phonenumber string) bool {
 	return false
 }
 
-func CheckPassword(phonenumber, password string) bool {
+func CheckPassword(username, password string) bool {
 	var user User
-	db.Where(User{PhoneNumber: phonenumber, Password: password}).First(&user)
+	db.Where(User{Username: username, Password: password}).First(&user)
 
 	if user.ID > 0 {
 		return true

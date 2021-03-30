@@ -11,7 +11,7 @@ import (
 
 //用户登录
 func LoginUser(c *gin.Context) {
-	var data interface{}
+	var data models.User
 	json := models.User{}
 	code := err.INVALID_PARAMS
 
@@ -23,18 +23,17 @@ func LoginUser(c *gin.Context) {
 		})
 		return
 	}
-	log.Printf("%v", json)
 
 	valid := validation.Validation{}
-	valid.Required(json.PhoneNumber, "phonenumber").Message("手机号不能为空")
-	//	valid.Range(phonenumber, 11, 11, "phonenumber").Message("手机号位数应该为11")
+	valid.Required(json.Username, "username").Message("用户名不能为空")
 	valid.Required(json.Password, "password").Message("密码不能为空")
 
 	if !valid.HasErrors() {
-		if models.ExistUserByPhoneNumber(json.PhoneNumber) {
-			if models.CheckPassword(json.PhoneNumber, json.Password) {
+		if models.ExistUserByPhoneNumber(json.Username) {
+			if models.CheckPassword(json.Username, json.Password) {
 				code = err.SUCCESS
-				data = models.GetUserByPhonenumber(json.PhoneNumber)
+				data = models.GetUserByPhonenumber(json.Username)
+				data.Password = ""
 			} else {
 				code = err.ERROR_INVALID_PASSWORD
 			}
