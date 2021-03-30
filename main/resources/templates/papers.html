@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>论文检索平台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}"  media="all">
+    <link rel="stylesheet" th:href="@{/css/table.css}" media="all">
+    <!--jquery引入-->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}" media="all">
+</head>
+<body>
+
+    <div>
+        <div>
+            <div th:replace="~{html/header::header}"></div>
+        </div>
+        <div>
+            <div th:replace="~{html/sidebar::sidebar}"></div>
+        </div>
+        <div class="layui-main">
+            <div th:replace="~{html/table::table}"></div>
+        </div>
+    </div>
+
+    <div id="page-button-group" style="margin-left: 30%;margin-top: 5%">
+        共<span th:text="${totalNum}"></span>页
+        <a class="layui-btn layui-btn-primary" th:href="@{/firstPage}"><<</a>
+        <a class="layui-btn layui-btn-primary" th:href="@{/prePage}"><</a>
+        <a th:if="(${currentPage}-2)>=1" class="layui-btn layui-btn-primary" th:href="@{/page/}+(${currentPage}-2)" th:text="${currentPage}-2"></a>
+        <a th:if="(${currentPage}-1)>=1" class="layui-btn layui-btn-primary" th:href="@{/page/}+(${currentPage}-1)" th:text="${currentPage}-1"></a>
+        <a class="layui-btn " th:text="${currentPage}" disabled></a>
+        <a th:if="(${currentPage}+1)<=${totalNum}" class="layui-btn layui-btn-primary" th:href="@{/page/}+(${currentPage}+1)" th:text="${currentPage}+1"></a>
+        <a th:if="(${currentPage}+2)<=${totalNum}" class="layui-btn layui-btn-primary" th:href="@{/page/}+(${currentPage}+2)" th:text="${currentPage}+2"></a>
+        <a class="layui-btn layui-btn-primary" th:href="@{/nextPage}">></a>
+        <a class="layui-btn layui-btn-primary" th:href="@{/lastPage}">>></a>
+        <form style="display: inline" th:action="@{/page}" method="post">
+            <span>转到第<input type="number" name="id" th:value="${currentPage}" style="width: 46px;"/>页</span>
+            <button class="layui-btn layui-btn-xs layui-btn-warm" type="submit"  style="margin-left: 10px">GO</button>
+        </form>
+
+
+    </div>
+
+
+
+<script th:src="@{/layui/layui.js}" charset="utf-8"></script>
+
+
+<script>
+
+
+    layui.use('element', function()
+    {
+        var element = layui.element;
+        //监听导航点击
+        element.on('nav(demo)', function(elem){
+            layer.msg(elem.text());
+        });
+    });
+
+
+</script>
+
+</body>
+</html>

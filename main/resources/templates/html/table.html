@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="table" style="margin-left:5%;">
+    <table class="layui-table search" lay-even lay-skin="nob" >
+        <colgroup>
+            <col width="150">
+            <col width="150">
+            <col width="150">
+            <col width="50">
+            <col width="50">
+            <col width="80">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>标题</th>
+            <th>摘要</th>
+            <th>关键词</th>
+            <th>会议</th>
+            <th>年份</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="paper:${paperList}">
+            <td class="search_item" th:text="${paper.getTitle()}"></td>
+            <td class="search_item" th:text="${paper.getAbst()}"></td>
+            <td class="search_item" th:text="${paper.getKeywords()}"></td>
+            <td th:text="${paper.getConference()}" >ECCV</td>
+            <td th:text="${paper.getPublicationYear()}">2000</td>
+            <td>
+                <div class="layui-btn-group">
+                    <a th:href="@{/paper/}+${paper.getPid()}">
+                        <button type="button" class="layui-btn layui-btn-sm">详情</button>
+                    </a>
+                    <a th:href="@{/delete/}+${paper.getPid()}" type="button" class="layui-btn layui-btn-danger layui-btn-sm ">
+                        <i class="layui-icon">&#xe640;</i>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
