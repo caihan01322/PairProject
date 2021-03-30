@@ -6,7 +6,6 @@
                    size="medium"></el-checkbox>
       <el-checkbox-group v-model="checkedPapers" @change="handleCheckedPapersChange">
         <Essay v-for="paper in searchPapers"
-               v-model="searchWord"
                v-bind:id="paper.artical.academicNum"
                v-bind:link="paper.artical.link"
                v-bind:title="paper.artical.title"
@@ -18,7 +17,6 @@
       </el-checkbox-group>
       <img id="empty_img" v-if="isEmpty" src="../assets/empty-folder.png" alt="">
     </div>
-
   </div>
 </template>
 <script>
@@ -28,12 +26,9 @@ import axios from "axios";
 export default {
   name:'SearchList',
   components:{Essay},
-  model:{
-    prop:"searchWord",
-    event:"search-event"
-  },
   props:{
     searchInput:{},
+    searchWord:{}
   },
   data(){
     return{
@@ -47,6 +42,7 @@ export default {
       pageNum:0,
       totalPageNum:0,
       totalPaperNum:0,
+      loading: true
     }
   },
   computed:{
@@ -94,7 +90,7 @@ export default {
       if(this.$store.state.account!==''){
         if(this.checkedPapers.length>0){
           axios
-              .get('http://121.5.100.116:8080/api/Collect?Account='+this.$store.state.account.toString()+'&Nums='+this.checkedPapers.toString())
+              .post('http://121.5.100.116:8080/api/Collect?Account='+this.$store.state.account.toString()+'&Nums='+this.checkedPapers.toString())
               .then(response=>{
                 if(response.data.code===200){
                   this.$message.success('收藏成功，共'+response.data.data+'篇')
@@ -130,6 +126,13 @@ export default {
     },
 
     search(){
+      const loading = this.$loading({
+        lock: true,//lock的修改符--默认是false
+        text: '加载中...',//显示在加载图标下方的加载文案
+        spinner: 'el-icon-loading',//自定义加载图标类名
+        background: 'rgba(226,226,226,0.7)',//遮罩层颜色
+        target: document.querySelector('.collection_frame')//loading覆盖的dom元素节点
+      });
       if((this.pageNum<this.totalPageNum||this.totalPageNum===0)&&this.searchWord!==undefined){
         axios
             .get('http://121.5.100.116:8080/api/search?keyword='+this.searchWord+'&pageNum='+this.pageNum)
@@ -160,6 +163,7 @@ export default {
             .finally(()=>{
               this.pageNum++;
               this.isReadyLoad=true
+              loading.close()
             })
       }else{
         this.$message({
@@ -167,13 +171,15 @@ export default {
           type:'warning'
         });
       }
+
     }
   },
   created(){
-    this.searchWord=this.$route.query.searchWord;
-    this.search()
+
   },
   mounted(){
+    this.searchWord=this.$route.query.searchWord;
+    this.search()
     //事件监听
     window.addEventListener('scroll',this.listenBottomOut)
   },

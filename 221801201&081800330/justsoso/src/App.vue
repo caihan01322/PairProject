@@ -28,4 +28,8 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+
+.el-loading-mask{
+  border-radius: 15px;
+}
 </style>
