@@ -46,13 +46,118 @@
 </template>
 
 <script>
+import axios from 'axios'
 import * as echarts from 'echarts'
 
 export default {
-  data () {
-    return {
-    }
+data () {
+  return {
+    tableData: [{
+      keyword: '2016-05-02',
+      count: '王小虎',
+    }, {
+      keyword: '2016-05-04',
+      count: '王小虎',
+    }, {
+      keyword: '2016-05-01',
+      count: '王小虎',
+    }, {
+      keyword: '2016-05-03',
+      count: '王小虎',
+    }],
+
+    chartData:'',
+    myChart:'',
+    TYPE:['ECCV','ICCV','CVPR']
+  }
+},
+methods: {
+  getChartInfo (type) {
+    //这里需要字符串拼接
+    axios.get('../static/chart.json').then((res) => {
+      console.log(res)
+      this.chartData = res.data
+      this.draw(type)
+    })
   },
+  getyears(){
+    //log(this.chartData)
+    /*let arrnew = this.chartData.map((item,index) => {
+        return Object.assign({},{'year':item.year})
+    })*/
+    let arrnew = [];
+    this.chartData.forEach(e => {
+        arrnew.push(e.year)
+    })
+    console.log(arrnew)
+    return arrnew
+
+  },
+  getCount(){
+    let arrnew = this.chartData.map((item,index) => {
+        return Object.assign(this.chartData[index],{'value':item.count})
+    })
+    return arrnew
+  },
+  draw(type){
+    //console.log(document.getElementById('myChart'))
+    // 实例化echarts对象
+    this.myChart = echarts.init(document.getElementById(type))
+
+    //console.log(this.myChart)
+    // 绘制条形图
+    let option = null
+    option = {
+        title: {
+            text: type
+        },
+        tooltip: {
+            show: true,
+            trigger: 'axis',
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: this.getyears()
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name: type,
+                type: 'line',
+                data: this.getCount()
+            },
+        ]
+    }
+    this.myChart.setOption(option)
+    //console.log(this.myChart)
+  }
+},
+
+mounted() {
+  for (var i = 0; i < this.TYPE.length; i++) {
+        this.getChartInfo(this.TYPE[i])
+        console.log(this.TYPE[i])
+  }
+},
+computed:{
+},
+
+components:{
+}
 }
 </script>
 
@@ -76,6 +181,12 @@ export default {
   background-color: #0000FF;
   float: left;
 }
+.rank{
+  float: left;
+  width: 300px;
+  height: 800px;
+}
+
 
 .el-row {
   &:last-child {
@@ -85,7 +196,15 @@ export default {
 .el-col {
   border-radius: 4px;
 }
-
+.bg-purple-dark {
+  background: #99a9bf;
+}
+.bg-purple {
+  background: #d3dce6;
+}
+.bg-purple-light {
+  background: #e5e9f2;
+}
 .grid-chart {
   border-radius: 4px;
   min-height: 400px;
@@ -93,6 +212,10 @@ export default {
 
 .grid-table{
     min-height: 800px;
+}
+.row-bg {
+  padding: 10px 0;
+  background-color: #f9fafc;
 }
 
 .myChart {
