@@ -52,7 +52,7 @@ class Mysql(object):
                 items = json.dumps(paper)
                 return  items
 
-            def getECCV(self):
+        def getECCV(self):
                 global ECCV2016
                 global ECCV2018
                 global ECCV2020
@@ -67,7 +67,17 @@ class Mysql(object):
                     if s[0] is not None:
                         datalist.append(s[0])
                         str = ''.split(datalist) #将元组列表转化成字符串
-                        return str
+
+                self.cursor.execute(sql2)
+                datalist1 = []
+                alldata1 = self.cursor.fetchall()
+                for s1 in alldata1:
+                    if s1[0] is not None:
+                        datalist1.append(s1[0])
+
+                        str1 = ''.join(datalist1)
+
+            return str,str2018
 
 if __name__ == '__main__':
  app.run(app.run(debug=True))
