@@ -1,9 +1,6 @@
 package com.topwordanalysis.controller;
 
-import com.topwordanalysis.databaseOperation.model.DeletePaper;
-import com.topwordanalysis.databaseOperation.model.Paper;
-import com.topwordanalysis.databaseOperation.model.RealPaper;
-import com.topwordanalysis.databaseOperation.model.Search;
+import com.topwordanalysis.databaseOperation.model.*;
 import com.topwordanalysis.service.PaperService;
 import com.topwordanalysis.util.AnalysisPaperUtil;
 import org.springframework.beans.factory.annotation.Autowired;

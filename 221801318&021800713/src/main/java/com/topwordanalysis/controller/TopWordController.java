@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,4 +66,192 @@ public class TopWordController {
         List<TopWordResult> topWordList = topWordService.select(new String[]{"type"},new Object[]{"ICCV"});
         return topWordList;
     }
+
+
+    @GetMapping("/returntopall")
+    public List<TopWordResult> returntopall(){
+        TopWordService topWordService = new TopWordService();
+        List<TopWordResult> topWordList = new ArrayList<>();
+        List<TopWordResult> topWordListTemp = topWordService.select(new String[]{"year"},new Object[]{"2020"});
+        for (int i=0;i<10;i++){
+            List<TopWordResult> temp1 = new ArrayList<>();
+            if (topWordService.select(new String[]{"word","year"},new Object[]{topWordListTemp.get(i).getWord(),"2016"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year"},new Object[]{topWordListTemp.get(i).getWord(),"2016"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+
+            if (topWordService.select(new String[]{"word","year"},new Object[]{topWordListTemp.get(i).getWord(),"2017"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year"},new Object[]{topWordListTemp.get(i).getWord(),"2017"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+            if (topWordService.select(new String[]{"word","year"},new Object[]{topWordListTemp.get(i).getWord(),"2018"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year"},new Object[]{topWordListTemp.get(i).getWord(),"2018"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+            if (topWordService.select(new String[]{"word","year"},new Object[]{topWordListTemp.get(i).getWord(),"2019"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year"},new Object[]{topWordListTemp.get(i).getWord(),"2019"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+            if (topWordService.select(new String[]{"word","year"},new Object[]{topWordListTemp.get(i).getWord(),"2020"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year"},new Object[]{topWordListTemp.get(i).getWord(),"2020"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+        }
+//        for(TopWordResult topWord:topWordList){
+//            System.out.println(topWord.getWord());
+//            System.out.println(topWord.getCount());
+//        }
+        return topWordList;
+    }
+
+
+    @GetMapping("/returntopallofeccv")
+    public List<TopWordResult> returnTopAllOfEccv(){
+        TopWordService topWordService = new TopWordService();
+        List<TopWordResult> topWordList = new ArrayList<>();
+        List<TopWordResult> topWordListTemp = topWordService.select(new String[]{"year","type"},new Object[]{"2020","ECCV"});
+        for (int i=0;i<10;i++){
+            List<TopWordResult> temp1 = new ArrayList<>();
+            if (topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2016","ECCV"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2016","ECCV"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+
+            if (topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2017","ECCV"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2017","ECCV"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+            if (topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2018","ECCV"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2018","ECCV"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+            if (topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2019","ECCV"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2019","ECCV"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+            if (topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2020","ECCV"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2020","ECCV"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+        }
+        //        for(TopWordResult topWord:topWordList){
+        //            System.out.println(topWord.getWord());
+        //            System.out.println(topWord.getCount());
+        //        }
+        return topWordList;
+    }
+
+    @GetMapping("/returntopalloficcv")
+    public List<TopWordResult> returnTopAllOfIccv(){
+        TopWordService topWordService = new TopWordService();
+        List<TopWordResult> topWordList = new ArrayList<>();
+        List<TopWordResult> topWordListTemp = topWordService.select(new String[]{"year","type"},new Object[]{"2020","ICCV"});
+        for (int i=0;i<10;i++){
+            List<TopWordResult> temp1 = new ArrayList<>();
+            if (topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2016","ICCV"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2016","ICCV"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+
+            if (topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2017","ICCV"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2017","ICCV"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+            if (topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2018","ICCV"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2018","ICCV"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+            if (topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2019","ICCV"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2019","ICCV"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+            if (topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2020","ICCV"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2020","ICCV"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+        }
+        //        for(TopWordResult topWord:topWordList){
+        //            System.out.println(topWord.getWord());
+        //            System.out.println(topWord.getCount());
+        //        }
+        return topWordList;
+    }
+
+
+    @GetMapping("/returntopallofcvpr")
+    public List<TopWordResult> returnTopAllOfCvpr(){
+        TopWordService topWordService = new TopWordService();
+        List<TopWordResult> topWordList = new ArrayList<>();
+        List<TopWordResult> topWordListTemp = topWordService.select(new String[]{"year","type"},new Object[]{"2020","CVPR"});
+        for (int i=0;i<10;i++){
+            List<TopWordResult> temp1 = new ArrayList<>();
+            if (topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2016","CVPR"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2016","CVPR"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+
+            if (topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2017","CVPR"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2017","CVPR"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+            if (topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2018","CVPR"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2018","CVPR"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+            if (topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2019","CVPR"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2019","CVPR"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+            if (topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2020","CVPR"})!=null){
+                temp1 = topWordService.select(new String[]{"word","year","type"},new Object[]{topWordListTemp.get(i).getWord(),"2020","CVPR"});
+            }else{
+                temp1.add(new TopWordResult(topWordListTemp.get(i).getWord(),"0"));
+            }
+            topWordList.addAll(temp1);
+        }
+        //        for(TopWordResult topWord:topWordList){
+        //            System.out.println(topWord.getWord());
+        //            System.out.println(topWord.getCount());
+        //        }
+        return topWordList;
+    }
+
 }
