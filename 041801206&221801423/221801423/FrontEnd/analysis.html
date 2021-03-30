@@ -331,9 +331,71 @@
             document.getElementById(type).appendChild(div1);
             document.getElementById(type).appendChild(div2);
         }
+        
+        // function add_canvas(type) {
+        //     var canvas = document.createElement("canvas");
+        //     canvas.style.border = "solid 1px red";
+        //     if(type == "CVPR"){
+        //         chartnum1++;
+        //         canvas.id = type+ "myChart" + chartnum1 ;
+        //     }else if(type == "ECCV"){
+        //         chartnum2++;
+        //         canvas.id = type+ "myChart" + chartnum2 ;
+        //     }else if(type == "ICCV"){
+        //         chartnum3++;
+        //         canvas.id = type+ "myChart" + chartnum3 ;
+        //     }
+        //     document.getElementById(type).appendChild(canvas);
+        //     document.getElementById(canvas.id).style.height = "600";
+		// 	document.getElementById(canvas.id).style.width = "600";
+        // }
+        
+        //具体化
+        
+        
+        //生成棒棒图
+        function makebbchart(pyear,ptype,keyword,frequency,pchartnum) {
+            var type = 'bar'; //line, bar, horizontalBar,...
+            var data = {
+                labels: [keyword[0], keyword[1], keyword[2], keyword[3], keyword[4],
+                keyword[5],keyword[6],keyword[7],keyword[8],keyword[9]],
+                datasets: [
+                    {
+                        label: '搜索量',
+                        data: [frequency[0], frequency[1], frequency[2], frequency[3], frequency[4], 
+                        frequency[5], frequency[6], frequency[7], frequency[8], frequency[9]],
+                        backgroundColor: '#9db3db',
+                        borderColor: 'black',
+                        borderWidth: 1,
+                    },
+                ]
+            };
 
-    </script>
+            var options = {            
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                        }
+                    }]
+                },    
+                title: {
+                    display: true,
+                    text: pyear+'年饼状图',
+                    fontColor: 'green',
+                    fontSize: '24'
+                }
+            };
+            var canvas = ptype+ "myChart" + pchartnum;
 
+            var ctx = document.getElementById(canvas).getContext('2d');
+            var chart = new Chart(ctx, {
+                type: type,
+                data: data,
+                options: options
+            });
+        }
+        //生成饼图
 
     
 </div>
