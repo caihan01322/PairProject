@@ -2,6 +2,7 @@ package com.topwordanalysis.service;
 
 import com.topwordanalysis.databaseOperation.dao.TopWordDaoImpl;
 import com.topwordanalysis.databaseOperation.model.TopWord;
+import com.topwordanalysis.databaseOperation.model.TopWordResult;
 import com.topwordanalysis.mapper.TopWordMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,17 @@ public class TopWordService {
         topWordDao.create(topWord);
     }
 
-    public List<TopWord> select(String[] propertyName,String[] value){
+    public List<TopWordResult> select(String[] propertyName,Object[] value){
         TopWordDaoImpl topWordDao = new TopWordDaoImpl();
-        List<TopWord> topWords = topWordDao.readByKey(propertyName,value);
+        List<TopWordResult> topWords = topWordDao.returnTop(propertyName,value);
         return topWords;
     }
+
+    public List<TopWordResult> returnAllTop(){
+        TopWordDaoImpl topWordDao = new TopWordDaoImpl();
+        List<TopWordResult> topWordResults = topWordDao.returnAllTop();
+        return topWordResults;
+    }
+
+
 }

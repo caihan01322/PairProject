@@ -2,6 +2,7 @@ package com.topwordanalysis.mapper;
 
 import com.topwordanalysis.databaseOperation.model.Paper;
 import com.topwordanalysis.databaseOperation.model.TopWord;
+import com.topwordanalysis.databaseOperation.model.TopWordResult;
 
 import java.util.List;
 
@@ -11,5 +12,6 @@ import java.util.List;
  */
 public interface TopWordMapper {
     void add(TopWord topWord);
-    List<TopWord> select(String[] propertyName,String[] value);
+    List<TopWordResult> select(String[] propertyName,String[] value);
+    public List<TopWordResult> returnAllTop();
 }

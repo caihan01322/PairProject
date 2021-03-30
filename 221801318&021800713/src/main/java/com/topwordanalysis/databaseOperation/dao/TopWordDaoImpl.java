@@ -44,20 +44,33 @@ public class TopWordDaoImpl implements BaseCRUD<TopWord> {
     }
 
     public List<TopWordResult> returnTop(String[] propertyName, Object[] value){
-        String head="select word,count(*) as count from topword where ";
+        String head="select word,count(*) as count from topword ";
         String sql=head;
         int count=propertyName.length;
-        //填入各个属性
-        for(int i=0;i<count;i++) {
-            if (i==0) {
-                sql=sql+propertyName[i]+"=?";
-            } else {
-                sql = sql + " and " + propertyName[i] + "=?";
+        if (!propertyName[0].equals("")){
+            sql = sql + "where ";
+            //填入各个属性
+            for(int i=0;i<count;i++) {
+                if (i==0) {
+                    sql=sql+propertyName[i]+"=?";
+                } else {
+                    sql = sql + " and " + propertyName[i] + "=?";
+                }
             }
         }
-        sql = sql + " group by word order by count desc limit 20";
+        sql = sql + " group by word order by count desc limit 10";
         List<TopWordResult> topWordList=baseDao.query(sql,value,TopWordResult.class);
         return topWordList.size()>0?topWordList:null;
     }
+
+    public List<TopWordResult> returnAllTop(){
+        String sql="select word,count(*) as count from topword";
+        sql = sql + " group by word order by count desc limit 10";
+        List<TopWordResult> topWordList=baseDao.query(sql,null,TopWordResult.class);
+        return topWordList.size()>0?topWordList:null;
+    }
+
+
+
 }
 
