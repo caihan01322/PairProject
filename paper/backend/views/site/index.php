@@ -3,6 +3,8 @@ use yii\widgets\ListView;
 use common\models\Keyword;
 use backend\components\KeywordCloud;
 use yii\helpers\Html;
+use yii\bootstrap\Carousel;
+
 /* @var $this yii\web\View */
 
 $this->title = 'Bookstore Freeloader';
@@ -44,7 +46,36 @@ $this->title = 'Bookstore Freeloader';
                         </li>
                     </ul>
                 </div>
-                <div class=""
+                    <div class="carousel-inner">
+                        <div class="item active" style="height: max-content">
+                            <?php echo Carousel::widget([
+                                'items' => [
+                                        // 包含图片和字幕的格式
+                                    [
+                                        'content' => '<img src="http://iccv2021.thecvf.com/sites/default/files/2020-01/bigstock-Montreal--August----Montr-315789169.jpg"/>',
+                                        //'options' => [...],       //配置对应的样式
+                                    ],
+                                    [
+                                        'content' => '<img src="https://eccv2020.eu/wp-content/uploads/2020/06/ECCV2020-newBG.jpg"/>',
+                                        //'options' => [...],       //配置对应的样式
+                                    ],
+                                    [
+                                        'content' => '<img src="http://cvpr2021.thecvf.com/sites/default/files/2020-12/CVPR_2021_Home%20Page.jpg" />',
+                                        //'options' => [...],       //配置对应的样式
+                                    ],
+                                ]
+                            ]);
+                            ?>
+                        </div>
+                    </div>
+                <div class="media">
+                    <iframe width="355" height="404"
+                            src="https://www.youtube.com/embed/ZoWKrxNC3QM"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                </div>
 
             </div>
         </div>

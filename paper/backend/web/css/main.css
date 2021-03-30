@@ -1,5 +1,4 @@
 .html,body{
-    background:url(img/homebg.jpg);
     background-size: cover;
     background-color: #ebf6ff;
     opacity: 0.9;
@@ -12,8 +11,8 @@
     background-position-y: 60px;}
 .grid-view td{white-space:inherit}
 .col-md-8 {
+    float: right;
     background-color: aliceblue;
-    margin-top: 46px;
 }
 .list-group{
     display: initial;
@@ -26,4 +25,7 @@
     border: none;
     opacity: 0.8;
     width: auto;
+}
+.img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img{
+    height: 250px;
 }
