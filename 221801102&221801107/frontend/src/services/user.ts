@@ -1,7 +1,8 @@
+import { BASE_URL } from '@/constants';
 import request from 'umi-request';
 
 const login = (code: string) => {
-  return request.get('/api/login', {
+  return request.get(`${BASE_URL}/login`, {
     params: {
       code,
     },
@@ -9,7 +10,7 @@ const login = (code: string) => {
 };
 
 const logout = () => {
-  return request.get('/api/logout');
+  return request.get(`${BASE_URL}/logout`);
 };
 
 export { login, logout };

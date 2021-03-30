@@ -15,6 +15,9 @@ import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import { ModelNameSpaces, RootStore } from '@/types';
 import delay from 'delay';
+import CV from '@/assets/CV.svg';
+import EC from '@/assets/EC.svg';
+import IC from '@/assets/IC.svg';
 
 const { Meta } = Card;
 
@@ -106,6 +109,48 @@ export default function SearchPage() {
     ];
   };
 
+  const renderAvatar = (contributor: string) => {
+    switch (contributor) {
+      case 'cvpr':
+        return (
+          <img
+            src={CV}
+            style={{ borderRadius: '50%' }}
+            width="40px"
+            height="40px"
+          />
+        );
+      case 'iccv':
+        return (
+          <img
+            src={IC}
+            style={{ borderRadius: '50%' }}
+            width="40px"
+            height="40px"
+          />
+        );
+      case 'eccv':
+        return (
+          <img
+            src={EC}
+            style={{ borderRadius: '50%' }}
+            width="40px"
+            height="40px"
+          />
+        );
+      default:
+        console.error('something error!');
+        return (
+          <img
+            src=""
+            style={{ borderRadius: '50%' }}
+            width="40px"
+            height="40px"
+          />
+        );
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.title}>Huro</div>
@@ -129,9 +174,7 @@ export default function SearchPage() {
             >
               <Skeleton loading={loading} avatar active>
                 <Meta
-                  avatar={
-                    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                  }
+                  avatar={renderAvatar(item.contributor)}
                   title={
                     <Button type="link" href={item.link}>
                       {item.title}

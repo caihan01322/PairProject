@@ -4,8 +4,10 @@ import { HeartFilled, EditOutlined } from '@ant-design/icons';
 import { IconText, EditModal } from '@/components';
 import { ListProps, useDispatch, useSelector } from 'umi';
 import { ModelNameSpaces, RootStore } from '@/types';
-import utl from 'lodash';
 import styles from './index.less';
+import CV from '@/assets/CV.svg';
+import EC from '@/assets/EC.svg';
+import IC from '@/assets/IC.svg';
 
 export default function Favorite() {
   const dispatch = useDispatch();
@@ -88,6 +90,48 @@ export default function Favorite() {
     setVisible(false);
   };
 
+  const renderAvatar = (contributor: string) => {
+    switch (contributor) {
+      case 'cvpr':
+        return (
+          <img
+            src={CV}
+            style={{ borderRadius: '50%' }}
+            width="40px"
+            height="40px"
+          />
+        );
+      case 'iccv':
+        return (
+          <img
+            src={IC}
+            style={{ borderRadius: '50%' }}
+            width="40px"
+            height="40px"
+          />
+        );
+      case 'eccv':
+        return (
+          <img
+            src={EC}
+            style={{ borderRadius: '50%' }}
+            width="40px"
+            height="40px"
+          />
+        );
+      default:
+        console.error('something error!');
+        return (
+          <img
+            src=""
+            style={{ borderRadius: '50%' }}
+            width="40px"
+            height="40px"
+          />
+        );
+    }
+  };
+
   return (
     <div className={styles.container}>
       <Card title="收藏夹">
@@ -115,7 +159,7 @@ export default function Favorite() {
                   onClick={(e) => handleEditClick(item)}
                 />,
               ]}
-              extra={<img width={80} alt="logo" />}
+              extra={renderAvatar(item.contributor)}
             >
               <List.Item.Meta description={item.title} />
               {item.content}

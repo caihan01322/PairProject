@@ -4,7 +4,7 @@ import * as FavoriteServices from '@/services/Favorite';
 
 export interface ListProps {
   code: string;
-  contributer: string;
+  contributor: string;
   title: string;
   content: string;
   status: number;

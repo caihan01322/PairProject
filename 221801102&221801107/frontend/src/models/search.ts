@@ -16,7 +16,7 @@ export interface SearchModelState {
 
 export interface List {
   code: string;
-  contributer: string;
+  contributor: string;
   title: string;
   content: string;
   status: number;
@@ -118,8 +118,6 @@ const SearchModel: SearchModelType = {
     },
     changeCodeStatus(state, action) {
       const { code, status } = action.payload;
-      console.log(code, status);
-      console.log('ok');
       state.list = state.list.map((value) => {
         if (value.code === code) {
           value.status = status;
