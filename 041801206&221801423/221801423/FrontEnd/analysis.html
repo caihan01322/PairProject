@@ -89,9 +89,9 @@
 
     <div class="row" style="margin-top: 30px">
         <div class="col-lg-9" style="background-color: #aee1ff">
-            <button type="button" class="btn btn-primary btn-lg btn3d" id="option1"> CVPR</button>
-            <button type="button" class="btn btn-primary btn-lg btn3d" id="option2"> ECCV</button>
-            <button type="button" class="btn btn-primary btn-lg btn3d" id="option3"> ICCV</button>
+            <button type="button"  id="option1"> CVPR</button>
+            <button type="button"  id="option2"> ECCV</button>
+            <button type="button"  id="option3"> ICCV</button>
         </div>
 
     </div>
@@ -103,7 +103,6 @@
 
         <div class="chartcontent" id="ICCV" ></div>
 
-        <div class="chartcontent" id="Difference" ></div>
     </div>
 
     <script>
@@ -167,7 +166,6 @@
         var btn1 = document.getElementById("option1");
         var btn2 = document.getElementById("option2");
         var btn3 = document.getElementById("option3");
-        var btn4 = document.getElementById("option4");
         {
                 //1.
                 if(window.XMLHttpRequest){
@@ -489,7 +487,25 @@
                 options: options
             });
         }
+        //最终实现
+        function finalmakechart(){
 
+            for(var i=0; i < chartnum1; i++){
+                var year = CVPRyear[i];
+                makebbchart(year,"CVPR",CVPRKeyword[year],CVPRfrequency[year],i+1);
+                makepiechart(year,"CVPR",CVPRKeyword[year],CVPRfrequency[year],i+1);
+            }
+            for(var i=0; i < chartnum2; i++){
+                var year = ECCVyear[i];
+                makebbchart(year,"ECCV",ECCVKeyword[year],ECCVfrequency[year],i+1);
+                makepiechart(year,"ECCV",ECCVKeyword[year],ECCVfrequency[year],i+1);
+            }
+            for(var i=0; i < chartnum3; i++){
+                var year = ICCVyear[i];
+                makebbchart(year,"ICCV",ICCVKeyword[year],ICCVfrequency[year],i+1);
+                makepiechart(year,"ICCV",ICCVKeyword[year],ICCVfrequency[year],i+1);
+            }
+        }
     </script>
 
 
