@@ -1,22 +1,20 @@
 package main
 
-import (
-	"Backend/pkg/setting"
-	"Backend/routers"
-	"fmt"
-	"net/http"
-)
+import "Backend/models"
 
 func main() {
-	router := routers.InitRouter()
+	//router := routers.InitRouter()
+	//
+	//s := http.Server{
+	//	Addr:           fmt.Sprintf(":%d", setting.HTTPPort),
+	//	Handler:        router,
+	//	ReadTimeout:    setting.ReadTimeout,
+	//	WriteTimeout:   setting.WriteTimeout,
+	//	MaxHeaderBytes: 1 << 20,
+	//}
+	//
+	//_ = s.ListenAndServe()
 
-	s := http.Server{
-		Addr:           fmt.Sprintf(":%d", setting.HTTPPort),
-		Handler:        router,
-		ReadTimeout:    setting.ReadTimeout,
-		WriteTimeout:   setting.WriteTimeout,
-		MaxHeaderBytes: 1 << 20,
-	}
+	models.GetArticleByArticleID("855", 0, 10)
 
-	_ = s.ListenAndServe()
 }
