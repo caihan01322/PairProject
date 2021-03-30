@@ -51,27 +51,12 @@ export default {
   name: 'main',
   data () {
     return {
-      name: ''
+      // name: ''
     }
   },
   computed: {
   },
   methods: {
-    toSearch () {
-      this.$router.push('/index/search')
-    },
-    toRecord () {
-      this.$router.push('/index/record')
-    },
-    toWordTrend () {
-      this.$router.push('/index/wordtrend')
-    },
-    toWordCloud () {
-      this.$router.push('/index/wordcloud')
-    },
-    toWordContrast () {
-      this.$router.push('/index/wordcontrast')
-    }
   }
 }
 </script>

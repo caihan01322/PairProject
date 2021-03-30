@@ -1,18 +1,93 @@
 <template>
   <div id="indexRecord">
-    <div id="recordSearch"></div>
-    <div id="recordBody"></div>
+    <div id="recordSearch">
+      <div id="recordRadio">
+        <RadioGroup v-model="searchType">
+          <Radio label="论文编号"></Radio>
+          <Radio label="标题"></Radio>
+          <Radio label="关键字"></Radio>
+        </RadioGroup>
+      </div>
+      <div>
+        <Input v-model="searchContent" placeholder="输入搜索内容" style="width: 400px; margin: 10px 10px" />
+        <Button type="primary" ghost style=" margin: 0 10px">本地搜索</Button>
+        <Button type="primary" ghost style=" margin: 0 10px">添加</Button>
+      </div>
+
+    </div>
+    <div id="recordBody">
+      <div class="recordItem">
+        <div class="recordTitle">Pictorial structures revisited: People detection and articulated pose estimation.</div>
+        <div class="recordCode"><span>论文编号：</span>0000000001</div>
+        <div class="recordTag">
+          <span>ieee</span>
+          <span>computer</span>
+          <span>society</span>
+        </div>
+        <div class="recordContent"><span>摘要内容：</span>Non-rigid object detection and articulated pose estimation are two related and
+          challenging problems in computer vision. Numerous models have been proposed over the years and often
+          address different special cases, such as pedestrian detection or upper body pose estimation in TV footage.
+          This paper shows that such specialization may not be necessary, and proposes a generic approach based on
+          the pictorial structures framework. We show that the right selection of components for both appearance and
+          spatial modeling is crucial for general applicability and overall performance of the model. The appearance
+          of body parts is modeled using densely sampled shape context descriptors and discriminatively trained AdaBoost
+          classifiers. Furthermore, we interpret the normalized margin of each classifier as likelihood in a generative
+          model. Non-Gaussian relationships between parts are represented as Gaussians in the coordinate system of the joint between parts.
+          The marginal posterior of each part is inferred using belief propagation.</div>
+        <div class="recordAddress">
+          <a href="#">原文地址</a>
+        </div>
+        <div class="opeBtn">
+          <Button shape="circle" icon="ios-create-outline"></Button>
+          <Button shape="circle" icon="ios-trash-outline"></Button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'record'
+  name: 'record',
+  data () {
+    return {
+      searchType: '标题',
+      searchContent: ''
+    }
+  }
 }
 </script>
 
 <style scoped lang="less">
 #indexRecord {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
+  #recordSearch {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px 0 20px 0;
+    #recordRadio {
+      width: 80%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+    }
+  }
+  #recordBody {
+    width: 90%;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border: 1px solid gray;
+  }
 </style>
