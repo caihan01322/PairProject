@@ -131,5 +131,43 @@ def resolveJson(path):
     file.close()
     return jsonify({"status":"ok"})
 
+
+#论文列表查看
+@app.route('/paper/list',methods=['GET'])
+def getPaper():
+    paper1 = request.get_json()
+    page = int (paper1.get("page"))
+    # 第几页 每页几条
+    page_item = int(paper1.get("item"))
+    m = int(page * page_item)
+    print('select * from paper limit ' + str(m) + ',' + str(page_item) + ';')
+    paper = db.session.execute('select * from paper limit ' + str(m) + ',' + str(page_item) + ';')
+    Infos = []
+    for p in paper:
+        id = p.id
+        title = p.title
+        datetime = p.datetime
+        classify = p.classify
+        Infos.append({
+            "id": id,
+            "title": title,
+            "datetime": datetime,
+            "classify": classify
+        })
+    print(Infos)
+    items = db.session.execute('select count(*) count from paper;')
+    for i in items:
+        counts = i.count
+    counts = int(counts)#总共几条
+    page = int(int(counts)/int(page_item))+1
+
+
+    return jsonify(
+        {'count':counts,
+        'page':page,
+        'data': Infos}
+    )
+
+
 if __name__ == '__main__':
     app.run(debug=True)
