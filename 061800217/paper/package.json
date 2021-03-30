@@ -9,6 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "request": "^2.88.2"
+    "crawler": "^1.3.0",
+    "fs": "0.0.1-security",
+    "lodash": "^4.17.21",
+    "request": "^2.88.2",
+    "temme": "^0.8.3"
   }
 }

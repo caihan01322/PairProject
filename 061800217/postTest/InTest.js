@@ -1,4 +1,4 @@
-const express  = require("D:/nodeJS/node_global/node_modules/express");
+const express  = require("express");
 const app = express();
 
 const bodyParser = require('body-parser')
@@ -14,7 +14,9 @@ app.all('*',function (req,res,next) {
     res.header('Access-Control-Allow-Methods','GET,POST,OPTIONS');
     next();
 })
+
 app.use('/test',require('./routeTest.js'));
-app.listen(3000,()=>{
+app.listen(3300,()=>{
+    
     console.log('Hello World');
 })
