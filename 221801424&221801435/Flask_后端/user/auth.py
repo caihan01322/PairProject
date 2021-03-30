@@ -219,3 +219,38 @@ def upload_file():
     except Exception as e:
         print(e)
         return responseError(Responses.PARAMETERS_ERROR)
+
+@auth.route("/get_star",methods=["POST"])
+def get_star():
+    try:
+        data=request.get_json()
+        user_id=data.get("user_id")
+        page_info = data.get("page_info")
+        page_size = page_info.get("page_size")
+        page_num = page_info.get("page_num")
+        allPageNum=User_article.query.filter_by(
+            user_id=user_id) \
+            .order_by(User_article.create_time.desc()).count()
+        pagination = User_article.query.filter_by(
+            user_id=user_id) \
+            .order_by(User_article.create_time.desc()).paginate(per_page=page_num, page=page_size)
+        articles = pagination.items
+        response_info = []
+        for i in articles:
+            response_info.append({
+                'id': i.id,
+                'title': i.title,
+                'create_time': i.create_time,
+                'meeting_name': i.meeting_name,
+                'authors': i.author,
+                'abstract': i.abstract,
+                'keyword': i.keyword,
+                'address': i.address
+            })
+        return responseBody(data={'data': response_info, 'allPageNum': allPageNum})
+
+
+
+    except Exception as e:
+        print(e)
+        return responseError(Responses.PARAMETERS_ERROR)
