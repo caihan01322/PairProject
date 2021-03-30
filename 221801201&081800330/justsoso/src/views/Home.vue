@@ -64,6 +64,9 @@ export default {
   watch:{
     loginVisible(){
       this.avatarUrl= this.$store.state.avatarUrl
+    },
+    manageAccountVisible(){
+      this.avatarUrl= this.$store.state.avatarUrl
     }
   },
   data(){
