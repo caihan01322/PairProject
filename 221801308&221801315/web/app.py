@@ -25,7 +25,7 @@ def index_logined():
     return render_template("index_logined.html")
 
 
-@app.route("/login_view", methods=["GET", "POST"])
+@app.route("/login_view", methods=["GET"])
 def login_view():
     """登录视图"""
     # 如果已经有登陆用户，就不允许进入登录界面
@@ -90,7 +90,7 @@ def logout():
     return redirect(url_for("login_view"))
 
 
-@app.route("/register_view", methods=["GET", "POST"])
+@app.route("/register_view", methods=["GET"])
 def register_view():
     """"注册视图"""
     return render_template("register.html")
@@ -225,25 +225,6 @@ def search_by_keyword(keyword, page):
     return pagination
 
 
-@app.route("/view", methods=["GET"])
-def view():
-    """查看论文
-
-    在查询列表，每篇论有一个查看按钮，点击查看后看到论文详细内容
-
-    Args:
-        title: 在列表视图中点击查看按钮时会自动获取title
-
-    Return:
-        返回模板渲染
-    """
-    title = request.args.get("title")
-
-    article = Articles.query.filter(Articles.title == title).first()
-
-    return render_template("view.html", article=article)
-    
-
 @app.route("/delete", methods=["GET"])
 def delete():
     """删除论文
@@ -258,7 +239,7 @@ def delete():
     """
     title = request.args.get("title")
 
-    article = Articles.query.filter(Articles.title == title).first()
+    article = Articles.query.filter(Articles.title == title)
 
     db.session.delete(article)
     db.session.commit()
@@ -299,11 +280,11 @@ def hot_keywords():
             year = int(article.publicationYear)
             if year in range(BEGIN_YEAR, CURRENT_YEAR):
                 if article.meeting == "CVPR":
-                    CVPR[year - BEGIN_YEAR] += 1
+                    CVPR[year - BEGIN_YEAR] += 1;
                 elif article.meeting == "ECCV":
-                    ECCV[year - BEGIN_YEAR] += 1
+                    ECCV[year - BEGIN_YEAR] += 1;
                 else:
-                    ICCV[year - BEGIN_YEAR] += 1
+                    ICCV[year - BEGIN_YEAR] += 1;
 
         per_key = {"keyword": key.keyword, "url": url_for("search", condition=key.keyword, search_way="keyword"),
                    "CVPR": CVPR, "ECCV": ECCV, "ICCV": ICCV}
@@ -314,4 +295,4 @@ def hot_keywords():
 
 if __name__ == "__main__":
     app.config['JSON_AS_ASCII'] = False
-    app.run(port=8080, debug=True)
+    app.run(port=5000, debug=True)
