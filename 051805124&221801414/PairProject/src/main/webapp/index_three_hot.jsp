@@ -29,11 +29,10 @@
     <div>
         <div class="contentleft">
             <ul>
-                 <li class="icon"><a href="index_one_add.jsp"><i><img src="./ImageResources/folderadd.png"></i>论文爬取</a></li>
                  <li class="icon"><a href="dopapersearch?cp=1"><i><img src="./ImageResources/database.png"></i>论文管理</a></li>
                  <li class="icon">
                  	<div><a href="index.jsp"><i><img src="./ImageResources/fund.png"></i>论文分析</a></div>
-                 	<div class="titleright"><a href="DoPaperPie?">关键词TOP10</a></div>
+                 	<div class="titleright"><a href="DoPaperPie?year=total">关键词TOP10</a></div>
                  	<div class="titleright"><a href="DoPaperLine?year=2017">热词走势</a></div>
                  </li>
                  <li class="icon"><a href="index_four.jsp"><i><img src="./ImageResources/read.png"></i>背景知识</a></li>

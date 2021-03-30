@@ -96,4 +96,10 @@ public class PaperDao {
 		}
 		return map;
 	}
+
+	public static int updatePaper(int id, String title, String year, String magazine, String link, String abst) {
+		String sql = "update article set title = \'"+title+"\', year = "+year+", conclude = \'"+abst+"\', link = \'"+link+"\', magazine = \'"+magazine+"\' where id = "+id;
+		System.out.println(sql);
+		return Basedao.updatePaper(sql);
+	}
 }

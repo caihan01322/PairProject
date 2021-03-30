@@ -32,12 +32,20 @@ public class DoPaperPie extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=utf-8");
+		
 		Map<String, Integer> map = new HashMap<String,Integer>();
+		
 		String[] keywords = new String[MAX_NUM];
 		int[] occur = new int[MAX_NUM];
 		int i = 0;
 		
-		ArrayList<String> list = PaperDao.getKeyWords();
+		String year = request.getParameter("year");
+		ArrayList<String> list = new ArrayList<String>();
+		if(year.equals("total")) {
+			list = PaperDao.getKeyWords();
+		} else {
+			list = PaperDao.getKeyWordsByYear(year);
+		}
 			for(String str : list) {
 			if (map.containsKey(str)) {
     			int occurs = map.get(str);
@@ -57,6 +65,7 @@ public class DoPaperPie extends HttpServlet {
             occur[i++] = Map.getValue();
         }
 		
+		request.setAttribute("year", year);
 		request.setAttribute("keyword", keywords);
 		request.setAttribute("occur", occur);
 		request.getRequestDispatcher("index_three_chart.jsp").forward(request, response);

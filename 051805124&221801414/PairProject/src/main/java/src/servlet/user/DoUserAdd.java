@@ -50,7 +50,7 @@ public class DoUserAdd extends HttpServlet {
 		int count = UserDao.insert(user);
 		
 		if(count > 0) {
-			response.sendRedirect("index.jsp");
+			response.sendRedirect("login.jsp");
 		}else {
 			PrintWriter out = response.getWriter();
 			out.write("<script>");

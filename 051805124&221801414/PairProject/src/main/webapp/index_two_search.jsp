@@ -31,12 +31,11 @@
     <div>
         <div class="contentleft">
             <ul>
-                 <li class="icon"><a href="index_one_add.jsp"><i><img src="./ImageResources/folderadd.png"></i>论文爬取</a></li>
                  <li class="icon">
                  	<div><a href="index.jsp"><i><img src="./ImageResources/database.png"></i>论文管理</a></div>
                  	<div class="titleright"><a href="dopapersearch?cp=1">论文查找</a></div>
                  </li>
-                 <li class="icon"><a href="DoPaperPie?"><i><img src="./ImageResources/fund.png"></i>论文分析</a></li>
+                 <li class="icon"><a href="DoPaperPie?year=total"><i><img src="./ImageResources/fund.png"></i>论文分析</a></li>
                  <li class="icon"><a href="index_four.jsp"><i><img src="./ImageResources/read.png"></i>背景知识</a></li>
             </ul>
         </div>
@@ -79,14 +78,14 @@
     		</tr>
     		
     		<c:forEach var="u" items="${paperlist}">
-    			<tr style="border-bottom: 2px solid #666; height: 50px;">
+    			<tr>
     				<td class="td"><div class="tdcontent">${u.title}</div></td>
 	    			<td class="td"><div class="tdcontent">${u.keyword}</div></td>
 	    			<td class="td"><div class="tdcontent">${u.abst}</div></td>
 	    			<td class="td"><div class="tdcontent"><a class="button" href="${u.link}">${u.link}</a></div></td>
 	    			<td class="tdlast">
 	    				<div class="tdcontent">
-	    					<a class="button" href="dopaperdetail?id=${u.paperNum }">查看</a>
+	    					<a class="button" href="dopaperdetail?id=${u.paperNum }&cp=${curPage}">查看</a>
 	    					<a class="button" href="javascript:Delete('你确定要删除该项吗？','dopaperdelete?id=${u.paperNum }&cp=${curPage}')">删除</a>
 	    				</div>
 	    			</td>

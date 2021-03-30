@@ -26,12 +26,17 @@ public class DoPaperDetail extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		
 		int id = Integer.parseInt(request.getParameter("id"));
+		String curPage = request.getParameter("cp");
 		PaperBean bean = PaperDao.showPaper(id);
 		
-		request.setAttribute("title",bean.getTitle() );
-		request.setAttribute("link",bean.getLink() );
-		request.setAttribute("abst",bean.getAbst() );
+		
+		request.setAttribute("id", id);
+		request.setAttribute("curpage",curPage);
+		request.setAttribute("title",bean.getTitle());
+		request.setAttribute("year",bean.getYear());
 		request.setAttribute("magazine",bean.getMagazine());
+		request.setAttribute("link",bean.getLink());
+		request.setAttribute("abst",bean.getAbst());
 		request.setAttribute("keyword",PaperDao.getKeyWord(bean.getPaperNum()));
 		request.getRequestDispatcher("index_two_edit.jsp").forward(request, response);
 	}

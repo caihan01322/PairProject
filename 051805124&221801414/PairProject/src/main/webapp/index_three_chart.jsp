@@ -30,11 +30,10 @@
     <div>
         <div class="contentleft">
             <ul>
-                 <li class="icon"><a href="index_one_add.jsp"><i><img src="./ImageResources/folderadd.png"></i>论文爬取</a></li>
                  <li class="icon"><a href="dopapersearch?cp=1"><i><img src="./ImageResources/database.png"></i>论文管理</a></li>
                  <li class="icon">
                  	<div><a href="index.jsp"><i><img src="./ImageResources/fund.png"></i>论文分析</a></div>
-                 	<div class="titleright"><a href="DoPaperPie?">关键词TOP10</a></div>
+                 	<div class="titleright"><a href="DoPaperPie?year=total">关键词TOP10</a></div>
                  	<div class="titleright"><a href="DoPaperLine?year=2017">热词走势</a></div>
                  </li>
                  <li class="icon"><a href="index_four.jsp"><i><img src="./ImageResources/read.png"></i>背景知识</a></li>
@@ -100,6 +99,49 @@
         	    window.location.href = url;
         	});
         </script>
+        <div class="pieselect">
+    		<form action="DoPaperPie" method="get">
+    			<select name="year">
+    				<c:if test="${year=='total'}">
+						<option value ="total" selected="selected" >total</option>
+					</c:if>
+  					<c:if test="${year!='total'}">
+						<option value ="total" >total</option>
+					</c:if>
+    				<c:if test="${year=='2016'}">
+						<option value ="2016" selected="selected" >2016</option>
+					</c:if>
+  					<c:if test="${year!='2016'}">
+						<option value ="2016" >2016</option>
+					</c:if>
+					<c:if test="${year=='2017'}">
+						<option value ="2017" selected="selected" >2017</option>
+					</c:if>
+  					<c:if test="${year!='2017'}">
+						<option value ="2017" >2017</option>
+					</c:if>
+					<c:if test="${year=='2018'}">
+						<option value ="2018" selected="selected" >2018</option>
+					</c:if>
+  					<c:if test="${year!='2018'}">
+						<option value ="2018" >2018</option>
+					</c:if>
+					<c:if test="${year=='2019'}">
+						<option value ="2019" selected="selected" >2019</option>
+					</c:if>
+  					<c:if test="${year!='2019'}">
+						<option value ="2019" >2019</option>
+					</c:if>
+  					<c:if test="${year=='2020'}">
+						<option value ="2020" selected="selected" >2020</option>
+					</c:if>
+  					<c:if test="${year!='2020'}">
+						<option value ="2020" >2020</option>
+					</c:if>
+				</select>
+				<input class="searchBtn" id="button" type="submit" value="切换"/>
+            </form>
+    	</div>
     	</div>
     </div>
 </div>

@@ -5,14 +5,16 @@ public class PaperBean {
 	private String title;
 	private String link;
 	private String abst;
+	private String year;
 	private String magazine;
 	private String keyword;
-	public PaperBean(int paperNum,String title, String link, String abst, String magazine) {
+	public PaperBean(int paperNum,String title, String link, String abst, String year, String magazine) {
 		super();
 		this.paperNum = paperNum;
 		this.title = title;
 		this.link = link;
 		this.abst = abst;
+		this.year = year;
 		this.magazine = magazine;
 	}
 	
@@ -49,6 +51,12 @@ public class PaperBean {
 	}
 	public void setAbst(String abst) {
 		this.abst = abst;
+	}
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
 	}
 	public String getMagazine() {
 		return magazine;

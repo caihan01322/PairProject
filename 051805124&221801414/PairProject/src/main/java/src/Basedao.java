@@ -22,7 +22,6 @@ public class Basedao {
 	public static Connection getconnection() {
 		Connection conn = null;
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/papershow?serverTimezone=UTC&useSSL=false&useOldAliasMetadataBehavior=true","root","ljx10086");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -83,6 +82,7 @@ public class Basedao {
 						rs.getString("title"),
 						rs.getString("link"),
 						rs.getString("conclude"),
+						rs.getString("year"),
 						rs.getString("magazine")
 						));
 			}
@@ -149,6 +149,7 @@ public class Basedao {
 					rs.getString("title"),
 					rs.getString("link"),
 					rs.getString("conclude"),
+					rs.getString("year"),
 					rs.getString("magazine")
 					);
 			}
@@ -227,5 +228,21 @@ public class Basedao {
 			Basedao.closeAll(ps,conn);
 		}
 		return list;
+	}
+
+	public static int updatePaper(String sql) {
+		int count = 0;
+		Connection conn = Basedao.getconnection();
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			count = ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			Basedao.closeAll(ps,conn);
+		}
+		return count;
 	}
 }
