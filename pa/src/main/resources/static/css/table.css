@@ -1,9 +1,0 @@
-table.search{
-    table-layout:fixed;
-}
-td.search_item{
-    overflow: hidden;
-    word-break: keep-all;
-    white-space:nowrap;
-    text-overflow:ellipsis
-}
