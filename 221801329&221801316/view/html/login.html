@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/login.css">
+    <script type="text/javascript" src="../js/axios.min.js"></script>
+    <script src="../js/jquery-2.2.0.min.js"></script>
+    <script src="../js/sweetalert.js"></script>
+    <script src="../js/login.js"></script>
+
     <title>Sign in</title>
 </head>
+
 <body>
     <div class="login">
         <h3>Sign in to PaperSearcher</h3>
-        <form method="POST" action="">
+        <form>
             <input type="text" name="username" id="username" placeholder="Username" required="required">
-            <input type="password" name="password" id="uassword" placeholder="Password" required="required">
-            <button type="submit">Sign in</button>
+            <input type="password" name="password" id="password" placeholder="Password" required="required">
+            <span onclick="login()">Sign in</span>
         </form>
-        <p>New to PaperSearcher?  <a href="#">Create an account</a></p>
+        <p>New to PaperSearcher? <a href="#">Create an account</a></p>
     </div>
 </body>
+
 </html>

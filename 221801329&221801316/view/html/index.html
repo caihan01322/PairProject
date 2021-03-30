@@ -1,101 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/index.css">
-    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script type="text/javascript" src="../js/axios.min.js"></script>
+    <script src="../js/highcharts.js"></script>
+    <script src="../js/exporting.js"></script>
+    <script src="../js/sunburst.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="../js/paperList.js"></script>
+    <script src="../js/paperList.js"></script>
+    <script src="../js/analyze.js"></script>
+    <script src="../js/jquery-2.2.0.min.js"></script>
     <title>Welcome to PaperSearcher</title>
 </head>
+
 <body>
     <div class="block">
-        <div class="left-bar" >
+        <div class="left-bar">
             <div class="top-box">
                 <span class="project-title">PaperSearcher</span>
             </div>
             <div class="bottom-box">
                 <div class="menu-list">
                     <div class="menu-title">MENU</div>
-                    <div id="index" class="menu-item">
+                    <div class="menu-item">
                         <img src="../img/green-home.svg" alt="" class="menu-item-img">
-                        <span class="menu-span">首页</span>
+                        <span id="index" onclick="getIndex()">
+                            <span class="menu-span">首页</span>
+                        </span>
                     </div>
-                    <div id="paper-list" class="menu-item">
+                    <div class="menu-item">
                         <img src="../img/blue-list.svg" alt="" class="menu-item-img">
-                        <span class="menu-span">论文列表</span>
+                        <span id="paper-list" onclick="getPaperList(0)">
+                            <span class="menu-span">论文列表</span>
+                        </span>
                     </div>
-                    <div id="paper-analyse" class="menu-item">
+                    <div class="menu-item">
                         <img src="../img/red-table.svg" alt="" class="menu-item-img">
-                        <span class="menu-span">论文分析</span>
+                        <span id="paper-analyse">
+                            <span class="menu-span" onclick="getSunBurst()">论文分析</span>
+                        </span>
                     </div>
-                    <div id="paper-collection" class="menu-item">
+                    <div class="menu-item">
                         <img src="../img/orange-star.svg" alt="" class="menu-item-img">
-                        <span class="menu-span">收藏夹</span>
+                        <span id="paper-collection">
+                            <span class="menu-span">收藏夹</span>
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
         <div class="main-content">
             <div class="top-box" id="search-box">
+                <select class="search-checklist" id="checklist">
+                    <option value="author">Author</option>
+                    <option value="title">Title</option>
+                    <option value="keyword">Keyword</option>
+                </select>
                 <form action="" id="search-form">
-                   <input type="text" name="search-text" id="search-text" placeholder="Input something here">
-                   <img src="../img/gray-search.svg" alt="" onclick="getPaperList(0)">
+
+                    <input type="text" name="search-text" id="search-text" placeholder="Input something here">
+                    <img src="../img/gray-search.svg" alt="" onclick="getPaperList(0)" id="search-icon">
                 </form>
             </div>
             <div class="main-panel" id="main-panel">
-                <div class="paper-list" id="">
-                    <a href="#" class="paper-title">paperTitle</a>
-                    <p class="paper-author">author1,author2,author3</p>
-                    <p> 
-                        <span class="paper-abstract-title">[Abstract]</span>
-                        <span class="paper-abstract-detial">We present a novel and high-performance 3D object detection framework, named PointVoxel-RCNN (PV-RCNN), for accurate 3D object detection from point clouds. Our proposed method deeply integrates both 3D voxel Convolutional Neural Network (CNN) and PointNet-based set abstraction to learn more discriminative point cloud features.</span>
-                    </p>
-                    <p>
-                        <span class="paper-keyword">[Keyword]</span>
-                        <span class="paper-keyword-list">Keyword</span>
-                    </p>   
+                <div class="img-panel">
+                    <img src="../img/u98.png" class="img-box" alt="">
+                    <span class="img-span">A batch/recursive algorithm for 3D scene reconstruction</span>
+                    <span class="img-keyword">Camera Rotation</span>
                 </div>
-                <div class="paper-list" id="">
-                    <a href="#" class="paper-title">paperTitle</a>
-                    <p class="paper-author">author1,author2,author3</p>
-                    <p> 
-                        <span class="paper-abstract-title">[Abstract]</span>
-                        <span class="paper-abstract-detial">We present a novel and high-performance 3D object detection framework, named PointVoxel-RCNN (PV-RCNN), for accurate 3D object detection from point clouds. Our proposed method deeply integrates both 3D voxel Convolutional Neural Network (CNN) and PointNet-based set abstraction to learn more discriminative point cloud features.</span>
-                    </p>
-                    <p>
-                        <span class="paper-keyword">[Keyword]</span>
-                        <span class="paper-keyword-list">Keyword</span>
-                    </p>   
-                </div>
-                <div class="paper-list" id="">
-                    <a href="#" class="paper-title">paperTitle</a>
-                    <p class="paper-author">author1,author2,author3</p>
-                    <p> 
-                        <span class="paper-abstract-title">[Abstract]</span>
-                        <span class="paper-abstract-detial">We present a novel and high-performance 3D object detection framework, named PointVoxel-RCNN (PV-RCNN), for accurate 3D object detection from point clouds. Our proposed method deeply integrates both 3D voxel Convolutional Neural Network (CNN) and PointNet-based set abstraction to learn more discriminative point cloud features.</span>
-                    </p>
-                    <p>
-                        <span class="paper-keyword">[Keyword]</span>
-                        <span class="paper-keyword-list">Keyword</span>
-                    </p>   
-                </div>
-                <div class="paper-list" id="">
-                    <a href="#" class="paper-title">paperTitle</a>
-                    <p class="paper-author">author1,author2,author3</p>
-                    <p> 
-                        <span class="paper-abstract-title">[Abstract]</span>
-                        <span class="paper-abstract-detial">We present a novel and high-performance 3D object detection framework, named PointVoxel-RCNN (PV-RCNN), for accurate 3D object detection from point clouds. Our proposed method deeply integrates both 3D voxel Convolutional Neural Network (CNN) and PointNet-based set abstraction to learn more discriminative point cloud features.</span>
-                    </p>
-                    <p>
-                        <span class="paper-keyword">[Keyword]</span>
-                        <span class="paper-keyword-list">Keyword</span>
-                    </p>   
+                <div class="img-panel">
+                    <img src="../img/u98.png" class="img-box" alt="">
+                    <span class="img-span">A batch/recursive algorithm for 3D scene reconstruction</span>
+                    <span class="img-keyword">Camera Rotation</span>
                 </div>
             </div>
+
         </div>
         <div class="right-bar">
             <div class="top-box">
@@ -129,7 +112,8 @@
             </div>
         </div>
     </div>
-    
-    
+
+
 </body>
+
 </html>

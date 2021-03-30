@@ -1,21 +1,31 @@
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+}
+
 .block {
     text-align: center;
     margin: 0, auto;
-    height: auto;
+    height: 100%;
     margin: auto;
 }
 
 .left-bar,
 .right-bar {
     width: 20%;
-    height: 780px;
+    height: 100%;
     /* background-color: aqua; */
     float: left;
 }
 
 .main-content {
     width: 60%;
-    height: 780px;
+    height: 100%;
     /* overflow: auto; */
     /* background-color:black; */
     float: left;
@@ -27,12 +37,11 @@
     /*background-color: blue;*/
     display: flex;
     align-items: center;
-
 }
 
 .bottom-box {
     width: 100%;
-    height: 93%;
+    height: 100%;
     border-style: solid;
     border-width: 1px;
     border-color: #efefef;
@@ -56,7 +65,6 @@
 .main-panel::-webkit-scrollbar-track {
     background: rgb(202, 202, 202);
     border-radius: 2px;
-
 }
 
 .main-panel::-webkit-scrollbar-thumb {
@@ -89,6 +97,9 @@
 }
 
 .menu-span {
+    text-align: left;
+    width: 25%;
+    /*84%*/
     font-family: "微软雅黑 Regular", "微软雅黑, sans-serif";
     font-weight: 400;
     font-style: normal;
@@ -96,6 +107,46 @@
     color: rgb(127, 127, 127);
     float: left;
     margin-left: 10%;
+    background-color: #fff;
+    -webkit-transition: -webkit-transform 1s, opacity 1s, background-color 1s, width 1s, height 1s, color 1s;
+    -o-transition-property: width, height, -o-transform, background-color, color, opacity;
+    -o-transition-duration: 1s, 1s, 1s, 1s, 1s, 1s;
+    -moz-transition-property: width, height, -o-transform, background-color, color, opacity;
+    -moz-transition-duration: 1s, 1s, 1s, 1s, 1s, 1s;
+    transition-property: width, height, transform, background-color, color, opacity;
+    transition-duration: 1s, 1s, 1s, 1s, 1s, 1s;
+}
+
+#index :hover {
+    cursor: pointer;
+    color: #fff;
+    width: 84%;
+    background-color: #71B604;
+}
+
+#paper-list :hover {
+    cursor: pointer;
+    color: #fff;
+    width: 84%;
+    background-color: #81D3F8;
+}
+
+#paper-analyse :hover {
+    cursor: pointer;
+    color: #fff;
+    width: 84%;
+    background-color: #EC808D;
+}
+
+#paper-collection :hover {
+    cursor: pointer;
+    color: #fff;
+    width: 84%;
+    background-color: #F59A23;
+}
+
+#search-icon {
+    cursor: pointer;
 }
 
 .menu-title {
@@ -107,8 +158,8 @@
     font-style: normal;
     font-size: 20px;
     color: rgb(85, 85, 85);
-
 }
+
 .project-title {
     text-align: center;
     font-family: "微软雅黑 Bold", "微软雅黑 Regular", "微软雅黑, sans-serif";
@@ -117,6 +168,7 @@
     font-size: 20px;
     color: rgb(85, 85, 85);
 }
+
 .menu-item {
     margin-left: 15%;
     width: 85%;
@@ -126,6 +178,7 @@
 
 .menu-item-img {
     float: left;
+    width: 6%;
 }
 
 .my-keyword {
@@ -175,24 +228,30 @@
     float: left;
 }
 
+.search-checklist {
+    width: 10%;
+    margin-left: 3%;
+}
+
 #search-form {
-    width: 100%;
+    width: 90%;
 }
 
 #search-text {
     width: 90%;
     height: 50%;
     vertical-align: middle;
-    margin-left: 3%;
+    /* margin-left: 3%; */
     float: left;
 }
 
-#search-box{
+#search-box {
     border-left: 1px solid #efefef;
     border-right: 1px solid #efefef;
 }
 
 .paper-list {
+    position: relative;
     margin-top: 20px;
     margin-left: 5%;
     width: 90%;
@@ -213,4 +272,77 @@
 .paper-author {
     color: #666;
     font-size: 15px;
+}
+
+li {
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background-color: #F2F2F2;
+    /* border: 1px solid #1E88DA; */
+    text-align: center;
+}
+
+.active {
+    background-color: #1E88DA;
+}
+
+.img-panel {
+    position: relative;
+    margin-top: 50px;
+    width: 40%;
+    margin-left: 5%;
+    margin-right: 5%;
+    height: 30%;
+    overflow: hidden;
+    background-size: contain;
+    float: left;
+    /* display: inline; */
+}
+
+.img-box {
+    max-width: 100%;
+    height: auto;
+    transition: all 1.5s;
+    cursor: pointer;
+}
+
+.img-box:hover {
+    transform: scale(1.5);
+}
+
+.img-span {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+    position: absolute;
+    top: 68%;
+    left: 5%;
+    color: aliceblue;
+    text-align: left;
+}
+
+.img-keyword {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 12px;
+    padding-left: 3px;
+    padding-right: 3px;
+    position: absolute;
+    background-color: wheat;
+    top: 58%;
+    left: 5%;
+}
+
+#container {
+    min-width: 310px;
+    max-width: 800px;
+    margin: 0 auto
+}
+
+.like {
+    position: absolute;
+    top: 2%;
+    left: 95%;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
 }

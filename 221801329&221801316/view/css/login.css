@@ -3,14 +3,16 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
-    font-family: "微软雅黑",sans-serif;
+    font-family: "微软雅黑", sans-serif;
     text-align: center;
     margin: 0 auto;
 }
-.login{
+
+.login {
     position: absolute;
-    top:50%;
+    top: 50%;
     left: 50%;
     margin: -150px 0 0 -250px;
     width: 500px;
@@ -19,31 +21,37 @@ body {
     border-radius: 5px;
     background-color: #F6F8FA;
 }
+
 .login h3 {
     margin-top: 15px;
     text-align: center;
     margin-bottom: 20px;
 }
-input{
-    padding:10px;
-    width:65%;
-    color:rgb(85, 85, 85);
-    margin-bottom:25px;
-    background-color:white;
+
+input {
+    padding: 10px;
+    width: 65%;
+    color: rgb(85, 85, 85);
+    margin-bottom: 25px;
+    background-color: white;
     border: 1px solid rgb(156, 156, 156);
-    border-radius:4px;
+    border-radius: 4px;
 }
-form button{
+
+form span {
+    margin: 0 auto;
+    display: block;
     margin-top: 10px;
     text-align: center;
-    width:50%;
-    padding:10px;
+    width: 50%;
+    padding: 10px;
     color: white;
-    background-color:#44AFDD;
+    background-color: #44AFDD;
     border: none;
-    border-radius:4px;
-    cursor:pointer; 
-}  
+    border-radius: 4px;
+    cursor: pointer;
+}
+
 p {
     margin-top: 12px;
     font-family: "微软雅黑 Bold", "微软雅黑 Regular", "微软雅黑, sans-serif";
@@ -52,7 +60,8 @@ p {
     font-size: 15px;
     color: rgb(156, 156, 156);
 }
-p a{
+
+p a {
     color: #44AFDD;
     text-decoration: none;
 }
