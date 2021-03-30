@@ -256,6 +256,15 @@ html {
     outline: none;
 }
 
+#resultBar {
+    height: 650px;
+    border-style: solid;
+    border-color: rgb(240, 232, 232);
+    border-radius: 5px;
+    border-width: 0ch;
+    margin-top: 12px;
+}
+
 .resultItem {
     width: 665px;
     height: 185px;
@@ -267,41 +276,34 @@ html {
     float: left;
 }
 
-#resultBar {
-    height: 650px;
-    border-style: solid;
-    border-color: rgb(240, 232, 232);
-    border-radius: 5px;
-    border-width: 0ch;
-    margin-top: 12px;
-}
-
-#itemBar {
-    height: 620px;
-    border-style: solid;
-    border-color: rgb(240, 232, 232);
-    border-radius: 5px;
-    border-width: 0ch;
-}
-
 .resultItem .itemHeading {
+    width: 665px;
     height: 35px;
     border-style: solid;
     border-color: rgb(240, 232, 232);
     border-width: 0 0 1px 0;
     color: #FFFFFF;
+    float: left;
 }
 
 .resultItem .itemContent {
-    height: 115px;
+    width: 638px;
+    height: 90px;
+    padding: 2%;
     border-style: solid;
     border-color: rgb(240, 232, 232);
-    border-width: 0 0 1px 0;
+    /* border-width: 0 0 1px 0; */
+    border-width: 1px;
     color: #FFFFFF;
+    text-overflow: ellipsis;
+    overflow: auto;
+    float: left;
 }
 
 .resultItem .itemOperation {
+    width: 665px;
     height: 35px;
+    float: left;
 }
 
 .resultItem .itemOperation .keyWord {
@@ -390,6 +392,9 @@ html {
 
 #pageBar {
     height: 40px;
+    width: 1382px;
+    float: left;
+    margin-top: 7px;
 }
 
 #pageBar .pageButtoun {

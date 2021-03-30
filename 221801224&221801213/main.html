@@ -26,23 +26,21 @@
         <div id="main">
             <div id="searchBar">
                 <input type="text" id="textSearch" placeholder="   请输入论文的相关信息" v-model="userInput">
-                <button id="buttonSearch" @click="doSearching"><span>查询</span></button>
+                <button id="buttonSearch" @click="t1"><span>查询</span></button>
             </div>
             <div id="resultBar">
-                <div id="itemBar">
-                    <div class="resultItem" v-for="item in listData">
-                        <div class="itemHeading">no.{{ item.num }}: {{ item.heading }}</div>
-                        <div class="itemContent">{{ item.content }}</div>
-                        <div class="itemOperation">
-                            <button class="keyWord">{{ item.keyword1 }}</button>
-                            <button class="keyWord">关键词2</button>
-                            <button class="keyWord">关键词3</button>
-                            <a :href="item.source">
-                                <div class="sourceLink">原文链接</div>
-                            </a>
-                            <div class="operation">修改论文</div>
-                            <div class="deleteArt" @click="deleteArticle">删除论文</div>
-                        </div>
+                <div class="resultItem" v-for="item in info">
+                    <div class="itemHeading">no.{{ item.paper_id }}: ({{ item.magazine }}){{ item.title }}</div>
+                    <div class="itemContent">{{ item.abstract }}</div>
+                    <div class="itemOperation">
+                        <button class="keyWord">关键词</button>
+                        <button class="keyWord">关键词2</button>
+                        <button class="keyWord">关键词3</button>
+                        <a :href="item.link" target="_blank">
+                            <div class="sourceLink">原文链接</div>
+                        </a>
+                        <div class="operation">修改论文</div>
+                        <div class="deleteArt" @click="deleteArticle">删除论文</div>
                     </div>
                 </div>
                 <div id="pageBar">
