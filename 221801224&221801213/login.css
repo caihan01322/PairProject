@@ -1,0 +1,115 @@
+html {
+    background-image: url(./1.jpg);
+}
+
+#wrap {
+    /* border-style: solid;
+    border-color: rgb(240, 232, 232); */
+    height: 900px;
+    width: 1900px;
+}
+
+#main {
+    background-color: rgb(36, 36, 36);
+    float: left;
+    width: 1400px;
+    height: 835px;
+    border-style: solid;
+    border-color: rgb(255, 255, 255);
+    border-width: 0.1ch;
+    opacity: 0.9;
+    margin-left: 250px;
+    margin-top: 60px;
+}
+
+#main .title {
+    text-align: center;
+    background-color: rgb(36, 36, 36);
+    width: 500px;
+    height: 100px;
+    /* border-style: solid;
+    border-color: rgb(255, 255, 255);
+    border-width: 0.1ch; */
+    opacity: 0.9;
+    margin-left: 450px;
+    margin-top: 220px;
+    margin-bottom: 60px;
+    font-size: 55px;
+    color: #f1f3f1;
+    font-family: "楷体", "楷体_GB2312";
+}
+
+#main .tips {
+    text-align: center;
+    color: #ce2d2d;
+}
+
+.button {
+    position: relative;
+    background-color: #111311;
+    border: none;
+    font-size: 20px;
+    color: #FFFFFF;
+    padding: 5px;
+    width: 150px;
+    text-align: center;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 0.1ch;
+    border-color: rgb(240, 232, 232);
+    margin-top: 40px;
+    margin-right: 8px;
+    /* 不出现蓝色边框 */
+    outline: none;
+}
+
+.button:after {
+    content: "";
+    background: #f1f3f1;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px !important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+}
+
+.button:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
+}
+
+#inputText {
+    width: 300px;
+    height: 41px;
+    font-size: 20px;
+    background: rgba(8, 8, 8, 0.1);
+    border-width: 0.1ch;
+    border-radius: 10px;
+    color: #FFFFFF;
+    /* 不出现蓝色边框 */
+    outline: none;
+}
+
+#main .enter {
+    margin-left: 550px;
+}
+
+#main .username {
+    margin-left: 550px;
+}
+
+#main .password {
+    margin-left: 550px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
