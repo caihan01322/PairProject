@@ -25,6 +25,9 @@
         </nav>
 
         <div id="CVPR" style="width: 1536px;height:864px;"></div>
+        <div id="ECCV" style="width: 1536px;height:864px;display: none;"></div>
+        <div id="ICCV" style="width: 1536px;height:864px;display: none;"></div>
+        <div id="ALL" style="width: 1536px;height:864px;display: none;"></div>
         <script type="text/javascript">
           // 基于准备好的dom，初始化echarts实例
   var chartDom = document.getElementById('CVPR');
@@ -155,5 +158,395 @@
   option && myChart.setOption(option);
   
       </script>
+       <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+var chartDom = document.getElementById('CVPR');
+var myChart = echarts.init(chartDom);
+var option;
+option = {
+    baseOption: {
+        timeline: {
+            axisType: 'category',
+            // realtime: false,
+            // loop: false,
+            autoPlay: true,
+            // currentIndex: 2,
+            playInterval: 3000,
+            // controlStyle: {
+            //     position: 'left'
+            // },
+         
+            data: [
+               'CVPR2018','CVPR2019','CVPR2020'
+            ],
+        },
+        title: {
+            subtext: '数据来自国家统计局'
+        },
+        tooltip: {
+        },
+        calculable : true,
+        grid: { containLabel: true },
+        xAxis: [{
+        type: 'category',
+        name: 'KeyWord',
+      },],
+      yAxis: { type: 'value', name: '频率' },
+      series: [
+            { type: 'bar'},
+            {
+                name: 'GDP占比',
+                type: 'pie',
+                center: ['90%', '35%'],
+                radius: '28%',
+                z: 100
+            }
+        ]
+    },
+    options: [
+      {
+        xAxis: [{
+          data: ['learning (artificial intelligence)', 'feature extraction', 'training','image reconstruction','neural nets','task analysis','computer vision','cameras','object detection','convolutional neural nets']
+        }],
+        title: {
+          text: 'CVPR2020',
+          subtext: '从频率高到低'
+        },
+        series: [
+        {
+            data: [284,192,152,143,140,127,113,111,88,86]
+          },
+                {data: [
+            {name: 'learning (artificial intelligence)', value:284},
+            {name: 'feature extraction', value:192},
+            {name:  'training', value:152},
+            {name: 'image reconstruction', value:143},
+            {name:'neural nets', value:140},
+            {name: 'task analysis', value:127},
+            {name:'computer vision', value:113},
+            {name: 'cameras', value:111},
+            {name: 'object detection', value:88},
+            {name: 'convolutional neural nets', value:86},
+                ]}
+            ]
+      },
+      {
+        xAxis: [{
+          data: ['learning (artificial intelligence)', 'feature extraction', 'object detection','image segmentation','image classification','neural nets','deep learning','categorization','computer vision','training']
+        }],
+        title: {
+          text: 'CVPR2019',
+          subtext: '从频率高到低'
+        },
+        series: [
+        {
+            data: [184,96,84,83,70,61,59,57,53,52]
+          },
+                {data: [
+                    {name: 'learning (artificial intelligence)', value:184},
+            {name: 'feature extraction', value:96},
+            {name: 'object detection', value:84},
+            {name: 'image segmentation', value:83},
+            {name: 'image classification', value:70},
+            {name: 'neural nets', value:61},
+            {name: 'deep learning', value:59},
+            {name: 'categorization', value:57},
+            {name: 'computer vision', value:53},
+            {name: 'training', value:52},
+                ]}
+            ]
+      },
+      {
+        xAxis: [{
+          data: ['feature extraction', 'learning (artificial intelligence)', 'image segmentation','computer vision','training','task analysis','cameras','object detection','image reconstruction','convolution']
+        }],
+        title: {
+          text: 'CVPR2018',
+          subtext: '从频率高到低'
+        },
+        series: [
+        {
+            data: [158,145,99,94,94,89,88,82,69,59]
+          },
+                {data: [
+                    {name: 'feature extraction', value:158},
+            {name: 'learning (artificial intelligence)', value:145},
+            {name: 'image segmentation', value:99},
+            {name: 'computer vision', value:94},
+            {name: 'training', value:94},
+            {name: 'task analysis', value:89},
+            {name: 'cameras', value:88},
+            {name: 'object detection', value:82},
+            {name: 'image reconstruction', value:69},
+            {name: 'convolution', value:59},
+                ]}
+            ]
+      }
+    ]
+  
+};
+option && myChart.setOption(option);
+
+    </script>
+     <script type="text/javascript">
+      // 基于准备好的dom，初始化echarts实例
+var chartDom = document.getElementById('ECCV');
+var myChart = echarts.init(chartDom);
+var option;
+option = {
+  baseOption: {
+      timeline: {
+          axisType: 'category',
+          // realtime: false,
+          // loop: false,
+          autoPlay: true,
+          // currentIndex: 2,
+          playInterval: 3000,
+          // controlStyle: {
+          //     position: 'left'
+          // },
+       
+          data: [
+             'ECCV2016','ECCV2018','ECCV2020'
+          ],
+      },
+      title: {
+          subtext: '数据来自国家统计局'
+      },
+      tooltip: {
+      },
+      calculable : true,
+      grid: { containLabel: true },
+      xAxis: [{
+      type: 'category',
+      name: 'KeyWord',
+    },],
+    yAxis: { type: 'value', name: '频率' },
+    series: [
+          { type: 'bar'},
+          {
+              name: 'GDP占比',
+              type: 'pie',
+              center: ['90%', '35%'],
+              radius: '28%',
+              z: 100
+          }
+      ]
+  },
+  options: [
+    {
+      xAxis: [{
+        data: ['deep learning', 'object detection', 'domain adaptation','semantic segmentation','instance segmentation','self-supervised learning','attention','convolutional neural networks','semi-supervised learning','transfer learning']
+        }],
+      title: {
+        text: 'ECCV2016',
+        subtext: '从频率高到低'
+      },
+      series: [
+      {
+        data: [21,21,14,12,11,11,10,10,10,10]
+        },
+              {data: [
+          {name: 'deep learning', value:21},
+          {name: 'object detection', value:21},
+          {name: 'domain adaptation', value:14},
+          {name: 'semantic segmentation', value:12},
+          {name:'instance segmentation', value:11},
+          {name: 'self-supervised learning', value:11},
+          {name:'attention', value:10},
+          {name:'convolutional neural networks', value:10},
+          {name: 'semi-supervised learning', value:10},
+          {name: 'transfer learning', value:10},
+              ]}
+          ]
+    },
+    {
+      xAxis: [{
+        data: ['deep learning', 'semantic segmentation', 'convolutional neural networks','convolutional neural network','object detection','domain adaptation','unsupervised learning','attention','computer vision','neural networks']
+        }],
+      title: {
+        text: 'ECCV2018',
+        subtext: '从频率高到低'
+      },
+      series: [
+      {
+        data: [39,17,13,12,12,11,10,8,8,8]
+        },
+              {data: [
+                  {name: 'deep learning', value:184},
+          {name: 'semantic segmentation', value:96},
+          {name: 'convolutional neural networks', value:84},
+          {name: 'convolutional neural network', value:83},
+          {name: 'object detection', value:70},
+          {name: 'domain adaptation', value:61},
+          {name: 'unsupervised learning', value:59},
+          {name: 'attention', value:57},
+          {name: 'computer vision', value:53},
+          {name: 'neural networks', value:52},
+              ]}
+          ]
+    },
+    {
+      xAxis: [{
+        data: ['deep learning', 'convolutional neural network', 'convolutional layer','deep neural network','object detection','attributes','cnn','context','convolutional neural networks','object recognition']
+        }],
+      title: {
+        text: 'ECCV2020',
+        subtext: '从频率高到低'
+      },
+      series: [
+      {
+        data: [15,12,5,4,4,3,3,3,3,3]
+        },
+              {data: [
+                  {name: 'deep learning', value:15},
+          {name: 'convolutional neural network', value:12},
+          {name: 'convolutional layer', value:5},
+          {name: 'deep neural network', value:4},
+          {name: 'object detection', value:4},
+          {name: 'attributes', value:3},
+          {name: 'cnn', value:3},
+          {name: 'context', value:3},
+          {name: 'convolutional neural networks', value:3},
+          {name: 'object recognition', value:3},
+              ]}
+          ]
+    }
+  ]
+
+};
+option && myChart.setOption(option);
+
+  </script>
+   <script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+var chartDom = document.getElementById('ICCV');
+var myChart = echarts.init(chartDom);
+var option;
+option = {
+baseOption: {
+    timeline: {
+        axisType: 'category',
+        // realtime: false,
+        // loop: false,
+        autoPlay: true,
+        // currentIndex: 2,
+        playInterval: 3000,
+        // controlStyle: {
+        //     position: 'left'
+        // },
+     
+        data: [
+           'ICCV2015','ICCV2017','ICCV2019'
+        ],
+    },
+    title: {
+        subtext: '数据来自国家统计局'
+    },
+    tooltip: {
+    },
+    calculable : true,
+    grid: { containLabel: true },
+    xAxis: [{
+    type: 'category',
+    name: 'KeyWord',
+  },],
+  yAxis: { type: 'value', name: '频率' },
+  series: [
+        { type: 'bar'},
+        {
+            name: 'GDP占比',
+            type: 'pie',
+            center: ['90%', '35%'],
+            radius: '28%',
+            z: 100
+        }
+    ]
+},
+options: [
+  {
+    xAxis: [{
+      data: ['learning (artificial intelligence)', 'feature extraction', 'training','task analysis','object detection','computer vision','image segmentation','neural nets','image classification','convolutional neural nets']
+        }],
+    title: {
+      text: 'ICCV2015',
+      subtext: '从频率高到低'
+    },
+    series: [
+    {
+      data: [263,261,201,168,162,158,142,119,111,91]
+      },
+            {data: [
+        {name: 'learning (artificial intelligence)', value:263},
+        {name: 'feature extraction', value:261},
+        {name:   'training', value:201},
+        {name: 'task analysis', value:168},
+        {name:'object detection', value:162},
+        {name: 'computer vision', value:158},
+        {name:'image segmentation', value:142},
+        {name: 'neural nets', value:119},
+        {name:'image classification', value:111},
+        {name: 'convolutional neural nets', value:91},
+            ]}
+        ]
+  },
+  {
+    xAxis: [{
+      data: ['learning (artificial intelligence)', 'feature extraction', 'computer vision','training','object detection','neural nets','cameras','image segmentation','image reconstruction','image classification']
+        }],
+    title: {
+      text: 'ICCV2017',
+      subtext: '从频率高到低'
+    },
+    series: [
+    {
+      data: [238,208,203,146,127,111,110,110,100,92]
+      },
+            {data: [
+                {name: 'learning (artificial intelligence)', value:238},
+        {name: 'feature extraction', value:208},
+        {name: 'computer vision', value:203},
+        {name: 'training', value:146},
+        {name: 'object detection', value:127},
+        {name: 'neural nets', value:111},
+        {name: 'cameras', value:110},
+        {name: 'image segmentation', value:110},
+        {name: 'image reconstruction', value:100},
+        {name: 'image classification', value:92},
+            ]}
+        ]
+  },
+  {
+    xAxis: [{
+      data: ['computer vision', 'feature extraction', 'image reconstruction','training','image segmentation','learning (artificial intelligence)','cameras','object detection','visualization','three-dimensional displays']
+        }],
+    title: {
+      text: 'ICCV2019',
+      subtext: '从频率高到低'
+    },
+    series: [
+    {
+      data: [175,147,98,97,95,95,86,76,67,64]
+      },
+            {data: [
+                {name: 'computer vision', value:175},
+        {name: 'feature extraction', value:147},
+        {name: 'image reconstruction', value:98},
+        {name: 'training', value:97},
+        {name: 'image segmentation', value:95},
+        {name: 'learning (artificial intelligence)', value:95},
+        {name: 'cameras', value:86},
+        {name: 'object detection', value:76},
+        {name: 'visualization', value:67},
+        {name: 'three-dimensional displays', value:64},
+            ]}
+        ]
+  }
+]
+
+};
+option && myChart.setOption(option);
+
+</script>
 </body>
 </html>
