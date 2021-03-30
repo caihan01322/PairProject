@@ -14,7 +14,7 @@
             :wordClick="wordClickHandler">
         </wordcloud>
       </el-col>
-      <el-col class="frame" :span="10">
+      <el-col class="frame1" :span="10">
         <div id="top10Chart"></div>
       </el-col>
     </el-row>
@@ -74,13 +74,28 @@ export default {
       this.$message.success('当前热词为'+this.hotTrendWord)
     },
     fillTop40Chart(){
+      const loading = this.$loading({
+        lock: true,//lock的修改符--默认是false
+        text: '加载中...',//显示在加载图标下方的加载文案
+        spinner: 'el-icon-loading',//自定义加载图标类名
+        background: 'rgba(226,226,226,0.7)',//遮罩层颜色
+        target: document.querySelector('.frame')//loading覆盖的dom元素节点
+      });
       axios
           .get("http://121.5.100.116:8080/api/Top40")
           .then(response=>{
             this.top40Data=response.data.data
-          })
+            loading.close()
+          });
     },
     fillTop10Chart(){
+      const loading1 = this.$loading({
+        lock: true,//lock的修改符--默认是false
+        text: '加载中...',//显示在加载图标下方的加载文案
+        spinner: 'el-icon-loading',//自定义加载图标类名
+        background: 'rgba(226,226,226,0.7)',//遮罩层颜色
+        target: document.querySelector('.frame1')//loading覆盖的dom元素节点
+      });
       axios
           .get("http://121.5.100.116:8080/api/Top10")
           .then(response=>{
@@ -88,6 +103,7 @@ export default {
             for(let i=0;i<response.data.data.length;i++){
               this.top10LegendData.push(response.data.data[i].name)
             }
+            loading1.close()
           })
     },
     fillHotWordChart(){
@@ -319,6 +335,17 @@ export default {
 }
 
 .frame {
+  background-color: #f7f7f7;
+  border-radius: 15px;
+  box-shadow: 5px 5px 20px rgba(25, 25, 25, .75);
+  height: auto;
+  margin-bottom: 50px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.frame1 {
   background-color: #f7f7f7;
   border-radius: 15px;
   box-shadow: 5px 5px 20px rgba(25, 25, 25, .75);

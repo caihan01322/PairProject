@@ -100,9 +100,16 @@ export default {
     },
 
     getCollection(){
+      const loading = this.$loading({
+        lock: true,//lock的修改符--默认是false
+        text: '加载中...',//显示在加载图标下方的加载文案
+        spinner: 'el-icon-loading',//自定义加载图标类名
+        background: 'rgba(226,226,226,0.7)',//遮罩层颜色
+        target: document.querySelector('.collection_frame')//loading覆盖的dom元素节点
+      });
       if(this.$store.state.username!==undefined){
         axios
-            .get('http://121.5.100.116:8080/api/getCollections?username='+this.$store.state.username.toString())
+            .get('http://121.5.100.116:8080/api/getCollections?Account='+this.$store.state.account.toString())
             .then(response=>{
               if(response.data.code===200){
                 this.papers=response.data.data.list;
@@ -126,8 +133,10 @@ export default {
                   type:'error'
                 });
               }
+              loading.close()
             })
       }
+
     }
   },
   created(){

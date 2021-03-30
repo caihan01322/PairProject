@@ -44,7 +44,6 @@
     <CollectionList v-if="currentTab===3"
                  :searchInput="searchInput"/>
 
-    <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop>
     <div id="background_home"/>
   </div>
 </template>
@@ -204,6 +203,7 @@ a, a:link, a:visited, a:focus {
   width: 40px;
   height: 40px;
   margin-top: 10px;
+  border-radius: 50%;
   transition: transform .3s ease-in-out, box-shadow .3s cubic-bezier(.47, 0, .745, .715), border .3s linear .1s;
 }
 

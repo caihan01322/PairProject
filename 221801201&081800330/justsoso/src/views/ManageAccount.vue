@@ -2,25 +2,89 @@
   <div class="manageAccount">
     <img id="logo_manage" src="../assets/logo.png" alt="logo" @click="routeToSearch"/>
     <div id="avatar_background">
-      <img id="manage_avatar" src="../assets/background_search.jpg" alt="avatar">
+      <el-upload
+          class="avatar_uploader"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          :action="'http://121.5.100.116:8080/api/imgUpload?Account='+this.$store.state.account">
+        <img id="manage_avatar"
+             v-if="avatarUrl!==''"
+             :src="avatarUrl!=='' ? avatarUrl : defaultAvatar"
+             alt="avatar">
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      </el-upload>
     </div>
+
     <div id="main_frame">
-      <div style="margin-top: 100px;position: relative">
-        <input id="username" ref="username" >
+      <div style="margin-top: 100px;position: relative;">
+        <input id="username" ref="username" :disabled="usernameDisable"
+               :placeholder="this.$store.state.username.toString()">
         <img id="modify_username" src="../assets/modify.svg" alt="modify_username" @click="modifyUsername">
       </div>
-      
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" style="width: 406px;margin-top: 50px">
+        <el-form-item prop="inputOldPassword">
+          <el-input id="old_password"
+                    class="input_custom"
+                    placeholder="请输入旧密码"
+                    v-model="ruleForm.inputOldPassword"
+                    show-password
+                    size="small"/>
+        </el-form-item>
+        <el-form-item prop="inputNewPassword">
+          <el-input id="new_password"
+                    class="input_custom"
+                    placeholder="请输入新密码"
+                    v-model="ruleForm.inputNewPassword"
+                    show-password
+                    size="small"/>
+        </el-form-item>
+
+        <el-form-item>
+          <div>
+            <el-button id="modify_button"
+                       class="button_custom"
+                       type="primary" round
+                       @click="modifyPassword">确认修改密码
+            </el-button>
+          </div>
+        </el-form-item>
+      </el-form>
     </div>
     <div id="background_manage"/>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name:"ManageAccount",
   data(){
+    var validatePass=(rule,value,callback)=>{
+      if(value===''){
+        callback(new Error('请输入密码'));
+      }else if(value.length<6){
+        callback(new Error('密码需大于6位'))
+      }else{
+        callback();
+      }
+    };
     return {
-      usernameEditable:false
+      usernameDisable:true,
+      avatarUrl:this.$store.state.avatarUrl,
+      defaultAvatar:require('../assets/avatar.png'),
+      ruleForm:{
+        inputOldPassword:'',
+        inputNewPassword:'',
+      },
+      rules:{
+        inputOldPassword:[
+          {validator:validatePass,trigger:'blur'}
+        ],
+        inputNewPassword:[
+          {validator:validatePass,trigger:'blur'}
+        ],
+      }
     }
   },
   methods:{
@@ -28,17 +92,66 @@ export default {
       this.$router.push("/")
     },
     modifyUsername(){
-      if(!this.usernameEditable){
-        this.usernameEditable=true
+      if(!this.usernameDisable){
+        axios
+            .post('http://121.5.100.116:8080/api/updateInfo?Account='+this.$store.state.account
+                +'&username='+document.getElementById('username').value)
+            .then(response=>{
+              if(response.data.code===200){
+                this.$store.commit('setUsername',document.getElementById('username').value)
+                this.$message.success('修改用户名成功！')
+              }else{
+                this.$message.error('修改用户名失败！')
+                document.getElementById('username').value=this.$store.state.username
+              }
+            })
+        this.usernameDisable=true
       }else{
-        this.usernameEditable=false
+        this.usernameDisable=false
+      }
+    },
+    modifyPassword(){
+      this.$refs['ruleForm'].validate((valid)=>{
+        if(valid){
+          axios
+              .post('http://121.5.100.116:8080/api/updateInfo?Account='+this.$store.state.account
+                  +'&username='+document.getElementById('username').value
+                  +'&oldPassword='+this.ruleForm.inputOldPassword
+                  +'&newPassword='+this.ruleForm.inputNewPassword)
+              .then(response=>{
+                if(response.data.code===200){
+                  this.$message.success('修改密码成功！')
+                }else{
+                  this.$message.error('修改密码失败！')
+                }
+              })
+        }else{
+          this.$message.error("请确认注册填写正确")
+        }
+      });
+    },
+    uploadAvatar(){
+      axios.post('http://121.5.100.116:8080/api/imgUpload?Account='+this.$store.state.account)
+          .then(response=>{
+            this.$message.success('上传头像成功！')
+            if(response.data.code===200){
+              this.$store.commit('setAvatarUrl',response.data.data.toString())
+            }
+          })
+    },
+    handleAvatarSuccess(res){
+      this.$message.success('??????????????！')
+      console.log(res)
+      if(res.code===200){
+        this.$store.commit('setAvatarUrl',res.data.toString())
+        this.avatarUrl=this.$store.state.avatarUrl
       }
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .manageAccount {
   display: flex;
   flex-direction: column;
@@ -72,11 +185,43 @@ export default {
   z-index: 10;
 }
 
-#manage_avatar {
+.avatar_uploader {
+  width: 180px;
+  height: 180px;
+  z-index: 900;
+}
+
+.avatar_uploader /deep/ .el-upload {
+  border: 1px dashed #d9d9d9;
   border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar_uploader /deep/ .el-upload:hover {
+  border-color: #409EFF;
+}
+
+.avatar_uploader /deep/ .el-upload--text {
   width: 92%;
   height: 92%;
   margin-top: 4%;
+}
+
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+
+#manage_avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
 #modify_username {
@@ -84,7 +229,7 @@ export default {
   height: 15px;
   position: absolute;
   bottom: 3px;
-  right: -20px;
+  right: -25px;
   cursor: pointer;
 }
 
@@ -93,6 +238,8 @@ export default {
   font-size: 30px;
   color: black;
   border-radius: 10px;
+  outline: none;
+  text-align: center;
 }
 
 #main_frame {
@@ -112,6 +259,37 @@ export default {
   padding-top: 20px;
   padding-bottom: 50px;
   z-index: 5;
+}
+
+#old_password {
+  width: 100%;
+}
+
+#new_password {
+  width: 100%;
+}
+
+#modify_button {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.input_custom /deep/ .el-input__inner {
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  z-index: 4;
+}
+
+.button_custom {
+  background-color: #405869;
+  height: 28px;
+  line-height: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 #background_manage {
