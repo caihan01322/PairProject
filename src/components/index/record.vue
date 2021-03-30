@@ -42,6 +42,113 @@
           <Button shape="circle" icon="ios-trash-outline"></Button>
         </div>
       </div>
+      <div class="recordItem">
+        <div class="recordTitle">Pictorial structures revisited: People detection and articulated pose estimation.</div>
+        <div class="recordCode"><span>论文编号：</span>0000000001</div>
+        <div class="recordTag">
+          <span>ieee</span>
+          <span>computer</span>
+          <span>society</span>
+        </div>
+        <div class="recordContent"><span>摘要内容：</span>Non-rigid object detection and articulated pose estimation are two related and
+          challenging problems in computer vision. Numerous models have been proposed over the years and often
+          address different special cases, such as pedestrian detection or upper body pose estimation in TV footage.
+          This paper shows that such specialization may not be necessary, and proposes a generic approach based on
+          the pictorial structures framework. We show that the right selection of components for both appearance and
+          spatial modeling is crucial for general applicability and overall performance of the model. The appearance
+          of body parts is modeled using densely sampled shape context descriptors and discriminatively trained AdaBoost
+          classifiers. Furthermore, we interpret the normalized margin of each classifier as likelihood in a generative
+          model. Non-Gaussian relationships between parts are represented as Gaussians in the coordinate system of the joint between parts.
+          The marginal posterior of each part is inferred using belief propagation.</div>
+        <div class="recordAddress">
+          <a href="#">原文地址</a>
+        </div>
+        <div class="opeBtn">
+          <Button shape="circle" icon="ios-create-outline"></Button>
+          <Button shape="circle" icon="ios-trash-outline"></Button>
+        </div>
+      </div>
+      <div class="recordItem">
+        <div class="recordTitle">Pictorial structures revisited: People detection and articulated pose estimation.</div>
+        <div class="recordCode"><span>论文编号：</span>0000000001</div>
+        <div class="recordTag">
+          <span>ieee</span>
+          <span>computer</span>
+          <span>society</span>
+        </div>
+        <div class="recordContent"><span>摘要内容：</span>Non-rigid object detection and articulated pose estimation are two related and
+          challenging problems in computer vision. Numerous models have been proposed over the years and often
+          address different special cases, such as pedestrian detection or upper body pose estimation in TV footage.
+          This paper shows that such specialization may not be necessary, and proposes a generic approach based on
+          the pictorial structures framework. We show that the right selection of components for both appearance and
+          spatial modeling is crucial for general applicability and overall performance of the model. The appearance
+          of body parts is modeled using densely sampled shape context descriptors and discriminatively trained AdaBoost
+          classifiers. Furthermore, we interpret the normalized margin of each classifier as likelihood in a generative
+          model. Non-Gaussian relationships between parts are represented as Gaussians in the coordinate system of the joint between parts.
+          The marginal posterior of each part is inferred using belief propagation.</div>
+        <div class="recordAddress">
+          <a href="#">原文地址</a>
+        </div>
+        <div class="opeBtn">
+          <Button shape="circle" icon="ios-create-outline"></Button>
+          <Button shape="circle" icon="ios-trash-outline"></Button>
+        </div>
+      </div>
+      <div class="recordItem">
+        <div class="recordTitle">Pictorial structures revisited: People detection and articulated pose estimation.</div>
+        <div class="recordCode"><span>论文编号：</span>0000000001</div>
+        <div class="recordTag">
+          <span>ieee</span>
+          <span>computer</span>
+          <span>society</span>
+        </div>
+        <div class="recordContent"><span>摘要内容：</span>Non-rigid object detection and articulated pose estimation are two related and
+          challenging problems in computer vision. Numerous models have been proposed over the years and often
+          address different special cases, such as pedestrian detection or upper body pose estimation in TV footage.
+          This paper shows that such specialization may not be necessary, and proposes a generic approach based on
+          the pictorial structures framework. We show that the right selection of components for both appearance and
+          spatial modeling is crucial for general applicability and overall performance of the model. The appearance
+          of body parts is modeled using densely sampled shape context descriptors and discriminatively trained AdaBoost
+          classifiers. Furthermore, we interpret the normalized margin of each classifier as likelihood in a generative
+          model. Non-Gaussian relationships between parts are represented as Gaussians in the coordinate system of the joint between parts.
+          The marginal posterior of each part is inferred using belief propagation.</div>
+        <div class="recordAddress">
+          <a href="#">原文地址</a>
+        </div>
+        <div class="opeBtn">
+          <Button shape="circle" icon="ios-create-outline"></Button>
+          <Button shape="circle" icon="ios-trash-outline"></Button>
+        </div>
+      </div>
+      <div class="recordItem">
+        <div class="recordTitle">Pictorial structures revisited: People detection and articulated pose estimation.</div>
+        <div class="recordCode"><span>论文编号：</span>0000000001</div>
+        <div class="recordTag">
+          <span>ieee</span>
+          <span>computer</span>
+          <span>society</span>
+        </div>
+        <div class="recordContent"><span>摘要内容：</span>Non-rigid object detection and articulated pose estimation are two related and
+          challenging problems in computer vision. Numerous models have been proposed over the years and often
+          address different special cases, such as pedestrian detection or upper body pose estimation in TV footage.
+          This paper shows that such specialization may not be necessary, and proposes a generic approach based on
+          the pictorial structures framework. We show that the right selection of components for both appearance and
+          spatial modeling is crucial for general applicability and overall performance of the model. The appearance
+          of body parts is modeled using densely sampled shape context descriptors and discriminatively trained AdaBoost
+          classifiers. Furthermore, we interpret the normalized margin of each classifier as likelihood in a generative
+          model. Non-Gaussian relationships between parts are represented as Gaussians in the coordinate system of the joint between parts.
+          The marginal posterior of each part is inferred using belief propagation.</div>
+        <div class="recordAddress">
+          <a href="#">原文地址</a>
+        </div>
+        <div class="opeBtn">
+          <Button shape="circle" icon="ios-create-outline"></Button>
+          <Button shape="circle" icon="ios-trash-outline"></Button>
+        </div>
+      </div>
+    </div>
+    <div id="myPage">
+      <Page :total="totle" :page-size="10" />
     </div>
   </div>
 </template>
@@ -52,7 +159,8 @@ export default {
   data () {
     return {
       searchType: '标题',
-      searchContent: ''
+      searchContent: '',
+      totle: 100
     }
   }
 }
@@ -88,6 +196,63 @@ export default {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    border: 1px solid gray;
+    /*border: 1px solid gray;*/
+    .recordItem {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      padding: 0 0 10px 0;
+      margin-bottom: 5px;
+      >div{
+        width: 98%;
+      }
+      .recordTitle {
+        width: 100%;
+        font-size: 16px;
+        font-weight: 700;
+        margin: 5px 0;
+      }
+      .recordCode {
+        color: #000080;
+      }
+      .recordTag {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+        >span {
+          font-size: 12px;
+          padding: 1px 3px;
+          margin: 0 5px;
+          background-color: #F7F7F7;
+          border: 1px solid #AAAAAA;
+          border-radius: 4px;
+        }
+      }
+      .recordContent{
+        margin: 5px 0px;
+        ext-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        /* autoprefixer: off */
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        >span {
+          /*font-weight: 600;*/
+        }
+      }
+      .opeBtn {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: flex-start;
+        Button {
+          margin: 0 10px;
+        }
+      }
+    }
   }
 </style>
