@@ -15,5 +15,5 @@ func main() {
 	//
 	//_ = s.ListenAndServe()
 
-	models.GetArticleByKeywords("feature extraction", 0, 10)
+	models.GetTOPByForum("ECCV", 5)
 }
