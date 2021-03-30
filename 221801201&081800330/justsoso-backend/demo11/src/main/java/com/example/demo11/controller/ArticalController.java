@@ -25,7 +25,7 @@ public class ArticalController
     {
         List<Artical> list = articalService.searchArtical(keyword);
         List<FullArtical> full = new ArrayList<FullArtical>();
-        int totalNum = (list.size()/5 )+(list.size()%5==0?0:1) -1;
+        int totalNum = (list.size()/5 )+(list.size()%5==0?0:1);
 
         if(pageNum == null)
         {
@@ -73,7 +73,7 @@ public class ArticalController
         }
         return ajAxResponse.successfullyUpdate("收藏成功",articalService.Collect(Account,Nums));
     }
-    @GetMapping("/getConllections")
+    @GetMapping("/getCollections")
     public ajAxResponse getCollections(@RequestParam String Account)
     {
         if(userService.getUserByAccount(Account) == 0)
@@ -113,7 +113,7 @@ public class ArticalController
         }
         return ajAxResponse.successfullyUpdate("删除成功！",articalService.deleteCollections(Account,Nums));
     }
-    @GetMapping("/Top20")
+    @GetMapping("/Top40")
     public ajAxResponse top20()
     {
 
@@ -153,10 +153,13 @@ public class ArticalController
         hotTrend cvpr = new hotTrend();
         hotTrend eccv = new hotTrend();
         hotTrend iccv = new hotTrend();
-        HashMap<String,hotTrend> hot = new HashMap<>();
-        hot.put("cvpr",cvpr);
-        hot.put("eccv",eccv);
-        hot.put("iccv",iccv);
+        HashMap<String,ArrayList<Integer>> hot = new HashMap<>();
+        ArrayList<Integer> CVPR = new ArrayList<>();
+        ArrayList<Integer> ECCV = new ArrayList<>();
+        ArrayList<Integer> ICCV = new ArrayList<>();
+        hot.put("cvpr",CVPR);
+        hot.put("eccv",ECCV);
+        hot.put("iccv",ICCV);
         map.put("data",hot);
         for (Artical art:  list
              ) {
@@ -283,6 +286,27 @@ public class ArticalController
 
 
         }
+        CVPR.add(cvpr._2014);
+        CVPR.add(cvpr._2015);
+        CVPR.add(cvpr._2016);
+        CVPR.add(cvpr._2017);
+        CVPR.add(cvpr._2018);
+        CVPR.add(cvpr._2019);
+        CVPR.add(cvpr._2020);
+        ECCV.add(eccv._2014);
+        ECCV.add(eccv._2015);
+        ECCV.add(eccv._2016);
+        ECCV.add(eccv._2017);
+        ECCV.add(eccv._2018);
+        ECCV.add(eccv._2019);
+        ECCV.add(eccv._2020);
+        ICCV.add(iccv._2014);
+        ICCV.add(iccv._2015);
+        ICCV.add(iccv._2016);
+        ICCV.add(iccv._2017);
+        ICCV.add(iccv._2018);
+        ICCV.add(iccv._2019);
+        ICCV.add(iccv._2020);
         return ajAxResponse.successfully(hot);
     }
 

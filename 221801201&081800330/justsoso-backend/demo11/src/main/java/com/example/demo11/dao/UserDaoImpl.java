@@ -19,13 +19,19 @@ public class UserDaoImpl implements UserJBDCDAO{
         {
             List<User> list= jdbcTemplate.query("select * from users where account = ? and password = ?",
                 new Object[]{account, Password},new BeanPropertyRowMapper<>(User.class));
+            List<User> list1 = jdbcTemplate.query("select * from users where username = ? and password = ?",
+                    new Object[]{account, Password},new BeanPropertyRowMapper<>(User.class));
         if(list.size() != 1)
         {
+            if(list1.size() == 1)
+            {
+                return list1.get(0);
+            }
             return  new User("","");
         }
+
         return list.get(0);
-            //return jdbcTemplate.queryForObject("select * from users where account = ? and password = ?",
-                    //new Object[]{account, Password},new BeanPropertyRowMapper<>(User.class));
+
         }
         @Override
     public boolean Register(String Account,String Password)
@@ -81,16 +87,32 @@ public class UserDaoImpl implements UserJBDCDAO{
         }
     }
     @Override
-    public boolean changeInfo(String Account,String password,String username)
+    public boolean changeInfo(String Account,String oldPassword,String newPassword,String username)
     {
-        List<User> users = jdbcTemplate.query("select * from users where account = ?",
-                new Object[]{Account},new BeanPropertyRowMapper<>(User.class));
+        List<User> users = jdbcTemplate.query("select * from users where account = ? and password = ?",
+                new Object[]{Account,oldPassword},new BeanPropertyRowMapper<>(User.class));
         if(users.size()!= 1)
         {
             return false;
         }
         jdbcTemplate.update("update users set username = ? where account = ?",new Object[]{username,Account});
-        jdbcTemplate.update("update users set password = ? where account = ?",new Object[]{password,Account});
+        jdbcTemplate.update("update users set password = ? where account = ?",new Object[]{newPassword,Account});
         return true;
+    }
+    @Override
+    public boolean changeInfoWithoutPsw(String Account,String username)
+    {
+        List<User> users = jdbcTemplate.query("select * from users where account = ?",
+                new Object[]{Account},new BeanPropertyRowMapper<>(User.class));
+        if(users.size() == 0)
+        {
+            return false;
+        }
+        else
+        {
+            jdbcTemplate.update("update users set username = ? where account = ?",
+                    new Object[]{Account,username});
+            return true;
+        }
     }
 }
