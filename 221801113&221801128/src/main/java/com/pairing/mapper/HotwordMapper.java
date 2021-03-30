@@ -11,12 +11,12 @@ import java.util.List;
 @Mapper
 public interface HotwordMapper {
 
-    @Select("select keywords from data")
+    @Select("select keywords from data where typepaper = 'ECCV'")
     public List<String> getAllWord();
 
-    @Insert("insert into hotword values(1,#{json})")
+    @Insert("insert into hotword values(111,#{json})")
     public  void insertHotword(@Param("json") String json);
 
-    @Select("select hot from hotword where id = 1")
-    public String getHotwordjson();
+    @Select("select hot from hotword where id = #{type}")
+    public String getHotwordjson(@Param("type") String type);
 }

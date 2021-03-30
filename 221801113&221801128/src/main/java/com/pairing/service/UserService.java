@@ -11,6 +11,12 @@ public class UserService {
     @Autowired
     UserMapper userMapper;
 
+    /**
+     * 判断是否注册
+     * @param userName
+     * @param password
+     * @return
+     */
     public Boolean isMember(String userName, String password) {
        User user = userMapper.isMember(userName);
        if (user != null && user.getPassword().equals(password)) {
@@ -19,6 +25,12 @@ public class UserService {
        return false;
     }
 
+    /**
+     * 注册
+     * @param userName
+     * @param password
+     * @return
+     */
     public Boolean register(String userName, String password) {
         Integer integer = new Integer(0);
         try{

@@ -14,15 +14,28 @@ public class HotwordService {
     @Autowired
     HotwordMapper hotwordMapper;
 
+    /**
+     * 获取数据库所有热词
+     * @return
+     */
     public List<String> getAllWord(){
         return hotwordMapper.getAllWord();
     }
 
+    /**
+     * 预存入数据
+     * @param json
+     */
     public void insertHotword(String json){
         hotwordMapper.insertHotword(json);
     }
 
-    public String getHotwordjson(){
-        return hotwordMapper.getHotwordjson();
+    /**
+     * 得到top10热词
+     * @param type
+     * @return
+     */
+    public String getHotwordjson(String type){
+        return hotwordMapper.getHotwordjson(type);
     }
 }

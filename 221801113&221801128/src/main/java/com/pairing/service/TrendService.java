@@ -15,10 +15,18 @@ public class TrendService {
     @Autowired
     TrendMapper trendMapper;
 
+    /**
+     * 获取关键词年份对象
+     * @return
+     */
     public List<NameAndYear> getYear(){
         return trendMapper.getYear();
     }
 
+    /**
+     * 预存入动态柱状图参数
+     * @param json
+     */
     public void insertTrend(String json){
         trendMapper.insertTrend(json);
     }
@@ -26,6 +34,10 @@ public class TrendService {
         trendMapper.insertTrend2(json);
     }
 
+    /**
+     * 得到动态柱状图数据
+     * @return
+     */
     public String getjson1(){
         return trendMapper.getjson1();
     }

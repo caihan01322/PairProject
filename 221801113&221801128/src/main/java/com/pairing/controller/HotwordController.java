@@ -10,6 +10,7 @@ import com.pairing.service.TrendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.*;
@@ -20,20 +21,31 @@ public class HotwordController {
     @Autowired
     HotwordService hotwordService;
 
+    /**
+     * 返回热词统计页面
+     * @return
+     */
     @GetMapping("/hot_areas")
-    public String hot_areas() {
+    public String hotAreas() {
         return "paperAnalyze/hot_areas";
     }
 
+    /**
+     * 返回走势对比界面
+     * @return
+     */
     @GetMapping("/trend_compare")
-    public String trend_compare() {
+    public String trendCompare() {
         return "paperAnalyze/trend_compare";
     }
 
-
+    /**
+     * 预存入热门领域数据
+     * @return
+     */
     @GetMapping("/hot2")
     @ResponseBody
-    public void getword2() throws JsonProcessingException {
+    public void getWord2() throws JsonProcessingException {
 
         HashMap<String,Integer> hashMap = new HashMap<String,Integer>();
         List<HotWord> list = new ArrayList<>();
@@ -45,19 +57,20 @@ public class HotwordController {
 
             a = liststr.get(q);//String
             if(a==null){
-                break;
+                continue;
             }
-            str = a.replace("\"", "");
+            str = a.replace("\"", "").replace("(","").replace(")","");
 
             String[] chars = new String[2000];
             chars = str.split(",");
 
             for (int j = 0; j < chars.length; j++) {
-                if(hashMap.containsKey(chars[j])){
-                    hashMap.put(chars[j],hashMap.get(chars[j])+1);
+
+                if(hashMap.containsKey(chars[j].toLowerCase())){
+                    hashMap.put(chars[j].toLowerCase(),hashMap.get(chars[j].toLowerCase())+1);
                 }
                 else {
-                    hashMap.put(chars[j],1);
+                    hashMap.put(chars[j].toLowerCase(),1);
                 }
             }
         }
@@ -75,18 +88,24 @@ public class HotwordController {
         hotwordService.insertHotword(jsonlist);
     }
 
+    /**
+     * 返回前端热门领域数据
+     * @param type 顶会类型
+     * @return
+     */
     @GetMapping("/hot")
     @ResponseBody
-    public String getword() {
+    public String getWord(@RequestParam(value = "type") String type) {
 
-        String str =  hotwordService.getHotwordjson();
+        String str = hotwordService.getHotwordjson(type);
         return str;
     }
 
-
-    //part2走势对比
-
-
+    /**
+     * 对全部热词进行排序
+     * @param hashMap 存放关键词-数量
+     * @return
+     */
     public static List<HashMap.Entry<String, Integer>> getSortedList(HashMap<String, Integer> hashMap) {
         List<HashMap.Entry<String, Integer>> list1 =
                 new ArrayList<HashMap.Entry<String, Integer>>(hashMap.entrySet());
@@ -100,6 +119,11 @@ public class HotwordController {
         return list1;
     }
 
+    /**
+     * 对关键词数量及年份分别排序
+     * @param hashMap 存放关键词-年份
+     * @return
+     */
     public static List<HashMap.Entry<String, Integer>> getSortedList2(HashMap<String, Integer> hashMap) {
         List<HashMap.Entry<String, Integer>> list1 = new ArrayList<HashMap.Entry<String, Integer>>(hashMap.entrySet());
         Collections.sort(list1, new Comparator<Map.Entry<String,Integer>>() {
@@ -113,20 +137,28 @@ public class HotwordController {
     }
 
 
-
     @Autowired
     TrendService trendService;
 
+    /**
+     * 返回动态柱状图所需第一个参数
+     * @return
+     * @throws JsonProcessingException
+     */
     @GetMapping("/json1")
     @ResponseBody
-    public String getfirstjson1() throws JsonProcessingException {
+    public String getFirstJson1() throws JsonProcessingException {
         String str =  trendService.getjson1();
         return str;
     }
-    //
+
+    /**
+     * 预存入动态柱状图所需第一个参数数据
+     * @throws JsonProcessingException
+     */
     @GetMapping("/json11")
     @ResponseBody
-    public void getfirstjson() throws JsonProcessingException {
+    public void getFirstJson() throws JsonProcessingException {
         List<List<String>> json2 = new ArrayList<>();
         List<String> jsonson2 = new ArrayList<>();
         HashMap<String,Integer> hashMap = new HashMap<String,Integer>();
@@ -138,6 +170,8 @@ public class HotwordController {
 
         for (int i = 0;i<keyandyear.size();i++){
             String key = keyandyear.get(i).getKeywords();
+            if (key == null) continue;
+            else key = key.toLowerCase();
             String year = keyandyear.get(i).getPublicationYear();
             keywords.add(key);
             publicationYear.add(year);
@@ -149,13 +183,12 @@ public class HotwordController {
         String str = new String();
         for (int q = 0; q < keywords.size(); q++) {
             numm = publicationYear.get(q);
-            //System.out.println(numm);
-            a = keywords.get(q);//String
+            a = keywords.get(q);
             if(a==null){
                 continue;
             }
 
-            str = a.replace("\"", "");
+            str = a.replace("\"", "").replace("(","").replace(")","");
 
             String[] chars = new String[2000];
             chars = str.split(",");
@@ -184,7 +217,7 @@ public class HotwordController {
         int size = count.size();
         HashMap<String ,Integer> yearnumhash = new HashMap<>();
         for(int l = 0;l<size;l++){
-            String year = count.get(l).getKey().replace("\"", "").split(",")[1];
+            String year = count.get(l).getKey().replace("\"", "").replace("(","").replace(")","").split(",")[1];
             if(yearnumhash.containsKey(year)){
                 yearnumhash.put(year,yearnumhash.get(year)+1);
             }else {
@@ -199,7 +232,7 @@ public class HotwordController {
         List<Worditem>json11 = new ArrayList<>();
         HashMap<String,Integer> samehash = new HashMap<>();
         for(int y = 0;y<count2.size();y++){
-            String name = count2.get(y).getKey().replace("\"", "").split(",")[0];
+            String name = count2.get(y).getKey().replace("\"", "").replace("(","").replace(")","").split(",")[0];
             if (samehash.containsKey(name)){
                 continue;
             }else {
@@ -214,17 +247,25 @@ public class HotwordController {
         String jsonlist = mapper2.writeValueAsString(json11).toString();
         trendService.insertTrend(jsonlist);
     }
-    //第二个json文件的获取
+
+    /**
+     * 返回动态柱状图所需第二个参数
+     * @return
+     */
     @GetMapping("/json2")
     @ResponseBody
-    public String getsecondjson(){
+    public String getSecondJson(){
         String str =  trendService.getjson2();
         return str;
     }
 
+    /**
+     * 预存入动态柱状图所需第二个参数
+     * @throws JsonProcessingException
+     */
     @GetMapping("/json22")
     @ResponseBody
-    public void getsecondjson2() throws JsonProcessingException {
+    public void getSecondJson2() throws JsonProcessingException {
         List<List<String>> json2 = new ArrayList<>();
         List<String> jsonson2 = new ArrayList<>();
         HashMap<String,Integer> hashMap = new HashMap<String,Integer>();
@@ -236,6 +277,8 @@ public class HotwordController {
 
         for (int i = 0;i<keyandyear.size();i++){
             String key = keyandyear.get(i).getKeywords();
+            if (key == null) continue;
+            else key = key.toLowerCase();
             String year = keyandyear.get(i).getPublicationYear();
             keywords.add(key);
             publicationYear.add(year);
@@ -247,13 +290,12 @@ public class HotwordController {
         String str = new String();
         for (int q = 0; q < keywords.size(); q++) {
             numm = publicationYear.get(q);
-            //System.out.println(numm);
-            a = keywords.get(q);//String
+            a = keywords.get(q);
             if(a==null){
                 continue;
             }
 
-            str = a.replace("\"", "");
+            str = a.replace("\"", "").replace("(","").replace(")","");
 
             String[] chars = new String[2000];
             chars = str.split(",");
@@ -282,7 +324,7 @@ public class HotwordController {
         int size = count.size();
         HashMap<String ,Integer> yearnumhash = new HashMap<>();
         for(int l = 0;l<size;l++){
-            String year = count.get(l).getKey().replace("\"", "").split(",")[1];
+            String year = count.get(l).getKey().replace("\"", "").replace("(","").replace(")","").split(",")[1];
             if(yearnumhash.containsKey(year)){
                 yearnumhash.put(year,yearnumhash.get(year)+1);
             }else {
@@ -296,8 +338,8 @@ public class HotwordController {
         }
         for(int y = 0;y<count2.size();y++){
             List<String> jsonson = new ArrayList<>();
-            String name = count2.get(y).getKey().replace("\"", "").split(",")[0];
-            String year = count2.get(y).getKey().replace("\"", "").split(",")[1];
+            String name = count2.get(y).getKey().replace("\"", "").replace("(","").replace(")","").split(",")[0];
+            String year = count2.get(y).getKey().replace("\"", "").replace("(","").replace(")","").split(",")[1];
 
             jsonson.add(String.valueOf(count2.get(y).getValue()));
             jsonson.add("");

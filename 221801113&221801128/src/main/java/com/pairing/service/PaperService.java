@@ -30,6 +30,10 @@ public class PaperService {
 
     /**
      * 获取收藏夹的paper的list和总数
+     * @param searchInfo
+     * @param pageNum
+     * @param userName
+     * @return
      */
     public Map<List<Paper>, Integer> getCollectPaper(String searchInfo, int pageNum, String userName) {
         Map<List<Paper>, Integer> map= new HashMap<>();
@@ -40,6 +44,13 @@ public class PaperService {
 
     /**
      * 收藏
+     * @param uid
+     * @param did
+     * @param keywords
+     * @param abstrac
+     * @param publicationTitle
+     * @param persistentLink
+     * @return
      */
     public String insertPaperToCollection(String uid, String did, String keywords, String abstrac
             , String publicationTitle, String persistentLink) {
@@ -57,6 +68,13 @@ public class PaperService {
 
     /**
      * 更新
+     * @param uid
+     * @param did
+     * @param keywords
+     * @param abstrac
+     * @param publicationTitle
+     * @param persistentLink
+     * @return
      */
     public String updatePaperToCollection(String uid, String did, String keywords, String abstrac
             , String publicationTitle, String persistentLink) {
@@ -74,6 +92,9 @@ public class PaperService {
 
     /**
      * 删除
+     * @param uid
+     * @param did
+     * @return
      */
     public String deletePaperFromCollection(String uid, String did) {
         Integer integer = new Integer(0);

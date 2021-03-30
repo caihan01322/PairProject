@@ -25,17 +25,20 @@ public class IndexController {
         return "login";
     }
 
-
+    /**
+     * 返回注册界面
+     * @return
+     */
     @GetMapping(value = "/register")
     public String registerPage() {
         return "login";
     }
 
     /**
-     * 登录
-     * @param user
-     * @param session
-     * @param model
+     * 登录接口
+     * @param user 用户输入的username与password
+     * @param session 用于判断用户是否登录
+     * @param model 传输给前端的数据
      * @return
      */
     @PostMapping("/login")
@@ -49,6 +52,13 @@ public class IndexController {
         }
     }
 
+    /**
+     * 注册接口
+     * @param user 用户输入的username与password
+     * @param session 用于判断用户是否登录
+     * @param model 传输给前端的数据
+     * @return
+     */
     @PostMapping("/register")
     public String judRegister(User user, HttpSession session, Model model) {
         if (user.getUserName().trim().equals("") || user.getPassword().trim().equals("")) {
@@ -64,7 +74,7 @@ public class IndexController {
     }
 
     /**
-     * 返回main页面
+     * 返回首页即论文查询页面
      * @return
      */
     @GetMapping("/main.html")
@@ -72,9 +82,14 @@ public class IndexController {
         return "main";
     }
 
+    /**
+     * 登出
+     * @param session 清除用户登录session
+     * @return
+     */
     @GetMapping("/log_off")
     public String logOff(HttpSession session) {
         session.removeAttribute("loginUser");
-        return "/";
+        return "/login";
     }
 }

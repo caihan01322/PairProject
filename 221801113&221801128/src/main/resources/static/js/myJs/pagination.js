@@ -23,6 +23,10 @@ $(function(){
 
 
     getHotSearch();
+
+    /**
+     * 获取热词搜索
+     */
     function getHotSearch() {
         if (localStorage.getItem("hot") != null) {
             $('.searchform .form-control').eq(0).val(localStorage.getItem("hot"))
@@ -227,6 +231,10 @@ $(function(){
             $("#edit-abstract").val($(this).find(".paper-abstract span").eq(1).html());
     })
 
+    /**
+     * 更新收藏夹
+     * @param url
+     */
     function updateCollection(url) {
         if ($("#edit-id").val() == "-1") {
             toastr.warning('该卡片没有东西哦！');
