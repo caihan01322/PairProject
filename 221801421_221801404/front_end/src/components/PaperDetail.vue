@@ -2,7 +2,7 @@
   <div>
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <span class="title">123</span>
+        <span class="title">{{selectedObj.title}}</span>
         <el-popconfirm
           title="确定删除吗？"
           @confirm="deletePaper()"
@@ -11,35 +11,63 @@
         </el-popconfirm>
       </div>
         <div class="item">
-          <span class="header-text">所属会议 </span><span class="content">123</span>
+          <span class="header-text">所属会议 </span><span class="content">{{selectedObj.meeting + '   ' + selectedObj.postDate}}</span>
           <el-divider></el-divider>
         </div>
         <div class="item">
-          <span class="header-text">关键词 </span><span class="content">123</span>
+          <span class="header-text">关键词 </span><span class="content">{{selectedObj.keyword}}</span>
           <el-divider></el-divider>
         </div>
         <div class="item">
-          <span class="header-text">原文链接 </span><a class="content">123</a>
+          <span class="header-text">原文链接 </span><a class="content" :href="selectedObj.link">{{selectedObj.link}}</a>
           <el-divider></el-divider>
         </div>
         <div class="item">
-          <span class="header-text">摘要 </span><span class="content">123<el-divider></el-divider></span>
+          <span class="header-text">摘要 </span><span class="content">{{selectedObj.abstractContext}}<el-divider></el-divider></span>
         </div>
     </el-card>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data () {
     return {
-
+     selectedObj:'',
+     res:true
     }
   },
+  methods: {
+    getObj:function(){
+      console.log(this.$route.query.selectedObj)
+      this.selectedObj=JSON.parse(this.$route.query.selectedObj);
+      console.log(this.selectedObj)
+    },
+    goBack:function(){
+      this.$router.go(-1)
+    },
+    deletePaper:function(){
+      //发送删除请求,接受返回的一个bool
+
+      if(this.res){
+        //回到上一页
+        this.$router.go(-1)
+        //提示删除成功
+        this.$notify({
+          title: '成功',
+          message: '这是一条成功的提示消息',
+          type: 'success'
+        })
+      }
+    }
+  },
+  created() {
+    this.getObj()
+  }
 }
 
 </script>
-//method要实现deletePaper()
 
 <style>
 .title{
