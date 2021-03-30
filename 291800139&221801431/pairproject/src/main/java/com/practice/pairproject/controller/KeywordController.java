@@ -1,10 +1,9 @@
 package com.practice.pairproject.controller;
 
-import com.fasterxml.jackson.databind.util.ObjectBuffer;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.practice.pairproject.pojo.KeywordVO;
-import com.practice.pairproject.pojo.User;
 import com.practice.pairproject.service.KeywordService;
-import com.practice.pairproject.service.UserService;
 import com.practice.pairproject.util.AjaxResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @Slf4j
-@RestController
+@Controller
 @RequestMapping({"/keyword"})
 public class KeywordController {
 
@@ -23,6 +22,11 @@ public class KeywordController {
 
     @Autowired
     private KeywordService keywordService;
+
+    @RequestMapping()
+    public String keywordAnalyze(){
+        return "keywordAtlas";
+    }
 
     /**
      * 选取所有已爬取论文 在 years（默认5）年间的热词 top-topNum（默认10）
@@ -32,19 +36,29 @@ public class KeywordController {
      * @param model
      * @return
      */
+    @ResponseBody
     @GetMapping("/top")
-    public AjaxResponse selectAllTOPKeyword(
+    public Object selectAllTOPKeyword(
             @RequestParam(name= "years" , defaultValue = "5") String years,
             @RequestParam(name= "topNum" , defaultValue = "10") Integer topNum,
-            Model model){
+            Model model) throws JsonProcessingException {
+
+        //1.创建ObjectMapper对象
+        ObjectMapper mapper = new ObjectMapper();
 
         List<KeywordVO> keywordVOList = keywordService.selectAllTOPKeyword(years,topNum);
         if(keywordVOList.isEmpty()){
             log.error("【分析所有论文，获取 热词top10 失败！】");
-            return AjaxResponse.fail(500, "【分析所有论文，获取 热词top10 失败！】");
+            //return AjaxResponse.fail(500, "【分析所有论文，获取 热词top10 失败！】");
         }
+        log.info("【分析所有论文，获取 热词top10 成功！】");
+        //return AjaxResponse.success(keywordVOList, "【分析所有论文，获取 热词top10 成功！】");
+       /* model.addAttribute("data",mapper.writeValueAsString(keywordVOList));  //mapper.writeValueAsString(keywordVOList) //keywordVOList
+        return "keywordAtlas";*/
 
-        return AjaxResponse.success(keywordVOList, "【分析所有论文，获取 热词top10 成功！】");
+       Map<String, Object> result= new HashMap<>();
+       result.put("data",mapper.writeValueAsString(keywordVOList));
+       return result;
     }
 
     /**
@@ -59,12 +73,16 @@ public class KeywordController {
      * @param model
      * @return
      */
+    @ResponseBody
     @GetMapping("/top/{meeting}")
-    public AjaxResponse selectTOPKeywordEveryYear(
+    public Object selectTOPKeywordEveryYear(
             @PathVariable("meeting") String meeting,
             @RequestParam(name= "years" , defaultValue = "5") String years,
             @RequestParam(name= "topNum" , defaultValue = "10") Integer topNum,
-            Model model){
+            Model model) throws JsonProcessingException {
+
+        //1.创建ObjectMapper对象
+        ObjectMapper mapper = new ObjectMapper();
 
         //某会议某年 years年间 的热词 topNum
         List<KeywordVO> keywordVOList = keywordService.selectTopKeyword(meeting, years, topNum);
@@ -97,10 +115,12 @@ public class KeywordController {
             }
         }
 
-        /*Map<String, Object> result = new HashMap<>();
-        result.put("top"+topNum, keywordVOList);
+        Map<String, Object> result = new HashMap<>();
+        /*result.put("top"+topNum, keywordVOList);
         result.put("mkList", meeting_kList);*/
-        return AjaxResponse.success(meeting_kList , "【分析("+meeting+":"+yearNum+")内的论文，获取 热词top10 的频率失败！】");
+        result.put("map", meeting_kList);  //mapper.writeValueAsString(keywordVOList)
+        //return AjaxResponse.success(meeting_kList , "【分析("+meeting+":"+yearNum+")内的论文，获取 热词top10 的频率失败！】");
+        return result;
     }
 
 }

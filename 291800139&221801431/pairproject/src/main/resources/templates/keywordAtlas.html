@@ -22,7 +22,6 @@
             crossorigin="anonymous"></script>
 
 
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -31,231 +30,583 @@
     <![endif]-->
 </head>
 <body>
-    <div class="container">
-        <!--nav-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">LOGO</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<div class="container">
+    <!--nav-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">LOGO</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">论文检索</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">数据分析</a>
-                    </li>
-                </ul>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">论文检索</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/keyword">数据分析</a>
+                </li>
+            </ul>
 
-                <form class="form-inline my-2 my-lg-0" method="Get" action="/paper/search/list/1">
-                    <input class="form-control mr-sm-2" type="text" id="title" name="title"
-                           placeholder="请输入论文标题" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜 索</button>
-                </form>
+            <form class="form-inline my-2 my-lg-0" method="Get" action="/paper/search/1">
+                <input class="form-control mr-sm-2" type="text" id="title" name="title"
+                       placeholder="请输入论文标题" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜 索</button>
+            </form>
 
-                <ul class="navbar-nav pull-right">
-                    <li class="nav-item">
-                        <a class="nav-link " href="login.html">登录</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="register.html">注册</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            昵称
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">个人中心</a>
-                            <a class="dropdown-item" href="#">公告栏</a>
-                            <a class="dropdown-item" href="#">问答中心</a>
+            <ul class="navbar-nav pull-right">
+                <li class="nav-item">
+                    <a class="nav-link " href="login.html">登录</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="register.html">注册</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        昵称
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">个人中心</a>
+                        <a class="dropdown-item" href="#">公告栏</a>
+                        <a class="dropdown-item" href="#">问答中心</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <!--动图-->
+    <div class="row">
+        <div class="col-md-10" style="margin-top: 30px">
+            <input type="hidden" id="ListModels" th:value="${data}">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#tab1">关键词图谱</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " data-toggle="tab" href="#tab2">热词走势</a>
+                </li>
+            </ul>
+
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div id="tab1" class="container tab-pane active">
+                    <div class="dropdown" >
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="margin-top: 20px;">
+                            关键词1
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Link 1</a>
+                            <a class="dropdown-item" href="#">Link 2</a>
+                            <a class="dropdown-item" href="#">Link 3</a>
+                            <a class="dropdown-item" href="#">Link 1</a>
+                            <a class="dropdown-item" href="#">Link 2</a>
+                            <a class="dropdown-item" href="#">Link 3</a>
+                            <a class="dropdown-item" href="#">Link 1</a>
+                            <a class="dropdown-item" href="#">Link 2</a>
+                            <a class="dropdown-item" href="#">Link 3</a>
                         </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-
-        <!--动图-->
-        <div class="row">
-            <div class="col-md-10" style="margin-top: 30px">
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#home">关键词图谱</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#menu1">热词走势</a>
-                    </li>
-                </ul>
-
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <div id="map" class="container tab-pane active" style="width: 1000px;height:500px;">
-
                     </div>
-
-
-                    <script type="text/javascript">
-                        var chartDom = document.getElementById('map');
-                        var myChart = echarts.init(chartDom);
-                        var option;
-
-                        option = {
-                            title: {
-                                text: '近五年热词TOP10',
-                                subtext: '计算机三大顶会',
-                                left: 'center'
-                            },
-                            tooltip: {
-                                trigger: 'item',
-                                formatter: '{a} <br/>{b} : {c} ({d}%)'
-                            },
-                            legend: {
-                                left: 'center',
-                                top: 'bottom',
-                                data: ['feature extraction', 'learning (artificial intelligence)', 'Training',
-                                    'computer vision', 'object detection', 'Image segmentation', 'Cameras',
-                                    'Three-dimensional displays','neural nets','Task analysis']
-                            },
-                            toolbox: {
-                                show: true,
-                                feature: {
-                                    mark: {show: true},
-                                    dataView: {show: true, readOnly: false},
-                                    restore: {show: true},
-                                    saveAsImage: {show: true}
-                                }
-                            },
-                            series: [
-                                {
-                                    name: '出现频数',
-                                    type: 'pie',
-                                    radius: [50, 140],
-                                    center: ['75%', '50%'],
-                                    roseType: 'area',
-                                    itemStyle: {
-                                        borderRadius: 5
-                                    },
-                                    data: [
-                                        {value: 526, name: 'feature extraction'},
-                                        {value: 501, name: 'learning (artificial intelligence)'},
-                                        {value: 405, name: 'Training'},
-                                        {value: 376, name: 'computer vision'},
-                                        {value: 304, name: 'object detection'},
-                                        {value: 276, name: 'Image segmentation'},
-                                        {value: 241, name: 'Cameras'},
-                                        {value: 236, name: 'Three-dimensional displays'},
-                                        {value: 230, name: 'neural nets'},
-                                        {value: 206, name: 'Task analysis'},
-
-                                    ]
-                                }
-                            ]
-                        };
-
-                        option && myChart.setOption(option);
-
-                    </script>
-
-
-                    <div id="menu1" class="container tab-pane fade" style="width: 1000px; height:500px;">
-
-                    </div>
-                    <script>
-                        var chartDom = document.getElementById('menu1');
-                        var myChart = echarts.init(chartDom);
-                        var json;
-                        var option;
-                        $.ajax({
-                            type:"post",
-                            url:"http://localhost:8080/keyword/top/{meeting}", //????
-                            dataType:'JSON',
-                            success: function (data) {
-                                json = JSON.parse(data);
-                                option && myChart.setOption(option);
-                            }
-
-                        })
-
-                        option = {
-                            title: {
-                                text: '顶会热词热度走势'
-                            },
-                            tooltip: {
-                                trigger: 'axis'
-                            },
-                            legend: {
-                                data: json.content
-                            },
-                            grid: {
-                                left: '3%',
-                                right: '4%',
-                                bottom: '3%',
-                                containLabel: true
-                            },
-                            toolbox: {
-                                feature: {
-                                    saveAsImage: {}
-                                }
-                            },
-                            xAxis: {
-                                type: 'category',
-                                boundaryGap: false,
-                                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-                            },
-                            yAxis: {
-                                type: 'value'
-                            },
-                            series: [
-                                {
-                                    name: json.content,
-                                    type: 'line',
-                                    stack: '总量',
-                                    data: json.total,
-                                },
-                                {
-                                    name: '联盟广告',
-                                    type: 'line',
-                                    stack: '总量',
-                                    data: [220, 182, 191, 234, 290, 330, 310]
-                                },
-                                {
-                                    name: '视频广告',
-                                    type: 'line',
-                                    stack: '总量',
-                                    data: [150, 232, 201, 154, 190, 330, 410]
-                                },
-                                {
-                                    name: '直接访问',
-                                    type: 'line',
-                                    stack: '总量',
-                                    data: [320, 332, 301, 334, 390, 330, 320]
-                                },
-                                {
-                                    name: '搜索引擎',
-                                    type: 'line',
-                                    stack: '总量',
-                                    data: [820, 932, 901, 934, 1290, 1330, 1320]
-                                }
-                            ]
-                        };
-
-                        option && myChart.setOption(option);
-
-                    </script>
-
-
+                    <div id= "map" style="width: 900px; height:600px; "></div>
                 </div>
 
+                <div id= "tab2" class="container tab-pane fade">
+                    <div class="container">
+                        <div class="row">
+                            <form class="form-check form-inline">
+                                <label class="mx-1 radio-inline ">
+                                    <input type="radio" name="sort" id="sortBYID"
+                                           th:checked="true" th:value="1">ECCV
+                                </label>
+                                <label class="mx-1 radio-inline">
+                                    <input type="radio" name="sort"
+                                           th:value="2">ICCV
+                                </label>
+                                <label class="mx-1 radio-inline">
+                                    <input type="radio" name="sort"
+                                           th:value="2">CVPR
+                                </label>
+                                <label for="title">论文标题:</label>
+                                <input type="text" class="form-control " name="title">
+                                <label for="keyword">关键词:</label>
+                                <input type="text" class="form-control" id="keyword" name="keyword">
+                                <button class="btn btn-info" style="margin-top: 10px;" type="submit">提交</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="fre" style="width: 1200px; height:500px; margin-top: 50px;"></div>
             </div>
         </div>
 
+            <!--ajax: chart1-->
+            <script th:inline="javascript">
+                var chartDom = document.getElementById('map');
+                var myChart = echarts.init(chartDom);
+                var option;
+                var json;
 
-   </div>
+                var rose = [];
+                var keyword = [];
+                var frenquency = [];
 
- <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
+                option = {
+                    title: {
+                        text: '近五年热词TOP10',
+                        subtext: '计算机三大顶会',
+                        left: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{a} <br/>{b} : {c} ({d}%)'
+                    },
+                    legend: {
+                        left: 'center',
+                        top: 'bottom',
+                        data: keyword
+                        // ['feature extraction', 'learning (artificial intelligence)', 'Training',
+                        //     'computer vision', 'object detection', 'Image segmentation', 'Cameras',
+                        //     'Three-dimensional displays','neural nets','Task analysis']
+                    },
+                    toolbox: {
+                        show: true,
+                        feature: {
+                            mark: {show: true},
+                            dataView: {show: true, readOnly: false},
+                            restore: {show: true},
+                            saveAsImage: {show: true}
+                        }
+                    },
+                    series: [
+                        {
+                            name: '出现频数',
+                            type: 'pie',
+                            radius: [50, 140],
+                            center: ['75%', '50%'],
+                            roseType: 'area',
+                            itemStyle: {
+                                borderRadius: 5
+                            },
+                            data: rose
+                            //[
+                            // {value: 526, name: 'feature extraction'},
+                            // {value: 501, name: 'learning (artificial intelligence)'},
+                            // {value: 405, name: 'Training'},
+                            // {value: 376, name: 'computer vision'},
+                            // {value: 304, name: 'object detection'},
+                            // {value: 276, name: 'Image segmentation'},
+                            // {value: 241, name: 'Cameras'},
+                            // {value: 236, name: 'Three-dimensional displays'},
+                            // {value: 230, name: 'neural nets'},
+                            // {value: 206, name: 'Task analysis'},analysis
+
+                            //]
+                        }
+                    ]
+                };
+
+                $.ajax({
+                    url: encodeURI("/keyword/top"),
+                    type: "get",  //请求的方法
+                    cache: false, //去除缓存
+                    async: false,  //async:false同步。true异步方式
+                    dataType: 'JSON',
+                    success: function (result) {
+                        json = JSON.parse(result.data);
+                        /*keyword = json.content;
+                        frenquency = json.total;*/
+                        keyword:[];
+                        //rose:[{}]
+                        for (let i = 0; i < 10; i++) {
+                            keyword.push(json[i].content);
+                            rose.push({
+                                value: json[i].total,
+                                name: json[i].content
+                            });
+                        }
+                        /*console.log("【keyword】"+keyword);
+                        console.log("【rose】"+rose);*/
+                    }
+                })
+
+                option && myChart.setOption(option);
+
+            </script>
+
+
+            <!--[]:chart1-->
+           <!-- <script th:inline="javascript">
+                var resultList = [[${data}]];
+                var data = JSON.parse(resultList);
+                console.log(data);
+                console.log("[2333]: " + data[0].content)
+                //var dd="&&"+"<";
+
+                /*  alert("2333");
+                      var result = $("#ListModels").val();
+                      var val = eval("("+data+")");
+                      alert("[val]:"+val);
+
+                      var resultList = JSON.parse(result);
+                      alert(resultList[2].content);*/
+
+                var chartDom = document.getElementById('map');
+                var myChart = echarts.init(chartDom);
+                var option;
+
+
+                option = {
+                    title: {
+                        text: '计算机三大顶会热词top10',
+                        subtext: 'ECCV&ICCV&CVPR近五年',
+                        left: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{a} <br/>{b} : {c} ({d}%)'
+                    },
+                    legend: {
+                        left: 'center',
+                        top: 'bottom',
+                        /*data: ['rose1', 'rose2', 'rose3', 'rose4', 'rose5', 'rose6', 'rose7', 'rose8']*/
+                        data: [
+                            data[0].content, data[1].content, data[2].content, data[3].content, data[4].content,
+                            data[5].content, data[6].content, data[7].content, data[8].content, data[9].content,
+                        ]
+                    },
+                    toolbox: {
+                        show: true,
+                        feature: {
+                            mark: {show: true},
+                            dataView: {show: true, readOnly: false},
+                            restore: {show: true},
+                            saveAsImage: {show: true}
+                        }
+                    },
+                    series: [
+                        /*{
+                            name: '半径模式',
+                            type: 'pie',
+                            radius: [20, 140],
+                            center: ['25%', '50%'],
+                            roseType: 'radius',
+                            itemStyle: {
+                                borderRadius: 5
+                            },
+                            label: {
+                                show: false
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true
+                                }
+                            },
+                            data: [
+                                {value: data[0].total, name: data[0].content},
+                                {value: data[1].total, name: data[1].content},
+                                {value: data[2].total, name: data[2].content},
+                                {value: data[3].total, name: data[3].content},
+                                {value: data[4].total, name: data[4].content},
+                                {value: data[5].total, name: data[5].content},
+                                {value: data[6].total, name: data[6].content},
+                                {value: data[7].total, name: data[7].content},
+                                {value: data[8].total, name: data[8].content},
+                                {value: data[9].total, name: data[9].content},
+                            ]
+                            /!*data:
+                                [
+                                    {value: 526, name: 'feature extraction'},
+                                    {value: 501, name: 'learning (artificial intelligence)'},
+                                    {value: 405, name: 'Training'},
+                                    {value: 376, name: 'computer vision'},
+                                    {value: 304, name: 'object detection'},
+                                    {value: 276, name: 'Image segmentation'},
+                                    {value: 241, name: 'Cameras'},
+                                    {value: 236, name: 'Three-dimensional displays'},
+                                    {value: 230, name: 'neural nets'},
+                                    {value: 206, name: 'Task analysis'},
+
+                                ]*!/
+                        },*/
+                        {
+                            name: '关键词频数',
+                            type: 'pie',
+                            radius: [20, 140],
+                            center: ['75%', '50%'],
+                            roseType: 'area',
+                            itemStyle: {
+                                borderRadius: 5
+                            },
+                            /*data: [
+                                {value: 30, name: 'rose 1'},
+                                {value: 28, name: 'rose 2'},
+                                {value: 26, name: 'rose 3'},
+                                {value: 24, name: 'rose 4'},
+                                {value: 22, name: 'rose 5'},
+                                {value: 20, name: 'rose 6'},
+                                {value: 18, name: 'rose 7'},
+                                {value: 16, name: 'rose 8'}
+                            ]*/
+                            data: [
+                                {value: data[0].total, name: data[0].content},
+                                {value: data[1].total, name: data[1].content},
+                                {value: data[2].total, name: data[2].content},
+                                {value: data[3].total, name: data[3].content},
+                                {value: data[4].total, name: data[4].content},
+                                {value: data[5].total, name: data[5].content},
+                                {value: data[6].total, name: data[6].content},
+                                {value: data[7].total, name: data[7].content},
+                                {value: data[8].total, name: data[8].content},
+                                {value: data[9].total, name: data[9].content},
+                            ]
+                        }
+                    ]
+                };
+
+                option && myChart.setOption(option);
+            </script>-->
+
+
+            <!--ajax: chart2-->
+            <script th:inline="javascript">
+                /* var resultList = [[${data}]];
+                 var data = JSON.parse(resultList);
+                 console.log(data);
+                 console.log("[2333]: " + data[0].content)*/
+
+                var chartDom = document.getElementById('fre');
+                var myChart = echarts.init(chartDom);
+                var json;
+                var option;
+
+                var keywords = new Array();
+                var ktotal = new Array();
+                var jsontotal = new Array();
+                var years = [];
+                var mySeries = [];
+
+                $.ajax({
+                    url: encodeURI("/keyword/top/ICCV"),
+                    type: "get",  //请求的方法
+                    cache: false, //去除缓存
+                    async: false,  //async:false同步。true异步方式
+                    dataType: 'JSON',
+                    success: function (result) {
+
+                        $.each(result.map, function(i, item) {
+                            years.push(i);
+                            keywords[i] = [];
+                            ktotal[i] = [];
+                            for (let j = 0; j < 10; j++){
+                                keywords[i].push(item[j].content);
+                                ktotal[i].push(item[j].total);
+                            }
+                            console.log("【keywords--"+ i +"】: " + keywords[i]);
+                            console.log("【ktotal--"+ i +"】: " + ktotal[i]);
+                        });
+                        console.log("【years】: " + years);
+
+                        for (let i = 0; i < 10; i++) {
+                            jsontotal[i] = [];
+                            for (let j = 0; j < years.length; j++){
+                                jsontotal[i].push(ktotal[years[j]][i])
+                            }
+                            console.log("【"+keywords[years[0]][i]+"---"+"jsontotal---" +i+ "】" + jsontotal[i]);
+                        }
+
+                        /*  */
+                        for (let i = 0; i < 10; i++){
+                            mySeries.push({
+                                name: keywords[years[0]][i],
+                                type:'line',
+                                stack:'总量',
+                                data: jsontotal[i],
+                            });
+                        }
+
+                        console.log("【mySeries】:" + mySeries);
+
+                       /*
+                        years = []
+                        datas = []
+
+                        for (let i = 0; i < jsons.length; i++) {
+                            datas.push(JSON.parse(json[i]).key);
+                            years.push(JSON.parse(json[i]));
+                            console.log("[years--"+i+"]:"+years[i]);
+                        }
+                        console.log("[datas]: " + datas);*/
+
+                        /*option && myChart.setOption(option);*/
+                    }
+
+                })
+
+                option = {
+                    title: {
+                        text: '顶会热词频数走势'
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                       /* data: [json.content]//图例--所有关键词数组*/
+                        data: keywords[years[0]],
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    toolbox: {
+                        feature: {
+                            saveAsImage: {}
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        /*data: ['2017', '2018', '2019', '2020', '2021']*/
+                        data: years,
+                    },
+                    yAxis: {
+                        type: 'value',
+                    },
+                    series: mySeries,
+                    /*series: [
+                        {
+                            name: json.content,
+                            type: 'line',
+                            stack: '总量',
+                            data: json.total,
+                        },
+                        {
+                            name: '联盟广告',
+                            type: 'line',
+                            stack: '总量',
+                            data: [220, 182, 191, 234, 290, 330, 310]
+                        },
+                        {
+                            name: '视频广告',
+                            type: 'line',
+                            stack: '总量',
+                            data: [150, 232, 201, 154, 190, 330, 410]
+                        },
+                        {
+                            name: '直接访问',
+                            type: 'line',
+                            stack: '总量',
+                            data: [320, 332, 301, 334, 390, 330, 320]
+                        },
+                        {
+                            name: '搜索引擎',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320]
+                        }
+                    ]*/
+                };
+
+                option && myChart.setOption(option);
+
+            </script>
+
+            <!--[]:chart2-->
+           <!-- <script th:inline="javascript">
+                /* var resultList = [[${data}]];
+                 var data = JSON.parse(resultList);
+                 console.log(data);
+                 console.log("[2333]: " + data[0].content)*/
+
+
+                var chartDom = document.getElementById('fre');
+                var myChart = echarts.init(chartDom);
+                var option;
+
+                option = {
+                    title: {
+                        text: '折线图堆叠'
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    toolbox: {
+                        feature: {
+                            saveAsImage: {}
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                            name: '邮件营销',
+                            type: 'line',
+                            stack: '总量',
+                            data: [120, 132, 101, 134, 90, 230, 210]
+                        },
+                        {
+                            name: '联盟广告',
+                            type: 'line',
+                            stack: '总量',
+                            data: [220, 182, 191, 234, 290, 330, 310]
+                        },
+                        {
+                            name: '视频广告',
+                            type: 'line',
+                            stack: '总量',
+                            data: [150, 232, 201, 154, 190, 330, 410]
+                        },
+                        {
+                            name: '直接访问',
+                            type: 'line',
+                            stack: '总量',
+                            data: [320, 332, 301, 334, 390, 330, 320]
+                        },
+                        {
+                            name: '搜索引擎',
+                            type: 'line',
+                            stack: '总量',
+                            data: [820, 932, 901, 934, 1290, 1330, 1320]
+                        }
+                    ]
+                };
+
+                option && myChart.setOption(option);
+
+            </script>-->
+
+
+        </div>
+    </div>
+
+
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="../static/bootstrap/js/bootstrap.min.js"></script>
