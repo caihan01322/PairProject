@@ -1,8 +1,14 @@
 body{
 margin:0px auto;
 width:1100px;
-min-height:800px;
-border:1px solid #000;
+height:750px;
+border:1px solid #dddddd;
+background-color: #dddddd;
+}
+.grey
+{
+background-color: #f6f5ec;
+height:750px;
 }
 form{
 margin:auto;
@@ -10,26 +16,37 @@ margin:auto;
 div.left
 {
 position: relative;
-margin:20px 0px;
-width:700px;
-min-height:1000px;
-border:1px solid #200;
+margin:8px;
+width:790px;
+height:664px;
+background-color: #ffffff;
+border:2px solid #dddddd;
 float:left;
+overflow: scroll;
 }
-div.right
+div.right1
 {
-margin:20px auto;
-width:250px;
-height:300px;
-border:1px solid #200;
+margin:8px;
+width:240px;
+height:400px;
+border:1px solid #dddddd;
+background-color: #ffffff;
+float:right;
+}
+div.right2
+{
+margin:8px;
+width:240px;
+height:240px;
+border:1px solid #dddddd;
+background-color: #ffffff;
 float:right;
 }
 div.center
 {
-margin:0px auto;
-width:1000px;
-min-height:1200px;
-background-color: #DDD;
+margin:10px auto;
+width:1070px;
+height:670px;
 }
 div.list
 {

@@ -5,17 +5,20 @@
     <title>This is login</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css') }}" type="text/css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/test.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/warn.css') }}"/>
 </head>
-<body>
+<body background={{url_for('static', filename='1.png')}}>
 {% include 'navbar.html' %}
-<form method="POST">
-    {{forms.username.label}}{{forms.username}}{{text1}}<br>
-    {{forms.password.label}}{{forms.password}}{{text2}}<br>
-    {{forms.submit}}<br>
-</form>
-<form method="POST">
-<input type="submit" name ="submit" value="还没有账号？">
-</form>
-<p>我是登录</p>
+<div class="informs" style="width:300px;background-color: #fff;">
+    <form method="POST" style="width:300px;">
+        <h2 style="margin:0px auto;width:300px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请登录</h2>
+        <div><span>请输入用户名:</span>{{forms.username}}</div>
+        <div style="width:300px;margin:0px;auto;font-size:10px;color:#ff3333" >{{text1}}</div>
+        <div><span>&nbsp;&nbsp;&nbsp;请输入密码:</span>{{forms.password}}</div>
+        <div style="width:300px;margin:0px;auto;font-size:10px;color:#ff3333" >{{text2}}</div><br>
+        <div><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{{forms.submit}}<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <input type="submit" name ="submit" value="还没有账号？"></div>
+    </form>
+</div>
 </body>
 </html>

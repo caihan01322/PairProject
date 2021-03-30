@@ -5,7 +5,7 @@ from forms import *
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    if request.form.get('search') == '搜索':
+    if request.form.get('search') == '爬一下!':
         if len(request.form.get('text')) > 2:
             session['text'] = request.form.get('text')
             return redirect(url_for('list'))
@@ -22,7 +22,7 @@ def login():
     if request.method == 'POST':
         if request.form.get('submit') == '还没有账号？':
             return redirect(url_for('signup'))
-        else:
+        elif request.form.get('submit') == '登录':
             if len(request.form.get('username')) <= 3 or len(request.form.get('username')) > 20:
                 return render_template('login.html', forms=forms, text1='用户名不能少于三个字符，最多不超过20个')
             if User.query.filter(User.username == request.form.get('username'),
@@ -30,9 +30,16 @@ def login():
                 return render_template('login.html', forms=forms, text2='用户名或密码错误！')
             session['username'] = request.form.get('username')
             return render_template('temp.html', text="登录成功")
+        elif request.form.get('submit') == '退出登录':
+            session.pop('username')
+            return render_template('login.html',forms=forms)
     if 'username' in session:
-        return render_template('collection.html', forms=forms)
-    return render_template('login.html', forms=forms)
+        user=User.query.filter(User.username==session['username']).first()
+        user_id=user.id
+        password=user.password
+        paper_number=UserCollection.query.filter(UserCollection.user_id==user_id).count()
+        return render_template('user.html',username=session['username'],user_id=user_id,paper_number=paper_number,password=password)
+    return render_template('login.html',forms=forms)
 
 
 @app.route('/signup', methods=['POST', 'GET'])
@@ -58,21 +65,22 @@ def signup():
 @app.route('/list', methods=['GET', 'POST'])
 def list():
     if request.method == 'POST':
-        if request.form.get('submit') == '点我搜说':
+        if request.form.get('submit') == '搜索':
             if len(request.form.get('text')) > 2:
                 text = request.form.get('text')
                 session['text']=text
                 paper_list = Paper.query.filter(Paper.title.like('%' + text + '%')).all()
+                all_paper=len(paper_list)
                 all_page = int(len(paper_list)/6)+1
                 show_list = paper_list[0:6]
                 paper_map=[]
                 for p in show_list:
                     key_list=PaperToKeyword.query.filter(PaperToKeyword.paper_id==p.id).all()
                     paper_map.append([p,key_list])
-                return render_template('list.html', paper_map=paper_map,all_page=range(0,all_page),search_word='text')
+                return render_template('list.html', paper_map=paper_map,all_page=range(0,all_page),search_word='text',all_paper=all_paper)
             else:
                 text = "请输入三个以上字符"
-                return render_template('list.html', text=text)
+                return render_template('list.html', text=text,all_paper=0)
         else:
             if request.form.get("submit")=="收藏":
                 if 'username' in session:
@@ -90,6 +98,7 @@ def list():
                 page= int(request.form.get("select"))
                 text=session['text']
                 paper_list = Paper.query.filter(Paper.title.like('%' + text + '%')).all()
+                all_paper = len(paper_list)
                 all_page = int(len(paper_list) / 6) + 1
                 show_list = paper_list[6*(page-1):6*page]
                 paper_map = []
@@ -98,7 +107,7 @@ def list():
                     key_list = PaperToKeyword.query.filter(PaperToKeyword.paper_id == p.id).all()
                     paper_map.append([p, key_list])
                 return render_template('list.html', paper_map=paper_map, all_page=range(0, all_page),
-                                       search_word='text',page=page_show)
+                                       search_word='text',page=page_show,all_paper=all_paper)
             return redirect(url_for('index'))
     else:
         if 'text' in session:
@@ -106,18 +115,19 @@ def list():
             if len(session.get('text')) > 2:
                 text = session.get('text')
                 paper_list = Paper.query.filter(Paper.title.like('%' + text + '%')).all()
+                all_paper=len(paper_list)
                 all_page = int(len(paper_list)/ 6 ) + 1
                 show_list = paper_list[0:6]
                 paper_map = []
                 for p in show_list:
                     key_list = PaperToKeyword.query.filter(PaperToKeyword.paper_id == p.id).all()
                     paper_map.append([p, key_list])
-                return render_template('list.html', paper_map=paper_map,all_page=range(0,all_page),search_word=session['text'])
+                return render_template('list.html', paper_map=paper_map,all_page=range(0,all_page),search_word=session['text'],all_paper=all_paper)
             else:
                 text = "还没搜索哦"
                 return render_template('list.html', text=text)
         print("异常进入")
-        return render_template('list.html')
+        return render_template('list.html',text='请开始您的搜索',all_paper=0)
 
 @app.route('/collection',methods=['POST','GET'])
 def collection():
@@ -132,6 +142,7 @@ def collection():
         else:
             user_id = User.query.filter(User.username == session['username']).first().id
             collection_list=UserCollection.query.filter(UserCollection.user_id==user_id).all()
+            all_paper=len(collection_list);
             all_page=int(len(collection_list)/6)+1
             if request.method=='GET':
                 show_list=collection_list[0:6]
@@ -145,7 +156,7 @@ def collection():
             for p in paper_list:
                 key_list = PaperToKeyword.query.filter(PaperToKeyword.paper_id == p.id).all()
                 paper_map.append([p, key_list])
-            return render_template('collection.html', paper_map=paper_map, all_page=range(0, all_page))
+            return render_template('collection.html', paper_map=paper_map, all_page=range(0, all_page),all_paper=all_paper)
     return redirect(url_for('login'))
 
     # if request.method == 'POST':

@@ -5,14 +5,16 @@
     <title>Title</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/test.css') }}" type="text/css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/warn.css') }}"/>
 </head>
-<body>
+<body background={{url_for('static', filename='1.png')}}>
+<div>
 {% include 'navbar.html' %}
-<form method="POST">
-    <input type="text" value="" name="text">
-    <input type="submit" name="search" value="搜索">
+<form method="POST" class="informs" style="border:0px;width:800px;margin:200px auto;">
+    <span class="big">快爬！    </span>
+    <input type="text" value="" name="text" style="border:3px solid #c0c0c0;width:400px; height:30px;border-radius: 5px;font-size:20px;">
+    <input type="submit" name="search" style="border:3px solid #c0c0c0;width:120px; height:40px;border-radius: 5px;font-size:25px;" value="爬一下!">
 </form>
-{{text}}
-<p>我是index</p>
+</div>
 </body>
 </html>

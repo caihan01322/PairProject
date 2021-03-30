@@ -5,17 +5,19 @@
     <title>Title</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/test.css') }}" type="text/css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/warn.css') }}"/>
 </head>
-<body>
+<body background={{url_for('static', filename='1.png')}}>
+<div class="grey">
 {% include 'navbar.html' %}
 <div class="center">
     <div class="left">
-    <form method="POST">
+    <form method="POST" style="border:0px;width:500px;margin:10px auto;">
         <input type="text" name="text" placeholder="请输入所查询内容" value={{search_word}}>
-        <input type="submit" name="submit" value="点我搜说">
+        <input type="submit" name="submit" value="搜索">
     </form>
-        <p>搜索词：</p>
-        {{text}}
+        <h2>所得结果如下：</h2>
+        <h5>共有{{all_paper}}条记录</h5>
         {%for u in paper_map%}
             <div class="list">
                 <div class="item">
@@ -44,10 +46,11 @@
             <input type="submit" name="submit" value="跳转">
         </form>
     </div>
-    <div class="right">
+    <div class="right1">
     </div>
-    <div class="right">
+    <div class="right2">
     </div>
+</div>
 </div>
 </body>
 </html>

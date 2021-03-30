@@ -1,10 +1,9 @@
 nav{
 margin:0px auto;/*整体位置，离网页顶部和底部距离，auto左右自动调节*/
-wid2th:auto;
+width:auto;
 height:50px;
 background-color: #000;
 padding:0px;/*内间隔*/
-border:1px solid #000;/*边框*/
 }
 
 li{
