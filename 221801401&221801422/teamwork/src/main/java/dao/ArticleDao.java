@@ -283,14 +283,14 @@ public class ArticleDao {
      * @param year name
      * @return list
      * */
-    public List<String> findKwds(String year, String name) {
+    public List<String> findKwds(String name, String year) {
         List<String> list = new ArrayList();
-        String sql = "select kwds,year from ? where year=?;";
+        String sql = "select kwds from " + name + " where year=?;";
+
         String str = "";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setString(1, name);
-            pre.setString(2, year);
+            pre.setString(1, year);
             ResultSet result = pre.executeQuery();
             while(result.next()) {
                 String kwds = result.getString("kwds").toString();

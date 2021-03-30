@@ -89,10 +89,10 @@ public class ArticleController {
     
     @RequestMapping("kwds/year")
     @ResponseBody
-    public List<String> findKwds(String year, String name) {
+    public List<String> findKwds(String name, String year) {
         ArticleDao dao = new ArticleDao();
         dao.setConnection(DatabaseUtils.connectToArticles());
-        List<String> a = dao.findKwds(year, name);
+        List<String> a = dao.findKwds(name, year);
         return a;
     }
 }
