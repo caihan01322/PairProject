@@ -1,8 +1,10 @@
 package com.pairwork.pairwork.controller;
 
+import com.pairwork.pairwork.entity.Paper;
 import com.pairwork.pairwork.entity.User;
 import com.example.common.Result;
 import com.pairwork.pairwork.service.UserService;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,5 +29,8 @@ public class UserController {
         return userService.findByAccount(account);
     }
 
-
+    @GetMapping("/{id}")
+    public Result<Page<Paper>> findCollection(@PathVariable Long id){
+        return Result.success(userService.findCollection(5,5,id));
+    }
 }
