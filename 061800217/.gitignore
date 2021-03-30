@@ -1,4 +1,6 @@
 .idea
+.svg
+*.svg
 *.pyc
 *.py[cod]
 */*.pyc
