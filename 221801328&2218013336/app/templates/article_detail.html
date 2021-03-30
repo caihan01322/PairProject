@@ -8,6 +8,8 @@
     <!-- 引入 Bootstrap -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="register_login.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+     <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
 
     <style>
         #main{
@@ -72,21 +74,21 @@
             
         <div id="main">
             <h3>
-                企业文化对品牌价值影响的实证研究——企业家精神和CSR的调节作用</h3>
+               {{ title }}</h3>
     
-                <h4>关键词：企业文化;品牌价值;企业家精神;企业社会责任;</h4>
+                <h4>关键词：{{ keyword }}</h4>
     
                 <hr />
                 <h4>摘要：</h4>
-                啦啦啦啦啦lallala
+                {{ abstract }}
 
-                <h4>原文链接：</h4>asdjflksdajklfdl
+                <h4>原文链接：</h4>{{ href }}
 
         </div>
 
         <div id="buttons">
-            <button type="button" class="btn btn-default">修改</button>
-            <button type="button" class="btn btn-default">删除</button>
+            <button type="button" @click="showDetail" class="btn btn-default">修改</button>
+            <button type="button" @click="deleteArticle" class="btn btn-default">删除</button>
 
         </div>
     </div>
@@ -94,5 +96,74 @@
 
     </div>
 
+
+    <script>
+        var app = new Vue({
+            el:"#wrapper",
+
+             /*  numberid	是	string	论文id号
+            title	是	string	论文标题
+            keyword	是	string	论文关键词
+            abstract	否	string	论文摘要
+            datetime	否	time	论文时间
+            href	否	string	论文链接
+            classify	否	string	论文分类  */
+
+            data:{
+                message:"请先登录",
+                phone:'',
+                password:'',
+                numberid:'28',
+                title:'标题',
+                keyword:'关键词',
+                abstract:'摘要',
+                href:'链接'
+            },
+            methods: {
+            doIt:function(){
+                alert("请先登录");
+            },
+            signIn:function(){
+                window.location.href="login.html";
+            },
+            deleteArticle:function(){
+                var that = this;
+
+                axios
+                .post('http://127.0.0.1:5000/paper/delete/'+this.numberid)
+                .then(function (response) {
+                    console.log(response.data);
+                    window.location.href="article.html";
+                })
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
+            },
+            showDetail:function(){
+               var that = this;
+               //alert(this.phone);
+                //alert(this.password);
+
+
+                axios
+                .get('http://127.0.0.1:5000/paper/'+this.numberid)
+                .then(function (response) {
+                    console.log(response.data);
+                    article = response.data;
+                    that.title = article.title;
+                    that.keyword = article.keyword;
+                    console.log(article.keyword);
+                    that.abstract = article.abstract;
+                    that.href = article.href;
+                })               
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
+            },
+            
+            }
+        })
+       
+    </script>
 </body>
 </html>
