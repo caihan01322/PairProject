@@ -3,6 +3,7 @@ package com.pairwork.pairwork;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
 public class PairworkApplication {
 
     public static void main(String[] args) {

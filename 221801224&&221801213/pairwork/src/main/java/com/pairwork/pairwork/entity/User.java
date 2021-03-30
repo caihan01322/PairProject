@@ -3,13 +3,13 @@ package com.pairwork.pairwork.entity;
 
 import javax.persistence.*;
 
-@Table(name = "user")
+//@Table(name = "user")
 @Entity
 
 public class User {
     @Id//标识Id为主键
     @GeneratedValue(strategy = GenerationType.IDENTITY)//标识主键为自动递增
-    private Long id;
+    private Long userId;
     private String password;
     private String account;
 
@@ -29,11 +29,11 @@ public class User {
         this.password = password;
     }
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

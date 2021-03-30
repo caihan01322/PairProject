@@ -1,5 +1,6 @@
-package com.example.common;
+package com.pairwork.pairwork.common;
 
+@SuppressWarnings("rawtypes")
 public class Result<T> {
     private String code;
     private String msg;

@@ -21,11 +21,11 @@ public class UserService {
         userDao.save(user);
     }
 
-    public User findById(Long id){//根据id查不到则返回null
-        return  userDao.findById(id).orElse(null);
-    }
+//    public User findById(Long id){//根据id查不到则返回null
+//        return  userDao.findById(id).orElse(null);
+//    }
 
-    public boolean findByAccount(String account){//根据account查询用户，查不到则返回false
+    public User findByAccount(String account){//根据account查询用户，查不到则返回false
         return userDao.findAccount(account);//在dao中自定义函数
     }
 

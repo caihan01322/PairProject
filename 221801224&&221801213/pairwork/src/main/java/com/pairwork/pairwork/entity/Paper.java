@@ -1,11 +1,9 @@
 package com.pairwork.pairwork.entity;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-@Table(name = "paper")
+@Entity
+//@Table(name = "paper")
 public class Paper {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

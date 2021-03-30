@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository//标识这是一个接口interface
 public interface UserDao extends JpaRepository<User,Long> {
     @Query(value = "select * from user where account = ?1",nativeQuery = true)
-    boolean findAccount(String account);
+    User findAccount(String account);
 
     @Query(value = "SELECT * FROM paper WHERE paperId = ANY(SELECT paperId FROM id_paper WHERE id_paper.userId = 1)",nativeQuery = true)
     Page<Paper> findCollecion(Long id, Pageable pageable);
