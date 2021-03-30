@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @SuppressWarnings("rawtypes")
 @CrossOrigin(origins = "http://domain2.com",
@@ -29,15 +30,21 @@ public class UserController {
         return  Result.success();//若执行成功则返回成功
     }
 
-    @GetMapping("/get/{account}")
-    public User findByAccount(@PathVariable String account){
+    @GetMapping("/getAccount/{account}")
+    public List<User> findByAccount(@PathVariable String account){
         return userService.findByAccount(account);
     }
 
-    @GetMapping("/{id}")
-    public Result<Page<Paper>> findCollection(@PathVariable Long id){
-        return Result.success(userService.findCollection(5,5,id));
-    }
+//    @GetMapping("/getUserCollection/{user_id}")
+//    public Result<Page<Paper>> findCollection(@PathVariable Long user_id){
+//        return Result.success(userService.findCollection(5,5,user_id));
+//    }
+
+
+//    public Result<List<Paper>> findColleciont(@PathVariable Long user_id){
+//        return Result.success(userService.findCollecion(user_id));
+//    }
+
     @GetMapping("/example1/{money}")//测试接口链接
     public Result example1(Float money, String product){
 //        System.out.println("product:"+ product);//product:洗洁精

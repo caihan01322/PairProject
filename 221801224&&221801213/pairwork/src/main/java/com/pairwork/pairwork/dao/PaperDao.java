@@ -7,11 +7,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PaperDao extends JpaRepository<Paper,Long> {
-    @Query(value = "select * from paper where (title like '%?1%' or summary like '%?1%' )",nativeQuery = true)
-    Page<Paper> findNameLike(String toFind,Pageable pageable);//实现按名字的模糊查询
+    @Query(value = "SELECT p FROM Paper  p  where (p.summary like %?1% or p.title like %?1%)",nativeQuery = false)
+    List<Paper> findNameLike(String toFind);//实现按名字的模糊查询
 
+//    @Query(value = "select  * from paper",nativeQuery = true)
+    @Query(value = "SELECT * FROM id_paper, paper WHERE id_paper.cuser_id = ?1 AND id_paper.cpaper_id = paper.paper_id",nativeQuery = true)
+    List<Paper> findUserCollecion(Long user_id);
 //    Page<Paper> findNameLike(Pageable pageable);
 }
 

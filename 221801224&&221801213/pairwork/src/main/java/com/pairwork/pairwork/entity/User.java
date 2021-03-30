@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class User {
     @Id//标识Id为主键
     @GeneratedValue(strategy = GenerationType.IDENTITY)//标识主键为自动递增
-    private Long userId;
+    private Long user_id;
     private String password;
     private String account;
 
@@ -29,11 +29,11 @@ public class User {
         this.password = password;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getUser_id() {
+        return user_id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 }

@@ -7,19 +7,19 @@ import javax.persistence.*;
 public class Paper {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long paperId;
+    private Long paper_id;
     private  String summary;
     private  String link;
     private  String keyWords;
     private  String title;
-    private  String content;
 
-    public Long getPaperId() {
-        return paperId;
+
+    public Long getPaper_id() {
+        return paper_id;
     }
 
-    public void setPaperId(Long paperId) {
-        this.paperId = paperId;
+    public void setPaper_id(Long paper_id) {
+        this.paper_id = paper_id;
     }
 
     public String getSummary() {
@@ -54,11 +54,4 @@ public class Paper {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
 }
