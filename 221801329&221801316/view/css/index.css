@@ -94,6 +94,9 @@ body {
 .top-bar-img {
     margin-left: 5px;
     margin-right: 5px;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
 }
 
 .menu-span {
@@ -263,10 +266,11 @@ body {
 }
 
 .paper-title {
-    outline: 0;
+    /* outline: 0; */
     color: #06c;
     font-size: 18px;
     text-decoration: none;
+    width: 70%;
 }
 
 .paper-author {
@@ -341,7 +345,7 @@ li {
 .like {
     position: absolute;
     top: 2%;
-    left: 95%;
+    left: 100%;
     cursor: pointer;
     width: 18px;
     height: 18px;
