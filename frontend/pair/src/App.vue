@@ -1,8 +1,6 @@
 <template>
   <div id="app">
     <!-- <login></login> -->
-    <!-- <register></register> -->
-    <!-- <mycenter></mycenter> -->
     <articles></articles>
     <router-view></router-view>
   </div>
@@ -10,8 +8,6 @@
 
 <script>
 import Articles from './views/Articles.vue'
-// import Mycenter from './views/mycenter.vue'
-// import Register from './views/register.vue'
 // import Login from './views/login'
 export default {
   components: { Articles },
