@@ -2,6 +2,7 @@
 use yii\widgets\ListView;
 use common\models\Keyword;
 use backend\components\KeywordCloud;
+use yii\helpers\Html;
 /* @var $this yii\web\View */
 
 $this->title = 'Bookstore Freeloader';
@@ -13,7 +14,7 @@ $this->title = 'Bookstore Freeloader';
 
         <p class="lead">你可以在此查找相关论文</p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <p><?= Html::a('开始查找', ['paper/index'], ['class' => 'btn btn-lg btn-success']) ?></p>
     </div>
 
     <div class="body-content">
