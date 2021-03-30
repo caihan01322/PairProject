@@ -1,33 +1,54 @@
 <template>
   <div id="app">
-  <router-view></router-view>
-</div>
+    <el-header>
+        欢迎来到论文爬取网
+    </el-header>
+    <div id="wrap">
+      <div id="aside">
+        <el-menu :default-active="$route.path" router class="el-menu-vertical-demo">
+          <el-menu-item index="/">
+            <i class="el-icon-document"></i>
+            <span slot="title">论文查询</span>
+          </el-menu-item>
+          <el-menu-item index="/BuzzWord">
+            <i class="el-icon-s-flag"></i>
+            <span slot="title">热词统计</span>
+          </el-menu-item>
+        </el-menu>
+      </div>
+      <router-view></router-view>
+    </div>
+  </div>
 </template>
 
 <script>
-
+export default {
+  data () {
+    return {
+    }
+  },
+}
 </script>
-
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.el-header {
+  background-color: #B3C0D1;
+  color: #607D8B;
+  line-height: 60px;
   text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
+  font-size: 30px;
   font-weight: bold;
-  color: #2c3e50;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+#wrap{
+  height: 800px;
+  border: 1px solid #eee;
+  padding-left: 150px;
+}
+
+#aside{
+  margin-left:-150px;
+  float:left;
+  width:150px;
 }
 
 </style>
