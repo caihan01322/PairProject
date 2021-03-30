@@ -6,8 +6,13 @@ import SignIn from '../components/consumer/signin.vue'
 import Register from '../components/consumer/register.vue'
 import Retrieve from '../components/consumer/retrieve.vue'
 
-//
+// 论文主体页
 import Index from '../views/index.vue'
+import Search from '../components/index/search.vue'
+import Record from '../components/index/record.vue'
+import WordCloud from '../components/index/hotWord/wordCloud.vue'
+import WordTrend from '../components/index/hotWord/wordTrend.vue'
+import WordContrast from '../components/index/hotWord/wordContrast.vue'
 
 Vue.use(VueRouter)
 
@@ -38,15 +43,35 @@ const routes: Array<RouteConfig> = [
   {
     path: '/index',
     name: 'index',
-    component: Index
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: Index,
+    redirect: '/index/search',
+    children: [
+      {
+        path: 'search',
+        name: 'search',
+        component: Search
+      },
+      {
+        path: 'record',
+        name: 'record',
+        component: Record
+      },
+      {
+        path: 'wordcloud',
+        name: 'wordcloud',
+        component: WordCloud
+      },
+      {
+        path: 'wordtrend',
+        name: 'wordtrend',
+        component: WordTrend
+      },
+      {
+        path: 'wordcontrast',
+        name: 'wordcontrast',
+        component: WordContrast
+      }
+    ]
   }
 ]
 
