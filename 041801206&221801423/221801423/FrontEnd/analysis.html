@@ -68,7 +68,7 @@
             </nav>
         </div>
     </div>
-
+    <button id = "abc" >发送一个 HTTP POST 请求页面并获取返回内容</button>
     <div class="row" style="margin-top: 30px">
         <div class="col-lg-9" style="background-color: #fff0ae">
             <div class="btn-group" data-toggle="buttons">
@@ -81,7 +81,6 @@
                 <label class="btn btn-primary">
                     <input type="radio" class="ftypebtn" name="options" id="option3"> ICCV
                 </label>
-
             </div>	
         </div>
 
@@ -104,12 +103,39 @@
         <div class="chartcontent" id="ECCV" ></div>
 
         <div class="chartcontent" id="ICCV" ></div>
-
-        <div class="chartcontent" id="Difference" ></div>
     </div>
 
     <script>
     /*
+        设计方案：
+        1、按钮页内跳转三界面：
+            先把数据都读进来，分年份分平台的读入：
+                分年份：
+                分平台：
+                    if( json中平台 == 平台1){
+                        n=0;
+                        平台year[n] = json中最早数据的年份
+                        while(10){
+                            if(平台year[n] != json中当前的年份){
+                                n++
+                                平台year[n] = json中当前的年份
+                            }
+                            平台Keyword = json中Keyword
+                            平台frequency[iw] = json中frequency[i]
+                        }
+                        for(j){
+                            平台title[j] = 平台year[j]
+                        }
+                        年份个数(图表个数) = j;
+                    }elif(json中平台 == 平台2){
+
+                    }elif(json中平台 == 平台3){
+
+                    }
+            然后按照不同平台分成三个div，每个div里存有从2014-20的图表，图表格式为x-keyword名称，
+            y-频率, 以柱状图显示，每年共10列。
+            要不要动态生成图表？
+                函数，当一个，就调用
 
         
     */  
@@ -161,7 +187,57 @@
             
         }
 
-    </script>
+        var word = document.getElementById("bbb");
+        var xmlhttp1;
+        var xmlhttp2;
+        var xmlhttp3;
+        var url = "http://47.119.130.124:90/getTopkeywordsByType";
+        var btn1 = document.getElementById("option1");
+        var btn2 = document.getElementById("option2");
+        var btn3 = document.getElementById("option3");
+        {
+                //1.
+                if(window.XMLHttpRequest){
+                    xmlhttp = new XMLHttpRequest();
+                }else{
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
+                   
+                }
+                //2.
+                xmlhttp.onreadystatechange = function() {
+                    //
+                    //
+                    if(xmlhttp.readyState == 4){
+                        //
+                        if(xmlhttp.status == 200) {
+                            //
+                            var str = xmlhttp.responseText;
+                            //
+                            var arr = eval('('+str+')');
+                            jsonlength = arr.length;
+                            for(var i = 0; i < jsonlength; i++){
+                                var temp = i%10 ;
+                                if( arr[i].type == "CVPR"){                 
+                                    if( temp == 0){
+                                        CVPRyear[chartnum1] = arr[i].publishyear; 
+                                        add_canvas("CVPR");
+                                    }
+                                    var publishyear = arr[i].publishyear;
+                                    CVPRKeyword[publishyear][temp] = arr[i].keyword;
+                                    CVPRfrequency[publishyear][temp] = arr[i].frequency;
+                                }
+                            }
+                            finalmakechart();
+                        }
+                    }
+                }
+                //3.
+                xmlhttp.open("POST",url,true);
+                xmlhttp.setRequestHeader("Access-Control-Allow-Origin","*");
+                //4.
+                xmlhttp.send("{\"type\":\"CVPR\"}");
+        }
+        
 
 
     
