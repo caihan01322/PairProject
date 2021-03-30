@@ -31,6 +31,10 @@ public class DoSearchSelect extends HttpServlet {
 			list = ArticleDao.selectSpecial(condition,cpage,count);
 			total = ArticleDao.searchTotal(condition);
 		}
+		else {
+			list.clear();
+			total = 0;
+		}
 		request.setAttribute("condition", condition);
 		request.setAttribute("paperList", list);
 		request.setAttribute("tsum", total);

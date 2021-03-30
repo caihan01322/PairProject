@@ -45,8 +45,8 @@ public class HotWord {
 	public HotWord() {
 		this.meetingName = null;
 		this.wordMap = new HashMap<String,Integer>();
-		this.numList = new ArrayList<Integer>();
-		this.wordList = new ArrayList<String>();
+		this.numList = new ArrayList<>();
+		this.wordList = new ArrayList<>();
 	}
 	
 

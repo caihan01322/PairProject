@@ -172,6 +172,7 @@ public static HotWord selectYearData(String year,String meeting) {
 	int min = 0;
 	
 	HotWord hotWord = new HotWord();
+	hotWord.setMeetingName(meeting);
 	if (meeting.equals("CVPR")) {
 		min = 1;
 		max = 1920;
@@ -248,7 +249,7 @@ public static HotWord selectYearData(String year,String meeting) {
 	return hotWord;
 	
 }
-	
+
 public static ArrayList<HotWord> getMeetingList(String year) {
 	ArrayList<HotWord> meetingHotWord = new ArrayList<HotWord>();
 	HotWord hotWord1 = selectYearData(year, "CVPR");
@@ -263,7 +264,6 @@ public static ArrayList<HotWord> getMeetingList(String year) {
 	return meetingHotWord;
 	
 }
-	
 
 public static ArrayList<String> selectKeyWords() {
 	ArrayList<String> keywordList = new ArrayList<String>();
@@ -280,7 +280,6 @@ public static ArrayList<String> selectKeyWords() {
 			String keywordString = rs.getString("keyword");
 			keywordList.add(keywordString.toLowerCase());
 		}
-		connection.close();
 		
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
@@ -320,6 +319,7 @@ public static ArrayList<String> selectKeyWords() {
 		i++;
 	}
 	return top10;
+	
 }
 	
 }
