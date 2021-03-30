@@ -6,7 +6,77 @@
 	<link rel="stylesheet" href="../layui/css/layui.css"  media="all">
     <script src="../data/jquery-3.6.0.js"></script>
 	<script src="../layui/layui.js" charset="utf-8"></script>
-	
+	<script type="text/javascript">
+		function getQueryVariable()
+		{
+		       var s = window.parent.location.search;
+			   var res=s.substring(s.lastIndexOf("=")+1);
+			   //console.log(window.parent.location.search);
+		       if(res!='')
+			   return res;
+		       return(false);
+		}
+	</script>
+	<script>
+		var key=getQueryVariable();
+		var keyword=(!key?0:key.replace(/%20/g," "));
+		
+		if(keyword!=0){
+			layui.use('table',
+			function tablekeywords(){
+				var table3 = layui.table;
+				setTimeout(function () {
+					tableByKeywords=table3.render({
+						elem: '#LAY_table_user'
+						,url: 'http://47.111.17.116:8080/queryKeyword'
+						,method : "POST"
+						,contentType:"application/json"
+						,where:{
+							keyword:keyword,	
+						}
+						,parseData: function(res){ //res 即为原始返回的数据
+							console.log(res);
+							return {
+								"code": 0, //解析接口状态
+								"msg": "", //解析提示文本
+								"count": res.count, //解析数据长度
+								"data": res.data //解析数据列表
+							};
+						  }
+						,cols: [[
+						  {field:'name', title: '标题',  sort: true, fixed: true},
+						  {field:'abstract', title: '摘要',  sort: true},
+						  {field:'keyword', title: '关键词'},
+						  {field:'author', title: '作者',  sort: true},
+						  {field:'year', title: '发表年份',  sort: true},
+						  {field:'link', title: '链接'},
+						  {fixed: 'right', title:'操作', toolbar: '#barDemo'}
+						]]
+						,id: 'testReload'
+						,page: true
+						,limit:10
+						,height: 500
+					});
+				}, 50);
+				
+				
+				table3.on('tool(user)', function(obj){
+					if(obj.event==='detail'){
+						var item=obj.data.iD;
+						var url= "detail/index.html?id="+item;
+						window.open(url);
+					}
+					else{
+						layer.confirm('要删除改行吗', function(index){
+							obj.del();
+							layer.close(index);
+						});
+					}
+				});
+			}
+			);
+		}
+	</script>
 </head>
 <body> 
 	<div class="demoTable">
@@ -30,17 +100,7 @@
 		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 	</script>
 			  
-	<script type="text/javascript">
-		function getQueryVariable()
-		{
-		       var s = window.parent.location.search;
-			   var res=s.substring(s.lastIndexOf("=")+1);
-			   //console.log(window.parent.location.search);
-		       if(res!='')
-			   return res;
-		       return(false);
-		}
-	</script>
+	
 
 	<script>
 		var tableByName;
@@ -82,11 +142,7 @@
 			table1.on('tool(user)', function(obj){
 				if(obj.event==='detail'){
 					var item=obj.data.iD;
-					//alert(item);
-					//var jsonStr=JSON.stringify(item);
 					var url= "detail/index.html?id="+item;
-					// var data = obj.data.name;//获取选中行的标题
-					// var url="detail.html?"+"name="+data;//向url中传递论文标题信息
 					window.open(url);
 				}
 				else{
@@ -250,64 +306,6 @@
 			}
 		}
 	</script>
-	<script>
-		var key=getQueryVariable();
-		var keyword=(!key?0:key.replace("%20"," "));
-		setTimeout(function () {
-		}, 2000);
-		if(keyword!=0){
-			layui.use('table',
-			function tablekeywords(){
-				var table3 = layui.table;
-			
-				tableByKeywords=table3.render({
-					elem: '#LAY_table_user'
-					,url: 'http://47.111.17.116:8080/queryKeyword'
-					,method : "POST"
-					,contentType:"application/json"
-					,where:{
-						keyword:keyword,	
-					}
-					,parseData: function(res){ //res 即为原始返回的数据
-						console.log(res);
-						return {
-							"code": 0, //解析接口状态
-							"msg": "", //解析提示文本
-							"count": res.count, //解析数据长度
-							"data": res.data //解析数据列表
-						};
-					  }
-					,cols: [[
-					  {field:'name', title: '标题',  sort: true, fixed: true},
-					  {field:'abstract', title: '摘要',  sort: true},
-					  {field:'keyword', title: '关键词'},
-					  {field:'author', title: '作者',  sort: true},
-					  {field:'year', title: '发表年份',  sort: true},
-					  {field:'link', title: '链接'},
-					  {fixed: 'right', title:'操作', toolbar: '#barDemo'}
-					]]
-					,id: 'testReload'
-					,page: true
-					,limit:10
-					,height: 500
-				});
-				
-				table3.on('tool(user)', function(obj){
-					if(obj.event==='detail'){
-						var item=obj.data.iD;
-						var url= "detail/index.html?id="+item;
-						window.open(url);
-					}
-					else{
-						layer.confirm('要删除改行吗', function(index){
-							obj.del();
-							layer.close(index);
-						});
-					}
-				});
-			}
-			);
-		}
-	</script>
+	
 </body>
 </html>
