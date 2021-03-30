@@ -7,7 +7,7 @@
 </html>
 <html lang="zh-CN">
 <head>
-    <title>Title</title>
+    <title>搜索结果</title>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>搜索结果</title>

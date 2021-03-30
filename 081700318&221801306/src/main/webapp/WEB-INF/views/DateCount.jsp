@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <title>Title</title>
+    <title>统计页面</title>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>统计页面</title>

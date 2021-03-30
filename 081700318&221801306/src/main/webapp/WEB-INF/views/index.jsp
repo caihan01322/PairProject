@@ -4,10 +4,10 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <title>Title</title>
+    <title>论文搜索主页</title>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>测试使用bootstrap框架</title>
+        <title>主页</title>
         <!-- 引入jQuery -->
         <script type="text/javascript" src="static/js/jquery-3.6.0.min.js"></script>
         <!-- 引入样式 -->
