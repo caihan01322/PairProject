@@ -9,7 +9,9 @@ import ViewUI from 'view-design'
 import 'view-design/dist/styles/iview.css'
 
 import vuescroll from 'vuescroll'
+import axios from 'axios'
 
+Vue.prototype.$axios = axios
 Vue.use(ViewUI)
 
 Vue.use(vuescroll, {
