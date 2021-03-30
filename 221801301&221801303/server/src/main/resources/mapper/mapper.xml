@@ -159,4 +159,11 @@
         order by COUNT(*) DESC
         limit 10;
     </select>
+    <select id="getTOP" resultType="java.util.Map">
+        select keyword, COUNT(*) num
+        from keyword
+        group by keyword
+        order by COUNT(*) DESC
+        limit 10;
+    </select>
 </mapper>

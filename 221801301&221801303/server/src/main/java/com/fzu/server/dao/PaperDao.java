@@ -34,4 +34,5 @@ public interface PaperDao {
     List<Map<String,String>> getCVPR();
     List<Map<String,String>> getECCV();
     List<Map<String,String>> getICCV();
+    List<Map<String,String>> getTOP();
 }

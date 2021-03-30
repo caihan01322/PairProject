@@ -14,6 +14,7 @@ import java.util.Map;
 public class WorkController {
     @Autowired
     WorkService ws;
+
     @RequestMapping(value = "/queryName",method = {RequestMethod.POST})
     @ResponseBody
     public Object queryName(@RequestBody Map<String,Object> req){
@@ -44,9 +45,17 @@ public class WorkController {
         return ws.getICCV();
     }
 
+    @RequestMapping(value = "/getTOP",method = {RequestMethod.GET})
+    @ResponseBody
+    public Object getTOP(){
+        return ws.getTOP();
+    }
+
     @RequestMapping(value = "/getDetail",method = {RequestMethod.POST})
     @ResponseBody
     public Object getDetail(@RequestBody Map<String,Object> req){
         return ws.getDetail(req);
     }
+
+
 }

@@ -55,7 +55,7 @@ public class InputJson {
                     StringBuilder json = new StringBuilder();
                     String line = null;
                     while ((line = bfr.readLine()) != null) {
-                        System.out.println(line);
+//                        System.out.println(line);
                         json.append(line);
                     }
 //                    System.out.println(json);
@@ -65,7 +65,7 @@ public class InputJson {
                         if (parse.getString("摘要").length() < 200)
                             obj.setAbstract(parse.getString("摘要"));
                         else
-                            obj.setAbstract(parse.getString("摘要").substring(0, 200));
+                            obj.setAbstract(parse.getString("摘要").substring(0, 200).concat("..."));
                     }
                     obj.setMeeting(1);
                     obj.setName(parse.getString("论文名称"));
@@ -75,11 +75,11 @@ public class InputJson {
 //                    obj.setKeyword(kw.toJavaList(String.class));
 
                     dao.addECCVPaper(obj);
-                    dao.addPaper(obj);
+//                    dao.addPaper(obj);
                     if(kw!=null)
                     for (int j = 0; j < kw.size(); j++) {
                         dao.addECCVKeyword(obj.getID(), kw.getString(j));
-                        dao.addKeyword(obj.getID(), kw.getString(j));
+//                        dao.addKeyword(obj.getID(), kw.getString(j));
                     }
 //                    break;
 
@@ -115,7 +115,7 @@ public class InputJson {
                     StringBuilder json = new StringBuilder();
                     String line = null;
                     while ((line = bfr.readLine()) != null) {
-                        System.out.println(line);
+//                        System.out.println(line);
                         json.append(line);
                     }
 
@@ -127,7 +127,7 @@ public class InputJson {
                         if (parse.getString("abstract").length() < 200)
                             obj.setAbstract(parse.getString("abstract"));
                         else
-                            obj.setAbstract(parse.getString("abstract").substring(0, 200));
+                            obj.setAbstract(parse.getString("abstract").substring(0, 200).concat("..."));
                     }
                     obj.setMeeting(0);
                     obj.setName(parse.getString("publicationTitle"));
@@ -137,7 +137,7 @@ public class InputJson {
 
 
                     dao.addCVPRPaper(obj);
-                    dao.addPaper(obj);
+//                    dao.addPaper(obj);
                     if(kw!=null)
                     for(int j=0;j<kw.size();j++){
                         JSONObject ko=kw.getJSONObject(j);
@@ -145,14 +145,14 @@ public class InputJson {
                         if(ka!=null)
                         for(int k=0;k<ka.size();k++){
                             dao.addCVPRKeyword(obj.getID(), ka.getString(k));
-                            dao.addKeyword(obj.getID(), ka.getString(k));
+//                            dao.addKeyword(obj.getID(), ka.getString(k));
                         }
                     }
                     if(at!=null)
                     for(int j=0;j<at.size();j++){
                         JSONObject ao=at.getJSONObject(j);
                         dao.addCVPRAuthor(obj.getID(), ao.getString("name"));
-                        dao.addAuthor(obj.getID(), ao.getString("name"));
+//                        dao.addAuthor(obj.getID(), ao.getString("name"));
                     }
 //                    break;
 
@@ -188,7 +188,7 @@ public class InputJson {
                     StringBuilder json = new StringBuilder();
                     String line = null;
                     while ((line = bfr.readLine()) != null) {
-                        System.out.println(line);
+//                        System.out.println(line);
                         json.append(line);
                     }
 
@@ -200,7 +200,7 @@ public class InputJson {
                         if (parse.getString("abstract").length() < 200)
                             obj.setAbstract(parse.getString("abstract"));
                         else
-                            obj.setAbstract(parse.getString("abstract").substring(0, 200));
+                            obj.setAbstract(parse.getString("abstract").substring(0, 200).concat("..."));
                     }
                     obj.setMeeting(2);
                     obj.setName(parse.getString("publicationTitle"));
@@ -210,7 +210,7 @@ public class InputJson {
 
 
                     dao.addICCVPaper(obj);
-                    dao.addPaper(obj);
+//                    dao.addPaper(obj);
                     if(kw!=null)
                     for(int j=0;j<kw.size();j++){
                         JSONObject ko=kw.getJSONObject(j);
@@ -218,14 +218,14 @@ public class InputJson {
                         if(ka!=null)
                         for(int k=0;k<ka.size();k++){
                             dao.addICCVKeyword(obj.getID(), ka.getString(k));
-                            dao.addKeyword(obj.getID(), ka.getString(k));
+//                            dao.addKeyword(obj.getID(), ka.getString(k));
                         }
                     }
                     if(at!=null)
                     for(int j=0;j<at.size();j++){
                         JSONObject ao=at.getJSONObject(j);
                         dao.addICCVAuthor(obj.getID(), ao.getString("name"));
-                        dao.addAuthor(obj.getID(), ao.getString("name"));
+//                        dao.addAuthor(obj.getID(), ao.getString("name"));
                     }
 //                    break;
 
