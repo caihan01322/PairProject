@@ -1,17 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>论文热词分析</title>
 
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/PaperList.css">
-    <link rel="stylesheet" href="../LayUI/css/layui.css">
+    <!-- 引入外部文件! -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <script src="../js/PaperList.js"></script>
-    <script src="../LayUI/layui.js"></script>
+    <link rel="stylesheet" href="../static/css/PaperList.css">
+
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -22,75 +31,229 @@
 </head>
 
 <body>
+    <div class="container">
+        <!--nav-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">LOGO</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar">15</span>
-                    <span class="icon-bar">test</span>
-                    <span class="icon-bar"></span>
-                </button>
-                <!--首页图标-->
-                <a class="navbar-brand glyphicon glyphicon-home" href="Index.html"> 首页 </a>
-            </div>
-    
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li ><a href="paperList.html">论文检索 <span class="sr-only">(current)</span></a></li>
-                    <li class="active"><a href="#">数据分析</a></li>
-                </ul>
-                <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                        <button type="submit" class="btn btn-default glyphicon glyphicon-search"> 搜索 </button>
-                </form>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="login.html">登录</a></li>
-                    <li><a href="register.html">注册</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">昵称 <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">个人主页</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">收藏夹</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">问答中心</a></li>
-                        </ul>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">论文检索</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">数据分析</a>
                     </li>
                 </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
-    <div class="container">
-        <div class="row">
-            <!--左侧导航-->
-            <div class="col-md-2">
-                <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation"><a href="paperList.html">爬取结果</a></li>
-                    <li role="presentation"  class="active"><a href="#">论文热词分析</a></li>
-                    <li role="presentation"><a href="#">查询历史</a></li>
+
+                <form class="form-inline my-2 my-lg-0" method="Get" action="/paper/search/list/1">
+                    <input class="form-control mr-sm-2" type="text" id="title" name="title"
+                           placeholder="请输入论文标题" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜 索</button>
+                </form>
+
+                <ul class="navbar-nav pull-right">
+                    <li class="nav-item">
+                        <a class="nav-link " href="login.html">登录</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="register.html">注册</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            昵称
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">个人中心</a>
+                            <a class="dropdown-item" href="#">公告栏</a>
+                            <a class="dropdown-item" href="#">问答中心</a>
+                        </div>
+                    </li>
                 </ul>
             </div>
-            <!--右侧热词分析-->
-            <div>
-                <div class="container">
-                    <div class="col-md-4  layui-tab-brief" lay-filter="docDemoTabBrief">
-                        <ul class="layui-tab-title">
-                          <li class="layui-this">关键词图谱</li>
-                          <li>热词走势图</li>
-                          <li>xxx</li>
-                        </ul>
-                        <div class="layui-tab-content"></div>
-                      </div>      
-   
+        </nav>
+
+
+        <!--动图-->
+        <div class="row">
+            <div class="col-md-10" style="margin-top: 30px">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#home">关键词图谱</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#menu1">热词走势</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div id="map" class="container tab-pane active" style="width: 1000px;height:500px;">
+
+                    </div>
+
+
+                    <script type="text/javascript">
+                        var chartDom = document.getElementById('map');
+                        var myChart = echarts.init(chartDom);
+                        var option;
+
+                        option = {
+                            title: {
+                                text: '近五年热词TOP10',
+                                subtext: '计算机三大顶会',
+                                left: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: '{a} <br/>{b} : {c} ({d}%)'
+                            },
+                            legend: {
+                                left: 'center',
+                                top: 'bottom',
+                                data: ['feature extraction', 'learning (artificial intelligence)', 'Training',
+                                    'computer vision', 'object detection', 'Image segmentation', 'Cameras',
+                                    'Three-dimensional displays','neural nets','Task analysis']
+                            },
+                            toolbox: {
+                                show: true,
+                                feature: {
+                                    mark: {show: true},
+                                    dataView: {show: true, readOnly: false},
+                                    restore: {show: true},
+                                    saveAsImage: {show: true}
+                                }
+                            },
+                            series: [
+                                {
+                                    name: '出现频数',
+                                    type: 'pie',
+                                    radius: [50, 140],
+                                    center: ['75%', '50%'],
+                                    roseType: 'area',
+                                    itemStyle: {
+                                        borderRadius: 5
+                                    },
+                                    data: [
+                                        {value: 526, name: 'feature extraction'},
+                                        {value: 501, name: 'learning (artificial intelligence)'},
+                                        {value: 405, name: 'Training'},
+                                        {value: 376, name: 'computer vision'},
+                                        {value: 304, name: 'object detection'},
+                                        {value: 276, name: 'Image segmentation'},
+                                        {value: 241, name: 'Cameras'},
+                                        {value: 236, name: 'Three-dimensional displays'},
+                                        {value: 230, name: 'neural nets'},
+                                        {value: 206, name: 'Task analysis'},
+
+                                    ]
+                                }
+                            ]
+                        };
+
+                        option && myChart.setOption(option);
+
+                    </script>
+
+
+                    <div id="menu1" class="container tab-pane fade" style="width: 1000px; height:500px;">
+
+                    </div>
+                    <script>
+                        var chartDom = document.getElementById('menu1');
+                        var myChart = echarts.init(chartDom);
+                        var json;
+                        var option;
+                        $.ajax({
+                            type:"post",
+                            url:"http://localhost:8080/keyword/top/{meeting}", //????
+                            dataType:'JSON',
+                            success: function (data) {
+                                json = JSON.parse(data);
+                                option && myChart.setOption(option);
+                            }
+
+                        })
+
+                        option = {
+                            title: {
+                                text: '顶会热词热度走势'
+                            },
+                            tooltip: {
+                                trigger: 'axis'
+                            },
+                            legend: {
+                                data: json.content
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '4%',
+                                bottom: '3%',
+                                containLabel: true
+                            },
+                            toolbox: {
+                                feature: {
+                                    saveAsImage: {}
+                                }
+                            },
+                            xAxis: {
+                                type: 'category',
+                                boundaryGap: false,
+                                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                            },
+                            yAxis: {
+                                type: 'value'
+                            },
+                            series: [
+                                {
+                                    name: json.content,
+                                    type: 'line',
+                                    stack: '总量',
+                                    data: json.total,
+                                },
+                                {
+                                    name: '联盟广告',
+                                    type: 'line',
+                                    stack: '总量',
+                                    data: [220, 182, 191, 234, 290, 330, 310]
+                                },
+                                {
+                                    name: '视频广告',
+                                    type: 'line',
+                                    stack: '总量',
+                                    data: [150, 232, 201, 154, 190, 330, 410]
+                                },
+                                {
+                                    name: '直接访问',
+                                    type: 'line',
+                                    stack: '总量',
+                                    data: [320, 332, 301, 334, 390, 330, 320]
+                                },
+                                {
+                                    name: '搜索引擎',
+                                    type: 'line',
+                                    stack: '总量',
+                                    data: [820, 932, 901, 934, 1290, 1330, 1320]
+                                }
+                            ]
+                        };
+
+                        option && myChart.setOption(option);
+
+                    </script>
+
+
                 </div>
             </div>
-   
+        </div>
+
+
+   </div>
+
  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
