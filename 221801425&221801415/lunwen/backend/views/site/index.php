@@ -156,16 +156,16 @@ var option2 = {
                 type: 'pie',
                 radius: 120,
                 data:[
-                    {value:js_arr[0][2], name:js_arr[0][1]},
-                    {value:js_arr[1][2], name:js_arr[1][1]},
-                    {value:js_arr[2][2], name:js_arr[2][1]},
-                    {value:js_arr[3][2], name:js_arr[3][1]},
-                    {value:js_arr[4][2], name:js_arr[4][1]},
-                    {value:js_arr[5][2], name:js_arr[5][1]},
-                    {value:js_arr[6][2], name:js_arr[6][1]},
-                    {value:js_arr[7][2], name:js_arr[7][1]},
-                    {value:js_arr[8][2], name:js_arr[8][1]},
-                    {value:js_arr[9][2], name:js_arr[9][1]},
+                    {value:js_arr[0][2], name:js_arr[0][1],url:"https://doi.org/10.1007/978-3-030-01228-1_48"},
+                    {value:js_arr[1][2], name:js_arr[1][1],url:"https://doi.org/10.1007/978-3-030-58568-6_33"},
+                    {value:js_arr[2][2], name:js_arr[2][1],url:"https://doi.org/10.1007/978-3-030-01231-1_4"},
+                    {value:js_arr[3][2], name:js_arr[3][1],url:"https://doi.org/10.1109/CVPR.2000.854723"},
+                    {value:js_arr[4][2], name:js_arr[4][1],url:"https://doi.org/10.1007/978-3-030-01231-1_27"},
+                    {value:js_arr[5][2], name:js_arr[5][1],url:"https://doi.org/10.1007/978-3-030-01216-8_6"},
+                    {value:js_arr[6][2], name:js_arr[6][1],url:"https://doi.org/10.1007/978-3-030-11018-5_6"},
+                    {value:js_arr[7][2], name:js_arr[7][1],url:"https://doi.org/10.1007/978-3-030-01225-0_36"},
+                    {value:js_arr[8][2], name:js_arr[8][1],url:"https://doi.org/10.1007/978-3-030-01231-1_10"},
+                    {value:js_arr[9][2], name:js_arr[9][1],url:"https://doi.org/10.1007/978-3-030-01216-8_39"},
                 ],
                 //roseType: 'angle',
                 itemStyle: {
@@ -184,6 +184,10 @@ var option2 = {
 
 // 使用刚指定的配置项和数据显示图表。
 myChart.setOption(option2);
+myChart.on('click',function(params){
+    var url=params.data.url;
+    window.location.href=url;
+})
 </script>
           </div>
           </div>
