@@ -1,0 +1,18 @@
+#main{
+    width:400px;
+    height:600px;
+    float:left;
+    margin-left: 70px;
+}
+#small{
+    width:800px;
+    height:200px;
+    float:left;
+    margin-left:80px;
+}
+#smaller{
+    width:800px;
+    height:400px;
+    float:left;
+    margin-left:80px;
+}

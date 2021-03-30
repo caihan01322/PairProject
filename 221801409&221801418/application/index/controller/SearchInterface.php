@@ -2,6 +2,7 @@
 
 namespace app\index\controller;
 
+use think\Console;
 use think\Controller;
 use think\Db;
 use think\db\connector\Mysql;
@@ -35,7 +36,7 @@ class SearchInterface extends Controller
             ];
             
             if (Db::table("paper_$value")->insert($data) ) {
-                return $this->success('注册成功','LoginInterface/create');
+                echo "<script>alert('添加成功');</script>";
             }
         }
     }

@@ -32,7 +32,7 @@ class LoginInterface extends Controller
                     }
                     else{
                         Session("account",$account);
-                        $this->success("登录成功",'FavorateInterface/create');
+                        $this->success("登录成功",'SearchInterface/create');
                     }
                 }
             }else{

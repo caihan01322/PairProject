@@ -3,33 +3,15 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>搜索论文</title>
-  <style>
-    @import url("//unpkg.com/element-ui@2.15.1/lib/theme-chalk/index.css");
-
-    .demo-table-expand {
-      font-size: 0;
-    }
-
-    .demo-table-expand label {
-      width: 90px;
-      color: #99a9bf;
-    }
-
-    .demo-table-expand .el-form-item {
-      margin-right: 0;
-      margin-bottom: 0;
-      width: 50%;
-    }
-  </style>
+  <title>论文列表</title>
     <link href="__CSS__/currency.css" rel="stylesheet" type="text/css"/>
+    <link href="__CSS__/SearchInterface.css" rel="stylesheet" type="text/css"/>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>    
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
   <script src="http://unpkg.com/vue/dist/vue.js"></script>
   <script src="http://unpkg.com/element-ui@2.15.1/lib/index.js"></script>
 </head>
-
 <body>
   <div class="topNav">
     <p>论文查询系统</p>
@@ -66,9 +48,9 @@
               <el-form-item label="发布日期">
                 <span>{{ props.row.releasetime }}</span>
               </el-form-item>
-              <el-form-item label="摘要" ">
-            <span>{{ props.row.abstract }}</span>
-          </el-form-item>
+              <el-form-item label="摘要">
+                <span>{{ props.row.abstract }}</span>
+              </el-form-item>
         </el-form>
       </template>
     </el-table-column>
@@ -131,7 +113,6 @@
               console.log("传输失败")
             }
           })
-          this.tableData.splice(index,1);
         },  
         pageChange(val) {
           this.currentPage = val;
