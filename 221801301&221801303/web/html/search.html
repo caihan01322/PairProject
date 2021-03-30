@@ -12,8 +12,9 @@
 	<div class="demoTable">
 		<div class="sel_wrap" style="display: inline;">
 			<select id="selection" >
-				<option value="title"">标题</option>
-				<option value="authors"">作者</option>
+				<option value="title">标题</option>
+				<option value="authors">作者</option>
+				<option value="keywords">关键词</option>
 			</select>
 		</div>
 		<div class="layui-inline">
@@ -45,7 +46,7 @@
 		var tableIns;
 		var key=getQueryVariable();
 		var keyword=(!key?0:key.replace("%20"," "));
-		alert(keyword);
+		//alert(keyword);
 		
 		layui.use('table', function(){
 			var table = layui.table;
@@ -158,10 +159,20 @@
 					}
 				});
 			}
-			else{
+			else if(sel=='authors'){
 				tableIns.reload({
 					where: { //设定异步数据接口的额外参数，任意设
 						author: content,
+					}
+					,page: {
+						curr: 1 //重新从第 1 页开始
+					}
+				});
+			}
+			else{
+				tableIns.reload({
+					where: { //设定异步数据接口的额外参数，任意设
+						keyword: content,
 					}
 					,page: {
 						curr: 1 //重新从第 1 页开始
