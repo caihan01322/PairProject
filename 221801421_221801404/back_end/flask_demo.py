@@ -13,6 +13,14 @@ class Mysql(object):
         except:
             print("连接失败")
 
+            def getItems(self, keyword):
+                sql = "select * from paper "
+                if keyword:
+                    sql = sql + " where title like '%" + keyword + "%'"
+                self.cursor.execute(sql)
+                items = self.cursor.fetchall()
+                return  items
+
 if __name__ == '__main__':
 app.run(app.run(debug=True))
 
