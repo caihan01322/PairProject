@@ -1,11 +1,11 @@
 <template>
- <div style="margin-top:80px">
-     <el-row  style="background-color=transparent" type="flex" class="row-bg" justify="center">
+ <div style="margin-top:80px" style="note" >
+     <el-row  style="background-color:transparent" type="flex" class="row-bg" justify="center">
   <el-col :span="8"></el-col>
   <el-col :span="8"><el-avatar :size="80" :src='iconurl'></el-avatar></el-col>
   <el-col :span="8"></el-col>
 </el-row>
-<el-row style="background-color=transparent" type="flex" class="row-bg" justify="center">
+<el-row style="background-color:transparent" type="flex" class="row-bg" justify="center">
   <el-col :span="6"></el-col>
   <el-col :span="6">
       <el-input class = "userinput"
@@ -18,7 +18,7 @@
   <el-col :span="6"></el-col>
 </el-row>
 
-<el-row style="background-color=transparent" type="flex" class="row-bg" justify="center">
+<el-row style="background-color:transparent" type="flex" class="row-bg" justify="center">
   <el-col :span="6"></el-col>
   <el-col :span="6">
       <el-input placeholder="密码" @keydown.enter.native="login()" prefix-icon="el-icon-s-goods" v-model="password" show-password></el-input>
@@ -26,14 +26,14 @@
   <el-col :span="6"></el-col>
 </el-row>
 
-<el-row style="background-color=transparent" type="flex" class="row-bg" justify="center">
+<el-row style="background-color:transparent" type="flex" class="row-bg" justify="center">
   <el-col :span="6"></el-col>
   <el-col :span="6">  <el-button type="primary" v-on:click="login" round>登录</el-button></el-col>
   <el-col :span="6"></el-col>
 </el-row>
 
 
-<el-row style="background-color=transparent" type="flex" class="row-bg" justify="center">
+<el-row style="background-color:transparent" type="flex" class="row-bg" justify="center">
   <el-col :span="6"></el-col>
   <el-col :span="3"><el-switch active-text="记住密码" v-model="remember"></el-switch></el-col>
     <el-col :span="3"><el-link type="info">注册账号</el-link></el-col>
@@ -52,7 +52,10 @@ import axios from 'axios';
         user: '',
         password:'',
         remember:false,
-        iconurl:icon
+        iconurl:icon,
+        note:{
+
+        }
       }
     },
     methods: {
