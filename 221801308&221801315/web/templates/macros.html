@@ -1,6 +1,6 @@
 {% macro pagination_widget(pagination, pagination_func, condition, search_way) %}
 <div class="list">
-    <table>
+    <table class="list-table">
         {% for article in pagination.items %}
         <tr class="table-item">
             <td class="art-title">{{article.title}}</td>

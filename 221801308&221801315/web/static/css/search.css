@@ -26,15 +26,19 @@ i{
     background: #fdccc88e;
 
 }
+.content-form{
+    width: 80%;
+    margin: 0 auto ;
+}
 .form-item{
-    width: 500px;
+    width: 60%;
     height: 40px;
     margin: 30px 80px 0 ;
     border: none;
 }
 .form-btn{
     height: 40px;
-    width: 100px;
+    width: 10%;
 }
 .choose-item{
     margin: 10px 10px 10px 80px ;

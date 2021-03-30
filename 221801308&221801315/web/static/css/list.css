@@ -1,7 +1,10 @@
 .list{
-    margin: 15px;
+    display: block;
+    width: 90%;
+    margin: 0 auto;
 }
-table{
+.list-table{
+    width: 100%;
     background: rgba(255, 255, 255, 0.705);
 }
 .table-item{

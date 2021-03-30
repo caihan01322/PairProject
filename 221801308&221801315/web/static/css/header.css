@@ -39,7 +39,7 @@ header{
 }
 .nav-item{
     float: left;
-    margin: 20px;
+    margin: 20px 30px;
     font: bolder 1.17em ;
 }
 .nav-href{

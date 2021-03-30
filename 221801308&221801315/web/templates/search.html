@@ -43,20 +43,18 @@
                 </ul>
             </div>
             <div class="content">
-                <form method="GET" action="/search">
+                <form method="GET" action="/search" class="content-form">
                     <input type="text" name="condition" placeholder="   请输入搜索内容" class="form-item">
                     <input type="submit" value="搜索" class="mdc-button mdc-button--raised form-btn"><br>
                     <input type="radio" name="search_way" value="title" checked="checked"
                         class="choose-item"><span>标题</span>
                     <input type="radio" name="search_way" value="keyword" class="choose-item"><span>关键词</span><br>
-                    {% if pagination%}
-
-                    {{ macro.pagination_widget(pagination, pagination_func, condition, search_way) }}
-
-                    {% endif %}
-
                 </form>
+                {% if pagination%}
 
+                {{ macro.pagination_widget(pagination, pagination_func, condition, search_way) }}
+
+                {% endif %}
             </div>
         </main>
     </div>
