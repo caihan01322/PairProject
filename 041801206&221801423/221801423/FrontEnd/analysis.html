@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <!-- 必须的 meta 标签 -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap 的 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="js/Chart.bundle.js"></script>
+    <title>Hello, world!</title>
+</head>
+<body>
+
+
+
+<div class="container" >
+    <div class="row" style="margin-top: 30px">
+        <div class="col">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand"> 给爷爬论文 </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-window" viewBox="0 0 16 16">
+                                    <path d="M2.5 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm2-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm1 .5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+                                    <path d="M2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2zm13 2v2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zM2 14a1 1 0 0 1-1-1V6h14v7a1 1 0 0 1-1 1H2z"/>
+                                </svg> 主页
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-zip" viewBox="0 0 16 16">
+                                    <path d="M5 7.5a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v.938l.4 1.599a1 1 0 0 1-.416 1.074l-.93.62a1 1 0 0 1-1.11 0l-.929-.62a1 1 0 0 1-.415-1.074L5 8.438V7.5zm2 0H6v.938a1 1 0 0 1-.03.243l-.4 1.598.93.62.929-.62-.4-1.598A1 1 0 0 1 7 8.438V7.5z"/>
+                                    <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1h-2v1h-1v1h1v1h-1v1h1v1H6V5H5V4h1V3H5V2h1V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
+                                </svg>
+                                库
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eyeglasses" viewBox="0 0 16 16">
+                                    <path d="M4 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm2.625.547a3 3 0 0 0-5.584.953H.5a.5.5 0 0 0 0 1h.541A3 3 0 0 0 7 8a1 1 0 0 1 2 0 3 3 0 0 0 5.959.5h.541a.5.5 0 0 0 0-1h-.541a3 3 0 0 0-5.584-.953A1.993 1.993 0 0 0 8 6c-.532 0-1.016.208-1.375.547zM14 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/>
+                                </svg>
+                                分析
+                            </a>
+                        </li>
+
+
+                    </ul>
+
+
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="爬爬爬" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 30px">
+        <div class="col-lg-9" style="background-color: #fff0ae">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary">
+                    <input type="radio" class="ftypebtn" name="options" id="option1"> CVPR
+                </label>
+                <label class="btn btn-primary">
+                    <input type="radio" class="ftypebtn" name="options" id="option2"> ECCV
+                </label>
+                <label class="btn btn-primary">
+                    <input type="radio" class="ftypebtn" name="options" id="option3"> ICCV
+                </label>
+
+            </div>	
+        </div>
+
+        <div class="col-lg-3" id="searchResult" style="background-color: #005cbf">
+            <h2>Sidebar</h2>
+            <ul class="nav nav-tabs nav-stacked">
+                <li><a href='#'>Another Link 1</a></li>
+                <li><a href='#'>Another Link 2</a></li>
+                <li><a href='#'>Another Link 3</a></li>
+            </ul>
+
+
+
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 30px">
+        <div class="chartcontent" id="CVPR" ></div>
+
+        <div class="chartcontent" id="ECCV" ></div>
+
+        <div class="chartcontent" id="ICCV" ></div>
+
+        <div class="chartcontent" id="Difference" ></div>
+    </div>
+
+    <script>
+    /*
+
+        
+    */  
+        //CVPR、ECCV、ICCV
+        var CVPRKeyword = new Array();
+        var ECCVKeyword = new Array();
+        var ICCVKeyword = new Array();
+
+        var CVPRfrequency = new Array();
+        var ECCVfrequency = new Array();
+        var ICCVfrequency = new Array();
+
+        for(var publishyear=2000;publishyear<2022;publishyear++){
+            CVPRKeyword[publishyear]= new Array();
+            CVPRfrequency[publishyear]= new Array();
+            ECCVKeyword[publishyear]= new Array();
+            ECCVfrequency[publishyear]= new Array();
+            ICCVKeyword[publishyear]= new Array();
+            ICCVfrequency[publishyear]= new Array();
+        }
+
+        var CVPRyear = new Array();
+        var ECCVyear = new Array();
+        var ICCVyear = new Array();
+
+        var chartnum1 = 0;
+        var chartnum2 = 0;
+        var chartnum3 = 0;
+
+        window.onload = function() {
+            var ftypebtns = document.getElementsByClassName("ftypebtn");
+            var chartcontents = document.getElementsByClassName("chartcontent");
+            ftypebtnslength = ftypebtns.length;
+            for (var i = 0; i < ftypebtnslength; i++) {
+                ftypebtns[i].index = i;
+                if (i == 0) {
+                } else {
+                    chartcontents[i].style.display = "none";
+                }
+                
+                ftypebtns[i].onclick = function () {
+                    for(var k = 0;k<chartcontents.length;k++)
+                    {
+                        chartcontents[k].style.display = "none";
+                    }
+                    chartcontents[this.index].style.display = "block";
+                }
+            }
+            
+        }
+
+    </script>
+
+
+    
+</div>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-LCPyFKQyML7mqtS+4XytolfqyqSlcbB3bvDuH9vX2sdQMxRonb/M3b9EmhCNNNrV" crossorigin="anonymous"></script>
+
+</body>
+</html>
