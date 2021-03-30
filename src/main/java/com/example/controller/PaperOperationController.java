@@ -6,10 +6,7 @@ import com.example.dao.PaperOperationDao;
 import com.example.model.Conference;
 import com.example.model.ConferenceKwd;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,6 +14,7 @@ import java.sql.ResultSet;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/PaperOperationController")
 public class PaperOperationController {
 
@@ -160,6 +158,11 @@ public class PaperOperationController {
         return response;
     }
 
+    /**
+     * 收藏文章
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/collectPaper")
     public JSONObject collectPaper(@RequestBody JSONObject request){
         String title = request.getString("title");
@@ -198,6 +201,22 @@ public class PaperOperationController {
             paperOperationDao.deleteFromIccv(number);
         }
 
+        JSONObject result = new JSONObject();
+        result.put("status","200");
+
+        return result;
+    }
+
+    /**
+     * 删除收藏夹里的文章
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/deleteCollection")
+    public JSONObject deleteCollection(@RequestBody JSONObject request){
+        int number = request.getInteger("number");
+        paperOperationDao.deleteCollection(number);
+        paperOperationDao.deleteCollectionKwd(number);
         JSONObject result = new JSONObject();
         result.put("status","200");
 
