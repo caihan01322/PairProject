@@ -17,6 +17,9 @@
 
       <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
 
+      <script src="https://unpkg.com/vue/dist/vue.js"></script>
+      <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
     <link rel="stylesheet" type="text/css" href="register_login.css">
 
     <style>
@@ -178,11 +181,26 @@
 
     })
 
+    var that = this;
     myChart.on('click',function(param){
         // var url = param.data.name;
         // window.location.href=url;
+        //that.$router.push({path: 'article',query:{ index:'1'}}); 
         var name = param.data.name;
-        alert(name);
+        // alert(name);
+
+        
+    const info = {
+        keyword: name,
+    };
+    localStorage.setItem('keyword', JSON.stringify(info));
+   
+
+ //   var data2 = JSON.parse(localStorage.getItem('key'));
+   //         console.log(data2.name);
+
+            window.location.href = "article.html";
+    //alert(data2);
     })
 </script>
 

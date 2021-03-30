@@ -199,10 +199,11 @@
     myChart.on('click',function(param){
         // var url = param.data.name;
         // window.location.href=url;
+        this.$router.push({path: 'article.html',query:{ index:'1'}});
 
     
         var name = param.data.name;
-        alert(name);
+        // alert(name);
     })
 </script>
 
