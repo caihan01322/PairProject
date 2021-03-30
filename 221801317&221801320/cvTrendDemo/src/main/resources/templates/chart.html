@@ -45,9 +45,12 @@
                 chart.trendMaps = response.data.trends;
 
                 console.log(chart.trendMaps)
-                console.log(chart.trendMaps[1])
+                //console.log(chart.trendMaps[1])
 
+
+                console.log(chart.trends[0])
                 console.log(chart.trends)
+                updateChar()
             });
         }
 
@@ -88,7 +91,7 @@
 
     var chart = new Vue({
         data: {
-            trendMaps:[],
+            trendMaps:[],//后端传过来的数据是map的list，需要转换成list以便利使用
             keywords:[]
         },
         computed: {
@@ -96,8 +99,8 @@
             trends: function () {
                 var tempTrends = [];
                 for (let i = 0; i < this.trendMaps.length ; i++){
-                    var tempTrend = [];
-                    for (let j = 2016 ; j < 2021 ; j++){
+                    var tempTrend = [];//临时参数
+                    for (let j = 2016 ; j < 2021 ; j++){ //利用年份获取需要的数据
                         tempTrend.push(this.trendMaps[i][j])
                     }
                     tempTrends.push(tempTrend);
@@ -108,96 +111,101 @@
         }
 
     })
-    // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('main'));
 
-    // 指定图表的配置项和数据
-    var option = {
-        title: {
-            text: '趋势'
-        },
-        tooltip: {
-            trigger: 'axis',
-            showContent: false
-        },
+    updateChar= function () {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
 
-        dataset:{
-            source:[
-                ["year","2016","2017","2018","2019","2020"],
-                ["w1"].concat([13,25,36,57,34]),
-                ["w2",23,15,46,27,54],
-                ["w3",63,25,26,51,24],
-            ]
-        },
-        // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
-        xAxis: {type: 'category'},
-        yAxis: {},
-        grid: {top: '50%'},
-        series: [
-            // {type: 'bar', seriesLayoutBy: 'row'},
-            // {type: 'bar', seriesLayoutBy: 'row'},
-            // {type: 'bar', seriesLayoutBy: 'row'},
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '趋势'
+            },
+            tooltip: {
+                trigger: 'axis',
+                showContent: false
+            },
 
-            {type: 'line', seriesLayoutBy: 'row',
-                encode: {
-                    // 将 "amount" 列映射到 X 轴。
-                    x: "word",
-                    // 将 "product" 列映射到 Y 轴。
-                    y: 1
-                }
-                ,emphasis: {focus: 'series'}},
-            {type: 'line', seriesLayoutBy: 'row',
-                encode: {
-                    // 将 "amount" 列映射到 X 轴。
-                    x: "word",
-                    // 将 "product" 列映射到 Y 轴。
-                    y: 2
-                }
-                ,emphasis: {focus: 'series'}},
-            {type: 'line', seriesLayoutBy: 'row',
-                encode: {
-                    // 将 "amount" 列映射到 X 轴。
-                    x: "word",
-                    // 将 "product" 列映射到 Y 轴。
-                    y: 3
-                }
-                ,emphasis: {focus: 'series'}},
+            dataset:{
+                source:[
+                    ["year","2016","2017","2018","2019","2020"],
+                    [chart.keywords[0].keyword].concat(chart.trends[0]),
+                    ["w2",23,15,46,27,54],
+                    ["w3",63,25,26,51,24],
+                ]
+            },
+            // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
+            xAxis: {type: 'category'},
+            yAxis: {},
+            grid: {top: '50%'},
+            series: [
+                // {type: 'bar', seriesLayoutBy: 'row'},
+                // {type: 'bar', seriesLayoutBy: 'row'},
+                // {type: 'bar', seriesLayoutBy: 'row'},
 
-            {
-                type: 'pie',
-                id: 'pie',
-                radius: '30%',
-                center: ['50%', '25%'],
-                emphasis: {focus: 'data'},
-                encode: {
-                    itemName: 'word',
-                    value: '2020',
-                }
-            }
-
-        ]
-    };
-
-    myChart.on('updateAxisPointer', function (event) {
-        var xAxisInfo = event.axesInfo[0];
-        if (xAxisInfo) {
-            var dimension = xAxisInfo.value + 1;
-            myChart.setOption({
-                series: {
-                    id: 'pie',
-                    label: {
-                        formatter: '{b}: {@[' + dimension + ']} ({d}%)'
-                    },
+                {type: 'line', seriesLayoutBy: 'row',
                     encode: {
-                        value: dimension,
-                        tooltip: dimension
+                        // 将 "amount" 列映射到 X 轴。
+                        x: "word",
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 1
+                    }
+                    ,emphasis: {focus: 'series'}},
+                {type: 'line', seriesLayoutBy: 'row',
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: "word",
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 2
+                    }
+                    ,emphasis: {focus: 'series'}},
+                {type: 'line', seriesLayoutBy: 'row',
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: "word",
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 3
+                    }
+                    ,emphasis: {focus: 'series'}},
+
+                {
+                    type: 'pie',
+                    id: 'pie',
+                    radius: '30%',
+                    center: ['50%', '25%'],
+                    emphasis: {focus: 'data'},
+                    encode: {
+                        itemName: 'word',
+                        value: '2020',
                     }
                 }
-            });
-        }
-    });
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
+
+            ]
+        };
+
+        myChart.on('updateAxisPointer', function (event) {
+            var xAxisInfo = event.axesInfo[0];
+            if (xAxisInfo) {
+                var dimension = xAxisInfo.value + 1;
+                myChart.setOption({
+                    series: {
+                        id: 'pie',
+                        label: {
+                            formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+                        },
+                        encode: {
+                            value: dimension,
+                            tooltip: dimension
+                        }
+                    }
+                });
+            }
+        });
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    }
+
+
 </script>
 </body>
 <script>
@@ -210,6 +218,7 @@
         },
         watch:{
             meeting (cur,pre){
+                console.log(cur)
                 getQCloud(cur);
             }
         }
