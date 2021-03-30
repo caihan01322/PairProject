@@ -7,17 +7,22 @@ const routes = [
   {
     path: '/',
     name: 'Index',
-    component: () => import("@/views/index")
+    component: () => import('@/views/index')
   },
   {
     path: '/search',
     name: 'Search',
-    component: () => import("@/views/search")
+    component: () => import('@/views/search')
   },
   {
     path: '/favourite',
     name: 'Favorite',
-    component: () => import("@/views/favourite")
+    component: () => import('@/views/favourite')
+  },
+  {
+    path: '/center',
+    name: 'Center',
+    component: () => import('@/views/center')
   }
 ]
 
