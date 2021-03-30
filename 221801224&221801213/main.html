@@ -17,33 +17,35 @@
         <div id="leftsideBar">
             <button class="button">论文查询</button>
             <!-- <button class="button">收藏列表</button> -->
-            <button class="button">分析统计</button>
+            <button class="button" onclick="window.location.href = './analysis.html'">分析统计</button>
         </div>
 
         <div id="main">
             <div id="searchBar">
-                <input type="text" id="textSearch" placeholder="   请输入论文的相关信息" v-model="joke">
-                <button id="buttonSearch" @click="testfunc"><span>查询 </span></button>
+                <input type="text" id="textSearch" placeholder="   请输入论文的相关信息" v-model="userInput">
+                <button id="buttonSearch" @click="doSearching"><span>查询</span></button>
             </div>
             <div id="resultBar">
                 <div id="itemBar">
                     <div class="resultItem" v-for="item in listData">
-                        <div class="itemHeading">{{ item.heading }}</div>
+                        <div class="itemHeading">no.{{ item.num }}: {{ item.heading }}</div>
                         <div class="itemContent">{{ item.content }}</div>
                         <div class="itemOperation">
-                            <button class="keyWord">关键词1</button>
+                            <button class="keyWord">{{ item.keyword1 }}</button>
                             <button class="keyWord">关键词2</button>
                             <button class="keyWord">关键词3</button>
-                            <div class="sourceLink">原文链接</div>
+                            <a :href="item.source">
+                                <div class="sourceLink">原文链接</div>
+                            </a>
                             <div class="operation">修改论文</div>
-                            <div class="deleteArt">删除论文</div>
+                            <div class="deleteArt" @click="deleteArticle">删除论文</div>
                         </div>
                     </div>
                 </div>
                 <div id="pageBar">
-
-                    <button class="PageButtoun" id="prePage">上一页</button>
-                    <button class="PageButtoun" id="nextPage">下一页</button>
+                    <button class="pageButtoun" id="prePage" @click="pageUp">上一页</button>
+                    <button class="pageButtoun" id="nextPage" @click="pageDown">下一页</button>
+                    <span class="pageCount">{{ pageNow }}/{{ pageNum }}</span>
                     <!-- <input type="button" value="上一页" class="PageButtoun" id="prePage">
                     <input type="button" value="下一页" class="PageButtoun" id="nextPage"> -->
                 </div>
@@ -69,6 +71,9 @@
 
     <!-- axios在线地址 -->
     <script src="https:/unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- 引入 echarts.js -->
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
 
     <!--  -->
     <script src="./main.js"></script>

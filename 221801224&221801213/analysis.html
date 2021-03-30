@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="./analysis.css">
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+</head>
+
+<body>
+    <div id="wrap">
+
+        <div id="navBar">
+            <div class="logo">
+                logo
+            </div>
+        </div>
+
+        <div id="leftsideBar">
+            <button class="button" onclick="window.location.href = './main.html'">论文查询</button>
+            <!-- <button class="button">收藏列表</button> -->
+            <button class="button">分析统计</button>
+        </div>
+
+        <div id="main">
+            <div id="main1" class="mainItem"></div>
+            <div id="main2" class="mainItem"></div>
+            <div id="main3" class="mainItem"></div>
+            <div id="main4" class="mainItem"></div>
+        </div>
+
+        <div id="rightsideBar">
+            <div id="hotWordRank">
+                热词榜
+            </div>
+
+            <div class="rank" v-for="item in hotWordArr">
+                {{item}}
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- axios在线地址 -->
+    <script src="https:/unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!--  -->
+    <script src="./analysis.js"></script>
+</body>
+
+</html>
