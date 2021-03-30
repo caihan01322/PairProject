@@ -18,12 +18,21 @@
         width: 50%;
       }
     </style>
+    <link href="__CSS__/currency.css" rel="stylesheet" type="text/css"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>    
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="http://unpkg.com/vue/dist/vue.js"></script>
     <script src="http://unpkg.com/element-ui@2.15.1/lib/index.js"></script>
 </head>
 <body>
-<div class="uplan" style="width:100%;height:40px ;border:0px;background-color: rgb(107, 107, 209);">
-  <div style="color: white;font-size: 25px;">论文查询系统</div>
+  <div class="topNav">
+    <p>论文查询系统</p>
+    <a href="#"> </a>
+    <a href="/PairProject/221801409&221801418/public/index/LoginInterface/logout"> 退出</a>
+    <a href="/PairProject/221801409&221801418/public/index/FavorateInterface"> 论文分析</a>
+    <a href="/PairProject/221801409&221801418/public/index/FavorateInterface/create"> 收藏夹</a>
+    <a href="/PairProject/221801409&221801418/public/index/SearchInterface/create"> 论文列表</a>
 </div>
 <div id="app">
   <div style="width:50%;margin:15px auto">
@@ -54,7 +63,7 @@
           <el-form-item label="发布日期">
             <span>{{ props.row.releasetime }}</span>
           </el-form-item>
-          <el-form-item label="摘要" ">
+          <el-form-item label="摘要">
             <span>{{ props.row.abstract }}</span>
           </el-form-item>
         </el-form>
@@ -105,7 +114,7 @@
 var fromDb={$try|raw};
 var DDB=[];
 var Main = {
-  data() {
+  data() { 
     return {
       search:'',
       select: '',
@@ -118,6 +127,25 @@ var Main = {
     buttonHandler(){
       alert('点击左侧小箭头查看详细信息！');
     },
+    handleDelete(index,row){
+      var list={
+        "link":row.link
+      }
+      $.cookie("deleteList",JSON.stringify(list));
+      $.ajax({
+        tpye:"POST",
+        contentType: "application/x-www-form-urlencoded",
+        url:'/PairProject/221801409&221801418/public/index/FavorateInterface/deletePaper',
+        data:{}, 
+        success:function(result){
+          console.log("修改成功");
+        },
+        error:function(msg){
+          console.log("传输失败")
+        }
+      })
+      this.tableData.splice(index,1);
+  },  
     pageChange(val) {
       this.currentPage = val;
     },
