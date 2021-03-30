@@ -5,10 +5,12 @@ import (
 	"backend/pkg/cache"
 	"bytes"
 	"fmt"
+	"github.com/PuerkitoBio/goquery"
 	"github.com/gocolly/colly/v2"
 	"github.com/gocolly/colly/v2/queue"
 	"github.com/gocolly/redisstorage"
 	jsoniter "github.com/json-iterator/go"
+	"github.com/unknwon/com"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -17,6 +19,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -28,11 +31,13 @@ const (
 )
 
 var (
-	c           *colly.Collector
-	q           *queue.Queue
-	paperNum    = make(chan int, 1)
-	re          = regexp.MustCompile(`xplGlobal.document.metadata=(.+"});`)
-	timeLayouts = []string{"Jan 2006", "Jan. 2006", "January 2006"}
+	c              *colly.Collector
+	cECCV          *colly.Collector
+	q              *queue.Queue
+	paperNum       = make(chan int, 1)
+	re             = regexp.MustCompile(`xplGlobal.document.metadata=(.+"});`)
+	timeLayouts    = []string{"Jan 2006", "Jan. 2006", "January 2006"}
+	eccvTimeLayout = "2006-01"
 )
 
 func init() {
@@ -40,11 +45,17 @@ func init() {
 	c.AllowURLRevisit = true
 	c.SetRequestTimeout(time.Minute * 2)
 	c.OnResponse(onResponse)
-
 	err := c.Limit(&colly.LimitRule{DomainGlob: "*", Parallelism: 20})
 	if err != nil {
 		log.Println("limit fail", err)
 	}
+
+	cECCV = c.Clone()
+	cECCV.OnHTML("#kb-nav--main .title", onECCVTitle)
+	cECCV.OnHTML(".FulltextWrapper", onECCVDetails)
+	cECCV.OnError(func(response *colly.Response, err error) {
+		log.Println(err)
+	})
 
 	// c.SetDebugger(&debug.LogDebugger{})
 }
@@ -89,12 +100,52 @@ func onResponse(r *colly.Response) {
 	contentType := r.Headers.Get("Content-Type")
 
 	if strings.Contains(contentType, "text/html") {
-		onHTML(r)
+		onIEEE(r)
 	} else if strings.Contains(contentType, "application/json") {
 		onJSON(r)
-	} else {
-		log.Println("unhandled content type ", contentType)
 	}
+}
+
+func onECCVTitle(e *colly.HTMLElement) {
+	log.Println("onECCVTitle", e.Request.URL.String())
+	link := `https://link.springer.com` + e.Attr("href")
+	sep := strings.LastIndex(link, "/")
+	code := link[sep+1:]
+
+	paper := models.GetPaperByCode(code)
+	if paper.ID <= 0 {
+		if err := cECCV.Visit(link); err != nil {
+			log.Println("error visit eccv detail", err)
+		}
+	}
+}
+
+func onECCVDetails(e *colly.HTMLElement) {
+	link := e.Request.URL.String()
+	log.Println("onECCVDetail", link)
+	sep := strings.LastIndex(link, "/")
+	code := link[sep+1:]
+	paper := models.Paper{
+		Title:       e.ChildText(".ChapterTitle"),
+		Content:     e.ChildText(".Abstract .Para"),
+		Contributor: "eccv",
+		Link:        link,
+		Code:        code,
+	}
+	models.AddPaper(&paper)
+
+	tSel := e.DOM.Find(".article-dates__first-online > time").First()
+	datetime, _ := tSel.Attr("datetime")
+	datetime = datetime[:strings.LastIndex(datetime, "-")]
+	t, err := time.Parse(eccvTimeLayout, datetime)
+	if err != nil {
+		log.Println("err parse eccv time", err)
+		return
+	}
+
+	e.DOM.Find(".KeywordGroup > .Keyword").Each(func(i int, selection *goquery.Selection) {
+		models.AddWord("eccv", selection.Text(), t)
+	})
 }
 
 func onJSON(r *colly.Response) {
@@ -109,10 +160,10 @@ func onJSON(r *colly.Response) {
 	handleResult(&result)
 }
 
-func onHTML(r *colly.Response) {
+func onIEEE(r *colly.Response) {
 	s := <-paperNum
 	paperNum <- s + 1
-	log.Println("onHTML", s, r.Request.URL.String())
+	log.Println("onIEEE", s, r.Request.URL.String())
 	body := r.Body
 	group := re.FindSubmatch(body)
 	if group == nil {
@@ -130,6 +181,17 @@ func onHTML(r *colly.Response) {
 func Start() {
 	log.Println("Start scraping ieee papers...")
 
+	q, _ = queue.New(10, &queue.InMemoryQueueStorage{MaxSize: 1000})
+
+	go func() {
+		firstPage()
+		cECCV.Wait()
+		c.Wait()
+	}()
+
+}
+
+func setRedis() {
 	// redis for scraping cache
 	storage := &redisstorage.Storage{
 		Client: cache.RDB,
@@ -139,43 +201,54 @@ func Start() {
 	if err != nil {
 		panic(err)
 	}
-	if err = storage.Clear(); err != nil {
+	if err := storage.Clear(); err != nil {
 		log.Fatalln(err)
 	}
-	q, _ = queue.New(10, storage)
-
-	go func() {
-		firstPage()
-		c.Wait()
-	}()
 }
 
 func firstPage() {
 	paperNum <- 1
+
+	wg := sync.WaitGroup{} // for async
+	firstPageECCV(&wg)
+	firstPageIEEE(&wg)
+	wg.Wait()
+
+	err := q.Run(cECCV)
+	if err != nil {
+		log.Println("run", err)
+	}
+}
+
+func firstPageIEEE(wg *sync.WaitGroup) {
+	wg.Add(1)
+	defer wg.Done()
+
 	param := newSearchParam(1)
 	bodyByte, _ := jsoniter.Marshal(&param)
 	reader := bytes.NewReader(bodyByte)
-
-	client := &http.Client{}
 	req, err := http.NewRequest("POST", "https://ieeexplore.ieee.org/rest/search", reader)
 	if err != nil {
-		log.Fatalln(err)
+		log.Fatalln("construct req", err)
 	}
 	req.Header.Set("Referer", "https://ieeexplore.ieee.org/search/searchresult.jsp")
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", "application/json")
-	resp, err := client.Do(req)
+	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		log.Fatalln(err)
+		log.Fatalln("do req", err)
 	}
+	defer resp.Body.Close()
+
 	resBody, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatalln(err)
+		log.Fatalln("read res", err)
 	}
 
 	result := searchResult{}
 	if err := jsoniter.Unmarshal(resBody, &result); err != nil {
-		log.Fatalln(err)
+		log.Println("unmarshal res", err, string(resBody))
+		return
 	}
 	handleResult(&result)
 
@@ -188,9 +261,35 @@ func firstPage() {
 			log.Println("add request", err)
 		}
 	}
-	err = q.Run(c)
+}
+
+func firstPageECCV(wg *sync.WaitGroup) {
+	wg.Add(1)
+	defer wg.Done()
+
+	u := newECCVSearchURL(1)
+	resp, err := http.Get(u)
 	if err != nil {
-		log.Println("run", err)
+		log.Fatalln("read res", err)
+	}
+	defer resp.Body.Close()
+
+	// parse page
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		log.Fatalln("parse doc fail", err)
+	}
+	sPage := doc.Find(".number-of-pages").
+		First().
+		Text()
+	sPage = strings.Replace(sPage, ",", "", -1)
+	page := com.StrTo(sPage).MustInt()
+
+	for i := 1; i <= page; i++ {
+		u2 := newECCVSearchURL(i)
+		if err := q.AddURL(u2); err != nil {
+			log.Println("add request", err)
+		}
 	}
 }
 
@@ -213,7 +312,7 @@ func handleResult(result *searchResult) {
 			paper.Link = records[i].Link
 			paper.Title = records[i].Title
 
-			models.AddPaper(&paper)
+			models.AddPaper(paper)
 
 			// get detailsq
 			err := c.Visit("https://ieeexplore.ieee.org/document/" + paper.Code)
@@ -232,7 +331,7 @@ func handleResult(result *searchResult) {
 func handleDetails(details *searchDetails) {
 	paper := models.GetPaperByCode(details.Code)
 	paper.Content = details.Content
-	models.UpdatePaperContent(&paper)
+	models.UpdatePaperContent(paper)
 
 	var t time.Time
 	var err error
@@ -290,4 +389,12 @@ func newSearchRequest(param *searchParam) *colly.Request {
 		},
 		Body: reader,
 	}
+}
+
+func newECCVSearchURL(page int) string {
+	now := time.Now().Year()
+	return fmt.Sprintf(
+		"https://link.springer.com/search/page/%d?facet-start-year=%d&facet-end-year=%d&facet-content-type=ConferencePaper&facet-conf-series-id=eccv",
+		page, now-5, now,
+	)
 }

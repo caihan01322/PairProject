@@ -27,9 +27,9 @@ func OpUserFav(c *gin.Context) {
 	code := c.Query("code")
 	paper := models.GetPaperByCode(code)
 	user := c.MustGet("user").(*models.User)
-	fav := models.GetUserFav(user, &paper)
+	fav := models.GetUserFav(user, paper)
 	if fav.ID <= 0 {
-		models.AddUserFav(user, &paper)
+		models.AddUserFav(user, paper)
 	} else {
 		models.DeleteUserFav(&fav)
 	}
@@ -53,7 +53,7 @@ func EditUserFav(c *gin.Context) {
 	} else {
 		paper := models.GetPaperByCode(body.Code)
 		user := c.MustGet("user").(*models.User)
-		fav := models.GetUserFav(user, &paper)
+		fav := models.GetUserFav(user, paper)
 		fav.Title = body.Title
 		fav.Content = body.Content
 		models.EditUserFav(&fav)

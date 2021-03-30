@@ -44,7 +44,8 @@ func IsPaperExist(code string) bool {
 	return db.Where("code = ?", code).Find(&Paper{}).Error == nil
 }
 
-func GetPaperByCode(code string) (paper Paper) {
+func GetPaperByCode(code string) (paper *Paper) {
+	paper = &Paper{}
 	db.Find(&paper, "code = ?", code)
 	return
 }
