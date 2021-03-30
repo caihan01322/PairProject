@@ -33,7 +33,7 @@ $(document).ready(function () {
     var legendData = [];
     var seriesData = [];
     $.ajax({
-      url: "http://localhost:8080/thesisSearch_war_exploded/Count?count="+count,
+      url: "Count?count="+count,
       dataType: "json", //数据格式
       type: "get", //请求方式
       async: false, //是否异步请求
@@ -45,7 +45,7 @@ $(document).ready(function () {
             name: item.keyword,
             value: item.nums,
             url:
-              "http://localhost:8080/thesisSearch_war_exploded/Search?searchtype=title&input=" +
+              "Search?searchtype=title&input=" +
               item.keyword,
           });
         });
@@ -61,7 +61,7 @@ $(document).ready(function () {
       var legendData = [];
       var seriesData = [];
       $.ajax({
-        url: "http://localhost:8080/thesisSearch_war_exploded/Count?year=" + year + "&meeting=" + meeting,
+        url: "Count?year=" + year + "&meeting=" + meeting,
         dataType: "json", //数据格式
         type: "get", //请求方式
         async: false, //是否异步请求
@@ -73,7 +73,7 @@ $(document).ready(function () {
               name: item.keyword,
               value: item.nums,
               url:
-                  "http://localhost:8080/thesisSearch_war_exploded/Search?searchtype=title&input=" +
+                  "Search?searchtype=title&input=" +
                   item.keyword,
             });
           });

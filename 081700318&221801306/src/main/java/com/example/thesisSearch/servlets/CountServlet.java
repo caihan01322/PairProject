@@ -20,7 +20,7 @@ import java.util.List;
 public class CountServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)  {
         response.setContentType("application/json;charset=utf-8");// 指定返回的格式为JSON格式
-        response.setCharacterEncoding("UTF-8");// setContentType与setCharacterEncoding的顺序不能调换，否则无法解决中文乱码的问题
+        response.setCharacterEncoding("UTF-8");
         response.setHeader("Access-Control-Allow-Origin", "*");//跨域
         int count=0;
         int year=0;

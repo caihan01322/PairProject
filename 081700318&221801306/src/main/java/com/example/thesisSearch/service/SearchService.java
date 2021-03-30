@@ -24,8 +24,6 @@ public class SearchService {
             LikeListDao lld=new LikeListDao();
             t.setIsliked(lld.isliked(t.getId()));
         }
-
-
         return  SearchResult;
     }
 }
