@@ -1,4 +1,3 @@
-let globalBaseURL = 'http://120.77.84.235:8080';
 let instance = axios.create({
     baseURL: 'http://120.77.84.235:8080',
     headers: {
@@ -7,8 +6,10 @@ let instance = axios.create({
 })
 let searchStmt = '';
 let searchType = '';
+
 let isLogin = window.sessionStorage.getItem('isLogin');
 if (!isLogin) window.location.href = 'login.html';
+
 Highcharts.setOptions({
     lang: {
         thousandsSep: ','
@@ -22,7 +23,6 @@ function initPaperList() {
 }
 
 function getPaperList(pageNum) {
-
     searchStmt = document.getElementById("search-text").value;
     let offset = document.getElementById('checklist').value;
     let router = '';
@@ -75,7 +75,6 @@ function setList(data, pageNum, type) {
         panel.innerHTML = panel.innerHTML + "<p style=\"text-align:center;color: rgb(127, 127, 127);\">No result</p>";
     } else {
         let list = data.paper;
-
         for (let k in list) {
             let element = list[k].data;
             let abstractStr = element['abstractContent'].slice(0, 100) + "...";
@@ -96,7 +95,6 @@ function setList(data, pageNum, type) {
             }
             keywordStr = keywordStr.slice(0, -1);
             let sytle = "like";
-            let link = globalBaseURL + '/'
             let src = '../img/gary-star.svg'
             if (list[k].isLike === 1) {
                 src = '../img/orange-star.svg'
@@ -121,8 +119,8 @@ function setList(data, pageNum, type) {
                 "</span></p>" +
                 "<img src=" + src + ' onclick=like(' +
                 element.id + ')' + ' id=Like' +
-                element.id + ' class=' + sytle + '>'
-            "</div>"
+                element.id + ' class=' + sytle + '>' +
+                '</div>'
 
         }
         initPagination(pageNum, Math.floor(data.total / 10) + 1, type);
@@ -199,7 +197,6 @@ function initPagination(currentPage, totalPage, type) {
 
 function getIndex() {
     panel = document.getElementById('main-panel');
-
     panel.innerHTML = '' +
         '<div class="img-panel">' +
         '<img src="../img/u98.png" class="img-box" alt="">' +
@@ -285,11 +282,9 @@ function getRaceChart() {
     panel = document.getElementById("")
     panel = document.getElementById('main-panel');
     panel.innerHTML += '<div id="race"></div>';
-    var dom = document.getElementById("race");
-    var myChart = echarts.init(dom);
-    var app = {};
-
-    var option;
+    let dom = document.getElementById("race");
+    let myChart = echarts.init(dom);
+    let option;
 
     instance.get('/keywordTrends', {}).then(res => {
         setTimeout(function() {
@@ -336,9 +331,9 @@ function getRaceChart() {
             };
 
             myChart.on('updateAxisPointer', function(event) {
-                var xAxisInfo = event.axesInfo[0];
+                let xAxisInfo = event.axesInfo[0];
                 if (xAxisInfo) {
-                    var dimension = xAxisInfo.value + 1;
+                    let dimension = xAxisInfo.value + 1;
                     myChart.setOption({
                         series: {
                             id: 'pie',

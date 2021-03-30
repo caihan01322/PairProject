@@ -19,22 +19,18 @@ body {
 .right-bar {
     width: 20%;
     height: 100%;
-    /* background-color: aqua; */
     float: left;
 }
 
 .main-content {
     width: 60%;
     height: 100%;
-    /* overflow: auto; */
-    /* background-color:black; */
     float: left;
 }
 
 .top-box {
     width: 100%;
     height: 7%;
-    /*background-color: blue;*/
     display: flex;
     align-items: center;
 }
@@ -52,9 +48,6 @@ body {
     height: 93%;
     margin-left: 1%;
     margin-right: 1%;
-    /* border-style: solid;
-    border-width: 1px;
-    border-color: #efefef; */
     overflow: auto;
 }
 
@@ -102,7 +95,6 @@ body {
 .menu-span {
     text-align: left;
     width: 25%;
-    /*84%*/
     font-family: "微软雅黑 Regular", "微软雅黑, sans-serif";
     font-weight: 400;
     font-style: normal;
@@ -188,8 +180,6 @@ body {
     width: 100%;
     min-height: 18%;
     height: auto;
-    /* border-style: solid;
-    border-width: 1px; */
     display: block;
     border-bottom: 1px solid #efefef;
 }
@@ -215,8 +205,6 @@ body {
     font-size: 15px;
     color: rgb(85, 85, 85);
     text-align: left;
-    /* background-color: #F2F2F2; */
-    /* float: left; */
 }
 
 .my-keyword-span {
@@ -244,7 +232,6 @@ body {
     width: 90%;
     height: 50%;
     vertical-align: middle;
-    /* margin-left: 3%; */
     float: left;
 }
 
@@ -259,14 +246,11 @@ body {
     margin-left: 5%;
     width: 90%;
     text-align: left;
-    /* background-color: aqua; */
-    /* border-radius: 2px; */
     border-bottom: 1px solid #efefef;
     font-size: 15px;
 }
 
 .paper-title {
-    /* outline: 0; */
     color: #06c;
     font-size: 18px;
     text-decoration: none;
@@ -283,7 +267,6 @@ li {
     width: 20px;
     height: 20px;
     background-color: #F2F2F2;
-    /* border: 1px solid #1E88DA; */
     text-align: center;
 }
 
@@ -301,7 +284,6 @@ li {
     overflow: hidden;
     background-size: contain;
     float: left;
-    /* display: inline; */
 }
 
 .img-box {
@@ -339,7 +321,7 @@ li {
 #container {
     min-width: 310px;
     max-width: 800px;
-    margin: 0 auto
+    margin: 0 auto;
 }
 
 .like {
