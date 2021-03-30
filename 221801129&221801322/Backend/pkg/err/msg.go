@@ -7,6 +7,8 @@ var MsgFlags = map[int]string{
 
 	ERROR_NOT_EXIST_USER:   "用户不存在",
 	ERROR_INVALID_PASSWORD: "用户密码错误",
+	ERROR_EXIST_MARK:       "收藏记录已存在",
+	ERROR_NOT_EXIST_MARK:   "收藏记录不存在",
 
 	TITLE:     "题目",
 	KEYWORD:   "关键词",

@@ -41,8 +41,8 @@ func LoginUser(c *gin.Context) {
 			code = err.ERROR_NOT_EXIST_USER
 		}
 	} else {
-		for _, err := range valid.Errors {
-			log.Printf("err.key: %s, err.message: %s", err.Key, err.Message)
+		for _, e := range valid.Errors {
+			log.Printf("err.key: %s, err.message: %s", e.Key, e.Message)
 		}
 	}
 
@@ -52,4 +52,82 @@ func LoginUser(c *gin.Context) {
 		"data": data,
 	})
 
+}
+
+//用户收藏文章
+func MarkArticle(c *gin.Context) {
+	temp := models.Bookmark{}
+	code := err.INVALID_PARAMS
+
+	if c.ShouldBindJSON(&temp) != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"code": code,
+			"msg":  err.GetMsg(code),
+			"data": make(map[string]interface{}),
+		})
+	}
+
+	valid := validation.Validation{}
+	valid.Required(temp.UserID, "user_id").Message("用户ID不能为空")
+	valid.Required(temp.PaperID, "paper_id").Message("文章ID不能为空")
+	valid.Min(temp.UserID, 1, "user_id").Message("用户ID最小值为1")
+	valid.Min(temp.PaperID, 1, "paper_id").Message("文章ID最小值为1")
+
+	if !valid.HasErrors() {
+		if !models.ExistMark(temp.UserID, temp.PaperID) {
+			models.MarkArticle(temp.UserID, temp.PaperID)
+			code = err.SUCCESS
+		} else {
+			code = err.ERROR_EXIST_MARK
+		}
+	} else {
+		for _, e := range valid.Errors {
+			log.Printf("err.key: %s, err.message: %s", e.Key, e.Message)
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"code": code,
+		"msg":  err.GetMsg(code),
+		"data": make(map[string]interface{}),
+	})
+}
+
+//用户取消收藏文章
+func DisMarkArticle(c *gin.Context) {
+	temp := models.Bookmark{}
+	code := err.INVALID_PARAMS
+
+	if c.ShouldBindJSON(&temp) != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"code": code,
+			"msg":  err.GetMsg(code),
+			"data": make(map[string]interface{}),
+		})
+	}
+
+	valid := validation.Validation{}
+	valid.Required(temp.UserID, "user_id").Message("用户ID不能为空")
+	valid.Required(temp.PaperID, "paper_id").Message("文章ID不能为空")
+	valid.Min(temp.UserID, 1, "user_id").Message("用户ID最小值为1")
+	valid.Min(temp.PaperID, 1, "paper_id").Message("文章ID最小值为1")
+
+	if !valid.HasErrors() {
+		if models.ExistMark(temp.UserID, temp.PaperID) {
+			models.DisMarkArticle(temp.UserID, temp.PaperID)
+			code = err.SUCCESS
+		} else {
+			code = err.ERROR_NOT_EXIST_MARK
+		}
+	} else {
+		for _, e := range valid.Errors {
+			log.Printf("err.key: %s, err.message: %s", e.Key, e.Message)
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"code": code,
+		"msg":  err.GetMsg(code),
+		"data": make(map[string]interface{}),
+	})
 }
