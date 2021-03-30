@@ -1,6 +1,12 @@
 <!--  -->
 <template>
-    <div id='lineChart'></div>
+    <div class="container" :style="{'width': '100%'}">
+        <!--
+        <a-empty v-if="lineData.length==0" :style="{'margin': '48px'}" />
+        -->
+        <div id='lineChart'></div>
+    </div>
+    
 </template>
 
 <script>
@@ -15,18 +21,17 @@ export default {
     components: {},
     data () {
         return {
-
+            chart: {}
         }
     },
-    methods: {
-
+    props: {
+        lineData: Array,
     },
-    mounted() {
-        request.getHotwordLine()
-        .then(data => {
-            console.log(data);
-
-            const chart = new Chart({
+    methods: {
+        createLine() {
+            console.log(this.lineData);
+            let chart = this.chart;
+            chart = new Chart({
                 container: 'lineChart',
                 autoFit: true,
                 height: 500,
@@ -34,7 +39,7 @@ export default {
                 padding: [60,72,60,72]
             });
 
-            chart.data(data.result);
+            chart.data(this.lineData);
             chart.scale({
                 ICCV: {
                 min: 0,
@@ -66,8 +71,17 @@ export default {
             chart.line().position('date*ECCV').color('#f7bf14');
 
             chart.removeInteraction('legend-filter'); // 自定义图例，移除默认的分类图例筛选交互
+            this.chart = chart;
             chart.render();
-        });
+        },
+        updatedLine(data) {
+            console.log("update line");
+            console.log(this.chart);
+            this.chart.changeData(data);
+        },
+    },
+    mounted() {
+        this.createLine();
     },
 }
 </script>

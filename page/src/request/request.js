@@ -243,7 +243,6 @@ const request = {
             ]
         }
     }, 
-
 }
 
 function axios_get(url,data){

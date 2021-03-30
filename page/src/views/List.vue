@@ -278,6 +278,22 @@ export default {
                 page: that.pager.current
             })
         },
+        // 请求论文列表表格
+        requestList(data) {
+            let that = this;
+            request.search(data)
+            .then((res)=>{
+                // console.log(res);
+                if(res.error == 0) {
+                    // load data
+                    that.listData = res.result;
+                    that.pager.total = res.total;
+                }
+                else {
+                    // alert error
+                }
+            })
+        },
     },
     mounted() {
         this.requestList({
