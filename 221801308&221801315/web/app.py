@@ -91,6 +91,7 @@ def logout():
     flash("已登出")
     return redirect("/")
 
+
 @app.route("/register_view", methods=["GET"])
 def register_view():
     """"注册视图"""
@@ -256,7 +257,8 @@ def view():
 
     article = Articles.query.filter(Articles.title == title).first()
 
-    return render_template("view.html", article=article, pagination_func=pagination_func, page=page, condition=condition, search_way=search_way)
+    return render_template("view.html", article=article, pagination_func=pagination_func, page=page,
+                           condition=condition, search_way=search_way)
 
 
 @app.route("/delete", methods=["GET"])
@@ -288,7 +290,13 @@ def delete():
 @app.route("/hot_keywords_cake")
 @login_required
 def hot_keywords_cake():
-    """热词饼图
+    """热词饼图"""
+    return render_template("hot_keywords_cake.html")
+
+
+@app.route("/get_cake", methods=["GET"])
+def get_cake():
+    """热词饼图获取数据
 
     获取频率最高的前10个关键词，返回json格式
 
@@ -304,17 +312,23 @@ def hot_keywords_cake():
 
     data = []
     for key in keyword:
-        per_key = {"keyword": key.keyword, "total": key.count, "url": url_for("search", condition=key.keyword, search_way="keyword")}
+        per_key = {"keyword": key.keyword, "total": key.count,
+                   "url": url_for("search", condition=key.keyword, search_way="keyword")}
         data.append(per_key)
 
     return jsonify(code=0, data=data)
-    # return render_template("hot_keywords_cake.html")
 
 
 @app.route("/hot_keywords_trend")
 @login_required
 def hot_keywords_trend():
-    """热词走势图
+    """热词走势图"""
+    return render_template("hot_keywords_trend.html")
+
+
+@app.route("/get_trand", methods=["GET"])
+def get_trand():
+    """热词走势图获取数据
 
     获取频率最高的前10个关键词，返回json格式
 
@@ -348,50 +362,6 @@ def hot_keywords_trend():
 
         per_key = {"keyword": key.keyword, "CVPR": CVPR, "ECCV": ECCV, "ICCV": ICCV}
         data.append(per_key)
-    return jsonify(code=0, data=data)
-    # return render_template("hot_keywords_trend.html")
-
-
-@app.route("/hot_keywords")
-def hot_keywords():
-    """获取Top10的关键词
-
-    获取频率最高的前10个关键词，返回json格式
-
-    Return:
-        json格式
-        code: 0正常
-        data: 含有10个关键词的list
-            keyword: 关键词
-            url: 查询跟该关键词相关的论文的路由
-            CVPR: 近10年间在每年在该会议出现的次数
-            ECCV: 近10年间在每年在该会议出现的次数
-            ICCV: 近10年间在每年在该会议出现的次数
-    """
-    keyword = Keywords.query.order_by(Keywords.count.desc()).limit(10).all()
-
-    data = []
-    for key in keyword:
-        total = 0
-        CVPR = [0 for i in range(10)]
-        ECCV = [0 for i in range(10)]
-        ICCV = [0 for i in range(10)]
-
-        for article in key.articles:
-            total += 1
-            year = int(article.publicationYear)
-            if year in range(BEGIN_YEAR, CURRENT_YEAR):
-                if article.meeting == "CVPR":
-                    CVPR[year - BEGIN_YEAR] += 1
-                elif article.meeting == "ECCV":
-                    ECCV[year - BEGIN_YEAR] += 1
-                else:
-                    ICCV[year - BEGIN_YEAR] += 1
-
-        per_key = {"keyword": key.keyword, "total": total, "url": url_for("search", condition=key.keyword, search_way="keyword"),
-                   "CVPR": CVPR, "ECCV": ECCV, "ICCV": ICCV}
-        data.append(per_key)
-
     return jsonify(code=0, data=data)
 
 
