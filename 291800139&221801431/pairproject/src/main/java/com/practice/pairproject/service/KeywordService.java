@@ -49,4 +49,11 @@ public interface KeywordService {
      * @return
      */
     List<KeywordVO> selectTOPKeywordXYear(Map<String, String> paramMap, List<KeywordVO> kList);
+
+    /**
+     * 查询某pid的论文的keyword
+     * @param pid
+     * @return
+     */
+    List<Keyword> selectByPid(Integer pid);
 }

@@ -90,7 +90,7 @@
         <!--<a th:if="${totalPages>1 && number == totalPages}" class="active"><span th:text="${totalPages}">页码</span></a>
         <a th:if="${totalPages>1 && number != totalPages}"><a th:href="@{${page.pages}}" th:text="${totalPages}">页码</a></a>
         -->
-        <a th:href="@{${page.pages}}" th:text="${page.pages}"
+        <a th:if="${totalPages>1}" th:href="@{${page.pages}}" th:text="${page.pages}"
            th:class="${page.current == page.pages}? 'page-item active' :'page-item' "></a>
 
         <!-- 下一页 -->

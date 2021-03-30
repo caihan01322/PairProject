@@ -44,7 +44,7 @@
         <!-- 表单-->
         <div class="container">
             <div class="row">
-                <form method="get" action="/paper/search">
+                <form method="get" action="/paper/search/1">
                     <div class="form-inline col-md-12 my-3">
                         <div class="mx-1 form-inline">
                             <label for="title">论文标题:</label>
@@ -63,11 +63,11 @@
 
                         <div class="mx-1 form-inline">
                             <label class="mx-1 radio-inline ">
-                                <input type="radio" name="sort"
-                                       th:selected="true" th:value="1">ID
+                                <input type="radio" name="sort" id="sortBYID"
+                                       th:checked="true" th:value="1">ID
                             </label>
                             <label class="mx-1 radio-inline ">
-                                <input type="radio" name="sort"
+                                <input type="radio" name="sort" id="sortByYear"
                                        th:value="2">年份
                             </label>
                         </div>
@@ -90,15 +90,15 @@
                         <th align="center" width="3%">
                             <input type="checkbox" id="allChecks" onclick="ckAll()"/>
                         </th>
-                        <th>ID</th>
-                        <th>会议</th>
-                        <th>年份</th>
-                        <th>发布时间</th>
-                        <th>标题</th>
-                        <th>作者</th>
+                        <th align="center" width="5%">ID</th>
+                        <th align="center" width="5%">会议</th>
+                        <th align="center" width="5%">年份</th>
+                        <th align="center" width="10%">发布时间</th>
+                        <th align="center" width="32%">标题</th>
+                        <th align="center" width="25%">作者</th>
                         <!--<th>摘要</th>-->
-                        <th style="float: inherit;">
-                            <button th:onclick="delAllPaper()" class="btn btn-outline-danger">删除</button>
+                        <th style="float: inherit;" align="center" width="15%">
+                            <button th:onclick="delAllPaper()" class="btn btn-outline-danger">删 除</button>
                         </th>
                     </tr>
                     </THEAD>
@@ -116,10 +116,71 @@
                         <td th:text="${paper.authors}"></td>
                         <!-- <td><a th:href="${'/del/'+user.userId}">delete</a></td> -->
                         <td>
-                            <button type="text" class="btn btn-outline-warning mr-5" style="float:right"
+                            <button type="text" class="btn btn-outline-warning"
                                     th:text="删除"
-                                    th:onclick="deletePaper([[${paper.pid}])">
+                                    th:onclick="deletePaper([[${paper.pid}]])">
                             </button>
+                            <!--创建模态框-->
+                            <button type="button" class="btn btn-outline-info" data-toggle="modal"
+                                    data-target="#exampleModal"
+                                    th:text="查看"
+                                    th:onclick="showPaper([[${paper.pid}]])">
+                            </button>
+
+                            <!-- 模态框（Modal）  class="form-control-plaintext" -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="t1"></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="i1">会议:</label>
+                                                    <!--<input type="text" id="i1"
+                                                           readonly class="form-control">-->
+                                                    <div class="alert alert-secondary" role="alert" id="i1">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="i2">年份:</label>
+                                                    <div class="alert alert-secondary" role="alert" id="i2">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="i3">发布时间:</label>
+                                                    <div class="alert alert-secondary" role="alert" id="i3">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="i4">作者:</label>
+                                                    <div class="alert alert-secondary" role="alert" id="i4">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="i5">关键词:</label>
+                                                    <select multiple readonly class="form-control" id="i5">
+                                                        <!--<option th:text="${keyword.content}"></option>-->
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="i6">摘要:</label>
+                                                    <div class="alert alert-secondary" role="alert" id="i6">
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal -->
                         </td>
                     </tr>
                     </TBODY>
@@ -207,7 +268,7 @@
             success: function (result) {
                 if (result.code == 200) { //修改成功
                     //layer.msg("修改成功");
-                    alert("删除成功");
+                    alert("修改成功");
                     window.location.reload();
                 } else {
                     //layer.msg("修改失败");
@@ -220,11 +281,69 @@
         });
     }
 
+    function showPaper(pid) {
+        $.ajax({
+            url: encodeURI("/paper/select/" + pid),
+            type: "get",  //请求的方法
+            cache: false, //去除缓存
+            async: false,  //async:false同步。true异步方式
+            dataType: "json",  //指定响应得到的数据类型：【“list”必须严格为一个json数据！】
+            data: {  //data:$(form).serialize(),
+
+            },
+            success: function (result) {
+                if (result.code == 200) { //修改成功
+                    //layer.msg("修改成功");
+                    //alert(result.paper2.abstractContent);
+                    $("#t1").empty();
+                    $("#t1").append(result.paper2.title);
+
+                    $("#i1").empty();
+                    $("#i1").append(result.paper2.meeting);
+
+                    $("#i2").empty();
+                    $("#i2").append(result.paper2.year);
+
+                    $("#i3").empty();
+                    $("#i3").append(result.paper2.publicDate);
+
+                    $("#i4").empty();
+                    $("#i4").append(result.paper2.authors);
+
+                    $("#i6").empty();
+                    $("#i6").text(result.paper2.abstractContent);
+
+                    /*var obj = document.getElementById("i5");
+                    var list = eval("("+keywords+")");
+
+                    alert("22333:" + result.keywords[0]['content']);
+                    alert("5555:" + result.keywords[0].content);
+
+                    //注意：当data是json字符串时，需要将data转化成json对象
+                    for(var i=0;i<2;i++){
+                        //访问每一个的属性，根据属性拿到值
+                        alert(result.keywords[i].content);
+                        obj.add(new Option("4", "4");
+                    }
+*/
+
+
+                } else {
+                    //layer.msg("修改失败");
+                    alert("查看失败");
+                }
+            },
+            error: function () {
+                alert(".......页面出错了.......");
+            }
+        });
+    }
 </script>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+
 </body>
 </html>

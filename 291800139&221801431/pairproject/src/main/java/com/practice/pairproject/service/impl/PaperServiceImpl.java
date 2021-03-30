@@ -75,4 +75,9 @@ public class PaperServiceImpl implements PaperService {
         return page;
     }
 
+    @Override
+    public Paper selectByPrimaryKey(Integer pid) {
+        return paperMapper.selectByPrimaryKey(pid);
+    }
+
 }
