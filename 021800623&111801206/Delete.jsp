@@ -17,8 +17,8 @@
         </div>
         <div class="items">
         <a class="btn_head" href="DoUserSelect?">首页</a>
-        <a class="btn_manage_active" href="DoDeleteSelect?">论文管理</a>
-        <a class="btn_analysis" href="DoICCVSelect">论文分析</a>
+        <a class="btn_manage_active" href="Delete.jsp">论文管理</a>
+        <a class="btn_analysis" href="DoHotWordSelect">论文分析</a>
         </div>
     </div>
     <div class="header">

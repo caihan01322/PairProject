@@ -9,28 +9,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./index.css">
-    <script type="text/javascript">  
-			function a(){
-				$.ajax({  
-            		url:"DoUserServlet",//servlet文件的名称
-            		type:"GET",
-            		success:function(e){
-            			alert("servlet调用成功！");
-            		}
-            	});
-				
-			}
-        </script>
+    
 </head>
-<body onload = "a()">
+<body>
     <div class="nav">
         <div class="logo">
             Paper管理平台
         </div>
         <div class="items">
-        <a class="btn_head_active" href="DoUserSelect?">首页</a>
+        <a class="btn_head_active" href="DoUserSelect">首页</a>
         <a class="btn_manage" href="Delete.jsp">论文管理</a>
-        <a class="btn_analysis" href="DoICCVSelect">论文分析</a>
+        <a class="btn_analysis" href="DoHotWordSelect">论文分析</a>
         </div>
     </div>
     <div class="header">
