@@ -32,10 +32,10 @@
                         <ul class="nav nav-tabs">
                             
                             <li><a href="index.html">&nbsp;首&nbsp;&nbsp;页&nbsp;</a></li>
-                            <li><a href="add_articles.html">爬取论文</a></li>
-                            <li><a href="article.html">论文列表</a></li>
-                            <li><a href="hotwords_graph.html">热词分析</a></li>
-                            <li><a href="personal_page.html">个人中心</a></li>
+                            <li><a :href="isLogin==0?'#':'add_articles.html'" @click="noPermission">爬取论文</a></li>
+                            <li><a :href="isLogin==0?'#':'article.html'" @click="noPermission">论文列表</a></li>
+                            <li><a :href="isLogin==0?'#':'hotwords_graph.html'" @click="noPermission">热词分析</a></li>
+                            <li><a :href="isLogin==0?'#':'personal_page.html'" @click="noPermission">个人中心</a></li>
         
                         </ul>
                     </div>
@@ -80,17 +80,21 @@
                 message:"请先登录",
                 phone:'',
                 password:'',
-                isLogin:1,
+                isLogin:0,
 
             },
             mounted(){
-                this.isLogin = 0;
+                this.judgeLogin();
                 //alert('hi');
                // this.judgeLogin();
             },
             methods: {
-            doIt:function(){
+            noPermission:function(){
+                if(this.isLogin==0)
                 alert("请先登录");
+                else{
+                    window.location.href="";
+                }
             },
             signIn:function(){
                 window.location.href="login.html";
@@ -101,7 +105,7 @@
             startLogin:function(){
                 this.isLogin = 1;
 
-                /* axios
+                axios
                  .post('http://127.0.0.1:5000/user/login',
                  {
                      telephone: this.phone,        // 参数 telephone
@@ -112,18 +116,30 @@
                     //console.log(response);
                     console.log(response.data.status);
                     status = response.data.status;
-                    if(status==0) //console.log('登陆成功');
-                    window.location.href="article.html";
+                    userId = response.data.user_id;
+
+                    if(status==0){
+                        //console.log('登陆成功');
+                        localStorage.setItem('userid',userId);
+                        window.location.href="article.html";
+                        this.judgeLogin();
+                    } 
                     else if(status==1) console.log('用户不存在');
                     else console.log('密码错误');
                  })
                  .catch(function (error) { // 请求失败处理
                      console.log(error);
-                 });*/
+                 });
   
             },
             judgeLogin:function(){
-                //this.isLogin = 1;
+                var user = JSON.parse(localStorage.getItem('userid'));
+                console.log(user);
+                if(user!=null){
+                    this.isLogin = 1;
+                }else{
+                    this.isLogin = 0;
+                }
             },
             
             }
