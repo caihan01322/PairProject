@@ -104,3 +104,39 @@ def search_title():
     except Exception as e:
         print(e)
         return responseError(Responses.PARAMETERS_ERROR)
+
+
+@functions.route("/getLineChart",methods=["POST"])
+def getLineChart():
+    try:
+        Iccv_meeting=Meeting_article.query.filter_by(meeting_name='ICCV').all()
+        ICCV_list=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        for i in Iccv_meeting:
+            date=datetime.datetime.strftime(i.create_time,'%Y-%m-%d')
+            if( int(2010) <= int(date[0:4]) and int( 2021)>=int(date[0:4]) ):
+                ICCV_list[(int(date[0:4])-2010)]=ICCV_list[(int(date[0:4])-2010)]+1
+
+        Cvpr_meeting=Meeting_article.query.filter_by(meeting_name='CVPR').all()
+        CVPR_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        for i in Cvpr_meeting:
+            date=datetime.datetime.strftime(i.create_time,'%Y-%m-%d')
+            if( int(2010) <= int(date[0:4]) and int( 2021)>=int(date[0:4]) ):
+                CVPR_list[(int(date[0:4])-2010)]=CVPR_list[(int(date[0:4])-2010)]+1
+
+
+        ECCV_list=[0,0,0,0,0,0,0,0,0,0,0,0]
+        Eccv_meeting = Meeting_article.query.filter_by(meeting_name='ECCV').all()
+        for i in Eccv_meeting:
+            date=datetime.datetime.strftime(i.create_time,'%Y-%m-%d')
+            if( int(2010) <= int(date[0:4]) and int( 2021)>=int(date[0:4]) ):
+                # print(int(date[0:4]))
+                ECCV_list[(int(date[0:4])-2010)]=ECCV_list[(int(date[0:4])-2010)]+1
+
+        return responseBody(data=[{'ECCV':ECCV_list,'CVPR':CVPR_list,'ICCV':ICCV_list}])
+
+
+    except Exception as e:
+        print(e)
+        return responseError(Responses.PARAMETERS_ERROR)
+
+
