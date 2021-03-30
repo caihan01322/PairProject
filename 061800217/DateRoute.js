@@ -5,6 +5,9 @@ let mysql = require("mysql");
 
 let db = require('./util/dbUtil.js');
 let sh = require('./stringHandle.js');
+const {
+    parse
+} = require('content-type');
 
 var userid = 0;
 
@@ -105,7 +108,7 @@ function newUser() {
 //把某一个会议热词Top10和出现次数返回给前端
 //把热词全部返回用于制作词云
 function dateAnalWords() {
-    var queryResult = [];
+    var queryResult = JSON;
     var urlencodedParser = bodyParser.urlencoded({
         extended: false
     });
@@ -119,7 +122,7 @@ function dateAnalWords() {
                 return;
             }
             var tb = JSON.parse(JSON.stringify(result));
-            queryResult[0] = tb;
+            queryResult[0] = result;
         });
         sqlQuery = "SELECT * FROM keywords where meeting = '" +
             meeting + "'order by times limit 0,10 ";
@@ -150,6 +153,7 @@ function dateAnalWords() {
             var tb = JSON.parse(JSON.stringify(result));
             queryResult[3] = tb;
         });
+
         res.status(200).json({
             'status': true,
             "hotWords": queryResult[0],
@@ -157,6 +161,7 @@ function dateAnalWords() {
             "hotYearWords": queryResult[2],
             "keywords": queryResult[3],
         })
+        console.log(queryResult[0].id);
     })
 }
 //初始化用户论文列表
@@ -166,7 +171,7 @@ function userPaperList() {
     });
     router.post('/manager', urlencodedParser, function (req, res) {
         let pageNo = Number(req.body.page);
-        let pageCount = 10;
+        let pageCount = 6;
         //Number(req.body.pageSize);
         let pageSize = pageCount;
         let page = (pageNo - 1) * pageCount; //每页显示多少条内容是固定的
@@ -174,7 +179,7 @@ function userPaperList() {
         //limit i,j   i为查询结果的索引值  j查询结果返回的数量
         let sql = `select * from ${paperPackage} limit ${page}, ${pageSize}`;
         db.query(sql, function (err, result, field) {
-            loadUserPaperList(res,result, err,'');
+            loadUserPaperList(res, result, err, '');
         })
     })
 }
@@ -188,13 +193,14 @@ function userInput() {
         let userPackage = req.query.package;
         let pageNo = Number(req.query.page);
         let delPaperId = req.query.delid; //处理用户删除论文
-        let pageCount = 10;
+        let pageCount = 6;
         let pageSize = pageCount;
         let page = (pageNo - 1) * pageCount;
         var keywordsList = [];
         var wordList = [];
         var paperIdList = [];
         var resultList = [];
+        var zanshi = [];
         let flag = true;
         let affectRows = 0;
         if (delPaperId != undefined) {
@@ -204,36 +210,57 @@ function userInput() {
                     errSend(result, err)
                     return;
                 }
-                affectRows = result.affectedRows;  
+                affectRows = result.affectedRows;
                 if (affectRows) {
                     let sql = `select * from ${userPackage} limit ${page}, ${pageSize}`;
                     db.query(sql, function (err2, result2, field) {
-                        loadUserPaperList(res,result2, err2,DELETESECCUESS);
+                        loadUserPaperList(res, result2, err2, DELETESECCUESS);
+                        return;
                     })
-                }else{
+                } else {
                     let sql = `select * from ${userPackage} limit ${page}, ${pageSize}`;
                     db.query(sql, function (err2, result2, field) {
-                        loadUserPaperList(res,result2, err2,DELETSFAIL);
+                        loadUserPaperList(res, result2, err2, DELETSFAIL);
+                        return;
                     })
-                }              
-            })
-           
+                }
+            });
+
         } //20210320 编写测试功能，未检测
         if (input != undefined) {
             keywordsList = sh.stringSplit(input);
-            keywordsList.forEach((item, index) => {
-                let sql = "select * from " + userPackage + " where name like '%" +
-                    item + "%' or keyword like '%" + item + "%'";
-                db.query(sql, function (err, result, field) {
-                    findPaperFromInput(err, resultList, result, flag,
-                        paperIdList, wordList, res, page, pageSize);
-                })
-            });
+            var promise = new Promise(function (resolve, reject) {
+                keywordsList.forEach((item, index) => {
+                    let sql = "select * from " + userPackage + " where name like '%" +
+                        item + "%' or keyword like '%" + item + "%'";
+                    db.query(sql, function (err, result, field) {
+                        if (err) {
+                            errSend(res, err);
+                            return;
+                        }
+                        for (let i = 0; i < result.length && flag; i++) {
+                            //console.log("  " + result[i].id);
+                            flag = isPaperAlreadyExist(paperIdList, result, i);
+                            if (flag) {
+                                paperIdList.push(result[i].id);
+                                wordList.push(result[i]);
+                                resolve(wordList);
+                            }
+                        }
+                    })
+                });
+            })
+            promise.then(function (value) {
+                resultList = returnPaperList(page, pageSize, value);
+                res.send({
+                    "status": true,
+                    "msg": "",
+                    "data": resultList
+                });
+            })
         }
-
     })
 }
-
 //20210328这部分要处理论文列表的删除，并且当keywordcontent和delpaperid都传来内容时该怎么办
 function paperInf() {
 
@@ -287,14 +314,14 @@ function returnPaperList(page, pageSize, wordList) {
     }
 }
 //**判断paper是否已经在查找到的列表中*/
-function isPaperAlreadyExist(paperIdList, result) {
+function isPaperAlreadyExist(paperIdList, result, i) {
     for (let j = 0; j < paperIdList.length; j++) {
         if (result[i].id === paperIdList[j]) return false;
     }
     return true;
 }
 //**加载用户论文列表*/
-function loadUserPaperList(res,result,err,msg) {
+function loadUserPaperList(res, result, err, msg) {
     if (err) {
         errSend(res, err);
     }
@@ -324,25 +351,9 @@ function delPaper(res, err, result) {
 }
 //**根据用户输入查找论文*/
 function findPaperFromInput(err, resultList, result, flag, paperIdList, wordList, res, page, pageSize) {
-    if (err) {
-        errSend(res, err);
-        return;
-    }
-    for (let i = 0; i < result.length && flag; i++) {
-        //console.log("  " + result[i].id);
-        flag = isPaperAlreadyExist(paperIdList, result);
-        if (flag) {
-            paperIdList.push(result[i].id);
-            wordList.push(result[i]);
-        }
-    }
+
     //根据分页返回论文列表
-    resultList = returnPaperList(page, pageSize, wordList);
-    res.send({
-        "status": true,
-        "msg": "",
-        "data": resultList
-    });
+
 }
 
 // function delPaper() {
