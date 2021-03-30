@@ -19,7 +19,8 @@ def search_keyword():
         page_info=data.get("page_info")
         page_size = page_info.get("page_size")
         page_num = page_info.get("page_num")
-        print(1)
+        allPageNum = Meeting_article.query.filter(
+            Meeting_article.keyword.like("%" + keyword + "%")).count()
         pagination=Meeting_article.query.filter(
             Meeting_article.keyword.like("%"+keyword+"%"))\
             .order_by(Meeting_article.create_time.desc()).paginate(per_page=page_num,page=page_size)
@@ -38,7 +39,7 @@ def search_keyword():
                 'keyword':i.keyword,
                 'address':i.address
             })
-        return responseBody(data=response_info)
+        return responseBody(data={'data':response_info,'allPageNum':allPageNum})
 
     except Exception as e:
         print(e)
@@ -52,6 +53,8 @@ def search_author():
         page_info=data.get("page_info")
         page_size = page_info.get("page_size")
         page_num = page_info.get("page_num")
+        allPageNum = Meeting_article.query.filter(
+            Meeting_article.keyword.like("%" + author + "%")).count()
         pagination=Meeting_article.query.filter(
             Meeting_article.author.like("%"+author+"%"))\
             .order_by(Meeting_article.create_time.desc()).paginate(per_page=page_num,page=page_size)
@@ -68,7 +71,7 @@ def search_author():
                 'keyword':i.keyword,
                 'address':i.address
             })
-        return responseBody(data=response_info)
+        return responseBody(data={'data':response_info,'allPageNum':allPageNum})
 
     except Exception as e:
         print(e)
@@ -83,6 +86,8 @@ def search_title():
         page_info=data.get("page_info")
         page_size = page_info.get("page_size")
         page_num = page_info.get("page_num")
+        allPageNum = Meeting_article.query.filter(
+            Meeting_article.keyword.like("%" + title + "%")).count()
         pagination=Meeting_article.query.filter(
             Meeting_article.title.like("%"+title+"%"))\
             .order_by(Meeting_article.create_time.desc()).paginate(per_page=page_num,page=page_size)
@@ -99,10 +104,28 @@ def search_title():
                 'keyword':i.keyword,
                 'address':i.address
             })
-        return responseBody(data=response_info)
+        return responseBody(data={'data':response_info,'allPageNum':allPageNum})
 
     except Exception as e:
         print(e)
+        return responseError(Responses.PARAMETERS_ERROR)
+
+
+@functions.route("/del_article",methods=["POST"])
+def del_article():
+    try:
+        data=request.get_json()
+        article_id=data.get("article_id")
+
+        article=Meeting_article.query.filter_by(id=article_id).first()
+        if not article:
+            return responseError(Responses.NO_RECORD_FOUND)
+        db.session.delete(article)
+        db.session.commit()
+        return responseSuccess(Responses.OPERATION_SUCCESS)
+    except Exception as e:
+        print(e)
+        db.session.rollback()
         return responseError(Responses.PARAMETERS_ERROR)
 
 
@@ -171,3 +194,83 @@ def getTop10():
         print(e)
         return responseError(Responses.PARAMETERS_ERROR)
 
+
+@functions.route('/getRisingSun',methods=['POST'])
+def getRisingSUN():
+    try:
+        childrens=[]
+        #ECCV
+        eccvArticles=Meeting_article.query.filter_by(meeting_name='ECCV').all()
+        eccvKeywordDict = {}
+        for i in eccvArticles:
+            temp_list = list(i.keyword.split(';'))
+            for j in temp_list:
+                if (j not in eccvKeywordDict.keys()):
+                    eccvKeywordDict[j] = 1
+                else:
+                    eccvKeywordDict[j] += 1
+        eccvKeywordDict[''] = 0
+        eccvKeywordDict['暂无关键词'] = 0
+        eccvNum=0
+        valueInfo = []
+        i = 0
+        for k in sorted(eccvKeywordDict, key=eccvKeywordDict.__getitem__, reverse=True):
+            if (i < 10):
+                valueInfo.append({'name':k,'value':eccvKeywordDict[k]})
+                eccvNum += eccvKeywordDict[k]
+                i+=1
+
+        childrens.append({'name':'EVVC','value':eccvNum,'children':valueInfo})
+
+
+        #ICCV
+        iccvArticles = Meeting_article.query.filter_by(meeting_name='ICCV').all()
+        iccvKeywordDict = {}
+        for i in iccvArticles:
+            temp_list = list(i.keyword.split(';'))
+            for j in temp_list:
+                if (j not in iccvKeywordDict.keys()):
+                    iccvKeywordDict[j] = 1
+                else:
+                    iccvKeywordDict[j] += 1
+        iccvKeywordDict[''] = 0
+        iccvKeywordDict['暂无关键词'] = 0
+        iccvNum = 0
+        valueInfo = []
+        i = 0
+        for k in sorted(iccvKeywordDict, key=iccvKeywordDict.__getitem__, reverse=True):
+            if (i < 10):
+                valueInfo.append({'name': k, 'value': iccvKeywordDict[k]})
+                iccvNum += iccvKeywordDict[k]
+                i += 1
+
+        childrens.append({'name': 'ICCV', 'value': iccvNum, 'children': valueInfo})
+
+        # CVPR
+        cvprArticles = Meeting_article.query.filter_by(meeting_name='CVPR').all()
+        cvprKeywordDict = {}
+        for i in cvprArticles:
+            temp_list = list(i.keyword.split(';'))
+            for j in temp_list:
+                if (j not in cvprKeywordDict.keys()):
+                    cvprKeywordDict[j] = 1
+                else:
+                    cvprKeywordDict[j] += 1
+        cvprKeywordDict[''] = 0
+        cvprKeywordDict['暂无关键词'] = 0
+        cvprNum = 0
+        valueInfo = []
+        i = 0
+        for k in sorted(cvprKeywordDict, key=cvprKeywordDict.__getitem__, reverse=True):
+            if (i < 10):
+                valueInfo.append({'name': k, 'value': cvprKeywordDict[k]})
+                cvprNum += cvprKeywordDict[k]
+                i += 1
+
+        childrens.append({'name': 'CVPR', 'value': cvprNum, 'children': valueInfo})
+
+
+        return responseBody(data=childrens)
+    except Exception as e:
+        print(e)
+        return responseError(Responses.PARAMETERS_ERROR)

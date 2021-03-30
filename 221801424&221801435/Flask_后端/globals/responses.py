@@ -24,3 +24,4 @@ class Responses:
     EXIST_ACCOUNT=get_response_dict(1012,"账号已存在!")
     EXIST_NAME=get_response_dict(1013,"用户名已存在")
     SAVE_FILE_FAIL=get_response_dict(1014,"保存文件失败")
+    EXIST_STAR=get_response_dict(1015,"该论文已收藏")
