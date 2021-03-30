@@ -10,5 +10,12 @@ export default defineConfig({
   },
   dva: {
     immer: true,
-  }
+  },
+  proxy: {
+    '/api': {
+      target: 'http://pairproject.nosae.icu',
+      changeOrigin: true,
+      pathRewrite: { '^/api': '' },
+    },
+  },
 });

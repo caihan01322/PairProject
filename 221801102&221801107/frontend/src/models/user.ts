@@ -1,28 +1,40 @@
 import { Effect, ImmerReducer } from 'umi';
 import { ModelNameSpaces } from '@/types';
+import * as UserServices from '../services';
 
 export interface UserModelState {
   isLogin: boolean;
-  name: string | null;
+  username: string | null;
   /** 头像 url */
   avatar: string | null;
+}
+
+export interface loginDataProps {
+  name: string;
+  avatar: string;
+  github_id: string;
 }
 
 export interface UserModelType {
   namespace: ModelNameSpaces.User;
   state: UserModelState;
   effects: {
+    /** 登录 */
     login: Effect;
+    /** 登出  */
+    logout: Effect;
   };
   reducers: {
-    save: ImmerReducer<UserModelState>;
+    changeLogin: ImmerReducer<UserModelState>;
+    changeUsername: ImmerReducer<UserModelState>;
+    changeAvatar: ImmerReducer<UserModelState>;
   };
 }
 
 export const initialState = {
-  isLogin: true,
+  isLogin: false,
   avatar: null,
-  name: 'huro',
+  username: null,
 };
 
 const UserModel: UserModelType = {
@@ -30,12 +42,38 @@ const UserModel: UserModelType = {
   state: initialState,
   effects: {
     *login({ payload }, { call, put }) {
-      console.log(payload);
+      const res: loginDataProps = yield call(UserServices.login, payload);
+      const { name, avatar } = res;
+      yield put({
+        type: 'changeLogin',
+        payload: true,
+      });
+      yield put({
+        type: 'changeUsername',
+        payload: name,
+      });
+      yield put({
+        type: 'changeAvatar',
+        payload: avatar,
+      });
+    },
+    *logout({ payload }, { call, put }) {
+      yield call(UserServices.logout, payload);
+      yield put({
+        type: 'changeLogin',
+        payload: false,
+      });
     },
   },
   reducers: {
-    save(state, action) {
-      state.name = action.payload;
+    changeLogin(state, action) {
+      state.isLogin = action.payload;
+    },
+    changeUsername(state, action) {
+      state.username = action.payload;
+    },
+    changeAvatar(state, action) {
+      state.avatar = action.payload;
     },
   },
 };

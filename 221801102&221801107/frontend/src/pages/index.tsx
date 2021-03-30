@@ -3,15 +3,11 @@ import { ThemeSearch, CircleLetter } from '@/components';
 import { Row, Col } from 'antd';
 import { history, ConnectProps, useSelector, useDispatch } from 'umi';
 import { RootStore, ModelNameSpaces } from '@/types';
-import { memo } from 'react';
-import { UserModelInstance } from '@/models';
+import { memo, useEffect } from 'react';
 
 interface HomeProps extends ConnectProps {}
 
 const Home = memo(() => {
-  // query and code
-  const query = history.location.query;
-
   const handleSearch = (value: string) => {
     if (value === '') return;
     history.push(`/search`, {

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   IRouteComponentProps,
   Link,
@@ -17,12 +17,20 @@ const { Header, Content } = ALayout;
 
 const Layout = ({ children }: IRouteComponentProps) => {
   const dispatch = useDispatch();
-  const { avatar, isLogin, name } = useSelector((store: RootStore) => {
+
+  const { avatar, isLogin, username } = useSelector((store: RootStore) => {
     const { [ModelNameSpaces.User]: UserModel } = store;
-    return {
-      ...UserModel,
-    };
+    return UserModel;
   });
+
+  useEffect(() => {
+    const query = history.location.query;
+    const code = query && query.code;
+    dispatch({
+      type: `${ModelNameSpaces.User}/login`,
+      payload: code,
+    });
+  }, []);
 
   // mock
   const selectKey = history.location.pathname;
@@ -31,11 +39,13 @@ const Layout = ({ children }: IRouteComponentProps) => {
 
   const UserSetting = useMemo(() => {
     const handleFavoriteBtnClick = () => {
-      history.push('/favorite')
-    }
+      history.push('/favorite');
+    };
     return (
       <Menu theme="dark" style={{ marginTop: '20px' }}>
-        <Menu.Item icon={<FolderOutlined />} onClick={handleFavoriteBtnClick}>收藏夹</Menu.Item>
+        <Menu.Item icon={<FolderOutlined />} onClick={handleFavoriteBtnClick}>
+          收藏夹
+        </Menu.Item>
         <Menu.Item icon={<LogoutOutlined />}>退出登录</Menu.Item>
       </Menu>
     );
@@ -50,7 +60,7 @@ const Layout = ({ children }: IRouteComponentProps) => {
         {isLogin && (
           <>
             <Dropdown overlay={UserSetting} placement="bottomCenter">
-              <span className={styles.name}>{name}</span>
+              <span className={styles.name}>{username}</span>
             </Dropdown>
             <Avatar className={styles.avatar} size="small" src={avatar} />
           </>
