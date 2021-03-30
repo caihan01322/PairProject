@@ -36,7 +36,7 @@
   <el-main>
         <el-container>
           
-                    <el-main style="margin-left:230px">
+                    <el-main>
                       <el-container>
                         <el-header id="search">
                            <el-input
@@ -73,7 +73,7 @@
                                <el-main class="essay">main</el-main>
                                 <el-main class="essay">main</el-main>
                                  <el-main class="essay">main</el-main>
-                                 <el-footer style="margin-right:200px">
+                                 <el-footer style="margin-left:120px">
                                    <el-pagination
                                    class="pager"
                                     background
@@ -86,6 +86,55 @@
                         </el-main>
                       </el-container>
                     </el-main>
+         <el-aside width="350px" class="sideraside">
+           <el-container>
+             <el-header class="header">                  
+               <el-input
+                  id ="resultsearch"
+                  placeholder="请输入搜索内容"
+                   prefix-icon="el-icon-search"
+                  v-model="input2">
+              </el-input></el-header>
+              <el-main class="results">
+          <el-menu
+              default-active="2"
+              class="el-menu-vertical-demo"
+              @open="handleOpen"
+              @close="handleClose">
+              <el-menu-item class="menu2" index="1">
+                 <el-button class="resultbutton" round>sss</el-button>
+              </el-menu-item>
+              <el-menu-item  class="menu2" index="2" >
+                <el-button class="resultbutton" round>sss</el-button>
+              </el-menu-item>
+              <el-menu-item class="menu2" index="3">
+                  <el-button class="resultbutton" round>sss</el-button>
+              </el-menu-item>
+              <el-menu-item class="menu2" index="4">
+                  <el-button class="resultbutton" round>sss</el-button>
+              </el-menu-item>
+             <el-menu-item class="menu2" index="5">
+                  <el-button class="resultbutton" round>sss</el-button>
+              </el-menu-item>
+                           <el-menu-item class="menu2" index="6">
+                  <el-button class="resultbutton" round>sss</el-button>
+              </el-menu-item>
+                           <el-menu-item class="menu2" index="6">
+                  <el-button class="resultbutton" round>sss</el-button>
+              </el-menu-item>
+                           <el-menu-item class="menu2" index="6">
+                  <el-button class="resultbutton" round>sss</el-button>
+              </el-menu-item>
+                           <el-menu-item class="menu2" index="6">
+                  <el-button class="resultbutton" round>sss</el-button>
+              </el-menu-item>
+            </el-menu>
+          </el-main>
+            </el-container>
+        
+     
+         </el-aside>
+
         </el-container>
   </el-main>
 </el-container>
