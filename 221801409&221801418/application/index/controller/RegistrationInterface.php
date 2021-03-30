@@ -33,9 +33,9 @@ class RegistrationInterface extends Controller
                 //如果已经注册返回信息 该用户已存在
                 if ($check_username) {
                     return $this->error("该用户已存在");
-                }         
+                }   
                 if ($db->insert($data) ) {
-                    $sql = <<<sql
+                    $sql ="
                     CREATE TABLE IF NOT EXISTS `paper_$account`(
                         `title` longtext NOT NULL,
                         `abstract` longtext,
@@ -44,9 +44,7 @@ class RegistrationInterface extends Controller
                         `releasetime` varchar(255) DEFAULT NULL,
                         `link` varchar(255) NOT NULL,
                         PRIMARY KEY (`link`)
-                        ) ENGINE=MyISAM DEFAULT CHARSET=utf8
-                    ;
-                sql;
+                        ) ENGINE=MyISAM DEFAULT CHARSET=utf8";
                 Db::execute($sql);
                     //注册成功返回到index模块下的index控制器下的index方法
                     return $this->success('注册成功','LoginInterface/create');
