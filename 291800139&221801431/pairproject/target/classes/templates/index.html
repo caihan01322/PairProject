@@ -13,7 +13,6 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <link rel="stylesheet" href="../static/css/PaperList.css">
-    <link rel="stylesheet" href="../static/layui/css/layui.css">
 
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -24,7 +23,6 @@
             crossorigin="anonymous"></script>
 
 
-    <script src="../static/layui/layui.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,6 +32,7 @@
     <![endif]-->
 
 
+
 </head>
 <body>
 
@@ -41,7 +40,7 @@
 
     <!--nav-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">LOGO</a>
+        <a class="navbar-brand" href="/">LOGO</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -83,13 +82,18 @@
         </div>
     </nav>
 
-    <div class="row col-md-offset-6" id="index">
+    <div class="row">
+         <div class="col-md-4 offset-md-5" id="index" style="font-size: larger; font-family: Arial;
+         margin-top: 70px">
         Search
+         </div>
     </div>
-    <div class="row col-md-5 col-md-offset-4" id="content">
-        <div class="input-group">
-            <input type="text" class="form-control" onkeydown="onKeyDown(event)"/>
-            <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+    <div class="row">
+        <div class="col-md-8 md-offset-8" id="content" style="margin: 20px auto">
+            <div class="input-group">
+                <input type="text" class="form-control" onkeydown="onKeyDown(event)"/>
+                <button type="submit" class="btn btn-outline-dark" style="margin-left: 10px">搜 索</button>
+            </div>
         </div>
     </div>
 

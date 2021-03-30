@@ -58,4 +58,6 @@ public interface PaperService {
      */
     Page<Paper> selectPaperByKeyword(MyPage<Paper> page, String keyword);
 
+    Paper selectByPrimaryKey(Integer pid);
+
 }

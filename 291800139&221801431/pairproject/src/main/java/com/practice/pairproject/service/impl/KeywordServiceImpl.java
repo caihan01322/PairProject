@@ -75,4 +75,9 @@ public class KeywordServiceImpl implements KeywordService {
         return keywordVOList;
     }
 
+    @Override
+    public List<Keyword> selectByPid(Integer pid) {
+        return keywordMapper.selectByPid(pid);
+    }
+
 }

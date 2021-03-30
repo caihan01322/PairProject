@@ -4,7 +4,9 @@ package com.practice.pairproject.controller;
 //import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.practice.pairproject.pojo.Keyword;
 import com.practice.pairproject.pojo.Paper;
+import com.practice.pairproject.service.KeywordService;
 import com.practice.pairproject.service.PaperService;
 
 import com.practice.pairproject.util.AjaxResponse;
@@ -34,6 +36,9 @@ public class PaperController {
 
     @Autowired
     private PaperService paperService;
+
+    @Autowired
+    private KeywordService keywordService;
 
     @Autowired
     private StoragePaper storagePaper;
@@ -141,7 +146,7 @@ public class PaperController {
      * @param model
      * @return
      */
-    @GetMapping("/search/{page}")
+    @GetMapping("/search/{pageNum}")
     public String searchPapers(
             @PathVariable(name = "pageNum") int pageNum,
             @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
@@ -287,6 +292,38 @@ public class PaperController {
         /*result.put("paperList",paperList);
         result.put("page",page);
         return result;*/
+    }
+
+    /**
+     * 查询某pid的论文的keyword
+     * @param pid
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/select/{pid}")
+    public Object selectPaper(@PathVariable(name = "pid") int pid,Model model) {
+
+        List<Keyword> keywords = keywordService.selectByPid(pid);
+        Paper paper = paperService.selectByPrimaryKey(pid);
+
+        if (keywords.isEmpty()) {
+            log.error("【查询论文的keywords失败！】");
+            //return AjaxResponse.fail(500, "【查询论文的keywords失败！】");
+        }
+        log.info("【查询论文的keywords成功！】:");
+        for ( Keyword k: keywords) {
+            System.out.println(k);
+        }
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("keywords", keywords);
+        result.put("paper2", paper);
+        result.put("code", 200);
+        return result;
+       /*model.addAttribute("keywords",keywords);
+       model.addAttribute("paper2", paper);
+       model.addAttribute("code",200);
+       return "paperList";*/
     }
 
     /**

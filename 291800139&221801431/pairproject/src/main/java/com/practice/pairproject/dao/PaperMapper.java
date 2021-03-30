@@ -62,4 +62,6 @@ public interface PaperMapper {
 
 
     int updateByPrimaryKey(Paper record);
+
+    Paper selectByPrimaryKey(Integer pid);
 }

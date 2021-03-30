@@ -61,6 +61,16 @@
     where kpid = #{kpid,jdbcType=INTEGER}
   </select>
 
+  <select id="selectByPid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select kpid, content, pid, meeting, year
+    from keyword
+    <where>
+      <if test="pid != null ">
+        pid = #{pid, jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
   <select id="selectAll" resultMap="BaseResultMap">
     select kpid, content, pid, meeting, "year"
     from keyword

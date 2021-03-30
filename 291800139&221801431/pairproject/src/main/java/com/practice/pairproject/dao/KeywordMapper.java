@@ -49,6 +49,13 @@ public interface KeywordMapper {
      */
     KeywordVO selectTOPKeywordXYear(Map<String, String> paramMap);
 
+    /**
+     * 查询某pid的论文的keyword
+     * @param pid
+     * @return
+     */
+    List<Keyword> selectByPid(Integer pid);
+
     Keyword selectByPrimaryKey(Integer kpid);
 
     List<Keyword> selectAll();
