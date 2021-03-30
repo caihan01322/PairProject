@@ -1,6 +1,19 @@
 from flask import Flask
 import pymysql
+from flask import render_template
 app = Flask(__name__)
+
+def name():
+    page = request.args.get('page')
+    if not page or int(page) == 0:
+        page = 1
+    db = Mysql()
+    keyword = request.args.get('keyword')
+    items = db.getItems(keyword)
+    page_range = range(int(page) - 3, int(page) + 2)
+    if int(page) < 4:
+        page_range = range(1, int(page) + 4)
+    return render_template('articles.html', items=items, page=int(page), prange=page_range)
 
 @app.route('/')
 class Mysql(object):
