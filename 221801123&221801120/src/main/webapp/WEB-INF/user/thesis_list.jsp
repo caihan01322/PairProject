@@ -31,10 +31,11 @@
             <table>
                 <thead>
                     <tr>
-                        <th>题名</th>
-                        <th>关键词</th>
-                        <th>原文链接</th>
-                        <th>操作</th>
+                        <th class="col-lg-1">id</th>
+                        <th class="col-lg-5">标题</th>
+                        <th class="col-lg-1">来源</th>
+                        <th class="col-lg-1">年份</th>
+                        <th class="col-lg-2">操作</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,7 +43,8 @@
                         <tr>
                             <td><div class="articleDiv"><p class="articleFont">${thesis.id}</p></div></td>
                             <td>${thesis.title}</td>
-                            <td>${thesis.link}</td>
+                            <td>${thesis.meet}</td>
+                            <td>${thesis.year}</td>
                             <td>
                                 <button class="btn-info" onclick="LookCard()">查看</button>
                                 <button class="btn-info" onclick="EditCard()">编辑</button>
@@ -61,13 +63,17 @@
                     </div>
                     <div class="card-body pre-scrollable">
                         <dl>
-                            <dt>论文题目</dt>
+                            <dt><span class="buleFont">*</span>论文题目</dt>
                             <dd>这是论文题目</dd>
-                            <dt>关键词</dt>
+                            <dt><span class="buleFont">*</span>来源</dt>
+                            <dd>这是来源</dd>
+                            <dt><span class="buleFont">*</span>时间</dt>
+                            <dd>这是论文时间</dd>
+                            <dt><span class="buleFont">*</span>关键词</dt>
                             <dd>这是关键词</dd>
-                            <dt>论文摘要</dt>
+                            <dt><span class="buleFont">*</span>论文摘要</dt>
                             <dd>这是论文摘要</dd>
-                            <dt>论文链接</dt>
+                            <dt><span class="buleFont">*</span>论文链接</dt>
                             <dd><a href="#">这是论文链接</a></dd>
                         </dl>
                     </div>
@@ -84,16 +90,20 @@
                     <div class="card-body pre-scrollable">
                         <form>
                             <dl>
-                                <dt>论文题目</dt>
+                                <dt><span class="redFont">*</span>论文题目</dt>
                                 <dd><input class="eidtText" type="text" placeholder="这是论文题目"></dd>
-                                <dt>关键词</dt>
+                                <dt><span class="redFont">*</span>来源</dt>
+                                <dd><input class="eidtText" type="text" placeholder="这是论文来源"></dd>
+                                <dt><span class="redFont">*</span>时间</dt>
+                                <dd><input class="eidtText" type="text" placeholder="这是论文时间"></dd>
+                                <dt><span class="redFont">*</span>关键词</dt>
                                 <dd><input class="eidtText" type="text" placeholder="这是关键词"></dd>
-                                <dt>论文摘要</dt>
+                                <dt><span class="redFont">*</span>论文摘要</dt>
                                 <dd><input class="eidtText" type="text" placeholder="这是论文摘要"></dd>
-                                <dt>论文链接</dt>
+                                <dt><span class="redFont">*</span>论文链接</dt>
                                 <dd><input class="eidtText" type="text" placeholder="这是论文链接"></dd>
                             </dl>
-                            <input class="btn-danger middleBtn" type="submit" value="确认修改">
+                            <input class="btn-danger middleBtn btn-lg" type="submit" value="确认修改">
                         </form>
                     </div>
                     <div class="card-footer"></div>
@@ -107,11 +117,11 @@
                         <span class="close">&times;</span>
                     </div>
                     <div class="card-body pre-scrollable">
-                        <div>您确认删除这篇论文？</div>
+                        <div class="alertFont">您确认要删除这篇论文吗？</div>
                         <div class="middleDiv">
                             <form>
-                                <input class="btn-info" type="submit" value="确认">
-                                <input class="btn-danger" type="submit" value="取消">
+                                <input class="btn-info btn-lg" type="submit" value="确认">
+                                <input class="btn-danger btn-lg" type="submit" value="取消">
                             </form>
                         </div>
                     </div>
