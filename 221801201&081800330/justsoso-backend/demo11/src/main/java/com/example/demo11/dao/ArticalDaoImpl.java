@@ -117,8 +117,8 @@ public class ArticalDaoImpl implements ArticleJDBCDAO{
     @Override
     public List<hotkey> top20()
     {
-        List<hotkey> hotkeys = jdbcTemplate.query("select * from hotkey where Number > 100 order by Number desc",new BeanPropertyRowMapper<>(hotkey.class));
-        List<hotkey> keys = hotkeys.subList(0,20);
+        List<hotkey> hotkeys = jdbcTemplate.query("select * from hotkey  order by Number desc",new BeanPropertyRowMapper<>(hotkey.class));
+        List<hotkey> keys = hotkeys.subList(0,40);
         return keys;
     }
 

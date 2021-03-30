@@ -45,7 +45,7 @@ public class UserController
         }
         HashMap<String,String> map = new HashMap<>();
         map.put("username",user.getUsername());
-        map.put("imgUrl",userService.getImg(Account));
+        map.put("imgUrl",userService.getImg(user.account));
         map.put("Account",user.account);
         return ajAxResponse.successfully(map);
 
@@ -108,11 +108,15 @@ public class UserController
         return ajAxResponse.successfully(filename);
     }
     @PostMapping("/updateInfo")
-    public ajAxResponse updateInfo(@RequestParam String Account,@RequestParam String username,@RequestParam String password)
+    public ajAxResponse updateInfo(@RequestParam String Account,@RequestParam String username,@RequestParam(required = false) String oldPassword,@RequestParam(required = false) String newPassword)
     {
-        if(userService.changeInfo(Account,password,username) == false)
+        if(oldPassword == null || newPassword == null)
         {
-            return ajAxResponse.fail("更新失败");
+            userService.changeInfoWithoutPsw(Account,username);
+        }
+        else if(userService.changeInfo(Account,oldPassword,newPassword,username) == false)
+        {
+            return ajAxResponse.fail("更新失败,用户名或密码错误");
         }
         return ajAxResponse.successfullyUpdate("更新成功！",1);
     }
