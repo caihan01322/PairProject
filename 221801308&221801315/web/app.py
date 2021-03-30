@@ -64,37 +64,36 @@ def login():
     next_url = request.form.get("next")
 
     if email == "":
-        return jsonify(code=-1, message="未输入邮箱账号")
+        flash("未输入邮箱账号")
+        return render_template("login.html")
     if password == "":
-        return jsonify(code=-1, message="未输入密码")
-
+        flash("未输入密码")
+        return render_template("login.html")
     user = Users.query.filter(Users.email == email).first()
 
     if user is None:
-        return jsonify(code=-1, message="该账号不存在")
+        flash("该账号不存在")
+        return render_template("login.html")
 
     if user.password == password:
         login_user(user, remember=remember)
-
+        flash("登陆成功")
         if (next_url is None) or (not next_url.startswith("%2F")):
-            return redirect(url_for("index_logined"))
+            return redirect("/index_logined")
         else:
-            next_url = next_url.replace("%2F", "")
-            return redirect(url_for(next_url))
+            next_url = next_url.replace("%2F", "/")
+            return redirect(next_url)
     else:
-        return jsonify(code=-1, message="密码错误")
+        flash("密码错误")
+        return render_template("login.html")
 
 
 @app.route("/logout", methods=["GET"])
 def logout():
     """登出"""
-    # 如果是未登录用户访问，直接抛出 404 错误
-    if not current_user.is_authenticated:
-        abort(404)
     logout_user()
-    flash('已登出', 'info')
-    return redirect(url_for("login_view"))
-
+    flash("已登出")
+    return redirect("/")
 
 @app.route("/register_view", methods=["GET"])
 def register_view():
@@ -118,27 +117,36 @@ def register():
     """
     email = request.form.get("email")
     password = request.form.get("password")
+    repetition = request.form.get("repetition")
 
     if email == "":
-        return jsonify(code=-1, message="未输入邮箱账号")
+        flash("未输入邮箱账号")
+        return render_template("register.html")
 
     user = Users.query.filter(Users.email == email).first()
     if user is not None:
-                return jsonify(code=-1, message="该账号已注册")
+        flash("该账号已注册")
+        return render_template("register.html")
 
     if password == "":
-                return jsonify(code=-1, message="未输入密码")
+        flash("请输入密码")
+        return render_template("register.html")
+
+    if password != repetition:
+        flash("密码不一致")
+        return render_template("register.html")
 
     try:
         user = Users(email=email, password=password)
         db.session.add(user)
         db.session.commit()
+        flash("注册成功")
+        return redirect("/login_view")
     except Exception as e:
         db.session.rollback()
         print(e)
-        return jsonify(code=-1, message="未知错误")
-
-    return render_template("login.html")
+        flash("未知错误")
+        return render_template("register.html")
 
 
 @app.route("/search_view", methods=["GET"])
@@ -281,6 +289,7 @@ def delete():
 
     db.session.delete(article)
     db.session.commit()
+    flash("已删除")
     return redirect(url_for(pagination_func, page=page, condition=condition, search_way=search_way))
 
 

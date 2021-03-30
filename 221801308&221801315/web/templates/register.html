@@ -36,34 +36,27 @@
                 <p class="main-para">Fill out the form below to sign up for iPaper. Already signed up? Then just Sign in
                 </p>
             </div>
-            <form>
+            <form action="/register" method="post">
                 <fieldset class="login-form">
-                    <input type="text" id="email" placeholder="请输入邮箱账号" class="form-item">
-                    <input type="password" id="password" placeholder="请输入密码" class="form-item"><br />
+                    <input type="text" name="email" placeholder="请输入邮箱账号" class="form-item">
+                    <input type="password" name="password" placeholder="请输入密码" class="form-item">
+                    <input type="password" name="repetition" placeholder="请再次输入密码" class="form-item"><br />
                     <button class="mdc-button mdc-button--raised form-btn" id="register">Sign up</button>
                 </fieldset>
             </form>
         </main>
     </div>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
     <script>
-        $("#register").click(function () {
-            var email=$("#email").val();
-            var password=$("#password").val();
-            $.ajax({
-                data: { 'email': email, 'password': password},
-                url: '/register',
-                type: 'post',
-                cache: false,
-                dataType: 'json',
-                async: false,
-                success: function (data) {
-                    alert(data.message);
-                    console.log(data);
-                }
-            })
-        })
+        var messages = {{ messages | safe }};
+        for (var i=0; i<messages.length; i++) {
+        alert(messages[i]);
+        }
     </script>
+    {% endif %}
+    {% endwith %}
 </body>
 
 </html>

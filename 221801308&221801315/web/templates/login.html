@@ -36,10 +36,10 @@
                 <p class="main-para">You don't have a password? Then please</p>
                 <p class="main-href"><a href={{url_for("register_view")}} class="main-href ">Sign up</a></p>
             </div>
-            <form method="POST">
+            <form action="/login" method="POST">
                 <fieldset class="login-form">
-                    <input type="text" placeholder="  请输入邮箱账号" class="form-item" id="email">
-                    <input type="password" placeholder="  请输入密码" class="form-item" id="password"><br />
+                    <input type="text" placeholder="  请输入邮箱账号" class="form-item" name="email">
+                    <input type="password" placeholder="  请输入密码" class="form-item" name="password"><br />
                     <div class="choose"><input type="checkbox" class="form-check" name="remember"><span
                             class="check-content">Remember
                             me</span></div>
@@ -49,31 +49,16 @@
         </main>
     </div>  
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
     <script>
-        $("#login").click(function () {
-            var email=$("#email").val();
-            var password=$("#password").val();
-            var remember;
-            $("input[name='remember']").each(function(){
-                remember=$(this).val();
-            })
-            var parms=location.search;
-            parms=parms.substr(1);
-            var next=(parms.split('='))[1];
-            $.ajax({
-                data: { 'email': email, 'password': password, 'remember': remember, 'next':next },
-                url: '/login',
-                type: 'post',
-                cache: false,
-                dataType: 'json',
-                async: false,
-                success: function (data) {
-                    alert(data.message);
-                    console.log(data);
-                }
-            })
-        })
-    </script>
+            var messages = {{ messages | safe }};
+            for (var i=0; i<messages.length; i++) {
+            alert(messages[i]);
+            }
+        </script>
+    {% endif %}
+    {% endwith %}
 </body>
 
 </html>

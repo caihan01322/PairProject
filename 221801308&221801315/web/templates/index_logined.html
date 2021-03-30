@@ -39,5 +39,16 @@
 
         </main>
     </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <script>
+                  var messages = {{ messages | safe }};
+                  for (var i=0; i<messages.length; i++) {
+                    alert(messages[i]);
+                  }
+            </script>
+    {% endif %}
+    {% endwith %}
 </body>
 </html>
