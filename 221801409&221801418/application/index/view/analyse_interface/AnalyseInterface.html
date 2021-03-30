@@ -1,0 +1,325 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>论文分析</title>
+  <link href="https://cdn.bootcss.com/Chart.js/2.8.0/Chart.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <div class="uplan" style="width:100%;height:40px ;border:0px;background-color: rgb(107, 107, 209);">
+    <div style="color: white;font-size: 25px;">论文查询系统</div>
+  </div>
+  <div id="main" style="width:400px;height:600px;float:left;margin-left: 70px;"></div>
+  <div id="small" style="width:800px;height:200px;float:left;margin-left:80px;"></div>
+  <div id="smaller" style="width:800px;height:400px;float:left;margin-left:80px;"></div>
+  <script type="text/javascript">
+    var mainChart = echarts.init(document.getElementById('main'));
+    var smallChart = echarts.init(document.getElementById('small'));
+    var smallerChart = echarts.init(document.getElementById('smaller'));
+    var optionSmall;
+    var optionMain = {
+      title: {
+        text: '各会议热词情况表'
+      },
+      tooltip: {},
+      legend: {
+        data: ['热度']
+      },
+      xAxis: {
+        data: ["CVPR", "ECCV", "ICCV"]
+      },
+      yAxis: {},
+      series: [{
+        name: '热度',
+        type: 'bar',
+        data: [3212, 323, 4121]
+      }]
+    };
+    mainChart.setOption(optionMain, true);
+    mainChart.on('click', function (params) {
+      if (params.name == "CVPR") {
+        var optionSmall = {
+          title: {
+            text: 'CVPR热度情况'
+          },
+          tooltip: {},
+          legend: {
+            data: ['热度']
+          },
+          xAxis: {
+            data: ["2018", "2019", "2020"]
+          },
+          yAxis: {},
+          series: [{
+            name: '热度',
+            type: 'line',
+            data: [977, 799, 1436]
+          }]
+        }
+      }
+      else if (params.name == "ECCV") {
+        var optionSmall = {
+          title: {
+            text: 'ECCV热度情况'
+          },
+          tooltip: {},
+          legend: {
+            data: ['热度']
+          },
+          xAxis: {
+            data: ["2016", "2018", "2020"]
+          },
+          yAxis: {},
+          series: [{
+            name: '热度',
+            type: 'line',
+            data: [55, 138, 130]
+          }]
+        }
+      }
+      else if (params.name == "ICCV") {
+        var optionSmall = {
+          title: {
+            text: 'ICCV热度情况'
+          },
+          tooltip: {},
+          legend: {
+            data: ['热度']
+          },
+          xAxis: {
+            data: ["2015", "2017", "2019"]
+          },
+          yAxis: {},
+          series: [{
+            name: '热度',
+            type: 'line',
+            data: [1000, 1445, 1676]
+          }]
+        }
+      }
+      smallChart.setOption(optionSmall, true);
+      smallChart.on('click', function (a) {
+        if (params.name == "ECCV" && a.name == "2016") {
+          optionSmaller = {
+            title: {
+              text: 'ECCV2016年热词'
+            },
+            series: [{
+              name: '热度',
+              type: 'pie',
+              data: [
+                { value: 15, name: 'deep learning' },
+                { value: 12, name: 'convolutional neural network' },
+                { value: 5, name: 'convolutional layer' },
+                { value: 4, name: 'deep neural network' },
+                { value: 4, name: 'object detection' },
+                { value: 3, name: 'attributes' },
+                { value: 3, name: 'cnn' },
+                { value: 3, name: 'context' },
+                { value: 3, name: 'convolutional neural networks' },
+                { value: 3, name: 'object recognition' }
+              ]
+            }]
+          }
+        }
+        if (params.name == "ECCV" && a.name == "2018") {
+          optionSmaller = {
+            title: {
+              text: 'ECCV2018年热词'
+            },
+            series: [{
+              name: '热度',
+              type: 'pie',
+              data: [
+                { value: 39, name: 'deep learning' },
+                { value: 17, name: 'semantic segmentation' },
+                { value: 13, name: 'convolutional neural networks' },
+                { value: 12, name: 'convolutional neural network' },
+                { value: 12, name: 'object detection' },
+                { value: 11, name: 'domain adaptation' },
+                { value: 10, name: 'unsupervised learning' },
+                { value: 8, name: 'attention' },
+                { value: 8, name: 'computer vision' },
+                { value: 8, name: 'neural networks' }
+              ]
+            }]
+          }
+        }
+        if (params.name == "ECCV" && a.name == "2020") {
+          optionSmaller = {
+            title: {
+              text: 'ECCV2020年热词'
+            },
+            series: [{
+              name: '热度',
+              type: 'pie',
+              data: [
+                { value: 21, name: 'deep learning' },
+                { value: 21, name: 'object detection' },
+                { value: 14, name: 'domain adaptation' },
+                { value: 12, name: 'semantic segmentation' },
+                { value: 11, name: 'instance segmentation' },
+                { value: 11, name: 'self-supervised learning' },
+                { value: 11, name: 'attention' },
+                { value: 10, name: 'convolutional neural networks' },
+                { value: 10, name: 'semi-supervised learning' },
+                { value: 10, name: 'transfer learning' }
+              ]
+            }]
+          }
+        }
+        if (params.name == "CVPR" && a.name == "2018") {
+          optionSmaller = {
+            title: {
+              text: 'CVPR2018年热词'
+            },
+            series: [{
+              name: '热度',
+              type: 'pie',
+              data: [
+                { value: 158, name: 'feature extraction' },
+                { value: 145, name: 'learning (artificial intelligence)' },
+                { value: 99, name: 'image segmentation' },
+                { value: 94, name: 'computer vision' },
+                { value: 94, name: 'training' },
+                { value: 89, name: 'task analysis' },
+                { value: 88, name: 'cameras' },
+                { value: 82, name: 'object detection' },
+                { value: 69, name: 'image reconstruction' },
+                { value: 59, name: 'convolution' }
+              ]
+            }]
+          }
+        }
+        if (params.name == "CVPR" && a.name == "2019") {
+          optionSmaller = {
+            title: {
+              text: 'CVPR2019年热词'
+            },
+            series: [{
+              name: '热度',
+              type: 'pie',
+              data: [
+                { value: 184, name: 'learning (artificial intelligence)' },
+                { value: 96, name: 'feature extraction' },
+                { value: 84, name: 'object detection' },
+                { value: 83, name: 'image segmentation' },
+                { value: 70, name: 'image classification' },
+                { value: 61, name: 'neural nets' },
+                { value: 59, name: 'deep learning' },
+                { value: 57, name: 'categorization' },
+                { value: 53, name: 'computer vision' },
+                { value: 52, name: 'training' }
+              ]
+            }]
+          }
+        }
+        if (params.name == "CVPR" && a.name == "2020") {
+          optionSmaller = {
+            title: {
+              text: 'CVPR2020年热词'
+            },
+            series: [{
+              name: '热度',
+              type: 'pie',
+              data: [
+                { value: 284, name: 'learning (artificial intelligence)' },
+                { value: 192, name: 'feature extraction' },
+                { value: 152, name: 'training' },
+                { value: 143, name: 'image reconstruction' },
+                { value: 140, name: 'neural nets' },
+                { value: 127, name: 'task analysis' },
+                { value: 113, name: 'computer vision' },
+                { value: 111, name: 'cameras' },
+                { value: 88, name: 'object detection' },
+                { value: 86, name: 'convolutional neural nets' }
+              ]
+            }]
+          }
+        }
+
+        if (params.name == "ICCV" && a.name == "2015") {
+          optionSmaller = {
+            title: {
+              text: 'ICCV2015年热词'
+            },
+            series: [{
+              name: '热度',
+              type: 'pie',
+              data: [
+                { value: 175, name: 'computer vision' },
+                { value: 147, name: 'feature extraction' },
+                { value: 98, name: 'image reconstruction' },
+                { value: 97, name: 'training' },
+                { value: 95, name: 'image segmentation' },
+                { value: 95, name: 'learning (artificial intelligence)' },
+                { value: 86, name: 'cameras' },
+                { value: 76, name: 'object detection' },
+                { value: 67, name: 'visualization' },
+                { value: 64, name: 'three-dimensional displays' }
+              ]
+            }]
+          }
+        }
+        if (params.name == "ICCV" && a.name == "2017") {
+          optionSmaller = {
+            title: {
+              text: 'ICCV20117年热词'
+            },
+            series: [{
+              name: '热度',
+              type: 'pie',
+              data: [
+                { value: 238, name: 'learning (artificial intelligence)' },
+                { value: 208, name: 'feature extraction' },
+                { value: 203, name: 'computer vision' },
+                { value: 146, name: 'training' },
+                { value: 127, name: 'object detection' },
+                { value: 111, name: 'neural nets' },
+                { value: 110, name: 'cameras' },
+                { value: 110, name: 'image segmentation' },
+                { value: 100, name: 'image reconstruction' },
+                { value: 92, name: 'image classification' }
+              ]
+            }]
+          }
+        }
+        if (params.name == "ICCV" && a.name == "2019") {
+          optionSmaller = {
+            title: {
+              text: 'ICCV2019年热词'
+            },
+            series: [{
+              name: '热度',
+              type: 'pie',
+              data: [
+                { value: 263, name: 'learning (artificial intelligence)' },
+                { value: 261, name: 'feature extraction' },
+                { value: 201, name: 'training' },
+                { value: 168, name: 'task analysis' },
+                { value: 162, name: 'object detection' },
+                { value: 158, name: 'computer vision' },
+                { value: 142, name: 'image segmentation' },
+                { value: 119, name: 'neural nets' },
+                { value: 111, name: 'image classification' },
+                { value: 91, name: 'convolutional neural nets' }
+              ]
+            }]
+          }
+        }
+        smallerChart.setOption(optionSmaller, true);
+      })
+    });
+    smallerChart.on('click',function(sech){
+      window.location.href = "search_interface?sech="+sech.name;
+    })
+  </script>
+</body>
+
+</html>
