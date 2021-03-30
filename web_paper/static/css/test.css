@@ -64,4 +64,9 @@ background-color: #DDD;
 form.center
 {
     margin:20px auto;
+    width:800px;
+}
+#hid
+{
+visibility:hidden;
 }

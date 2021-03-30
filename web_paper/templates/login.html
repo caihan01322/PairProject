@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/test.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/warn.css') }}"/>
 </head>
-<body background={{url_for('static', filename='1.png')}}>
+<body background="{{url_for('static', filename='1.png')}}">
 {% include 'navbar.html' %}
 <div class="informs" style="width:300px;background-color: #fff;">
     <form method="POST" style="width:300px;">

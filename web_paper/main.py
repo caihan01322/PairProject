@@ -32,14 +32,15 @@ def login():
             return render_template('temp.html', text="登录成功")
         elif request.form.get('submit') == '退出登录':
             session.pop('username')
-            return render_template('login.html',forms=forms)
+            return render_template('login.html', forms=forms)
     if 'username' in session:
-        user=User.query.filter(User.username==session['username']).first()
-        user_id=user.id
-        password=user.password
-        paper_number=UserCollection.query.filter(UserCollection.user_id==user_id).count()
-        return render_template('user.html',username=session['username'],user_id=user_id,paper_number=paper_number,password=password)
-    return render_template('login.html',forms=forms)
+        user = User.query.filter(User.username == session['username']).first()
+        user_id = user.id
+        password = user.password
+        paper_number = UserCollection.query.filter(UserCollection.user_id == user_id).count()
+        return render_template('user.html', username=session['username'], user_id=user_id, paper_number=paper_number,
+                               password=password)
+    return render_template('login.html', forms=forms)
 
 
 @app.route('/signup', methods=['POST', 'GET'])
@@ -68,97 +69,106 @@ def list():
         if request.form.get('submit') == '搜索':
             if len(request.form.get('text')) > 2:
                 text = request.form.get('text')
-                session['text']=text
+                session['text'] = text
                 paper_list = Paper.query.filter(Paper.title.like('%' + text + '%')).all()
-                all_paper=len(paper_list)
-                all_page = int(len(paper_list)/6)+1
+                all_paper = len(paper_list)
+                all_page = int(len(paper_list) / 6) + 1
                 show_list = paper_list[0:6]
-                paper_map=[]
+                paper_map = []
                 for p in show_list:
-                    key_list=PaperToKeyword.query.filter(PaperToKeyword.paper_id==p.id).all()
-                    paper_map.append([p,key_list])
-                return render_template('list.html', paper_map=paper_map,all_page=range(0,all_page),search_word='text',all_paper=all_paper)
+                    key_list = PaperToKeyword.query.filter(PaperToKeyword.paper_id == p.id).all()
+                    paper_map.append([p, key_list])
+                return render_template('list.html', paper_map=paper_map, all_page=range(0, all_page),
+                                       search_word='text', all_paper=all_paper)
             else:
                 text = "请输入三个以上字符"
-                return render_template('list.html', text=text,all_paper=0)
+                return render_template('list.html', text=text, all_paper=0)
         else:
-            if request.form.get("submit")=="收藏":
+            if request.form.get("submit") == "收藏":
                 if 'username' in session:
                     paper_id = int(request.form.get("collect"))
-                    user_id=User.query.filter(User.username==session['username']).first().id
-                    if UserCollection.query.filter(UserCollection.user_id==user_id,UserCollection.paper_id==paper_id).count() ==0:
-                        us=UserCollection(user_id=user_id,paper_id=paper_id)
+                    user_id = User.query.filter(User.username == session['username']).first().id
+                    if UserCollection.query.filter(UserCollection.user_id == user_id,
+                                                   UserCollection.paper_id == paper_id).count() == 0:
+                        us = UserCollection(user_id=user_id, paper_id=paper_id)
                         db.session.add(us)
                         db.session.commit()
                         return redirect(url_for('list'))
                     else:
                         return '该文章已经收藏'
                 return redirect(url_for('login'))
-            elif request.form.get("submit")=="跳转":
-                page= int(request.form.get("select"))
-                text=session['text']
+            elif request.form.get("submit") == "跳转":
+                page = int(request.form.get("select"))
+                text = session['text']
                 paper_list = Paper.query.filter(Paper.title.like('%' + text + '%')).all()
                 all_paper = len(paper_list)
                 all_page = int(len(paper_list) / 6) + 1
-                show_list = paper_list[6*(page-1):6*page]
+                show_list = paper_list[6 * (page - 1):6 * page]
                 paper_map = []
-                page_show="当前为第"+str(page)+"页"
+                page_show = "当前为第" + str(page) + "页"
                 for p in show_list:
                     key_list = PaperToKeyword.query.filter(PaperToKeyword.paper_id == p.id).all()
                     paper_map.append([p, key_list])
                 return render_template('list.html', paper_map=paper_map, all_page=range(0, all_page),
-                                       search_word='text',page=page_show,all_paper=all_paper)
+                                       search_word='text', page=page_show, all_paper=all_paper)
             return redirect(url_for('index'))
     else:
         if 'text' in session:
-            print('判断成功')
             if len(session.get('text')) > 2:
                 text = session.get('text')
                 paper_list = Paper.query.filter(Paper.title.like('%' + text + '%')).all()
-                all_paper=len(paper_list)
-                all_page = int(len(paper_list)/ 6 ) + 1
+                all_paper = len(paper_list)
+                all_page = int(len(paper_list) / 6) + 1
                 show_list = paper_list[0:6]
                 paper_map = []
                 for p in show_list:
                     key_list = PaperToKeyword.query.filter(PaperToKeyword.paper_id == p.id).all()
                     paper_map.append([p, key_list])
-                return render_template('list.html', paper_map=paper_map,all_page=range(0,all_page),search_word=session['text'],all_paper=all_paper)
+                return render_template('list.html', paper_map=paper_map, all_page=range(0, all_page),
+                                       search_word=session['text'], all_paper=all_paper)
             else:
                 text = "还没搜索哦"
                 return render_template('list.html', text=text)
-        print("异常进入")
-        return render_template('list.html',text='请开始您的搜索',all_paper=0)
+        return render_template('list.html', text='请开始您的搜索', all_paper=0)
 
-@app.route('/collection',methods=['POST','GET'])
+
+@app.route('/collection', methods=['POST', 'GET'])
 def collection():
     if 'username' in session:
-        if request.form.get("submit")=='删除收藏':
-            paper_id=int(request.form.get('collect'))
-            user_id=User.query.filter(User.username == session['username']).first().id
-            collect_paper=UserCollection.query.filter(UserCollection.user_id==user_id,UserCollection.paper_id==paper_id).first()
+        if request.form.get("submit") == '删除收藏':
+            paper_id = int(request.form.get('collect'))
+            user_id = User.query.filter(User.username == session['username']).first().id
+            collect_paper = UserCollection.query.filter(UserCollection.user_id == user_id,
+                                                        UserCollection.paper_id == paper_id).first()
             db.session.delete(collect_paper)
             db.session.commit()
             return redirect(url_for('collection'))
         else:
             user_id = User.query.filter(User.username == session['username']).first().id
-            collection_list=UserCollection.query.filter(UserCollection.user_id==user_id).all()
-            all_paper=len(collection_list);
-            all_page=int(len(collection_list)/6)+1
-            if request.method=='GET':
-                show_list=collection_list[0:6]
+            collection_list = UserCollection.query.filter(UserCollection.user_id == user_id).all()
+            all_paper = len(collection_list);
+            all_page = int(len(collection_list) / 6) + 1
+            if request.method == 'GET':
+                show_list = collection_list[0:6]
             else:
                 page = int(request.form.get("select"))
-                show_list=collection_list[6*(page-1):6*page]
-            paper_list=[]
+                show_list = collection_list[6 * (page - 1):6 * page]
+            paper_list = []
             for s in show_list:
-                paper_list.append(Paper.query.filter(Paper.id==s.paper_id).first())
+                paper_list.append(Paper.query.filter(Paper.id == s.paper_id).first())
             paper_map = []
             for p in paper_list:
                 key_list = PaperToKeyword.query.filter(PaperToKeyword.paper_id == p.id).all()
                 paper_map.append([p, key_list])
-            return render_template('collection.html', paper_map=paper_map, all_page=range(0, all_page),all_paper=all_paper)
+            return render_template('collection.html', paper_map=paper_map, all_page=range(0, all_page),
+                                   all_paper=all_paper)
     return redirect(url_for('login'))
 
+@app.route('/view', methods=['POST', 'GET'])
+def view():
+    f=open('chart1.txt')
+    data=f.read()
+    return render_template('view.html',data=data)
     # if request.method == 'POST':
     #     text = request.form.get('text')
     #     flash(text)

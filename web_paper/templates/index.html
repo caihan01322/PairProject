@@ -7,14 +7,22 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/warn.css') }}"/>
 </head>
-<body background={{url_for('static', filename='1.png')}}>
+<body background="{{url_for('static', filename='1.png')}}">
 <div>
 {% include 'navbar.html' %}
-<form method="POST" class="informs" style="border:0px;width:800px;margin:200px auto;">
-    <span class="big">快爬！    </span>
-    <input type="text" value="" name="text" style="border:3px solid #c0c0c0;width:400px; height:30px;border-radius: 5px;font-size:20px;">
-    <input type="submit" name="search" style="border:3px solid #c0c0c0;width:120px; height:40px;border-radius: 5px;font-size:25px;" value="爬一下!">
-</form>
+    <div class="informs" style="border:0px;width:800px;margin:200px auto 0px auto;">
+        <div class="margin:10px auto;width:800px;" align="center">
+        <img src="{{url_for('static', filename='快爬.png') }}" alt="爬" />
+        <span class="big">快爬！    </span>
+        </div>
+        <form method="POST" align="center">
+            <input type="text" value="" name="text" style="border:3px solid #c0c0c0;width:500px; height:40px;border-radius: 5px;font-size:20px;">
+            <input type="submit" name="search" style="border:3px solid #c0c0c0;width:120px; height:50px;border-radius: 5px;font-size:25px;" value="爬一下!">
+        </form>
+    </div>
+    <div style="margin:0px 300px;">
+    <p id="hid">两只老虎，两只老虎。爱爬树，爱爬树。一只爬的很快，一只爬的很慢。还要爬！还要爬！爬呀爬，爬呀爬，爬到外婆桥桥。外婆有眼花，二四六七八。小红帽乖乖，把门开开，给老虎进来，开始爬楼。爬呀爬，爬呀爬，爬到了二楼，楼上有论文，开始爬论文。爬呀爬，爬呀爬，不吃不喝也得爬，双眼发昏也得爬。爬呀爬，爬呀爬，软件工程给我爬</p>
+    </div>
 </div>
 </body>
 </html>

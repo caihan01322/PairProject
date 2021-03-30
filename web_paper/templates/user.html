@@ -6,15 +6,16 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/center.css') }}" type="text/css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/test.css') }}" type="text/css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/warn.css') }}"/>
 </head>
-<body background={{url_for('static', filename='1.png')}}>
+<body background="{{url_for('static', filename='1.png')}}">
 {% include 'navbar.html' %}
-    <div class="informs" style="width:500;">
+    <div class="informs" style="width:500;background-color: #fff;">
         <p class="border">欢迎您，{{username}}</p>
         <p class="border">您是我们网站第{{user_id}}位会员</p>
         <p class="border">您一共收藏了{{paper_number}}篇论文</p>
         <p class="border">您的密码为:{{password}}</p>
-        <form method="POST">
+        <form method="POST" style="margin 0,auto;width:300px;">
             <input type="submit" name="submit" value="退出登录">
         </form>
     </div>

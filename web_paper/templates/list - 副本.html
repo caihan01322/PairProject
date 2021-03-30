@@ -5,16 +5,19 @@
     <title>Title</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/test.css') }}" type="text/css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/warn.css') }}"/>
 </head>
 <body background="{{url_for('static', filename='1.png')}}">
 <div class="grey">
 {% include 'navbar.html' %}
 <div class="center">
     <div class="left">
-    <h2>收藏列表如下</h2>
-        <br>
-        <h5>共{{all_paper}}条记录</h5>
-        <br>
+    <form method="POST" style="border:0px;width:500px;margin:10px auto;">
+        <input type="text" name="text" placeholder="请输入所查询内容" value={{search_word}}>
+        <input type="submit" name="submit" value="搜索">
+    </form>
+        <h2>所得结果如下：</h2>
+        <h5>共有{{all_paper}}条记录</h5>
         {%for u in paper_map%}
             <div class="list">
                 <div class="item">
@@ -28,7 +31,7 @@
                     <p><a href={{u.url}}>链接:{{u[0].url}}</a></p>
                     <form method="post">
                         <input type="text" style="visibility: hidden;" name="collect" value={{u[0].id}} />
-                        <input type="submit" name="submit" value="删除收藏">
+                        <input type="submit" name="submit" value="收藏">
                     </form>
                 </div>
             </div>
@@ -48,6 +51,6 @@
     <div class="right2">
     </div>
 </div>
-    </div>
+</div>
 </body>
 </html>
