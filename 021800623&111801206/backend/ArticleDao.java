@@ -249,6 +249,21 @@ public static HotWord selectYearData(String year,String meeting) {
 	
 }
 	
+public static ArrayList<HotWord> getMeetingList(String year) {
+	ArrayList<HotWord> meetingHotWord = new ArrayList<HotWord>();
+	HotWord hotWord1 = selectYearData(year, "CVPR");
+	HotWord hotWord2 = selectYearData(year, "ICCV");
+	HotWord hotWord3 = selectYearData(year, "ECCV");
+	
+	
+	meetingHotWord.add(hotWord1);
+	meetingHotWord.add(hotWord2);
+	meetingHotWord.add(hotWord3);
+	
+	return meetingHotWord;
+	
+}
+	
 
 public static ArrayList<String> selectKeyWords() {
 	ArrayList<String> keywordList = new ArrayList<String>();
