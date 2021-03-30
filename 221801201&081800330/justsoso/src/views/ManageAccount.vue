@@ -130,21 +130,14 @@ export default {
         }
       });
     },
-    uploadAvatar(){
-      axios.post('http://121.5.100.116:8080/api/imgUpload?Account='+this.$store.state.account)
-          .then(response=>{
-            this.$message.success('上传头像成功！')
-            if(response.data.code===200){
-              this.$store.commit('setAvatarUrl',response.data.data.toString())
-            }
-          })
-    },
     handleAvatarSuccess(res){
-      this.$message.success('上传头像成功！')
       console.log(res)
       if(res.code===200){
+      this.$message.success('上传头像成功！')
         this.$store.commit('setAvatarUrl',res.data.toString())
         this.avatarUrl=this.$store.state.avatarUrl
+      }else{
+        this.$message.error(res.message.toString()+'，上传头像失败！')
       }
     }
   }

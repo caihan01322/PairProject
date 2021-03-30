@@ -24,8 +24,10 @@
 
     </div>
 
-<!--      <SearchList ref="searchList2" v-if="hotTrendWord!==''"-->
-<!--          :searchWord="this.hotTrendWord" :searchInput="searchInput"/>-->
+    <div id="hot_trend_paper_title">{{ hotTrendWord+'相关论文' }}</div>
+    <SearchList ref="searchList2" v-if="hotTrendWord!==''"
+                :searchWord="this.hotTrendWord" :searchInput="searchInput">
+    </SearchList>
   </div>
 </template>
 
@@ -34,13 +36,13 @@
 import wordcloud from 'vue-wordcloud'
 import axios from "axios";
 import * as echarts from 'echarts'
-// import SearchList from "@/components/SearchList";
+import SearchList from "@/components/SearchList";
 
 export default {
   name:"statisticList",
   components:{
     wordcloud,
-    // SearchList
+    SearchList
   },
   data(){
     return {
@@ -61,9 +63,9 @@ export default {
     hotTrendWord(){
       this.$message.success('当前热词为'+this.hotTrendWord)
       this.fillHotWordChart()
-      // this.$refs.searchList2.$props.searchWord=this.hotTrendWord
-      // Object.assign(this.$refs.searchList2.$data, this.$refs.searchList2.$options.data())
-      // this.$refs.searchList2.search()
+      this.$refs.searchList2.$props.searchWord=this.hotTrendWord
+      Object.assign(this.$refs.searchList2.$data,this.$refs.searchList2.$options.data())
+      this.$refs.searchList2.search()
     },
     CVPRData(){
       this.drawLineChart()
@@ -74,12 +76,12 @@ export default {
       this.hotTrendWord=name
     },
     fillTop40Chart(){
-      const loading = this.$loading({
-        lock: true,//lock的修改符--默认是false
-        text: '加载中...',//显示在加载图标下方的加载文案
-        spinner: 'el-icon-loading',//自定义加载图标类名
-        background: 'rgba(226,226,226,0.7)',//遮罩层颜色
-        target: document.querySelector('.frame')//loading覆盖的dom元素节点
+      const loading=this.$loading({
+        lock:true,//lock的修改符--默认是false
+        text:'加载中...',//显示在加载图标下方的加载文案
+        spinner:'el-icon-loading',//自定义加载图标类名
+        background:'rgba(226,226,226,0.7)',//遮罩层颜色
+        target:document.querySelector('.frame')//loading覆盖的dom元素节点
       });
       axios
           .get("http://121.5.100.116:8080/api/Top40")
@@ -89,18 +91,18 @@ export default {
           });
     },
     fillTop10Chart(){
-      const loading1 = this.$loading({
-        lock: true,//lock的修改符--默认是false
-        text: '加载中...',//显示在加载图标下方的加载文案
-        spinner: 'el-icon-loading',//自定义加载图标类名
-        background: 'rgba(226,226,226,0.7)',//遮罩层颜色
-        target: document.querySelector('.frame1')//loading覆盖的dom元素节点
+      const loading1=this.$loading({
+        lock:true,//lock的修改符--默认是false
+        text:'加载中...',//显示在加载图标下方的加载文案
+        spinner:'el-icon-loading',//自定义加载图标类名
+        background:'rgba(226,226,226,0.7)',//遮罩层颜色
+        target:document.querySelector('.frame1')//loading覆盖的dom元素节点
       });
       axios
           .get("http://121.5.100.116:8080/api/Top10")
           .then(response=>{
             this.top10Data=response.data.data
-            for(let i=0;i<response.data.data.length;i++){
+            for(let i=0; i<response.data.data.length; i++){
               this.top10LegendData.push(response.data.data[i].name)
             }
             loading1.close()
@@ -167,13 +169,13 @@ export default {
           radius:[50,140],
           top:'40px',
           // center:[250,180],
-          roseType: 'radius',
+          roseType:'radius',
           width:'100%',// for funnel
           max:40,            // for funnel
           itemStyle:{
             //普通样式设置
             normal:{
-              borderRadius: 8,
+              borderRadius:8,
               label:{
                 show:true,
                 autosize:false
@@ -186,7 +188,7 @@ export default {
             },
             //高亮样式设置
             emphasis:{
-              borderRadius: 8,
+              borderRadius:8,
               label:{
                 show:true
               },
@@ -219,139 +221,143 @@ export default {
 
           // animationType:'scale',
           // animationEasing:'elasticOut',
-          animationDelay: 500
+          animationDelay:500
         },
         ],
 
       };
       myChart.setOption(option)
       let _this=this
-      myChart.on('click', function (params) {
+      myChart.on('click',function(params){
         _this.hotTrendWord=params.name
       });
     },
-    drawLineChart() {
-      let chart = this.$echarts.init(document.getElementById('hotTrendWordChart'),'shine');// 基于准备好的dom，初始化echarts实例
-      var option = {
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+    drawLineChart(){
+      let chart=this.$echarts.init(document.getElementById('hotTrendWordChart'),'shine');// 基于准备好的dom，初始化echarts实例
+      var option={
+        title:{
+          show:true,
+          text:this.hotTrendWord+"热度趋势图",
+          x:'center'
+        },
+        tooltip:{
+          trigger:'axis',
+          axisPointer:{            // 坐标轴指示器，坐标轴触发有效
+            type:'shadow'        // 默认为直线，可选为：'line' | 'shadow'
           }
         },
-        legend: {
-          data: ['CVPR', 'ICCV', 'ECCV']
+        legend:{
+          top:50,
+          bottom:50,
+          data:['CVPR','ICCV','ECCV']
         },
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
+        grid:{
+          left:'3%',
+          right:'4%',
+          bottom:'3%',
+          containLabel:true
         },
-        xAxis: [
+        xAxis:[
           {
-            type: 'category',
-            data: ['2014', '2015', '2016', '2017', '2018', '2019', '2020']
+            type:'category',
+            data:['2014','2015','2016','2017','2018','2019','2020']
           }
         ],
-        yAxis: [
+        yAxis:[
           {
-            type: 'value'
+            type:'value'
           }
         ],
-        series: [
+        series:[
           {
-            name: 'CVPR',
-            type: 'bar',
+            name:'CVPR',
+            type:'bar',
             // stack: '总量',
-            emphasis: {
-              focus: 'series'
+            emphasis:{
+              focus:'series'
             },
             label:{
-              show: true,
-              rotate: 90,
-              align: 'left',
-              verticalAlign: 'middle',
-              position: 'insideBottom',
-              distance: 15,
-              formatter: '{c}  {name|{a}}',
-              fontSize: 16,
+              show:true,
+              rotate:90,
+              align:'left',
+              verticalAlign:'middle',
+              position:'insideBottom',
+              distance:15,
+              formatter:'{c}  {name|{a}}',
+              fontSize:16,
               color:'#000000',
-              rich: {
-                name: {
-                }
+              rich:{
+                name:{}
               }
             },
-            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-              offset: 0,
-              color: 'rgba(255, 191, 0)'
-            }, {
-              offset: 1,
-              color: 'rgba(224, 62, 76)'
+            color:new echarts.graphic.LinearGradient(0,0,0,1,[{
+              offset:0,
+              color:'rgba(255, 191, 0)'
+            },{
+              offset:1,
+              color:'rgba(224, 62, 76)'
             }]),
-            data: this.CVPRData
+            data:this.CVPRData
           },
           {
-            name: 'ICCV',
-            type: 'bar',
+            name:'ICCV',
+            type:'bar',
             // stack: '总量',
-            emphasis: {
-              focus: 'series'
+            emphasis:{
+              focus:'series'
             },
             label:{
-              show: true,
-              rotate: 90,
-              align: 'left',
-              verticalAlign: 'middle',
-              position: 'insideBottom',
-              distance: 15,
-              formatter: '{c}  {name|{a}}',
-              fontSize: 16,
+              show:true,
+              rotate:90,
+              align:'left',
+              verticalAlign:'middle',
+              position:'insideBottom',
+              distance:15,
+              formatter:'{c}  {name|{a}}',
+              fontSize:16,
               color:'#000000',
-              rich: {
-                name: {
-                }
+              rich:{
+                name:{}
               }
             },
-            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-              offset: 0,
-              color: 'rgb(0,247,255)'
-            }, {
-              offset: 1,
-              color: 'rgb(62,154,224)'
+            color:new echarts.graphic.LinearGradient(0,0,0,1,[{
+              offset:0,
+              color:'rgb(0,247,255)'
+            },{
+              offset:1,
+              color:'rgb(62,154,224)'
             }]),
-            data: this.ICCVData
+            data:this.ICCVData
           },
           {
-            name: 'ECCV',
-            type: 'bar',
+            name:'ECCV',
+            type:'bar',
             // stack: '总量',
-            emphasis: {
-              focus: 'series'
+            emphasis:{
+              focus:'series'
             },
             label:{
-              show: true,
-              rotate: 90,
-              align: 'left',
-              verticalAlign: 'middle',
-              position: 'insideBottom',
-              distance: 15,
-              formatter: '{c}  {name|{a}}',
-              fontSize: 16,
+              show:true,
+              rotate:90,
+              align:'left',
+              verticalAlign:'middle',
+              position:'insideBottom',
+              distance:15,
+              formatter:'{c}  {name|{a}}',
+              fontSize:16,
               color:'#000000',
-              rich: {
-                name: {
-                }
+              rich:{
+                name:{}
               }
             },
-            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-              offset: 0,
-              color: 'rgb(217,0,255)'
-            }, {
-              offset: 1,
-              color: 'rgb(129,62,224)'
+            color:new echarts.graphic.LinearGradient(0,0,0,1,[{
+              offset:0,
+              color:'rgb(217,0,255)'
+            },{
+              offset:1,
+              color:'rgb(129,62,224)'
             }]),
-            data: this.ECCVData
+            data:this.ECCVData
           },
         ]
       };
@@ -362,12 +368,13 @@ export default {
     this.fillTop40Chart()
     this.fillTop10Chart()
     this.fillHotWordChart()
-    window.addEventListener("resize", () => {  // 通过resize方法来重设图表宽度
+    window.addEventListener("resize",()=>{  // 通过resize方法来重设图表宽度
       let myChart=this.$echarts.init(document.getElementById('top10Chart'))
       let myChart1=this.$echarts.init(document.getElementById('hotTrendWordChart'))
       myChart.resize();
       myChart1.resize();
     });
+    this.$refs.searchList2.search()
   }
 
 }
@@ -382,7 +389,11 @@ export default {
   margin-bottom: 50px;
 }
 
-.row {
+#hot_trend_paper_title {
+  font-size: 25px;
+  color: #e7e7e7;
+  font-weight: bold;
+  text-shadow: 5px 5px 20px rgba(25, 25, 25, .75);
 }
 
 #wordcloud {
@@ -390,7 +401,7 @@ export default {
   height: 400px;
 }
 
-#wordcloud /deep/ .text{
+#wordcloud /deep/ .text {
   cursor: pointer;
 }
 
@@ -400,7 +411,7 @@ export default {
   margin-left: 30px;
 }
 
-#hotTrendWordChart{
+#hotTrendWordChart {
   width: 100%;
   height: 600px;
 }
@@ -427,7 +438,7 @@ export default {
   position: relative;
 }
 
-.frame2{
+.frame2 {
   width: 92%;
   left: 4%;
   background-color: #f7f7f7;
