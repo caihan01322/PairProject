@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.js"></script>
+</head>
+<body>
+    <div id="main" style="width: 1000px;height:600px;"></div>
+    <script type="text/javascript">
+		$(function(){
+			$.ajax({
+				"url":"http://47.111.17.116:8080/getCVPR",
+				"type":"Get",
+				"success":function(data){
+					// 基于准备好的dom，初始化echarts实例
+					var myChart = echarts.init(document.getElementById('main'));
+					
+					var keyword=[];
+					var num=[];
+					for(var i=0;i<data.length;i++){
+						keyword.push(data[i].keyword);
+						num.push(data[i].num);
+					}
+					console.log(keyword);
+					console.log(num);		
+
+					var dataset=[{value: 40, name: 'rose 1'},{value: 38, name: 'rose 2'},
+									{value: 32, name: 'rose 3'},
+									{value: 30, name: 'rose 4'},
+									{value: 28, name: 'rose 5'},
+									{value: 26, name: 'rose 6'},
+									{value: 22, name: 'rose 7'},
+									{value: 18, name: 'rose 8'}]
+					
+					// 指定图表的配置项和数据
+					var option = {
+						title: {
+							text: '三大顶会热词TOP10',
+							subtext: '点击各小项目搜索相应关键词'
+						},
+						angleAxis: {
+							type: 'category',
+							data: keyword
+						},
+						radiusAxis: {
+						},
+						tooltip :{
+							
+						},
+						polar: {
+						},
+						series: [{
+							type: 'bar',
+							data: num,
+							coordinateSystem: 'polar',
+							stack: 'a',
+							emphasis: {
+								focus: 'series'
+							}
+						}],
+						legend: {
+							show: true,
+							data: ['点击量']
+						}
+					};
+					myChart.setOption(option);
+					myChart.on('click', function (param){
+						var name=param.name;
+						var url= "main.html?keyword="+name;
+						// window.location.href=url;
+						window.open(url);
+					});
+				}
+			})
+		})
+    </script>
+</body>
+</html>

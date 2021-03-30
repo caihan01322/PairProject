@@ -29,44 +29,97 @@
 		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 	</script>
 			  
+	<script type="text/javascript">
+		function getQueryVariable()
+		{
+		       var s = window.parent.location.search;
+			   var res=s.substring(s.lastIndexOf("=")+1);
+			   //console.log(window.parent.location.search);
+		       if(res!='')
+			   return res;
+		       return(false);
+		}
+	</script>
 
 	<script>
 		var tableIns;
+		var keyword=getQueryVariable();
+		var key=keyword.replace("%20"," ");
+		console.log(key);
+		
 		layui.use('table', function(){
 			var table = layui.table;
-		  
-		  //方法级渲染
-			tableIns=table.render({
-				elem: '#LAY_table_user'
-				,url: 'http://47.111.17.116:8080/queryName'
-				,method : "POST"
-				,contentType:"application/json"
-				,where:{
-					name:"computer",	
-				}
-				,parseData: function(res){ //res 即为原始返回的数据
-					console.log(res);
-					return {
-						"code": 0, //解析接口状态
-						"msg": "", //解析提示文本
-						"count": res.count, //解析数据长度
-						"data": res.data //解析数据列表
-					};
-				  }
-				,cols: [[
-				  {field:'name', title: '标题',  sort: true, fixed: true},
-				  {field:'abstract', title: '摘要',  sort: true},
-				  {field:'keyword', title: '关键词'},
-				  {field:'author', title: '作者',  sort: true},
-				  {field:'year', title: '发表年份',  sort: true},
-				  {field:'link', title: '链接'},
-				  {fixed: 'right', title:'操作', toolbar: '#barDemo'}
-				]]
-				,id: 'testReload'
-				,page: true
-				,limit:10
-				,height: 500
-			});
+		
+			if(keyword='')
+			{//无关键词按照name=computer填充表格
+				tableIns=table.render({
+					elem: '#LAY_table_user'
+					,url: 'http://47.111.17.116:8080/queryName'
+					,method : "POST"
+					,contentType:"application/json"
+					,where:{
+						name:"computer",	
+					}
+					,parseData: function(res){ //res 即为原始返回的数据
+						console.log(res);
+						return {
+							"code": 0, //解析接口状态
+							"msg": "", //解析提示文本
+							"count": res.count, //解析数据长度
+							"data": res.data //解析数据列表
+						};
+					  }
+					,cols: [[
+					  {field:'name', title: '标题',  sort: true, fixed: true},
+					  {field:'abstract', title: '摘要',  sort: true},
+					  {field:'keyword', title: '关键词'},
+					  {field:'author', title: '作者',  sort: true},
+					  {field:'year', title: '发表年份',  sort: true},
+					  {field:'link', title: '链接'},
+					  {fixed: 'right', title:'操作', toolbar: '#barDemo'}
+					]]
+					,id: 'testReload'
+					,page: true
+					,limit:10
+					,height: 500
+				});
+			}
+			
+			else
+			{//有关键词按照关键词渲染表格
+				tableIns=table.render({
+					elem: '#LAY_table_user'
+					,url: 'http://47.111.17.116:8080/queryKeyword'
+					,method : "POST"
+					,contentType:"application/json"
+					,where:{
+						keyword:key,	
+					}
+					,parseData: function(res){ //res 即为原始返回的数据
+						console.log(res);
+						return {
+							"code": 0, //解析接口状态
+							"msg": "", //解析提示文本
+							"count": res.count, //解析数据长度
+							"data": res.data //解析数据列表
+						};
+					  }
+					,cols: [[
+					  {field:'name', title: '标题',  sort: true, fixed: true},
+					  {field:'abstract', title: '摘要',  sort: true},
+					  {field:'keyword', title: '关键词'},
+					  {field:'author', title: '作者',  sort: true},
+					  {field:'year', title: '发表年份',  sort: true},
+					  {field:'link', title: '链接'},
+					  {fixed: 'right', title:'操作', toolbar: '#barDemo'}
+					]]
+					,id: 'testReload'
+					,page: true
+					,limit:10
+					,height: 500
+				});
+			}
+			
 			  
 			table.on('tool(user)', function(obj){
 				if(obj.event==='detail'){
