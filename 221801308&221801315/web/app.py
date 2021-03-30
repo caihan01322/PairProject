@@ -76,7 +76,7 @@ def login():
     if user.password == password:
         login_user(user, remember=remember)
 
-        if next_url == "" or (not next_url.startswith("%2F")):
+        if (next_url is None) or (not next_url.startswith("%2F")):
             return redirect(url_for("index_logined"))
         else:
             next_url = next_url.replace("%2F", "")
