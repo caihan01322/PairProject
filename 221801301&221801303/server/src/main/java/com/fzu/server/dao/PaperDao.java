@@ -25,6 +25,7 @@ public interface PaperDao {
 
     List<Paper> getPaperByName(String name,int start,int lim);
     List<Paper> getPaperByAuthor(String author,int start,int lim);
+    List<Paper> getPaperByKeyword(String keyword,int start,int lim);
     int getCount(String str,int state);
     Paper getDetail(int id);
 

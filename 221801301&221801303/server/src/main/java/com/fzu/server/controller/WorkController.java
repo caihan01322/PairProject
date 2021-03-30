@@ -27,6 +27,12 @@ public class WorkController {
         return ws.queryAuthor(req);
     }
 
+    @RequestMapping(value = "/queryKeyword",method = {RequestMethod.POST})
+    @ResponseBody
+    public Object queryKeyword(@RequestBody Map<String,Object> req){
+        return ws.queryKeyword(req);
+    }
+
     @RequestMapping(value = "/getCVPR",method = {RequestMethod.GET})
     @ResponseBody
     public Object getCVPR(){
