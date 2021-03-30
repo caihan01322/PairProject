@@ -13,7 +13,7 @@ export default defineConfig({
   },
   proxy: {
     '/api': {
-      target: 'http://pairproject.nosae.icu',
+      target: 'http://192.168.0.118:8000',
       changeOrigin: true,
       pathRewrite: { '^/api': '' },
     },

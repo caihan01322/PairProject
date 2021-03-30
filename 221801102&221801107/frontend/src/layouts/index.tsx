@@ -37,6 +37,12 @@ const Layout = ({ children }: IRouteComponentProps) => {
 
   const [visible, setVisible] = useState(false);
 
+  const logout = () => {
+    dispatch({
+      type: `${ModelNameSpaces.User}/logout`,
+    });
+  };
+
   const UserSetting = useMemo(() => {
     const handleFavoriteBtnClick = () => {
       history.push('/favorite');
@@ -46,7 +52,9 @@ const Layout = ({ children }: IRouteComponentProps) => {
         <Menu.Item icon={<FolderOutlined />} onClick={handleFavoriteBtnClick}>
           收藏夹
         </Menu.Item>
-        <Menu.Item icon={<LogoutOutlined />}>退出登录</Menu.Item>
+        <Menu.Item icon={<LogoutOutlined />} onClick={(e) => logout()}>
+          退出登录
+        </Menu.Item>
       </Menu>
     );
   }, []);

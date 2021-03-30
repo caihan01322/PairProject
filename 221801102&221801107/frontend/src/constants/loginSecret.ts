@@ -1,3 +1,3 @@
-const GITHUB_CLIENT_ID = 'f193c6fd0280399e9e52';
+const GITHUB_CLIENT_ID = '0083053dd77b75e4aa72';
 
 export { GITHUB_CLIENT_ID };

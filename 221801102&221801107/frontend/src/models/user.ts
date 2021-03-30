@@ -10,9 +10,14 @@ export interface UserModelState {
 }
 
 export interface loginDataProps {
-  name: string;
-  avatar: string;
-  github_id: string;
+  code: number;
+  data: {
+    CreatedAt: string;
+    UpdatedAt: string;
+    avatar: string;
+    name: string;
+  };
+  msg: string;
 }
 
 export interface UserModelType {
@@ -43,7 +48,11 @@ const UserModel: UserModelType = {
   effects: {
     *login({ payload }, { call, put }) {
       const res: loginDataProps = yield call(UserServices.login, payload);
-      const { name, avatar } = res;
+      const { data, code } = res;
+      if (code !== 200) {
+        return false;
+      }
+      const { name, avatar } = data;
       yield put({
         type: 'changeLogin',
         payload: true,
@@ -56,6 +65,7 @@ const UserModel: UserModelType = {
         type: 'changeAvatar',
         payload: avatar,
       });
+      return true;
     },
     *logout({ payload }, { call, put }) {
       yield call(UserServices.logout, payload);
