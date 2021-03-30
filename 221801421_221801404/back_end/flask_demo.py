@@ -33,6 +33,23 @@ class Mysql(object):
                     sql = sql + " where title like '%" + keyword + "%'"
                 self.cursor.execute(sql)
                 items = self.cursor.fetchall()
+                # print(items)
+                # items=json.dumps(items, ensure_ascii=False)
+
+                #转化成json格式，对值进行命名
+                papers = []
+                for r in items:
+                    paper = {}
+                    paper['id'] = r[0]
+                    paper['title'] = r[1]
+                    paper['abstractContext'] = r[2]
+                    paper['typeandyear'] = r[3]
+                    paper['keyword'] = r[4]
+                    paper['releasetime'] = r[5]
+                    paper['link'] = r[6]
+
+                    papers.append(paper)
+                items = json.dumps(paper)
                 return  items
 
             def getECCV(self):
@@ -53,6 +70,6 @@ class Mysql(object):
                         return str
 
 if __name__ == '__main__':
-app.run(app.run(debug=True))
+ app.run(app.run(debug=True))
 
 
