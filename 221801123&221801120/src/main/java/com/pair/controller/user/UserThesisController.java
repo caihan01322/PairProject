@@ -37,9 +37,10 @@ public class UserThesisController {
             where += "and titile = ?";
             params.add(title);
         }else if (DataUtil.isValid(keyword)) {
-            where += "and keyword like '%" + keyword + "%'";
+            /*where += "and keyword like '%" + keyword + "%'";
+            params.add(keyword);*/
         }else if (DataUtil.isValid(content)) {
-            where += "and abstract_content like '%" + content + "%'";
+            where += "and abstract_content like '%" + keyword + "%'";
         }
         PageBean<Thesis> pageBean = thesisService.pageSearch(pageCode, pageSize, pageNumber, where, params, null);
         model.addAttribute("pageBean", pageBean);
