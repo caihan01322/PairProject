@@ -140,7 +140,7 @@ export default {
           })
     },
     handleAvatarSuccess(res){
-      this.$message.success('??????????????！')
+      this.$message.success('上传头像成功！')
       console.log(res)
       if(res.code===200){
         this.$store.commit('setAvatarUrl',res.data.toString())

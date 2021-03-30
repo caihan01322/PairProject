@@ -40,12 +40,17 @@ export default {
   props:{
     msg:String
   },
+  watch:{
+    loginVisible(){
+      this.avatarUrl= this.$store.state.avatarUrl
+    }
+  },
   data(){
     return {
       searchWord:'',
       loginVisible:false,
       manageAccountVisible:false,
-      avatarUrl:this.$store.state.avatarUrl,
+      avatarUrl: this.$store.state.avatarUrl,
       defaultAvatar:require('../assets/avatar.png')
     }
   },

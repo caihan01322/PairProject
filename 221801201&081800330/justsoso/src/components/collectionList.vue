@@ -90,6 +90,7 @@ export default {
             .then(response=>{
               if(response.data.code===200){
                 this.$message.success('取消收藏成功，共'+response.data.data+'篇')
+                this.getCollection()
               }else{
                 this.$message.error('取消收藏失败')
               }

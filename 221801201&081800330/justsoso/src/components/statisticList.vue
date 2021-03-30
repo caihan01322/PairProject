@@ -20,7 +20,7 @@
     </el-row>
 
     <div class="frame2">
-      <div id="hotTrendWordChart"></div>
+      <div id="hotTrendWordChart" ref="hotTrendWordChart"></div>
 
     </div>
 
@@ -33,6 +33,7 @@
 
 import wordcloud from 'vue-wordcloud'
 import axios from "axios";
+import * as echarts from 'echarts'
 // import SearchList from "@/components/SearchList";
 
 export default {
@@ -58,7 +59,7 @@ export default {
       this.drawLine()
     },
     hotTrendWord(){
-      this.$message.success('!!!!!!!!!!!!!!!!!!!!')
+      this.$message.success('当前热词为'+this.hotTrendWord)
       this.fillHotWordChart()
       // this.$refs.searchList2.$props.searchWord=this.hotTrendWord
       // Object.assign(this.$refs.searchList2.$data, this.$refs.searchList2.$options.data())
@@ -71,7 +72,6 @@ export default {
   methods:{
     wordClickHandler(name){
       this.hotTrendWord=name
-      this.$message.success('当前热词为'+this.hotTrendWord)
     },
     fillTop40Chart(){
       const loading = this.$loading({
@@ -128,7 +128,7 @@ export default {
         tooltip:{
           trigger:'item',
           //提示框的数据样式显示
-          // formatter:"{a}<br/>占比名是{b}：{c} ({d}%) "
+          formatter:"{a}<br/>{b}：{c}篇文章 ({d}%) "
         },
         //图例相关内容的说明
         legend:{
@@ -164,15 +164,16 @@ export default {
         series:[{
           name:'TOP10热词',
           type:'pie',
-          radius:[10,110],
+          radius:[50,140],
           top:'40px',
           // center:[250,180],
-          roseType:'radius',
+          roseType: 'radius',
           width:'100%',// for funnel
           max:40,            // for funnel
           itemStyle:{
             //普通样式设置
             normal:{
+              borderRadius: 8,
               label:{
                 show:true,
                 autosize:false
@@ -181,17 +182,19 @@ export default {
                 show:true
               },
               shadowBlur:30,
-              shadowColor:'rgba(0, 0, 0, 0.3)'
+              shadowColor:'rgba(94,94,94,0.3)'
             },
             //高亮样式设置
             emphasis:{
+              borderRadius: 8,
               label:{
                 show:true
               },
               labelLine:{
                 show:true
               }
-            }
+            },
+
           },
           data:this.top10Data,
           color:['#7EC0EE','#FF9F7F','#FFD700','#C9C9C9','#E066FF','#C0FF3E','#BDA29A','#C23531'],
@@ -222,69 +225,137 @@ export default {
 
       };
       myChart.setOption(option)
+      let _this=this
       myChart.on('click', function (params) {
-        this.hotTrendWord=params.name
-        this.$message.success('当前热词为'+this.hotTrendWord)
+        _this.hotTrendWord=params.name
       });
     },
     drawLineChart() {
-      let chartLine = this.$echarts.init(document.getElementById('hotTrendWordChart'),'shine');// 基于准备好的dom，初始化echarts实例
-      let option = {
-        title:{
-          show:true,
-          text:this.hotTrendWord+"热度趋势图",
-          x:'center'
-        },
-        tooltip : {
-          trigger: 'axis'
+      let chart = this.$echarts.init(document.getElementById('hotTrendWordChart'),'shine');// 基于准备好的dom，初始化echarts实例
+      var option = {
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+          }
         },
         legend: {
-          top:50,
-          data:['CVPR','ICCV','ECCV']
+          data: ['CVPR', 'ICCV', 'ECCV']
         },
-        calculable : true,
-        xAxis : [
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis: [
           {
-            type : 'category',
-            boundaryGap : false,
-            axisTick: {
-              show: false
-            },
-            data : ['2014','2015','2016','2017','2018','2019','2020']
+            type: 'category',
+            data: ['2014', '2015', '2016', '2017', '2018', '2019', '2020']
           }
         ],
-        yAxis : [
+        yAxis: [
           {
-            type : 'value',
-            axisTick: {
-              show: false
-            },
-            name: '（论文数）'
+            type: 'value'
           }
         ],
-        series : [
+        series: [
           {
-            name:'CVPR',
-            type:'line',
-            stack: '总量',
-            data:this.CVPRData
+            name: 'CVPR',
+            type: 'bar',
+            // stack: '总量',
+            emphasis: {
+              focus: 'series'
+            },
+            label:{
+              show: true,
+              rotate: 90,
+              align: 'left',
+              verticalAlign: 'middle',
+              position: 'insideBottom',
+              distance: 15,
+              formatter: '{c}  {name|{a}}',
+              fontSize: 16,
+              color:'#000000',
+              rich: {
+                name: {
+                }
+              }
+            },
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+              offset: 0,
+              color: 'rgba(255, 191, 0)'
+            }, {
+              offset: 1,
+              color: 'rgba(224, 62, 76)'
+            }]),
+            data: this.CVPRData
           },
           {
-            name:'ICCV',
-            type:'line',
-            stack: '总量',
-            data:this.ICCVData
+            name: 'ICCV',
+            type: 'bar',
+            // stack: '总量',
+            emphasis: {
+              focus: 'series'
+            },
+            label:{
+              show: true,
+              rotate: 90,
+              align: 'left',
+              verticalAlign: 'middle',
+              position: 'insideBottom',
+              distance: 15,
+              formatter: '{c}  {name|{a}}',
+              fontSize: 16,
+              color:'#000000',
+              rich: {
+                name: {
+                }
+              }
+            },
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+              offset: 0,
+              color: 'rgb(0,247,255)'
+            }, {
+              offset: 1,
+              color: 'rgb(62,154,224)'
+            }]),
+            data: this.ICCVData
           },
           {
-            name:'ECCV',
-            type:'line',
-            stack: '总量',
-            data:this.ECCVData
+            name: 'ECCV',
+            type: 'bar',
+            // stack: '总量',
+            emphasis: {
+              focus: 'series'
+            },
+            label:{
+              show: true,
+              rotate: 90,
+              align: 'left',
+              verticalAlign: 'middle',
+              position: 'insideBottom',
+              distance: 15,
+              formatter: '{c}  {name|{a}}',
+              fontSize: 16,
+              color:'#000000',
+              rich: {
+                name: {
+                }
+              }
+            },
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+              offset: 0,
+              color: 'rgb(217,0,255)'
+            }, {
+              offset: 1,
+              color: 'rgb(129,62,224)'
+            }]),
+            data: this.ECCVData
           },
         ]
       };
-      // 使用刚指定的配置项和数据显示图表
-      chartLine.setOption(option);
+      chart.setOption(option)
     }
   },
   mounted(){
@@ -331,7 +402,7 @@ export default {
 
 #hotTrendWordChart{
   width: 100%;
-  height: 400px;
+  height: 600px;
 }
 
 .frame {
@@ -362,7 +433,7 @@ export default {
   background-color: #f7f7f7;
   border-radius: 15px;
   box-shadow: 5px 5px 20px rgba(25, 25, 25, .75);
-  height: auto;
+  height: 600px;
   margin-bottom: 50px;
   padding-top: 20px;
   padding-bottom: 20px;

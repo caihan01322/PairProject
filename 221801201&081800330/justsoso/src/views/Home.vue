@@ -61,6 +61,11 @@ export default {
     StatisticList,CollectionList,SearchList,
     Login,ManageAccountPop
   },
+  watch:{
+    loginVisible(){
+      this.avatarUrl= this.$store.state.avatarUrl
+    }
+  },
   data(){
     return {
       searchInput:'',
