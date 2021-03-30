@@ -20,7 +20,7 @@
             <div class="list">
                 <div class="item">
                     <h3>标题:{{u[0].title}}</h3>
-                    <h4>来自峰会:{{u[0].meeting}}</h4>
+                    <h4>来自峰会:{{u[0].meeting}}</h4><span>日期:{{u[0].date}}</span>
                     <p>关键词:</p>
                     {%for k in u[1]%}
                         {{"  "+k.keyword}}

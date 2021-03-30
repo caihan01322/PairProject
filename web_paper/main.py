@@ -122,9 +122,30 @@ def list():
 @app.route('/collection',methods=['POST','GET'])
 def collection():
     if 'username' in session:
-        user_id = User.query.filter(User.username == session['username']).first().id
-        UserCollection.query.filter(UserCollection.user_id==user_id).all()
-
+        if request.form.get("submit")=='删除收藏':
+            paper_id=int(request.form.get('collect'))
+            user_id=User.query.filter(User.username == session['username']).first().id
+            collect_paper=UserCollection.query.filter(UserCollection.user_id==user_id,UserCollection.paper_id==paper_id).first()
+            db.session.delete(collect_paper)
+            db.session.commit()
+            return redirect(url_for('collection'))
+        else:
+            user_id = User.query.filter(User.username == session['username']).first().id
+            collection_list=UserCollection.query.filter(UserCollection.user_id==user_id).all()
+            all_page=int(len(collection_list)/6)+1
+            if request.method=='GET':
+                show_list=collection_list[0:6]
+            else:
+                page = int(request.form.get("select"))
+                show_list=collection_list[6*(page-1):6*page]
+            paper_list=[]
+            for s in show_list:
+                paper_list.append(Paper.query.filter(Paper.id==s.paper_id).first())
+            paper_map = []
+            for p in paper_list:
+                key_list = PaperToKeyword.query.filter(PaperToKeyword.paper_id == p.id).all()
+                paper_map.append([p, key_list])
+            return render_template('collection.html', paper_map=paper_map, all_page=range(0, all_page))
     return redirect(url_for('login'))
 
     # if request.method == 'POST':
