@@ -55,3 +55,20 @@ def delete():
     res = ResponseData(200, "success", "删除成功")
     return json.dumps(res.__dict__)
 
+@paper.route('/magazine',methods=['GET'])
+def magazine():
+    data = request.args
+    token = data.get("token")
+    pay, msg = validate_token(token)
+    if msg is not None:
+        res = ResponseData(2, "无效token", None)
+        return json.dumps(res.__dict__)
+    year = int(data.get("year"))
+    list = []
+    for index in range(year, year + 5):
+        list.append(Paper.query.filter(Paper.magazine == "ECCV", Paper.publication_year == str(index)).count())
+        list.append(Paper.query.filter(Paper.magazine == "ICCV", Paper.publication_year == str(index)).count())
+        list.append(Paper.query.filter(Paper.magazine == "CVPR", Paper.publication_year == str(index)).count())
+    res = ResponseData(200, "success", list)
+    return json.dumps(res.__dict__)
+
