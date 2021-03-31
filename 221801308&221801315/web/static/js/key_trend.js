@@ -137,6 +137,6 @@ window.onload = function () {
         ajaxNew();
         setInterval(() => {
             ajaxNew();
-        }, 10000);
+        }, 15000);
     })
 }
