@@ -124,3 +124,49 @@ function toCelsius(fahrenheit){
 }
 ```
 - 注释：对于一整个代码块的注释使用```/*这是注释*/```，对于单行的注释使用```//这是注释```。
+
+# 后端代码规范
+
+## 缩进
+
+>按层级关系缩进2字符
+
+## 变量命名
+
+>取类型缩写或其义的英语单词
+>临时变量和无意义的变量用i,j,k,l等
+
+## 每行最多字符数
+
+>结合上下代码长度决定，避免出现某行代码突出的情况
+
+## 函数，类命名
+
+>根据其意义的英文单词命名
+>类名要首字母大写，比如 SupplierService, PaymentOrderAction；不要 supplierService, paymentOrderAction.
+>首字母小写，如 addOrder() 不要 AddOrder()
+>动词在前，如 addOrder()，不要orderAdd()
+
+## 包名
+
+>使用小写字母如 com.xxx.settlment，不要 com.xxx.Settlement
+>单词间不要用字符隔开，比如 com.xxx.settlment.jsfutil，而不要com.xxx.settlement.jsf_util
+
+## 常量
+
+>根据其意义的英文单词命名
+
+## 空行规则
+
+>函数和函数之间空行
+>类和类之间空行
+>函数内按其逻辑适当空行
+
+## 注释规则
+
+>对于多行内容的解释放于该块内容的上方，单独一行
+>对于一行内的内容解释放于该行后
+
+## 操作符前后空格
+
+>操作符前后有空格
