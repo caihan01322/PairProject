@@ -44,7 +44,7 @@
             <div class="tablepanel">
               <template>
     <el-table
-      :data="tableData1"
+      :data="tableData"
       style="width: 100%;height: 70%;margin-top:100px;width:90%;margin-left:40px;">
       <el-table-column
         prop="title"
@@ -97,84 +97,23 @@
             </div>
             </div>
           </div>
-        <div class="tab_content" v-else-if="tab==1">
-            <div style="width: 100%">
-          <div style="float:left;margin-top:18px;text-align:center;margin-left:20px;font-weight:bold">
-          <span>论文爬取</span></div>
-          <div style="float: left">
-</div>
-  <div style="float: left"><el-input v-model="input" placeholder="请输入内容" style="margin-top:10px;margin-left:20px">
-  </el-input>
-  </div>
-  <div style="float: left;margin-top:10px;margin-left:30px">
-  <el-button icon="el-icon-search" circle>
-  </el-button></div>
-          </div>
-            <div class="tablepanel">
-              <template>
-    <el-table
-      :data="tableData2"
-      style="width: 100%;height: 70%;margin-top:100px;width:90%;margin-left:40px;">
-      <el-table-column
-        prop="title"
-        label="标题"
-        width="130"
-        >
-      </el-table-column>
-      <el-table-column
-        prop="articlenumber"
-        label="论文编号"
-        width="80">
-      </el-table-column>
-      <el-table-column
-        prop="doilink"
-        label="正文链接"
-        width="100">
-      </el-table-column>
-      <el-table-column
-        prop="kwds"
-        label="关键词"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        prop="abstract"
-        label="摘要"
-        width="280">
-      </el-table-column>
-      <el-table-column>
-      <template slot-scope="scope">
-        <el-button
-          size="mini"
-          @click="handleSave(scope.$index, scope.row)">收藏</el-button>
-      </template>
-      </el-table-column>
-    </el-table>
-  </template>
-              <div style="margin-top:20px">
-            <el-pagination
-            background
-            layout="prev, pager, next"
-            page-size="7"
-            :total="1000"
-            @current-change="page"
-            >
-            </el-pagination>
-            </div>
-            </div>
+          <div class="tab_content" v-else-if="tab==1">
+            内容二
           </div>
           <div class="tab_content" v-else-if="tab==2">
             <!-- 内容三 -->
             <span class="demonstration">默认 Hover 指示器触发</span>
             <el-carousel height="500px">
-              <el-carousel-item v-for="item in 4" :key="item">
-                <h3 class="small">{{ item }}</h3>
+              <el-carousel-item v-for="(img, index) in imgList" :key="index">
+                <img :src="img.url" width="100%" height="100%">
               </el-carousel-item>
             </el-carousel>
           </div>
           <div class="tab_content" v-else-if="tab==3">
             <!-- 内容四 -->
               <div>
-                <el-avatar style="margin-top:100px" :size="150" src="@/assets/icon.jpg"></el-avatar>
+
+                <el-avatar style="margin-top:100px" :size="150" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/4ZWR3V/f2/5f/0b/f25f0b8a8a354b97879b76719e319cf8/images/论文列表/u22.svg?token=97bb5bafada96da5d048a20f601fd183fb436b10ff76c40e10d1c000a2e73a68"></el-avatar>
               </div>
               <el-row>
                 <el-col :span="12">
@@ -227,94 +166,6 @@ export default {
     return {
       tab: 0,
       input: '',
-      tableData1: [{
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      },{
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      },{
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      },{
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      },{
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      },{
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      },{
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      }],
-      tableData2: [{
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      },{
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      },{
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      },{
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      },{
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      },{
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      },{
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      }],
-      pageSize:7,
-      currentPage:1,
       options: [{
         value: '选项1',
         label: '论文标题'
@@ -358,7 +209,26 @@ export default {
         label: '其他'
       }],
       value1: '选项1',
-      value2: '选项1'
+      value2: '选项1',
+      imgList: [
+     {
+        url: require('@/assets/ICCV.png')
+     },
+     {
+        url: require('@/assets/ECCV.png')
+     },
+     {
+        url: require('@/assets/CVPR.png')
+     }
+    //  {
+    //     url:require('@/assets/sea.jpg')
+    //  }
+    ]
+    }
+  },
+  methods: {
+    page (currentPage) {
+      alert(currentPage)
     }
   }
 }
