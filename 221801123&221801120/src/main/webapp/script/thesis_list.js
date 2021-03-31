@@ -4,6 +4,7 @@ $(function(){
         $(".editCard").css("display","none")
         $(".deleteCard").css("display","none")
         $("td button").css("cursor","pointer")
+        document.getElementById("thesis_edit_error").innerHTML="";
     })
 })
 function LookCard(btn){
@@ -64,21 +65,21 @@ function editThesis(form) {
     if(result.result) {
         $.ajax({
             "url": "user/thesis/edit",
-            "data": "id=" + result.id + "&name=" + result.name,
+            "data": "id=" + result.id + "&title=" + result.title+ "&meet=" + result.meet+ "&year=" + result.year
+                + "&keyword=" + result.keyword+ "&abstractContent=" + result.abstract+ "&link=" + result.link,
             "async": false,
             "dataType": "json",
             "success": function(json) {
                 if(json.result == "0") {
                     Tips.showError(json.message);
                 }else if(json.result == "1") {
-                    toggleTeacherEdit(false);
-                    _resetTeacher(form.name, error);
                     Tips.showSuccess(json.message);
+                    window.location.reload();
                 }
             }
         });
     }
-    Tips.showError("失败");
+    return false;
 }
 
 function _checkThesis(form, error) {
@@ -90,36 +91,42 @@ function _checkThesis(form, error) {
     if(titleValue == "") {
         error.innerHTML = "请输入论文题目";
         title.focus();
+        return new CheckResult(false);
     }
     var meet = form.meet;
     var meetValue = meet.value.trim();
     if(meetValue == "") {
         error.innerHTML = "请输入论文来源";
         meet.focus();
+        return new CheckResult(false);
     }
     var year = form.year;
     var yearValue = year.value.trim();
     if(yearValue == "") {
         error.innerHTML = "请输入论文年份";
         year.focus();
+        return new CheckResult(false);
     }
     var keyword = form.keyword;
     var keywordValue = keyword.value.trim();
     if(keywordValue == "") {
         error.innerHTML = "请输入论文关键词";
         keyword.focus();
+        return new CheckResult(false);
     }
     var abstract = form.abstract;
     var abstractValue = abstract.value.trim();
     if(abstractValue == "") {
         error.innerHTML = "请输入论文摘要";
         abstract.focus();
+        return new CheckResult(false);
     }
     var link = form.link;
     var linkValue = link.value.trim();
     if(linkValue == "") {
         error.innerHTML = "请输入论文原文链接";
         link.focus();
+        return new CheckResult(false);
     }
     return new CheckResult(true, idValue, titleValue, meetValue, yearValue, keywordValue, abstractValue, linkValue);
 }

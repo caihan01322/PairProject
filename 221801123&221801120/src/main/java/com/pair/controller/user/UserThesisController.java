@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -61,5 +62,22 @@ public class UserThesisController {
         json.addElement("result", "1").addElement("message", "删除成功");
         DataUtil.writeJSON(json, response);
         System.out.println(json);
+    }
+
+    /**
+     * 论文编辑
+     */
+    @RequestMapping("/edit")
+    @ResponseBody
+    public void edit(String id, String title, String meet, String year, String keyword, String abstractContent
+            , String link, HttpServletResponse response) {
+        JSONObject json = new JSONObject();
+        if(!DataUtil.isValid(id, title, meet, year, keyword, abstractContent, link)) {
+            json.addElement("result", "0").addElement("message", "格式非法");
+        }else {
+            thesisService.update(id, title, meet, year, keyword, abstractContent, link);
+            json.addElement("result", "1").addElement("message", "保存成功");
+        }
+        DataUtil.writeJSON(json, response);
     }
 }

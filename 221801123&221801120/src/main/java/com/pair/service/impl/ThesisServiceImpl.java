@@ -33,4 +33,12 @@ public class ThesisServiceImpl extends BaseServiceImpl<Thesis> implements Thesis
         };
         thesisDao.batchUpdate(sqls);
     }
+
+    @Override
+    public void update(String id, String title, String meet, String year, String keyword, String abstractContent
+            , String link) {
+        String sql = "update thesis set title = ?, meet = ?, year = ?, keyword = ?, abstract_content = ?" +
+                ", link = ? where id = ?";
+        thesisDao.executeSql(sql, new Object[]{title, meet, year, keyword, abstractContent, link, id});
+    }
 }
