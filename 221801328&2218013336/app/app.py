@@ -340,5 +340,50 @@ def paper_delete(numberid):
         return jsonify({"status": "error"})
 
 
+#关键词导入ECCV
+@app.route('/keyword/add',methods=['POST'])
+def addWord():
+    path = "C:\paper"
+    fileList = listdir(path)
+    fileIndex = []
+    for i in range(0,len(fileList)):
+        index = fileList[i].split(".json")[0]
+        path1 = path + '\\' + index + '.json'
+        resolveJson_word(path1)
+    return jsonify({"status":"ok"})
+
+def resolveJson_word(path):
+    file = open(path,'rb')
+
+    fileJson = json.loads(file.read().decode('utf-8'))
+    keywords = fileJson["关键词"]
+    title = fileJson["论文名称"]
+    for i in keywords:
+        keywords = KeyWords()
+        keywords.keyword = i
+        keywords.title = title
+        db.session.add(keywords)
+        db.session.commit()
+
+    file.close()
+    return jsonify({"status":"ok"})
+
+
+#关键词查询
+@app.route('/keyword',methods=['POST'])
+def WordCount():
+    # keyword = KeyWord()
+    # keyword = db.session.query(KeyWord.keyword, func.count(KeyWord.id)).group_by(KeyWord.keyword).all()
+    Infos = []
+    m = 0
+    keyword = db.session.execute('select keyword , count(*) as groupcount from keywords group by keyword').fetchall()
+    for i in keyword:
+        Infos.append({"name":i.keyword,"value":i.groupcount})
+        m+=1
+        if (m==10): break
+        # print(i.keyword+" "+str(i.groupcount))
+    return jsonify(data={'data':Infos})
+
+
 if __name__ == '__main__':
     app.run(debug=True)
