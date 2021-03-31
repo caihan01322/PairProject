@@ -130,6 +130,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+
     <script>
          var app = new Vue({
             el:"#main",
@@ -200,8 +202,29 @@
                 
                 this.message = msg;
             },
+            initChart:function(){
+                var that = this;
+
+                axios
+                .post('http://127.0.0.1:5000/keyword')//这里换一下
+                .then(function (response) {
+                    
+                    console.log('hihi');
+                    console.log(response.data);
+                    that.hotwords = response.data.data;
+                    that.names = 
+                    that.date = 
+                    that.series = 
+                    that.drawChart();
+                })
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
+                console.log('现在输出that.hotwords');
+                console.log(that.hotwords);
+            },
            
-            initChart:function() {
+            drawChart:function() {
                 // 基于准备好的dom，初始化echarts实例
             var myChart = echarts.init(document.getElementById('echart'));
 
