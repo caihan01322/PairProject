@@ -16,8 +16,11 @@
         <div class="left">
             <form method="POST" style="border:0px;width:500px;margin:10px auto;">
                 <input type="text" name="text" placeholder="请输入所查询内容" value={{search_word}}>
-                <input type="submit" name="submit" value="搜索">
+                <input type="submit" name="submit" value="爬标题">
+                <input type="submit" name="submit" value="爬摘要">
+                <input type="submit" name="submit" value="爬关键词">
             </form>
+            <div style="width:300px;margin:0px;auto;font-size:10px;color:#ff3333" >{{text}}</div>
             <h2>所得结果如下：</h2>
             <h5>共有{{all_paper}}条记录</h5>
             {%for u in paper_map%}

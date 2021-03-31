@@ -75,7 +75,13 @@
             <img src={{url_for('static',filename='ECCV.png')}} alt="ECCV">
         </a>
     </div>
-    <div class="right2">
+    <div class="right2" align="left">
+        <p>最近收藏:</p>
+        {%for p in history_list%}
+        <div style="overflow:hidden;height:20px;text-overflow: ellipsis;margin:5px;">
+            <a href="{{p.url}}">{{p.title}}</a>
+        </div>
+        {%endfor%}
     </div>
 </div>
     </div>
