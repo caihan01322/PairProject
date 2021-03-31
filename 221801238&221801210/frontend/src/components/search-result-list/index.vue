@@ -26,7 +26,7 @@
         <el-divider />
         <div class="button_group">
           <el-button class="collect_button" type="primary" plain :label="paper.id" border v-if=" mode === 'search' " @click="insertToFavorites(paper.id)">添加至收藏夹</el-button>
-          <el-button class="collect_button"  v-if=" mode === 'favorite' " type="danger">删除</el-button>
+          <el-button class="collect_button"  v-if=" mode === 'favorite' " type="danger" @click="deletePaper(paper.id)">删除</el-button>
         </div>
       </div>
     </div>
@@ -83,6 +83,15 @@ export default {
       this.$api.Favorites.insert(id,this.selectPaperId).then(res => {
         this.favouritesDialog = false
         this.$message.success('收藏成功!')
+      })
+    },
+    deletePaper(paper_id) {
+      this.$confirm('你确定要删除这个论文吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$emit('deletePaper', paper_id)
       })
     }
   },
