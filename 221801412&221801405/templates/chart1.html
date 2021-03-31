@@ -1,0 +1,48 @@
+{% block top %}
+<div align="center" id="chart1">
+        <div id="container" style="max-width:1000px;height:570px;"></div>
+    </div>
+        <script>
+            var chart = Highcharts.chart('container', {
+		title: {
+				text: '2013 ~ 2020 各峰会论文发布走势图'
+		},
+		subtitle: {
+				text: '数据来源：三峰会:ICCV,ECCV,CVPR'
+		},
+		yAxis: {
+				title: {
+						text: '论文数量'
+				}
+		},
+		legend: {
+				layout: 'vertical',
+				align: 'right',
+				verticalAlign: 'middle'
+		},
+		plotOptions: {
+				series: {
+						label: {
+								connectorAllowed: false
+						},
+						pointStart: 2013
+				}
+		},
+		series: [{{data|safe}}],
+		responsive: {
+				rules: [{
+						condition: {
+								maxWidth: 500
+						},
+						chartOptions: {
+								legend: {
+										layout: 'horizontal',
+										align: 'center',
+										verticalAlign: 'bottom'
+								}
+						}
+				}]
+		}
+});
+</script>
+{% endblock top %}
