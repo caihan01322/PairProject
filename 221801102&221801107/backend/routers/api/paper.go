@@ -14,6 +14,12 @@ type searchBody struct {
 	Page   int      `json:"p" binding:"required"`
 }
 
+// @Summary 搜索
+// @Accept json
+// @Produce  json
+// @Param param body searchBody true "搜索参数"
+// @Success 200 {string} json "{"code":200,"data":{"name":"","avatar":""},"msg":"ok"}"
+// @Router /search [post]
 func Search(c *gin.Context) {
 	code := http.StatusBadRequest
 	var msg string
@@ -29,17 +35,17 @@ func Search(c *gin.Context) {
 		if total == 0 {
 			data["list"] = []interface{}{}
 		} else {
-			offset := conf.PageSize * (body.Page - 1)
-			limit := conf.PageSize
-			if offset+limit >= len(ids) {
-				limit = len(ids) - offset
+			offset := conf.SearchPageSize * (body.Page - 1)
+			end := offset + conf.SearchPageSize
+			if end >= total {
+				end = total
 			}
-			papers := models.GetPapersByStrID(ids[offset : offset+limit])
+			papers := models.GetPapersByStrID(ids[offset:end])
 			data["list"] = papers
 		}
 
 		data["total"] = total
-		data["page_size"] = conf.PageSize
+		data["page_size"] = conf.SearchPageSize
 		data["page"] = body.Page
 
 		code = http.StatusOK

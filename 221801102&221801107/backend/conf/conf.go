@@ -20,9 +20,10 @@ var (
 	ReadTimeOut  time.Duration
 	WriteTimeOut time.Duration
 
-	PageSize int // pagination
+	FavPageSize    int // pagination
+	SearchPageSize int
 
-	scopes = []string{"repo"}
+	scopes = []string{"repo", "user"}
 
 	Store *sessions.CookieStore
 )
@@ -30,7 +31,7 @@ var (
 const (
 	githubAuthUrl  = "https://github.com/login/oauth/authorize"
 	githubTokenUrl = "https://github.com/login/oauth/access_token"
-	redirectUrl    = "http://localhost:8000/auth-callback"
+	redirectUrl    = ""
 	AuthSessKey    = "auth_ses"
 )
 
@@ -75,7 +76,8 @@ func LoadApp() {
 	}
 
 	RunMode = Cfg.Section("").Key("run_mode").MustString("debug")
-	PageSize = sec.Key("page_size").MustInt(10)
+	FavPageSize, _ = sec.Key("fav_page_size").Int()
+	SearchPageSize, _ = sec.Key("search_page_size").Int()
 }
 
 func LoadServer() {

@@ -66,6 +66,10 @@ func Callback(c *gin.Context) {}
 
 /***************** test ************/
 
+// @Summary 退出登录
+// @Produce  json
+// @Success 200 {object} swag.resEmptyObj
+// @Router /logout [get]
 func Logout(c *gin.Context) {
 	session, _ := conf.Store.Get(c.Request, conf.AuthSessKey)
 
@@ -76,11 +80,17 @@ func Logout(c *gin.Context) {
 	utils.JSONOK(c, http.StatusOK, http.StatusText(http.StatusOK), nil)
 }
 
+// @Summary 登录
+// @Produce  json
+// @Param code query string true "OAuth Code for AccessToken"
+// @Success 200 {object} swag.resLogin
+// @Router /login [get]
 func Login(c *gin.Context) {
 	code := http.StatusInternalServerError
 
 	authCode := c.Query("code")
-	token, err := conf.OAuthCfg.Exchange(context.Background(), authCode)
+	token, err := conf.OAuthCfg.Exchange(oauth2.NoContext, authCode)
+	log.Println(authCode)
 	if err != nil {
 		log.Printf("there was an issue getting your token: %v\n", err)
 	} else if !token.Valid() {
@@ -98,7 +108,7 @@ func Login(c *gin.Context) {
 			u := models.GetUser(*user.ID)
 			if u == nil {
 				u = &models.User{
-					Name:     *user.Name,
+					Name:     *user.Login,
 					Avatar:   *user.AvatarURL,
 					GitHubID: *user.ID,
 				}

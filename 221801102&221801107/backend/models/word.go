@@ -1,6 +1,7 @@
 package models
 
 import (
+	"backend/models/json"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"time"
@@ -29,17 +30,27 @@ func GetWordCloud() (cloud []WordCloud) {
 	return
 }
 
-func GetWords(contributor string) (words []Word) {
-	db.Where("contributor = ?", contributor).
+type ChartWord struct {
+	Month json.JTime `json:"month"`
+	Word  string     `json:"word"`
+	Value int        `json:"value"`
+}
+
+func GetWords(contributor string) (words []ChartWord) {
+	var ids []int
+	db.Model(&Word{}).
+		Select("id").
+		Where("contributor = ?", contributor).
 		Limit(10).
 		Order("value desc").
-		Find(&words)
+		Find(&ids)
 
-	for i := range words {
-		words[i].Points = []WordPoint{}
-		db.Model(words[i]).
-			Association("Points").
-			Find(&(words[i].Points))
+	for i := range ids {
+		var r []ChartWord
+		db.Raw("SELECT wp.time AS month, w.name AS word, wp.value AS value FROM word_point wp "+
+			"INNER JOIN word w ON wp.word_id = w.id "+
+			"WHERE w.id = ?", ids[i]).Scan(&r)
+		words = append(words, r...)
 	}
 	return
 }

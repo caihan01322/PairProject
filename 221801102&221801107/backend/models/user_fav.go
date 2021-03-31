@@ -20,9 +20,10 @@ func DeleteUserFav(fav *UserFav) {
 	db.Delete(fav)
 }
 
-func GetUserFav(user *User, paper *Paper) (fav UserFav) {
+func GetUserFav(user *User, paper *Paper) (fav *UserFav) {
+	fav = &UserFav{}
 	db.Where("user_id = ? AND paper_id = ?", user.ID, paper.ID).
-		Find(&fav)
+		Find(fav)
 	return
 }
 
@@ -36,8 +37,8 @@ func GetUserFavs(user *User, offset, pageSize int) (papers []Paper, total int64)
 	db.Model(&UserFav{}).
 		Where("user_id = ?", user.ID).
 		Count(&total)
-	tempFav := &UserFav{}
 	for i := range papers {
+		tempFav := &UserFav{}
 		db.Find(tempFav, "user_id = ? AND paper_id = ?", user.ID, papers[i].ID)
 		papers[i].Status = 1
 		papers[i].Title = tempFav.Title

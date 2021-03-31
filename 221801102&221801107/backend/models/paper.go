@@ -21,7 +21,7 @@ func AddPaper(paper *Paper) {
 	db.Create(&paper)
 }
 
-func GetPapersByID(ids []uint) (papers []Paper) {
+func GetPapersByID(ids []int) (papers []Paper) {
 	db.Find(&papers, ids)
 	return
 }
@@ -62,10 +62,15 @@ func GetPaperCount() (total int64) {
 }
 
 func (paper *Paper) AfterFind(db *gorm.DB) (err error) {
-	if notFound := db.Where("paper_id = ?", paper.ID).Find(&UserFav{}); notFound != nil {
+	t := UserFav{}
+	db.Where("paper_id = ?", paper.ID).Find(&t)
+	if t.ID <= 0 {
 		paper.Status = 0
 	} else {
 		paper.Status = 1
+	}
+	if paper.Contributor != "eccv" {
+		paper.Link = "https://ieeexplore.ieee.org" + paper.Link
 	}
 	return nil
 }

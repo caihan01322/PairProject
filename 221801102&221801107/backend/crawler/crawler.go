@@ -34,6 +34,7 @@ var (
 	c              *colly.Collector
 	cECCV          *colly.Collector
 	q              *queue.Queue
+	qECCV          *queue.Queue
 	paperNum       = make(chan int, 1)
 	re             = regexp.MustCompile(`xplGlobal.document.metadata=(.+"});`)
 	timeLayouts    = []string{"Jan 2006", "Jan. 2006", "January 2006"}
@@ -107,7 +108,6 @@ func onResponse(r *colly.Response) {
 }
 
 func onECCVTitle(e *colly.HTMLElement) {
-	log.Println("onECCVTitle", e.Request.URL.String())
 	link := `https://link.springer.com` + e.Attr("href")
 	sep := strings.LastIndex(link, "/")
 	code := link[sep+1:]
@@ -182,7 +182,7 @@ func Start() {
 	log.Println("Start scraping ieee papers...")
 
 	q, _ = queue.New(10, &queue.InMemoryQueueStorage{MaxSize: 1000})
-
+	qECCV, _ = queue.New(10, &queue.InMemoryQueueStorage{MaxSize: 1000})
 	go func() {
 		firstPage()
 		cECCV.Wait()
@@ -214,7 +214,11 @@ func firstPage() {
 	firstPageIEEE(&wg)
 	wg.Wait()
 
-	err := q.Run(cECCV)
+	err := q.Run(c)
+	if err != nil {
+		log.Println("run", err)
+	}
+	err = qECCV.Run(cECCV)
 	if err != nil {
 		log.Println("run", err)
 	}
@@ -287,7 +291,7 @@ func firstPageECCV(wg *sync.WaitGroup) {
 
 	for i := 1; i <= page; i++ {
 		u2 := newECCVSearchURL(i)
-		if err := q.AddURL(u2); err != nil {
+		if err := qECCV.AddURL(u2); err != nil {
 			log.Println("add request", err)
 		}
 	}
@@ -363,7 +367,7 @@ func newSearchParam(page int) (res *searchParam) {
 	res = &searchParam{
 		Action:       "search",
 		MatchBoolean: true,
-		QueryText:    `(("DOI":"cvpr" OR "DOI":"iccv" OR "DOI":"eccv" OR "Publication Title":"cvpr" OR "Publication Title":"eccv" OR "Publication Title":"eccv"))`,
+		QueryText:    `(("DOI":"cvpr" OR "DOI":"iccv" OR "Publication Title":"cvpr" OR "Publication Title":"iccv"))`,
 		Highlight:    true,
 		ReturnType:   "SEARCH",
 		MatchPubs:    true,
