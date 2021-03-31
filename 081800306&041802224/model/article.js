@@ -11,35 +11,50 @@ class Article extends Model {
     static async getArticles(list, page) {
         let ids = [];
         for (let i = page * 5; i < page * 5 + 5; i++) {
+            if (i >= list.length) {
+                break
+            }
             ids.push(list[i].arcid);
         }
-        return await Article.findAll({
-            where: {
-                id: {
-                    [Op.in]: ids,
-                },
-            },
-        });
     }
 
+    static async getArticlesByContent(key, page) {
+        let arr = await Article.findAll({
+            where: {
+                conclude: {
+                    [Op.substring]: key,
+                }
+            }
+        })
+        let articles = []
+        for (let i = page * 5; i < page * 5 + 5; i++) {
+            if (i >= arr.length) {
+                break
+            }
+            articles.push(arr[i]);
+        }
+        return articles
+    }
+
+    static async getArticlesByTitle(key, page) {
+        let arr = await Article.findAll({
+            where: {
+                title: {
+                    [Op.substring]: key,
+                }
+            }
+        })
+        let articles = []
+        for (let i = page * 5; i < page * 5 + 5; i++) {
+            if (i >= arr.length) {
+                break
+            }
+            articles.push(arr[i]);
+        }
+        return articles
+    }
     static async getArticleByid(id) {
         let article = await Article.findOne({
-            where: {
-                id,
-            },
-        });
-        return article;
-    }
-    static async getArticleByContent(content) {
-        let article = await Article.findAll({
-            where: {
-                content,
-            },
-        });
-        return article;
-    }
-    static async getArticleByTitle(id) {
-        let article = await Article.findAll({
             where: {
                 id,
             },
@@ -49,6 +64,7 @@ class Article extends Model {
 
     static async getIdsByKey(key) {
         let ids = await keywords.getIdByKey(key);
+        console.log(ids);
         return ids;
     }
 
