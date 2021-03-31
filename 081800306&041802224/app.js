@@ -12,14 +12,14 @@ ejs.clearCache();
 app.use(bodyparser());
 app.use(serve(path.join(__dirname, '/public')));
 app.use(views('view', {
-  root: path.join(__dirname, '/view'),
-  map: { html: 'ejs' },
+    root: path.join(__dirname, '/view'),
+    map: { html: 'ejs' },
 }));
 
 function registerRouters(item) {
-  if (item instanceof Router) {
-    app.use(item.routes());
-  }
+    if (item instanceof Router) {
+        app.use(item.routes());
+    }
 }
 const modules = new RequireDirectory(module, './routes', { visit: registerRouters }); // eslint-disable-line
-app.listen(3000);
+app.listen(8080);
