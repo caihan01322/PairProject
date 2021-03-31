@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from werkzeug.middleware.dispatcher import DispatcherMiddleware
 
 app = Flask(__name__)
 
