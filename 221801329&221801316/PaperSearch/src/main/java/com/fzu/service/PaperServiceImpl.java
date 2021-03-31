@@ -40,7 +40,7 @@ public class PaperServiceImpl implements PaperService {
 
 
     @Override
-    public List<JSONObject> queryPaperByPage(Integer userId, Integer start, Integer rows) {
+    public JSONObject queryPaperByPage(Integer userId, Integer start, Integer rows) {
         List<Paper> paperList;
         paperList=paperMapper.queryPaper(start,rows);
         List<JSONObject> jsonObjects=new ArrayList<>();
@@ -55,11 +55,15 @@ public class PaperServiceImpl implements PaperService {
             jsonObject.put("isLike",paperMapper.isLike(userId,paperId));
             jsonObjects.add(jsonObject);
         }
-        return jsonObjects;
+        Integer total=paperMapper.countAll();
+        JSONObject result=new JSONObject();
+        result.put("paper",jsonObjects);
+        result.put("total",total);
+        return result;
     }
 
     @Override
-    public List<JSONObject> queryPaperByKeyword(Integer userId,String keyword, Integer start, Integer rows) {
+    public JSONObject queryPaperByKeyword(Integer userId,String keyword, Integer start, Integer rows) {
         List<Paper> paperList;
         paperList=paperMapper.queryPaperByKeyword(keyword,start,rows);
         List<JSONObject> jsonObjects=new ArrayList<>();
@@ -74,11 +78,15 @@ public class PaperServiceImpl implements PaperService {
             jsonObject.put("isLike",paperMapper.isLike(userId,paperId));
             jsonObjects.add(jsonObject);
         }
-        return jsonObjects;
+        Integer total=paperMapper.countAllByKeyword(keyword);
+        JSONObject result=new JSONObject();
+        result.put("paper",jsonObjects);
+        result.put("total",total);
+        return result;
     }
 
     @Override
-    public List<JSONObject> queryPaperByAuthor(Integer userId,String author, Integer start, Integer rows) {
+    public JSONObject queryPaperByAuthor(Integer userId,String author, Integer start, Integer rows) {
         List<Paper> paperList;
         paperList=paperMapper.queryPaperByAuthor(author,start,rows);
         List<JSONObject> jsonObjects=new ArrayList<>();
@@ -93,11 +101,16 @@ public class PaperServiceImpl implements PaperService {
             jsonObject.put("isLike",paperMapper.isLike(userId,paperId));
             jsonObjects.add(jsonObject);
         }
-        return jsonObjects;
+        Integer total=paperMapper.countAllByAuthor(author);
+        JSONObject result=new JSONObject();
+        result.put("paper",jsonObjects);
+        result.put("total",total);
+        return result;
+
     }
 
     @Override
-    public List<JSONObject> queryPaperByTitle(Integer userId,String title, Integer start, Integer rows) {
+    public JSONObject queryPaperByTitle(Integer userId,String title, Integer start, Integer rows) {
         List<Paper> paperList;
         paperList=paperMapper.queryByTitle(title,start,rows);
         List<JSONObject> jsonObjects=new ArrayList<>();
@@ -112,14 +125,17 @@ public class PaperServiceImpl implements PaperService {
             jsonObject.put("isLike",paperMapper.isLike(userId,paperId));
             jsonObjects.add(jsonObject);
         }
-        return jsonObjects;
+        Integer total=paperMapper.countAllByTitle(title);
+        JSONObject result=new JSONObject();
+        result.put("paper",jsonObjects);
+        result.put("total",total);
+        return result;
     }
 
     @Override
     public List<JSONObject> queryTop10ByYear() {
         String []meets=new String[]{"CVPR","ECCV","ICCV"};
         Integer []years=new Integer[]{2016,2017,2018,2019,2020};
-      //  List<Map<String,String>>data=new ArrayList<>();
         List<JSONObject> data=new ArrayList<>();
         //0级数据
         Map<String,String> param0=new HashMap<>();
@@ -127,17 +143,9 @@ public class PaperServiceImpl implements PaperService {
         jsonObject0.put("id","0.0");
         jsonObject0.put("parent","");
         jsonObject0.put("name","顶会五年总计");
-        /*param0.put("id","0.0");
-        param0.put("parent","");
-        param0.put("name","顶会五年总计");
-        data.add(param0);*/
         data.add(jsonObject0);
         //一级数据
         for(int i=0;i<3;i++){
-           /* Map<String,String> param1=new HashMap<>();
-            param1.put("id","1."+i);
-            param1.put("parent","0.0");
-            param1.put("name",meets[i]);*/
            JSONObject jsonObject1=new JSONObject();
            jsonObject1.put("id","1."+i);
            jsonObject1.put("parent","0.0");
@@ -148,11 +156,6 @@ public class PaperServiceImpl implements PaperService {
         int k=0;
         for(int i=0;i<3;i++){
             for(int j=0;j<5;j++){
-               /* Map<String,String> param2=new HashMap<>();
-                param2.put("id","2."+k);
-                param2.put("parent","1."+i);
-                param2.put("name",String.valueOf(years[j]));
-                data.add(param2);*/
                 JSONObject jsonObject2=new JSONObject();
                 jsonObject2.put("id","2."+k);
                 jsonObject2.put("parent","0.0");
@@ -171,11 +174,6 @@ public class PaperServiceImpl implements PaperService {
                 List<Keyword> keywordMapList=paperMapper.queryTop10ByYear(years[j],meets[i]);
                 //如果查询不到记录
                 if(keywordMapList.size()==0){
-                   /* Map<String,String> param3=new HashMap<>();
-                    param3.put("id","3."+n);
-                    param3.put("parent","2."+k);
-                    param3.put("name", " ");
-                    param3.put("value"," ");*/
                     for(int m=0;m<10;m++){
                         JSONObject jsonObject3=new JSONObject();
                         jsonObject3.put("id","3."+n);
@@ -189,12 +187,6 @@ public class PaperServiceImpl implements PaperService {
                 }else{
                     //查询得到记录
                     for (Keyword keyword : keywordMapList) {
-                        /*Map<String,String> param3=new HashMap<>();
-                        param3.put("id","3."+n);
-                        param3.put("parent","2."+k);
-                        param3.put("name", keyword.getName());
-                        param3.put("value",String.valueOf(keyword.getCount()));
-                        data.add(param3);*/
                         JSONObject jsonObject3=new JSONObject();
                         jsonObject3.put("id","3."+n);
                         jsonObject3.put("parent","2."+k);
@@ -240,22 +232,74 @@ public class PaperServiceImpl implements PaperService {
     }
 
     @Override
-    public List<Paper> queryLikes(Integer userId,Integer start,Integer rows) {
+    public JSONObject queryLikes(Integer userId,Integer start,Integer rows) {
         List<Paper> paperList;
         paperList=paperMapper.queryLikes(userId,start,rows);
+        List<JSONObject> jsonObjects=new ArrayList<>();
         for (Paper paper : paperList) {
+            JSONObject jsonObject=new JSONObject();
             Integer paperId=paper.getId();
             List<String> keywords=paperMapper.queryKeywords(paperId);
             List<String> authors=paperMapper.queryAuthors(paperId);
             paper.setKeywords(keywords);
             paper.setAuthor(authors);
+            jsonObject.put("data",paper);
+            jsonObject.put("isLike",paperMapper.isLike(userId,paperId));
+            jsonObjects.add(jsonObject);
         }
-        return paperList;
+        Integer total=paperMapper.countAllByLike(userId);
+        JSONObject result=new JSONObject();
+        result.put("paper",jsonObjects);
+        result.put("total",total);
+        return result;
     }
 
     @Override
     public Integer isLike(Integer userId, Integer paperId) {
             return paperMapper.isLike(userId,paperId);
+    }
+
+    @Override
+    public Integer countAllByKeyword(String keyword) {
+        return paperMapper.countAllByKeyword(keyword);
+    }
+
+    @Override
+    public Integer countAllByAuthor(String author) {
+        return paperMapper.countAllByAuthor(author);
+    }
+
+    @Override
+    public Integer countAllByTitle(String title) {
+        return paperMapper.countAllByTitle(title);
+    }
+
+    @Override
+    public Integer countAllByLike(Integer userId) {
+        return paperMapper.countAllByLike(userId);
+    }
+
+    @Override
+    public JSONArray getKeywordTrends() {
+        List<String> keywords=paperMapper.selectHotWords();
+        Integer[] years={2016,2017,2018,2019,2020};
+        JSONArray result=new JSONArray();
+        JSONArray jsonArray1=new JSONArray();
+        jsonArray1.add("product");
+        for (Integer year : years) {
+            jsonArray1.add(String.valueOf(year));
+        }
+        result.add(jsonArray1);
+        for (String keyword : keywords) {
+            JSONArray jsonArray=new JSONArray();
+            jsonArray.add(keyword);
+            for (Integer year : years) {
+                Integer count=paperMapper.countByYear(keyword,year);
+                jsonArray.add(count);
+            }
+            result.add(jsonArray);
+        }
+        return result;
     }
 
 

@@ -31,11 +31,19 @@ public interface PaperMapper {
     List<Paper> queryPaperByKeyword(@Param("keyword")String keyword,
                                     @Param("start")Integer start,
                                     @Param("rows")Integer rows);
+    //获得搜索
+    Integer countAll();
+    //获得关键词搜索的总条数
+    Integer countAllByKeyword(@Param("keyword")String keyword);
+    //获得作者搜索的总条数
+    Integer countAllByAuthor(@Param("author")String author);
+    //获得标题搜索的总条数
+    Integer countAllByTitle(@Param("title")String title);
+
     //根据标题模糊查询论文
     List<Paper> queryByTitle(@Param("title")String title,
                                     @Param("start")Integer start,
                                     @Param("rows")Integer rows);
-
     //根据作者查询论文
     List<Paper> queryPaperByAuthor(@Param("author")String author,
                                     @Param("start")Integer start,
@@ -57,7 +65,14 @@ public interface PaperMapper {
     List<Paper> queryLikes(@Param("userId")Integer userId,
                            @Param("start")Integer start,
                            @Param("rows")Integer rows);
+    //获得收藏总条数
+    Integer countAllByLike(@Param("userId")Integer userId);
     //查看是否被收藏
     Integer isLike(@Param("userId")Integer userId,
                    @Param("paperId")Integer paperId);
+
+    //查询2016-2020总计前10的关键词
+    List<String> selectHotWords();
+    //查询某关键词某年的数量
+    Integer countByYear(@Param("keyword")String keyword,@Param("year")Integer year);
 }
