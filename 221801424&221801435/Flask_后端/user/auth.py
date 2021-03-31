@@ -57,6 +57,23 @@ def login():
         }
         return responseBody(data=response_info)
 
+@auth.route("/get_userInfo",methods=["POST"])
+def get_userInfo():
+    try:
+        data=request.get_json()
+        user_id=data.get('user_id')
+        user=User.query.filter_by(id=user_id).first()
+        gender="男"
+        if(user.gender==False):
+            gender="女"
+        user_info={'user_name':user.username,'user_gender':gender,'school':user.college,'password':user.password}
+        return responseBody(data=user_info)
+
+    except Exception as e:
+        print(e)
+        return responseError(Responses.PARAMETERS_ERROR)
+
+
 #登出
 @auth.route("/logout", methods=["POST"])
 # @token_check_required
