@@ -6,7 +6,6 @@ import pymysql
 
 # 获取后端实例
 app = Flask(__name__)
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config["SECRET_KEY"] = "this is a secret key"
 app.config['JSON_AS_ASCII'] = False
 

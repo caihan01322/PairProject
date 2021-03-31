@@ -297,6 +297,7 @@ def delete():
 
 
 @app.route("/recycle_view", methods=["GET"])
+@login_required
 def recycle_view():
     """回收站视图"""
     page = int(request.args.get("page", 1))
@@ -338,6 +339,7 @@ def recycle():
 
 
 @app.route("/favorite_view", methods=["GET"])
+@login_required
 def favorite_view():
     """收藏夹视图"""
     page = int(request.args.get("page", 1))
@@ -349,7 +351,7 @@ def favorite_view():
 def favorite():
     """收藏论文
 
-        在论文列表，每篇论有一个收藏按钮，点击后该论文加入当前登陆用户的收藏夹
+        在论文列表，每篇论文有一个收藏按钮，点击后该论文加入当前登陆用户的收藏夹
 
         Args:
             title: 在列表视图中点击收藏按钮时会自动获取title
@@ -377,6 +379,16 @@ def favorite():
 
 @app.route("/cancel_favorite", methods=["GET"])
 def cancel_favorite():
+    """取消收藏论文
+
+    在收藏夹，每篇论文有一个取消收藏按钮，点击后取消收藏该论文
+
+    Args:
+        title: 在列表视图中点击取消回收按钮时会自动获取title
+
+        Return:
+            返回模板渲染
+    """
     title = request.args.get("title")
     page = int(request.args.get("page", 1))
     pagination_func = request.args.get("pagination_func")
