@@ -1,0 +1,87 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar"
+            nzCollapsible
+            nzWidth="256px"
+            nzBreakpoint="md"
+            [(nzCollapsed)]="isCollapsed"
+            [nzTrigger]="null">
+    <div class="sidebar-logo">
+        <img src="assets/images/paper.png" alt="logo">
+        <h1>论文资源网 - 做最全的论文查询社区</h1>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+
+      <li nz-menu-item >
+        <i nz-icon nzType="form"></i>
+          <span><a [routerLink]="['/search/home']" routerLinkActive="router-link-active" >搜索主页</a></span>
+      </li>
+      <li nz-submenu nzOpen nzTitle="论文管理" nzIcon="dashboard">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/article-manage/article-list">论文列表</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/article-manage/article-import']" routerLinkActive="router-link-active" >论文导入</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="趋势分析" nzIcon="dashboard">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/page-trend/tendency">走势图</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/page-trend/top-trend']" routerLinkActive="router-link-active" >最热研究方向top10</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="用户管理" nzIcon="dashboard">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/user/star">用户收藏</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/user/info']" routerLinkActive="router-link-active" >用户信息</a>
+          </li>
+        </ul>
+      </li>
+      
+      
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header"  *ngIf="judgeIsLogin()==true">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <i class="trigger"
+               nz-icon
+               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></i>
+            
+        </span>
+        <i nz-icon nzType="smile"    nz-popover  nzPopoverTitle="用户名" [nzPopoverContent]="user_name" nzTheme="twotone" style="width: 30px;height: 30px;margin-bottom: 5px;margin-left: 1050px;"></i>
+        <i nz-icon nzType="logout"     nzTheme="outline" (click)="logout()" style="width: 30px;height: 30px;margin-bottom: 5px;margin-left: 10px;"></i>
+      </div>
+
+      <div class="app-header"  *ngIf="judgeIsLogin()==false">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <i class="trigger"
+               nz-icon
+               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></i>
+            
+        </span>
+        <!-- <img (click)="login()" src="assets/images/login_bg.jpeg" alt="失败" style="width: 30px;height: 30px;margin-bottom: 5px;margin-left: 1100px;"> -->
+        <i nz-icon nzType="login" nzTheme="outline" (click)="login()"   style="width: 30px;height: 30px;margin-bottom: 5px;margin-left: 1050px;"></i>
+      </div>
+
+
+
+    </nz-header>
+    <nz-content style="overflow-y: scroll;">
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
