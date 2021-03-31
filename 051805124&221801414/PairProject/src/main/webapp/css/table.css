@@ -1,15 +1,15 @@
 @charset "UTF-8";
 .tdcontent{
-	overflow:hidden;
-	text-overflow:ellipsis;
-	display:-webkit-box;
-	-webkit-box-orient:vertical;
-	-webkit-line-clamp:2;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
 	margin: 12px 15px 11px 15px;
 }
 .td{
 	width: 22%;
-    max-width:120px;
+    max-width: 120px;
 }
 .tableFooter{
 	text-align: center;
@@ -17,16 +17,16 @@
 }
 .tdlast{
 	width: 10%;
-    max-width:50px;
+    max-width: 50px;
 	text-align: center;
 }
 table {
-	font-family: verdana,arial,sans-serif;
-	font-size:14px;
+	font-family: verdana, arial, sans-serif;
+	font-size: 14px;
 	border-bottom: 1px solid #666; 
 	border-collapse: collapse; 
 	margin-top: 20px;
-	width:97%;
+	width: 97%;
 }
 table tr{
 	border-bottom: 1px solid #666; 

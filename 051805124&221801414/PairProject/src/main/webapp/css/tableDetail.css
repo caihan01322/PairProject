@@ -4,7 +4,7 @@
 	width: 98%;
 	height: 50px;
 	font-size: 14px;
-	font-family:"微软雅黑";
+	font-family: "微软雅黑";
 	padding-left: 15px;
 	background-color: #ffffff;
 }
@@ -13,7 +13,7 @@
 	border: none;
 	width: 98.1%;
 	font-size: 14px;
-	font-family:"微软雅黑";
+	font-family: "微软雅黑";
 	padding-top: 5px;
 	padding-left: 15px;
 	padding-bottom: 10px;
@@ -21,12 +21,12 @@
 	resize: none;
 }
 table {
-	font-family: verdana,arial,sans-serif;
-	font-size:14px;
+	font-family: verdana, arial, sans-serif;
+	font-size: 14px;
 	border-bottom: 1px solid #666; 
 	border-collapse: collapse; 
 	margin-top: 20px;
-	width:96%;
+	width: 96%;
 }
 table tr{
 	border-bottom: 1px solid #666; 

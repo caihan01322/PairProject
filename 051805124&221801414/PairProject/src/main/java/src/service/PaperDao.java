@@ -10,8 +10,8 @@ import src.PaperBean;
 
 public class PaperDao {
 	
-	public static ArrayList<PaperBean> searchPaper(String content, String option, int curpage) {
-		int start = (curpage-1)*6;
+	public static ArrayList<PaperBean> searchPaper(String content, String option, int curPage) {
+		int start = (curPage-1)*6;
 		if(content == null || content.equals("")) {
 			String sql = "select * from article limit "+start+",6";
 			System.out.println(sql);

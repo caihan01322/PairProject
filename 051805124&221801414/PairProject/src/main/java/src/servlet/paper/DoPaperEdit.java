@@ -42,7 +42,7 @@ public class DoPaperEdit extends HttpServlet {
 			request.setAttribute("magazine", magazine);
 			request.setAttribute("link", link);
 			request.setAttribute("abst", abst);
-			request.setAttribute("keyword",PaperDao.getKeyWord(id));
+			request.setAttribute("keyword", PaperDao.getKeyWord(id));
 			request.getRequestDispatcher("index_two_edit.jsp").forward(request, response);
 		} else {
 			PrintWriter out = response.getWriter();
