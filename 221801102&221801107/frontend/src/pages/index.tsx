@@ -26,9 +26,9 @@ const Home = memo(() => {
         <Row>
           <ThemeSearch onSearch={handleSearch} />
         </Row>
-        <Row style={{ marginTop: '50px', marginLeft: '30px' }}>
+        <Row className="keywords">
           {keywords.map((item) => (
-            <Col>
+            <Col className="item">
               <CircleLetter
                 letter={item.key}
                 onClick={(e) => handleSearch(item.key)}

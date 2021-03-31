@@ -142,6 +142,7 @@ export default function Favorite() {
             onChange: handlePaginationChange,
             pageSize,
             total,
+            responsive: true,
           }}
           dataSource={list}
           renderItem={(item) => (

@@ -124,16 +124,16 @@ export default function Statistic() {
   return (
     <div className={styles.container}>
       <Row gutter={16}>
-        <Col sm={24} lg={12} xxl={6}>
+        <Col sm={24} lg={12} xxl={6} style={{ marginTop: '50px' }}>
           {RoseMemoChart}
         </Col>
-        <Col sm={24} lg={12} xxl={6}>
+        <Col sm={24} lg={12} xxl={6} style={{ marginTop: '50px' }}>
           {ICCVChart}
         </Col>
-        <Col sm={24} lg={12} xxl={6}>
+        <Col sm={24} lg={12} xxl={6} style={{ marginTop: '50px' }}>
           {ECCVChart}
         </Col>
-        <Col sm={24} lg={12} xxl={6}>
+        <Col sm={24} lg={12} xxl={6} style={{ marginTop: '50px' }}>
           {EVPRChart}
         </Col>
         <Col sm={24} lg={24} xxl={6} style={{ marginTop: '50px' }}>
