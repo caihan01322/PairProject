@@ -308,11 +308,12 @@ def paper_get():
 def favorites_get():
     token = request.headers['Authorization']
     user = verify_token(token)
-    favorite_id_list = db.session.query(Favorite).all()
+    favorite_id_list = db.session.query(Favorite).filter(Favorite.user_id==user.user_id).all()
     dicts=[]
     for i in favorite_id_list:
-
-    return jsonify(code=200, msg="获取成功", data={json.dumps(favorite_id_list)})
+        dic= {'favorite_id':i.favorite_id, 'name':i.name}
+        dicts.append(dic)
+    return jsonify(code=200, msg="获取成功", data={'favorites':dicts})
 
 
 @blue.route('/favorites/delete', methods=['POST'])
