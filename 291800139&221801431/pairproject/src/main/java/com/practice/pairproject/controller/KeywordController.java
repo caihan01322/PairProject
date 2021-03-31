@@ -28,6 +28,11 @@ public class KeywordController {
         return "keywordAtlas";
     }
 
+    @RequestMapping("/trend")
+    public String keywordAnalyze2(){
+        return "keyTrend";
+    }
+
     /**
      * 选取所有已爬取论文 在 years（默认5）年间的热词 top-topNum（默认10）
      * 形成如关键词图谱之类直观的查看方式，点击某个关键词可展现相关的论文；
@@ -74,7 +79,7 @@ public class KeywordController {
      * @return
      */
     @ResponseBody
-    @GetMapping("/top2/{meeting}")
+    @GetMapping("/trend/{meeting}")
     public Object selectTOPKeywordEveryYear(
             @PathVariable("meeting") String meeting,
             @RequestParam(name= "years" , defaultValue = "5") String years,

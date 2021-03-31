@@ -36,7 +36,7 @@
 
 <!--nav-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">LOGO</a>
+    <a class="navbar-brand" href="/">Casual</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -44,11 +44,14 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/">论文检索</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/keyword/home">数据分析</a>
+                <a class="nav-link" href="/keyword/home">关键词谱</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/keyword/trend">热词走势</a>
             </li>
         </ul>
 
@@ -85,7 +88,7 @@
 
 
     <div class="row">
-        <div class="col-md-4 offset-md-5" id="index" style="font-size: larger; font-family: Arial;
+        <div class="col-md-4 offset-md-5" id="index" style="font-size: xx-large; font-family: Arial;
          margin-top: 70px">
             Search
         </div>
@@ -109,7 +112,7 @@
         function onKeyDown(event) {
             var e = event || window.event || arguments.callee.caller.arguments[0];
             if (e && e.keyCode == 13) { // enter键进行搜索跳转到爬取结果页面
-                alert("显示搜索结果");
+                //alert("显示搜索结果");
             }
         }
     </script>
