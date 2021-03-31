@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+        <title>我是爬爬表</title>
         <meta charset="utf-8">
         <link rel="icon" href="https://jscdn.com.cn/highcharts/images/favicon.ico">
         <link rel="stylesheet" href="{{url_for('static', filename='css/test.css') }}" type="text/css">
@@ -12,54 +13,25 @@
         <script src="https://code.highcharts.com.cn/highcharts/modules/series-label.js"></script>
         <script src="https://code.highcharts.com.cn/highcharts/modules/oldie.js"></script>
         <script src="https://code.highcharts.com.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <link rel="icon" href="https://static.jianshukeji.com/hcode/images/favicon.ico">
+        <script src="https://code.highcharts.com.cn/highcharts/highcharts.js"></script>
+        <script src="https://code.highcharts.com.cn/highcharts/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com.cn/highcharts/modules/sunburst.js"></script>
     </head>
     <body background="{{url_for('static', filename='1.png')}}">
     {% include 'navbar.html' %}
-    <div align="center" id="chart1">
-        <div id="container" style="max-width:800px;height:400px;"></div>
+    <div class="grey" align="center" style="height:690px;padding-top:15px;">
+        <div style="position: relative;margin:0px 15px;background-color:#fff;border:3px solid #DDD;">
+    <form method="post" style="height:100px;">
+        <input type="submit" name="submit" value="年度走势图" class="select_chart">
+        <input type="submit" name="submit" value="历史热词榜" class="select_chart" style="margin-left:50px;">
+        <input type="submit" name="submit" value="关键词总览" class="select_chart" style="margin-left:50px;">
+    </form>
+    <div align="center">
+    {% include chart %}
     </div>
-        <script>
-            var chart = Highcharts.chart('container', {
-		title: {
-				text: '2013 ~ 2020 各峰会论文发布走势图'
-		},
-		subtitle: {
-				text: '数据来源：三峰会:ICCV,ECCV,CVPR'
-		},
-		yAxis: {
-				title: {
-						text: '论文数量'
-				}
-		},
-		legend: {
-				layout: 'vertical',
-				align: 'right',
-				verticalAlign: 'middle'
-		},
-		plotOptions: {
-				series: {
-						label: {
-								connectorAllowed: false
-						},
-						pointStart: 2010
-				}
-		},
-		series: [{{data|safe}}],
-		responsive: {
-				rules: [{
-						condition: {
-								maxWidth: 500
-						},
-						chartOptions: {
-								legend: {
-										layout: 'horizontal',
-										align: 'center',
-										verticalAlign: 'bottom'
-								}
-						}
-				}]
-		}
-});
-        </script>
+        </div>
+    </div>
     </body>
 </html>

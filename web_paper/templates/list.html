@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>爬到了!</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/test.css') }}" type="text/css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/warn.css') }}" type="text/css"/>
@@ -10,6 +10,12 @@
     <link rel="shortcut icon" href="{{url_for('static',filename='bitbug_favicon.ico')}}" type="image/x-icon" />
 </head>
 <body background="{{url_for('static', filename='1.png')}}">
+<script type="text/javascript">
+function display_alert()
+  {
+  alert("爬到了!")
+  }
+</script>
 {% include 'navbar.html' %}
 <div class="grey" align="center">
     <div class="center">
@@ -19,6 +25,7 @@
                 <input type="submit" name="submit" value="爬标题">
                 <input type="submit" name="submit" value="爬摘要">
                 <input type="submit" name="submit" value="爬关键词">
+                <input type="file" name="file" value="上传" style="margin:10px 0px 0px 0px;">
             </form>
             <div style="width:300px;margin:0px;auto;font-size:10px;color:#ff3333" >{{text}}</div>
             <h2>所得结果如下：</h2>
@@ -53,7 +60,8 @@
                             />
                             <input type="submit" name="submit" value="收藏" class="form_float"
                                    onmouseover="this.style.backgroundPosition='left -36px'"
-                                   onmouseout="this.style.backgroundPosition='left top'"/>
+                                   onmouseout="this.style.backgroundPosition='left top'"
+                             onclick="display_alert()"/>
                         </form>
                 </div>
             </div>
@@ -83,8 +91,13 @@
                 <img src={{url_for('static',filename='ECCV.png')}} alt="ECCV">
             </a>
         </div>
-        <div class="right2">
-
+        <div class="right2" align="left">
+            <p>热门关键词:</p>
+        {%for p in key_show_list%}
+            <div style="overflow:hidden;height:20px;text-overflow: ellipsis;margin:5px;">
+                {{p}}
+            </div>
+        {%endfor%}
         </div>
     </div>
 </div>

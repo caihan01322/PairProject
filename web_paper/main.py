@@ -30,7 +30,7 @@ def login():
                 return render_template('login.html', forms=forms, text2='用户名或密码错误！')
             session['username'] = request.form.get('username')
             return render_template('temp.html', text="登录成功")
-        elif request.form.get('submit') == '退出登录' and 'suername' in session:
+        elif request.form.get('submit') == '退出登录' and 'username' in session:
             session.pop('username')
             return render_template('login.html', forms=forms)
     if 'username' in session:
@@ -65,9 +65,20 @@ def signup():
 
 @app.route('/list', methods=['GET', 'POST'])
 def list():
+    session['search_type'] = 1
+    f = open('chart2.txt')
+    data = f.readline()
+    data = data[2:len(data) - 3]
+    key_show_list = data.split("\', \'")
+    key_show_list = key_show_list[0:7]
+    f.close()
+    print(key_show_list[0])
     if request.method == 'POST':
         if request.form.get("submit") == "收藏":
+            message=''
+            message_show =''
             if 'username' in session:
+                message_show = 'display_alert()'
                 paper_id = int(request.form.get("collect"))
                 user_id = User.query.filter(User.username == session['username']).first().id
                 if UserCollection.query.filter(UserCollection.user_id == user_id,
@@ -75,10 +86,10 @@ def list():
                     us = UserCollection(user_id=user_id, paper_id=paper_id)
                     db.session.add(us)
                     db.session.commit()
-                    return redirect(url_for('list'))
+                    message='收藏成功'
                 else:
-                    return '该文章已经收藏'
-            return redirect(url_for('login'))
+                    message='收藏失败，该文章已经收藏'
+            return redirect(url_for('list'))
         elif request.form.get("submit") == "跳转":
             session['list_page'] = int(request.form.get("select"))
             page=session['list_page']
@@ -91,7 +102,7 @@ def list():
             if session['search_type'] == 3:
                 keyword_list = PaperToKeyword.query.filter(PaperToKeyword.keyword.like('%' + text + '%')).all()
                 for k in keyword_list:
-                    paper_list = Paper.query.filter(Paper.id == k.paper_id).all()
+                    paper_list += Paper.query.filter(Paper.id == k.paper_id).all()
             all_paper = len(paper_list)
             all_page = int(len(paper_list) / 6) + 1
             show_list = paper_list[6 * (page - 1):6 * page]
@@ -100,8 +111,9 @@ def list():
             for p in show_list:
                 key_list = PaperToKeyword.query.filter(PaperToKeyword.paper_id == p.id).all()
                 paper_map.append([p, key_list])
+
             return render_template('list.html', paper_map=paper_map, all_page=range(0, all_page),
-                                   search_word='text', page=page_show, all_paper=all_paper)
+                                   search_word='text', page=page_show, all_paper=all_paper,key_show_list=key_show_list)
         else:
             if request.form.get('submit') == '爬标题':
                 session['search_type']=1
@@ -121,7 +133,7 @@ def list():
                 if session['search_type'] == 3:
                     keyword_list=PaperToKeyword.query.filter(PaperToKeyword.keyword.like('%' + text + '%')).all()
                     for k in keyword_list:
-                        paper_list = Paper.query.filter(Paper.id==k.paper_id).all()
+                        paper_list += Paper.query.filter(Paper.id==k.paper_id).all()
                 all_paper = len(paper_list)
                 all_page = int(len(paper_list) / 6) + 1
                 show_list = paper_list[0:6]
@@ -131,12 +143,11 @@ def list():
                     key_list = PaperToKeyword.query.filter(PaperToKeyword.paper_id == p.id).all()
                     paper_map.append([p, key_list])
                 return render_template('list.html', paper_map=paper_map, all_page=range(0, all_page),
-                                       search_word='text', page=page_show, all_paper=all_paper)
+                                       search_word='text', page=page_show, all_paper=all_paper,key_show_list=key_show_list)
             else:
                 text = "请输入三个以上字符"
                 page_show = "当前为第1页"
                 return render_template('list.html', text=text,page=page_show, all_paper=0)
-        return redirect(url_for('index'))
     else:
         if 'text' in session:
             if len(session.get('text')) > 2:
@@ -151,7 +162,7 @@ def list():
                     key_list = PaperToKeyword.query.filter(PaperToKeyword.paper_id == p.id).all()
                     paper_map.append([p, key_list])
                 return render_template('list.html', paper_map=paper_map, all_page=range(0, all_page),
-                                       search_word=session['text'], page=page_show, all_paper=all_paper)
+                                       search_word=session['text'], page=page_show, all_paper=all_paper,key_show_list=key_show_list)
             else:
                 text = "还没搜索哦"
                 return render_template('list.html', text=text)
@@ -199,9 +210,34 @@ def collection():
 
 @app.route('/view', methods=['POST', 'GET'])
 def view():
-    f = open('chart1.txt')
-    data = f.read()
-    return render_template('view.html', data=data)
+    if request.method=='POST':
+        if request.form.get('submit')=='年度走势图':
+            f = open('chart1.txt')
+            data = f.read()
+            chart = 'chart1.html'
+            f.close()
+            return render_template('view.html', data=data, chart=chart)
+        if request.form.get('submit')=='历史热词榜':
+            f = open('chart2.txt')
+            data1=f.readline()
+            data2=f.readline()
+            chart='chart2.html'
+            f.close()
+            return render_template('view.html', data2=data2,data1=data1, chart=chart)
+        else:
+            f = open('chart3.txt')
+            data = f.readline()
+            chart='chart3.html'
+            return render_template('view.html', chart=chart,data=data)
+    else:
+        f = open('chart1.txt')
+        data = f.read()
+        chart = 'chart1.html'
+        f.close()
+        return render_template('view.html', data=data,chart=chart)
+@app.route('/us', methods=['POST', 'GET'])
+def us():
+    return render_template('us.html')
     # if request.method == 'POST':
     #     text = request.form.get('text')
     #     flash(text)

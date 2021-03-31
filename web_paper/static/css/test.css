@@ -60,3 +60,17 @@ form.center
 {
     visibility:hidden;
 }
+input.select_chart{
+width:250px;
+height:70px;
+margin:5px 0px 25px 100px;
+border:3px solid #00bbff;
+border-radius: 10px;
+background-color:#fff;
+font-size:30px;
+color:#00bbff;
+}
+input.select_chart:hover{
+background-color:#00ffff;
+color:#000;
+}
