@@ -124,20 +124,20 @@
 
     <script>
          var app = new Vue({
-          el:"#main",
-          data:{
-              message:"2021"
-          },
-          methods: {
+            el:"#main",
+            data: {
+                message:"2021"
+            },
+            methods: {
 
-          showValue(event){
-              var e = event.currentTarget;
-              msg = e.innerHTML;
-              
-              this.message = msg;
-          }
-      }
-      })
+            showValue(event){
+                var e = event.currentTarget;
+                msg = e.innerHTML;
+                
+                this.message = msg;
+            }
+        }
+    })
     </script>
 
     <script type="text/javascript">
@@ -184,10 +184,10 @@
 
         })
 
-        myChart.on('click',function(param){
+        myChart.on('click',function(param) {
             // var url = param.data.name;
             // window.location.href=url;
-            this.$router.push({path: 'article.html',query:{ index:'1'}});
+            // this.$router.push({path: 'article.html',query:{ index:'1'}});
 
         
             var name = param.data.name;

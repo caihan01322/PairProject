@@ -71,20 +71,20 @@
     <script>
         var app = new Vue({
             el:"#wrapper",
-            data:{
+            data: {
                 message:"请先登录",
                 phone:'',
                 password:'',
                 passwordAgain:''
             },
             methods: {
-            doIt:function(){
+            doIt:function() {
               //  alert("请先登录");
             },
-            signIn:function(){
+            signIn:function() {
                 window.location.href="login.html";
             },
-            register:function(){
+            register:function() {
                 
                 if(this.password!=this.passwordAgain)
                 {
@@ -92,7 +92,7 @@
                     this.password='';
                     this.passwordAgain='';
                 }
-                else{
+                else {
 
                 //alert(this.phone);
                 //alert(this.password);
@@ -111,7 +111,7 @@
                  .catch(function (error) { // 请求失败处理
                      console.log(error);
                  });
-            }
+                }
             }
         }
         })

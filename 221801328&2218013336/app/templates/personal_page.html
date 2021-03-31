@@ -106,34 +106,34 @@
             flag:0,//区分上/下 一页的状态
             telephone:0
         },
-        mounted(){
+        mounted() {
         //this.getData();
         //再调用一下搜索功能
         this.getArticles();
         },
-        computed:{
-        pages(){
-            var start = this.pageNo,end = this.pageTotal;
-            if(end<10) return end;
-            if(start<=5){
-                return [1,2,3,4,5,6,'...',end]
+        computed: {
+            pages() {
+                var start = this.pageNo,end = this.pageTotal;
+                if(end<10) return end;
+                if(start<=5) {
+                    return [1,2,3,4,5,6,'...',end]
+                }
+                else if(start>=end-5) {
+                    return [1,'...',end-5,end-4,end-3,end-2,end-1,end]
+                }
+                else {
+                    return [1,'...',start-1,start,start+1,'...',end]
+                }
             }
-            else if(start>=end-5){
-                return [1,'...',end-5,end-4,end-3,end-2,end-1,end]
-            }
-            else{
-                return [1,'...',start-1,start,start+1,'...',end]
-            }
-        }
-    },
+        },
         methods: {
-        doIt:function(){
+        doIt:function() {
             //  alert("请先登录");
         },
-        signIn:function(){
+        signIn:function() {
             window.location.href="login.html";
         },
-        getArticles:function(i=1){
+        getArticles:function(i=1) {
         
         //alert(flag);
             var data = localStorage.getItem('userid');
@@ -161,16 +161,16 @@
                 console.log(error);
             });    
             },
-            switchPage:function(i){
+            switchPage:function(i) {
                 this.getArticles(i);
             },
-            prePage:function(){
+            prePage:function() {
                 this.getArticles(--this.pageNo);
             },
-            nextPage:function(){
+            nextPage:function() {
                 this.getArticles(++this.pageNo);
             },
-            gotoDetail:function(articleId){
+            gotoDetail:function(articleId) {
             localStorage.setItem('articleid',articleId);
             window.location.href="article_detail.html";
             }

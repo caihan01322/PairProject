@@ -127,57 +127,57 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
     <script>
-         var app = new Vue({
-          el:"#main",
-          data:{
-              message:"2021",
-              data:[],
-              hotwords:[
-                            {value: 1048, name: '搜索引擎'},
-                            {value: 735, name: '直接访问'},
-                            {value: 580, name: '邮件营销'},
-                            {value: 484, name: '联盟广告'},
-                            {value: 300, name: '视频广告'}
-                        ],
-          },
-          mounted(){
-            this.initChart();
-          },
-          methods: {
+        var app = new Vue({
+            el:"#main",
+            data:{
+                message:"2021",
+                data:[],
+                hotwords:[
+                                {value: 1048, name: '搜索引擎'},
+                                {value: 735, name: '直接访问'},
+                                {value: 580, name: '邮件营销'},
+                                {value: 484, name: '联盟广告'},
+                                {value: 300, name: '视频广告'}
+                            ],
+            },
+            mounted(){
+                this.initChart();
+            },
+            methods: {
 
-          showValue(event){
-              var e = event.currentTarget;
-              msg = e.innerHTML;
-              
-              this.message = msg;
-          },
-          initChart:function(){
-            var that = this;
-            console.log('现在输出that.hotwords');
-            console.log(that.hotwords); 
+            showValue(event){
+                var e = event.currentTarget;
+                msg = e.innerHTML;
+                
+                this.message = msg;
+            },
+             initChart:function(){
+                var that = this;
+                console.log('现在输出that.hotwords');
+                console.log(that.hotwords); 
 
-            axios
-            .post('http://127.0.0.1:5000/keyword')
-            .then(function (response) {
-                console.log('hihi');
-                console.log(response.data.data.data);
-                that.hotwords = response.data.data.data;
+                axios
+                .post('http://127.0.0.1:5000/keyword')
+                .then(function (response) {
+                    console.log('hihi');
+                    console.log(response.data.data.data);
+                    that.hotwords = response.data.data.data;
+                    console.log('现在输出that.hotwords');
+                    console.log(that.hotwords);
+                    that.drawChart();
+                })
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
                 console.log('现在输出that.hotwords');
                 console.log(that.hotwords);
-                that.drawChart();
-            })
-            .catch(function (error) { // 请求失败处理
-                console.log(error);
-            });
-            console.log('现在输出that.hotwords');
-            console.log(that.hotwords);
-        },
-        drawChart:function(){
+            },
+            drawChart:function(){
             // 基于准备好的dom，初始化echarts实例
-            var myChart = echarts.init(document.getElementById('echart'));
+                var myChart = echarts.init(document.getElementById('echart'));
 
-            myChart.setOption({
-                
+                myChart.setOption({
+                    
             
                 title: {
                     text: '论文关键词统计',
@@ -228,7 +228,7 @@
             })
           }
 
-      }
+        }
       })
     </script>
 

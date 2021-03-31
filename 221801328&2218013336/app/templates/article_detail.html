@@ -112,7 +112,7 @@
             href	否	string	论文链接
             classify	否	string	论文分类  */
 
-            data:{
+            data: {
                 message:"请先登录",
                 phone:'',
                 password:'',
@@ -122,79 +122,79 @@
                 abstract:'摘要',
                 href:'链接'
             },
-            mounted(){
+            mounted() {
                 var data = localStorage.getItem('articleid');
                 this.numberid = data;
                 this.showDetail();
             },
             methods: {
-            doIt:function(){
-                alert("请先登录");
-            },
-            signIn:function(){
-                window.location.href="login.html";
-            },
-            deleteArticle:function(){
-                if(window.confirm("你确定要删除这篇论文吗?"))
-                {
-                    var that = this;
+                doIt:function() {
+                    alert("请先登录");
+                },
+                signIn:function() {
+                    window.location.href="login.html";
+                },
+                deleteArticle:function() {
+                    if(window.confirm("你确定要删除这篇论文吗?"))
+                    {
+                        var that = this;
 
+                        axios
+                        .get('http://127.0.0.1:5000/paper/delete/'+this.numberid)
+                        .then(function (response) {
+                            console.log(response.data);
+                            window.location.href="article.html";
+                        })
+                        .catch(function (error) { // 请求失败处理
+                            console.log(error);
+                        });
+                        }
+                    else
+                    {
+                        
+                    }
+                    
+                },
+                showDetail:function() {
+                var that = this;
                     axios
-                    .get('http://127.0.0.1:5000/paper/delete/'+this.numberid)
+                    .get('http://127.0.0.1:5000/paper/'+this.numberid)
                     .then(function (response) {
                         console.log(response.data);
-                        window.location.href="article.html";
-                    })
+                        article = response.data;
+                        that.title = article.title;
+                        that.keyword = article.keyword;
+                        console.log(article.keyword);
+                        that.abstract = article.abstract;
+                        that.href = article.href;
+                    })               
                     .catch(function (error) { // 请求失败处理
                         console.log(error);
                     });
-                    }
-                else
-                {
+                },
+                back:function() {
+                    window.location.href = "article.html";
+                },
+                likeArticle:function() {
+                    var that = this;
                     
+                    var userId = localStorage.getItem('userid');
+                    //alert(data2);
+                    axios
+                    .post('http://127.0.0.1:5000/collection',
+                    {
+                        "user_id":userId,
+                        "paper_id":this.numberid
+                    })
+                    .then(function (response) {
+                        console.log(response.data);
+                        alert('收藏成功！');
+                    // if(response.data)
+                    })               
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
                 }
-                
-            },
-            showDetail:function(){
-               var that = this;
-                axios
-                .get('http://127.0.0.1:5000/paper/'+this.numberid)
-                .then(function (response) {
-                    console.log(response.data);
-                    article = response.data;
-                    that.title = article.title;
-                    that.keyword = article.keyword;
-                    console.log(article.keyword);
-                    that.abstract = article.abstract;
-                    that.href = article.href;
-                })               
-                .catch(function (error) { // 请求失败处理
-                    console.log(error);
-                });
-            },
-            back:function(){
-                window.location.href = "article.html";
-            },
-            likeArticle:function(){
-                var that = this;
-                
-                var userId = localStorage.getItem('userid');
-                //alert(data2);
-                axios
-                .post('http://127.0.0.1:5000/collection',
-                {
-                    "user_id":userId,
-                    "paper_id":this.numberid
-                })
-                .then(function (response) {
-                    console.log(response.data);
-                    alert('收藏成功！');
-                   // if(response.data)
-                })               
-                .catch(function (error) { // 请求失败处理
-                    console.log(error);
-                });
-            }
             
             }
         })
