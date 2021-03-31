@@ -7,11 +7,20 @@
   >
     <a-list :data-source="data" size=large itemLayout="vertical" >
       <a-list-item slot="renderItem" slot-scope="item">
-        <a-list-item-meta :description="item.email">
-          <a slot="title" :href="item.link">{{ item.title }}</a>
-        </a-list-item-meta>
-            <p>{{item.magazine}} in {{item.publication_year}}</p>
-        <div>{{item.abstract}}</div>
+            <div style="display:flex;">
+              <div>
+              <a-list-item-meta :description="item.magazine">
+                <a slot="title" :href="item.link">{{ item.title }}</a>
+              </a-list-item-meta>
+              <p>{{item.publication_year}}</p>
+              <div>{{item.abstract}}</div>
+            </div>
+              <div >
+                <a-button  type="danger" @click="deletePaper(item.paper_id)">
+                    删除
+                </a-button>
+              </div>
+            </div>
       </a-list-item>
       <div v-if="loading && !busy" class="demo-loading-container">
         <a-spin />
@@ -32,6 +41,7 @@ export default {
   data() {
     return {
       data: [],
+      paper_id:"",
       loading: false,
       busy: false,
     };
@@ -43,7 +53,7 @@ export default {
   },
   methods: {
     fetchData(callback) {
-        console.log(dataUrl)
+      console.log(key);
       reqwest({
         url: dataUrl,
         type: 'json',
@@ -68,6 +78,24 @@ export default {
       this.fetchData(res => {
         this.data = this.data.concat(res);
         this.loading = false;
+      });
+    },
+    deletePaper (value){
+      reqwest({
+        url: dataUrl,
+        type: 'json',
+        method: 'post',
+        data: {
+          "token": token,
+          "paper_id": value
+        },
+        contentType: 'application/json',
+        success: res => {
+          pageNum++;
+          dataUrl = 'http://47.98.152.179:5000/xjbs/api/v1/paper/delete';
+          callback(res.data);
+          alert(删除成功);
+        },
       });
     },
   },

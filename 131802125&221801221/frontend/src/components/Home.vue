@@ -11,6 +11,7 @@
         <br /><br />
         <a-alert type="error" message="搜索失败" banner v-if="invalid" />
         <a-input-search placeholder="点此搜索" style="width: 400px" @search="onSearch" />
+            
     </div>
 </template>
 
@@ -30,15 +31,20 @@ export default {
         onSearch(key) {
             request.search({
                 key,
-                token: localStorage.getItem("token"),
-                page: 1})
+                token: localStorage.getItem("token")})
             .then((res)=>{
                 if(res.code != 200) {
                     that.invalid = true;
                 }
                 else {
-                    localStorage.setItem(key + "1",res.data)
-                    console.log(res.data)
+                    var token = localStorage.getItem("token");
+                    var username = localStorage.getItem("username");
+                    localStorage.clear();
+                    localStorage.setItem("token",token);
+                    localStorage.setItem("username",username);
+                    localStorage.setItem("key",key);
+                    localStorage.setItem("maxPage",res.data / 10);
+                    this.$router.push("/display/paper");
                 }
             })
         }
