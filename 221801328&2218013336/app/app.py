@@ -510,5 +510,38 @@ def analyword():
     )
 
 
+@app.route('/analyword',methods=['GET'])
+def analyword():
+    date = ['2015','2016','2017','2018','2019','2020']
+    names = ["ICCV","ECCV","CVPR"]
+    series = [
+        {
+            "name":"ICCV",
+            "type":"line",
+            "stack":"总量",
+            "data":[0,534,0,620,0,1034]
+        },
+        {
+            "name": "ECCV",
+            "type": "line",
+            "stack": "总量",
+            "data": [0,1354,0,1555,0,2500]
+        },
+        {
+            "name": "CVPR",
+            "type": "line",
+            "stack": "总量",
+            "data": [0,0,782,0,2205,3200]
+        }
+    ]
+
+    return jsonify(
+        {
+            "date":date,
+            "series":series,
+            "names":names
+        }
+    )
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -137,59 +137,9 @@
             el:"#main",
             data: {
                 message: "2021",
-                names: ["ICCV",
-                        "ECCV",
-                        "CVPR"],
-                date: [
-                        "2015",
-                        "2016",
-                        "2017",
-                        "2018",
-                        "2019",
-                        "2020"
-                    ],
-                series: [
-                    {
-                        "data": [
-                            0,
-                            534,
-                            0,
-                            620,
-                            0,
-                            1034
-                        ],
-                        "name": "ICCV",
-                        "stack": "总量",
-                        "type": "line"
-                    },
-                    {
-                        "data": [
-                            0,
-                            1354,
-                            0,
-                            1555,
-                            0,
-                            2500
-                        ],
-                        "name": "ECCV",
-                        "stack": "总量",
-                        "type": "line"
-                    },
-                    {
-                        "data": [
-                            0,
-                            0,
-                            782,
-                            0,
-                            2205,
-                            3200
-                        ],
-                        "name": "CVPR",
-                        "stack": "总量",
-                        "type": "line"
-                    }
-                ]
-                
+                names: [],
+                date: [],
+                series: []
             },
             mounted(){
                 this.initChart();
@@ -206,15 +156,15 @@
                 var that = this;
 
                 axios
-                .post('http://127.0.0.1:5000/keyword')//这里换一下
+                .get('http://127.0.0.1:5000/analyword')//这里换一下
                 .then(function (response) {
                     
                     console.log('hihi');
                     console.log(response.data);
-                    that.hotwords = response.data.data;
-                    that.names = 
-                    that.date = 
-                    that.series = 
+                    //that.hotwords = response.data.data;
+                    that.names = response.data.names;
+                    that.date = response.data.date;
+                    that.series = response.data.series;
                     that.drawChart();
                 })
                 .catch(function (error) { // 请求失败处理
