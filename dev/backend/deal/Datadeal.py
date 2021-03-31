@@ -6,7 +6,7 @@ from spide.spfile import Spider
 
 class DataBase(object):
     def __init__(self):
-        self.db = pymysql.connect(host="localhost",user="root",password="123456",db="spider",port=3306)
+        self.db = pymysql.connect(host="localhost",user="root",password="Fxn03166",db="spider",port=3306)
 
     def ShowIndex(self,page):
         self.db.ping(reconnect=True)
@@ -40,39 +40,37 @@ class DataBase(object):
         offset = (page - 1)*10
         if title != "":
             if status != 0:
-                sql = "SELECT title,id,meeting,author,link FROM article WHERE title=%s and meeting=%s "
-                cursor.execute(sql, (title, status))
+                sql = "SELECT title,id,meeting,author,link FROM article WHERE title like %s and meeting=%s "
+                cursor.execute(sql, ('%'+title+'%', status))
             else:
-                sql = "SELECT title,id,meeting,author,link FROM article WHERE title=%s "
-                cursor.execute(sql,(title))
-            result = cursor.fetchone()
+                sql = "SELECT title,id,meeting,author,link FROM article WHERE title like %s "
+                cursor.execute(sql,('%'+title+'%'))
+            result = cursor.fetchall()
             if result is not None:
-                sql = "SELECT keyword FROM k_a WHERE article=%s "
-                cursor.execute(sql,title)
-                key = cursor.fetchall()
-                keyword = []
-                for i in key:
-                    keyword.append(i[0])
-                data = {
-                    "error":0,
-                    "total":1,
-                    "result":[
-                        {
-                            "id":result[1],
-                            "title":result[0],
-                            "link":result[4],
-                            "keyword":keyword,
-                            "meeting":result[2],
-                            "author":result[3]
-                        }
-                    ]
-                }
+                dax = []
+                for res in result[offset:offset+limit]:
+                    sql = "SELECT keyword FROM k_a WHERE article=%s "
+                    cursor.execute(sql,res[0])
+                    key = cursor.fetchall()
+                    keyword = []
+                    for i in key:
+                        keyword.append(i[0])
+                    da = {
+                        "id":res[1],
+                        "title":res[0],
+                        "link":res[4],
+                        "keyword":keyword,
+                        "meeting":res[2],
+                        "author":res[3]
+                    }
+                    dax.append(da)
             else:
-                data = {
-                    "error":0,
-                    "total":0,
-                    "result":[]
-                }
+                dax = []
+            data = {
+                "error": 0,
+                "total": len(result),
+                "result": dax
+            }
         else:
             titleset = set()
             for key in keywords:
@@ -297,6 +295,7 @@ class DataBase(object):
         self.db.ping(reconnect=True)
         cursor = self.db.cursor()
         start = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        time.sleep(2)
         sql = "INSERT INTO task (datetime) VALUES (%s) "
         cursor.execute(sql,start)
         self.db.commit()
@@ -406,7 +405,6 @@ class DataBase(object):
 
 
 
-
 if __name__ == "__main__":
     d = DataBase()
     #print(d.TitleTip("3"))
@@ -424,4 +422,6 @@ if __name__ == "__main__":
     #print(d.test())
     #print(d.find())
     #print(d.ShowIndex(1))
-    print(d.Spider([9]))
+    #print(d.Spider([9]))
+    #print(d.DeleteTask([8,9]))
+    #print(d.I())
