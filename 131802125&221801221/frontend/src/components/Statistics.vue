@@ -2,11 +2,12 @@
     <div id="container"></div>
 </template>
 <script>
-import { WordCloud } from '@antv/g2plot';
+import { WordCloud ,Plot} from '@antv/g2plot';
 export default {
     mounted() {
-    this.fetchData();
-  },
+        this.fetchData();
+    },
+    
     methods: {
         fetchData() {
             fetch('http://47.98.152.179:5000/xjbs/api/v1/keyword/top10?token=' + localStorage.getItem("token"))
@@ -20,7 +21,7 @@ export default {
                     colorField: 'keyword',
                     wordStyle: {
                         fontFamily: 'Verdana',
-                        fontSize: [8, 32],
+                        fontSize: [12, 48],
                         rotation: 0,
                     },
                 // 返回值设置成一个 [0, 1) 区间内的值，
@@ -28,6 +29,10 @@ export default {
                 random: () => 0.5,
                 });
                 wordCloud.render();
+                const plot = new Plot();
+                plot.on('label:click',(...args) => {
+                    window.location.href="www.baidu.com"
+                });
             });
         },
     },

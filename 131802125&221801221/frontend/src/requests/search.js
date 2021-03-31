@@ -4,7 +4,7 @@ let root = "/xjbs/api/v1/paper/"
 
 const request = {
     search: async(data) => {
-        let url = root + 'search';
+        let url = root + 'paperNum';
         console.log(url)
         console.log({"get req": data});
         return await axios_get(url,data);
