@@ -27,7 +27,6 @@ def create_token(user_id):
     token = s.dumps({"id": user_id}).decode("ascii")
     return token
 
-
 def verify_token(token):
     '''
     校验token
@@ -45,7 +44,6 @@ def verify_token(token):
     # 拿到转换后的数据，根据模型类去数据库查询用户信息
     user = User.query.get(data["id"])
     return user
-
 
 def login_required(view_func):
     @functools.wraps(view_func)
@@ -297,6 +295,7 @@ def index():
 
 
 @blue.route('/paper/getList')
+@login_required
 def paper_getlist():
     k_content = request.args.get("keyword")
     page = request.args.get("currentPage")
@@ -396,6 +395,17 @@ def favorite_create():
     return jsonify(code=200, msg="创建成功", data={})
 
 
+@blue.route('/favorites/deletePaper')
+@login_required
+def favorite_deletePaper():
+    rel = request.get_json()
+    f_id = rel['favorite_id']
+    p_id = rel['paper_id']
+    ptof = db.session.query(PaperToFavorite).filter({PaperToFavorite.favorite_id==f_id,PaperToFavorite.paper_id==p_id}).all()
+    db.session.delete(ptof)
+    db.session.commit()
+    return jsonify(code=200, msg="删除成功", data={})
+
 @blue.route('/data/getTopTen')
 def get_top_ten():
     topten_id = KeywordToConference.getTopTen()
@@ -435,31 +445,36 @@ def getPaperSource():
 # def getWordsTrend():
 #     limit
 
-@blue.route('data/getWordsTrend')
-def getWordsTrend():
-    limit = request.args.get('limit')
-    beg = request.args.get('beg')
-    end = request.args.get('end')
-    name = request.args.get('conference')
-    conference = db.session.query(Conference).filter(Conference.name == name).first()
-    c_id = 5
-    if conference:
-        c_id = conference.conference_id
-    if end < beg:
-        return jsonify(code=400, msg="年份错误", data={})
+@blue.route('/data/getKeywordsGraph')
+def getGraph():
+    k_content = request.args.get("keyword")
+    kwds = db.session.query(Keyword).filter(Keyword.content.like('%' + k_content + '%')).all()
+    wordsList=[]
 
-    words_list=[]
-    # 单个会议
-    year = beg
-    if c_id != 5:
-        kwd=dict()
-        while year <= end:
-            papers=db.session.query(Paper).filter(Paper.time==year,Paper.conference_id==c_id).all()
-            for paper in papers:
-                ktops=db.session.query(KeywordToPaper).filter(KeywordToPaper.paper_id==paper.paper_id).all()
-                for ktop in ktops:
-                    if
+    return jsonify(code=200, msg="", data={})
 
-            year += 1
-    return jsonify(code=200, msg="统计成功", data={})
-    pass
+# limit = request.args.get('limit')
+    # beg = request.args.get('beg')
+    # end = request.args.get('end')
+    # name = request.args.get('conference')
+    # conference = db.session.query(Conference).filter(Conference.name == name).first()
+    # c_id = 5
+    # if conference:
+    #     c_id = conference.conference_id
+    # if end < beg:
+    #     return jsonify(code=400, msg="年份错误", data={})
+    #
+    # words_list=[]
+    # # 单个会议
+    # year = beg
+    # if c_id != 5:
+    #     kwd=dict()
+    #     while year <= end:
+    #         papers=db.session.query(Paper).filter(Paper.time==year,Paper.conference_id==c_id).all()
+    #         for paper in papers:
+    #             ktops=db.session.query(KeywordToPaper).filter(KeywordToPaper.paper_id==paper.paper_id).all()
+    #             for ktop in ktops:
+    #                 # if
+    #
+    #         year += 1
+    # return jsonify(code=200, msg="统计成功", data
