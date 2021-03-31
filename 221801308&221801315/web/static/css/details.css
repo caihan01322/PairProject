@@ -23,7 +23,7 @@
 .paper-source {
     width: 90%;
     min-height: 490px;
-    margin: 30px auto;
+    margin: 0px auto;
     background: rgba(255, 255, 255, 0.3);
 }
 .source-item {
@@ -32,6 +32,9 @@
     font-size: 16px;
     font-weight: bold;
     line-height: 30px;
+}
+.people-love{
+    margin-left:5%;
 }
 .key-item {
     margin: 10px 20px;

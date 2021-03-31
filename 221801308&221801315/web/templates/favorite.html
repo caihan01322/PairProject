@@ -36,34 +36,46 @@
         <main>
             <div class="nav-left">
                 <ul class="anothor-menu">
-                    <li class="menu-item"><a href={{url_for("search_view")}} class="nav-href active"><i
-                                class="fa fa-list" aria-hidden="true"></i> <span class="nav-title">论文检索</span></a></li>
+                    <li class="menu-item"><a href={{url_for("search_view")}} class="nav-href"><i class="fa fa-list"
+                                aria-hidden="true"></i> <span class="nav-title">论文检索</span></a></li>
                     <li class="menu-item"><a href={{url_for("hot_keywords_cake")}} class="nav-href"><i
-                                class="fa fa-heart" aria-hidden="true"></i> <span class="nav-title">热词速递</span></a></li>
+                                class="fa fa-pie-chart" aria-hidden="true"></i> <span class="nav-title">热词速递</span></a>
+                    </li>
                     <li class="menu-item"><a href={{url_for("hot_keywords_trend")}} class="nav-href"><i
                                 class="fa fa-line-chart" aria-hidden="true"></i> <span class="nav-title">热词走势</span></a>
+                    </li>
+                    <li class="menu-item"><a href={{url_for("carousel")}} class="nav-href"><i class="fa fa-picture-o"
+                                aria-hidden="true"></i><span class="nav-title">近日热点</span></a>
+                    </li>
+                    <li class="menu-item"><a href={{url_for("favorite_view")}} class="nav-href"><span
+                                class="nav-title active"><i class="fa fa-heart" aria-hidden="true"></i>收藏夹</span></a>
+                    </li>
+                    <li class="menu-item"><a href={{url_for("recycle_view")}} class="nav-href"><i class="fa fa-recycle"
+                                aria-hidden="true"></i><span class="nav-title">回收站</span></a>
                     </li>
                 </ul>
             </div>
             <div class="content">
                 <div class="list">
                     <table class="list-table">
-                    {% for article in pagination.items %}
-                    <tr class="table-item">
-                        <td class="art-title">{{article.title}}</td>
-                        <td class="art-btn"><a href={{url_for("view", title=article.title, pagination_func=pagination_func, page=pagination.page)}} class="item-href"><i class="fa fa-eye font-icon"
-                        aria-hidden="true"></i></a></td>
-                        <td class="art-btn"><a href={{url_for("cancel_favorite", title=article.title, pagination_func=pagination_func, page=pagination.page)}} class="item-href"><i class="fa fa-trash font-icon"
-                                    aria-hidden="true"></i></a></td>
-                    </tr>
-                    {% endfor %}
+                        {% for article in pagination.items %}
+                        <tr class="table-item">
+                            <td class="art-title">{{article.title}}</td>
+                            <td class="art-btn"><a href={{url_for("view", title=article.title,
+                                    pagination_func=pagination_func, page=pagination.page)}} class="item-href"><i
+                                        class="fa fa-eye font-icon" aria-hidden="true"></i></a></td>
+                            <td class="art-btn"><a href={{url_for("cancel_favorite", title=article.title,
+                                    pagination_func=pagination_func, page=pagination.page)}} class="item-href"><i
+                                        class="fa fa-star font-icon" aria-hidden="true"></i></a></td>
+                        </tr>
+                        {% endfor %}
                     </table>
                     <div class="list-foot">
                         <span class="current-page">当前页数：{{pagination.page}}</span>
                         {# 如果存在上一页 #}
                         {% if pagination.has_prev %}
-                        <a href={{url_for(pagination_func, page=pagination.prev_num)}}
-                            class="page-choose"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
+                        <a href={{url_for(pagination_func, page=pagination.prev_num)}} class="page-choose"><i
+                                class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
                         {% endif %}
 
                         {% for i in pagination.iter_pages() %}
@@ -71,8 +83,7 @@
                         {% if i == pagination.page %}
                         {{i}}
                         {% else %}
-                        <a href={{url_for(pagination_func, page=i)}}
-                            class="page-href">{{i}}</a>
+                        <a href={{url_for(pagination_func, page=i)}} class="page-href">{{i}}</a>
                         {% endif %}
                         {% else %}
                         <a href="#" class="page-href">&hellip;</a>
@@ -81,8 +92,8 @@
 
                         {# 如果存在下一页 #}
                         {% if pagination.has_next %}
-                        <a href={{url_for(pagination_func, page=pagination.next_num)}}
-                            class="page-choose"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
+                        <a href={{url_for(pagination_func, page=pagination.next_num)}} class="page-choose"><i
+                                class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
                         {% endif %}
                     </div>
                 </div>
@@ -91,7 +102,7 @@
                 {% if messages %}
                 <script>
                     var messages = {{ messages | safe }};
-                    for (var i=0; i<messages.length; i++) {
+                    for (var i = 0; i < messages.length; i++) {
                         alert(messages[i]);
                     }
                 </script>

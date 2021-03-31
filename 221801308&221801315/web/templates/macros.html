@@ -4,12 +4,15 @@
         {% for article in pagination.items %}
         <tr class="table-item">
             <td class="art-title">{{article.title}}</td>
-            <td class="art-btn"><a href={{url_for("view", title=article.title, pagination_func=pagination_func, page=pagination.page, condition=condition, search_way=search_way)}} class="item-href"><i class="fa fa-eye font-icon"
-                        aria-hidden="true"></i></a></td>
-            <td class="art-btn"><a href={{url_for("favorite", title=article.title, pagination_func=pagination_func, page=pagination.page, condition=condition, search_way=search_way)}} class="item-href"><i class="fa fa-eye font-icon"
-                        aria-hidden="true"></i>收藏</a></td>
-            <td class="art-btn"><a href={{url_for("delete", title=article.title, pagination_func=pagination_func, page=pagination.page, condition=condition, search_way=search_way)}} class="item-href"><i class="fa fa-trash font-icon"
-                        aria-hidden="true"></i></a></td>
+            <td class="art-btn"><a href={{url_for("view", title=article.title, pagination_func=pagination_func,
+                    page=pagination.page, condition=condition, search_way=search_way)}} class="item-href"><i
+                        class="fa fa-eye font-icon" aria-hidden="true"></i></a></td>
+            <td class="art-btn"><a href={{url_for("favorite", title=article.title, pagination_func=pagination_func,
+                    page=pagination.page, condition=condition, search_way=search_way)}} class="item-href"><i
+                        class="fa fa-star-o font-icon" aria-hidden="true" id="favorite"></i></a></td>
+            <td class="art-btn"><a href={{url_for("delete", title=article.title, pagination_func=pagination_func,
+                    page=pagination.page, condition=condition, search_way=search_way)}} class="item-href"><i
+                        class="fa fa-trash font-icon" aria-hidden="true"></i></a></td>
         </tr>
         {% endfor %}
     </table>
@@ -46,7 +49,7 @@
 {% if messages %}
 <script>
     var messages = {{ messages | safe }};
-    for (var i=0; i<messages.length; i++) {
+    for (var i = 0; i < messages.length; i++) {
         alert(messages[i]);
     }
 </script>
