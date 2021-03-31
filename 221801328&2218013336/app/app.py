@@ -335,6 +335,7 @@ def paper_search_title():
         'data': Infos
     })
 
+
 #论文删除
 # {
 #     "numberid":"",
@@ -475,6 +476,8 @@ def personal():
         'telephone':username.telephone,
         'data': Infos
     })
+
+
 #图表分析
 @app.route('/analyword',methods=['GET'])
 def analyword():
@@ -542,6 +545,7 @@ def analyword():
             "names":names
         }
     )
+
 
 if __name__ == '__main__':
     app.run(debug=True)
