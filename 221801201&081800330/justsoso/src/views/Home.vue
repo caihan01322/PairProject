@@ -40,7 +40,8 @@
 
     <SearchList v-if="currentTab===1"
                  :searchWord="searchWord" :searchInput="searchInput"/>
-    <statisticList v-if="currentTab===2"/>
+    <statisticList v-if="currentTab===2"
+                   :searchInput="searchInput"/>
     <CollectionList v-if="currentTab===3"
                  :searchInput="searchInput"/>
 
@@ -200,7 +201,12 @@ a, a:link, a:visited, a:focus {
 }
 
 #search_div_home {
-  margin-top: 10px;
+  //margin-top: 10px;
+  position: fixed;
+  top: 40px;
+  z-index: 100;
+  width: 65%;
+  filter:drop-shadow( 5px 5px 5px rgba(25, 25, 25, .25));
 }
 
 #search_input_home {

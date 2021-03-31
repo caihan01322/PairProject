@@ -6,6 +6,7 @@
             id="wordcloud"
             :data="top40Data"
             nameKey="name"
+            :color="wordCloudColor"
             valueKey="value"
             :fontsize='[0,100]'
             fontScale="n"
@@ -44,9 +45,36 @@ export default {
     wordcloud,
     SearchList
   },
+  props:{
+    searchInput:{},
+  },
   data(){
     return {
-      searchInput:'',
+      wordCloudColor:[
+        "#c12e34",
+        "#e6b600",
+        "#0098d9",
+        "#2b821d",
+        "#005eaa",
+        "#339ca8",
+        "#cda819",
+        "#32a487",
+        "#c1232b",
+        "#27727b",
+        "#fcce10",
+        "#e87c25",
+        "#b5c334",
+        "#fe8463",
+        "#9bca63",
+        "#fad860",
+        "#f3a43b",
+        "#60c0dd",
+        "#d7504b",
+        "#c6e579",
+        "#f4e001",
+        "#f0805a",
+        "#26c0c0"
+      ],
       top40Data:[],
       top10LegendData:[],
       top10Data:[],
@@ -199,7 +227,23 @@ export default {
 
           },
           data:this.top10Data,
-          color:['#7EC0EE','#FF9F7F','#FFD700','#C9C9C9','#E066FF','#C0FF3E','#BDA29A','#C23531'],
+          color:[
+            "#c1232b",
+            "#27727b",
+            "#fcce10",
+            "#e87c25",
+            "#b5c334",
+            "#fe8463",
+            "#9bca63",
+            "#fad860",
+            "#f3a43b",
+            "#60c0dd",
+            "#d7504b",
+            "#c6e579",
+            "#f4e001",
+            "#f0805a",
+            "#26c0c0"
+          ],
           label:{
             normal:{
               textStyle:{
@@ -260,7 +304,7 @@ export default {
         xAxis:[
           {
             type:'category',
-            data:['2014','2015','2016','2017','2018','2019','2020']
+            data:['2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020']
           }
         ],
         yAxis:[

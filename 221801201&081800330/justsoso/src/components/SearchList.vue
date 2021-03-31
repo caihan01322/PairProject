@@ -170,6 +170,7 @@ export default {
           message:'没有更多了',
           type:'warning'
         });
+        loading.close()
       }
 
     }
