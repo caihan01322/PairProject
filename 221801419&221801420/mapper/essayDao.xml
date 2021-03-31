@@ -85,4 +85,29 @@ select * from essay_iccv where meeting in (select essaytype from collect where n
 union all
 select * from essay_cvpr where meeting in (select essaytype from collect where name =#{user}) and id in (select essaynum from collect where name =#{user}) and title like concat('%','${title}','%');
 </select>
+
+<select id="selectCheckCVPR" resultType="Integer">
+select count(*) from collect where name=#{user} and essaytype='cvpr' and essaynum in (select id from essay_cvpr where title=#{title});
+</select>
+<select id="selectCheckECCV" resultType="Integer">
+select count(*) from collect where name=#{user} and essaytype='eccv' and essaynum in (select id from essay_eccv where title=#{title});
+</select>
+<select id="selectCheckICCV" resultType="Integer">
+select count(*) from collect where name=#{user} and essaytype='iccv' and essaynum in (select id from essay_iccv where title=#{title});
+</select>
+
+<select id="essayAllSelect" resultType="Entity.Essay">
+select * from essay_cvpr where (id in (select essaynum from collect where name = #{user} and essaytype="cvpr"))
+union all
+select * from essay_eccv where (id in (select essaynum from collect where name = #{user} and essaytype="eccv"))
+union all
+select * from essay_iccv where (id in (select essaynum from collect where name = #{user} and essaytype="iccv"));
+</select>
+<select id="getAllKeywords" resultType="Entity.Keywords">
+select keywords from essay_cvpr where keywords != ''
+union all
+select keywords from essay_eccv where keywords != ''
+union all
+select keywords from essay_iccv where keywords != ''
+</select>
 </mapper>

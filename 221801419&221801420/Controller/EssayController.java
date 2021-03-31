@@ -153,4 +153,35 @@ public class EssayController {
 
         return titles;
     }
+    
+    /*
+     * 检查论文是否被该用户收藏
+     */
+    @RequestMapping("/selectCheck")
+    @ResponseBody
+    public boolean selectCheck(String username,String essayName,String essayMeeting) {
+        
+        
+        
+        return essayService.selectCheck(username, essayMeeting, essayName);
+    }
+    
+  /*
+   * 返回用户收藏的论文列表
+   */
+    @RequestMapping("/userSelect")
+    @ResponseBody
+    public List<Essay> essayAllSelect (String username){
+        EssayDaoImpl e = new EssayDaoImpl();
+        return e.essayAllSelect(username);
+    }
+    
+    /*
+     * 获取所有关键词排行
+     */
+   @RequestMapping("/getAllWords")
+   @ResponseBody
+   public List<Keywords> getAllKeywords(){
+       return essayService.getAllKeywords();
+   }
 }

@@ -93,5 +93,27 @@ public class EssayDaoImpl implements essayDao {
     public List<Essay> labelSearchByTitle(String title,String user) {
         return e.labelSearchByTitle(title,user);
     }
+    @Override
+    public int selectCheckCVPR(String essayName, String username) {
+
+        return e.selectCheckCVPR(essayName, username);
+    }
+    @Override
+    public int selectCheckECCV(String essayName, String username) {
+        
+        return e.selectCheckECCV(essayName, username);
+    }
+    @Override
+    public int selectCheckICCV(String essayName, String username) {
+        return e.selectCheckICCV(essayName, username);
+    }
+    public ArrayList<Essay> essayAllSelect(String username){
+        return e.essayAllSelect(username);
+    }
+
+    public ArrayList<Keywords> getAllKeywords() {
+
+        return e.getAllKeywords();
+    }
     
 }

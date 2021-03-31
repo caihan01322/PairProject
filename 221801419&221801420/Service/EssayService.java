@@ -117,4 +117,66 @@ public class EssayService {
        return essays;
    }
    
+   //论文收藏检查
+   public static boolean selectCheck(String username,String essayMeeting,String essayName) {
+       int index=0;
+       boolean flag =false;
+       switch (essayMeeting) {
+           case "cvpr":
+               index = e.selectCheckCVPR(essayName, username);
+               break;
+           case "eccv":
+               index=e.selectCheckECCV(essayName, username);
+               break;
+           case "iccv":
+               index=e.selectCheckICCV(essayName, username);
+               break;
+           default:
+               index=0;
+               break;
+       }
+       System.out.println(index);
+       if (index != 0) {
+           flag = true;
+       }
+       return flag;
+   }
+   
+   //获取全部出现的关键词的top10
+   public static ArrayList<Keywords> getAllKeywords(){
+       ArrayList<Keywords> k = new ArrayList<>();
+       k = e.getAllKeywords();
+       String str = "";
+       for (int i = 0;i<k.size();i++) {
+           str = str + k.get(i).getKeywords();
+       }
+       //引用wordcount代码稍加修改
+       Map<String,Integer> wordsMap = new TreeMap<>();
+       String ragex = "([A-Za-z]+(\\s)*)+";
+       Pattern p = Pattern.compile(ragex);
+       Matcher m = p.matcher(str);
+       while (m.find()) {
+            String s = m.group();
+            if (wordsMap.containsKey(s)) {
+                int num = wordsMap.get(s);
+                wordsMap.put(s, num + 1);
+            }else {
+                wordsMap.put(s, 1);
+            }
+        }
+        List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(wordsMap.entrySet()); 
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {  
+            public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {  
+                return o2.getValue().compareTo(o1.getValue());  
+            }  
+        });    
+        ArrayList<Keywords> temp = new ArrayList<>();
+        for (int i = 0;i < 10&&i<list.size();i ++) {
+            Keywords key = new Keywords();
+            key.setFrequency(list.get(i).getValue());
+            key.setKeywords(list.get(i).getKey());
+            temp.add(key);
+        }
+       return temp;
+   }
 }
