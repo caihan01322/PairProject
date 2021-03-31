@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserService userService = new UserService() ;
 
     @PostMapping("/login")
     public String login(@RequestBody User user){

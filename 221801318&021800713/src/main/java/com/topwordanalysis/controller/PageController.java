@@ -32,14 +32,14 @@ public class PageController {
         return "register";
     }
 
-    @RequestMapping("/keywords")
+    @RequestMapping("/keyword")
     public String keywords(){
         return "keywords";
     }
 
     @RequestMapping("/paperlist")
     public String paperlist(){
-        return "paperlist";
+        return "paperList";
     }
 
     @RequestMapping("/analyse")
