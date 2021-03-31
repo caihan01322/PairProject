@@ -104,8 +104,8 @@
             <!-- 内容三 -->
             <span class="demonstration">默认 Hover 指示器触发</span>
             <el-carousel height="500px">
-              <el-carousel-item v-for="item in 4" :key="item">
-                <h3 class="small">{{ item }}</h3>
+              <el-carousel-item v-for="(img, index) in imgList" :key="index">
+                <img :src="img.url" width="100%" height="100%">
               </el-carousel-item>
             </el-carousel>
           </div>
@@ -171,45 +171,45 @@ export default {
         doilink: 'fsafjnafjfda',
         kwds: 'fjalfhjalffa',
         abstract: 'uiorhtwetnwo'
-      },{
+      }, {
         title: 'fhajsf',
         articlenumber: 'dsfajla',
         doilink: 'fsafjnafjfda',
         kwds: 'fjalfhjalffa',
         abstract: 'uiorhtwetnwo'
-      },{
+      }, {
         title: 'fhajsf',
         articlenumber: 'dsfajla',
         doilink: 'fsafjnafjfda',
         kwds: 'fjalfhjalffa',
         abstract: 'uiorhtwetnwo'
-      },{
+      }, {
         title: 'fhajsf',
         articlenumber: 'dsfajla',
         doilink: 'fsafjnafjfda',
         kwds: 'fjalfhjalffa',
         abstract: 'uiorhtwetnwo'
-      },{
+      }, {
         title: 'fhajsf',
         articlenumber: 'dsfajla',
         doilink: 'fsafjnafjfda',
         kwds: 'fjalfhjalffa',
         abstract: 'uiorhtwetnwo'
-      },{
+      }, {
         title: 'fhajsf',
         articlenumber: 'dsfajla',
         doilink: 'fsafjnafjfda',
         kwds: 'fjalfhjalffa',
         abstract: 'uiorhtwetnwo'
-      },{
+      }, {
         title: 'fhajsf',
         articlenumber: 'dsfajla',
         doilink: 'fsafjnafjfda',
         kwds: 'fjalfhjalffa',
         abstract: 'uiorhtwetnwo'
       }],
-      pageSize:7,
-      currentPage:1,
+      pageSize: 7,
+      currentPage: 1,
       options: [{
         value: '选项1',
         label: '论文标题'
@@ -253,11 +253,25 @@ export default {
         label: '其他'
       }],
       value1: '选项1',
-      value2: '选项1'
+      value2: '选项1',
+      imgList: [
+     {
+        url: require('@/assets/ICCV.png')
+     },
+     {
+        url: require('@/assets/ECCV.png')
+     },
+     {
+        url: require('@/assets/CVPR.png')
+     }
+    //  {
+    //     url:require('@/assets/sea.jpg')
+    //  }
+    ]
     }
   },
-  methods:{
-    page(currentPage){
+  methods: {
+    page (currentPage) {
       alert(currentPage)
     }
   }
