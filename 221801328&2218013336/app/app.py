@@ -376,7 +376,7 @@ def WordCount():
     # keyword = db.session.query(KeyWord.keyword, func.count(KeyWord.id)).group_by(KeyWord.keyword).all()
     Infos = []
     m = 0
-    keyword = db.session.execute('select keyword , count(*) as groupcount from keywords group by keyword').fetchall()
+    keyword = db.session.execute('select keyword , count(*) as groupcount from keywords group by keyword order by count(*) desc').fetchall()
     for i in keyword:
         Infos.append({"name":i.keyword,"value":i.groupcount})
         m+=1
