@@ -1,12 +1,13 @@
 from flask import Blueprint, session, request, url_for
 from flask_dropzone import random_filename
-
+from werkzeug.utils import secure_filename
 from Team_work.app import db
-from Team_work.globals.models import User, Note, User_article
+from Team_work.globals.models import User, Note, User_article, Meeting_article
 from Team_work.globals.responses import Responses
 from Team_work.globals.utils import responseBody, responseError, generate_token, responseSuccess, token_check_required
 import base64
 import datetime
+import random
 
 # 处理用户认证的蓝图
 auth = Blueprint("auth", __name__, url_prefix="/auth")
@@ -18,44 +19,54 @@ def login():
     data = request.get_json()
     account = data.get("account")
     password = data.get("password")
-    user = User.query.filter_by(account=account).first()
-    # 用户不存在
-    if not user:
-        return responseError(Responses.NO_USER_FOUND)
-    # 密码错误
-    if not user.check_password(password):
-        return responseError(Responses.INCORRECT_PASSWORD)
-    # 生成token
-    token = generate_token(user_id=user.id)
-    session["token"] = token
-    session["user_id"] = user.id
-    # 获取用户头像路径
-    user_avatar = "default.jpg"
-    if user.avatar != "default":
-        user_avatar = user.avatar
-    avatar_path = url_for('static', filename="avatars/%s" % user_avatar)
-    # 用户账号，姓名，当前时间
-    account = user.account
-    username = user.username
-    date = datetime.datetime.now()
-    # 保存登录时间
-    session["login_date"] = date
-    # 获取加入天数
-    day = date.day - user.create_time.day
-    # 获得头像base64编码
-    with open(avatar_path, 'rb') as f:
-        stream = base64.b64encode(f.read())
-        avatar_base64_str = str(stream, encoding='utf-8')
-        # 返回数据
+    try:
+        user = User.query.filter_by(account=account).first()
+        # 用户不存在
+        if not user:
+            return responseError(Responses.NO_USER_FOUND)
+        # 密码错误
+        if not user.password == password:
+            print(user.password)
+            print(password)
+            return responseError(Responses.INCORRECT_PASSWORD)
+        # 生成token
+        token = generate_token(user_id=user.id)
+        session["token"] = token
+        session["user_id"] = user.id
+        # 获取用户头像路径
+        user_avatar = "default.jpg"
+        # if user.avatar != "default":
+        #     user_avatar = user.avatar
+        # avatar_path = url_for('static', filename="avatars/%s" % user_avatar)
+        # 用户账号，姓名，当前时间
+        account = user.account
+        username = user.username
+        if(user.gender==True):
+            userGender="男"
+        else:
+            userGender="女"
+        date = datetime.datetime.now()
+        # 保存登录时间
+        session["login_date"] = date
+        # 获取加入天数
+        day = date.day - user.create_time.day
+        # 获得头像base64编码
+        # with open(avatar_path, 'rb') as f:
+        #     stream = base64.b64encode(f.read())
+        #     avatar_base64_str = str(stream, encoding='utf-8')
+            # 返回数据
         response_info = {
-            "avadar": avatar_base64_str,
             "name": username,
-            "userid": account,
+            "userid": user.id,
+            "token":str(token),
             "date": date.strftime("%Y-%m-%d %H:%M:%S"),
-            "token": token,
             "day": day
         }
         return responseBody(data=response_info)
+    except Exception as e:
+        print(e)
+        return responseError(Responses.PARAMETERS_ERROR)
+
 
 @auth.route("/get_userInfo",methods=["POST"])
 def get_userInfo():
@@ -73,7 +84,6 @@ def get_userInfo():
         print(e)
         return responseError(Responses.PARAMETERS_ERROR)
 
-
 #登出
 @auth.route("/logout", methods=["POST"])
 # @token_check_required
@@ -89,7 +99,7 @@ def logout():
         print(e)
         return responseError(Responses.PARAMETERS_ERROR)
 
-#修改除头像外其他信息
+##修改除头像外其他信息
 @auth.route("/update_infos", methods=["POST"])
 #@token_check_required
 def update_infos():
@@ -102,12 +112,16 @@ def update_infos():
         user = User.query.filter_by(id=user_id).first()
 
         user.username = user_list[0]
-        user.set_password(user_list[1])
+        user.password=user_list[1]
         user.mobile = user_list[2]
         user.email = user_list[3]
         user.college = user_list[4]
         user.info = user_list[5]
-        user.gender = user_list[6]
+        if(user_list[6]=="男"):
+            user.gender = True
+        else:
+            user.gender=False
+
         db.session.commit()
 
         return responseSuccess(Responses.OPERATION_SUCCESS)
@@ -167,23 +181,71 @@ def register():
         if user_password != user_repassword:
             return responseError(Responses.NOT_SAME_PASSWORD)
         #验证用户名是否已存在
-        if User.query.filter_by(username=user_name).count() == 0:
+        if User.query.filter_by(username=user_name).count() != 0:
             return responseError(Responses.EXIST_NAME)
         #验证用户账号是否已存在
-        if User.query.filter_by(account=user_account).count() == 0:
+        if User.query.filter_by(account=user_account).count() != 0:
             return responseError(Responses.EXIST_ACCOUNT)
 
-        user=User(account=user_account,username=user_name)
-        User.set_password(password=user_password)
+        user=User(account=user_account,username=user_name,password=user_password)
         db.session.add(user)
         db.session.commit()
+        return responseSuccess(Responses.OPERATION_SUCCESS)
 
     except Exception as e:
         print(e)
         db.session.rollback()
         return responseError(Responses.PARAMETERS_ERROR)
 
-@auth.route("/update_note",methods=["GET"])
+
+@auth.route("/star_article",methods=["POST"])
+def star_article():
+    try:
+        data=request.get_json()
+        user_id=data.get('user_id')
+        article_id=data.get('article_id')
+        Article=Meeting_article.query.filter_by(id=article_id).first()
+        Count=User_article.query.filter_by(user_id=user_id,title=Article.title).count()
+        print(Count)
+        if(Count!=0):
+            return responseError(Responses.EXIST_STAR)
+        userArticle=User_article(create_time=Article.create_time,meeting_name=Article.meeting_name,title=Article.title,
+                                 author=Article.author,abstract=Article.abstract,address=Article.address,
+                                keyword=Article.keyword,user_id=user_id)
+        db.session.add(userArticle)
+        db.session.commit()
+
+        temp=User_article.query.filter_by(author=Article.author,abstract=Article.abstract,
+                                          address=Article.address,user_id=user_id).first()
+        newNote=Note(user_id=user_id,article_id=temp.id)
+        db.session.add(newNote)
+        db.session.commit()
+
+
+        return responseSuccess(Responses.OPERATION_SUCCESS)
+
+
+    except Exception as e:
+        print(e)
+        return responseError(Responses.PARAMETERS_ERROR)
+
+
+@auth.route("/get_note",methods=["POST"])
+def get_note():
+    try:
+        data=request.get_json()
+        user_id=data.get("user_id")
+        article_id=data.get("article_id")
+        note=Note.query.filter_by(user_id=user_id,article_id=article_id).first()
+
+        note_info=note.note
+        return responseBody(data={'note_info':note_info})
+
+    except Exception as e:
+        print(e)
+        return responseError(Responses.PARAMETERS_ERROR)
+
+@auth.route("/update_note",methods=["POST"])
 #@token_check_required
 def update_note():
     try:
@@ -202,7 +264,7 @@ def update_note():
         db.session.rollback()
         return responseError(Responses.PARAMETERS_ERROR)
 
-@auth.route("/del_article",methods=["GET"])
+@auth.route("/del_article",methods=["POST"])
 #@token_check_required
 def del_article():
     try:
@@ -221,21 +283,23 @@ def del_article():
         db.session.rollback()
         return responseError(Responses.PARAMETERS_ERROR)
 
-@auth.route("/upload_file",methods=["POST"])
+@auth.route("/upload_file",methods=["GET","POST"])
 #@token_check_required
 def upload_file():
     try:
-        data=request.get_json()
-        file=data.get("file")
-        title = data.get("title")
-        filename = random_filename(file.filename)
+        data=request.files.get('file')
+        print(data.read())
+        filename = secure_filename(data.filename)
         # 生成文件保存路径
-        save_path = url_for('/static', filename='userupload/' + filename)
+        save_path = url_for('static', filename='userupload/%s' %filename)
         # 保存文件
-        file.save(save_path)
+        data.save(save_path)
+
+        return responseSuccess(Responses.OPERATION_SUCCESS)
     except Exception as e:
         print(e)
         return responseError(Responses.PARAMETERS_ERROR)
+
 
 @auth.route("/get_star",methods=["POST"])
 def get_star():
