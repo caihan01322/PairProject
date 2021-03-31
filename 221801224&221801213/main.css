@@ -1,3 +1,7 @@
+[v-cloak] {
+    display: none;
+}
+
 html {
     background-image: url(./1.jpg);
 }
@@ -265,6 +269,10 @@ html {
     margin-top: 12px;
 }
 
+#resultBar .itemBar {
+    height: 630px;
+}
+
 .resultItem {
     width: 665px;
     height: 185px;
@@ -445,4 +453,10 @@ html {
     color: rgb(255, 255, 255);
     width: 100px;
     margin-left: 5px;
+}
+
+#noResult {
+    padding-top: 100px;
+    text-align: center;
+    color: rgb(255, 255, 255);
 }

@@ -11,6 +11,7 @@ var main = new Vue({
             pageNow: 1,
             userInput: "",
             isShow: false,
+            isShow2: false,
         }
     },
 
@@ -25,18 +26,38 @@ var main = new Vue({
             //搜索时默认从第一页获取
             //向后端发送最新的userInput
             this.pageNow = 1;
-            axios.get("./search.json").then(response => {
-                this.info = response.data.data; //获取论文信息   
-                this.pageNum = Math.ceil(this.info.length / 6); //获取条数
-                this.outputInfo = this.info.slice(0, 6);
+            if (this.userInput != "") //输入不为空
+            {
 
-            });
+                axios.get("./" + this.userInput + ".json")
+                    .then(response => {
+                        if (response.data.data == "") //data为空即搜索无结果
+                        {
+                            this.info = response.data.data; //获取论文信息 
+                            this.pageNow = 0; //获取条数
+                            this.pageNum = 0; //获取条数
+                            this.outputInfo = this.info;
+                            this.isShow = false;
+                            this.isShow2 = true;
+                        } else { //成功
+                            this.info = response.data.data; //获取论文信息   
+                            this.pageNum = Math.ceil(this.info.length / 6); //获取条数
+                            this.outputInfo = this.info.slice(0, 6); //第一页渲染
+                            this.isShow = true; //修改v-show显示结果
+                            this.isShow2 = false;
+                        }
+                    })
 
-            this.isShow = true;
+            } else {
+                alert("？");
+            };
+
+
         },
 
         doSearchingwithHotWord(p) {
-            alert("查询：" + p);
+            this.userInput = p;
+            this.doSearching();
         },
 
         pageUp: function() {
@@ -66,7 +87,7 @@ var main = new Vue({
         },
 
         deleteArticle: function(p) {
-            alert("正在删除" + p);
+            alert("正在删除论文 编号:" + p);
         },
     }
 

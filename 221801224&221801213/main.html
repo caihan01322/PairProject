@@ -3,6 +3,7 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="./main.css">
+    <title>论文查询系统</title>
 </head>
 
 <body>
@@ -29,29 +30,31 @@
                 <button id="buttonSearch" @click="doSearching"><span>查询</span></button>
             </div>
             <div id="resultBar">
-                <div class="resultItem" v-for="item in outputInfo">
-                    <div class="itemHeading">no.{{ item.paper_id }}: {{ item.title }}</div>
-                    <div class="itemContent">{{ item.summary }}</div>
-                    <div class="itemOperation">
-                        <button class="keyWord">关键词</button>
-                        <button class="keyWord">关键词2</button>
-                        <button class="keyWord">关键词3</button>
-                        <a :href="item.link" target="_blank">
-                            <div class="sourceLink">原文链接</div>
-                        </a>
-                        <div class="operation">修改论文</div>
-
-                        <div class="deleteArt" @click="deleteArticle(item.paper_id)">删除论文</div>
-
+                <div class="itemBar">
+                    <div v-cloak id="noResult" v-show="isShow2">
+                        没查到...
+                    </div>
+                    <div v-cloak class="resultItem" v-for="item in outputInfo">
+                        <div class="itemHeading">no.{{ item.paper_id }}: {{ item.title }}</div>
+                        <div class="itemContent">{{ item.summary }}</div>
+                        <div class="itemOperation">
+                            <button class="keyWord">关键词</button>
+                            <button class="keyWord">关键词2</button>
+                            <button class="keyWord">关键词3</button>
+                            <a :href="item.link" target="_blank">
+                                <div class="sourceLink">原文链接</div>
+                            </a>
+                            <div class="operation">修改论文</div>
+                            <div class="deleteArt" @click="deleteArticle(item.paper_id)">删除论文</div>
+                        </div>
                     </div>
                 </div>
-                <div id="pageBar" v-show="isShow">
+                <div v-cloak id="pageBar" v-show="isShow">
                     <button class="pageButtoun" id="prePage" @click="pageUp">上一页</button>
                     <button class="pageButtoun" id="nextPage" @click="pageDown">下一页</button>
                     <span class="pageCount">{{ pageNow }}/{{ pageNum }}</span>
-                    <!-- <input type="button" value="上一页" class="PageButtoun" id="prePage">
-                    <input type="button" value="下一页" class="PageButtoun" id="nextPage"> -->
                 </div>
+
             </div>
 
         </div>
