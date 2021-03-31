@@ -23,7 +23,6 @@
             crossorigin="anonymous"></script>
 
 
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -32,75 +31,84 @@
     <![endif]-->
 
 
-
 </head>
 <body>
 
+<!--nav-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">LOGO</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">论文检索</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/keyword/home">数据分析</a>
+            </li>
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0" method="Get" action="/paper/search/1">
+            <input class="form-control mr-sm-2" type="text" id="title" name="title"
+                   placeholder="请输入论文标题" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜 索</button>
+        </form>
+
+        <ul class="navbar-nav pull-right">
+            <li class="nav-item">
+                <a class="nav-link " href="/user/login">登录</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/user/register">注册</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    昵称
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">个人中心</a>
+                    <a class="dropdown-item" href="#">公告栏</a>
+                    <a class="dropdown-item" href="#">问答中心</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
 <div class="container">
 
-    <!--nav-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">LOGO</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">论文检索</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">数据分析</a>
-                </li>
-            </ul>
-
-            <form class="form-inline my-2 my-lg-0" method="Get" action="/paper/search/list/1">
-                <input class="form-control mr-sm-2" type="text" id="title" name="title"
-                       placeholder="请输入论文标题" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜 索</button>
-            </form>
-
-            <ul class="navbar-nav pull-right">
-                <li class="nav-item">
-                    <a class="nav-link " href="login.html">登录</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="register.html">注册</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        昵称
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">个人中心</a>
-                        <a class="dropdown-item" href="#">公告栏</a>
-                        <a class="dropdown-item" href="#">问答中心</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
 
     <div class="row">
-         <div class="col-md-4 offset-md-5" id="index" style="font-size: larger; font-family: Arial;
+        <div class="col-md-4 offset-md-5" id="index" style="font-size: larger; font-family: Arial;
          margin-top: 70px">
-        Search
-         </div>
+            Search
+        </div>
     </div>
+
+
     <div class="row">
         <div class="col-md-8 md-offset-8" id="content" style="margin: 20px auto">
-            <div class="input-group">
-                <input type="text" class="form-control" onkeydown="onKeyDown(event)"/>
-                <button type="submit" class="btn btn-outline-dark" style="margin-left: 10px">搜 索</button>
-            </div>
+            <form method="Get" action="/paper/search/1">
+                <div class="input-group">
+                    <input type="text" class="form-control" onkeydown="onKeyDown(event)"
+                           placeholder="请输入论文标题" name="title"/>
+                    <button type="submit" class="btn btn-outline-dark" style="margin-left: 10px">搜 索</button>
+                </div>
+            </form>
         </div>
+
     </div>
 
     <script type="text/javascript">
-        function onKeyDown(event){
+        function onKeyDown(event) {
             var e = event || window.event || arguments.callee.caller.arguments[0];
-            if(e && e.keyCode==13){ // enter键进行搜索跳转到爬取结果页面
+            if (e && e.keyCode == 13) { // enter键进行搜索跳转到爬取结果页面
                 alert("显示搜索结果");
             }
         }

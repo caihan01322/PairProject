@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <meta charset="UTF-8">
-<div th:fragment="page_pager(number, offset, totalPages,maxButtons,floatButtons)"><!--定义用于被显示列表页包含-->
+<div th:fragment="page_pager(number, offset, totalPages,maxButtons,floatButtons,url)"><!--定义用于被显示列表页包含-->
     <head>
         <style>
             .page-item {
@@ -36,30 +36,31 @@
 	th:with="maxButtons=10, floatButtons=5"
 	style="float: right;display:inline"class="pl-5 ml-5"
 	 -->
+
     <div th:if="${page.pages>0}" style="float: left">
         <!-- 上一页 -->
         <a th:if="${number == 1}" th:class="page-item"><span>上一页</span></a>
-        <a th:if="${number > 1}" th:href="@{${page.pre}}"
+        <a th:if="${number > 1}" th:href="@{${url}+${page.pre}(title=${param.title},keyword=${param.keyword},pid=${param.pid},sort=${param.sotr})}"
            th:text="上一页" th:class="page-item">
         </a>
 
         <!-- 首页 -->
-        <a th:href="@{1}" th:text="1"
-           th:class="${page.current == 1}? 'page-item active' :'page-item' "></a>
+        <a th:href="@{${url}+${1}(title=${param.title},keyword=${param.keyword},pid=${param.pid},sort=${param.sotr})}"
+           th:text="1" th:class="${page.current == 1}? 'page-item active' :'page-item' "></a>
 
         <th:block th:if="${totalPages>2 && totalPages<=maxButtons}" th:each="i : ${#numbers.sequence(2,totalPages-1)}">
             <!--<a th:if="${number == i}" th:class="page-item active"><span th:text="${i}"></span></a>
             <a th:if="${number != i}" th:href="@{${i}}" th:text="${i}"></a>-->
-            <a th:href="@{${i}}" th:text="${i}"
-               th:class="${page.current == i}? 'page-item active' :'page-item' "></a>
+            <a th:href="@{${url}+${i}(title=${param.title},keyword=${param.keyword},pid=${param.pid},sort=${param.sotr})}"
+               th:text="${i}" th:class="${page.current == i}? 'page-item active' :'page-item' "></a>
         </th:block>
 
         <th:block th:if="${totalPages > maxButtons}">
             <th:block th:if="${(number-(floatButtons/2)) <= 2}" th:each="i : ${#numbers.sequence(2,2+floatButtons-1)}">
                 <!--<a th:if="${number == i}"  class="active"><span th:text="${i}">页码</span></a>
                 <a th:if="${number != i}"><a th:href="@{${i}}" th:text="${i}">页码</a></a>-->
-                <a th:href="@{${i}}" th:text="${i}"
-                   th:class="${page.current == i}? 'page-item active' :'page-item' "></a>
+                <a th:href="@{${url}+${i}(title=${param.title},keyword=${param.keyword},pid=${param.pid},sort=${param.sotr})}"
+                   th:text="${i}" th:class="${page.current == i}? 'page-item active' :'page-item' "></a>
             </th:block>
 
             <!-- ... -->
@@ -70,8 +71,8 @@
                     th:each="i : ${#numbers.sequence(number-(floatButtons/2),number+(floatButtons/2)-(floatButtons%2==0?1:0))}">
                 <!-- <a th:if="${number == i}"  class="active"><span th:text="${i}">页码</span></a>
                  <a th:if="${number != i}"><a th:href="@{${i}}" th:text="${i}">页码</a></a>-->
-                <a th:href="@{${i}}" th:text="${i}"
-                   th:class="${page.current == i}? 'page-item active' :'page-item' "></a>
+                <a th:href="@{${url}+${i}(title=${param.title},keyword=${param.keyword},pid=${param.pid},sort=${param.sotr})}"
+                   th:text="${i}" th:class="${page.current == i}? 'page-item active' :'page-item' "></a>
             </th:block>
 
             <!-- ... -->
@@ -81,8 +82,8 @@
                       th:each="i : ${#numbers.sequence(totalPages-floatButtons,totalPages-1)}">
                 <!--<a th:if="${number == i}"  class="active"><span th:text="${i}">页码</span></a>
                 <a th:if="${number != i}"><a th:href="@{${i}}" th:text="${i}">页码</a></a>-->
-                <a th:href="@{${i}}" th:text="${i}"
-                   th:class="${page.current == i}? 'page-item active' :'page-item' "></a>
+                <a th:href="@{${url}+${i}(title=${param.title},keyword=${param.keyword},pid=${param.pid},sort=${param.sotr})}"
+                   th:text="${i}" th:class="${page.current == i}? 'page-item active' :'page-item' "></a>
             </th:block>
         </th:block>
 
@@ -90,12 +91,12 @@
         <!--<a th:if="${totalPages>1 && number == totalPages}" class="active"><span th:text="${totalPages}">页码</span></a>
         <a th:if="${totalPages>1 && number != totalPages}"><a th:href="@{${page.pages}}" th:text="${totalPages}">页码</a></a>
         -->
-        <a th:href="@{${page.pages}}" th:text="${page.pages}"
-           th:class="${page.current == page.pages}? 'page-item active' :'page-item' "></a>
+        <a th:if="${totalPages>1}" th:href="@{${url}+${page.pages}(title=${param.title},keyword=${param.keyword},pid=${param.pid},sort=${param.sotr})}"
+           th:text="${page.pages}" th:class="${page.current == page.pages}? 'page-item active' :'page-item' "></a>
 
         <!-- 下一页 -->
         <a th:if="${number >= totalPages}" th:class="page-item"><span>下一页</span></a>
-        <a th:if="${number < totalPages}" th:href="@{${page.next}}"
+        <a th:if="${number < totalPages}" th:href="@{${url}+${page.next}(title=${param.title},keyword=${param.keyword},pid=${param.pid},sort=${param.sotr})}"
            th:text="下一页" th:class="page-item">
         </a>
     </div>
