@@ -12,8 +12,7 @@
             <li><a href="user/index">首页</a></li>
             <li><a href="user/thesis/list">论文列表</a></li>
             <li><a href="user/statistics">热门分析</a></li>
-            <li><a href="#">我的收藏</a></li>
-            <li><a href="#">帮助</a></li>
+            <li><a href="user/mylove">我的收藏</a></li>
         </ul>
     </div>
     <!-- 搜索 -->
@@ -29,6 +28,6 @@
     </script>
     <!-- 用户 -->
     <div class="user">
-        <a href="#">注销</a>
+        <a href="user/logout">注销</a>
     </div>
 </div>

@@ -1,14 +1,18 @@
 package com.pair.controller;
 
 import javax.annotation.Resource;
+
+import cn.hutool.db.Session;
 import com.pair.model.role.User;
 import com.pair.service.UserService;
+import com.pair.session.SessionContainer;
 import com.pair.util.DataUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -49,6 +53,9 @@ public class LoginController {
 			User user = userService.login(username, password);
 			if(user != null) {
 				//登陆成功
+				String id = String.valueOf(user.getId());
+				HttpSession session = request.getSession();
+				SessionContainer.loginUsers.put(String.valueOf(id), session);
 				request.getSession().setAttribute("user",user);
 				return "redirect:/user/index";
 			} else{
