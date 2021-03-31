@@ -1,7 +1,4 @@
-import json
-import os
-
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, make_response
 from sqlalchemy import func
 
 from App.models import *
@@ -274,9 +271,9 @@ def user_register():
         db.session.add(user)
         # print(user)
         db.session.commit()
-        return jsonify(code=200, msg="注册成功", data={'token':create_token(user.user_id)})
+        return jsonify(code=200, msg="注册成功", data={'token':create_token(user.user_id),'email':user.email, 'name':user.username})
 
-    return jsonify(code=400, msg="注册失败", data={})
+    return "注册失败",400
 
 
 @blue.route('/user/login', methods=["POST"])
@@ -285,22 +282,51 @@ def user_login():
     # print(res_dir)
     user = db.session.query(User).filter(User.email == res_dir['email'], User.password == res_dir['password']).first()
     if not user:
-        return jsonify(code=400, msg="登录失败", data={})
+        return "登录失败",400
 
-    return jsonify(code=200, msg="登录成功", data={'token':create_token(user.user_id)})
+    return jsonify(code=200, msg="登录成功", data={'token':create_token(user.user_id), 'email':user.email, 'name':user.username})
+
+
+@blue.route('/')
+def index():
+    a= request.args.get('abc')
+    if not a:
+        return "not papr"
+
+    return "success"
 
 
 @blue.route('/paper/getList')
-@login_required
 def paper_getlist():
-    pagenum = 5
-    pass
+    k_content = request.args.get("keyword")
+    page = request.args.get("currentPage")
+    # print(k_content)
+    # 关键词模糊搜索
+    kwds = db.session.query(Keyword).filter(Keyword.content.like('%'+k_content+'%')).all()
+    paperlist=[]
+    Paper.currentNum=0;
+    for kkk in kwds:
+        k_id= kkk.keyword_id
+        paper=dict()
+        ktops = db.session.query(KeywordToPaper).filter(KeywordToPaper.keyword_id == k_id).all()
+        for ktop in ktops:
+            paper=Paper.getPaperDict(ktop.paper_id)
+        # print(paper['title'])
+        paperlist.append(paper)
+        Paper.currentNum+=1;
+        print(Paper.currentNum)
+    Paper.setCache(paperlist)
+    return jsonify(code=200, msg="返回成功", data={'total':len(paperlist), 'paperList':Paper.getPage(0)})
 
 
-@blue.route('/paper/get')
-@login_required
-def paper_get():
-    pass
+@blue.route('/paper/page')
+def paper_getpage():
+    return jsonify(code=200 ,msg="换页成功" ,data={'paperList':Paper.getPage(request.args.get('currentPage'))})
+
+
+@blue.route('/paper/getProcess')
+def paper_getProgress():
+    return jsonify(code=200, msg="", data={'currentFindNums':Paper.currentNum})
 
 
 @blue.route('/favorites/get')
@@ -319,12 +345,14 @@ def favorites_get():
 @blue.route('/favorites/getPaperList')
 @login_required
 def favorites_getpaperlist():
-    favorite_id_list = db.session.query(PaperToFavoriteFavorite).filter(Favorite.user_id==user.user_id).all()
-    dicts=[]
-    for i in favorite_id_list:
-        dic= {'favorite_id':i.favorite_id, 'name':i.name}
-        dicts.append(dic)
-    return jsonify(code=200, msg="获取成功", data={'favorites':dicts})
+    f_id = request.args.get("favorite_id")
+    ptofs = db.session.query(PaperToFavorite).filter(PaperToFavorite.favorite_id==f_id).all()
+    paperlist=[]
+    for ptof in ptofs:
+        paperlist.append(Paper.getPaperDict())
+
+    return jsonify(code=200, msg="获取成功", data={'paperlist':paperlist})
+
 
 @blue.route('/favorites/delete', methods=['POST'])
 @login_required
@@ -376,4 +404,10 @@ def get_top_ten():
         topten.append(content)
     return jsonify(code=200, msg="添加成功", data={'words_list':topten})
 
+
+@blue.route('/data/getPaperSource')
+def getPaperSource():
+    # min=request.args['']
+    return jsonify(code=200, msg="返回成功", data={})
+    # pass
 

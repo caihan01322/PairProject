@@ -25,7 +25,7 @@ def get_db_uri(dbinfo):
 
 
 class Config:
-    DEBUG = True
+    DEBUG = False
 
     TESTING = False
 

@@ -16,9 +16,13 @@ class User(db.Model):
 
 class Conference(db.Model):
     __tablename__ = 'conference'
-
+    conference=['','CVPR','ECCV','ICCV']
     conference_id = Column(Integer, primary_key=True)
     name = Column(String(8), unique=True, nullable=False)
+
+    @staticmethod
+    def getConference(id):
+        return Conference.conference[id]
 
 
 class Paper(db.Model):
@@ -33,7 +37,45 @@ class Paper(db.Model):
     abstract = Column(Text)
     favorite_id = Column(Integer)
     accessionNumber = Column(Integer)
+    cache=[]
+    PAGE_NUM=5
+    currentNum=0
 
+    @staticmethod
+    def setCache(paperlist):
+        Paper.cache=paperlist
+
+    @staticmethod
+    def getPage(page):
+        page=int(page)
+        return Paper.cache[page*Paper.PAGE_NUM:(page+1)*Paper.PAGE_NUM]
+
+    @staticmethod
+    def getPaperDict(p_id):
+        paper = dict()
+        p = db.session.query(Paper).filter(Paper.paper_id == p_id).first()
+        paper['title'] = p.title
+        paper['abstract'] = p.abstract
+        paper['url'] = p.url
+        paper['isbn'] = p.isbn
+        paper['time'] = p.time
+        paper['id'] = str(p.paper_id)
+        paper['conference'] = Conference.getConference(p.conference_id)
+        ptoks = db.session.query(KeywordToPaper).filter(KeywordToPaper.paper_id == p.paper_id).all()
+        keywords = []
+        for ptok in ptoks:
+            keyword = db.session.query(Keyword).filter(Keyword.keyword_id == ptok.keyword_id).first()
+            keywords.append(keyword.content)
+
+        # 作者
+        ptoas = db.session.query(AuthorToPaper).filter(AuthorToPaper.paper_id == p.paper_id).all()
+        authors = []
+        for ptoa in ptoas:
+            author = db.session.query(Author).filter(Author.author_id == ptoa.author_id).first()
+            authors.append(author.name)
+        paper['authors'] = authors
+        paper['keywords'] = keywords
+        return paper
 
 class Favorite(db.Model):
     __tablename__ = 'favorite'
@@ -74,6 +116,7 @@ class KeywordToConference(db.Model):
     @staticmethod
     def getTopTen():
         return [446,1887,6,10708,342,10895,8511,81,3835,476]
+
 
 class KeywordToPaper(db.Model):
     __tablename__ = 'keyword_to_paper'
