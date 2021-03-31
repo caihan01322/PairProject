@@ -194,8 +194,11 @@
     <!--&lt;!&ndash;将分页的页面包含&ndash;&gt;
     <div th:replace="page :: page"></div>-->
     <!-- 第一个参数：页码。第二个参数：偏移量。第三个参数：页的总数量。-->
-    <div class="col-lg-12 col-md-12 col-sm-12"
-         th:replace="page1 :: page_pager(${page.current}, 0, ${page.pages},10,5)"></div>
+   <!-- <div th:text="${'/paper/search/'} + ${2} + ${'?'} + ${#httpServletRequest.getQueryString()}"
+         th:href="@{ ${'/paper/search/'} + ${2} + ${'?'} + ${#httpServletRequest.getQueryString()} }"></div>-->
+    <!--<a th:href="@{'/paper/search/'+${4}+${'?'+ #httpServletRequest.getQueryString()} }" th:text="2333"></a>
+-->
+    <div th:replace="page1 :: page_pager(${page.current}, 0, ${page.pages},10,5)"></div>
 </div>
 
 

@@ -192,7 +192,7 @@ public class PaperController {
      * @return
      */
     //@ResponseBody
-    @GetMapping("/search/list/{pageNum}")
+  /*  @GetMapping("/search/list/{pageNum}")
     public String searchPaper(
             @PathVariable(name = "pageNum") int pageNum,
             @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
@@ -225,7 +225,7 @@ public class PaperController {
         log.info("【查询到数据--title】： " + title);
         return "paperList";
     }
-
+*/
 
     /**
      * 【无分页】
