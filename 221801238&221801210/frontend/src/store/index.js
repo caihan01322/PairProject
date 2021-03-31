@@ -5,8 +5,25 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    user: {
+      name: '',
+      email: '',
+      token: ''
+    },
+    paperList: []
   },
   mutations: {
+    setUserData(state,payload) {
+      localStorage.set('user', JSON.stringify(state,payload))
+      state.user = payload
+    },
+    getUserData(state) {
+      let user = JSON.parse(localStorage.getItem('user'))
+      state.user = user || {}
+    },
+    setPaperList(state,payload) {
+      state.paperList = payload
+    }
   },
   actions: {
   },

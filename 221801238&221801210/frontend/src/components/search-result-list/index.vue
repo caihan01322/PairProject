@@ -1,16 +1,34 @@
 <template>
   <div class="paper_contianer">
     <div v-for="paper in paperList" class="paper_info">
-      <div class="cover"/>
       <div class="paper_detail">
-        <p>{{ paper.title  }}</p>
-        <p>{{ '作者：' + paper.author }}</p>
-        <p>{{ '关键词：' + paper.keywords }}</p>
-        <p>{{ '摘要：' + paper.abstract }}</p>
-        <p>{{ '原文链接：' + paper.url }}</p>
+        <p class="paper_title">{{ paper.title  }}</p>
+        <el-divider />
+        <div class="info_contianer">
+          <el-tag>作者</el-tag>
+          <span class="text">{{ paper.author || '暂无数据' }}</span>
+        </div>
+        <div class="info_contianer">
+          <el-tag>摘要</el-tag>
+          <span class="text">{{  paper.abstract.slice(0,200) + '...' }}</span>
+        </div>
+        <div class="info_contianer">
+          <el-tag>原文链接</el-tag>
+          <span class="text">
+            <a :href=" paper.url " >{{ paper.url }}</a>
+          </span>
+        </div>
+        <div>
+          <el-tag v-for="(word,index) in paper.keywords" class="tag" effect="dark"
+          :type="getTagsColor(index)"
+          >{{ word }}</el-tag>
+        </div>
+        <el-divider />
+        <div class="button_group">
+          <el-checkbox class="collect_button" v-model="collection" :label="paper.id" border v-if=" mode === 'search' ">添加至收藏夹</el-checkbox>
+          <el-button class="collect_button"  v-if=" mode === 'favorite' " type="danger">删除</el-button>
+        </div>
       </div>
-      <el-checkbox class="collect_button" v-model="collection" :label="paper.id" border v-if=" mode === 'search' ">添加至收藏夹</el-checkbox>
-      <el-button class="collect_button"  v-if=" mode === 'favorite' " type="danger">删除</el-button>
     </div>
   </div>
 </template>
@@ -25,22 +43,22 @@ export default {
   },
   data() {
     return {
-      paperList: [],
-      collection: []
+      collection: [],
+      colorType: ['','success','info','danger','warning']
     }
   },
-  mounted() {
-    for (let i = 0; i < 5; i++) {
-      this.paperList.push({
-        id: i,
-        title: '论文标题xxxxxxxxxxxxxxxxx',
-        author: 'xxxxxxx',
-        keywords: 'xxxxxxx',
-        abstract: 'xxxxxxx',
-        url: 'xxxxxxx'
-      })
+  created() {
+    console.log(this.$store.state.paperList)
+  },
+  methods: {
+    getTagsColor(index) {
+      return this.colorType[index % 5]
     }
-
+  },
+  computed: {
+    paperList() {
+      return this.$store.state.paperList
+    }
   }
 }
 </script>
@@ -48,26 +66,28 @@ export default {
 <style lang="scss" scoped>
 
 .paper_contianer {
-  margin-left: 150px;
   margin-top: 10px;
+  margin-left: 80px;
 }
 
 .paper_info {
-  border-bottom: 1px solid rgba(187, 187, 187, 100);
   display: flex;
   align-items: center;
   position: relative;
   width: 850px;
 
-
-  .cover {
-    width: 171px;
-    height: 222px;
-    border: 1px solid black;
-  }
-
   .paper_detail {
     margin-left: 25px;
+
+    .paper_title {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .button_group {
+      display: flex;
+      justify-content: flex-end;
+    }
 
     p {
       color: rgba(16, 16, 16, 100);
@@ -75,12 +95,24 @@ export default {
     }
   }
 
-  .collect_button {
-    position: absolute;
-    bottom: 29px;
-    right: 0;
-    z-index: -1;
-  }
+
 
 }
+
+.tag {
+  margin: 5px
+}
+
+.info_contianer {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  .text {
+    margin-left: 5px;
+  }
+}
+
+
+
+
+
 </style>

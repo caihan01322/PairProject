@@ -4,9 +4,18 @@ import router from './router'
 import store from './store'
 
 //引入element-ui
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI);
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI)
+
+//引入echarts
+import * as echarts from 'echarts'
+Vue.prototype.$echarts = echarts
+
+//引入分离的api接口
+import api from './api'
+Vue.use(api)
+
 
 Vue.config.productionTip = false
 
