@@ -4,12 +4,12 @@ from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
 
-
 # 获取后端实例
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config["SECRET_KEY"] = "this is a secret key"
 app.config['JSON_AS_ASCII'] = False
+
 
 class Config(object):
     """配置参数"""
@@ -35,10 +35,8 @@ class Config(object):
 # 读取配置
 app.config.from_object(Config)
 
-
 # 创建数据库sqlalchemy工具对象
 db = SQLAlchemy(app)
-
 
 # 连接文章和对应的关键词
 article_keyword = db.Table(
@@ -49,6 +47,14 @@ article_keyword = db.Table(
         "keywords.id", ondelete="cascade"))
 )
 
+# 连接回收站文章和对应的关键词
+recycle_keyword = db.Table(
+    "recycle_keyword",
+    db.Column("recycle_id", db.Integer, db.ForeignKey(
+        "recycles.id", ondelete="cascade")),
+    db.Column("keyword_id", db.Integer, db.ForeignKey(
+        "keywords.id", ondelete="cascade"))
+)
 
 # 用户收藏文章，文章被多个用户收藏
 article_user = db.Table(
@@ -73,19 +79,6 @@ class Articles(db.Model):
     keywords = db.relationship(
         "Keywords", secondary=article_keyword, backref=db.backref("articles"))
 
-    def schema(self):
-        keywords = []
-        for keyword in self.keywords:
-            keywords.append(keyword.keyword)
-        return {
-            "meeting": self.meeting,
-            "title": self.title,
-            "publicationYear": self.publicationYear,
-            "abstract": self.abstract,
-            "doiLink": self.doiLink,
-            "keywords": keywords
-        }
-
 
 class Keywords(db.Model):
     # 定义表名
@@ -109,6 +102,29 @@ class Users(db.Model, UserMixin):
         "Articles", secondary="article_user", backref="users")
 
 
+class Recycles(db.Model):
+    # 定义表名
+    __tablename__ = "recycles"
+    # 定义字段
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    meeting = db.Column(db.String(255))
+    title = db.Column(db.String(255))
+    publicationYear = db.Column(db.String(255))
+    abstract = db.Column(db.Text)
+    doiLink = db.Column(db.String(255))
+    keywords = db.relationship(
+        "Keywords", secondary=recycle_keyword, backref=db.backref("recycles"))
+
+    def __init__(self, article):
+        self.id = article.id
+        self.meeting = article.meeting
+        self.title = article.title
+        self.publicationYear = article.publicationYear
+        self.abstract = article.abstract
+        self.doiLink = article.doiLink
+        self.keywords = article.keywords
+
+
 if __name__ == "__main__":
-    db.drop_all()     # 删除所有表
-    db.create_all()    # 创建所有表
+    db.drop_all()  # 删除所有表
+    db.create_all()  # 创建所有表

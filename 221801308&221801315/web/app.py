@@ -281,10 +281,47 @@ def delete():
 
     article = Articles.query.filter(Articles.title == title).first()
 
-    db.session.delete(article)
-    db.session.commit()
-    flash("已删除")
+    recycle = Recycles(article)
+
+    try:
+        db.session.add(recycle)
+        db.session.delete(article)
+        db.session.commit()
+        flash("已删除")
+    except Exception as e:
+        print(e)
+        flash("数据库错误")
     return redirect(url_for(pagination_func, page=page, condition=condition, search_way=search_way))
+
+
+@app.route("/recycle_view", methods=["GET"])
+def recycle_view():
+    page = int(request.args.get("page", 1))
+    pagination = Recycles.query.paginate(page, per_page=PER_PAGE, error_out=False)
+    return render_template("recycle.html", pagination_func="recycle_view", pagination=pagination)
+
+
+@app.route("/recycle", methods=["GET"])
+def recycle():
+    title = request.args.get("title")
+    page = int(request.args.get("page", 1))
+    pagination_func = request.args.get("pagination_func")
+
+    recycle = Recycles.query.filter(Recycles.title == title).first()
+
+    article = Articles(id=recycle.id, meeting=recycle.meeting, title=recycle.title,
+                       publicationYear=recycle.publicationYear, abstract=recycle.abstract, doiLink=recycle.doiLink,
+                       keywords=recycle.keywords)
+    try:
+        db.session.add(article)
+        db.session.delete(recycle)
+        db.session.commit()
+        flash("已还原")
+    except Exception as e:
+        print(e)
+        flash("数据库错误")
+
+    return redirect(url_for(pagination_func, page=page))
 
 
 @app.route("/hot_keywords_cake")
@@ -350,7 +387,6 @@ def get_trend():
         ICCV = [0 for i in range(10)]
 
         for article in key.articles:
-            # total += 1
             year = int(article.publicationYear)
             if year in range(BEGIN_YEAR, CURRENT_YEAR):
                 if article.meeting == "CVPR":
@@ -366,4 +402,4 @@ def get_trend():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(port=8080, debug=True)

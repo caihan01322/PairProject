@@ -133,8 +133,8 @@ def eccv_data_insert(context):
 
 
 if __name__ == "__main__":
-    deal_data(CVPR_PATH)
-    deal_data(ICCV_PATH)
+    # deal_data(CVPR_PATH)
+    # deal_data(ICCV_PATH)
     add_data("CVPR", CVPR_PATH)
     add_data("ECCV", ECCV_PATH)
     add_data("ICCV", ICCV_PATH)
