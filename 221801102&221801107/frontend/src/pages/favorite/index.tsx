@@ -134,7 +134,7 @@ export default function Favorite() {
 
   return (
     <div className={styles.container}>
-      <Card title="收藏夹">
+      <Card title="收藏夹" loading={loading}>
         <List
           itemLayout="vertical"
           size="large"
