@@ -14,10 +14,23 @@ export default {
     return {
       data1: [5, 10, 12, 69, 25, 14, 18, 55, 47, 33],
       data2: ['key1', 'key2', 'key3', 'key4', 'key5', 'key6', 'key7', 'key8', 'key9', 'key10'],
+      datat: [],
       color: ['#349dff', '#fbd438', '#33c45e', '#f2637b', '#6dd48c', '#fbd437', '#4ecb73', '#eaa674', '#88d1ea', '#36cbcb']
     }
   },
   methods: {
+    setdata () {
+      this.datat = []
+      const num = this.data2.length
+      for (let i = 0; i < num; i++) {
+        const temp = {
+          value: this.data1[i],
+          name: this.data2[i]
+        }
+        this.datat.push(temp)
+      }
+      this.drawLine()
+    },
     drawLine () {
       this.chartLine = echarts.init(document.getElementById('myChart2'))
       const option = {
@@ -38,7 +51,7 @@ export default {
         series: [
           {
             name: '出现次数',
-            data: this.data1,
+            data: this.datat,
             type: 'pie'
           }
         ]
@@ -55,7 +68,7 @@ export default {
     // console.log('fdfdsfds')
     // this.$nextTick(this.drawLine())
     // this.getInfo()
-    this.drawLine()
+    this.setdata()
   }
 }
 </script>
