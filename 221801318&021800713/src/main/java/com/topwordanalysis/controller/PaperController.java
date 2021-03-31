@@ -42,7 +42,7 @@ public class PaperController {
     }
     @PostMapping("/search")
     public List<Paper> searchByTitle(@RequestBody Search search){
-        if (search.getString1().equals("关键字")){
+        if (search.getString1().equals("关键词")){
             if(search.getString2().equals("模糊查询")){
                 List<Paper> paperList = paperService.searchByKeyWord("%"+search.getString3()+"%");
                 System.out.println(paperList.size());
