@@ -65,10 +65,6 @@ public class PaperController {
     @PostMapping("/addpapertolist")
     public void addPaperToList(@RequestBody List<RealPaper> paper){
         for (RealPaper paper1:paper){
-            System.out.println(paper1.getPaperAbstract());
-            System.out.println(paper1.getLink());
-            System.out.println(paper1.getTitle());
-            System.out.println(paper1.getYear());
             paperList.add(paper1);
         }
     }
@@ -76,8 +72,6 @@ public class PaperController {
     public void deletePaper(@RequestBody DeletePaper paper){
         System.out.println(paper.getLink());
         for (int i=0;i<paperList.size();i++){
-            System.out.println(paperList.get(i).getLink());
-            System.out.println(paperList.get(i).getLink().equals(paper.getLink()));
             if (paperList.get(i).getLink().equals(paper.getLink())){
                 paperList.remove(i);
             }
