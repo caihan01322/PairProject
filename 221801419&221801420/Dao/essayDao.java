@@ -1,5 +1,6 @@
 package Dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -28,4 +29,6 @@ public interface essayDao {
     int selectCheckCVPR(@Param("title")String essayName,@Param("user")String username);
     int selectCheckECCV(@Param("title")String essayName,@Param("user")String username);
     int selectCheckICCV(@Param("title")String essayName,@Param("user")String username);
+    ArrayList<Essay> essayAllSelect(@Param("user")String username);
+    ArrayList<Keywords> getAllKeywords();
 }
