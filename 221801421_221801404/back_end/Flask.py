@@ -7,7 +7,6 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
-
 @app.route('/')
 def name():
     page = request.args.get('page')
@@ -16,29 +15,24 @@ def name():
     db = Mysql()
     keyword = request.args.get('keyword')
     items = db.getItems(keyword)
-    key = db.getCVPR()
-    key1 = db.getECCV()
-    key2 = db.getICCV()
-
+    key = db.getCvpr()
+    key1 = db.getEccv()
+    key2 = db.getIccv()
     getChartInfo()
-
-    page_range = range(int(page) - 3, int(page) + 2)
+    pageRange = range(int(page) - 3, int(page) + 2)
     if int(page) < 4:
-        page_range = range(1, int(page) + 4)
-    return render_template('articles.html', items=items, page=int(page), prange=page_range)
-
+        pageRange = range(1, int(page) + 4)
+    return render_template('articles.html', items=items, page=int(page), prange=pageRange)
 
 @app.route('/chartInfo', methods=['GET'])
 def getChartInfo():
-    sql = Mysql();
+    sql = Mysql()
     data = []
-    data.append(sql.getECCV())
-    data.append(sql.getICCV())
-    data.append(sql.getCVPR())
-    dataJSON = json.dumps(data)
-    print(dataJSON)
-    return dataJSON
-
+    data.append(sql.getEccv())
+    data.append(sql.getIccv())
+    data.append(sql.getCvpr())
+    dataJson = json.dumps(data)
+    return dataJson
 
 @app.route('/search', methods=['POST'])
 def getSearchResult():
@@ -51,9 +45,8 @@ def getSearchResult():
 @app.route('/totalrank', methods=['GET'])
 def getRank():
     sql = Mysql()
-    rankJSON = sql.getTotalRank()
-    print(rankJSON)
-    return rankJSON
+    rankJson = sql.getTotalRank()
+    return rankJson
 
 
 @app.route('/delete', methods=['POST'])
@@ -94,9 +87,9 @@ class Mysql(object):
 
         return items
 
-    def getCVPR(self):
+    def getCvpr(self):
         global CVPR
-        datalist = []
+        dataList = []
         a = "2018"
         b = "2019"
         c = "2020"
@@ -109,16 +102,13 @@ class Mysql(object):
             SQL = "SELECT keyword,frequency,publishyear FROM `article`.`keywordanalysis`" \
                   " WHERE `type` LIKE '%CVPR%' AND `publishyear` LIKE '%" + CVPR[
                       index] + "%' ORDER BY `frequency` DESC LIMIT 1"
-            # print(SQL)
             self.cursor.execute(SQL)
             alldata = self.cursor.fetchall()
-            datalist.append(alldata[0])
-            # print(datalist)
-            # print(index)
+            dataList.append(alldata[0])
             continue
 
         papers = []
-        for r in datalist:
+        for r in dataList:
             paper = {}
             paper['year'] = r[2]
             paper['keyword'] = r[0]
@@ -126,11 +116,10 @@ class Mysql(object):
             papers.append(paper)
             continue
 
-        paperJSON = json.dumps(papers)
-        # print(paperJSON)
+        paperJson = json.dumps(papers)
         return papers
 
-    def getECCV(self):
+    def getEccv(self):
         global ECCV
         datalist = []
         a = "2016"
@@ -145,12 +134,9 @@ class Mysql(object):
             SQL = "SELECT keyword,frequency,publishyear FROM `article`.`keywordanalysis`" \
                   " WHERE `type` LIKE '%ECCV%' AND `publishyear` LIKE '%" + ECCV[
                       index] + "%' ORDER BY `frequency` DESC LIMIT 1"
-            # print(SQL)
             self.cursor.execute(SQL)
             alldata = self.cursor.fetchall()
             datalist.append(alldata[0])
-            # print(datalist)
-            # print(index)
             continue
 
         papers = []
@@ -163,10 +149,9 @@ class Mysql(object):
             continue
 
         paperJSON = json.dumps(papers)
-        # print(paperJSON)
         return papers
 
-    def getICCV(self):
+    def getIccv(self):
         global ICCV
         datalist = []
         a = "2015"
@@ -181,12 +166,9 @@ class Mysql(object):
             SQL = "SELECT keyword,frequency,publishyear FROM `article`.`keywordanalysis`" \
                   " WHERE `type` LIKE '%ICCV%' AND `publishyear` LIKE '%" + ICCV[
                       index] + "%' ORDER BY `frequency` DESC LIMIT 1"
-            # print(SQL)
             self.cursor.execute(SQL)
             alldata = self.cursor.fetchall()
             datalist.append(alldata[0])
-            # print(datalist)
-            # print(index)
             continue
 
         papers = []
@@ -199,14 +181,12 @@ class Mysql(object):
             continue
 
         paperJSON = json.dumps(papers)
-        # print(paperJSON)
         return papers
 
     def getTotalRank(self):
         datalist = []
         SQL = "SELECT keyword,frequency FROM `article`.`keywordanalysis`" \
               " WHERE `type` LIKE 'all' ORDER BY `frequency` DESC LIMIT 10"
-        # print(SQL)
         self.cursor.execute(SQL)
         alldata = self.cursor.fetchall()
         datalist = list(alldata)
@@ -220,13 +200,10 @@ class Mysql(object):
             continue
 
         paperJSON = json.dumps(papers)
-        print(paperJSON)
         return paperJSON
 
     def deletePaper(self, paperID):
-        print(paperID)
         SQL = "DELETE FROM paper WHERE `id` = '" + paperID + "'"
-        print(SQL)
         rownumber = self.cursor.execute(SQL)
         self.conn.commit()
         result = {}
@@ -238,7 +215,6 @@ class Mysql(object):
 
         results.append(result)
         resJSON = json.dumps(results)
-        print(resJSON)
         return resJSON
 
 
