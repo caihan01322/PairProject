@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"strconv"
 )
 
@@ -55,7 +54,6 @@ func GetTopKeywordList() (results []KeyNum) {
 			Count: count,
 		})
 	}
-	fmt.Println(results)
 	return
 }
 

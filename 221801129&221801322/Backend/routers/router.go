@@ -1,10 +1,10 @@
 package routers
 
 import (
-	"Backend/routers/api"
-	"github.com/gin-gonic/gin"
-
 	"Backend/pkg/setting"
+	"Backend/routers/api"
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
 func InitRouter() *gin.Engine {
@@ -15,6 +15,8 @@ func InitRouter() *gin.Engine {
 	router.Use(gin.Recovery())
 
 	gin.SetMode(setting.RunMode)
+
+	router.Use(cors.Default())
 
 	apiv1 := router.Group("")
 	{

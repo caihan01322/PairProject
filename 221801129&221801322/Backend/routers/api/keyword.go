@@ -69,9 +69,9 @@ func GetChart(c *gin.Context) {
 	if !valid.HasErrors() {
 		code = err.SUCCESS
 
-		charts = append(charts, models.GetChart("CVPR", models.GetTOPByForum("CVPR", 5)))
-		charts = append(charts, models.GetChart("ECCV", models.GetTOPByForum("ECCV", 5)))
-		charts = append(charts, models.GetChart("ICCV", models.GetTOPByForum("ICCV", 5)))
+		charts = append(charts, models.GetChart("CVPR", models.GetTOPByForum("CVPR", 4)))
+		charts = append(charts, models.GetChart("ECCV", models.GetTOPByForum("ECCV", 4)))
+		charts = append(charts, models.GetChart("ICCV", models.GetTOPByForum("ICCV", 4)))
 
 		data["trend"] = charts
 	} else {

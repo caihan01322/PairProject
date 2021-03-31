@@ -35,15 +35,13 @@ func ShowArticles(c *gin.Context) {
 			"msg":  err.GetMsg(code),
 			"data": data,
 		})
-
 		return
 	}
 
 	valid := validation.Validation{}
 	valid.Required(temp.PageNum, "pagenum").Message("页码不能为空")
 	valid.Required(temp.Type, "type").Message("搜索类型不能为空")
-	valid.Required(temp.Searchval, "searchval").Message("搜索内容不能为null")
-
+	//valid.Required(temp.Searchval, "searchval").Message("搜索内容不能为null")
 	valid.Min(temp.PageNum, 1, "pagenum").Message("页码最小值为1")
 	valid.Range(temp.Type, 1, 3, "searchval").Message("搜索类型范围为1-3")
 
