@@ -7,7 +7,7 @@
     </div>
     <div class="search_input_contianer" >
       <input type="text" class="input_area" placeholder="请输入关键词"/>
-      <i class="el-icon-search icon"/>
+      <i class="el-icon-search icon" @click="$emit('searchEvent', keyword)"/>
     </div>
   </el-row>
 </template>

@@ -8,7 +8,7 @@
     <el-row align="middle" justify="center" type="flex" class="full_height middle">
       <p class="title">论文直达</p>
       <el-row class="full_width" align="middle" justify="center" type="flex">
-        <searchInput />
+        <searchInput @searchEvent="searchKeyword($event)" />
       </el-row>
       <div class="batch_input_button">
         <i class="el-icon-upload2 icon" />
@@ -23,16 +23,16 @@
         <div class="dialog_input_contianer">
           <div class="dialog_input">
             <span>邮箱：</span>
-            <el-input v-model="user.name" class="input_area"/>
+            <el-input v-model="user.email" class="input_area"/>
           </div>
           <div class="dialog_input">
             <span>密码：</span>
-            <el-input v-model="user.email" class="input_area"/>
+            <el-input v-model="user.password" show-password class="input_area"/>
           </div>
           <p class="forget">忘记密码？</p>
         </div>
         <div class="dialog_input_contianer">
-          <el-button type="primary" class="dialog_button">登录</el-button>
+          <el-button type="primary" class="dialog_button" @click="login()">登录</el-button>
           <el-button  class="dialog_button" @click="openRegisterDialog()">注册</el-button>
         </div>
       </div>
@@ -53,14 +53,14 @@
           </div>
           <div class="dialog_input">
             <span>新密码：</span>
-            <el-input v-model="user.name" placeholder="请设置密码" :show-password="false" class="input_area"/>
+            <el-input v-model="user.password" placeholder="请设置密码" show-password class="input_area"/>
           </div>
           <div class="dialog_input">
             <span>确认密码：</span>
-            <el-input v-model="user.email" placeholder="请再次输入密码" :show-password="false" class="input_area"/>
+            <el-input v-model="user.confirmPassword" placeholder="请再次输入密码" show-password class="input_area"/>
           </div>
         </div>
-        <el-button class="dialog_register_button">注册</el-button>
+        <el-button class="dialog_register_button" @click="register()">注册</el-button>
       </div>
 
     </el-dialog>
@@ -81,7 +81,9 @@ export default {
       showRegister: false,
       user: {
         name: '',
-        email: ''
+        email: '',
+        password: '',
+        confirmPassword: ''
       }
     }
   },
@@ -93,6 +95,25 @@ export default {
     openRegisterDialog(){
       this.showLogin = false
       this.showRegister = true
+    },
+    login() {
+      this.$api.User.login(this.user.email, this.user.password).then(res => {
+        this.$message.success('登陆成功')
+        this.$router.push('/center')
+      }).catch(err => {
+        this.$message.error('注册失败')
+      })
+    },
+    register() {
+      this.$api.User.register(this.user.email, this.user.password).then(res => {
+        this.$message.success('注册成功')
+        this.$router.push('/center')
+      }).catch(err => {
+        this.$message.error('注册失败')
+      })
+    },
+    keyword() {
+
     }
   }
 }

@@ -12,6 +12,11 @@ Vue.use(ElementUI)
 import * as echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 
+//引入分离的api接口
+import api from './api'
+Vue.use(api)
+
+
 Vue.config.productionTip = false
 
 new Vue({
