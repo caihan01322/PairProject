@@ -1,17 +1,18 @@
 <template>
     <div class='home'>
-        <br /><br />
-        <br /><br />
-        <br /><br />
-        <br /><br />
-        <br /><br />
-        <br /><br />
-        <br /><br />
-        <h1>X J B S</h1>
+<!--        <br /><br />-->
+<!--        <br /><br />-->
+<!--        <br /><br />-->
+<!--        <br /><br />-->
+<!--        <br /><br />-->
+<!--        <br /><br />-->
+<!--        <br /><br />-->
+<!--        <h1>X J B S</h1>-->
+        <div class="brand"></div>
         <br /><br />
         <a-alert type="error" message="搜索失败" banner v-if="invalid" />
         <a-input-search placeholder="点此搜索" style="width: 400px" @search="onSearch" />
-            
+
     </div>
 </template>
 
@@ -37,11 +38,6 @@ export default {
                     that.invalid = true;
                 }
                 else {
-                    var token = localStorage.getItem("token");
-                    var username = localStorage.getItem("username");
-                    localStorage.clear();
-                    localStorage.setItem("token",token);
-                    localStorage.setItem("username",username);
                     localStorage.setItem("key",key);
                     localStorage.setItem("maxPage",res.data / 10);
                     this.$router.push("/display/paper");
@@ -60,6 +56,25 @@ export default {
     width: 100%;
     height: 100%;
     background-color: #ffffff;
+}
+.home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    /*background-color: #ffffff;*/
+    background-image: url("../assets/1.jpg");
+    opacity: 0.8;
+}
+.brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 120px;
+    /*background-image: url("../../src/assets/161716308065739.png");*/
+    background-image: url("../assets/brand.png")
 }
 .search-form {
     width: 400px;

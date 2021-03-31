@@ -6,7 +6,7 @@
             class="login-form"
             @submit="submitLogin"
         >
-            <h1>X J B S</h1>
+            <div class='brand'></div>
             <a-alert type="error" message="用户名或密码错误" banner v-if="invalid" />
             <a-form-item>
             <a-input
@@ -88,18 +88,31 @@ export default {
     align-items: center;
     width: 100%;
     height: 100%;
-    background-color: #ffffff;
+    /*background-color: #ffffff;*/
+    background-image: url("../assets/1.jpg");
+    opacity: 0.8;
+}
+.brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 120px;
+    /*background-image: url("../../src/assets/161716308065739.png");*/
+    background-image: url("../assets/brand.png")
 }
 .login-form {
     width: 400px;
     padding: 48px;
     box-sizing: border-box;
-    background-color: #ffffff;
+    /*background-color: #ffffff;*/
 }
 #components-form .login-form-forgot {
   float: right;
 }
 #components-form .login-form-button {
   width: 100%;
+    background-color: #545454;
+    border-color: #707070;
 }
 </style>

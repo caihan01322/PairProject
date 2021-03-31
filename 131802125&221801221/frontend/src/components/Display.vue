@@ -35,8 +35,8 @@
                     </a-menu>
                 </a-dropdown>
                 </a-layout-header>
-                <a-layout-content :style="{ minHeight: '800px' }" >
-                <router-view></router-view>
+                <a-layout-content :style="{ height: '100%'}" >
+                <router-view :style="{ height: '100%'}" ></router-view>
                 </a-layout-content>
             </a-layout>
         </a-layout>
@@ -72,7 +72,7 @@ export default {
 </script>
 <style lang='scss' scoped>
 
-.coat {
+.display {
     width: 100%;
     height: 100%;
 }
