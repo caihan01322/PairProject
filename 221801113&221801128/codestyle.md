@@ -35,7 +35,7 @@ sb.append("zi").append("xin")...append
 ````
 
 * 函数最大行数
->函数最大行数50行
+>函数最大行数100行
 
 * 函数、类命名
 >函数名统一使用lowerCamelCase风格，类名使用UpperCamelCase风格，必须遵从驼峰形式<br>
