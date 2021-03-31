@@ -77,7 +77,7 @@ class Articles(db.Model):
     abstract = db.Column(db.Text)
     doiLink = db.Column(db.String(255))
     keywords = db.relationship(
-        "Keywords", secondary=article_keyword, backref=db.backref("articles"))
+        "Keywords", secondary=article_keyword, backref=db.backref("articles", lazy='dynamic'), lazy='dynamic')
 
 
 class Keywords(db.Model):
@@ -99,7 +99,7 @@ class Users(db.Model, UserMixin):
     nickname = db.Column(db.String(255))
     # 收藏夹
     articles = db.relationship(
-        "Articles", secondary="article_user", backref="users")
+        "Articles", secondary="article_user", backref=db.backref("users", lazy='dynamic'), lazy='dynamic')
 
 
 class Recycles(db.Model):
@@ -113,7 +113,7 @@ class Recycles(db.Model):
     abstract = db.Column(db.Text)
     doiLink = db.Column(db.String(255))
     keywords = db.relationship(
-        "Keywords", secondary=recycle_keyword, backref=db.backref("recycles"))
+        "Keywords", secondary=recycle_keyword, backref=db.backref("recycles", lazy='dynamic'), lazy='dynamic')
 
     def __init__(self, article):
         self.id = article.id

@@ -256,9 +256,10 @@ def view():
     pagination_func = request.args.get("pagination_func")
 
     article = Articles.query.filter(Articles.title == title).first()
+    user_count=article.users.count()
 
     return render_template("view.html", article=article, pagination_func=pagination_func, page=page,
-                           condition=condition, search_way=search_way)
+                           condition=condition, search_way=search_way, user_count=user_count)
 
 
 @app.route("/delete", methods=["GET"])
@@ -266,6 +267,7 @@ def delete():
     """删除论文
 
     在查询列表，每篇论有一个删除按钮，点击删除后数据库将删除该文章，同时更新当前的查询列表视图
+    被删除的文章加入回收站
 
     Args:
         title: 在列表视图中点击删除按钮时会自动获取title
@@ -287,7 +289,7 @@ def delete():
         db.session.add(recycle)
         db.session.delete(article)
         db.session.commit()
-        flash("已删除")
+        flash("删除成功")
     except Exception as e:
         print(e)
         flash("数据库错误")
@@ -296,6 +298,7 @@ def delete():
 
 @app.route("/recycle_view", methods=["GET"])
 def recycle_view():
+    """回收站视图"""
     page = int(request.args.get("page", 1))
     pagination = Recycles.query.paginate(page, per_page=PER_PAGE, error_out=False)
     return render_template("recycle.html", pagination_func="recycle_view", pagination=pagination)
@@ -303,6 +306,16 @@ def recycle_view():
 
 @app.route("/recycle", methods=["GET"])
 def recycle():
+    """回收论文
+
+        在回收站，每篇论有一个回收按钮，点击回收后该论文重新加入文章列表
+
+        Args:
+            title: 在列表视图中点击回收按钮时会自动获取title
+
+        Return:
+            返回模板渲染
+        """
     title = request.args.get("title")
     page = int(request.args.get("page", 1))
     pagination_func = request.args.get("pagination_func")
@@ -317,6 +330,63 @@ def recycle():
         db.session.delete(recycle)
         db.session.commit()
         flash("已还原")
+    except Exception as e:
+        print(e)
+        flash("数据库错误")
+
+    return redirect(url_for(pagination_func, page=page))
+
+
+@app.route("/favorite_view", methods=["GET"])
+def favorite_view():
+    """收藏夹视图"""
+    page = int(request.args.get("page", 1))
+    pagination = current_user.articles.paginate(page, per_page=PER_PAGE, error_out=False)
+    return render_template("favorite.html", pagination_func="favorite_view", pagination=pagination)
+
+
+@app.route("/favorite", methods=["GET"])
+def favorite():
+    """收藏论文
+
+        在论文列表，每篇论有一个收藏按钮，点击后该论文加入当前登陆用户的收藏夹
+
+        Args:
+            title: 在列表视图中点击收藏按钮时会自动获取title
+
+        Return:
+            返回模板渲染
+        """
+    title = request.args.get("title")
+    condition = request.args.get("condition")
+    page = request.args.get("page")
+    search_way = request.args.get("search_way")
+    pagination_func = request.args.get("pagination_func")
+
+    article = Articles.query.filter(Articles.title == title).first()
+    current_user.articles.append(article)
+
+    try:
+        db.session.commit()
+        flash("收藏成功")
+    except Exception as e:
+        print(e)
+        flash("数据库错误")
+    return redirect(url_for(pagination_func, page=page, condition=condition, search_way=search_way))
+
+
+@app.route("/cancel_favorite", methods=["GET"])
+def cancel_favorite():
+    title = request.args.get("title")
+    page = int(request.args.get("page", 1))
+    pagination_func = request.args.get("pagination_func")
+
+    article = Articles.query.filter(Articles.title == title).first()
+    current_user.articles.remove(article)
+
+    try:
+        db.session.commit()
+        flash("已取消收藏")
     except Exception as e:
         print(e)
         flash("数据库错误")
