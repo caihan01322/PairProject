@@ -309,6 +309,9 @@ def favorites_get():
     token = request.headers['Authorization']
     user = verify_token(token)
     favorite_id_list = db.session.query(Favorite).all()
+    dicts=[]
+    for i in favorite_id_list:
+
     return jsonify(code=200, msg="获取成功", data={json.dumps(favorite_id_list)})
 
 
@@ -340,6 +343,19 @@ def favorite_insert():
     return jsonify(code=200, msg="添加成功", data={})
 
 
+@blue.route('/favorites/create',methods=['POST'])
+@login_required
+def favorite_create():
+    token = request.headers['Authorization']
+    user = verify_token(token)
+    rel = request.get_json()
+    f_name=rel['name']
+    f = Favorite(name=f_name, user_id=user.user_id)
+    db.session.add(f)
+    db.session.commit()
+    return jsonify(code=200, msg="创建成功", data={})
+
+
 @blue.route('/data/getTopTen')
 def get_top_ten():
     topten_id= KeywordToConference.getTopTen()
@@ -348,3 +364,5 @@ def get_top_ten():
         content = db.session.query(Keyword).filter(Keyword.keyword_id==i).first().content
         topten.append(content)
     return jsonify(code=200, msg="添加成功", data={'words_list':topten})
+
+
