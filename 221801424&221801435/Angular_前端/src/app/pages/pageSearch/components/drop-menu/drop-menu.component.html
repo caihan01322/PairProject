@@ -1,0 +1,13 @@
+<div style="height: 28px;">
+    <button nz-button nz-dropdown [nzDropdownMenu]="menu4">
+      {{search_by}}
+      <i nz-icon nzType="down"></i>
+    </button>
+  </div>
+  <nz-dropdown-menu #menu4="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item (click)="changeSearchBy('标题')">标题</li>
+      <li nz-menu-item (click)="changeSearchBy('作者')">作者</li>
+      <li nz-menu-item (click)="changeSearchBy('关键字')">关键字</li>
+    </ul>
+  </nz-dropdown-menu>
