@@ -385,5 +385,19 @@ def WordCount():
     return jsonify(data={'data':Infos})
 
 
+@app.route('/collection',methods=['POST'])
+def collect():
+    collect1 = request.get_json()
+    pid = collect1.get("paper_id")
+    uid = collect1.get("user_id")
+
+    paper1 = db.session.query(Paper).filter(Paper.id == pid).first()
+    user1 = db.session.query(User).filter(User.id == uid).first()
+
+    user1.papers.append(paper1)
+    db.session.add(user1)
+    db.session.commit()
+    return jsonify({'status':'1'})
+
 if __name__ == '__main__':
     app.run(debug=True)
