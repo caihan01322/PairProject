@@ -399,5 +399,40 @@ def collect():
     db.session.commit()
     return jsonify({'status':'1'})
 
+@app.route('/personal',methods=['POST'])
+def personal():
+    collect1 = request.get_json()
+    uid = collect1.get("user_id")
+    page = int(collect1.get("page"))-1
+    # 第几页 每页几条
+    page_item = int(collect1.get("item"))
+    m = int(page * page_item)
+    sel = db.session.execute('select paper_id,title,datetime,classify from user_paper,paper where user_paper.paper_id=paper.id and user_id = '+ uid+';')
+    Infos = []
+    for p in sel:
+        id = p.paper_id
+        title = p.title
+        datetime = p.datetime
+        classify = p.classify
+        Infos.append({
+            "id": id,
+            "title": title,
+            "datetime": datetime,
+            "classify": classify
+        })
+    items = db.session.execute('select count(*) count from user_paper,paper where user_paper.paper_id=paper.id and user_id = '+ uid+';')
+    for i in items:
+        counts = i.count
+    counts = int(counts)  # 总共几条
+    page = int(int(counts) / int(page_item)) + 1
+    username = db.session.query(User).filter(User.id==uid).first()
+
+    return jsonify(data={
+        'count': counts,
+        'page': page,
+        'telephone':username.telephone,
+        'data': Infos
+    })
+
 if __name__ == '__main__':
     app.run(debug=True)
