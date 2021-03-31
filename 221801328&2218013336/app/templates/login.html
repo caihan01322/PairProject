@@ -8,12 +8,6 @@
     <!-- 引入 Bootstrap -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
-    
     <title>登录</title>
     <link rel="stylesheet" type="text/css" href="register_login.css">
 </head>
@@ -49,17 +43,17 @@
             <div id="login_form">
             <form class="form-inline">
                 <div class="form-group">
-                <h1 style="text-align: center;margin-bottom: 20px;"><strong>用户登录</strong></h2>
-                <label for="phone" style="display: inline;">&nbsp; 用户名&nbsp;  </label>
-                <input type="text" v-model="phone" class="form-control" name="phone" placeholder="请输入您的手机号"><br>
-                <label for="pwd">&nbsp; 密&nbsp; &nbsp; 码&nbsp;  </label>
-                <input type="password" v-model="password" class="form-control" name="pwd_again" placeholder="请再次输入您的密码"/>
-                <br />
-                <a href="register.html">还没有账号？注册一个</a>
+                    <h1 style="text-align: center;margin-bottom: 20px;"><strong>用户登录</strong></h2>
+                    <label for="phone" style="display: inline;">&nbsp; 用户名&nbsp;  </label>
+                    <input type="text" v-model="phone" class="form-control" name="phone" placeholder="请输入您的手机号"><br>
+                    <label for="pwd">&nbsp; 密&nbsp; &nbsp; 码&nbsp;  </label>
+                    <input type="password" v-model="password" class="form-control" name="pwd_again" placeholder="请再次输入您的密码"/>
+                    <br />
+                    <a href="register.html">还没有账号？注册一个</a>
+                    
+                    <button type="button" @click="startLogin()" class="btn btn-primary btn-lg btn-block">&nbsp;登&nbsp; &nbsp; 录&nbsp;</button>
                 
-                <button type="button" @click="startLogin()" class="btn btn-primary btn-lg btn-block">&nbsp;登&nbsp; &nbsp; 录&nbsp;</button>
-                
-            </div>
+                </div>
             </form>
             
         </div>
@@ -71,24 +65,28 @@
 
     </div>
     
-
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
   
-      <script>
-        var app = new Vue({
-            el:"#wrapper",
-            data:{
-                message:"请先登录",
-                phone:'',
-                password:'',
-                isLogin:0,
+    <script>
+    var app = new Vue({
+        el:"#wrapper",
+        data:{
+            message:"请先登录",
+            phone:'',
+            password:'',
+            isLogin:0,
 
-            },
-            mounted(){
-                this.judgeLogin();
-                //alert('hi');
-               // this.judgeLogin();
-            },
-            methods: {
+        },
+        mounted(){
+            this.judgeLogin();
+            //alert('hi');
+            // this.judgeLogin();
+        },
+        methods: {
             noPermission:function(){
                 if(this.isLogin==0)
                 alert("请先登录");
@@ -106,12 +104,12 @@
                 //this.isLogin = 1;
 
                 axios
-                 .post('http://127.0.0.1:5000/user/login',
-                 {
-                     telephone: this.phone,        // 参数 telephone
-                     password: this.password,    // 参数 password
-                 })
-                 .then(function (response) {
+                    .post('http://127.0.0.1:5000/user/login',
+                    {
+                        telephone: this.phone,        // 参数 telephone
+                        password: this.password,    // 参数 password
+                    })
+                    .then(function (response) {
                     // alert('登陆成功！');
                     //console.log(response);
                     console.log(response.data.status);
@@ -127,11 +125,11 @@
                     } 
                     else if(status==1) console.log('用户不存在');
                     else console.log('密码错误');
-                 })
-                 .catch(function (error) { // 请求失败处理
-                     console.log(error);
-                 });
-  
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+
             },
             judgeLogin:function(){
                 var user = JSON.parse(localStorage.getItem('userid'));
@@ -146,7 +144,5 @@
             }
         })
     </script>
-    </body>
-
-    
+</body>    
 </html>

@@ -8,11 +8,6 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="register_login.css">
-
-    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
     <div id="wrapper" style="background-image: none;">
@@ -23,6 +18,7 @@
                 <h1 style="display: inline;">顶会论文爬取平台</h1>
                 <button id="login_btn" @click="signIn()" type="button" class="btn btn-default">登录</button>
                 <div class="row" style="float: right;">
+                    
                     <div class="span6">
                         <ul class="nav nav-tabs">
 
@@ -43,7 +39,7 @@
 
 
         <div id="main" style="text-align: center;">
-            <h1>此功能暂未开放</h1>
+            <h1>此功能在后端实现</h1>
         </div>
 
         <div id="footer">
@@ -52,23 +48,22 @@
 
     </div>
   
-      <script>
-        var app = new Vue({
-            el:"#wrapper",
-            data:{
-                message:"请先登录"
-            },
-            methods: {
-            doIt:function(){
-              //  alert("请先登录");
-            },
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="https://code.jquery.com/jquery.js"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+    var app = new Vue({
+        el:"#wrapper",
+        data:{
+            message:"请先登录"
+        },
+        methods: {
             signIn:function(){
                 window.location.href="login.html";
             }
         }
-        })
-    </script>
-    </body>
-
-    
+    })
+</script>
+</body>
 </html>

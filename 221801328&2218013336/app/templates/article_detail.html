@@ -8,9 +8,7 @@
     <!-- 引入 Bootstrap -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="register_login.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-     <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
-
+   
     <style>
         #main {
             padding: 100px 200px;
@@ -51,60 +49,56 @@
 <body>
     <div id="wrapper" style="background-image: none;">
     
-    <div id="header">
-            
-        <div class="container">
-            <h1 style="display: inline;">顶会论文爬取平台</h1>
-            <button id="login_btn" type="button" class="btn btn-default">登录</button>
-            <div class="row" style="float: right;">
-                <div class="span6">
-                    <ul class="nav nav-tabs">
-                        <li><a href="index.html">&nbsp;首&nbsp;&nbsp;页&nbsp;</a></li>
-                        <li><a @click="doIt" href="add_articles.html">爬取论文</a></li>
-                        <li class="active"><a href="article.html">论文列表</a></li>
-                        <li><a href="hotwords_graph.html">热词分析</a></li>
-                        <li><a href="personal_page.html">个人中心</a></li>
-                    </ul>
-                </div>
+        <div id="header">
                 
+            <div class="container">
+                <h1 style="display: inline;">顶会论文爬取平台</h1>
+                <button id="login_btn" type="button" class="btn btn-default">登录</button>
+                <div class="row" style="float: right;">
+                    <div class="span6">
+                        <ul class="nav nav-tabs">
+                            <li><a href="index.html">&nbsp;首&nbsp;&nbsp;页&nbsp;</a></li>
+                            <li><a @click="doIt" href="add_articles.html">爬取论文</a></li>
+                            <li class="active"><a href="article.html">论文列表</a></li>
+                            <li><a href="hotwords_graph.html">热词分析</a></li>
+                            <li><a href="personal_page.html">个人中心</a></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            
             </div>
-           
-        </div>
-            
-    </div>
-
-    <div id="article">
-        <img id="left" alt="" src="icon_left.png" @click="back">
-        <img id="like" alt="" @click="likeArticle" src="icon_like.png">
-            
-        <div id="main">
-            <h3>
-               {{ title }}</h3>
-    
-                <h4>关键词：{{ keyword }}</h4>
-    
-                <hr />
-                <h4>摘要：</h4>
-                <div id="abstract">
-                {{ abstract }}
-                </div>
-
-                <h4>原文链接：</h4>{{ href }}
-
-                <div id="buttons">
-                   <!-- <button type="button" @click="showDetail" class="btn btn-default">修改</button>-->
-                    <button type="button" @click="deleteArticle" class="btn btn-default">删除</button>
-        
-                </div>
-
+                
         </div>
 
+        <div id="article">
+            <img id="left" alt="" src="icon_left.png" @click="back">
+            <img id="like" alt="" @click="likeArticle" src="icon_like.png">
+                
+            <div id="main">
+                <h3>{{ title }}</h3>
         
+                    <h4>关键词：{{ keyword }}</h4>
+                    <hr />
+                    <h4>摘要：</h4>
+                    <div id="abstract">
+                    {{ abstract }}
+                    </div>
+
+                    <h4>原文链接：</h4>{{ href }}
+
+                    <div id="buttons">
+                    <!-- <button type="button" @click="showDetail" class="btn btn-default">修改</button>-->
+                        <button type="button" @click="deleteArticle" class="btn btn-default">删除</button>
+            
+                    </div>
+            </div> 
+        </div>
+
     </div>
 
-
-    </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
 
     <script>
         var app = new Vue({

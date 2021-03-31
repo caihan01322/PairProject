@@ -8,12 +8,6 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="register_login.css">
-
-    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
  
     <style>
         #main {
@@ -93,91 +87,95 @@
 
     </div>
   
-      <script>
-        var app = new Vue({
-            el:"#wrapper",
-            data:{
-                searchMessage:"",
-                lists:[],//论文列表，展示表格数据
-                pageTotal:1,//总页数
-                rows:1,//总条数
-                pageNo:1,//页码
-                pageSize:10,//每一页的条数
-                flag:0,//区分上/下 一页的状态
-                telephone:0
-            },
-            mounted(){
-            //this.getData();
-            //再调用一下搜索功能
-            this.getArticles();
-         },
-         computed:{
-            pages(){
-                var start = this.pageNo,end = this.pageTotal;
-                if(end<10) return end;
-                if(start<=5){
-                    return [1,2,3,4,5,6,'...',end]
-                }
-                else if(start>=end-5){
-                    return [1,'...',end-5,end-4,end-3,end-2,end-1,end]
-                }
-                else{
-                    return [1,'...',start-1,start,start+1,'...',end]
-                }
-            }
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+      
+    <script>
+    var app = new Vue({
+        el:"#wrapper",
+        data:{
+            searchMessage:"",
+            lists:[],//论文列表，展示表格数据
+            pageTotal:1,//总页数
+            rows:1,//总条数
+            pageNo:1,//页码
+            pageSize:10,//每一页的条数
+            flag:0,//区分上/下 一页的状态
+            telephone:0
         },
-            methods: {
-            doIt:function(){
-              //  alert("请先登录");
-            },
-            signIn:function(){
-                window.location.href="login.html";
-            },
-            getArticles:function(i=1){
-            
-            //alert(flag);
-                var data = localStorage.getItem('userid');
-
-                var that = this;
-                if(i!='...')
-                this.pageNo = i;
-                axios
-                .post('http://127.0.0.1:5000/personal',
-                {
-                    'user_id':data,
-                    'page':i,
-                    'item':that.pageSize
-                })
-                .then(function (response) {
-                    //数据要分页显示
-                    console.log(response.data.data);
-                    let {count,data,page,telephone} = response.data.data;
-                    that.lists = data;
-                    that.pageTotal = page;
-                    that.rows = count;
-                    that.telephone = telephone;
-                })
-                .catch(function (error) { // 请求失败处理
-                    console.log(error);
-                });    
-                },
-                switchPage:function(i){
-                    this.getArticles(i);
-                },
-                prePage:function(){
-                    this.getArticles(--this.pageNo);
-                },
-                nextPage:function(){
-                    this.getArticles(++this.pageNo);
-                },
-                gotoDetail:function(articleId){
-                localStorage.setItem('articleid',articleId);
-                window.location.href="article_detail.html";
+        mounted(){
+        //this.getData();
+        //再调用一下搜索功能
+        this.getArticles();
+        },
+        computed:{
+        pages(){
+            var start = this.pageNo,end = this.pageTotal;
+            if(end<10) return end;
+            if(start<=5){
+                return [1,2,3,4,5,6,'...',end]
             }
-    }
-        })
-    </script>
-    </body>
+            else if(start>=end-5){
+                return [1,'...',end-5,end-4,end-3,end-2,end-1,end]
+            }
+            else{
+                return [1,'...',start-1,start,start+1,'...',end]
+            }
+        }
+    },
+        methods: {
+        doIt:function(){
+            //  alert("请先登录");
+        },
+        signIn:function(){
+            window.location.href="login.html";
+        },
+        getArticles:function(i=1){
+        
+        //alert(flag);
+            var data = localStorage.getItem('userid');
 
-    
+            var that = this;
+            if(i!='...')
+            this.pageNo = i;
+            axios
+            .post('http://127.0.0.1:5000/personal',
+            {
+                'user_id':data,
+                'page':i,
+                'item':that.pageSize
+            })
+            .then(function (response) {
+                //数据要分页显示
+                console.log(response.data.data);
+                let {count,data,page,telephone} = response.data.data;
+                that.lists = data;
+                that.pageTotal = page;
+                that.rows = count;
+                that.telephone = telephone;
+            })
+            .catch(function (error) { // 请求失败处理
+                console.log(error);
+            });    
+            },
+            switchPage:function(i){
+                this.getArticles(i);
+            },
+            prePage:function(){
+                this.getArticles(--this.pageNo);
+            },
+            nextPage:function(){
+                this.getArticles(++this.pageNo);
+            },
+            gotoDetail:function(articleId){
+            localStorage.setItem('articleid',articleId);
+            window.location.href="article_detail.html";
+            }
+        }
+    })
+    </script>
+</body>    
 </html>
