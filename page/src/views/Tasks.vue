@@ -164,23 +164,7 @@ export default {
                     align: 'right'
                 },
             ],
-            listData: [
-                {
-                    title: "test",
-                },
-                {
-                    title: "test",
-                },
-                {
-                    title: "test",
-                },
-                {
-                    title: "test",
-                },
-                {
-                    title: "test",
-                }
-            ],
+            listData: [],
             pager: {
                 total: 1,
                 current: 1
@@ -237,6 +221,7 @@ export default {
                 console.log(res);
                 that.listData = res.result;
                 that.pager.total = res.total;
+                that.selectedRowKeys = [];
                 that.loadingTasks = false;
             })
         },
@@ -390,7 +375,7 @@ export default {
                 if(res.error==0) {
                     that.$message.success('已删除任务');
                     that.requestList({
-                        page: that.pager.current
+                        page: 1
                     });
                 }
                 else {

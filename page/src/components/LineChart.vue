@@ -80,7 +80,7 @@ export default {
             console.log(this.chart);
             let lineData = this.lineData;
             console.log(lineData);
-            let maxData = 0;
+            let maxData = 50;
             for(let i=0; i<lineData.length; i++) {
                 if(lineData[i].CVPR > maxData) {
                     maxData = lineData[i].CVPR;

@@ -30,7 +30,31 @@ const request = {
         //         }
         //     ]
         // }
-        return await axios_get(url, data);
+        let res = await axios_post_json(url, data);
+        let newRes = {
+            error: 0,
+            total: 0,
+            result: []
+        };
+        newRes.error = res.error;
+        newRes.total = res.total;
+        let newResult = [];
+        for(let i=0; i<res.result.length; i++) {
+            let item = res.result[i];
+            item.author = [res.result[i].author];
+            if(item.meeting==1) {
+                item.meeting = ["CVPR"];
+            }
+            else if(item.meeting==2) {
+                item.meeting = ["ICCV"];
+            }
+            else if(item.meeting==3) {
+                item.meeting = ["ECCV"];
+            }
+            newResult.push(item);
+        }
+        newRes.result = newResult;
+        return newRes;
     },
     // 标题输入提示
     getTitleTips: async (data) => {
@@ -114,7 +138,7 @@ const request = {
         // return {
         //     error: 0
         // }
-        return await axios_post(url, data);
+        return await axios_post_json(url, data);
     },
     // 删除爬虫任务
     deleteTask: async (data) => {
@@ -124,7 +148,7 @@ const request = {
         // return {
         //     error: 0
         // }
-        return await axios_post(url, data);
+        return await axios_post_json(url, data);
     },
     // 删除论文记录
     deletePage: async (data) => {
@@ -144,7 +168,7 @@ const request = {
         // return {
         //     error: 0
         // }
-        return await axios_post(url, data);
+        return await axios_post_json(url, data);
     },
     // 获取热词
     getHotwords: async (data) => {
@@ -271,6 +295,46 @@ function axios_post(url,data){
             }],
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+        .then(function(res){
+            resolve(res.data);
+            //reject(res.data)
+        })
+        .catch(function(err){
+            reject(err);
+        })
+    })
+}
+
+function axios_get_json(url,data){
+    return new Promise((resolve,reject) => {
+        axios({
+            method: 'get',
+            url: url,
+            params: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(function(res){
+            resolve(res.data);
+            //reject(res.data)
+        })
+        .catch(function(err){
+            reject(err);
+        })
+    })
+}
+
+function axios_post_json(url,data){
+    return new Promise((resolve,reject) => {
+        axios({
+            method: 'post',
+            url: url,
+            data: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
             }
         })
         .then(function(res){

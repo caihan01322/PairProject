@@ -21,6 +21,7 @@ pnpm-debug.log*
 /page/*.njsproj
 /page/*.sln
 /page/*.sw?
+/page/dist
 
 # npm tools
 package.json

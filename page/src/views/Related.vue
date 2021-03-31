@@ -112,6 +112,7 @@ export default {
         reloadTable(page) {
             console.log(page);
             this.requestList({
+                title: "",
                 keywords: [that.keyword],
                 page: page.page,
                 status: that.label
@@ -122,7 +123,7 @@ export default {
             let that = this;
             request.search(data)
             .then((res)=>{
-                // console.log(res);
+                console.log(res);
                 if(res.error == 0) {
                     // load data
                     that.tableData = res.result;
@@ -162,7 +163,10 @@ export default {
             this.pager.total = a.total;
             let that = this;
             this.requestList({
-                page: that.pager.current
+                title: "",
+                keywords: [that.keyword],
+                page: that.pager.current,
+                status: that.label
             })
         },
     },
@@ -173,9 +177,10 @@ export default {
         this.keyword = url;
         let that = this;
         this.requestList({
+            title: "",
             keywords: [that.keyword],
             page: 1,
-            status: 1
+            status: 0
         });
     },
 }

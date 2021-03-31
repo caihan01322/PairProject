@@ -68,7 +68,7 @@
                         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
                     >
                         <span slot="keywords" slot-scope="keywords">
-                            <a-tag v-for="keyword in keywords" :key="keyword">{{keyword}}</a-tag>
+                            <a-tag v-for="keyword in keywords" :key="keyword" style="margin-top: 3px;">{{keyword}}</a-tag>
                         </span>
                         <span slot="authors" slot-scope="authors">
                             <a-tag v-for="author in authors" :key="author">{{author}}</a-tag>
@@ -198,6 +198,7 @@ export default {
         },
         // 切换筛选
         changeLabel() {
+            let that = this;
             // console.log(this.label);
             this.requestList({
                 title: that.titleValue,
@@ -279,7 +280,10 @@ export default {
             this.pager.total = a.total;
             let that = this;
             this.requestList({
-                page: that.pager.current
+                title: that.titleValue,
+                keywords: that.keywordValue,
+                page: that.pager.current,
+                status: that.label,
             })
         },
     },
