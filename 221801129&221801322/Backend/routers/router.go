@@ -1,7 +1,6 @@
 package routers
 
 import (
-	middlewares "Backend/middleware"
 	"Backend/routers/api"
 	"github.com/gin-gonic/gin"
 
@@ -18,7 +17,6 @@ func InitRouter() *gin.Engine {
 	gin.SetMode(setting.RunMode)
 
 	apiv1 := router.Group("")
-	apiv1.Use(middlewares.Cors())
 	{
 		//用户登录
 		apiv1.POST("/login", api.LoginUser)
