@@ -25,6 +25,7 @@ func GetTopKeywordList(c *gin.Context) {
 			"msg":  err.GetMsg(code),
 			"data": data,
 		})
+		return
 	}
 
 	valid := validation.Validation{}
@@ -59,6 +60,7 @@ func GetChart(c *gin.Context) {
 			"msg":  err.GetMsg(code),
 			"data": data,
 		})
+		return
 	}
 
 	valid := validation.Validation{}

@@ -35,6 +35,8 @@ func ShowArticles(c *gin.Context) {
 			"msg":  err.GetMsg(code),
 			"data": data,
 		})
+
+		return
 	}
 
 	valid := validation.Validation{}
@@ -83,6 +85,8 @@ func ShowMarkArticles(c *gin.Context) {
 			"msg":  err.GetMsg(code),
 			"data": data,
 		})
+
+		return
 	}
 
 	valid := validation.Validation{}

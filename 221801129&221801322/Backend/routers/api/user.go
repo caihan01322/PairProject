@@ -65,6 +65,7 @@ func MarkArticle(c *gin.Context) {
 			"msg":  err.GetMsg(code),
 			"data": make(map[string]interface{}),
 		})
+		return
 	}
 
 	valid := validation.Validation{}
@@ -104,6 +105,7 @@ func DisMarkArticle(c *gin.Context) {
 			"msg":  err.GetMsg(code),
 			"data": make(map[string]interface{}),
 		})
+		return
 	}
 
 	valid := validation.Validation{}
