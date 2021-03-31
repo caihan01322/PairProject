@@ -9,19 +9,15 @@
         <span class="search_total">为您搜索到XXX个论文</span>
       </div>
       <div class="bottom">
-        <el-checkbox v-model="searchOption.selectMode">全选</el-checkbox>
         <el-radio-group class="search_order" v-model="searchOption.sortOrder" size="mini">
           <el-radio-button :label="1">出版日期升序</el-radio-button>
           <el-radio-button :label="2">出版日期降序</el-radio-button>
-          <el-radio-button :label="4">查看量</el-radio-button>
+          <el-radio-button :label="3">查看量</el-radio-button>
         </el-radio-group>
         <el-pagination background layout="prev, pager, next" :total="50" @current-change="changePage"/>
       </div>
     </div>
     <div class="right">
-      <div class="square-button">
-        <i class="el-icon-folder button-icon"/>
-      </div>
       <div class="square-button">
         <i class="el-icon-s-data button-icon"/>
       </div>

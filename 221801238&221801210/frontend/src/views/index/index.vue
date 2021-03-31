@@ -1,7 +1,6 @@
 <template>
   <div class="full_height" style="width: 100%" v-loading="loading"
        :element-loading-text="LoadingText"
-       element-loading-spinner="el-icon-loading"
        element-loading-background="rgba(0, 0, 0, 0.8)">
     <div class="top_bar_contianer">
       <!--登录按钮-->
@@ -105,14 +104,19 @@ export default {
     login() {
       this.$api.User.login(this.user.email, this.user.password).then(res => {
         this.$message.success('登陆成功')
+        this.$store.commit('setUserData', res.data.data)
+        localStorage.setItem('token', res.data.data.token)
         this.$router.push('/center')
       }).catch(err => {
-        this.$message.error('注册失败')
+        console.log(err)
+        this.$message.error('登录失败')
       })
     },
     register() {
       this.$api.User.register(this.user.email, this.user.password).then(res => {
         this.$message.success('注册成功')
+        this.$store.commit('setUserData', res.data.data)
+        localStorage.setItem('token', res.data.data.token)
         this.$router.push('/center')
       }).catch(err => {
         this.$message.error('注册失败')

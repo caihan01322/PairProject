@@ -7,14 +7,13 @@ export default new Vuex.Store({
   state: {
     user: {
       name: '',
-      email: '',
-      token: ''
+      email: ''
     },
     paperList: []
   },
   mutations: {
     setUserData(state,payload) {
-      localStorage.set('user', JSON.stringify(state,payload))
+      localStorage.setItem('user', JSON.stringify(state,payload))
       state.user = payload
     },
     getUserData(state) {

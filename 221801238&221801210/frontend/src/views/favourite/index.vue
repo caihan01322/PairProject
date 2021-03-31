@@ -4,13 +4,12 @@
       <div class="favorite_list full_height">
         <div class="favorite_list_title">
           <p>我的收藏夹</p>
-          <el-button type="primary" plain>新建收藏夹</el-button>
+          <el-button type="primary" plain @click="newFavorite()">新建收藏夹</el-button>
         </div>
         <div class="favorite_list_item" v-for="(itemList,index) in favoriteList"
-             @click="selectFolder(index, itemList.id)"
+             @click="selectFolder(index, itemList.favorite_id)"
              :id="'favorite_list_item' + index">
           <p class="favorite_title">{{ itemList.name }}</p>
-          <p class="favorite_content">{{ itemList.description }}</p>
         </div>
       </div>
     </div>
@@ -33,24 +32,33 @@ export default {
   name: "index",
   data() {
     return {
-      favoriteList: [
-        {
-          name: '收藏夹',
-          description: '描述xxxxxxx'
-        },
-        {
-          name: '收藏夹1',
-          description: '描述xxxxxxx'
-        },
-        {
-          name: '收藏夹2',
-          description: '描述xxxxxxx'
-        },
-        {
-          name: '收藏夹3',
-          description: '描述xxxxxxx'
-        }
-      ]
+      favoriteList: []
+    }
+  },
+  created() {
+    this.initFavorite()
+  },
+  methods: {
+    selectFolder(index, id) {
+      this.$api.Favorites.getPaperList(id).then(res => {
+        this.$store.commit('setPaperList', res.data.data.paperlist )
+      })
+    },
+    newFavorite() {
+      this.$prompt('请输入收藏夹名字', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(({ value }) => {
+        this.$api.Favorites.create(value).then(res => {
+          this.$message.success('创建收藏夹成功')
+          this.initFavorite()
+        })
+      })
+    },
+    initFavorite() {
+      this.$api.Favorites.getList().then(res => {
+        this.favoriteList = res.data.data.favorites
+      })
     }
   },
   components: {

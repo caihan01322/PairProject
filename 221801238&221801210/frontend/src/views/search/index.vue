@@ -1,11 +1,11 @@
 <template>
   <div class="search_page_contianer full_height">
-    <div class="search_result_contianer"  style="overflow: scroll; ">
-      <div style="position: absolute; background-color: white; z-index: 1; padding: 29px">
+    <div class="search_result_contianer" >
+      <div>
         <searchInput />
         <searchOption />
       </div>
-      <searchResultList style="margin-top: 200px; " mode="search"/>
+      <searchResultList mode="search" class="result_list"/>
     </div>
     <hotWordsList style="margin-left: 50px"/>
   </div>
@@ -33,12 +33,14 @@ export default {
 <style lang="scss" scoped>
 .search_page_contianer {
   display: flex;
+  overflow: hidden;
 
-  .search_result_contianer {
-
+  .result_list {
+    height: 100%;
+    overflow-y: scroll;
   }
 
-  .search_result_contianer::-webkit-scrollbar {
+  .result_list::-webkit-scrollbar {
     display: none;
   }
 
