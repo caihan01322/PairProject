@@ -5,8 +5,33 @@ import json,datetime,time
 from spide.spfile import Spider
 
 class DataBase(object):
-    def __init__(self,):
-        self.db = pymysql.connect(host="localhost",user="root",password="Fxn03166",db="spider",port=3306)
+    def __init__(self):
+        self.db = pymysql.connect(host="localhost",user="root",password="123456",db="spider",port=3306)
+
+    def ShowIndex(self,page):
+        self.db.ping(reconnect=True)
+        cursor = self.db.cursor()
+        limit = 10
+        offset = (page-1)*10
+        sql = "SELECT title,id,meeting,author,link FROM article "
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        data = []
+        for rex in result[offset:offset+limit]:
+            re = {
+                "id": result[1],
+                "title": result[0],
+                "link": result[4],
+                "meeting": result[2],
+                "author": result[3]
+            }
+            data.append(re)
+        res = {
+            "error":0,
+            "total":len(result),
+            "result":data
+        }
+        return res
 
     def Search(self,title,keywords,page,status):   #论文检索  测试
         self.db.ping(reconnect=True)
@@ -198,11 +223,11 @@ class DataBase(object):
         self.db.close()
         return rex
 
-    def CaculateHot(self,meeting,page):     #热门关键词统计   待测试
+    def CaculateHot(self,meeting,page):     #热门关键词统计   测试
         self.db.ping(reconnect=True)
         cursor = self.db.cursor()
         start = (page-1)*10
-        sql = "SELECT DISTINCT hotword.hotword,hotword.count FROM hotword,k_a,article WHERE article.meeting=%s AND k_a.article=article.title AND k_a.keyword=hotword.hotword "
+        sql = "SELECT DISTINCT hotword.hotword,hotword.count FROM hotword,k_a WHERE k_a.meeting=%s AND k_a.keyword=hotword.hotword ORDER BY hotword.count DESC "
         cursor.execute(sql,meeting)
         result = cursor.fetchall()
         data = []
@@ -338,7 +363,7 @@ class DataBase(object):
     def InsertArticle(self,title, abstract, name, link, year, meeting):        #插入文章  测试
         self.db.ping(reconnect=True)
         cursor = self.db.cursor()
-        sql = "INSERT INTO article (title, abstract, author, link, year,meeting,author) values (%s,%s,%s,%s,%s,%s) "
+        sql = "INSERT INTO article (title, abstract, author, link, year,meeting) values (%s,%s,%s,%s,%s,%s) "
         cursor.execute(sql, (title, abstract, name, link, year, meeting))
         self.db.commit()
         cursor.close()
@@ -349,7 +374,7 @@ class DataBase(object):
         cursor = self.db.cursor()
         titles = []
         for task in tasks:
-            sql = "SELECT title FROM task_title WHERE task=%s "
+            sql = "SELECT title FROM task_title WHERE task_key=%s "
             cursor.execute(sql,task)
             titles.append(cursor.fetchone()[0])
         cursor.close()
@@ -392,6 +417,11 @@ if __name__ == "__main__":
     #print(d.CaculateHot(1,1))
     #print(d.ReHot())
     #print(d.DeleteArticle([15520,15521]))
-    #print(d.AddTaskAll(["test1","test2"]))
+    #print(d.AddTaskAll(["A Benchmark and Simulator for UAV Tracking"]))
     #print(d.DeleteTask([7]))
     #print(d.ReSpider(1))
+    #print(d.CaculateHot(1,2))
+    #print(d.test())
+    #print(d.find())
+    #print(d.ShowIndex(1))
+    print(d.Spider([9]))
