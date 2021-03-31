@@ -20,7 +20,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/user/thesis")
-public class UserThesisController {
+public class ThesisController {
 
     @Resource
     private ThesisService thesisService;

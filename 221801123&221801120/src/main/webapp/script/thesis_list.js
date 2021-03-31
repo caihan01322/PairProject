@@ -70,12 +70,7 @@ function editThesis(form) {
             "async": false,
             "dataType": "json",
             "success": function(json) {
-                if(json.result == "0") {
-                    Tips.showError(json.message);
-                }else if(json.result == "1") {
-                    Tips.showSuccess(json.message);
-                    window.location.reload();
-                }
+                confirm(json.list);
             }
         });
     }

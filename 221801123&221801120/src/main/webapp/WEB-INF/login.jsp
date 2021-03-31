@@ -7,6 +7,7 @@
 <head>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title>登录</title>
 	<%
@@ -16,7 +17,7 @@
 	%>
 	<base href="<%=basePath%>">
 	<link rel="stylesheet" href="<%=basePath%>css/login.css">
-	<script src="<%=basePath%>script/login.js"></script>
+	<script src="<%=basePath%>script/login.js" charset="UTF-8"></script>
 </head>
 <body>
 	<div class="header">

@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/echart.css">
     <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
     <script src="${pageContext.request.contextPath}/script/echarts-wordcloud.js"></script>
-
+    <script src="http://code.highcharts.com.cn/highcharts/9.0.1/highcharts.js"></script>
 </head>
 <body>
 <!--头部-->
@@ -25,6 +25,50 @@
 <!--中间主体部分-->
 
 <div id="wordcloudDiv"></div>
+<div id="wordchartDiv" style="width: 400px;height: 400px"></div>
+<div id="container" style="width: 600px;height:400px;"></div>
+<script src="http://cdn.highcharts.com.cn/highcharts/highcharts.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<script>
+    var chart = new Highcharts.Chart({
+        chart:{
+            renderTo:'wordchartDiv',
+            type:'column' //显示类型 柱形
+        },
+        title:{
+            text:'Top10' //图表的标题
+        },
+        xAxis:{
+            categories:xtext
+        },
+        yAxis:{
+            title:{
+                text:'数量' //Y轴的名称
+            },
+        },
+        series:[{
+            name:"keyword"
+        }]
+    });
+    var x = [];//X轴
+    var y = [];//Y轴
+    var xtext = [];//X轴TEXT
+    var color = ["gray","pink","red","blue","yellow","green","#fff","#fff","#666","#222"];
+    $.ajax({
+        "url": "user/chart",
+        "async": false,
+        "success": function(data) {
+            var json = eval("("+data+")");
+            for(var key in json.list){
+                json.list[key].y = json.list[key].num; //给Y轴赋值
+                xtext = json.list[key].keyword;//给X轴TEXT赋值
+                json.list[key].color= color[key];
+            }
+            chart.series[0].setData(json.list);//数据填充到highcharts上面
+        }
+    });
+
+</script>
 <script>
     var chart = echarts.init(document.getElementById("wordcloudDiv"));
     var option = {
