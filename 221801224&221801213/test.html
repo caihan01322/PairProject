@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width. initial=scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VueDemo</title>
+</head>
+
+<body>
+    <div id="app">
+        {{ info }}
+    </div>
+
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- axios在线地址 -->
+    <script src="https:/unpkg.com/axios/dist/axios.min.js"></script>
+
+
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: "#app",
+            data: {
+                i12nfo: [],
+            },
+            data() {
+                return {
+                    info: [],
+                }
+            },
+            mounted() {
+                axios.get("./testdata.json").then(response => (this.info = response.data.code));
+                alert(this.info);
+                // var that = this;
+                //     axios.get("./testdata.json").then(function(response) {
+                //             that.info = response.data.code;
+
+                //         })
+                //         .catch(function(err) {})
+            }
+
+        })
+    </script>
+
+
+
+</body>
+
+</html>
