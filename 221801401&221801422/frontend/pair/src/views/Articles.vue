@@ -112,6 +112,7 @@
           <div class="tab_content" v-else-if="tab==3">
             <!-- 内容四 -->
               <div>
+
                 <el-avatar style="margin-top:100px" :size="150" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/4ZWR3V/f2/5f/0b/f25f0b8a8a354b97879b76719e319cf8/images/论文列表/u22.svg?token=97bb5bafada96da5d048a20f601fd183fb436b10ff76c40e10d1c000a2e73a68"></el-avatar>
               </div>
               <el-row>
@@ -165,51 +166,6 @@ export default {
     return {
       tab: 0,
       input: '',
-      tableData: [{
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      }, {
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      }, {
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      }, {
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      }, {
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      }, {
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      }, {
-        title: 'fhajsf',
-        articlenumber: 'dsfajla',
-        doilink: 'fsafjnafjfda',
-        kwds: 'fjalfhjalffa',
-        abstract: 'uiorhtwetnwo'
-      }],
-      pageSize: 7,
-      currentPage: 1,
       options: [{
         value: '选项1',
         label: '论文标题'

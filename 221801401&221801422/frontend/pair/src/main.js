@@ -9,12 +9,14 @@ import axios from 'axios'
 import qs from 'qs'
 import 'element-ui/lib/theme-chalk/index.css'
 
+
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 
 Vue.use(ElementUI)
 axios.defaults.baseURL = '/vc'
 Vue.prototype.qs = qs
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

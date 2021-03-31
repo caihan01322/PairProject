@@ -16,6 +16,7 @@ module.exports = {
         changeOrigin: true,
         pathRewrite: {
           '^/vc': ''
+
         }
       }
     },
