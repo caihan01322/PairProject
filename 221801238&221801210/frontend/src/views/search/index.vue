@@ -1,11 +1,13 @@
 <template>
-  <div class="search_page_contianer full_height">
-    <div class="search_result_contianer"  style="overflow: scroll; ">
-      <div style="position: absolute; background-color: white; z-index: 1; padding: 29px">
-        <searchInput />
-        <searchOption />
+  <div class="search_page_contianer full_height"  v-loading="loading"
+       :element-loading-text="LoadingText"
+       element-loading-background="rgba(0, 0, 0, 0.8)">
+    <div class="search_result_contianer" >
+      <div>
+        <searchInput @searchEvent="searchKeyword"/>
+        <searchOption :total="total"/>
       </div>
-      <searchResultList style="margin-top: 200px; " mode="search"/>
+      <searchResultList mode="search" class="result_list"/>
     </div>
     <hotWordsList style="margin-left: 50px"/>
   </div>
@@ -26,6 +28,37 @@ export default {
     searchOption,
     searchResultList,
     hotWordsList
+  },
+  data() {
+    return {
+      loading: false,
+      LoadingText: '',
+      total: 0
+    }
+  },
+  methods: {
+    searchKeyword(keyword) {
+      this.loading = true
+      let checkProcessTask
+
+
+      this.$api.Paper.getList(keyword).then(res => {
+        this.loading = false
+        this.total = res.data.data.total
+        clearInterval(checkProcessTask)
+        this.$store.commit('setPaperList', res.data.data.paperList)
+        this.$router.push('/search')
+      })
+
+      checkProcessTask = setInterval(() => {
+        this.$api.Paper.getProcess().then(res => {
+          this.currentFindNums = res.data.data.currentFindNums
+          this.LoadingText = `已经为您搜索到${this.currentFindNums}条记录，请稍等`
+        })
+      }, 500)
+
+
+    }
   }
 }
 </script>
@@ -33,12 +66,14 @@ export default {
 <style lang="scss" scoped>
 .search_page_contianer {
   display: flex;
+  overflow: hidden;
 
-  .search_result_contianer {
-
+  .result_list {
+    height: 80%;
+    overflow-y: scroll;
   }
 
-  .search_result_contianer::-webkit-scrollbar {
+  .result_list::-webkit-scrollbar {
     display: none;
   }
 

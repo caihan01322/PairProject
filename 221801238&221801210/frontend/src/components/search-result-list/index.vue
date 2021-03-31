@@ -25,11 +25,22 @@
         </div>
         <el-divider />
         <div class="button_group">
-          <el-checkbox class="collect_button" v-model="collection" :label="paper.id" border v-if=" mode === 'search' ">添加至收藏夹</el-checkbox>
+          <el-button class="collect_button" type="primary" plain :label="paper.id" border v-if=" mode === 'search' " @click="insertToFavorites(paper.id)">添加至收藏夹</el-button>
           <el-button class="collect_button"  v-if=" mode === 'favorite' " type="danger">删除</el-button>
         </div>
       </div>
     </div>
+
+    <el-dialog :visible.sync="favouritesDialog" height="250">
+      <el-table :data="favouritesData">
+        <el-table-column prop="name" label="收藏夹名称"  width="180" />
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button @click="inserted(scope.row.favorite_id)" type="primary">添加</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
@@ -43,8 +54,10 @@ export default {
   },
   data() {
     return {
-      collection: [],
-      colorType: ['','success','info','danger','warning']
+      favouritesData: [],
+      colorType: ['','success','info','danger','warning'],
+      favouritesDialog: false,
+      selectPaperId: 0
     }
   },
   created() {
@@ -53,6 +66,24 @@ export default {
   methods: {
     getTagsColor(index) {
       return this.colorType[index % 5]
+    },
+    insertToFavorites(selectPaperId) {
+
+      this.selectPaperId = selectPaperId
+
+      this.$api.Favorites.getList().then(res => {
+        this.favouritesData = res.data.data.favorites
+        console.log(res.data.data.favorites)
+        this.favouritesDialog = true
+      })
+
+
+    },
+    inserted(id) {
+      this.$api.Favorites.insert(id,this.selectPaperId).then(res => {
+        this.favouritesDialog = false
+        this.$message.success('收藏成功!')
+      })
     }
   },
   computed: {

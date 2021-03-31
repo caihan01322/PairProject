@@ -4,13 +4,12 @@
       <div class="favorite_list full_height">
         <div class="favorite_list_title">
           <p>我的收藏夹</p>
-          <el-button type="primary" plain>新建收藏夹</el-button>
+          <el-button type="primary" plain @click="newFavorite()">新建收藏夹</el-button>
         </div>
         <div class="favorite_list_item" v-for="(itemList,index) in favoriteList"
-             @click="selectFolder(index, itemList.id)"
+             @click="selectFolder(index, itemList.favorite_id)"
              :id="'favorite_list_item' + index">
           <p class="favorite_title">{{ itemList.name }}</p>
-          <p class="favorite_content">{{ itemList.description }}</p>
         </div>
       </div>
     </div>
@@ -33,24 +32,44 @@ export default {
   name: "index",
   data() {
     return {
-      favoriteList: [
-        {
-          name: '收藏夹',
-          description: '描述xxxxxxx'
-        },
-        {
-          name: '收藏夹1',
-          description: '描述xxxxxxx'
-        },
-        {
-          name: '收藏夹2',
-          description: '描述xxxxxxx'
-        },
-        {
-          name: '收藏夹3',
-          description: '描述xxxxxxx'
+      favoriteList: []
+    }
+  },
+  created() {
+    this.initFavorite()
+  },
+  methods: {
+    selectFolder(index, id) {
+
+      let elements = document.getElementsByClassName('favorite_list_item')
+      for (let i = 0 ; i < this.favoriteList.length ; i ++){
+        elements[i].className = 'favorite_list_item'
+        if (i == index){
+          elements[i].className += ' favorite_item_active'
         }
-      ]
+      }
+
+      this.$api.Favorites.getPaperList(id).then(res => {
+        this.$store.commit('setPaperList', res.data.data.paperlist )
+      })
+
+
+    },
+    newFavorite() {
+      this.$prompt('请输入收藏夹名字', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(({ value }) => {
+        this.$api.Favorites.create(value).then(res => {
+          this.$message.success('创建收藏夹成功')
+          this.initFavorite()
+        })
+      })
+    },
+    initFavorite() {
+      this.$api.Favorites.getList().then(res => {
+        this.favoriteList = res.data.data.favorites
+      })
     }
   },
   components: {
@@ -103,7 +122,7 @@ export default {
   }
 
   .favorite_item_active {
-    background-color: #65BD77;
+    background-color: #409EFF;
     color: white;
     width: 90%;
     border: 1px solid #E8E8E8;
@@ -156,7 +175,7 @@ export default {
 }
 
 .favorite_paper_contianer {
-  overflow-y: scroll;
+  overflow: hidden;
 
 }
 
@@ -165,14 +184,16 @@ export default {
 }
 
 .search_top_bar {
-  position: fixed;
-  margin-left: 50px;
   background-color: white;
-  padding-top: 20px;
-  z-index: 1;
 }
 
 .search_result_list {
-  padding-top: 120px;
+  overflow-y: scroll;
+  height: 80%;
 }
+
+.search_result_list::-webkit-scrollbar {
+  display: none;
+}
+
 </style>

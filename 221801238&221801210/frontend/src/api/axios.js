@@ -13,13 +13,13 @@ ax.defaults.baseURL = "/api"
 //请求拦截
 ax.interceptors.request.use(config =>
 {
-    // let token = localStorage.getItem("ApiToken")
-    // if (token!=="")
-    // {
-    //     console.log(token)
-    //     config.headers.common['Authorization'] = token;
-    //     config.headers["Authorization"] = token
-    // }
+    let token = localStorage.getItem("token") || ''
+    if (token!=="")
+    {
+        console.log(token)
+        config.headers.common['Authorization'] = token;
+        config.headers["Authorization"] = token
+    }
     return config
 })
 
@@ -28,17 +28,15 @@ ax.interceptors.request.use(config =>
 ax.interceptors.response.use(response =>
 {
     if (response.status == 200) {
-        // store.commit('setNetwork', true);
-        // if(response.data.code == 401){
-        //     Message.error('你的登录已过期/尚未登录，请重新登录')
-        //     router.push('/login')
-        // }
+        if(response.data.code == 401){
+            Message.error('你的登录已过期/尚未登录，请重新登录')
+            router.push('/login')
+        }
         return Promise.resolve(response);
     }
     return Promise.reject(response);
 }, error =>
 {
-    store.commit('setNetwork', false);
     return Promise.reject(error);
 })
 
