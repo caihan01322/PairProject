@@ -364,6 +364,11 @@ def get_trend():
         data.append(per_key)
     return jsonify(code=0, data=data)
 
+@app.route("/carousel")
+@login_required
+def carousel():
+    """轮播图"""
+    return render_template("carousel.html")
 
 if __name__ == "__main__":
     app.run(port=8000, debug=True)
