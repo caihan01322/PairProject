@@ -9,7 +9,10 @@ enum Prefix {
   loginModal = 'LoginModal',
 
   // 编辑框组件
-  editModal = 'EditModal'
+  editModal = 'EditModal',
+
+  // 图表 加载
+  chartLoading = 'ChartLoading',
 }
 
 export default Prefix;

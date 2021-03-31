@@ -7,3 +7,4 @@ export { default as WordCloud } from './wordCloud';
 export { default as LineChart } from './lineChart';
 export { default as SmallLineChart } from './smallLineChart';
 export { default as EditModal } from './editModal';
+export { default as ChartLoading } from './chartLoading';

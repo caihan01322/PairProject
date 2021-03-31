@@ -1,6 +1,8 @@
 import { ModelNameSpaces } from '@/types';
 import React, { useEffect } from 'react';
 import { history, useDispatch } from 'umi';
+import { message } from 'antd';
+import delay from 'delay';
 
 const OAuth = () => {
   const dispatch = useDispatch();
@@ -11,17 +13,19 @@ const OAuth = () => {
   ) => {
     if (
       code == null ||
-      Array.isArray(code) ||
-      redirect == null ||
-      Array.isArray(redirect)
+      Array.isArray(code)
     ) {
       history.push('/');
       return;
     }
-    await dispatch({
+    const isOk = await dispatch({
       type: `${ModelNameSpaces.User}/login`,
       payload: code,
     });
+    if (!isOk) {
+      message.error('登录失败, 请检查网络问题');
+      await delay(1000);
+    }
     history.push('/');
   };
   useEffect(() => {

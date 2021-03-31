@@ -7,7 +7,7 @@ const loopLocalStorage = (localStorage: Storage) => {
   const arr = [];
   for (let i = 0; i < len; i++) {
     const key = localStorage.key(i) as string;
-    if (key === 'token' || key === 'username') {
+    if (key === '__isLogin__' || key === '__username__' || key === '__avatar__') {
       continue;
     }
     const value = parseInt(localStorage.getItem(key) as string);

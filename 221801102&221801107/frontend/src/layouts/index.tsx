@@ -23,16 +23,6 @@ const Layout = ({ children }: IRouteComponentProps) => {
     return UserModel;
   });
 
-  useEffect(() => {
-    const query = history.location.query;
-    const code = query && query.code;
-    dispatch({
-      type: `${ModelNameSpaces.User}/login`,
-      payload: code,
-    });
-  }, []);
-
-  // mock
   const selectKey = history.location.pathname;
 
   const [visible, setVisible] = useState(false);

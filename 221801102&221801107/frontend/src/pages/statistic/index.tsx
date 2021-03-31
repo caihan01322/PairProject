@@ -1,9 +1,16 @@
 import { Row, Col, Card, Menu } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
-import { LineChart, WordCloud, SmallLineChart, RoseChart } from '@/components';
+import {
+  LineChart,
+  WordCloud,
+  SmallLineChart,
+  RoseChart,
+  ChartLoading,
+} from '@/components';
 import styles from './index.less';
 import { useDispatch, useSelector } from 'umi';
 import { ModelNameSpaces, RootStore } from '@/types';
+import delay from 'delay';
 
 export default function Statistic() {
   const dispatch = useDispatch();
@@ -18,8 +25,9 @@ export default function Statistic() {
     const { [ModelNameSpaces.Statistic]: StatisticModal } = store;
     return StatisticModal;
   });
-  const triggerFetch = () => {
+  const triggerFetch = async () => {
     setLoading(true);
+    await delay(2000);
     dispatch({
       type: `${ModelNameSpaces.Statistic}/getCloud`,
     });
@@ -57,37 +65,45 @@ export default function Statistic() {
   const ICCVChart = useMemo(
     () => (
       <Card title="ICCV总体走势图" bodyStyle={{ height: '20vh' }}>
-        <SmallLineChart data={ICCVWordsData} />
+        <ChartLoading loading={loading}>
+          <SmallLineChart data={ICCVWordsData} />
+        </ChartLoading>
       </Card>
     ),
-    [ICCVWordsData],
+    [ICCVWordsData, loading],
   );
 
   const ECCVChart = useMemo(
     () => (
       <Card title="ECCV总体走势图" bodyStyle={{ height: '20vh' }}>
-        <SmallLineChart data={ECCVWordsData} />
+        <ChartLoading loading={loading}>
+          <SmallLineChart data={ECCVWordsData} />
+        </ChartLoading>
       </Card>
     ),
-    [ECCVWordsData],
+    [ECCVWordsData, loading],
   );
 
   const EVPRChart = useMemo(
     () => (
       <Card title="CVPR总体走势图" bodyStyle={{ height: '20vh' }}>
-        <SmallLineChart data={CVPRWordsData} />
+        <ChartLoading loading={loading}>
+          <SmallLineChart data={CVPRWordsData} />
+        </ChartLoading>
       </Card>
     ),
-    [CVPRWordsData],
+    [CVPRWordsData, loading],
   );
 
   const RoseMemoChart = useMemo(
     () => (
       <Card title="玫瑰图" bodyStyle={{ height: '20vh' }}>
-        <RoseChart data={cloudData} />
+        <ChartLoading loading={loading}>
+          <RoseChart data={cloudData} />
+        </ChartLoading>
       </Card>
     ),
-    [cloudData],
+    [cloudData, loading],
   );
 
   const WordCloudMemo = useMemo(
@@ -97,10 +113,12 @@ export default function Statistic() {
         className={styles.wordCloud}
         bodyStyle={{ height: 'calc(40vh - 12px)' }}
       >
-        <WordCloud data={cloudData} />
+        <ChartLoading loading={loading}>
+          <WordCloud data={cloudData} />
+        </ChartLoading>
       </Card>
     ),
-    [cloudData],
+    [cloudData, loading],
   );
 
   return (
@@ -137,7 +155,9 @@ export default function Statistic() {
             className={styles.lineChart}
             bodyStyle={{ height: '40vh' }}
           >
-            <LineChart data={selectData()} />
+            <ChartLoading loading={loading}>
+              <LineChart data={selectData()} />
+            </ChartLoading>
           </Card>
         </Col>
       </Row>

@@ -37,9 +37,9 @@ export interface UserModelType {
 }
 
 export const initialState = {
-  isLogin: false,
-  avatar: null,
-  username: null,
+  isLogin: localStorage.getItem('__isLogin__') ? true : false,
+  avatar: localStorage.getItem('__avatar__'),
+  username: localStorage.getItem('__username__'),
 };
 
 const UserModel: UserModelType = {
@@ -53,14 +53,17 @@ const UserModel: UserModelType = {
         return false;
       }
       const { name, avatar } = data;
+      localStorage.setItem('__isLogin__', 'ok');
       yield put({
         type: 'changeLogin',
         payload: true,
       });
+      localStorage.setItem('__username__', name);
       yield put({
         type: 'changeUsername',
         payload: name,
       });
+      localStorage.setItem('__avatar__', avatar);
       yield put({
         type: 'changeAvatar',
         payload: avatar,
@@ -69,6 +72,7 @@ const UserModel: UserModelType = {
     },
     *logout({ payload }, { call, put }) {
       yield call(UserServices.logout, payload);
+      localStorage.removeItem('__isLogin__');
       yield put({
         type: 'changeLogin',
         payload: false,
