@@ -12,10 +12,10 @@
         <el-checkbox v-model="searchOption.selectMode">全选</el-checkbox>
         <el-radio-group class="search_order" v-model="searchOption.sortOrder" size="mini">
           <el-radio-button :label="1">出版日期升序</el-radio-button>
-          <el-radio-button :label="2">出版日期将序</el-radio-button>
-          <el-radio-button :label="3">被引用量</el-radio-button>
+          <el-radio-button :label="2">出版日期降序</el-radio-button>
           <el-radio-button :label="4">查看量</el-radio-button>
         </el-radio-group>
+        <el-pagination background layout="prev, pager, next" :total="50" @current-change="changePage"/>
       </div>
     </div>
     <div class="right">
@@ -39,6 +39,13 @@ export default {
         selectMode: true,
         sortOrder: 1
       }
+    }
+  },
+  methods: {
+    changePage(page) {
+      this.$api.Paper.page(page - 1).then(res => {
+        this.$store.commit('setPaperList', res.data.data.paperList)
+      })
     }
   }
 }
@@ -64,6 +71,8 @@ export default {
 
   .bottom {
     margin-top: 10px;
+    display: flex;
+    align-items: center;
   }
 }
 

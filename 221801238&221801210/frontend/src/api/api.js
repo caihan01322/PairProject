@@ -56,4 +56,12 @@ export class Paper {
         return axios.get("/paper/getProcess")
     }
 
+    /**
+     * 判断论文获取进度
+     * @returns {*}
+     */
+    static page(pageNum) {
+        return axios.get(`paper/page?currentPage=${pageNum}`)
+    }
+
 }
