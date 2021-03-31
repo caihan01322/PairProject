@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!--   namespace属性  名称空间  java包结构一个概念-->
+<!-- 用来区分Dao接口，推荐编写Dao接口的全限定路径 -->
+<!-- cn.tx.dao.IUserDao.findAll -->
+
+<mapper namespace="Dao.essayDao">
+    
+
+<!--   查询所有 -->
+<!-- id必须于IUserDao.java里的方法名一样 -->
+<!-- resultType属性，方法返回值类型，全限定路径（包名+类名)-->
+
+<select id="getInfo" parameterType="String"  resultType="Entity.Essay">
+<!-- ';'可以省略.编写对应的sql语句 -->
+select  title,authors,articlenumber,link,keywords,summary,year,meeting  from essay_cvpr where title = #{essayName}
+union all
+select  title,authors,articlenumber,link,keywords,summary,year,meeting  from essay_eccv where title = #{essayName}
+union all
+select  title,authors,articlenumber,link,keywords,summary,year,meeting  from essay_iccv where title = #{essayName}
+</select>
+<update id="editcvpr" parameterType="Entity.Essay">
+ update essay_cvpr set title=#{title},authors=#{authors},articlenumber=#{articlenumber},link=#{link},keywords=#{keywords},summary=#{summary},year=#{year},meeting=#{meeting} where title = #{title};
+</update>
+<update id="editeccv" parameterType="Entity.Essay">
+ update essay_eccv set title=#{title},authors=#{authors},articlenumber=#{articlenumber},link=#{link},keywords=#{keywords},summary=#{summary},year=#{year},meeting=#{meeting} where title = #{title};
+</update>
+<update id="editiccv" parameterType="Entity.Essay">
+ update essay_iccv set title=#{title},authors=#{authors},articlenumber=#{articlenumber},link=#{link},keywords=#{keywords},summary=#{summary},year=#{year},meeting=#{meeting} where title = #{title};
+</update>
+<select id="singleSearch" parameterType="String" resultType="Entity.Essay">
+select * from essay_cvpr where title like concat('%','${searchString}','%') or authors like concat('%','${searchString}','%') or summary like concat('%','${searchString}','%')
+union all
+select * from essay_eccv where title like concat('%','${searchString}','%') or authors like concat('%','${searchString}','%') or summary like concat('%','${searchString}','%')
+union all
+select * from essay_iccv where title like concat('%','${searchString}','%') or authors like concat('%','${searchString}','%') or summary like concat('%','${searchString}','%')
+order by meeting,title;
+</select>
+<select id="keywordsGetCVPR" resultType="Entity.Keywords">
+select keywords from essay_cvpr where year =#{year};
+</select>
+<select id="keywordsGetECCV" resultType="Entity.Keywords">
+select keywords from essay_eccv where year =#{year};
+</select>
+<select id="keywordsGetICCV" resultType="Entity.Keywords">
+select keywords from essay_iccv where year =#{year};
+</select>
+<select id="keywordsGetICCVALL" resultType="Entity.Keywords">
+select keywords from essay_iccv;
+</select>
+<select id="keywordsGetCVPRALL" resultType="Entity.Keywords">
+select keywords from essay_cvpr;
+</select>
+<select id="keywordsGetECCVALL" resultType="Entity.Keywords">
+select keywords from essay_eccv;
+</select>
+<select id="keywordsGetMY" resultType="Entity.Keywords">
+select keywords from essay_eccv where meeting in (select essaytype from collect where name = #{name}) and id in (select essaynum from collect where name = #{name})
+union all
+select keywords from essay_cvpr where meeting in (select essaytype from collect where name = #{name}) and id in (select essaynum from collect where name = #{name})
+union all
+select keywords from essay_iccv where meeting in (select essaytype from collect where name = #{name}) and id in (select essaynum from collect where name = #{name});
+</select>
+<select id="labelSearchByKeywords" resultType="Entity.Essay">
+select * from essay_eccv where meeting in (select essaytype from collect where name =#{user}) and id in (select essaynum from collect where name =#{user}) and keywords like concat('%','${words}','%')
+union all
+select * from essay_iccv where meeting in (select essaytype from collect where name =#{user}) and id in (select essaynum from collect where name =#{user}) and keywords like concat('%','${words}','%')
+union all
+select * from essay_cvpr where meeting in (select essaytype from collect where name =#{user}) and id in (select essaynum from collect where name =#{user}) and keywords like concat('%','${words}','%');
+</select>
+<select id="labelSearchByNum" resultType="Entity.Essay">
+select * from essay_eccv where meeting in (select essaytype from collect where name =#{user}) and id in (select essaynum from collect where name =#{user}) and articlenumber like concat('%','${num}','%')
+union all
+select * from essay_iccv where meeting in (select essaytype from collect where name =#{user}) and id in (select essaynum from collect where name =#{user}) and articlenumber like concat('%','${num}','%')
+union all
+select * from essay_cvpr where meeting in (select essaytype from collect where name =#{user}) and id in (select essaynum from collect where name =#{user}) and articlenumber like concat('%','${num}','%');
+</select>
+<select id="labelSearchByTitle" resultType="Entity.Essay">
+select * from essay_eccv where meeting in (select essaytype from collect where name =#{user}) and id in (select essaynum from collect where name =#{user}) and title like concat('%','${title}','%')
+union all
+select * from essay_iccv where meeting in (select essaytype from collect where name =#{user}) and id in (select essaynum from collect where name =#{user}) and title like concat('%','${title}','%')
+union all
+select * from essay_cvpr where meeting in (select essaytype from collect where name =#{user}) and id in (select essaynum from collect where name =#{user}) and title like concat('%','${title}','%');
+</select>
+
+<select id="selectCheckCVPR" resultType="Integer">
+select count(*) from collect where name=#{user} and essaytype='cvpr' and essaynum in (select id from essay_cvpr where title=#{title});
+</select>
+<select id="selectCheckECCV" resultType="Integer">
+select count(*) from collect where name=#{user} and essaytype='eccv' and essaynum in (select id from essay_eccv where title=#{title});
+</select>
+<select id="selectCheckICCV" resultType="Integer">
+select count(*) from collect where name=#{user} and essaytype='iccv' and essaynum in (select id from essay_iccv where title=#{title});
+</select>
+
+<select id="essayAllSelect" resultType="Entity.Essay">
+select * from essay_cvpr where (id in (select essaynum from collect where name = #{user} and essaytype="cvpr"))
+union all
+select * from essay_eccv where (id in (select essaynum from collect where name = #{user} and essaytype="eccv"))
+union all
+select * from essay_iccv where (id in (select essaynum from collect where name = #{user} and essaytype="iccv"));
+</select>
+<select id="getAllKeywords" resultType="Entity.Keywords">
+select keywords from essay_cvpr where keywords != ''
+union all
+select keywords from essay_eccv where keywords != ''
+union all
+select keywords from essay_iccv where keywords != ''
+</select>
+</mapper>
