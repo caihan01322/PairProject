@@ -106,11 +106,11 @@ export class Favorites {
  */
 export class Data {
     static getPaperSource(beg, end) {
-        return axios.post('/data/getPaperSource', {
-
-        })
+        return axios.get(`/data/getPaperSource?beg=${beg}&end=${end}`)
     }
 
-
+    static getTopTen() {
+        return axios.get('/data/getTopTen')
+    }
 
 }

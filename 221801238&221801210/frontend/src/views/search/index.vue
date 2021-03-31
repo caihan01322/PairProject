@@ -1,9 +1,11 @@
 <template>
-  <div class="search_page_contianer full_height">
+  <div class="search_page_contianer full_height"  v-loading="loading"
+       :element-loading-text="LoadingText"
+       element-loading-background="rgba(0, 0, 0, 0.8)">
     <div class="search_result_contianer" >
       <div>
-        <searchInput />
-        <searchOption />
+        <searchInput @searchEvent="searchKeyword"/>
+        <searchOption :total="total"/>
       </div>
       <searchResultList mode="search" class="result_list"/>
     </div>
@@ -26,6 +28,37 @@ export default {
     searchOption,
     searchResultList,
     hotWordsList
+  },
+  data() {
+    return {
+      loading: false,
+      LoadingText: '',
+      total: 0
+    }
+  },
+  methods: {
+    searchKeyword(keyword) {
+      this.loading = true
+      let checkProcessTask
+
+
+      this.$api.Paper.getList(keyword).then(res => {
+        this.loading = false
+        this.total = res.data.data.total
+        clearInterval(checkProcessTask)
+        this.$store.commit('setPaperList', res.data.data.paperList)
+        this.$router.push('/search')
+      })
+
+      checkProcessTask = setInterval(() => {
+        this.$api.Paper.getProcess().then(res => {
+          this.currentFindNums = res.data.data.currentFindNums
+          this.LoadingText = `已经为您搜索到${this.currentFindNums}条记录，请稍等`
+        })
+      }, 500)
+
+
+    }
   }
 }
 </script>
@@ -36,7 +69,7 @@ export default {
   overflow: hidden;
 
   .result_list {
-    height: 100%;
+    height: 80%;
     overflow-y: scroll;
   }
 

@@ -1,11 +1,13 @@
 <template>
   <div class="center_contianer full_height">
     <div class="user_dialog">
-      <div class="avatar" />
+      <div class="avatar" >
+        <i class="el-icon-user-solid icon" />
+      </div>
       <div class="dialog_input_contianer">
         <div class="dialog_input">
           <span>用户名：</span>
-          <el-input v-model="user.name" class="input_area"/>
+          <el-input v-model="user.name" class="input_area" />
         </div>
         <div class="dialog_input">
           <span>邮箱：</span>
@@ -31,6 +33,9 @@ export default {
         email: '221801238@qq.com'
       }
     }
+  },
+  mounted() {
+    this.user = this.$store.state.user
   }
 }
 </script>
@@ -83,5 +88,10 @@ export default {
 .input_area {
   margin-top: 10px;
   width: 300px;
+}
+
+.icon {
+  font-size: 130px;
+  color: rgba(223, 223, 223, 100)
 }
 </style>

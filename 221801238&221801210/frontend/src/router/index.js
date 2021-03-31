@@ -28,6 +28,11 @@ const routes = [
     path: '/data',
     name: 'Data',
     component: () => import('@/views/data')
+  },
+  {
+    path: '/logout',
+    name: 'Logout',
+    component: () => import('@/views/logout')
   }
 ]
 

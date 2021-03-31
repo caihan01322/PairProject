@@ -1,8 +1,10 @@
 <template>
   <div class="side-nav-bar">
     <div>
-      <div class="avatar"/>
-      <p class="username">用户XXXX</p>
+      <div class="avatar">
+        <i class="el-icon-user-solid icon" />
+      </div>
+      <p class="username">{{ $store.state.user.name }}</p>
       <div class="menu">
         <p class="title">菜单 Menu</p>
         <div v-for="menuItem in menuList" :key="menuItem.pageName"
@@ -78,7 +80,7 @@ export default {
 }
 
 .username {
-  margin-left: 122px;
+  text-align: center;
   margin-top: 11px;
   color: rgba(255, 255, 255, 100);
   font-size: 16px;
@@ -150,5 +152,10 @@ export default {
 .copy_right {
   color: rgba(176, 176, 176, 100);
   font-size: 14px;
+}
+
+.icon {
+  font-size: 130px;
+  color: rgba(223, 223, 223, 100)
 }
 </style>

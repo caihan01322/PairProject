@@ -6,7 +6,7 @@
           <el-radio :label="1">在已有结果上搜索</el-radio>
           <el-radio :label="2">重新搜索</el-radio>
         </el-radio-group>
-        <span class="search_total">为您搜索到XXX个论文</span>
+        <span class="search_total">为您搜索到{{ total }}个论文</span>
       </div>
       <div class="bottom">
         <el-radio-group class="search_order" v-model="searchOption.sortOrder" size="mini">
@@ -14,7 +14,7 @@
           <el-radio-button :label="2">出版日期降序</el-radio-button>
           <el-radio-button :label="3">查看量</el-radio-button>
         </el-radio-group>
-        <el-pagination background layout="prev, pager, next" :total="50" @current-change="changePage"/>
+        <el-pagination background layout="prev, pager, next" :total="(parseInt(total/10) + 1 ) * 10" @current-change="changePage"/>
       </div>
     </div>
     <div class="right">
@@ -28,6 +28,11 @@
 <script>
 export default {
   name: "search-option",
+  props: {
+    total: {
+      type: Number
+    }
+  },
   data() {
     return {
       searchOption: {

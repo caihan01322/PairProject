@@ -3,10 +3,12 @@
        :element-loading-text="LoadingText"
        element-loading-background="rgba(0, 0, 0, 0.8)">
     <div class="top_bar_contianer">
-      <!--登录按钮-->
-      <el-button class="login_button"  @click="openLoginDialog()">登录</el-button>
+      <div v-if="typeof $store.state.user.name == 'string' " class="top_bar">
+        <span class="welcome">{{ '欢迎您！' + $store.state.user.name }}</span>
+        <topBar />
+      </div>
+      <el-button v-else class="login_button"  @click="openLoginDialog()">登录</el-button>
     </div>
-    <!--主体-->
     <el-row align="middle" justify="center" type="flex" class="full_height middle">
       <p class="title">论文直达</p>
       <el-row class="full_width" align="middle" justify="center" type="flex">
@@ -17,11 +19,11 @@
         <p class="text">批量导入</p>
       </div>
     </el-row>
-
-    <!--登录对话框-->
     <el-dialog title="登录" :visible.sync="showLogin" width="600px">
       <div class="login_dialog">
-        <div class="avatar" />
+        <div class="avatar" >
+          <i class="el-icon-user-solid icon" />
+        </div>
         <div class="dialog_input_contianer">
           <div class="dialog_input">
             <span>邮箱：</span>
@@ -72,10 +74,13 @@
 
 <script>
 import searchInput from '@/components/search-input'
+import topBar from './components/top-bar'
+
 export default {
   name: "index.vue",
   components: {
-    searchInput
+    searchInput,
+    topBar
   },
   data() {
     return {
@@ -257,4 +262,25 @@ export default {
   width: 172px;
   margin-top: 50px;
 }
+
+.welcome {
+  font-size: 20px;
+  color: #1C5C9D;
+  margin-right: 10px;
+}
+
+.top_bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 5;
+  width: 100%;
+}
+
+
+.icon {
+  font-size: 130px;
+  color: rgba(223, 223, 223, 100)
+}
+
 </style>

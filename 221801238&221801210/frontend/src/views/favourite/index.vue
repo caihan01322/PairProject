@@ -40,9 +40,20 @@ export default {
   },
   methods: {
     selectFolder(index, id) {
+
+      let elements = document.getElementsByClassName('favorite_list_item')
+      for (let i = 0 ; i < this.favoriteList.length ; i ++){
+        elements[i].className = 'favorite_list_item'
+        if (i == index){
+          elements[i].className += ' favorite_item_active'
+        }
+      }
+
       this.$api.Favorites.getPaperList(id).then(res => {
         this.$store.commit('setPaperList', res.data.data.paperlist )
       })
+
+
     },
     newFavorite() {
       this.$prompt('请输入收藏夹名字', '提示', {
@@ -111,7 +122,7 @@ export default {
   }
 
   .favorite_item_active {
-    background-color: #65BD77;
+    background-color: #409EFF;
     color: white;
     width: 90%;
     border: 1px solid #E8E8E8;
@@ -164,7 +175,7 @@ export default {
 }
 
 .favorite_paper_contianer {
-  overflow-y: scroll;
+  overflow: hidden;
 
 }
 
@@ -173,14 +184,16 @@ export default {
 }
 
 .search_top_bar {
-  position: fixed;
-  margin-left: 50px;
   background-color: white;
-  padding-top: 20px;
-  z-index: 1;
 }
 
 .search_result_list {
-  padding-top: 120px;
+  overflow-y: scroll;
+  height: 80%;
 }
+
+.search_result_list::-webkit-scrollbar {
+  display: none;
+}
+
 </style>

@@ -11,6 +11,9 @@ export default {
   name: 'app',
   components: {
     sideNavBar
+  },
+  mounted() {
+    this.$store.commit('getUserData')
   }
 }
 </script>
