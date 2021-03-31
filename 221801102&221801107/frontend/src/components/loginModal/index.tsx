@@ -18,8 +18,7 @@ const LoginModal = ({
   setVisible,
   githubClientId,
 }: LoginModalProps) => {
-  const pathname = history.location.pathname;
-  const githubAuthorizeUrl = `https://github.com/login/oauth/authorize?client_id=${githubClientId}&redirect=${pathname}`;
+  const githubAuthorizeUrl = `https://github.com/login/oauth/authorize?client_id=${githubClientId}&response_type=code&scope=read`;
 
   return (
     <Modal

@@ -27,7 +27,7 @@ export default function Statistic() {
   });
   const triggerFetch = async () => {
     setLoading(true);
-    await delay(2000);
+    await delay(1000);
     dispatch({
       type: `${ModelNameSpaces.Statistic}/getCloud`,
     });

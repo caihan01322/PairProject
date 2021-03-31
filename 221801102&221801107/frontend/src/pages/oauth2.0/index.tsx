@@ -6,7 +6,6 @@ import delay from 'delay';
 
 const OAuth = () => {
   const dispatch = useDispatch();
-  console.log('ok');
   const login = async (
     code: string | undefined | null | string[],
     redirect: string | undefined | null | string[],
@@ -22,6 +21,7 @@ const OAuth = () => {
       type: `${ModelNameSpaces.User}/login`,
       payload: code,
     });
+    console.log(code);
     if (!isOk) {
       message.error('登录失败, 请检查网络问题');
       await delay(1000);

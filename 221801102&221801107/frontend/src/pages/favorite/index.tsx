@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { List, Card, message } from 'antd';
+import { List, Card, message, Button } from 'antd';
 import { HeartFilled, EditOutlined } from '@ant-design/icons';
 import { IconText, EditModal } from '@/components';
 import { ListProps, useDispatch, useSelector } from 'umi';
@@ -162,7 +162,13 @@ export default function Favorite() {
               ]}
               extra={renderAvatar(item.contributor)}
             >
-              <List.Item.Meta description={item.title} />
+              <List.Item.Meta
+                description={
+                  <Button type="link" href={item.link} target="_blank">
+                    {item.title}
+                  </Button>
+                }
+              />
               {item.content}
             </List.Item>
           )}

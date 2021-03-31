@@ -176,7 +176,7 @@ export default function SearchPage() {
                 <Meta
                   avatar={renderAvatar(item.contributor)}
                   title={
-                    <Button type="link" href={item.link}>
+                    <Button type="link" href={item.link} target="_blank">
                       {item.title}
                     </Button>
                   }
