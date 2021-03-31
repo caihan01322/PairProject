@@ -19,7 +19,7 @@ func InitRouter() *gin.Engine {
 	apiv1 := router.Group("")
 	{
 		//用户登录
-		apiv1.POST("/home", api.LoginUser)
+		apiv1.POST("/login", api.LoginUser)
 
 		//展示TOP10
 		apiv1.POST("/rank", api.GetTopKeywordList)
