@@ -108,7 +108,7 @@ export default {
 
     searchSuccess(totalNum){
       this.$message({
-        message:'搜索成功,共'+totalNum+'页',
+        message:'搜索成功,共'+totalNum+'篇',
         type:'success'
       });
       this.isReadyLoad=true
@@ -141,11 +141,12 @@ export default {
               for(var paper of response.data.data.list){
                 this.paperIds.push(paper.artical.academicNum)
               }
-              this.totalPageNum=response.data.data.totalNum;
+              this.totalPageNum=response.data.data.totalPageNum;
+              this.totalPaperNum=response.data.data.totalNum;
               if(this.pageNum===0){
                 if(this.totalPageNum!==0){
                   this.isEmpty=false
-                  this.searchSuccess(this.totalPageNum)
+                  this.searchSuccess(this.totalPaperNum)
                 }else{
                   this.$message({
                     message:'未搜索到文章',
@@ -172,7 +173,6 @@ export default {
         });
         loading.close()
       }
-
     }
   },
   created(){
