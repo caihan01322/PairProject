@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml"
       xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
-    <title>jQCloud Example</title>
+    <title>hotword chart</title>
     <link rel="stylesheet" type="text/css" th:href="@{/jqcloud/jqcloud.css}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
@@ -85,7 +85,7 @@
 <div id="example" style="width: 550px; height: 350px;"></div>
 
 <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-<div id="main" style="width: 600px;height:400px;"></div>
+<div id="main" style="width: 1000px;height:700px;"></div>
 
 <script type="text/javascript">
 
@@ -123,15 +123,22 @@
             },
             tooltip: {
                 trigger: 'axis',
-                showContent: false
+                showContent: true
             },
 
             dataset:{
                 source:[
                     ["year","2016","2017","2018","2019","2020"],
                     [chart.keywords[0].keyword].concat(chart.trends[0]),
-                    ["w2",23,15,46,27,54],
-                    ["w3",63,25,26,51,24],
+                    [chart.keywords[1].keyword].concat(chart.trends[1]),
+                    [chart.keywords[2].keyword].concat(chart.trends[2]),
+                    [chart.keywords[3].keyword].concat(chart.trends[3]),
+                    [chart.keywords[4].keyword].concat(chart.trends[4]),
+                    [chart.keywords[5].keyword].concat(chart.trends[5]),
+                    [chart.keywords[6].keyword].concat(chart.trends[6]),
+                    [chart.keywords[7].keyword].concat(chart.trends[7]),
+                    [chart.keywords[8].keyword].concat(chart.trends[8]),
+                    [chart.keywords[9].keyword].concat(chart.trends[9]),
                 ]
             },
             // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
@@ -146,7 +153,7 @@
                 {type: 'line', seriesLayoutBy: 'row',
                     encode: {
                         // 将 "amount" 列映射到 X 轴。
-                        x: "word",
+                        x: "year",
                         // 将 "product" 列映射到 Y 轴。
                         y: 1
                     }
@@ -154,7 +161,7 @@
                 {type: 'line', seriesLayoutBy: 'row',
                     encode: {
                         // 将 "amount" 列映射到 X 轴。
-                        x: "word",
+                        x: "year",
                         // 将 "product" 列映射到 Y 轴。
                         y: 2
                     }
@@ -162,21 +169,72 @@
                 {type: 'line', seriesLayoutBy: 'row',
                     encode: {
                         // 将 "amount" 列映射到 X 轴。
-                        x: "word",
+                        x: "year",
                         // 将 "product" 列映射到 Y 轴。
                         y: 3
                     }
                     ,emphasis: {focus: 'series'}},
-
+                {type: 'line', seriesLayoutBy: 'row',
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: "year",
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 4
+                    }
+                    ,emphasis: {focus: 'series'}},
+                {type: 'line', seriesLayoutBy: 'row',
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: "year",
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 5
+                    }
+                    ,emphasis: {focus: 'series'}},
+                {type: 'line', seriesLayoutBy: 'row',
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: "year",
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 6
+                    }
+                    ,emphasis: {focus: 'series'}},
+                {type: 'line', seriesLayoutBy: 'row',
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: "year",
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 7
+                    }
+                    ,emphasis: {focus: 'series'}},
+                {type: 'line', seriesLayoutBy: 'row',
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: "year",
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 8
+                    }
+                    ,emphasis: {focus: 'series'}},
+                {type: 'line', seriesLayoutBy: 'row',
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: "year",
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 9
+                    }
+                    ,emphasis: {focus: 'series'}},
                 {
                     type: 'pie',
                     id: 'pie',
                     radius: '30%',
                     center: ['50%', '25%'],
                     emphasis: {focus: 'data'},
+                    label: {
+                        formatter: '{b}: {@2020} ({d}%)'
+                    },
                     encode: {
-                        itemName: 'word',
+                        itemName: 'year',
                         value: '2020',
+                        tooltip: '2020'
                     }
                 }
 
