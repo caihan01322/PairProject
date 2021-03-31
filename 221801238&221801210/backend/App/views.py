@@ -395,7 +395,7 @@ def favorite_create():
     return jsonify(code=200, msg="创建成功", data={})
 
 
-@blue.route('/favorites/deletePaper')
+@blue.route('/favorites/deletePaper',methods=['POST'])
 @login_required
 def favorite_deletePaper():
     rel = request.get_json()
@@ -405,6 +405,7 @@ def favorite_deletePaper():
     db.session.delete(ptof)
     db.session.commit()
     return jsonify(code=200, msg="删除成功", data={})
+
 
 @blue.route('/data/getTopTen')
 def get_top_ten():
