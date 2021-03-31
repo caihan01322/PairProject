@@ -52,13 +52,12 @@ import axios from 'axios'
     },
     methods: {
       login () {
-        if(this.account === 'fzu123' && this.password === 'fzu123'){
-          this.$router.replace({path:'/articles'});
-        }
-        else{
-          this.$message.error('账号或密码错误');
-          this.password='';
-          this.account='';
+        if (this.account === 'fzu123' && this.password === 'fzu123') {
+          this.$router.replace({path: '/articles'})
+        } else {
+          this.$message.error('账号或密码错误')
+          this.password = ''
+          this.account = ''
         }
       }
     }
