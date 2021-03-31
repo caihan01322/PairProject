@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>keywords</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-grid.css">
+    <link rel="stylesheet" href="../css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="../css/style.default.css">
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/bootstrap.bundle.js"></script>
+    <script src="../js/jquery_2.0.0_jquery.js"></script>
+    <script src="../js/echarts.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+<a class="logoName" href="paperList.html">
+    <img class="logo" src="../img/websiteName.png" alt="Logo"/>
+</a>
+<div class="content">
+    <div class="sidebarArea">
+        <div class="wrapper">
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Welcome</h3>
+                </div>
+                <ul class="list-unstyled components">
+                    <li><a href="paperlist">论文列表</a></li>
+                    <li><a href="papersearch">论文检索</a></li>
+                    <li class="active"><a href="#">关键词图谱</a></li>
+                    <li><a href="analyse">热词分析</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="contentArea">
+
+        <!--用户已添加的论文数量-->
+        <div class="paperNum">
+            <h5>已添加论文数</h5>
+            <h2 id="numApp" class="number">{{ Pnum }}</h2>
+            <script type="text/javascript">
+                var num
+                $.ajax({
+                    url: "http://localhost:8080/pairwork/paper/returnsum",
+                    type: "get",
+                    cache:false,
+                    contentType:"application/json",
+                    crossDomain:true,
+                    async:false,
+                    success: function (data){
+                        num=data
+                    }
+                });
+                //后台获取论文数量
+                new Vue({
+                    el: '#numApp',
+                    data: {
+                        Pnum:num
+                    }
+                })
+            </script>
+        </div>
+
+        <!--展示十个热门词汇/方向-->
+        <div id="wordsapp" style="display: none" class="keyword">
+            <h5>最近热词</h5>
+            <button class="word" style=" white-space: nowrap;font-size:3px;overflow: hidden;"  onclick="onclickw1">{{word[0]}}</button>
+            <button class="word" style=" white-space: nowrap;font-size:3px;overflow: hidden;"  onclick="onclickw2">{{word[1]}}</button>
+            <button class="word" style=" white-space: nowrap;font-size:3px;overflow: hidden;"  onclick="onclickw3">{{word[2]}}</button>
+            <button class="word" style=" white-space: nowrap;font-size:3px;overflow: hidden;"  onclick="onclickw4">{{word[3]}}</button>
+            <button class="word" style=" white-space: nowrap;font-size:3px;overflow: hidden;"  onclick="onclickw5">{{word[4]}}</button>
+            <br/>
+            <button class="word" style=" white-space: nowrap;font-size:3px;overflow: hidden;"  onclick="onclickw6">{{word[5]}}</button>
+            <button class="word" style=" white-space: nowrap;font-size:3px;overflow: hidden;"  onclick="onclickw7">{{word[6]}}</button>
+            <button class="word" style=" white-space: nowrap;font-size:3px;overflow: hidden;"  onclick="onclickw8">{{word[7]}}</button>
+            <button class="word" style=" white-space: nowrap;font-size:3px;overflow: hidden;"  onclick="onclickw9">{{word[8]}}</button>
+            <button class="word" style=" white-space: nowrap;font-size:3px;overflow: hidden;"  onclick="onclickw10">{{word[9]}}</button>
+
+            <!--右上角十大热词在此传入-->
+            <script>
+                var wordtmp
+                $.ajax({
+                    url: "http://localhost:8080/pairwork/topword/alltop",
+                    //data: JSON.stringify(data),
+                    type: "get",
+                    cache:false,
+                    contentType:"application/json",
+                    crossDomain:true,
+                    async:false,
+                    success: function (data){
+                        wordtmp = data
+                        console.log(wordtmp)
+                    }
+                });
+
+                new Vue({
+                    el: '#wordsapp',
+                    data: {
+                        word:[
+                            wordtmp[0].word,
+                            wordtmp[1].word,
+                            wordtmp[2].word,
+                            wordtmp[3].word,
+                            wordtmp[4].word,
+                            wordtmp[5].word,
+                            wordtmp[6].word,
+                            wordtmp[7].word,
+                            wordtmp[8].word,
+                            wordtmp[9].word,
+                        ]
+                    }
+                })
+
+                //热词点击事件
+                //将图谱点击的值传入处理搜索结果的函数，并将结果写入paperList下方表格js代码中对应的json文件中,搜索词为对应words[i]并进入搜索页面
+                function onclickw1() {
+                    console.log(wordtmp[0].word)
+                    document.cookie="keyword="+wordtmp[0].word;
+                    window.open("http://localhost:8080/pairwork/index/papersearch");
+                }
+                function onclickw2() {
+                    document.cookie="keyword="+wordtmp[1].word;
+                    window.open("http://localhost:8080/pairwork/index/papersearch");
+                }
+                function onclickw3() {
+                    document.cookie="keyword="+wordtmp[2].word;
+                    window.open("http://localhost:8080/pairwork/index/papersearch");
+                }
+                function onclickw4() {
+
+                }
+                function onclickw5() {
+
+                }
+                function onclickw6() {
+
+                }
+                function onclickw7() {
+
+                }
+                function onclickw8() {
+
+                }
+                function onclickw9() {
+
+                }
+                function onclickw10() {
+
+                }
+            </script>
+        </div>
+
+
+
+    </div>
+</div>
+
+<div class="tab">
+    <h2 style="margin-left: 40px">关键词图谱</h2>
+    <div class="box" id="main">
+        <!--三大论坛总共的-->
+        <script type="text/javascript">
+            var chartDom = document.getElementById('main');
+            var myChart = echarts.init(chartDom);
+            var option;
+
+            //获取后端的三大论坛的十大热词
+            var wordtmp
+            $.ajax({
+                url: "http://localhost:8080/pairwork/topword/alltop",
+                //data: JSON.stringify(data),
+                type: "get",
+                cache:false,
+                contentType:"application/json",
+                crossDomain:true,
+                async:false,
+                success: function (data){
+                    wordtmp = data
+                    console.log(wordtmp)
+                }
+            });
+
+            option = {
+                legend: {
+                    top: 'bottom'
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        mark: {show: true},
+                        dataView: {show: true, readOnly: false},
+                        restore: {show: true},
+                        saveAsImage: {show: true}
+                    }
+                },
+                series: [
+                    {
+                        name: '面积模式',
+                        type: 'pie',
+                        radius: [50, 120],
+                        center: ['50%', '50%'],
+                        roseType: 'area',
+                        itemStyle: {
+                            borderRadius: 4
+                        },
+                        data: [
+                            {value: wordtmp[0].count, name: wordtmp[0].word},
+                            {value: wordtmp[1].count, name: wordtmp[1].word},
+                            {value: wordtmp[2].count, name: wordtmp[2].word},
+                            {value: wordtmp[3].count, name: wordtmp[3].word},
+                            {value: wordtmp[4].count, name: wordtmp[4].word},
+                            {value: wordtmp[5].count, name: wordtmp[5].word},
+                            {value: wordtmp[6].count, name: wordtmp[6].word},
+                            {value: wordtmp[7].count, name: wordtmp[7].word},
+                            {value: wordtmp[8].count, name: wordtmp[8].word},
+                            {value: wordtmp[9].count, name: wordtmp[9].word},
+                        ]
+                    }
+                ]
+            };
+
+            option && myChart.setOption(option);
+
+            //图谱点击，跳转代码
+            myChart.on('click', function (param){
+
+                //用word[i]对应到搜索处理，并跳转页面至paperSearch,搜索内容为word[i]
+                var name=param.name;
+                if(name==wordtmp[0].word){
+                    document.cookie="keyword="+name;
+                    window.open("http://localhost:8080/pairwork/index/papersearch");
+                }else if(name==wordtmp[1].word){
+                    document.cookie="keyword="+name;
+                    window.open("http://localhost:8080/pairwork/index/papersearch");
+                }
+                else if(name==wordtmp[2].word){
+                    document.cookie="keyword="+name;
+                    window.open("http://localhost:8080/pairwork/index/papersearch");
+                }else if(name==wordtmp[3].word){
+                    document.cookie="keyword="+name;
+                    window.open("http://localhost:8080/pairwork/index/papersearch");
+                }else if(name==wordtmp[4].word){
+                    document.cookie="keyword="+name;
+                    window.open("http://localhost:8080/pairwork/index/papersearch");
+                }else if(name==wordtmp[5].word){
+                    document.cookie="keyword="+name;
+                    window.open("http://localhost:8080/pairwork/index/papersearch");
+                }else if(name==wordtmp[6].word){
+                    document.cookie="keyword="+name;
+                    window.open("http://localhost:8080/pairwork/index/papersearch");
+                }else if(name==wordtmp[7].word){
+                    document.cookie="keyword="+name;
+                    window.open("http://localhost:8080/pairwork/index/papersearch");
+                }else if(name==wordtmp[8].word){
+                    document.cookie="keyword="+name;
+                    window.open("http://localhost:8080/pairwork/index/papersearch");
+                }else if(name==wordtmp[9].word){
+                    document.cookie="keyword="+name;
+                    window.open("http://localhost:8080/pairwork/index/papersearch");
+                }
+            });
+        </script>
+    </div>
+    <div class="box" id="smain">
+
+
+
+        <!--三大论坛分开-->
+        <script type="text/javascript">
+            var chartDom = document.getElementById('smain');
+            var myChart = echarts.init(chartDom);
+            var option;
+
+            var CVPRword;
+            var ECCVword;
+            var ICCVword;
+
+            $.ajax({
+                url: "http://localhost:8080/pairwork/topword/topwordofcvpr",
+                //data: JSON.stringify(data),
+                type: "get",
+                cache:false,
+                contentType:"application/json",
+                crossDomain:true,
+                async:false,
+                success: function (data){
+                    CVPRword = data
+                    console.log(CVPRword)
+                }
+            });
+
+            $.ajax({
+                url: "http://localhost:8080/pairwork/topword/topwordofeccv",
+                //data: JSON.stringify(data),
+                type: "get",
+                cache:false,
+                contentType:"application/json",
+                crossDomain:true,
+                async:false,
+                success: function (data){
+                    ECCVword = data
+                    console.log(ECCVword)
+                }
+            });
+
+            $.ajax({
+                url: "http://localhost:8080/pairwork/topword/topwordoficcv",
+                //data: JSON.stringify(data),
+                type: "get",
+                cache:false,
+                contentType:"application/json",
+                crossDomain:true,
+                async:false,
+                success: function (data){
+                    ICCVword = data
+                    console.log(ICCVword)
+                }
+            });
+
+            option = {
+                series: [{
+                    type: 'treemap',
+                    data: [{
+                        name: 'CVPR',            // First tree
+                        value: 10,
+                        children: [{
+                            name: CVPRword[0].word,  // Granson of first tree
+                            value: CVPRword[0].count
+                        },{
+                            name: CVPRword[1].word,  // Granson of first tree
+                            value: CVPRword[1].count
+                        },{
+                            name: CVPRword[2].word,  // Granson of first tree
+                            value: CVPRword[2].count
+                        },{
+                            name: CVPRword[3].word,  // Granson of first tree
+                            value: CVPRword[3].count
+                        },{
+                            name: CVPRword[4].word,  // Granson of first tree
+                            value: CVPRword[4].count
+                        },{
+                            name: CVPRword[5].word,  // Granson of first tree
+                            value: CVPRword[5].count
+                        },{
+                            name: CVPRword[6].word,  // Granson of first tree
+                            value: CVPRword[6].count
+                        },{
+                            name: CVPRword[7].word,  // Granson of first tree
+                            value: CVPRword[7].count
+                        },{
+                            name: CVPRword[8].word,  // Granson of first tree
+                            value: CVPRword[8].count
+                        },{
+                            name: CVPRword[9].word,  // Granson of first tree
+                            value: CVPRword[9].count
+                        },]
+                    }, {
+                        name: 'ICCV',            // Second tree
+                        value: 20,
+                        children: [{
+                            name: ICCVword[0].word,  // Granson of first tree
+                            value: ICCVword[0].count
+                        },{
+                            name: ICCVword[1].word,  // Granson of first tree
+                            value: ICCVword[1].count
+                        },{
+                            name: ICCVword[2].word,  // Granson of first tree
+                            value: ICCVword[2].count
+                        },{
+                            name: ICCVword[3].word,  // Granson of first tree
+                            value: ICCVword[3].count
+                        },{
+                            name: ICCVword[4].word,  // Granson of first tree
+                            value: ICCVword[4].count
+                        },{
+                            name: ICCVword[5].word,  // Granson of first tree
+                            value: ICCVword[5].count
+                        },{
+                            name: ICCVword[6].word,  // Granson of first tree
+                            value: ICCVword[6].count
+                        },{
+                            name: ICCVword[7].word,  // Granson of first tree
+                            value: ICCVword[7].count
+                        },{
+                            name: ICCVword[8].word,  // Granson of first tree
+                            value: ICCVword[8].count
+                        },{
+                            name: ICCVword[9].word,  // Granson of first tree
+                            value: ICCVword[9].count
+                        },]
+                    },{
+                        name: 'ECCV',            // Second tree
+                        value: 20,
+                        children: [{
+                            name: ECCVword[0].word,  // Granson of first tree
+                            value: ECCVword[0].count
+                        },{
+                            name: ECCVword[1].word,  // Granson of first tree
+                            value: ECCVword[1].count
+                        },{
+                            name: ECCVword[2].word,  // Granson of first tree
+                            value: ECCVword[2].count
+                        },{
+                            name: ECCVword[3].word,  // Granson of first tree
+                            value: ECCVword[3].count
+                        },{
+                            name: ECCVword[4].word,  // Granson of first tree
+                            value: ECCVword[4].count
+                        },{
+                            name: ECCVword[5].word,  // Granson of first tree
+                            value: ECCVword[5].count
+                        },{
+                            name: ECCVword[6].word,  // Granson of first tree
+                            value: ECCVword[6].count
+                        },{
+                            name: ECCVword[7].word,  // Granson of first tree
+                            value: ECCVword[7].count
+                        },{
+                            name: ECCVword[8].word,  // Granson of first tree
+                            value: ECCVword[8].count
+                        },{
+                            name: ECCVword[9].word,  // Granson of first tree
+                            value: ECCVword[9].count
+                        },]
+                    }
+                    ]
+                }]
+            };
+            option && myChart.setOption(option);
+
+            //echarts图表点击跳转,js代码
+            myChart.on('click', function (param){
+
+                //test
+                document.cookie="keyword="+param.name;
+                window.open("http://localhost:8080/pairwork/index/papersearch");
+
+                /**
+                 var name=param.name;
+                 if(name=="用户数"){
+                            window.location.href="${base}/admin/user/list.htm";
+                        }else if(name=="栏目数"){
+                            window.location.href="${base}/admin/classify/list.htm";
+                        }else if(name=="新闻数"){
+                            window.location.href="${base}/admin/news/list.htm";
+                        }else{
+                            window.location.href="${base}/admin/file/list.htm";
+                        }**/
+            });
+        </script>
+        <center>
+        <span style="background-color: #005cbf">ECCV</span>
+        <span style="background-color: orange">CVPR</span>
+        <span style="background-color: green">ICCV</span>
+        </center>
+    </div>
+</div>
+</body>
+</html>

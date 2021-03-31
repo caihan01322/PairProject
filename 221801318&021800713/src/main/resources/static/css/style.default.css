@@ -1,0 +1,394 @@
+.logoName{
+  display: block;
+  clear: both;
+  margin-bottom: 20px;
+}
+.loginContainer{
+  background-color:skyblue;
+  width: 100%;
+  height: 700px;
+}
+
+.iccvImg{
+  display: inline-block;
+  width: 250px;
+  height: 135px;
+  position: absolute;
+  left: 220px;
+  top:360px;
+}
+
+.description{
+  display: inline-block;
+  width: 350px;
+  height: 120px;
+  color: #ffffff;
+  position: absolute;
+  top:220px;
+  left:180px;
+}
+
+.loginForm{
+  display: inline-block;
+  width: 420px;
+  padding: 30px;
+  background-color: #fff;
+  position: absolute;
+  left: 700px;
+  top:220px;
+}
+
+#loginBtn{
+  width: 370px;
+  height: 50px;
+  background-image: url("../img/login.png");
+}
+
+#browserBtn{
+  width: 350px;
+  height:50px;
+  background-image: url("../img/browser.png");
+}
+
+#rigisterBtn{
+  width: 370px;
+  height:50px;
+  background-image: url("../img/register.png");
+}
+
+
+.sidebarArea{
+  width: 15%;
+  display: inline-block;
+}
+
+.contentArea{
+  width: 85%;
+  display: inline-block;
+}
+
+
+
+
+a, a:hover, a:focus {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+#sidebar {
+
+  background: #7386D5;
+  color: #fff;
+  transition: all 0.3s;
+}
+#sidebar.active {
+
+  transform: rotateY(100deg);
+}
+#sidebar .sidebar-header {
+  padding: 20px;
+  background: #6d7fcc;
+}
+
+#sidebar ul.components {
+  padding: 20px 0;
+  border-bottom: 1px solid #47748b;
+}
+
+#sidebar ul p {
+  color: #fff;
+  padding: 10px;
+}
+
+#sidebar ul li a {
+  padding: 10px;
+  font-size: 1.1em;
+  display: block;
+}
+#sidebar ul li a:hover {
+  color: #7386D5;
+  background: #fff;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+  color: #fff;
+  background: #6d7fcc;
+}
+ul ul a {
+  font-size: 0.9em !important;
+  padding-left: 30px !important;
+  background: #6d7fcc;
+}
+
+.keyword{
+  position: absolute;
+  left: 600px;
+  top:100px;
+  background-color: #ffffe0;
+  width: 700px;
+  height: 150px;
+}
+
+.paperNum{
+ position: absolute;
+  top: 100px;
+  left: 300px;
+  border-width: 2px;
+  background-color: #f8f8ff;
+  width: 350px;
+  height: 150px;
+}
+
+.number{
+  position: relative;
+  left: 140px;
+}
+
+.word{
+  display: inline-block;
+  width:15%;
+  height: 40px;
+  background-color: deepskyblue;
+  margin-left: 25px;
+  margin-top: 8px;
+  border-width: 0px;
+}
+
+/*关键词图谱*/
+.kwword{
+  position: absolute;
+  left: 250px;
+  top:300px;
+
+}
+
+
+#main{
+  width: 800px;
+  height:400px;
+  margin-left: 40px;
+}
+.btn_word_active{
+  background-color: #599AEF;
+  display: inline-block;
+  color: #fff;
+  width: 120px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #A3D0FD;
+  text-decoration: none;
+  text-align: center;
+  line-height: 28px;
+  margin-top: 40px;
+  margin-left: 60px;
+}
+.btn_word{
+  display: inline-block;
+  color: #BEBEBE;
+  width: 120px;
+  height: 40px;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  line-height: 40px;
+  margin-top: 50px;
+  margin-left: 60px;
+  border: 1px solid #A3D0FD;
+}
+.btn_key_active{
+  background-color: #599AEF;
+  display: inline-block;
+  color: #fff;
+  width: 120px;
+  height: 40px;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  line-height: 40px;
+  margin-top: 50px;
+  border: 1px solid #A3D0FD;
+}
+.btn_key{
+  display: inline-block;
+  color: #BEBEBE;
+  width: 120px;
+  height: 40px;
+  border-radius: 8px;
+  text-decoration: none;
+  text-align: center;
+  line-height: 40px;
+  margin-top: 50px;
+  border: 1px solid #A3D0FD;
+}
+
+.box2{
+  display: none;
+}
+
+.tab{
+  position: absolute;
+  top:250px;
+  left: 200px;
+}
+
+.dropdown{
+  position: absolute;
+  top:155px;
+  left: 300px;
+}
+
+.resultArea{
+  width: 800px;
+  position: absolute;
+  top:220px;
+  left:300px;
+}
+
+.paperList{
+  position: absolute;
+  top:300px;
+  left: 350px;
+  width: 30%;
+
+}
+
+.paperdiv{
+  width: 700px;
+  height: 200px;
+  margin-top: 8px;
+  border: 1px solid blue;
+  overflow: hidden
+}
+
+#tagmain{
+  width: 800px;
+  height:400px;
+  margin-left: 40px;
+}
+
+#personList{
+  width: 30%;
+  position: absolute;
+  top:850px;
+  left: 260px;
+}
+#ECCVList{
+  width: 800px;
+  height:400px;
+  margin-top: 450px;
+  margin-left: 250px;
+}
+#CVPRList{
+  width: 800px;
+  height:400px;
+  margin-top: 50px;
+  margin-left: 250px;
+}
+#ICCVList{
+  width: 800px;
+  height:400px;
+  margin-top: 50px;
+  margin-left: 250px;
+}
+
+.resultArea th{
+  overflow: hidden;
+}
+
+
+#myInput {
+  background-image: url('https://static.runoob.com/images/mix/searchicon.png'); /* 搜索按钮 */
+  background-position: 10px 12px; /* 定位搜索按钮 */
+  background-repeat: no-repeat; /* 不重复图片 */
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+table{
+  width:100%;
+  table-layout:fixed;
+}
+
+/*.id1{*/
+/*    width:5%;*/
+/*}*/
+/*.title1{*/
+/*    width:30%;*/
+/*}*/
+/*.link1{*/
+/*    width:20%;*/
+/*}*/
+/*.key1{*/
+/*    width:150%;*/
+/*}*/
+/*.summer1{*/
+/*    width:20%;*/
+/*}*/
+/*.operate1{*/
+/*    width:10%;*/
+/*}*/
+
+/*#myTable {*/
+/*    border-collapse: collapse;*/
+/*    width: 100%;*/
+/*    border: 2px solid #ddd;*/
+/*    font-size: 18px;*/
+/*}*/
+
+/*#myTable th, #myTable td {*/
+/*    text-align: left;*/
+/*    padding: 12px;*/
+/*}*/
+
+/*#myTable tr {*/
+/*    !* 表格添加边框 *!*/
+/*    border-bottom: 5px solid #ddd;*/
+/*}*/
+
+#myTable tr.header, #myTable tr:hover {
+  /* 表头及鼠标移动过 tr 时添加背景 */
+  background-color: #f1f1f1;
+}
+
+td {
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  width: 150px;
+}
+
+.wrap{
+  white-space: nowrap; //不换行
+text-overflow: ellipsis; //超出部分用....代替
+overflow: hidden; //超出隐藏
+}
+
+
+#smain{
+  width: 800px;
+  height:400px;
+  margin-top: 50px;
+  margin-left: 50px;
+}
+
+
+
+.paperdiv {
+  width: 800px;
+  height: 240px;
+  margin-top: 8px;
+  border: 1px solid blue;
+  overflow: hidden;
+}
+
+button.btn.btn-default.dropdown-toggle{
+  display:none;
+}
+
+span.page.size{
+  display: none;
+}
