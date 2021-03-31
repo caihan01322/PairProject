@@ -83,24 +83,32 @@
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#home">关键词图谱</a>
+                        <a class="nav-link active" data-toggle="tab" href="#map">关键词图谱</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#menu1">热词走势</a>
+                        <a class="nav-link" data-toggle="tab" href="#fre">热词走势</a>
                     </li>
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div id="map" class="container tab-pane active" style="width: 1000px;height:500px;">
-
                     </div>
-
+                    <div id="fre" class="container tab-pane fade" style="width: 1000px; height:500px;">
+                    </div>
+                </div>
+                <!--加载两个图表-->
 
                     <script type="text/javascript">
                         var chartDom = document.getElementById('map');
                         var myChart = echarts.init(chartDom);
                         var option;
+                        var json;
+
+                        var rose = [];
+                        var keyword = [];
+                        var frenquency = [];
+
 
                         option = {
                             title: {
@@ -115,9 +123,10 @@
                             legend: {
                                 left: 'center',
                                 top: 'bottom',
-                                data: ['feature extraction', 'learning (artificial intelligence)', 'Training',
-                                    'computer vision', 'object detection', 'Image segmentation', 'Cameras',
-                                    'Three-dimensional displays','neural nets','Task analysis']
+                                data: keyword
+                                // ['feature extraction', 'learning (artificial intelligence)', 'Training',
+                                //     'computer vision', 'object detection', 'Image segmentation', 'Cameras',
+                                //     'Three-dimensional displays','neural nets','Task analysis']
                             },
                             toolbox: {
                                 show: true,
@@ -138,33 +147,51 @@
                                     itemStyle: {
                                         borderRadius: 5
                                     },
-                                    data: [
-                                        {value: 526, name: 'feature extraction'},
-                                        {value: 501, name: 'learning (artificial intelligence)'},
-                                        {value: 405, name: 'Training'},
-                                        {value: 376, name: 'computer vision'},
-                                        {value: 304, name: 'object detection'},
-                                        {value: 276, name: 'Image segmentation'},
-                                        {value: 241, name: 'Cameras'},
-                                        {value: 236, name: 'Three-dimensional displays'},
-                                        {value: 230, name: 'neural nets'},
-                                        {value: 206, name: 'Task analysis'},
+                                    data:rose
+                                    //[
+                                    // {value: 526, name: 'feature extraction'},
+                                    // {value: 501, name: 'learning (artificial intelligence)'},
+                                    // {value: 405, name: 'Training'},
+                                    // {value: 376, name: 'computer vision'},
+                                    // {value: 304, name: 'object detection'},
+                                    // {value: 276, name: 'Image segmentation'},
+                                    // {value: 241, name: 'Cameras'},
+                                    // {value: 236, name: 'Three-dimensional displays'},
+                                    // {value: 230, name: 'neural nets'},
+                                    // {value: 206, name: 'Task analysis'},analysis
 
-                                    ]
+                                    //]
                                 }
                             ]
                         };
+
+                        $.ajax({
+                            type: "post",
+                            url: "http://localhost:8080/keyword/top",
+                            dataType: 'JSON',
+                            success: function (data) {
+                                json = JSON.parse(data);
+                                keyword = json.content;
+                                frenquency = json.total;
+
+                                for (let i = 0; i < 10; i++) {
+                                    rose.push({
+                                        value: frenquency[i],
+                                        name: keyword[i]
+                                    });
+                                }
+
+
+                            }
+                        })
 
                         option && myChart.setOption(option);
 
                     </script>
 
 
-                    <div id="menu1" class="container tab-pane fade" style="width: 1000px; height:500px;">
-
-                    </div>
                     <script>
-                        var chartDom = document.getElementById('menu1');
+                        var chartDom = document.getElementById('fre');
                         var myChart = echarts.init(chartDom);
                         var json;
                         var option;
@@ -181,13 +208,13 @@
 
                         option = {
                             title: {
-                                text: '顶会热词热度走势'
+                                text: '顶会热词频数走势'
                             },
                             tooltip: {
                                 trigger: 'axis'
                             },
                             legend: {
-                                data: json.content
+                                data: [json.content]//图例--所有关键词数组
                             },
                             grid: {
                                 left: '3%',
@@ -203,10 +230,10 @@
                             xAxis: {
                                 type: 'category',
                                 boundaryGap: false,
-                                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                                data: ['2017', '2018', '2019', '2020', '2021']
                             },
                             yAxis: {
-                                type: 'value'
+                                type: 'value',
                             },
                             series: [
                                 {
@@ -241,17 +268,10 @@
                                 }
                             ]
                         };
-
                         option && myChart.setOption(option);
-
                     </script>
-
-
-                </div>
-
             </div>
         </div>
-
 
    </div>
 
