@@ -47,18 +47,6 @@ def fileopen():
         file = 'F:\\papers\\DATA\\ICCV\\' + filename
         parse_json(file)
 
-def insert(keywords,title,abstract,name,link,year,meeting):
-    conn = pymysql.connect(host="localhost",user="root",password="Fxn03166",db="spider",port=3306)
-    cursor = conn.cursor()
-    for keyword in keywords:
-        sql = "INSERT INTO k_a (keyword,article) VALUES (%s,%s) "
-        cursor.execute(sql,(keyword,title))
-        conn.commit()
-    sql = "INSERT INTO article (title, abstract, author, link, year,meeting) values (%s,%s,%s,%s,%s,%s) "
-    cursor.execute(sql,(title,abstract,name,link,year,meeting))
-    conn.commit()
-    cursor.close()
-    conn.close()
 
 def find():
     conn = pymysql.connect(host="localhost", user="root", password="Fxn03166", db="spider", port=3306)

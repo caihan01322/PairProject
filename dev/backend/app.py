@@ -1,21 +1,33 @@
 from flask import Flask,request,json
 from deal.Datadeal import DataBase
 
-app = Flask(__name__)
+app = Flask(__name__,static_url_path='')
 data = DataBase()
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return app.send_static_file('index.html')
 
-@app.route('/api/user/search',methods=["GET"])
+@app.route('/api/user/search',methods=["POST"])
 def search_ar():
-    title = request.args.get("title")
-    keywords = request.args.getlist("keywords")
-    page = request.args.get("page")
-    page = int(page)
-    status = request.args.get("status")
-    status = int(status)
+    da = request.get_json()
+    if "title" in da.keys():
+        title = da["title"]
+        if "keywords" in da.keys():
+            keywords = da["keywords"]
+        else:
+            keywords = []
+        page = da["page"]
+        page = int(page)
+        status = da["status"]
+        status = int(status)
+    else:
+        title = ""
+        keywords = da["keywords"]
+        page = da["page"]
+        page = int(page)
+        status = da["status"]
+        status = int(status)
     return json.dumps(data.Search(title,keywords,page,status))
 
 @app.route('/api/user/show',methods=["GET"])
@@ -41,18 +53,21 @@ def addone():
 
 @app.route('/api/user/task/addall',methods=["POST"])
 def addall():
-    titlelist = request.form.getlist("titlelist")
+    da = request.get_json()
+    titlelist = da["titlelist"]
     return json.dumps(data.AddTaskAll(titlelist))
 
 @app.route('/api/user/task/delete',methods=["POST"])
 def deletet():
-    tasklist = request.form.getlist("task")
+    da = request.get_json()
+    tasklist = da["task"]
     return json.dumps(data.DeleteTask(tasklist))
 
 @app.route('/api/user/title/delete',methods=["POST"])
 def deletea():
-    ids = request.form.getlist("id")
-    return json.dumps(ids)
+    da = request.get_json()
+    ids = da["id"]
+    return json.dumps(data.DeleteArticle(ids))
 
 @app.route('/api/user/hotword/show',methods=["GET"])
 def gethot():
@@ -81,7 +96,8 @@ def gainspider():
 
 @app.route('/api/user/spider',methods=["POST"])
 def spid():
-    tasks = request.form.getlist("ids")
+    da = request.get_json()
+    tasks = da["ids"]
     return json.dumps(data.Spider(tasks))
 
 
