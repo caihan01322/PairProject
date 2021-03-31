@@ -15,6 +15,7 @@ const ERRORACCOUNT = "Account does not exist"
 const ERRORPWD = "Password is wrong";
 const DELETESECCUESS = "Article deleted";
 const DELETSFAIL = "Article dose not delete"
+const UERDOESEXIT = "usr exit"
 newUser();
 loginIn();
 dateAnalWords();
@@ -29,20 +30,19 @@ function loginIn() {
         let pass = req.body.password;
         let errText = '',
             resultData = '';
-
         let sql = "select * from users where username = '" + name + "'";
         db.query(sql, function (err, result, field) {
             if (err) {
-                res.status(200).json({
-                    "status": false,
-                    'msg': err,
-                });
+                errSend(err, res);
             }
             let str = JSON.stringify(result);
             let js = JSON.parse(str);
             let t = js.length;
+            //找不到用户，说明用户未注册
             if (t == 0) errText = ERRORACCOUNT;
+            //找到用户后判断密码是否正确
             else if (pass != result[0].password) errText = ERRORPWD;
+            //密码正确，则返回用户信息
             else {
                 resultData = result[0];
             }
@@ -60,108 +60,112 @@ function newUser() {
         extended: false
     });
     router.post('/register', urlencodedParser, function (req, res) {
-        let username = req.body.username;
-        let password = req.body.password;
-        let userPackage = "papers"; //20200328 如果有时间 这部分改成，每次注册一个用户为他建立一个表格
+        var username = req.body.username;
+        var password = req.body.password;
+        let userPackage = "paperlists";
+        //20200328 如果有时间 这部分改成，每次注册一个用户为他建立一个表格
+        //let userPackage = "papers"+username
         let errText = '';
         let flag = true;
         let sql = "select * from users where username = '" + username + "'";
         db.query(sql, function (err1, result1, field) {
             if (err1) {
-                res.status(200).json({
-                    "status": false,
-                    'flag': false,
-                    'msg': err,
-                });
+                errSend(err1, res);
                 return;
             }
             if (result1.length > 0) {
-                res.status(200).json({
-                    'status': true,
-                    'flag': false,
-                });
+                canNewUser(false, false, UERDOESEXIT);
             } else {
                 let newsql = "insert into users(username, password, userpackage) values (?,?,?)";
                 let params = [username, password, userPackage];
                 db.query(newsql, params, function (err2, result2, field) {
                     if (err2) {
-                        res.status(200).json({
-                            "status": false,
-                            'flag': false,
-                            'msg': err,
-                        });
+                        errSend(res, err2);
+                        return;
                     }
+                    let sqlQuery = ""
                     let str = JSON.stringify(result2);
                     let js = JSON.parse(str);
-                    res.status(200).json({
-                        'status': true,
-                        'flag': true,
-                        'data': js
-                    });
+                    canNewUser(res, true, true, '', js);
                 })
             }
         })
     })
 }
-//把热词Top10和出现次数返回给前端
-//把某某一年热词Top10和出现次数返回给前端
-//把某一个会议热词Top10和出现次数返回给前端
-//把热词全部返回用于制作词云
+
+
+//把热词Top10和出现次数返回给前端(数据写死)
+//把某某一年热词Top10和出现次数返回给前端（数据写死）
+//把某一个会议热词Top10和出现次数返回给前端（数据写死）
+//把热词全部返回用于制作词云,更改为把用户数据库前十条返回
 function dateAnalWords() {
-    var queryResult = JSON;
+    //var queryResult = JSON;
     var urlencodedParser = bodyParser.urlencoded({
         extended: false
     });
     router.post('/anal', urlencodedParser, function (req, res) {
-        let year = req.body.year;
-        let meeting = req.body.meeting;
-        let sqlQuery = "SELECT * FROM keywords order by times limit 0,10";
+        let sqlQuery = "SELECT * FROM paperlistkeyword order by times limit 0,10";
         db.query(sqlQuery, function (err, result) {
             if (err) {
                 errSend(res, err);
                 return;
             }
             var tb = JSON.parse(JSON.stringify(result));
-            queryResult[0] = result;
+            res.status(200).json({
+                'status': true,
+                'msg': '',
+                'data': tb
+            })
         });
-        sqlQuery = "SELECT * FROM keywords where meeting = '" +
-            meeting + "'order by times limit 0,10 ";
-        db.query(sqlQuery, function (err, result) {
-            if (err) {
-                errSend(res, err);
-                return;
-            }
-            var tb = JSON.parse(JSON.stringify(result));
-            queryResult[1] = tb;
-        });
-        sqlQuery = "SELECT * FROM keywords where year = '" +
-            year + "'order by times limit 0,10 ";
-        db.query(sqlQuery, function (err, result) {
-            if (err) {
-                errSend(res, err);
-                return;
-            }
-            var tb = JSON.parse(JSON.stringify(result));
-            queryResult[2] = tb;
-        });
-        sqlQuery = "SELECT * FROM keywords ";
-        db.query(sqlQuery, function (err, result) {
-            if (err) {
-                errSend(res, err);
-                return;
-            }
-            var tb = JSON.parse(JSON.stringify(result));
-            queryResult[3] = tb;
-        });
+              //let year = req.body.year;
+        //let meeting = req.body.meeting;
+        // let sqlQuery = "SELECT * FROM keywords order by times limit 0,10";
+        // db.query(sqlQuery, function (err, result) {
+        //     if (err) {
+        //         errSend(res, err);
+        //         return;
+        //     }
+        //     var tb = JSON.parse(JSON.stringify(result));
+        //     queryResult[0] = result;
+        // });
+        // sqlQuery = "SELECT * FROM keywords where meeting = '" +
+        //     meeting + "'order by times limit 0,10 ";
+        // db.query(sqlQuery, function (err, result) {
+        //     if (err) {
+        //         errSend(res, err);
+        //         return;
+        //     }
+        //     var tb = JSON.parse(JSON.stringify(result));
+        //     queryResult[1] = tb;
+        // });
+        // sqlQuery = "SELECT * FROM keywords where year = '" +
+        //     year + "'order by times limit 0,10 ";
+        // db.query(sqlQuery, function (err, result) {
+        //     if (err) {
+        //         errSend(res, err);
+        //         return;
+        //     }
+        //     var tb = JSON.parse(JSON.stringify(result));
+        //     queryResult[2] = tb;
+        // });
+        // sqlQuery = "SELECT * FROM keywords ";
+        // db.query(sqlQuery, function (err, result) {
+        //     if (err) {
+        //         errSend(res, err);
+        //         return;
+        //     }
+        //     var tb = JSON.parse(JSON.stringify(result));
+        //     queryResult[3] = tb;
+        // });
 
-        res.status(200).json({
-            'status': true,
-            "hotWords": queryResult[0],
-            "hotMeetingWords": queryResult[1],
-            "hotYearWords": queryResult[2],
-            "keywords": queryResult[3],
-        })
-        console.log(queryResult[0].id);
+        // res.status(200).json({
+        //     'status': true,
+        //     "hotWords": queryResult[0],
+        //     "hotMeetingWords": queryResult[1],
+        //     "hotYearWords": queryResult[2],
+        //     "keywords": queryResult[3],
+        // })
+        // console.log(queryResult[0].id);
     })
 }
 //初始化用户论文列表
@@ -211,13 +215,15 @@ function userInput() {
                     return;
                 }
                 affectRows = result.affectedRows;
+                //当判断该论文删除后，更新论文列表
                 if (affectRows) {
                     let sql = `select * from ${userPackage} limit ${page}, ${pageSize}`;
                     db.query(sql, function (err2, result2, field) {
                         loadUserPaperList(res, result2, err2, DELETESECCUESS);
                         return;
                     })
-                } else {
+                } //当判断没有论文被删除后，发送错误消息让前端知道，并返回原页面
+                else {
                     let sql = `select * from ${userPackage} limit ${page}, ${pageSize}`;
                     db.query(sql, function (err2, result2, field) {
                         loadUserPaperList(res, result2, err2, DELETSFAIL);
@@ -235,11 +241,12 @@ function userInput() {
                         item + "%' or keyword like '%" + item + "%'";
                     db.query(sql, function (err, result, field) {
                         if (err) {
-                            errSend(res, err);
+                            errSend(res, err); //发送查询错误的信息
                             return;
                         }
+                        //记录论文id，同时，如果找到同一篇文章，则跳过它
                         for (let i = 0; i < result.length && flag; i++) {
-                            //console.log("  " + result[i].id);
+
                             flag = isPaperAlreadyExist(paperIdList, result, i);
                             if (flag) {
                                 paperIdList.push(result[i].id);
@@ -251,7 +258,9 @@ function userInput() {
                 });
             })
             promise.then(function (value) {
+                //根据页号page和页面展示论文条数pageSize 以及查询到的论文数，返回展示的论文列表
                 resultList = returnPaperList(page, pageSize, value);
+                //发送数据给前端
                 res.send({
                     "status": true,
                     "msg": "",
@@ -285,11 +294,11 @@ function errSend(res, err) {
         'msg': err,
     });
 }
-
+//20200331更新
 //**查找关键字并发送请求*/
 function selKeywords(res, keywordContent) {
-    let sql = "select * from keywords where keyword like '%" +
-        keywordContent + "%'";
+    let sql = `select * from papers where keyword like '%${keywordContent}%' limit 0,3`;
+        console.log(sql);
     db.query(sql, function (err, result, field) {
         if (err) {
             errSend(res, err);
@@ -320,6 +329,15 @@ function isPaperAlreadyExist(paperIdList, result, i) {
     }
     return true;
 }
+/**发送用户注册信息是否已经存在 */
+function canNewUser(res, status, flag, msg, data) {
+    res.status(200).json({
+        "status": status,
+        'flag': flag,
+        'msg': msg,
+        'data': data
+    });
+}
 //**加载用户论文列表*/
 function loadUserPaperList(res, result, err, msg) {
     if (err) {
@@ -335,26 +353,26 @@ function loadUserPaperList(res, result, err, msg) {
     });
     return;
 }
-//**删除论文*/
-function delPaper(res, err, result) {
-    if (err) {
-        errSend(res, err);
-        return;
-    }
-    // console.log(result.affectedRows);
-    // res.status(200).json({
-    //     "status": true,
-    //     'msg': '',
-    //     'data': result
-    // });
-    return;
-}
-//**根据用户输入查找论文*/
-function findPaperFromInput(err, resultList, result, flag, paperIdList, wordList, res, page, pageSize) {
+//**删除论文*/（不使用）
+// function delPaper(res, err, result) {
+//     if (err) {
+//         errSend(res, err);
+//         return;
+//     }
+//     // console.log(result.affectedRows);
+//     // res.status(200).json({
+//     //     "status": true,
+//     //     'msg': '',
+//     //     'data': result
+//     // });
+//     return;
+// }
+//**根据用户输入查找论文*/(不再使用)
+// function findPaperFromInput(err, resultList, result, flag, paperIdList, wordList, res, page, pageSize) {
 
-    //根据分页返回论文列表
+//     //根据分页返回论文列表
 
-}
+// }
 
 // function delPaper() {
 //     var urlencodedParser = bodyParser.urlencoded({

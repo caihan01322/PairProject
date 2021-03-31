@@ -5,7 +5,7 @@ var mysql = require('mysql');
  */
 var create = function(config) {
     var pool  = mysql.createPool({
-        connectionLimit: 200,
+        connectionLimit: 500,
         acquireTimeout: 30000,
         host: config.host,
         port: config.port,

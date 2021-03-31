@@ -10,7 +10,8 @@ let strHan = require('../stringHandle.js');
 const e = require('express');
 var username = "";
 var db_config = sqlInf.db_config
-var Pool = mysql.createPool(db_config); //开始链接数据库
+var Pool = require('../util/pool.js')
+
 //有连接时调用
 Pool.on('connection', function (connection, err) {
     if (err) {
@@ -45,7 +46,14 @@ Pool.on('end', function () {
 //     console.log("连接全部关闭");
 //   }
 // });
+router.get('/users',function(req,res){
+    fs.readFile('../postTest.html', function(error, data) {
+        res.setHeader('Content-Type', 'text/html;charset="utf-8')
+        res.end(data)
+    })
+})
 router.post('/users', function (req, res) {
+    
     let sqlQuery = "select * from users"
     // 执行sql语句
     Pool.getConnection(function (err, conn) {

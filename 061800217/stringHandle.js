@@ -17,8 +17,14 @@ function stringSplit(str){//处理原表中的year列
     words = str.split(" ");
     return words;
 }
+function stringSplitByDot(str){//处理原表中的year列
+    let words = new Array();
+    words = str.split(",");
+    return words;
+}
 module.exports = {
     stringHan,
     stringHandleYear,
-    stringSplit
+    stringSplit,
+    stringSplitByDot
 }
