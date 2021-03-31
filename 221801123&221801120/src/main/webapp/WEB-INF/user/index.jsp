@@ -22,13 +22,30 @@
 <jsp:include page="share/head.jsp"/>
 <!--中间主体部分-->
 <div class="main">
-	<select class="form-select-button">
-		<option value="thesis_title">论文题目</option>
-		<option value="thesis_id">论文摘要</option>
-		<option value="thesis_keyword">关键词</option>
+	<select id="search_type" class="form-select-button">
+		<option value="title">论文题目</option>
+		<option value="abstractContent">论文摘要</option>
+		<option value="keyword">关键词</option>
 	</select>
-	<input type="text" placeholder="请输入">
-	<button>🔍</button>
+	<input id="search_message" type="text" placeholder="请输入">
+	<button onclick="index_search(this);">🔍</button>
+	<script>
+		function index_search(btn){
+			var searchType = document.getElementById("search_type");
+			var index = searchType.selectedIndex;
+			var type = searchType.options[index].value;
+			var message = document.getElementById("search_message").value;
+			if (type=="title"){
+				window.location.href = "user/thesis/list?title="+message;
+			}
+			else if (type=="abstractContent"){
+				window.location.href = "user/thesis/list?abstractContent="+message;
+			}
+			else {
+				window.location.href = "user/thesis/list?keyword="+message;
+			}
+		}
+	</script>
 </div>
 <jsp:include page="share/footer.jsp"/>
 </body>

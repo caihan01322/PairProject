@@ -66,17 +66,17 @@
                     <div class="card-body pre-scrollable">
                         <dl>
                             <dt><span class="buleFont">*</span>论文题目</dt>
-                            <dd><input id="thesis_view_title" class="eidtText" name="title" type="text" readonly></dd>
+                            <dd><textarea id="thesis_view_title" class="eidtText" name="title" readonly></textarea></dd>
                             <dt><span class="buleFont">*</span>来源</dt>
-                            <dd><input id="thesis_view_meet" class="eidtText" type="text" name="meet" readonly></dd>
+                            <dd><textarea id="thesis_view_meet" class="eidtText" name="meet" readonly></textarea></dd>
                             <dt><span class="buleFont">*</span>时间</dt>
-                            <dd><input id="thesis_view_year" class="eidtText" type="text" name="year"  readonly></dd>
+                            <dd><textarea id="thesis_view_year" class="eidtText" name="year"  readonly></textarea></dd>
                             <dt><span class="buleFont">*</span>关键词</dt>
-                            <dd><input id="thesis_view_keyword" class="eidtText" type="text" name="keyword"  readonly></dd>
+                            <dd><textarea id="thesis_view_keyword" class="eidtText bigText" name="keyword" readonly></textarea></dd>
                             <dt><span class="buleFont">*</span>论文摘要</dt>
-                            <dd><input id="thesis_view_abstractContent" class="eidtText" type="text" name="abstract" readonly></dd>
+                            <dd><textarea id="thesis_view_abstractContent" class="eidtText bigText" name="abstract" readonly></textarea></dd>
                             <dt><span class="buleFont">*</span>论文链接</dt>
-                            <dd><input id="thesis_view_link" class="eidtText" type="text" name="link" readonly></dd>
+                            <dd><textarea id="thesis_view_link" class="eidtText" name="link" readonly></textarea></dd>
                         </dl>
                     </div>
                     <div class="card-footer"></div>

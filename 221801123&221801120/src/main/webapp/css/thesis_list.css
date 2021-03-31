@@ -99,6 +99,11 @@ dd{
     margin-top: 10px;
     margin-bottom: 10px;
     outline: none;
+    word-wrap: break-word;
+}
+
+.bigText{
+    height: 200px;
 }
 
 .buleFont{

@@ -34,9 +34,13 @@
     height: 35px;
     top: 0;
     right: 0;
-    background: #86ddf4;
+    background-color: #86ddf4;
     border-radius: 50%;
     border: 2px solid #f0f8ff;
     margin-left: 10px;
     outline: none;
+}
+
+.main button:hover{
+    background-color: #2f8df0;
 }

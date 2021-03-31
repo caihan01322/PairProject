@@ -37,14 +37,13 @@ public class UserThesisController {
         String where = " where 1 = 1 ";
         List<Object> params = new ArrayList<Object>(1);
         if (DataUtil.isValid(title)) {
-            where += "and titile = ?";
-            params.add(title);
+            where += "and title like '%" + title + "%'";
         }else if (DataUtil.isValid(keyword)) {
             where += "and keyword like '%" + keyword + "%'";
         }else if (DataUtil.isValid(abstractContent)) {
             where += "and abstract_content like '%" + abstractContent + "%'";
         }
-        PageBean<Thesis> pageBean = thesisService.pageSearch(pageCode, pageSize, pageNumber, where, params, null);
+        PageBean<Thesis> pageBean = thesisService.pageSearch(pageCode, pageSize, pageNumber, where, null, null);
         model.addAttribute("pageBean", pageBean);
         return "user/thesis_list";
     }
