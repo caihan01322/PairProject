@@ -1,13 +1,15 @@
 <template>
     <div class='login'>
-        <div :style="{backgroundImage:'url('+require('../assets/1.jpg')+')'}"></div>
+<!--        <div :style="{backgroundImage:'url('+require('../assets/1.jpg')+')'}"></div>-->
         <a-form
             id="components-form"
             :form="form"
             class="login-form"
             @submit="submitLogin"
         >
-            <h1 class="title">X  J  B  S</h1>
+            <div class='brand'></div>
+<!--            <div class="title"></div>-->
+<!--            <h1 class="title">X  J  B  S</h1>-->
             <a-alert type="error" message="用户名或密码错误" banner v-if="invalid" />
             <a-form-item>
             <a-input
@@ -49,7 +51,7 @@ export default {
     components: {},
     data () {
         return {
-            Login:'url('+require('../assets/1.jpg')+')',
+            // Login:'url('+require('../assets/1.jpg')+')',
             invalid: false,
         }
     },
@@ -89,29 +91,52 @@ export default {
     align-items: center;
     width: 100%;
     height: 100%;
-    background-color: #ffffff;
+    /*background-color: #ffffff;*/
+    background-image: url("../../src/assets/1.jpg");
+    /*background-color: rgba(0,0,0,0.1);*/
+    opacity: 0.8;
 }
-.title {
-    font-size: 50px;
-    font-style: italic;
+.brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 120px;
+    /*background-image: url("../../src/assets/161716308065739.png");*/
+    background-image: url("http://www.akuziti.com/cache/161716328366420.png");
 }
-.img1 {
-    width: 100px;
-    height: 100px;
-    background-position: center center;
-    background-repeat:  no-repeat;
-    background-size: 100px auto;
-}
+/*.backgrd {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    background-image: url("../../src/assets/2.png");*/
+/*    !*background-color: rgba(0,0,0,0.1);*!*/
+/*    opacity: 0.6;*/
+/*}*/
+/*.title {*/
+/*    <image*/
+/*}*/
+/*.img1 {*/
+/*    width: 100px;*/
+/*    height: 100px;*/
+/*    background-position: center center;*/
+/*    background-repeat:  no-repeat;*/
+/*    background-size: 100px auto;*/
+/*}*/
 .login-form {
     width: 400px;
     padding: 48px;
     box-sizing: border-box;
-    background-color: #ffffff;
+    /*background-color: #ffffff;*/
 }
 #components-form .login-form-forgot {
   float: right;
 }
 #components-form .login-form-button {
-  width: 100%;
+    background-color: #545454;
+    border-color: #707070;
+    width: 100%;
 }
 </style>

@@ -8,7 +8,7 @@
 export default {
   data(){
     return{
-      
+
     };
   },
 };
@@ -23,5 +23,7 @@ export default {
   color: #2c3e50;
   height: 100%;
   width: 100%;
+  /*background-image:url("../src/assets/1.jpg");*/
+  /*background-color: rgba(204,204,204,0.2);*/
 }
 </style>

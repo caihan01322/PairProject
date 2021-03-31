@@ -11,7 +11,6 @@
         <br /><br />
         <a-alert type="error" message="搜索失败" banner v-if="invalid" />
         <a-input-search placeholder="点此搜索" style="width: 400px" @search="onSearch" />
-            
     </div>
 </template>
 
