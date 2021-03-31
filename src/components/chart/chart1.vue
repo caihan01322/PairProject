@@ -76,14 +76,26 @@ export default {
       this.chartLine.setOption(option)
     },
     getInfo () {
-      // this.$axios.
+      this.$axios.post('http://localhost:8080/KeywordTrendController/getTrend', {
+        keyword: this.text
+      })
+        .then(res => {
+          this.data1 = res.data.year
+          this.data2 = res.data.frequency
+          this.drawLine()
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        .finally({
+        })
     }
   },
   mounted () {
     // console.log('fdfdsfds')
     // this.$nextTick(this.drawLine())
-    // this.getInfo()
-    this.drawLine()
+    this.getInfo()
+    // this.drawLine()
   }
 }
 </script>

@@ -59,7 +59,17 @@ export default {
       this.chartLine.setOption(option)
     },
     getInfo () {
-      // this.$axios.
+      this.$axios.post('http://localhost:8080/WordController/getHotWords')
+        .then(res => {
+          this.data1 = res.data.frequency
+          this.data2 = res.data.hotWord
+          this.setdata()
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        .finally({
+        })
     }
   },
   mounted () {

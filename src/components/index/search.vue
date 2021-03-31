@@ -64,8 +64,11 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from 'vuex'
+
 export default {
   name: 'search',
+  props: ['skeyword'],
   data () {
     return {
       text: '',
@@ -77,8 +80,22 @@ export default {
   methods: {
     search () {
       console.log('search' + this.text)
-      this.$axios.post('http://localhost:80801/PaperOperationController/fuzzyQuery', {
+      this.$axios.post('http://localhost:8081/PaperOperationController/fuzzyQuery', {
         fuzzyTitle: this.text
+      })
+        .then(res => {
+          this.searchResult = res.data.result
+          this.totle = res.data.item_num
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        .finally({
+        })
+    },
+    search2 () {
+      this.$axios.post('http://localhost:8081/PaperOperationController/keywordQuery', {
+        keyword: this.text
       })
         .then(res => {
           this.searchResult = res.data.result
@@ -123,6 +140,17 @@ export default {
       transfer.blur()
       this.$Message.info('复制成功')
       document.body.removeChild(transfer)
+    }
+  },
+  computed: mapState(['searchKey', 'isSearchKey']),
+  ...mapMutations(['setSerchKey', 'openSearchKey', 'closeSearchKey']),
+  mounted () {
+    if (this.$store.state.isSearchKey === true) {
+      console.log(this.$store.state.searchKey)
+      this.text = this.$store.state.searchKey
+      this.$store.commit('closeSearchKey')
+      this.$store.commit('setSerchKey', '')
+      this.search2()
     }
   }
 }

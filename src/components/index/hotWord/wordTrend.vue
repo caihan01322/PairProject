@@ -5,8 +5,8 @@
     </div>
     <div id="wordTrendBody">
       <Tabs type="card">
-        <TabPane v-for="(item, index) in color" :label="item" :key="item">
-          <chart1 :text="text" :id1="index" :color="color[index]"></chart1>
+        <TabPane v-for="(item, index) in hotWord" :label="item" :key="item">
+          <chart1 :text="item" :id1="index" :color="color[index]"></chart1>
         </TabPane>
       </Tabs>
     </div>
@@ -25,7 +25,23 @@ export default {
       text: '111',
       data: [120, 200, 150, 80, 70, 110, 130],
       data1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      hotWord: [],
+      frequency: [],
       color: ['#349dff', '#fbd438', '#33c45e', '#f2637b', '#6dd48c', '#fbd437', '#4ecb73', '#eaa674', '#88d1ea', '#36cbcb']
+    }
+  },
+  methods: {
+    getInfo () {
+      this.$axios.post('http://localhost:8080/WordController/getHotWords')
+        .then(res => {
+          this.frequency = res.data.frequency
+          this.hotWord = res.data.hotWord
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        .finally({
+        })
     }
   }
 }

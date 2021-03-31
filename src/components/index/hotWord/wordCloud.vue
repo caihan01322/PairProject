@@ -8,11 +8,11 @@
         <CarouselItem>
           <div class="demo-carousel">
             <wordcloud
-              :data="defaultWords"
+              :data="cvpr"
               nameKey="name"
               valueKey="value"
               :color="myColors"
-              :showTooltip="true"
+              :showTooltip="false"
               :rotate="rotate"
               :wordClick="wordClickHandler">
             </wordcloud>
@@ -21,11 +21,11 @@
         <CarouselItem>
           <div class="demo-carousel">
             <wordcloud
-              :data="defaultWords1"
+              :data="iccv"
               nameKey="name"
               valueKey="value"
               :color="myColors"
-              :showTooltip="true"
+              :showTooltip="false"
               :rotate="rotate"
               :wordClick="wordClickHandler">
             </wordcloud>
@@ -33,6 +33,15 @@
         </CarouselItem>
         <CarouselItem>
           <div class="demo-carousel">
+            <wordcloud
+              :data="eccv"
+              nameKey="name"
+              valueKey="value"
+              :color="myColors"
+              :showTooltip="true"
+              :rotate="rotate"
+              :wordClick="wordClickHandler">
+            </wordcloud>
           </div>
         </CarouselItem>
         <CarouselItem>
@@ -47,7 +56,7 @@
 <script>
 
 import wordcloud from 'vue-wordcloud'
-
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'wordCloud',
   data () {
@@ -175,9 +184,14 @@ export default {
       }
     }
   },
+  computed: mapState(['searchKey', 'isSearchKey']),
+  ...mapMutations(['setSerchKey', 'openSearchKey', 'closeSearchKey']),
   methods: {
-    wordClickHandler (name, value, vm) {
-      console.log('wordClickHandler', name, value, vm)
+    wordClickHandler (name) {
+      console.log('wordClickHandler')
+      this.$store.commit('openSearchKey')
+      this.$store.commit('setSerchKey', name)
+      this.$router.push('/index/search')
     },
     getWord () {
       this.$axios.post('http://localhost:8081/KeywordMapController/getWordMap')
