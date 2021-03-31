@@ -302,7 +302,7 @@ def paper_getlist():
 def paper_get():
     pass
 
-#未完成
+
 @blue.route('/favorites/get')
 @login_required
 def favorites_get():
@@ -315,6 +315,16 @@ def favorites_get():
         dicts.append(dic)
     return jsonify(code=200, msg="获取成功", data={'favorites':dicts})
 
+
+@blue.route('/favorites/getPaperList')
+@login_required
+def favorites_getpaperlist():
+    favorite_id_list = db.session.query(PaperToFavoriteFavorite).filter(Favorite.user_id==user.user_id).all()
+    dicts=[]
+    for i in favorite_id_list:
+        dic= {'favorite_id':i.favorite_id, 'name':i.name}
+        dicts.append(dic)
+    return jsonify(code=200, msg="获取成功", data={'favorites':dicts})
 
 @blue.route('/favorites/delete', methods=['POST'])
 @login_required
