@@ -32,6 +32,7 @@
 
         var sw=getQueryVariable("sw");
         if(sw == false) sw="learning (artificial intelligence)";
+        sw = sw.replace("%20"," ");
         if(window.XMLHttpRequest){
             xmlhttp = new XMLHttpRequest();
         }else{
