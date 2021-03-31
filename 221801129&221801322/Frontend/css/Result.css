@@ -223,7 +223,7 @@
     float: left;
     text-align: left;
 }
-.name{
+.name1,.name2,.name3,.name4,.name5,.name6,.name7,.name8,.name9,.name10{
     color: black;
     cursor: pointer;
 }
@@ -238,7 +238,7 @@
 }
 /* 趋势图
    ------------------------------------------ */
-   #trend_nav div {
+#trend_nav div {
     width: 60px;
     height: 30px;
     display: inline-block;

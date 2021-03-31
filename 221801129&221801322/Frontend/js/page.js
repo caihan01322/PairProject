@@ -16,18 +16,19 @@ var pageBar = new Vue({
             }
             console.log(this.cur+'页');
             //var urlStr = "https://mock.mengxuegu.com/mock/60634842f2e38f3a2f6ba3ec/example_copy/list";
-            var urlStr = "http://127.0.0.1:8000/list";
+            var urlStr = "http://192.168.0.110:8000/list";
             var searchVal = {
                 pagenum: this.cur,
                 type: 1,
                 searchval: localStorage.getItem("searchVal")
             };
             showList(urlStr,searchVal);
+
         },
         pageClick: function(){
             console.log('现在在'+this.cur+'页');
             //var urlStr = "https://mock.mengxuegu.com/mock/60634842f2e38f3a2f6ba3ec/example_copy/list";
-            var urlStr = "http://127.0.0.1:8000/list";
+            var urlStr = "http://192.168.0.110:8000/list";
             var searchVal = {
                 pagenum: this.cur,
                 type: 1,
@@ -35,9 +36,6 @@ var pageBar = new Vue({
             };
             showList(urlStr,searchVal);
         },
-        test: function(index){
-            return "course"+index;
-        }
     },
     computed: {
         indexs: function(){
@@ -67,3 +65,19 @@ var pageBar = new Vue({
         }
     }
 })
+
+function getList(){
+    return JSON.parse(localStorage.getItem("lists"));
+}
+
+var app1 = new Vue({
+    el: '.list',
+    data: {
+        lists: getList()
+    },
+    methods:{
+        getLists : function(){
+            this.lists = getList();
+        }
+    }
+});

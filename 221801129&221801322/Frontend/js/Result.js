@@ -6,16 +6,20 @@ $(function () {
     $("#searchBox input").removeAttr("disabled");
 
     //var urlStr = "https://mock.mengxuegu.com/mock/60634842f2e38f3a2f6ba3ec/example_copy/list";
-    var urlStr = "http://127.0.0.1:8000/list";
+    var urlStr = "http://192.168.0.110:8000/list";
+    var val = localStorage.getItem("searchVal");
+    if(val === ""){
+        val = " ";
+    }
     var searchVal = {
         pagenum: 1,
         type: 1,
-        searchval: localStorage.getItem("searchVal")
+        searchval: val
     };
     showList(urlStr,searchVal);
 
     //var urlStr = "https://mock.mengxuegu.com/mock/60634842f2e38f3a2f6ba3ec/example_copy/rank";
-    var urlStr = "http://127.0.0.1:8000/rank";
+    var urlStr = "http://192.168.0.110:8000/rank";
     var rankVal = {
         type:"rank"
     };
@@ -38,6 +42,19 @@ $(function () {
                 methods: {
                     num: function(index){
                         return "num" + index;
+                    },
+                    name: function(index){
+                        return "name" + index;
+                    },
+                    rankClick :function(data){
+                        //var urlStr = "https://mock.mengxuegu.com/mock/60634842f2e38f3a2f6ba3ec/example_copy/list";
+                        var urlStr = "http://192.168.0.110:8000/list";
+                        var searchVal = {
+                            pagenum: 1,
+                            type: 2,
+                            searchval: data
+                        };
+                        showList(urlStr,searchVal);
                     }
                 }
             });
@@ -65,27 +82,15 @@ $(function () {
         if(event.keyCode == 13){
             console.log($("#search option:selected").val());
             //var urlStr = "https://mock.mengxuegu.com/mock/60634842f2e38f3a2f6ba3ec/example_copy/list";
-            var urlStr = "http://127.0.0.1:8000/list";
+            var urlStr = "http://192.168.0.110:8000/list";
             var searchVal = {
                 pagenum: 1,
-                type: $("#search option:selected").val(),
+                type: parseInt($("#search option:selected").val()),
                 searchval: $("#searchBox input").val()
             };
             showList(urlStr,searchVal);
         }
-    })
-
-    $(".name").click(function(){
-        //var urlStr = "https://mock.mengxuegu.com/mock/60634842f2e38f3a2f6ba3ec/example_copy/list";
-        var urlStr = "http://127.0.0.1:8000/list";
-        var searchVal = {
-            pagenum: 1,
-            type: 1,
-            searchval: $(this).text()
-        };
-        console.log($(this).text());
-        showList(urlStr,searchVal);
-    })
+    });
 
     $(".markSvg").click(function(){
         alert("收藏成功！");

@@ -8,7 +8,8 @@ var app = {};
 
 var option = [];
 
-var urlStr = "https://mock.mengxuegu.com/mock/60634842f2e38f3a2f6ba3ec/example_copy/trend";
+//var urlStr = "https://mock.mengxuegu.com/mock/60634842f2e38f3a2f6ba3ec/example_copy/trend";
+var urlStr = "http://192.168.0.110:8000/trend";
 var trendVal = {
     type:"trend"
 };

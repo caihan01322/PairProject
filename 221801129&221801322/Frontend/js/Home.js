@@ -29,11 +29,11 @@ $(function () {
             alert("请输入密码");
         } else {
             var info = {
-                phonenumber: user.value,
+                username: user.value,
                 password: pw.value
             };
             //var urlStr = "https://mock.mengxuegu.com/mock/60634842f2e38f3a2f6ba3ec/example_copy/login";
-            var urlStr = "http://127.0.0.1:8000/login";
+            var urlStr = "http://192.168.0.110:8000/login";
             PostHandle(urlStr, JSON.stringify(info), function(data){
                 if(data.code == 200){
                     $("#mark").css("display","block");

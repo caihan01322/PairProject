@@ -56,7 +56,7 @@ function GetHandle(url,data,callback) {
   });
 }
 
-function showList(urlStr,searchVal){
+function showList(urlStr,searchVal,){
     PostHandle(urlStr, JSON.stringify(searchVal), function(data){
         if(data.code == 200){
             //console.log(data.data.articlelist[0].article_id);
@@ -82,13 +82,15 @@ function showList(urlStr,searchVal){
                     keyword: keywords
                 };
             };
-            var app = new Vue({
-                el: '.list',
-                data: {
-                    lists: lists
-                }
-            });
+            // var app = new Vue({
+            //     el: ".list",
+            //     data: {
+            //         lists: lists
+            //     }
+            // });
+            localStorage.setItem("lists",JSON.stringify(lists));
             localStorage.setItem("totalPage",data.data.pagetotal);
+            $("#btn").trigger("click");
         } else {
             alert(data.code + " " + data.msg);
         }

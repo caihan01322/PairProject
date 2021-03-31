@@ -5,13 +5,12 @@ $(function () {
     $("#status").css("cursor","none");
     $("#searchBox input").removeAttr("disabled");
 
-    var urlStr = "/Bookmark";
+    var urlStr = "http://192.168.0.110:8000/showmark";
     var uid = {
-        uid:localStorage.getItem("uid")
+        user_id:localStorage.getItem("uid"),
+        pagenum:1
     };
-    PostHandle(urlStr, JSON.stringify(uid), function(data){
-        //收藏夹结果接收与展示
-    });
+    showList(urlStr,searchVal);
     
     $(".markedSvg").click(function(){
         alert("取消收藏！");
