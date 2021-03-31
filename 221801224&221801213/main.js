@@ -12,6 +12,8 @@ var main = new Vue({
             userInput: "",
             isShow: false,
             isShow2: false,
+            isSearch: true,
+            isAnalysis: false,
         }
     },
 
@@ -29,7 +31,7 @@ var main = new Vue({
             if (this.userInput != "") //输入不为空
             {
 
-                axios.get("./" + this.userInput + ".json")
+                axios.get("./" + this.userInput + ".json") //请求
                     .then(response => {
                         if (response.data.data == "") //data为空即搜索无结果
                         {
@@ -58,6 +60,7 @@ var main = new Vue({
         doSearchingwithHotWord(p) {
             this.userInput = p;
             this.doSearching();
+            this.toSearch(); //跳转至search功能页
         },
 
         pageUp: function() {
@@ -88,7 +91,19 @@ var main = new Vue({
 
         deleteArticle: function(p) {
             alert("正在删除论文 编号:" + p);
+            alert("删除成功，重新加载");
+            this.doSearching(); //重新搜索刷新页面
         },
+
+        toSearch: function() {
+            this.isSearch = true;
+            this.isAnalysis = false;
+        },
+
+        toAnalysis: function() {
+            this.isSearch = false;
+            this.isAnalysis = true;
+        }
     }
 
 })

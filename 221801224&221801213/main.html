@@ -19,12 +19,12 @@
         </div>
 
         <div id="leftsideBar">
-            <button class="button">论文查询</button>
+            <button class="button" @click="toSearch">论文查询</button>
             <!-- <button class="button">收藏列表</button> -->
-            <button class="button" onclick="window.location.href = './analysis.html'">分析统计</button>
+            <button class="button" @click="toAnalysis">分析统计</button>
         </div>
 
-        <div id="main">
+        <div id="main" v-if="isSearch">
             <div id="searchBar">
                 <input type="text" id="textSearch" placeholder="   请输入论文的相关信息" v-model="userInput">
                 <button id="buttonSearch" @click="doSearching"><span>查询</span></button>
@@ -59,11 +59,13 @@
 
         </div>
 
+        <iframe id="main" v-if="isAnalysis" src="./analysis.html"></iframe>
+
         <div id="rightsideBar">
             <div id="hotWordRank">
                 热词榜
             </div>
-            <div class="rank" v-for="item in hotWordArr" @click="doSearchingwithHotWord(item)">
+            <div v-cloak class="rank" v-for="item in hotWordArr" @click="doSearchingwithHotWord(item)">
                 {{ item }}
             </div>
         </div>

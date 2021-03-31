@@ -1,219 +1,24 @@
-html {
-    background-image: url(./1.jpg);
-}
-
-#wrap {
-    /* border-style: solid;
-    border-color: rgb(240, 232, 232); */
-    height: 900px;
-    width: 1900px;
-}
-
-#navBar {
-    background-color: rgb(27, 27, 27);
-    color: aliceblue;
-    width: 1892px;
-    height: 65px;
-    margin-bottom: 3px;
-    border-style: solid;
-    border-color: rgb(36, 35, 35);
-    border-radius: 10px;
-}
-
-#navBar .logo {
-    width: 100px;
-    height: 50px;
-    border-style: solid;
-    border-color: rgb(252, 252, 252);
-    margin: 3px;
-}
-
-#leftsideBar {
-    background-color: rgb(36, 36, 36);
-    float: left;
-    width: 250px;
-    height: 835px;
-    border-style: solid;
-    border-color: rgb(218, 197, 197);
-    border-width: 0.1ch;
-    opacity: 0.9;
-    border-radius: 10px;
+[v-cloak] {
+    display: none;
 }
 
 #main {
     background-color: rgb(36, 36, 36);
     float: left;
-    width: 1382px;
-    height: 835px;
-    border-style: solid;
+    width: 1369px;
+    height: 825x;
+    /* border-style: solid;
     border-color: rgb(255, 255, 255);
-    border-width: 0.1ch;
-    opacity: 0.9;
-    margin-left: 5px;
-    margin-right: 5px;
+    border-width: 0.1ch; */
+    opacity: 1;
 }
 
 .mainItem {
-    width: 600px;
+    width: 580px;
     height: 390px;
     float: left;
     border-style: solid;
     border-color: rgb(218, 197, 197);
     border-width: 0.1ch;
     margin: 10px 40px;
-}
-
-#rightsideBar {
-    background-color: rgb(36, 36, 36);
-    float: right;
-    width: 250px;
-    height: 835px;
-    border-style: solid;
-    border-color: rgb(218, 197, 197);
-    border-width: 0.2ch;
-    opacity: 0.9;
-    border-radius: 10px;
-}
-
-.button {
-    position: relative;
-    background-color: #111311;
-    border: none;
-    font-size: 28px;
-    color: #FFFFFF;
-    padding: 20px;
-    width: 250px;
-    text-align: center;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
-    text-decoration: none;
-    overflow: hidden;
-    cursor: pointer;
-    border-style: solid;
-    border-color: rgb(240, 232, 232);
-    margin-top: 40px;
-    border-radius: 10px;
-    /* 不出现蓝色边框 */
-    outline: none;
-}
-
-.button:after {
-    content: "";
-    background: #f1f3f1;
-    display: block;
-    position: absolute;
-    padding-top: 300%;
-    padding-left: 350%;
-    margin-left: -20px !important;
-    margin-top: -120%;
-    opacity: 0;
-    transition: all 0.8s
-}
-
-.button:active:after {
-    padding: 0;
-    margin: 0;
-    opacity: 1;
-    transition: 0s
-}
-
-#buttonSearch {
-    display: inline-block;
-    border-radius: 4px;
-    background-color: #111311;
-    border: none;
-    font-size: 20px;
-    color: #FFFFFF;
-    padding: 10px;
-    width: 100px;
-    text-align: center;
-    text-decoration: none;
-    border-style: solid;
-    border-color: rgb(240, 232, 232);
-    border-width: 0.1ch;
-    border-radius: 10px;
-    margin-top: 40px;
-    outline: none;
-    transition: all 0.5s;
-    cursor: pointer;
-}
-
-#buttonSearch span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-}
-
-#buttonSearch span:after {
-    content: '»';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;
-}
-
-#buttonSearch:hover span {
-    padding-right: 25px;
-}
-
-#buttonSearch:hover span:after {
-    opacity: 1;
-    right: 0;
-}
-
-.rank {
-    position: relative;
-    background-color: #111311;
-    border: none;
-    font-size: 20px;
-    color: #FFFFFF;
-    height: 30px;
-    text-align: center;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
-    text-decoration: none;
-    overflow: hidden;
-    cursor: pointer;
-    border-style: solid;
-    border-color: rgb(240, 232, 232);
-    border-width: 0.1ch;
-    margin-top: 20px;
-    /* 不出现蓝色边框 */
-    outline: none;
-    padding: 10px;
-}
-
-.rank:after {
-    content: "";
-    background: #f1f3f1;
-    display: block;
-    position: absolute;
-    padding-top: 300%;
-    padding-left: 350%;
-    margin-left: -20px !important;
-    margin-top: -120%;
-    opacity: 0;
-    transition: all 0.8s
-}
-
-.rank:active:after {
-    padding: 0;
-    margin: 0;
-    opacity: 1;
-    transition: 0s
-}
-
-#hotWordRank {
-    border-style: solid;
-    border-color: rgb(240, 232, 232);
-    border-width: 0.1ch;
-    font-size: 30px;
-    height: 35px;
-    padding: 10px;
-    text-align: center;
-    color: #FFFFFF;
-    border-radius: 10px;
-    padding: 1.4ch;
 }

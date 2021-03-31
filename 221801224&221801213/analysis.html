@@ -7,37 +7,11 @@
 </head>
 
 <body>
-    <div id="wrap">
-
-        <div id="navBar">
-            <div class="logo">
-                logo
-            </div>
-        </div>
-
-        <div id="leftsideBar">
-            <button class="button" onclick="window.location.href = './main.html'">论文查询</button>
-            <!-- <button class="button">收藏列表</button> -->
-            <button class="button">分析统计</button>
-        </div>
-
-        <div id="main">
-            <div id="main1" class="mainItem"></div>
-            <div id="main2" class="mainItem"></div>
-            <div id="main3" class="mainItem"></div>
-            <div id="main4" class="mainItem"></div>
-        </div>
-
-        <div id="rightsideBar">
-            <div id="hotWordRank">
-                热词榜
-            </div>
-
-            <div class="rank" v-for="item in hotWordArr">
-                {{item}}
-            </div>
-        </div>
-
+    <div id="main">
+        <div id="main1" class="mainItem"></div>
+        <div id="main2" class="mainItem"></div>
+        <div id="main3" class="mainItem"></div>
+        <div id="main4" class="mainItem"></div>
     </div>
 
 
