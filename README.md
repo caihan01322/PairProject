@@ -1,10 +1,10 @@
 
 # README
 
-##1.作业链接
+## 1.作业链接
 [作业链接](https://edu.cnblogs.com/campus/fzu/2021SpringSoftwareEngineeringPractice/homework/11890)
 
-##2.结对学号：
+## 2.结对学号：
 - 221801213&221801224 
 
 ## 3.项目介绍：
