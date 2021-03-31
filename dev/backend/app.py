@@ -1,12 +1,12 @@
 from flask import Flask,request,json
 from deal.Datadeal import DataBase
 
-app = Flask(__name__)
+app = Flask(__name__,static_url_path='')
 data = DataBase()
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return app.send_static_file('index.html')
 
 @app.route('/api/user/search',methods=["POST"])
 def search_ar():
