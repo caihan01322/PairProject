@@ -38,103 +38,120 @@ $this->title = 'My Yii Application';
             // 基于准备好的dom，初始化echarts实例
         var chartDom = document.getElementById('main');
         var myChartz = echarts.init(chartDom);
+        var option;
+                var meeting = 3;
+                var categoryCount = 18;
 
-        var a=<?php echo json_encode($cvrp) ?>;
-        var cvrp_arr = a.map(item => {
-            return Object.values(item)
-        })
-        var b=<?php echo json_encode($eccv) ?>;
-        var eccv_arr = b.map(item => {
-           return Object.values(item)
-        })
-        var c=<?php echo json_encode($iccv) ?>;
-        var iccv_arr = c.map(item => {
-            return Object.values(item)
-        })
-        var p=<?php echo json_encode($pdata) ?>;
+                var xAxisData = [];
+                var customData = [];
+                var legendData = [];
+                var dataList = [];
 
-var option;
+                legendData.push('trend');
+                var encodeY = [];
+                for (var i = 0; i < meeting; i++) {
+                    legendData.push(('ICCV') + '');
+                    legendData.push(('ECCV') + '');
+                    legendData.push(('CVPR') + '');
+                    dataList.push([]);
+                    encodeY.push(1 + i);
+                }
 
-option = {
-    title: {
-        text: '上一届三大会议热词走势对比图'
-    },
-    tooltip: {
-        trigger: 'axis'
-    },
-    legend: {
-        data: ['CVPR', 'ICCV', 'ECCV' ]
-    },
-    grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-    },
-   
-    xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: ['TOP1', 'TOP2', 'TOP3', 'TOP4', 'TOP5', 'TOP6', 'TOP7','TOP8', 'TOP9', 'TOP10']
-    },
-    yAxis: {
-        type: 'value'
-    },
-    series: [
-        {
-            name: 'CVPR',
-            type: 'line',
-            stack: '总量',
-            data: [
-            {value:cvrp_arr[0][2]},
-            {value:cvrp_arr[1][2]},
-            {value:cvrp_arr[2][2]},
-            {value:cvrp_arr[3][2]},
-            {value:cvrp_arr[4][2]},
-            {value:cvrp_arr[5][2]},
-            {value:cvrp_arr[6][2]},
-            {value:cvrp_arr[7][2]},
-            {value:cvrp_arr[8][2]},
-            {value:cvrp_arr[9][2]},
-            ]
-        },
-        {
-            name: 'ECCV',
-            type: 'line',
-            stack: '总量',
-            data: [
-            {value:eccv_arr[0][2]},
-            {value:eccv_arr[1][2]},
-            {value:eccv_arr[2][2]},
-            {value:eccv_arr[3][2]},
-            {value:eccv_arr[4][2]},
-            {value:eccv_arr[5][2]},
-            {value:eccv_arr[6][2]},
-            {value:eccv_arr[7][2]},
-            {value:eccv_arr[8][2]},
-            {value:eccv_arr[9][2]},
-            ]
-        },
-        {
-            name: 'ICCV',
-            type: 'line',
-            stack: '总量',
-            data:  [
-            {value:iccv_arr[0][2],name:iccv_arr[0][1]},
-            {value:iccv_arr[1][2]},
-            {value:iccv_arr[2][2]},
-            {value:iccv_arr[3][2]},
-            {value:iccv_arr[4][2]},
-            {value:iccv_arr[5][2]},
-            {value:iccv_arr[6][2]},
-            {value:iccv_arr[7][2]},
-            {value:iccv_arr[8][2]},
-            {value:iccv_arr[9][2]},
-            ]
-        },
-      
-    ]
-};
+                for (var i = 0; i < categoryCount; i++) {
+                    var val = Math.random() * 1000;
+                    xAxisData.push(i+2003);
+                    var customVal = [i];
+                    customData.push(customVal);
+
+                    for (var j = 0; j < dataList.length; j++) {
+                        var value = j === 0
+                            ? echarts.number.round(val, 2)
+                            : echarts.number.round(Math.max(0, dataList[j - 1][i] + (Math.random() - 0.5) * 200), 2);
+                        dataList[j].push(value);
+                        customVal.push(value);
+                    }
+                }
+
+                function renderItem(params, api) {
+                    var xValue = api.value(0);
+                    var currentSeriesIndices = api.currentSeriesIndices();
+                    var barLayout = api.barLayout({
+                        barGap: '30%', barCategoryGap: '20%', count: currentSeriesIndices.length - 1
+                    });
+
+                    var points = [];
+                    for (var i = 0; i < currentSeriesIndices.length; i++) {
+                        var seriesIndex = currentSeriesIndices[i];
+                        if (seriesIndex !== params.seriesIndex) {
+                            var point = api.coord([xValue, api.value(seriesIndex)]);
+                            point[0] += barLayout[i - 1].offsetCenter;
+                            point[1] -= 20;
+                            points.push(point);
+                        }
+                    }
+                    var style = api.style({
+                        stroke: api.visual('color'),
+                        fill: null
+                    });
+
+                    return {
+                        type: 'polyline',
+                        shape: {
+                            points: points
+                        },
+                        style: style
+                    };
+                }
+
+
+                option = {
+                    title: {
+                        text: '论文数量对比',
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data: legendData
+                    },
+                    dataZoom: [{
+                        type: 'slider',
+                        start: 50,
+                        end: 70
+                    }, {
+                        type: 'inside',
+                        start: 50,
+                        end: 70
+                    }],
+                    xAxis: {
+                        data: xAxisData
+                    },
+                    yAxis: {},
+                    series: [{
+                        type: 'custom',
+                        name: 'trend',
+                        renderItem: renderItem,
+                        itemStyle: {
+                            borderWidth: 2
+                        },
+                        encode: {
+                            x: 0,
+                            y: encodeY
+                        },
+                        data: customData,
+                        z: 100
+                    }].concat(dataList.map(function (data, index) {
+                        return {
+                            type: 'bar',
+                            animation: false,
+                            name: legendData[index + 1],
+                            itemStyle: {
+                                opacity: 0.5
+                            },
+                            data: data
+                        };
+                    }))
+                };
 
 option && myChartz.setOption(option);
 </script>
