@@ -13,7 +13,7 @@
 
     <style>
         #main{
-            margin: 100px 200px;
+            padding: 100px 200px;
         }
         h4{
             margin:20px 0px;
@@ -28,11 +28,13 @@
         #left{
             float: left;
             margin-left: 130px;
+            margin-top:120px;
         }
 
         #like{
             float: right;
-            margin-right: 230px;
+            margin-right: 400px;
+            margin-top:120px;
         }
         #buttons{
             float:right;
@@ -40,6 +42,9 @@
         }
         #buttons button{
             margin:20px
+        }
+        #abstract{
+            width: 85%;
         }
     </style>
 </head>
@@ -70,7 +75,7 @@
 
     <div id="article">
         <img id="left" alt="" src="icon_left.png" @click="back">
-        <img id="like" alt="" src="icon_like.png">
+        <img id="like" alt="" @click="likeArticle" src="icon_like.png">
             
         <div id="main">
             <h3>
@@ -80,17 +85,21 @@
     
                 <hr />
                 <h4>摘要：</h4>
+                <div id="abstract">
                 {{ abstract }}
+                </div>
 
                 <h4>原文链接：</h4>{{ href }}
 
+                <div id="buttons">
+                   <!-- <button type="button" @click="showDetail" class="btn btn-default">修改</button>-->
+                    <button type="button" @click="deleteArticle" class="btn btn-default">删除</button>
+        
+                </div>
+
         </div>
 
-        <div id="buttons">
-            <button type="button" @click="showDetail" class="btn btn-default">修改</button>
-            <button type="button" @click="deleteArticle" class="btn btn-default">删除</button>
-
-        </div>
+        
     </div>
 
 
@@ -113,13 +122,15 @@
                 message:"请先登录",
                 phone:'',
                 password:'',
-                numberid:'28',
+                numberid:'30',
                 title:'标题',
                 keyword:'关键词',
                 abstract:'摘要',
                 href:'链接'
             },
             mounted(){
+                var data = localStorage.getItem('articleid');
+                this.numberid = data;
                 this.showDetail();
             },
             methods: {
@@ -130,24 +141,28 @@
                 window.location.href="login.html";
             },
             deleteArticle:function(){
-                var that = this;
+                if(window.confirm("你确定要删除这篇论文吗?"))
+                {
+                    var that = this;
 
-                axios
-                .post('http://127.0.0.1:5000/paper/delete/'+this.numberid)
-                .then(function (response) {
-                    console.log(response.data);
-                    window.location.href="article.html";
-                })
-                .catch(function (error) { // 请求失败处理
-                    console.log(error);
-                });
+                    axios
+                    .get('http://127.0.0.1:5000/paper/delete/'+this.numberid)
+                    .then(function (response) {
+                        console.log(response.data);
+                        window.location.href="article.html";
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+                    }
+                else
+                {
+                    
+                }
+                
             },
             showDetail:function(){
                var that = this;
-               //alert(this.phone);
-                //alert(this.password);
-
-
                 axios
                 .get('http://127.0.0.1:5000/paper/'+this.numberid)
                 .then(function (response) {
@@ -165,6 +180,26 @@
             },
             back:function(){
                 window.location.href = "article.html";
+            },
+            likeArticle:function(){
+                var that = this;
+                
+                var userId = localStorage.getItem('userid');
+                //alert(data2);
+                axios
+                .post('http://127.0.0.1:5000/collection',
+                {
+                    "user_id":userId,
+                    "paper_id":this.numberid
+                })
+                .then(function (response) {
+                    console.log(response.data);
+                    alert('收藏成功！');
+                   // if(response.data)
+                })               
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
             }
             
             }
