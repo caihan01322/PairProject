@@ -54,7 +54,7 @@ def search_author():
         page_size = page_info.get("page_size")
         page_num = page_info.get("page_num")
         allPageNum = Meeting_article.query.filter(
-            Meeting_article.keyword.like("%" + author + "%")).count()
+            Meeting_article.author.like("%" + author + "%")).count()
         pagination=Meeting_article.query.filter(
             Meeting_article.author.like("%"+author+"%"))\
             .order_by(Meeting_article.create_time.desc()).paginate(per_page=page_num,page=page_size)
@@ -87,7 +87,7 @@ def search_title():
         page_size = page_info.get("page_size")
         page_num = page_info.get("page_num")
         allPageNum = Meeting_article.query.filter(
-            Meeting_article.keyword.like("%" + title + "%")).count()
+            Meeting_article.title.like("%" + title + "%")).count()
         pagination=Meeting_article.query.filter(
             Meeting_article.title.like("%"+title+"%"))\
             .order_by(Meeting_article.create_time.desc()).paginate(per_page=page_num,page=page_size)
@@ -106,6 +106,22 @@ def search_title():
             })
         return responseBody(data={'data':response_info,'allPageNum':allPageNum})
 
+    except Exception as e:
+        print(e)
+        return responseError(Responses.PARAMETERS_ERROR)
+
+@functions.route('/search_byfile',methods=["POST"])
+def search_byfile():
+    try:
+        data = request.get_json()
+        key_id = data.get('key_id')
+        file_name = data.get('file_name')
+        keyList = []
+        with open(r"F:\寒假作业2\结队作业2\Team_work\static\userupload\%s" % file_name, 'r')as f:
+            allKeyword = f.read()
+            keyList = allKeyword.split(';')
+            f.close()
+            return responseBody(data={'keyInfo':keyList[key_id-1]})
     except Exception as e:
         print(e)
         return responseError(Responses.PARAMETERS_ERROR)

@@ -288,14 +288,18 @@ def del_article():
 def upload_file():
     try:
         data=request.files.get('file')
-        print(data.read())
+        # print(data.read())
         filename = secure_filename(data.filename)
         # 生成文件保存路径
-        save_path = url_for('static', filename='userupload/%s' %filename)
+        save_path = r"F:\寒假作业2\结队作业2\Team_work\static\userupload\%s"%filename
         # 保存文件
         data.save(save_path)
+        List=[]
+        with open(save_path,'r')as f:
+            List=f.read().split(';')
+            f.close()
 
-        return responseSuccess(Responses.OPERATION_SUCCESS)
+        return responseBody(data={'keyList':List})
     except Exception as e:
         print(e)
         return responseError(Responses.PARAMETERS_ERROR)
