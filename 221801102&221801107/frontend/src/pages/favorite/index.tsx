@@ -33,11 +33,11 @@ export default function Favorite() {
   };
 
   const fetchData = () => {
-    setLoading(false);
+    setLoading(true);
     dispatch({
       type: `${ModelNameSpaces.Favorite}/getFav`,
     });
-    setLoading(true);
+    setLoading(false);
   };
 
   useEffect(() => {
