@@ -1,8 +1,9 @@
-let root = "/"
+let root = "/api"
 
 const request = {
     // 已有论文检索
     search: async (data) => {
+        let url = root+'/user/search';
         console.log("get req:");
         console.log(data);
         return {
@@ -32,6 +33,7 @@ const request = {
     },
     // 标题输入提示
     getTitleTips: async (data) => {
+        let url = root+'/user/title/tip';
         console.log("get req:");
         console.log(data);
         return {
@@ -47,6 +49,7 @@ const request = {
     },
     // 关键词输入提示
     getKeywordTips: async (data) => {
+        let url = root+'/user/keyword/tip';
         console.log("get req:");
         console.log(data);
         return {
@@ -62,6 +65,7 @@ const request = {
     },
     // 获取爬虫任务列表
     getTaskList: async (data) => {
+        let url = root+'/user/spider/tasklist';
         console.log("get req:");
         console.log(data);
         return {
@@ -83,6 +87,7 @@ const request = {
     },
     // 添加爬虫任务
     addTask: async (data) => {
+        let url = root+'/user/task/addone';
         console.log("get req:");
         console.log(data);
         return {
@@ -98,6 +103,7 @@ const request = {
     },
     // 导入爬虫任务
     importTask: async (data) => {
+        let url = root+'/user/task/addall';
         console.log("get req:");
         console.log(data);
         return {
@@ -106,6 +112,7 @@ const request = {
     },
     // 删除爬虫任务
     deleteTask: async (data) => {
+        let url = root+'/user/task/delete';
         console.log("get req:");
         console.log(data);
         return {
@@ -114,6 +121,7 @@ const request = {
     },
     // 删除论文记录
     deletePage: async (data) => {
+        let url = root+'/user/title/delete';
         console.log("get req:");
         console.log(data);
         return {
@@ -122,6 +130,7 @@ const request = {
     },
     // 执行爬虫
     runCrawl: async (data) => {
+        let url = root+'/user/spider';
         console.log("get req:");
         console.log(data);
         return {
@@ -130,6 +139,7 @@ const request = {
     },
     // 获取热词
     getHotwords: async (data) => {
+        let url = root+'/user/hotword/show';
         console.log("get req:");
         console.log(data);
         return {
@@ -155,6 +165,7 @@ const request = {
     },
     // 获取关键词排行
     getRank: async (data) => {
+        let url = root+'/user/hotword/caculate';
         console.log("get req:");
         console.log(data);
         let res =  {
@@ -205,6 +216,7 @@ const request = {
     },
     // 热词折线图数据获取
     getHotwordLine: async (data) => {
+        let url = root+'/user/hotword/search';
         console.log("get req:");
         console.log(data);
         return {

@@ -135,6 +135,7 @@
 
 <script>
 import request from '../request/request';
+import XLXS from "xlsx";
 
 export default {
     name: 'Tasks',
@@ -298,22 +299,47 @@ export default {
         // 批量添加爬虫任务
         importTask() {
             this.importing = true;
-            // console.log(this.fileList[0]);
             let that = this;
-            request.importTask({
-                file: that.fileList[0]
-            })
-            .then((res)=>{
-                console.log(res);
-                if(res.error == 0) {
-                    that.showImport = false;
-                    that.importing = false;
-                    that.$message.success("导入成功");
-                    that.requestList({
-                        page: 1
+            // console.log(this.fileList[0]);
+            // excel解析
+            const fileReader = new FileReader();
+            fileReader.onload = ev => {
+                try {
+                    console.log("read file inner");
+                    const data = ev.target.result;
+                    const workbook = XLXS.read(data, {
+                        type: "binary"
                     });
+                    const wsname = workbook.SheetNames[0]; //取第一张表
+                    // console.log();
+                    let sheet = XLXS.utils.sheet_to_json(workbook.Sheets[wsname]);
+                    let titleList = [];
+                    for(let i=0; i<sheet.length; i++) {
+                        titleList.push(sheet[i].title);
+                    }
+                    console.log(titleList);
+                    request.importTask({
+                        titlelist: titleList
+                    })
+                    .then((res)=>{
+                        console.log(res);
+                        if(res.error == 0) {
+                            that.showImport = false;
+                            that.importing = false;
+                            that.$message.success("导入成功");
+                            that.requestList({
+                                page: 1
+                            });
+                        }
+                    })
+                } 
+                catch (e) {
+                    console.log("read file error");
+                    return false;
                 }
-            })
+            };
+            console.log("read file");
+            fileReader.readAsBinaryString(that.fileList[0]);
         },
         // 文件是否上传过
         exectImportFile() {
