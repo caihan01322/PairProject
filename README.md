@@ -1,175 +1,454 @@
-# 结对第二次作业——顶会热词统计的实现
+# 结对作业二
 
-为了不遗漏作业内容，这里有一份checklist方便同学们快速检阅。
+[toc]
 
-- [ ] fork仓库，和伙伴商讨如何通过github协作/代码规范等
-- [ ] 编程实现
-  
-    - [ ] 功能一，操作爬取的论文列表
-    - [ ] 功能二，爬取结果分析展示
-    - [ ] 功能三，爬取论文信息(附加功能，实现有附加分)
-    - [ ] 其他附加功能
-    - [ ] 部署
-    - [ ] 发布release版本，发起pull request
-- [ ] 撰写博客，在截止之前提交一份博客
-    - [ ] 包含作业描述和目录
-    - [ ] 核对评分标准
+| 这个作业属于哪个课程 | [2021春软件工程实践\|W班](https://edu.cnblogs.com/campus/fzu/2021SpringSoftwareEngineeringPractice) [(福州大学)](https://edu.cnblogs.com/campus/fzu) |
+| :------------------: | :----------------------------------------------------------: |
+|  这个作业要求在哪里  | [寒假作业2/2](https://edu.cnblogs.com/campus/fzu/2021SpringSoftwareEngineeringPractice/homework/11785) |
+|       结对学号       |                     221801102, 221801107                     |
+|    这个作业的目标    |                根据原型实现产品，记录PSP表格                 |
+|     其它参考文献     |            [golang](https://draveness.me/golang/)            |
 
----
+## 成品展示
 
-上一次结对作业中，大家都和小伙伴完成了原型的设计，那么现在再联合小伙伴动手实现原型中的部分功能吧。因为了解到大家基本都有一定的web基础，本次作业便要求大家采用web技术来实现原型中的功能。
+希望助教好好玩耍。以下成品在 2K 显示器上截图。实际大小可能因为您的屏幕支持的分辨率不同而不同。
 
+### 1. 首页
 
-## 一、作业内容
+![](https://img2020.cnblogs.com/blog/2290847/202103/2290847-20210331175445933-1509026621.png)
 
-### 1. 基础功能
+### 2. 搜索界面
 
-#### 功能1：对已爬取的论文列表进行操作
+![](https://img2020.cnblogs.com/blog/2290847/202103/2290847-20210331175459957-455109720.png)
 
-- 可对论文列表进行删除；
-- 可对论文列表进行查询详细信息（支持模糊查询，查询结果的展示、排序等功能可自行设计）;
+### 3. 收藏夹界面
 
-#### 功能2：分析已爬取到的论文信息，提取top10个热门领域或热门研究方向
+![](https://img2020.cnblogs.com/blog/2290847/202103/2290847-20210331175508910-197516461.png)
 
-- 形成如关键词图谱之类直观的查看方式，点击某个关键词可展现相关的论文；
-- 可对多年间、不同顶会的热词呈现热度走势对比，以**动图**的形式呈现（这里将范畴限定在计算机视觉的三大顶会CVPR、ICCV、ECCV内）
+### 4. 数据统计界面
 
+![](https://img2020.cnblogs.com/blog/2290847/202103/2290847-20210331175520204-1136234592.png)
 
+等等，以为到这里就结束了吗？
 
-### 2. 附加功能
-#### 功能3：获取待爬取论文列表及论文信息爬取
+所有的页面均支持自适应。可以在手机上观看，或者平板上观看。
 
-- 支持用户输入单个论文题目，也支持批量导入论文列表；
-- 通过论文列表，**爬取**论文的摘要、关键词、原文链接；
-	- 数据来源网站：CVPR、ICCV、ECCV
-	- 至少爬取三年、三大顶会各300篇论文
-	- 可编写爬虫代码实现，也可使用爬虫工具（如八爪鱼）爬取
+### 5. 手机端首页
 
-**此功能为附加功能，实现此功能将获得附加分(详情见评分细则)，如果技术上存在难度，可使用助教提供的数据来完成功能1和功能2**
+![](https://img2020.cnblogs.com/blog/2290847/202103/2290847-20210331175537157-401759627.png)
 
+### 6. 移动端搜索界面
 
+![](https://img2020.cnblogs.com/blog/2290847/202103/2290847-20210331175546736-1823743942.png)
 
-### 3. 本次项目需要部署到云服务器上，并且在博客中给出链接
+### 7. 移动端收藏夹界面
 
+![](https://img2020.cnblogs.com/blog/2290847/202103/2290847-20210331175555125-300679943.png)
 
+### 8. 移动端数据统计界面
 
-### 4. **推荐基于Web来开发**，使用Web框架，如常见的JSP、Servlet、spring系列、flask、php、express等，如果技术存在难度**也可以直接使用纯前端来进行开发**，数据写在代码中，持久化在storage。Web使用的持久化建议持久化在嵌入式数据库中，如sqllite或derby。采用的技术应该具有平台兼容性，不依托于具体的环境。本次作业以实现功能为主要目标，技术考量仅仅占一定的分数。切勿用原型工具生成代码，一经发现直接0分。
+![](https://img2020.cnblogs.com/blog/2290847/202103/2290847-20210331175604104-855728966.png)
 
+这里加个平板的好了
 
+![](https://img2020.cnblogs.com/blog/2290847/202103/2290847-20210331175616358-896965603.png)
 
-### 5. 可以扩展你想扩展的功能，扩展功能会被记入作为附加分（不超过编码部分的15%）。
+对了，在助教的电脑上，请注意看一下自己的分辨率，或许显示会有所不同，为了更好的显示体验，请在2k屏上观看，或者在1080P上缩小查看。
 
 
 
-## 二、编码要求
+等等，以为到这里就结束了吗？
 
-### 1、github使用
+所有与加载有关的界面均设置了loading，为使用者提供良好体验，并且提供即时的反馈功能。
 
-本次作业继续沿用Github，相比寒假作业二考察基础git使用，这一次主要考察Git的合作。
+### 9. 搜索页动画
 
-1. Fork下面仓库，然后在根目录中新建一个以**学号1&学号2**（两位结对成员的学号）命名的文件夹，并至少进行20次以上的commit修改，两人至少分别提交10次以上，commit记录应该符合项目实情，如果虚构会被扣去所有分数。仓库目录结构没有硬性要求，但要保证可以依靠此仓库提供的代码来构建项目。
-https://github.com/siberia0015/PairProject
+![](https://img2020.cnblogs.com/blog/2290847/202103/2290847-20210331175634875-2113207463.png)
 
-2. 对于非仓库要求的代码，如编译器生成的项目文件、输出文件、class、jar包、exe等，应该使用.gitignore进行忽略，并确保不会提交到github上。
-3. 为自己的仓库编写README.md，内容包括，作业链接、结对学号、项目介绍。
-4. 在这次编程合作中学习使用Git分支、Release发布及其他高级功能。建立一条dev分支，让你的队友和你在dev分支上开发，开发结束后再合并到main分支。在基本功能开发完成后发布release包，标注版本为1.0.0，后边完成更多功能可以继续发布新的release包。
-5. 在完成项目后，**deadline之前**，请正确发起一个Pull Requet ，并确保自己的代码最终成功签入。（如果成功签入会在原始项目主页看到自己学号为名的文件夹）
+### 10. 数据统计界面加载动画
 
-### 2、代码规范制定
+![](https://img2020.cnblogs.com/blog/2290847/202103/2290847-20210331175701481-604350996.gif)
 
-这一次作业仍然需要编写一份codestyle.md作为代码规范，但是要求该代码规范来自于主流的官方规范或者大公司推荐的规范，并在代码规范顶部标注来源。
+等等，以为到这里就结束了吗？
 
-### 3、技术和框架
+图表界面在替换议会的时候，由于数据对应绑定到同一个组件，因此可以启动组件的动画效果。
 
-本次作业不限制语言，也不限制库的使用。
+### 11. 数据统计界面切换动画
 
-## 三、博客撰写要求
+![](https://img2020.cnblogs.com/blog/2290847/202103/2290847-20210331175712940-537345984.gif)
 
-1. 给出作业描述和目录。
-2. 在开始实现程序之前，在**PSP表格**中记录下你估计将在程序的各个模块的开发上耗费的时间和实际花费的时间，实现程序后在**PSP表格**记录实际花费的时间。
-3. 在文章开头给出**Github仓库地址**。
-4. 给出项目部署到云服务器后的**访问链接**。
-5. 展示你的成品，要求**提供10张以上的图片，或者采用GIF或者视频嵌入的方式**来展示作业要求的功能。
-6. **结对讨论过程描述**，即刚开始拿到题目后，和队友怎么讨论，解决问题和查找资料的过程，并提供**两人结对讨论的截图**。。
-7. **描述设计实现过程**，给出**功能结构图**。
-8. 代码说明。展示出项目**关键代码**，300行左右，并**解释思路**。
-9. 阅读《构建之法》第四章的内容，结合在构建之法中学习到的相关内容，结对伙伴分别撰写**结对开发**项目的**心路历程与收获**，并**评价结对队友**。
+等等，真的结束了吗？？
 
-## 四、作业评分项和评分规则
+如果你访问一个不存在的路由会怎么样呢？hh
 
-本次作业总分100分
+### 12. 404界面
 
-- 撰写博客 满分25分
-  1. 博客排版【10%】：是否采用markdown排版，排版是否整齐，博客是否美观大方
-  2. 成品展示【30%】：提供10张以上的图片介绍，或者采用GIF或者视频嵌入的方式展示，展示的效果好，能够通过展示清晰了解主要的功能。
-  3. 结对讨论过程描述和设计实现过程【30%】：讨论过程描述不笼统，提供结对讨论截图，未提供结对讨论截图该项扣5分。设计合理，实现过程描述不笼统；提供功能结构图，未提供功能结构图该项扣5分；
-  4. 代码说明【10%】：展示出项目关键代码，并解释思路。
-  5. git仓库链接、代码规范链接【5%】
-  6. 心路历程和收获&评价结对队友【15%】：不笼统，有意义，图文兼备；两个人要写各自的感想和给对方的评价。
-- 编码实现 满分75分
-  1. 代码规范的制定和遵守【10%】：符合所使用语言的官方规范或者行业规范，代码规范至少攘括寒假作业（2）中所要求的内容。需要严格在编码中执行。
-  2. Github commit满足多于20次，要求两人均多于10次，且commit时间合理，使用分支、release、issues、pr等其它功能【15%】
-  3. 项目功能完整度【75%】：
-     - 1、基础功能
+![](https://img2020.cnblogs.com/blog/2290847/202103/2290847-20210331175733150-1048684411.png)
 
-       （1）功能1：对已爬取的论文列表进行操作【30%】
+将会提示你返回主页，这个界面不存在噢。
 
-       （2）功能2：分析已爬取到的论文信息，提取top10个热门领域或热门研究方向等统计分析效果展示【35%】
+另外还有部分小型界面，如登录框，编辑框等，就不写了，助教可以自己把玩。
 
-       （3）项目部署到云服务器上【10%】
 
-     - 2、附加功能
+## 设计实现过程
 
-       （1）功能3：获取待爬取论文列表及论文信息爬取【附加分：15%】
+### 前端部分
 
-       （2）扩展功能：扩展**基础功能**以外的功能【附加分：0%~15%】
-     - **注：附加功能**+**基础功能**不超过该项总分【75%】
-# 附：
+设计过程比较复杂，这边单独抽取一些作为展示。
 
-1、结对作业只需提交一份
-2、国内云服务商域名没备案的话链接请给出IP的，否则过几天链接会因为未备案被封禁
-3、若未实现部署到云服务器，则该项0分，并且需与助教协商时间现场演示
+#### 1. 设立 Model 层
 
-# 规则&格式
+```ts
+// import ..
 
-### 1、为了方便阅读以及助教评分，请大家在博客开头给出博文目录，作为内容的索引
+// some other interfaces
 
-务必包含以下大标题，标题含义相近即可，你可以个性化你自己的标题：
-- git仓库链接和代码规范链接
-- 成品展示
-- 结对讨论过程描述
-- 设计实现过程
-- 代码说明
-- 心路历程和收获
-- 评价结对队友
+export interface SearchModelType {
+  namespace: ModelNameSpaces.Search;
+  state: SearchModelState;
+  effects: {
+    /** 搜索 */
+    search: Effect;
+  };
+  reducers: {
+    changePage: ImmerReducer<SearchModelState>;
+    changeTotal: ImmerReducer<SearchModelState>;
+    saveData: ImmerReducer<SearchModelState>;
+    saveLastSearchList: ImmerReducer<SearchModelState>;
+    changeCodeStatus: ImmerReducer<SearchModelState>;
+  };
+}
 
-### 2、 为了方便其他学校的老师或者助教了解课程实况，请大家在作业开头添加格式描述：
+export const initialState: SearchModelState = {
+  keywords: item,
+  page: 1,
+  pageSize: 12,
+  total: 0,
+  list: [],
+  lastSearchList: [],
+};
 
-| 这个作业属于哪个课程 | <班级的链接>             |
-| :------------------- | :----------------------- |
-| 这个作业要求在哪里   | <作业要求的链接>         |
-| 结对学号             | <写上两个结对同学的学号> |
-| 这个作业的目标       | <写上具体方面>           |
-| 其他参考文献         | ...                      |
+const SearchModel: SearchModelType = {
+  namespace: ModelNameSpaces.Search,
+  state: initialState,
+  effects: {
+    // 异步代码
+  },
+  reducers: {
+    // 同步代码
+  },
+};
 
-### 3、提交规则
+export default SearchModel;
 
-- 在deadline前交并完成结对登记，得实际得分 * 100%；
-- 补交：在deadline 后两天内提交视为补交，得实际得分 * 50%；
-- 缺交：在deadline 之后两天未补交视为博客缺交，分数为0分；
-- 作业抄袭：当助教发现两篇博客文字/图片/代码过于相似时，判定两篇博客都为抄袭，分数都为-100%（注意是倒扣！）；
-- 伪造提交：虽然作业博客没有完成，但是先提交到作业占位置，判定为伪造提交，分数得0分；
+```
 
-注：提前提交的作业，如果能积极响应助教和老师的反馈并在deadline前做出相应修改，在后续评分时，这些修改完善也会被纳入考量。提早准备好处多~
+通过单独设置Modal层，将业务逻辑和服务调用层，界面层分离。利用 `dva` 将数据部分整合起来，并使用 `typeScript` 设置类型， 利用 `Immer.js` 设置不可变值。
 
-### 4、注意事项
+将业务逻辑相同的地方绑定，做到高耦合，低内聚。
 
-微信班级群如果发布相关通知也是作业要求一部分，请及时查看群通知；
-若需要在微信群填写相关信息，未能在deadline之前完成填写的，扣实际得分的50%；
-如对作业存在疑问，请在deadline之前三天在班级群提出；
-若助教对作业要求有修改，会在群内公告，请务必查看并按新的要求完善作业；
-请及时回复老师或助教的点评并作出相应修改
+#### 2. 设立 Service 层
 
-### 5、疑惑解疑
+```ts
+import { BASE_URL } from '@/constants';
+import request from 'umi-request';
 
-若有对题意不清或者有不理解的地方，可在该博客下方留言，或者在微信群中直接提问
+const login = (code: string) => {
+  return request.get(`${BASE_URL}/login`, {
+    params: {
+      code,
+    },
+  });
+};
+
+const logout = () => {
+  return request.get(`${BASE_URL}/logout`);
+};
+
+export { login, logout };
+
+```
+
+
+
+将数据接口统一抽离到 service 层单独封装，利用 `BASE_URL` 设置不同环境下的 api 访问地址。
+
+其他地方不一一介绍了，贴一个目录结构图吧
+
+#### 目录结构图
+
+```js
+├─assets
+├─components
+│  ├─chartLoading
+│  ├─circleLetter
+│  ├─constants
+│  ├─editModal
+│  ├─iconText
+│  ├─lineChart
+│  ├─loginModal
+│  ├─roseChart
+│  ├─smallLineChart
+│  ├─themeSearch
+│  └─wordCloud
+├─constants
+├─layouts
+├─models
+├─pages
+│  ├─favorite
+│  ├─oauth2.0
+│  ├─search
+│  └─statistic
+├─services
+├─types
+└─utils
+```
+
+各个结构都分层了，结构清晰，可以作为长期维护的项目。
+
+
+### 后端部分
+
+#### 1. 框架使用：主要用到gin http框架，colly爬虫框架，mysql储存论文 用户等信息，redis做爬虫与搜索结果缓存
+
+#### 2. 架构：MVC，由于前后端分离，只有MC
+
+   M：
+
+   ``` go
+   // base model with some universal fields
+   type Model struct {
+   	ID        uint `gorm:"primarykey" json:"-"`
+   	CreatedAt time.Time
+   	UpdatedAt time.Time
+   }
+   ```
+
+   C(各个路由处理逻辑就不展示了)：
+
+   ``` go
+   apiV1 := r.Group("/api/v1")
+   {
+   
+       apiV1.GET("/auth", api.Auth)
+       apiV1.GET("/auth-callback", api.Callback)
+   
+       apiV1.GET("/login", api.Login)
+   
+       authGroup := apiV1.Group("/").Use(middleware.Auth())
+       {
+   
+           cors.Default()
+           authGroup.GET("/logout", api.Logout)
+           authGroup.POST("/search", api.Search)
+           authGroup.GET("/fav", api.GetUserFav)
+           authGroup.GET("/op-fav", api.OpUserFav)
+           authGroup.POST("/ed-fav", api.EditUserFav)
+           authGroup.GET("/cloud", api.GetWordCloud)
+           authGroup.GET("/words", api.GetWords)
+       }
+   }
+   ```
+
+#### 3. 爬虫：使用cron开启定时爬虫，更新paper
+
+   ``` go
+   c := cron.New(cron.WithParser(
+       cron.NewParser(
+           cron.SecondOptional | cron.Minute | cron.Hour | cron.Dom | cron.Month | cron.Dow),
+   ),
+                )
+   // run at every Sunday midnight
+   _, err := c.AddFunc("0 0 0 * * ?", func() {
+       crawler.Start()
+   })
+   if err != nil {
+       log.Println(err)
+   }
+   c.Start()
+   ```
+
+#### 4. 项目结构
+
+   ```
+   ├─.idea
+   │  ├─codeStyles
+   │  └─dictionaries
+   ├─conf
+   ├─crawler
+   ├─docs
+   ├─middleware
+   ├─models
+   │  └─json
+   ├─pkg
+   │  ├─cache
+   │  └─utils
+   ├─routers
+   │  ├─api
+   │  └─swag
+   ├─templates // for test
+   └─test
+   
+   ```
+
+
+## 代码说明
+
+### 前端
+
+这里也是代码比较多，我将单独抽离几个区域进行说明
+
+#### 1. types 总仓库
+
+```ts
+import { initialState as UserInitialState } from '@/models/user';
+import { initialState as SearchInitialState } from '@/models/search';
+import { initialState as FavoriteInitialState } from '@/models/favorite';
+import { initialState as StatisticInitialState } from '@/models/statistic';
+
+type UserModel = typeof UserInitialState;
+type SearchModel = typeof SearchInitialState;
+type FavoriteModel = typeof FavoriteInitialState;
+type StatisticModel = typeof StatisticInitialState;
+
+enum ModelNameSpaces {
+  User = 'User',
+  Search = 'Search',
+  Favorite = 'Favorite',
+  Statistic = 'Statistic',
+}
+
+type RootStore = {
+  [key in ModelNameSpaces.User]: UserModel;
+} &
+  {
+    [key in ModelNameSpaces.Search]: SearchModel;
+  } &
+  {
+    [key in ModelNameSpaces.Favorite]: FavoriteModel;
+  } &
+  {
+    [key in ModelNameSpaces.Statistic]: StatisticModel;
+  };
+
+export { ModelNameSpaces, RootStore };
+```
+
+这里对于所有的 Model 层进行了一个整合，并导出根仓库，供各个页面使用。
+
+#### Layout 共用部分
+
+```tsx
+// import ....
+
+const { Header, Content } = ALayout;
+
+const Layout = ({ children }: IRouteComponentProps) => {
+  const dispatch = useDispatch();
+  const { avatar, isLogin, username } = useSelector((store: RootStore) => {
+    const { [ModelNameSpaces.User]: UserModel } = store;
+    return UserModel;
+  });
+
+  // decls
+
+  return (
+   	// some components
+  );
+};
+
+export default Layout;
+```
+
+这里 Layout 是导航栏，单独抽离出来供各个界面使用，另外，是否助教发现了这里
+
+```ts
+useSelector((store: RootStore) => {
+    const { [ModelNameSpaces.User]: UserModel } = store;
+    return UserModel;
+```
+
+这一步恰好利用了数据总仓库提供的数据类型，做类型推导，在编译器可以提供智能的语法提示
+
+#### 其他
+
+其他还有很多，这里就不一一展示了，如果助教有兴趣可以联系我 221801107 进行前端方向各个部分的讨论。
+
+### 后端
+
+#### 1. 爬虫
+
+   ECCV论文：使用colly框架，结合goquery，选择html上需要的元素（比如论文标题）
+
+   ``` go
+   func init() {
+   	cECCV.OnHTML("#kb-nav--main .title", onECCVTitle) // css选择器回调，获取对应的数据
+   	cECCV.OnHTML(".FulltextWrapper", onECCVDetails)
+   	cECCV.OnError(func(response *colly.Response, err error) {
+   		log.Println(err)
+   	})
+   }
+   ```
+
+   CVPR、ICCV论文：在[ieeexplore](https://ieeexplore.ieee.org/)这个网站上爬取，其实也不算爬取，因为这个网站的论文列表和详情都是异步加载的，直接爬爬不到html元素，所以借助浏览器F12获取到了论文搜索的API接口，直接把接口拿下来然后解析json数据，论文详情的API找不到，但是在doc里面找到了一串json字符串，并且发现里面的内容刚好就是论文详情，所以用正则将其拿下来，并且解析。
+
+   ``` go
+   // colly没有onJSON接口，并且论文详情的json虽然在doc里，但是是在script中的，也无法依赖onHTML进行监听回调
+   // 只能手动处理一下，我在这里是通过res的content-type判断是论文列表还是论文详情
+   func onResponse(r *colly.Response) {
+   	contentType := r.Headers.Get("Content-Type")
+   
+   	if strings.Contains(contentType, "text/html") {
+   		onIEEE(r)
+   	} else if strings.Contains(contentType, "application/json") {
+   		onJSON(r)
+   	}
+   }
+   ```
+
+#### 2. http API使用gin进行处理
+
+对于用户认证，使用session的方式维持会话，对于认证过程，使用了gin中间件
+
+   ``` go
+   apiV1 := r.Group("/api/v1")
+   {
+       apiV1.GET("/login", api.Login) // 对于登录不需要认证
+   
+       authGroup := apiV1.Group("/").Use(middleware.Auth()) // 使用Auth中间件认证
+       {
+   
+           cors.Default()
+           authGroup.GET("/logout", api.Logout)
+           authGroup.POST("/search", api.Search)
+           authGroup.GET("/fav", api.GetUserFav)
+           authGroup.GET("/op-fav", api.OpUserFav)
+           authGroup.POST("/ed-fav", api.EditUserFav)
+           authGroup.GET("/cloud", api.GetWordCloud)
+           authGroup.GET("/words", api.GetWords)
+       }
+   }
+   // 认证中间件
+   func Auth() gin.HandlerFunc {
+   	return func(c *gin.Context) {
+   		sess, _ := conf.Store.Get(c.Request, conf.AuthSessKey)
+   		// 判断token是否存在，并且用登录时保存的githubID从数据库取出用户，避免再次从github认证
+   		if _, ok := sess.Values["githubAccessToken"]; ok {
+   			id := sess.Values["githubID"].(int64)
+   			user := models.GetUser(id)
+   			c.Set("user", user)
+   			c.Next()
+   		} else {
+   			utils.JSONUnauthorized(c, http.StatusUnauthorized, http.StatusText(http.StatusUnauthorized), nil)
+   			c.Abort()
+   		}
+   	}
+   }
+   
+   ```
+
+   
+
+#### 3. go-swag生成api测试页面，方便进行API测试
+
+   ![](https://img2020.cnblogs.com/blog/2290847/202103/2290847-20210331223519606-45065798.png)
