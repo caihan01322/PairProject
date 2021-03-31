@@ -20,6 +20,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 	
 	@Resource
 	protected JdbcTemplate jdbcTemplate;
+
 	//rowMapper，由子类提供
 	protected RowMapper<T> rowMapper = getRowMapper();
 

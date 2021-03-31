@@ -1,7 +1,6 @@
 package com.pair.dao.impl;
 
 import com.pair.dao.ThesisDao;
-import com.pair.dao.base.BaseDao;
 import com.pair.dao.base.BaseDaoImpl;
 import com.pair.model.Thesis;
 import org.springframework.jdbc.core.RowMapper;

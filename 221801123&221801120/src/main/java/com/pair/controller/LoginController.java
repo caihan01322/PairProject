@@ -2,7 +2,6 @@ package com.pair.controller;
 
 import javax.annotation.Resource;
 
-import cn.hutool.db.Session;
 import com.pair.model.role.User;
 import com.pair.service.UserService;
 import com.pair.session.SessionContainer;
