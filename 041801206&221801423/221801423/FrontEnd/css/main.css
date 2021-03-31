@@ -1,0 +1,51 @@
+.btn:hover, .btn:focus{
+    outline: none;
+    color:#fff;
+}
+.btn{
+    text-transform: capitalize;
+    color:#fff;
+    padding: 14px 20px;
+}
+.btn:hover{
+    color:#fff;
+}
+.btn-sm{
+    padding: 11px 16px;
+    border-radius: 5px;
+}
+.btn-lg{
+    font-size: 15px;
+}
+.button-left > i{
+    margin-left: 7px;
+}
+.button-right > i{
+    margin-right: 7px;
+}                  
+.blue,
+.light-brown,
+.light-green,
+.light-orange{
+    background: #0088cc;
+    box-shadow:0 3px 0 #006394;
+    transition:all 0.2s ease-in-out 0s;
+    position: relative;
+    top:0;
+}
+
+.light-orange{
+    background: #f79468;
+    box-shadow: 0 4px 0 #f46e33;
+}                 
+.blue:hover,
+.light-brown:hover,
+.light-green:hover,
+.light-orange:hover{
+    top:2px;
+    box-shadow:0 2px 0 #006394;
+}
+
+.light-orange:hover{
+    box-shadow: 0 2px 0 #f46e33;
+}      

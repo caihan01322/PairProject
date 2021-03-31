@@ -1,0 +1,659 @@
+ <!doctype html>
+<html lang="zh-CN">
+<head>
+    <!-- 必须的 meta 标签 -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut  icon" href="img/fav.ico" type="image/x-icon" />
+    <!-- Bootstrap 的 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="js/Chart.bundle.js"></script>
+    <title>给爷分析</title>
+</head>
+<body>
+
+
+
+<div class="container" >
+    <div class="row" style="margin-top: 30px">
+        <div class="col">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand"> 给爷爬论文 </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-window" viewBox="0 0 16 16">
+                                    <path d="M2.5 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm2-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm1 .5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+                                    <path d="M2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2zm13 2v2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zM2 14a1 1 0 0 1-1-1V6h14v7a1 1 0 0 1-1 1H2z"/>
+                                </svg> 主页
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="result.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-zip" viewBox="0 0 16 16">
+                                    <path d="M5 7.5a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v.938l.4 1.599a1 1 0 0 1-.416 1.074l-.93.62a1 1 0 0 1-1.11 0l-.929-.62a1 1 0 0 1-.415-1.074L5 8.438V7.5zm2 0H6v.938a1 1 0 0 1-.03.243l-.4 1.598.93.62.929-.62-.4-1.598A1 1 0 0 1 7 8.438V7.5z"/>
+                                    <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1h-2v1h-1v1h1v1h-1v1h1v1H6V5H5V4h1V3H5V2h1V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
+                                </svg>
+                                库
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="analysis.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eyeglasses" viewBox="0 0 16 16">
+                                    <path d="M4 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm2.625.547a3 3 0 0 0-5.584.953H.5a.5.5 0 0 0 0 1h.541A3 3 0 0 0 7 8a1 1 0 0 1 2 0 3 3 0 0 0 5.959.5h.541a.5.5 0 0 0 0-1h-.541a3 3 0 0 0-5.584-.953A1.993 1.993 0 0 0 8 6c-.532 0-1.016.208-1.375.547zM14 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/>
+                                </svg>
+                                分析
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="download.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-square" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm8.5 2.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+                                </svg>
+                                 下载
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="collection.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16">
+                                    <path d="M8 6.236l-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595L8 6.236zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.55 7.55 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z"/>
+                                </svg>
+                                 收藏
+                            </a>
+                        </li>
+
+
+                    </ul>
+
+
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="爬爬爬" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <h2 style="margin-left: 20px;margin-top: 15px;">各平台每年10大热词🔥</h2>
+    <div class="row" style="margin-top: 30px">
+        <div class="col" id="searchResult">
+            <div class="shadow-lg p-3 mb-5 bg-white rounded">
+
+                <button type="button" class="btn btn-primary btn-lg btn3d" id="option1" style="margin-left: 20px;"> CVPR</button>
+                <button type="button" class="btn btn-primary btn-lg btn3d" id="option2" style="margin-left: 20px;"> ECCV</button>
+                <button type="button" class="btn btn-primary btn-lg btn3d" id="option3" style="margin-left: 20px;"> ICCV</button>
+                <button type="button" class="btn btn-primary btn-lg btn3d" id="option4" style="margin-left: 20px;"> 所有</button>
+             </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="shadow-lg p-3 mb-5 bg-white rounded" style="margin-top: 30px ">
+            <div class="chartcontent" id="CVPR" ></div>
+
+            <div class="chartcontent" id="ECCV" ></div>
+
+            <div class="chartcontent" id="ICCV" ></div>
+
+            <div class="chartcontent" id="allyearall"></div>
+        </div>
+    </div>
+    <script>
+    /*
+
+        
+    */  
+        //CVPR、ECCV、ICCV
+        var CVPRKeyword = new Array();
+        var ECCVKeyword = new Array();
+        var ICCVKeyword = new Array();
+        var AllKeyword = new Array();
+
+        var CVPRfrequency = new Array();
+        var ECCVfrequency = new Array();
+        var ICCVfrequency = new Array();
+        var Allfrequency = new Array();
+        
+        for(var publishyear=2000;publishyear<2022;publishyear++){
+            CVPRKeyword[publishyear]= new Array();
+            CVPRfrequency[publishyear]= new Array();
+            ECCVKeyword[publishyear]= new Array();
+            ECCVfrequency[publishyear]= new Array();
+            ICCVKeyword[publishyear]= new Array();
+            ICCVfrequency[publishyear]= new Array();
+        }
+
+        var CVPRyear = new Array();
+        var ECCVyear = new Array();
+        var ICCVyear = new Array();
+
+        var chartnum1 = 0;
+        var chartnum2 = 0;
+        var chartnum3 = 0;
+
+        window.onload = function() {
+            var ftypebtns = document.getElementsByClassName("btn btn-primary btn-lg btn3d");
+            var chartcontents = document.getElementsByClassName("chartcontent");
+            ftypebtnslength = ftypebtns.length;
+            for (var i = 0; i < ftypebtnslength; i++) {
+                ftypebtns[i].index = i;
+                if (i == 0) {
+                } else {
+                    chartcontents[i].style.display = "none";
+                }
+                
+                ftypebtns[i].onclick = function () {
+                    for(var k = 0;k<chartcontents.length;k++)
+                    {
+                        chartcontents[k].style.display = "none";
+                    }
+                    chartcontents[this.index].style.display = "block";
+                    finalmakechart();
+                }
+            }
+            
+        }
+        
+        var word = document.getElementById("bbb");
+        var xmlhttp1;
+        var xmlhttp2;
+        var xmlhttp3;
+        var xmlhttp4;
+        var url = "http://47.119.130.124:90/getTopkeywordsByType";
+        var btn1 = document.getElementById("option1");
+        var btn2 = document.getElementById("option2");
+        var btn3 = document.getElementById("option3");
+        var btn4 = document.getElementById("option4");
+        btn1.onclick = function(){
+            finalmakechart();
+        }
+        btn2.onclick = function(){
+            finalmakechart();
+        }
+        btn3.onclick = function(){
+            finalmakechart();
+        }
+        btn4.onclick = function(){
+            makeTenHotWord();
+        }
+        var btn4 = document.getElementById("option4");
+        {
+                //1.
+                if(window.XMLHttpRequest){
+                    xmlhttp1 = new XMLHttpRequest();
+                }else{
+                    xmlhttp1 = new ActiveXObject("Microsoft.XMLHTTP")
+                   
+                }
+                //2.
+                xmlhttp1.onreadystatechange = function() {
+                    //
+                    //
+                    if(xmlhttp1.readyState == 4){
+                        //
+                        if(xmlhttp1.status == 200) {
+                            //
+                            var str = xmlhttp1.responseText;
+                            //
+                            var arr = eval('('+str+')');
+                            jsonlength = arr.length;
+                            for(var i = 0; i < jsonlength; i++){
+                                var temp = i%10 ;
+                                if( arr[i].type == "CVPR"){                 
+                                    if( temp == 0){
+                                        CVPRyear[chartnum1] = arr[i].publishyear; 
+                                        add_canvas("CVPR");
+                                    }
+                                    var publishyear = arr[i].publishyear;
+                                    CVPRKeyword[publishyear][temp] = arr[i].keyword;
+                                    CVPRfrequency[publishyear][temp] = arr[i].frequency;
+                                }
+                            }
+                        }
+                    }
+                }
+                //3.
+                xmlhttp1.open("POST",url,true);
+                xmlhttp1.setRequestHeader("Access-Control-Allow-Origin","*");
+                //4.
+                xmlhttp1.send("{\"type\":\"CVPR\"}");
+        }
+        
+        {
+                //1.
+                
+                if(window.XMLHttpRequest){
+                    xmlhttp2 = new XMLHttpRequest();
+                }else{
+                    xmlhttp2 = new ActiveXObject("Microsoft.XMLHTTP")
+                   
+                }
+                //2.
+                xmlhttp2.onreadystatechange = function() {
+                    //
+                    //
+                    if(xmlhttp2.readyState == 4){
+                        //
+                        if(xmlhttp2.status == 200) {
+                            //
+                            var str = xmlhttp2.responseText;
+                            //
+                            var arr = eval('('+str+')');
+                            jsonlength = arr.length;
+                            for(var i = 0; i < jsonlength; i++){
+                                var temp = i%10 ;
+                                if(arr[i].type == "ECCV"){
+                                    if( temp == 0){
+                                        ECCVyear[chartnum2] = arr[i].publishyear; 
+                                        add_canvas("ECCV");
+                                    }
+                                    var publishyear = arr[i].publishyear;
+                                    ECCVKeyword[publishyear][temp] = arr[i].keyword;
+                                    ECCVfrequency[publishyear][temp] = arr[i].frequency;
+                                }
+                            }
+                        }
+                    }
+                }
+                //3.
+                xmlhttp2.open("POST",url,true);
+                xmlhttp2.setRequestHeader("Access-Control-Allow-Origin","*");
+                //4.
+                xmlhttp2.send("{\"type\":\"ECCV\"}");
+        }
+
+        {
+                //1.
+                
+                if(window.XMLHttpRequest){
+                    xmlhttp3 = new XMLHttpRequest();
+                }else{
+                    xmlhttp3 = new ActiveXObject("Microsoft.XMLHTTP")
+                   
+                }
+                //2.
+                xmlhttp3.onreadystatechange = function() {
+                    //
+                    //
+                    if(xmlhttp3.readyState == 4){
+                        //
+                        if(xmlhttp3.status == 200) {
+                            //
+                            var str = xmlhttp3.responseText;
+                            //
+                            var arr = eval('('+str+')');
+                            jsonlength = arr.length;
+                            for(var i = 0; i < jsonlength; i++){
+                                var temp = i%10 ;
+                                if(arr[i].type == "ICCV"){
+                                    if( temp == 0){
+                                        ICCVyear[chartnum3] = arr[i].publishyear; 
+                                        add_canvas("ICCV");
+                                    }
+                                    var publishyear = arr[i].publishyear;
+                                    ICCVKeyword[publishyear][temp] = arr[i].keyword;
+                                    ICCVfrequency[publishyear][temp] = arr[i].frequency;
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+                //3.
+                xmlhttp3.open("POST",url,true);
+                xmlhttp3.setRequestHeader("Access-Control-Allow-Origin","*");
+                //4.
+                xmlhttp3.send("{\"type\":\"ICCV\"}");
+        }
+        
+        {
+                //1.
+                
+                if(window.XMLHttpRequest){
+                    xmlhttp4 = new XMLHttpRequest();
+                }else{
+                    xmlhttp4 = new ActiveXObject("Microsoft.XMLHTTP")
+                   
+                }
+                //2.
+                xmlhttp4.onreadystatechange = function() {
+                    //
+                    //
+                    if(xmlhttp4.readyState == 4){
+                        //
+                        if(xmlhttp4.status == 200) {
+                            //
+                            var str = xmlhttp4.responseText;
+                            //
+                            var arr = eval('('+str+')');
+                            jsonlength = arr.length;
+                            for(var i = 0; i < 10; i++){
+                                AllKeyword[i] = arr[i].keyword;
+                                Allfrequency[i] = arr[i].frequency;
+                            }
+                            addall_canvas();
+                        }
+                    }
+                }
+                //3.
+                xmlhttp4.open("POST",url,true);
+                xmlhttp4.setRequestHeader("Access-Control-Allow-Origin","*");
+                //4.
+                xmlhttp4.send("{\"type\":\"all\"}");
+        }
+        //实现动态增加图表canvas，用于图表使用
+        function add_canvas(type) {
+            var div1 = document.createElement("div");
+            div1.style.height="360px";
+            div1.style.width="540px";
+            div1.style.float="left";
+            var div2 = document.createElement("div");
+            div2.style.height="360px";
+            div2.style.width="540px";
+            div2.style.float="left";
+            if(type == "CVPR"){
+                chartnum1++;
+                div1.innerHTML = "<canvas id=\""+ type+ "myChart" + chartnum1 +"\"></canvas>";
+                div2.innerHTML = "<canvas id=\""+ type+ "pieChart" + chartnum1 +"\"></canvas>";
+            }else if(type == "ECCV"){
+                chartnum2++;
+                div1.innerHTML = "<canvas id=\""+ type+ "myChart" + chartnum2 +"\"></canvas>";
+                div2.innerHTML = "<canvas id=\""+ type+ "pieChart" + chartnum2 +"\"></canvas>";
+            }else if(type == "ICCV"){
+                chartnum3++;
+                div1.innerHTML = "<canvas id=\""+ type+ "myChart" + chartnum3 +"\"></canvas>";
+                div2.innerHTML = "<canvas id=\""+ type+ "pieChart" + chartnum3 +"\"></canvas>";
+            }
+            document.getElementById(type).appendChild(div1);
+            document.getElementById(type).appendChild(div2);
+        }
+        
+        // function add_canvas(type) {
+        //     var canvas = document.createElement("canvas");
+        //     canvas.style.border = "solid 1px red";
+        //     if(type == "CVPR"){
+        //         chartnum1++;
+        //         canvas.id = type+ "myChart" + chartnum1 ;
+        //     }else if(type == "ECCV"){
+        //         chartnum2++;
+        //         canvas.id = type+ "myChart" + chartnum2 ;
+        //     }else if(type == "ICCV"){
+        //         chartnum3++;
+        //         canvas.id = type+ "myChart" + chartnum3 ;
+        //     }
+        //     document.getElementById(type).appendChild(canvas);
+        //     document.getElementById(canvas.id).style.height = "600";
+		// 	document.getElementById(canvas.id).style.width = "600";
+        // }
+        
+        //具体化
+        
+        
+        //生成棒棒图
+        function makebbchart(pyear,ptype,keyword,frequency,pchartnum) {
+            var type = 'bar'; //line, bar, horizontalBar,...
+            var data = {
+                labels: [keyword[0], keyword[1], keyword[2], keyword[3], keyword[4],
+                keyword[5],keyword[6],keyword[7],keyword[8],keyword[9]],
+                datasets: [
+                    {
+                        label: '搜索量',
+                        data: [frequency[0], frequency[1], frequency[2], frequency[3], frequency[4], 
+                        frequency[5], frequency[6], frequency[7], frequency[8], frequency[9]],
+                        backgroundColor: '#9db3db',
+                        borderColor: 'black',
+                        borderWidth: 1,
+                    },
+                ]
+            };
+
+            var options = {            
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                        }
+                    }]
+                },    
+                title: {
+                    display: true,
+                    text: pyear+'年热词分析',
+                    fontColor: 'green',
+                    fontSize: '24'
+                }
+            };
+            var canvas = ptype+ "myChart" + pchartnum;
+
+            var ctx = document.getElementById(canvas).getContext('2d');
+            var chart = new Chart(ctx, {
+                type: type,
+                data: data,
+                options: options
+            });
+        }
+        function makeallbbchart(keyword,frequency) {
+            var type = 'bar'; //line, bar, horizontalBar,...
+            var data = {
+                labels: [keyword[0], keyword[1], keyword[2], keyword[3], keyword[4],
+                keyword[5],keyword[6],keyword[7],keyword[8],keyword[9]],
+                datasets: [
+                    {
+                        label: '频率',
+                        data: [frequency[0], frequency[1], frequency[2], frequency[3], frequency[4], 
+                        frequency[5], frequency[6], frequency[7], frequency[8], frequency[9]],
+                        backgroundColor: 'rgb(202, 161, 123)',
+                        borderColor: 'black',
+                        borderWidth: 1,
+                    },
+                ]
+            };
+
+            var options = {            
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                        }
+                    }]
+                },    
+                title: {
+                    display: false,
+                    text: '历年最高热词分析🔥',
+                    fontColor: 'green',
+                    fontSize: '24'
+                }
+            };
+            var ctx = document.getElementById("allChart2").getContext('2d');
+            var chart = new Chart(ctx, {
+                type: type,
+                data: data,
+                options: options
+            });
+        }
+        //生成饼图
+        function makepiechart(pyear,ptype,keyword,frequency,pchartnum) {
+            var type = 'pie'; //pie, doughnut
+            var data = {
+                labels: [keyword[0], keyword[1], keyword[2], keyword[3], keyword[4],
+                keyword[5],keyword[6],keyword[7],keyword[8],keyword[9]],
+                datasets: [
+                    {
+                        data: [frequency[0], frequency[1], frequency[2], frequency[3], frequency[4], 
+                        frequency[5], frequency[6], frequency[7], frequency[8], frequency[9]],
+                        backgroundColor: ['#9dd398', '#ccc08a', '#989ed3','#b1b8f8','#cf9f96','#cf96a9','#b896cf','#96cfc7','#aebe8a','#8ab2c4']
+                    }
+                ]
+            };
+            var options = {
+                title: {
+                    display: true,
+                    text: pyear+'年热词分析',
+                    fontColor: 'indigo',
+                    fontSize: '24'
+                },
+                // cutoutPercentage: 20,
+            };
+            var canvas = ptype+ "pieChart" + pchartnum;
+            var ctx = document.getElementById(canvas).getContext('2d');
+            var chart = new Chart(ctx, {
+                type: type,
+                data: data,
+                options: options
+            });
+        }
+
+        //生成线棒图
+        function makexchart(keyword,frequency) {
+            var type = 'line';
+            var data = {
+                labels: [keyword[0], keyword[1], keyword[2], keyword[3], keyword[4],
+                keyword[5],keyword[6],keyword[7],keyword[8],keyword[9]],
+                datasets: [
+                    {
+                        label: '频率',
+                        data: [frequency[0], frequency[1], frequency[2], frequency[3], frequency[4], 
+                        frequency[5], frequency[6], frequency[7], frequency[8], frequency[9]],
+                        backgroundColor: 'rgba(146, 166, 209, 0.808)'
+ 
+                    },
+                ]
+            };
+
+            var ctx = document.getElementById("allChart1").getContext('2d');
+            var chart = new Chart(ctx, {
+                type: type,
+                data: data,
+                options: {
+                    title: {
+                        display: true,
+                        text: '历年最高热度词汇🔥',
+                        fontColor: 'blue',
+                        fontSize: '24'
+                    }
+                }
+            });
+
+        }
+         //实现动态增加图表canvas，用于图表使用
+         function add_canvas(type) {
+            var div1 = document.createElement("div");
+            div1.style.height="360px";
+            div1.style.width="540px";
+            div1.style.float="left";
+            var div2 = document.createElement("div");
+            div2.style.height="360px";
+            div2.style.width="540px";
+            div2.style.float="left";
+            if(type == "CVPR"){
+                chartnum1++;
+                div1.innerHTML = "<canvas id=\""+ type+ "myChart" + chartnum1 +"\"></canvas>";
+                div2.innerHTML = "<canvas id=\""+ type+ "pieChart" + chartnum1 +"\"></canvas>";
+            }else if(type == "ECCV"){
+                chartnum2++;
+                div1.innerHTML = "<canvas id=\""+ type+ "myChart" + chartnum2 +"\"></canvas>";
+                div2.innerHTML = "<canvas id=\""+ type+ "pieChart" + chartnum2 +"\"></canvas>";
+            }else if(type == "ICCV"){
+                chartnum3++;
+                div1.innerHTML = "<canvas id=\""+ type+ "myChart" + chartnum3 +"\"></canvas>";
+                div2.innerHTML = "<canvas id=\""+ type+ "pieChart" + chartnum3 +"\"></canvas>";
+            }
+            document.getElementById(type).appendChild(div1);
+            document.getElementById(type).appendChild(div2);
+        } 
+        //最终实现
+        function finalmakechart(){
+
+            for(var i=0; i < chartnum1; i++){
+                var year = CVPRyear[i];
+                makebbchart(year,"CVPR",CVPRKeyword[year],CVPRfrequency[year],i+1);
+                makepiechart(year,"CVPR",CVPRKeyword[year],CVPRfrequency[year],i+1);
+            }
+            for(var i=0; i < chartnum2; i++){
+                var year = ECCVyear[i];
+                makebbchart(year,"ECCV",ECCVKeyword[year],ECCVfrequency[year],i+1);
+                makepiechart(year,"ECCV",ECCVKeyword[year],ECCVfrequency[year],i+1);
+            }
+            for(var i=0; i < chartnum3; i++){
+                var year = ICCVyear[i];
+                makebbchart(year,"ICCV",ICCVKeyword[year],ICCVfrequency[year],i+1);
+                makepiechart(year,"ICCV",ICCVKeyword[year],ICCVfrequency[year],i+1);
+            }
+            makeTenHotWord();
+        }
+        //实现动态增加图表canvas，用于图表使用
+        function addall_canvas() {
+            var div1 = document.createElement("div");
+            div1.style.height="720px";
+            div1.style.width="540px";
+            div1.style.float="left";
+                div1.innerHTML = "<canvas id= \"allChart1\"></canvas><canvas id= \"allChart2\"></canvas>";
+            document.getElementById("allyearall").appendChild(div1);
+        } 
+        //十大热词
+        // <div class="list-group">
+        //             <button type="button" id="all1" class="list-group-item list-group-item-action"></button>
+        //             <button type="button" id="all2" class="list-group-item list-group-item-action"></button>
+        //             <button type="button" id="all3" class="list-group-item list-group-item-action"></button>
+        //             <button type="button" id="all4" class="list-group-item list-group-item-action"></button>
+        //             <button type="button" id="all5" class="list-group-item list-group-item-action"></button>
+        //             <button type="button" id="all6" class="list-group-item list-group-item-action"></button>
+        //             <button type="button" id="all7" class="list-group-item list-group-item-action"></button>
+        //             <button type="button" id="all8" class="list-group-item list-group-item-action"></button>
+        //             <button type="button" id="all9" class="list-group-item list-group-item-action"></button>
+                    
+        //         </div>
+        function addtenhot(){
+            var div = document.createElement("div");
+            div.style.height="660px";
+            div.style.width="470px";
+            div.style.float="left";
+            div.style.marginLeft="40px"
+            div.style.marginTop="40px"
+            div.style.marginRight="40px"
+            div.class="list-group";
+            for(var i=0;i<10;i++){
+                div.innerHTML=div.innerHTML+'<button type="button" id="all'+(i+1)+'" class="list-group-item list-group-item-action" onclick="totags(this)">'+(i+1)+'. '+AllKeyword[i]+'</button>';
+            }
+            document.getElementById("allyearall").appendChild(div);
+        }
+        function makeTenHotWord(){
+            makexchart(AllKeyword,Allfrequency);
+            makeallbbchart(AllKeyword,Allfrequency);
+            addtenhot();
+        }
+
+        function totags(obj){
+            var str = obj.innerText;
+            var x = str.split('. ');
+            window.open("result.html?sw="+x[1]);
+        }
+
+    </script>
+
+
+    
+</div>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-LCPyFKQyML7mqtS+4XytolfqyqSlcbB3bvDuH9vX2sdQMxRonb/M3b9EmhCNNNrV" crossorigin="anonymous"></script>
+
+</body>
+</html>
