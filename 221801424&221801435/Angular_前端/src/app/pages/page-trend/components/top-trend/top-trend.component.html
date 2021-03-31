@@ -1,0 +1,13 @@
+<nz-layout>
+    <nz-header>热门研究方向top10</nz-header>
+    <nz-layout>
+      <nz-content>
+        <div id="echarts5" style="width: 680px;height:500px;"></div>
+      </nz-content>
+      <nz-sider>
+        <nz-steps nzDirection="vertical" [nzCurrent]="index">
+            <nz-step *ngFor="let way of data;" nzTitle={{way}} nzDisapled="true" nzStatus="wait"></nz-step>
+        </nz-steps>
+      </nz-sider>
+    </nz-layout>
+  </nz-layout>
