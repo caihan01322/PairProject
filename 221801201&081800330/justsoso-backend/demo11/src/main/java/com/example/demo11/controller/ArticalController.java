@@ -150,13 +150,16 @@ public class ArticalController
     {
         List<Artical> list = articalService.searchArtical(keyword);
         HashMap<String,Object> map = new HashMap<>();
-        hotTrend cvpr = new hotTrend();
-        hotTrend eccv = new hotTrend();
-        hotTrend iccv = new hotTrend();
         HashMap<String,ArrayList<Integer>> hot = new HashMap<>();
-        ArrayList<Integer> CVPR = new ArrayList<>();
-        ArrayList<Integer> ECCV = new ArrayList<>();
-        ArrayList<Integer> ICCV = new ArrayList<>();
+        ArrayList<Integer> CVPR = new ArrayList<>(21) ;
+        ArrayList<Integer> ECCV = new ArrayList<>(21);
+        ArrayList<Integer> ICCV = new ArrayList<>(21);
+        for (int i = 0;i < 21;i++)
+        {
+            CVPR.add(0);
+            ECCV.add(0);
+            ICCV.add(0);
+        }
         hot.put("cvpr",CVPR);
         hot.put("eccv",ECCV);
         hot.put("iccv",ICCV);
@@ -164,149 +167,23 @@ public class ArticalController
         for (Artical art:  list
              ) {
             int year = art.year;
-            if(year > 2020 || year < 2014)
-                continue;
+
             if(art.magazine.equals("CVPR"))
             {
-                switch (year)
-                {
-                    case 2014:{
-                        cvpr._2014++;
-                        break;
-                    }
-                    case 2015:{
-                        cvpr._2015++;
-                        break;
-                    }
-                    case 2016:
-                    {
-                        cvpr._2016++;
-                        break;
-                    }
-                    case 2017:
-                    {
-                        cvpr._2017++;
-                        break;
-                    }
-                    case 2018:
-                    {
-                        cvpr._2018++;
-                        break;
-                    }
-                    case 2019:
-                    {
-                        cvpr._2019++;
-                        break;
-                    }
-                    case 2020:
-                    {
-                        cvpr._2020++;
-                        break;
-                    }
-                }
+                CVPR.set(year-2000,CVPR.get(year-2000)+1);
+
             }
             else if(art.magazine.equals("ECCV"))
             {
-                switch (year)
-                {
-                    case 2014:{
-                        eccv._2014++;
-                        break;
-                    }
-                    case 2015:{
-                        eccv._2015++;
-                        break;
-                    }
-                    case 2016:
-                    {
-                        eccv._2016++;
-                        break;
-                    }
-                    case 2017:
-                    {
-                        eccv._2017++;
-                        break;
-                    }
-                    case 2018:
-                    {
-                        eccv._2018++;
-                        break;
-                    }
-                    case 2019:
-                    {
-                        eccv._2019++;
-                        break;
-                    }
-                    case 2020:
-                    {
-                        eccv._2020++;
-                        break;
-                    }
-                }
+                ECCV.set(year-2000,CVPR.get(year-2000)+1);
             }
             else
             {
-                switch (year)
-                {
-                    case 2014:{
-                        iccv._2014 ++;
-                        break;
-                    }
-                    case 2015:{
-                        iccv._2015 ++;
-                        break;
-                    }
-                    case 2016:
-                    {
-                        iccv._2016++;
-                                break;
-                    }
-                    case 2017:
-                    {
-                        iccv._2017++;
-                        break;
-                    }
-                    case 2018:
-                    {
-                        iccv._2018++;
-                        break;
-                    }
-                    case 2019:
-                    {
-                        iccv._2019++;
-                        break;
-                    }
-                    case 2020:
-                    {
-                        iccv._2020++;
-                        break;
-                    }
-                }
+                ICCV.set(year-2000,CVPR.get(year-2000)+1);
             }
 
 
         }
-        CVPR.add(cvpr._2014);
-        CVPR.add(cvpr._2015);
-        CVPR.add(cvpr._2016);
-        CVPR.add(cvpr._2017);
-        CVPR.add(cvpr._2018);
-        CVPR.add(cvpr._2019);
-        CVPR.add(cvpr._2020);
-        ECCV.add(eccv._2014);
-        ECCV.add(eccv._2015);
-        ECCV.add(eccv._2016);
-        ECCV.add(eccv._2017);
-        ECCV.add(eccv._2018);
-        ECCV.add(eccv._2019);
-        ECCV.add(eccv._2020);
-        ICCV.add(iccv._2014);
-        ICCV.add(iccv._2015);
-        ICCV.add(iccv._2016);
-        ICCV.add(iccv._2017);
-        ICCV.add(iccv._2018);
-        ICCV.add(iccv._2019);
-        ICCV.add(iccv._2020);
         return ajAxResponse.successfully(hot);
     }
 
