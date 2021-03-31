@@ -58,7 +58,7 @@ class Paper(db.Model):
 # db.drop_all()
 db.create_all()
 
-#用户注册
+#用户注册接口
 # {
 #     "telephone":"",
 #     "password":"",
@@ -89,50 +89,19 @@ def user_register():
     db.session.commit()
     return jsonify({'status':'ok'})
 
-#论文导入ECCV
-@app.route('/paper/add',methods=['POST'])
-def addPaper():
-    path = "C:\paper"
-    fileList = listdir(path)
-    fileIndex = []
-    for i in range(0,len(fileList)):
-        index = fileList[i].split(".json")[0]
-        path1 = path + '\\' + index + '.json'
-        resolveJson(path1)
-    return jsonify({"status":"ok"})
-
-def judge(key,Json):
-    if (key in Json):
-        return True
-    else:
-        return False
-
-#ECCV
-def resolveJson(path):
-    file = open(path,'rb')
-    paper = Paper()
-    fileJson = json.loads(file.read().decode('utf-8'))
-    abstract = fileJson["摘要"]
-    keyword = fileJson["关键词"]
-    key = ",".join(map(str,keyword))
-    datetime = fileJson["发布时间"]
-    href = fileJson["原文链接"]
-    title = fileJson["论文名称"]
-
-    paper.abstract = abstract
-    paper.keyWord = key
-    paper.datetime = datetime
-    paper.href = href
-    paper.title = title
-    paper.classify = 'ECCV'
-    db.session.add(paper)
-    db.session.commit()
-
-    file.close()
-    return jsonify({"status":"ok"})
-
 
 #论文列表查看
+#无传递值
+#返回值如下
+# {'count':counts,
+#         'page':page,
+#         'data': {
+#             "id": id,
+#             "title": title,
+#             "datetime": datetime,
+#             "classify": classify
+#         }
+#  }
 @app.route('/paper/list',methods=['GET'])
 def getPaper():
     paper1 = request.get_json()
@@ -158,9 +127,9 @@ def getPaper():
     items = db.session.execute('select count(*) count from paper;')
     for i in items:
         counts = i.count
-    counts = int(counts)#总共几条
+    # 总共几条
+    counts = int(counts)
     page = int(int(counts)/int(page_item))+1
-
 
     return jsonify(
         {'count':counts,
@@ -170,6 +139,16 @@ def getPaper():
 
 
 #论文详情
+#url传递int型整数numberid
+#返回值如下
+# {       'numberID': paper.id,
+#         'title': paper.title,
+#         'abstract': paper.abstract,
+#         'keyword': paper.keyWord,
+#         'datetime': paper.datetime,
+#         'href': paper.href,
+#         'classify': paper.classify
+#     }
 @app.route('/paper/<int:numberid>',methods=['GET','POST'])
 def paper_show(numberid):
     paper = db.session.query(Paper).filter(Paper.id == numberid).first()
@@ -186,6 +165,23 @@ def paper_show(numberid):
 
 
 # 论文模糊查询
+# 传递值：
+# {
+#     "page":"",
+#     "item":"",
+#     "KeyWord":""
+# }
+#返回值：
+# {
+#         'count': counts,
+#         'page': page,
+#         'data': {
+#             "id": id,
+#             "title": title,
+#             "datetime": datetime,
+#             "classify": classify
+#         }
+#     }
 @app.route('/paper/search/Keyword',methods=['POST'])
 def paper_search_keyword():
     paper1 = request.get_json()
@@ -228,6 +224,23 @@ def paper_search_keyword():
 
 
 #论文模糊查询
+# 传递值：
+# {
+#     "page":"",
+#     "item":"",
+#     "abstract":""
+# }
+#返回值：
+# {
+#         'count': counts,
+#         'page': page,
+#         'data': {
+#             "id": id,
+#             "title": title,
+#             "datetime": datetime,
+#             "classify": classify
+#         }
+#     }
 @app.route('/paper/search/abstract',methods=['POST'])
 def paper_search_abstract():
     paper1 = request.get_json()
@@ -267,6 +280,23 @@ def paper_search_abstract():
     })
 
 #论文模糊查询
+# 传递值：
+# {
+#     "page":"",
+#     "item":"",
+#     "title":""
+# }
+#返回值：
+# {
+#         'count': counts,
+#         'page': page,
+#         'data': {
+#             "id": id,
+#             "title": title,
+#             "datetime": datetime,
+#             "classify": classify
+#         }
+#     }
 @app.route('/paper/search/title',methods=['POST'])
 def paper_search_title():
     paper1 = request.get_json()
@@ -305,6 +335,7 @@ def paper_search_title():
         'data': Infos
     })
 
+#论文删除
 # {
 #     "numberid":"",
 # }
@@ -318,8 +349,6 @@ def paper_search_title():
 #     'title':paper.title,
 #
 #     }
-
-#论文删除
 @app.route('/paper/delete/<string:numberid>',methods=['GET'])
 def paper_delete(numberid):
     paper = db.session.query(Paper).filter(Paper.id == numberid).first()
@@ -339,37 +368,20 @@ def paper_delete(numberid):
     else:
         return jsonify({"status": "error"})
 
-    
-    #关键词导入ECCV
-@app.route('/keyword/add',methods=['POST'])
-def addWord():
-    path = "C:\paper"
-    fileList = listdir(path)
-    fileIndex = []
-    for i in range(0,len(fileList)):
-        index = fileList[i].split(".json")[0]
-        path1 = path + '\\' + index + '.json'
-        resolveJson_word(path1)
-    return jsonify({"status":"ok"})
-
-def resolveJson_word(path):
-    file = open(path,'rb')
-
-    fileJson = json.loads(file.read().decode('utf-8'))
-    keywords = fileJson["关键词"]
-    title = fileJson["论文名称"]
-    for i in keywords:
-        keywords = KeyWords()
-        keywords.keyword = i
-        keywords.title = title
-        db.session.add(keywords)
-        db.session.commit()
-
-    file.close()
-    return jsonify({"status":"ok"})
-
 
 #关键词查询
+# 传递值：
+# {
+#     "page":"",
+#     "item":"",
+#     "title":""
+# }
+#返回值：
+# {'data':
+#      {
+#          "name":"",
+#          "value":""
+#      }}
 @app.route('/keyword',methods=['POST'])
 def WordCount():
     # keyword = KeyWord()
@@ -385,6 +397,16 @@ def WordCount():
     return jsonify(data={'data':Infos})
 
 
+#用户收藏页面
+# 传递值：
+# {
+#     "paper_id":"",
+#     "user_id":""
+# }
+# 返回值：
+# {
+# 'status':'1'
+# }
 @app.route('/collection',methods=['POST'])
 def collect():
     collect1 = request.get_json()
@@ -400,6 +422,25 @@ def collect():
     return jsonify({'status':'1'})
 
 
+#个人中心
+# 传递值：
+# {
+#     "user_id":"",
+#     "page":"",
+#     "item":""
+# }
+# 返回值：
+# data={
+#         'count': counts,
+#         'page': page,
+#         'telephone':username.telephone,
+#         'data': {
+#             "id": id,
+#             "title": title,
+#             "datetime": datetime,
+#             "classify": classify
+#         }
+#     }
 @app.route('/personal',methods=['POST'])
 def personal():
     collect1 = request.get_json()
@@ -434,100 +475,40 @@ def personal():
         'telephone':username.telephone,
         'data': Infos
     })
+#图表分析
+@app.route('/analyword',methods=['GET'])
+def analyword():
+    date = ['2015','2016','2017','2018','2019','2020']
+    names = ["ICCV","ECCV","CVPR"]
+    series = [
+        {
+            "name":"ICCV",
+            "type":"line",
+            "stack":"总量",
+            "data":[0,534,0,620,0,1034]
+        },
+        {
+            "name": "ECCV",
+            "type": "line",
+            "stack": "总量",
+            "data": [0,1354,0,1555,0,2500]
+        },
+        {
+            "name": "CVPR",
+            "type": "line",
+            "stack": "总量",
+            "data": [0,0,782,0,2205,3200]
+        }
+    ]
 
-#关键词导入ECCV
-@app.route('/keyword/add',methods=['POST'])
-def addWord():
-    path = "C:\paper"
-    fileList = listdir(path)
-    fileIndex = []
-    for i in range(0,len(fileList)):
-        index = fileList[i].split(".json")[0]
-        path1 = path + '\\' + index + '.json'
-        resolveJson_word(path1)
-    return jsonify({"status":"ok"})
+    return jsonify(
+        {
+            "date":date,
+            "series":series,
+            "names":names
+        }
+    )
 
-def resolveJson_word(path):
-    file = open(path,'rb')
-
-    fileJson = json.loads(file.read().decode('utf-8'))
-    keywords = fileJson["关键词"]
-    title = fileJson["论文名称"]
-    for i in keywords:
-        keywords = KeyWords()
-        keywords.keyword = i
-        keywords.title = title
-        db.session.add(keywords)
-        db.session.commit()
-
-    file.close()
-    return jsonify({"status":"ok"})
-
-
-#关键词查询
-@app.route('/keyword',methods=['POST'])
-def WordCount():
-    # keyword = KeyWord()
-    # keyword = db.session.query(KeyWord.keyword, func.count(KeyWord.id)).group_by(KeyWord.keyword).all()
-    Infos = []
-    m = 0
-    keyword = db.session.execute('select keyword , count(*) as groupcount from keywords group by keyword order by count(*) desc').fetchall()
-    for i in keyword:
-        Infos.append({"name":i.keyword,"value":i.groupcount})
-        m+=1
-        if (m==10): break
-        # print(i.keyword+" "+str(i.groupcount))
-    return jsonify(data={'data':Infos})
-
-
-@app.route('/collection',methods=['POST'])
-def collect():
-    collect1 = request.get_json()
-    pid = collect1.get("paper_id")
-    uid = collect1.get("user_id")
-
-    paper1 = db.session.query(Paper).filter(Paper.id == pid).first()
-    user1 = db.session.query(User).filter(User.id == uid).first()
-
-    user1.papers.append(paper1)
-    db.session.add(user1)
-    db.session.commit()
-    return jsonify({'status':'1'})
-
-@app.route('/personal',methods=['POST'])
-def personal():
-    collect1 = request.get_json()
-    uid = collect1.get("user_id")
-    page = int(collect1.get("page"))-1
-    # 第几页 每页几条
-    page_item = int(collect1.get("item"))
-    m = int(page * page_item)
-    sel = db.session.execute('select paper_id,title,datetime,classify from user_paper,paper where user_paper.paper_id=paper.id and user_id = '+ uid+';')
-    Infos = []
-    for p in sel:
-        id = p.paper_id
-        title = p.title
-        datetime = p.datetime
-        classify = p.classify
-        Infos.append({
-            "id": id,
-            "title": title,
-            "datetime": datetime,
-            "classify": classify
-        })
-    items = db.session.execute('select count(*) count from user_paper,paper where user_paper.paper_id=paper.id and user_id = '+ uid+';')
-    for i in items:
-        counts = i.count
-    counts = int(counts)  # 总共几条
-    page = int(int(counts) / int(page_item)) + 1
-    username = db.session.query(User).filter(User.id==uid).first()
-
-    return jsonify(data={
-        'count': counts,
-        'page': page,
-        'telephone':username.telephone,
-        'data': Infos
-    })
 
 if __name__ == '__main__':
     app.run(debug=True)
