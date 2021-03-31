@@ -53,12 +53,19 @@ public class PaperService {
     }
 
     /**
-     * 获取爬取的paper的list和总数
+     * 获取爬取的论文总数和list
+     * @param searchInfo
+     * @return
      */
     public Map<List<Paper>, Integer> getCrawlPaper(String searchInfo) {
         return getMap(getJsonStr(searchInfo));
     }
 
+    /**
+     * 获取爬取论文的json字符串
+     * @param searchInfo
+     * @return
+     */
     public String getJsonStr(String searchInfo) {
         String params = "{\"newsearch\":true,\"queryText\":\""+searchInfo+"\",\"highlight\":true" +
                 ",\"returnFacets\":[\"ALL\"],\"returnType\":\"SEARCH\",\"matchPubs\":true}";
@@ -109,7 +116,8 @@ public class PaperService {
     }
 
     /**
-     * 设置请求头等参数
+     * 设置请求头参数
+     * @return
      */
     public HttpURLConnection setConnection() {
         HttpURLConnection httpURLConnection = null;
@@ -132,6 +140,11 @@ public class PaperService {
         return httpURLConnection;
     }
 
+    /**
+     * 将json字符串转变为json对象放入map里
+     * @param jsonStr
+     * @return
+     */
     public Map<List<Paper>, Integer> getMap(String jsonStr) {
         Map<List<Paper>, Integer> map= new HashMap<>();
         List<Paper> paperList=new ArrayList<>();
