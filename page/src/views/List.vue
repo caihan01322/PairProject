@@ -165,14 +165,15 @@ export default {
             let that = this;
             request.search(data)
             .then((res)=>{
-                // console.log(res);
+                console.log(res);
                 if(res.error == 0) {
                     // load data
+                    console.log(res);
                     that.listData = res.result;
                     that.pager.total = res.total;
                 }
                 else {
-                    // alert error
+                    that.$message.error('请求错误，请重试');
                 }
             })
         },
@@ -187,6 +188,7 @@ export default {
                 current: 1,
                 total: 1
             };
+            console.log("search");
             this.requestList({
                 title: that.titleValue,
                 keywords: that.keywordValue,
@@ -198,17 +200,19 @@ export default {
         changeLabel() {
             // console.log(this.label);
             this.requestList({
-                title: "",
-                keywords: [],
+                title: that.titleValue,
+                keywords: that.keywordValue,
                 page: 1,
-                status: 0,
+                status: this.label,
             })
         },
         // 关键词提示
         updateKeywordTips(value) {
             // console.log(value);
             let that = this;
-            request.getKeywordTips()
+            request.getKeywordTips({
+                keyword: value
+            })
             .then((res)=>{
                 console.log(res);
                 that.keywordTips = res.result;
@@ -276,22 +280,6 @@ export default {
             let that = this;
             this.requestList({
                 page: that.pager.current
-            })
-        },
-        // 请求论文列表表格
-        requestList(data) {
-            let that = this;
-            request.search(data)
-            .then((res)=>{
-                // console.log(res);
-                if(res.error == 0) {
-                    // load data
-                    that.listData = res.result;
-                    that.pager.total = res.total;
-                }
-                else {
-                    // alert error
-                }
             })
         },
     },

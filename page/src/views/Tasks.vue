@@ -212,8 +212,15 @@ export default {
             })
             .then((res)=>{
                 // console.log(res);
-                that.listData = res.result;
-                that.loadingTasks = false;
+                if(res.error==0) {
+                    that.requestList({
+                        page: 1
+                    });
+                    that.loadingTasks = false;
+                }
+                else {
+                    that.$message.error('添加失败，请重试');
+                }
             })
         },
         // 选择任务
@@ -371,7 +378,7 @@ export default {
             let keys = this.selectedRowKeys;
             let ids = [];
             for(let i=0; i<keys.length; i++) {
-                ids.push(this.listData[keys[i]].id);
+                ids.push(""+this.listData[keys[i]].id);
             }
             // console.log(ids);
             let that = this;

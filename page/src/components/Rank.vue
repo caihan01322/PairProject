@@ -8,7 +8,7 @@
                         <h3>热门领域</h3>
                     </div>
                     <div class="table_container">
-                        <rank-table :tableData="tableData" :label="1"></rank-table>
+                        <rank-table :label="1"></rank-table>
                     </div>
                 </a-tab-pane>
                 <a-tab-pane key="2" tab="ICCV">
@@ -16,7 +16,7 @@
                         <h3>热门领域</h3>
                     </div>
                     <div class="table_container">
-                        <rank-table :tableData="tableData" :label="2"></rank-table>
+                        <rank-table :label="2"></rank-table>
                     </div>
                 </a-tab-pane>
                 <a-tab-pane key="3" tab="CVPR">

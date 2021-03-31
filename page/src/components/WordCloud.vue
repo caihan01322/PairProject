@@ -1,6 +1,9 @@
 <!--  -->
 <template>
+<div class="container">
+    <a-spin size="large" v-if="loading" :spinning="loading" style="width:100%; margin-top:48px;"/>
     <div id='wordCloud'></div>
+</div> 
 </template>
 
 <script>
@@ -18,40 +21,38 @@ function getTextAttrs(cfg) {
     textAlign: 'center',
     fontFamily: cfg.data.font,
     fill: cfg.color || cfg.defaultStyle.stroke,
-    textBaseline: 'Alphabetic'
+    textBaseline: 'Alphabetic',
   };
 }
-
-// 给point注册一个词云的shape
-registerShape('point', 'cloud', {
-  draw(cfg, container) {
-    const attrs = getTextAttrs(cfg);
-    const textShape = container.addShape('text', {
-      attrs: {
-        ...attrs,
-        x: cfg.x,
-        y: cfg.y
-      }
-    });
-    if (cfg.data.rotate) {
-      Util.rotate(textShape, cfg.data.rotate * Math.PI / 180);
-    }
-    return textShape;
-  }
-});
-
-
 
 export default {
     name: 'wordCloud',
     components: {},
     data () {
         return {
-
+            loading: true,
         }
     },
     mounted() {
         let that = this;
+        this.loading = true;
+        // 给point注册一个词云的shape
+        registerShape('point', 'cloud', {
+        draw(cfg, container) {
+            const attrs = getTextAttrs(cfg);
+            const textShape = container.addShape('text', {
+            attrs: {
+                ...attrs,
+                x: cfg.x,
+                y: cfg.y
+            }
+            });
+            if (cfg.data.rotate) {
+            Util.rotate(textShape, cfg.data.rotate * Math.PI / 180);
+            }
+            return textShape;
+        }
+        });
         request.getHotwords({})
         .then((res)=>{
             let words = res.result;
@@ -62,7 +63,7 @@ export default {
             dv.transform({
                 type: 'tag-cloud',
                 fields: ['x', 'value'],
-                size: [500, 400],
+                size: [500, 475],
                 font: 'Verdana',
                 padding: 0,
                 timeInterval: 5000, // max execute time
@@ -84,7 +85,7 @@ export default {
                 container: 'wordCloud',
                 autoFit: false,
                 width: 500,
-                height: 400,
+                height: 475,
                 padding: 0
             });
             chart.data(dv.rows);
@@ -109,6 +110,7 @@ export default {
                 console.log(args.data.data.text);
                 that.$router.push("/related?key="+args.data.data.text);
             });
+            that.loading = false;
             chart.render();
         })
         
@@ -118,8 +120,12 @@ export default {
 
 <style lang='scss' scoped>
 //@import url();
+.container {
+    width: 500px;
+    height: 475px;
+}
 #wordCloud {
     width: 500px;
-    height: 400px;
+    height: 475px;
 }
 </style>

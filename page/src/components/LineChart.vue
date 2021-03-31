@@ -30,6 +30,8 @@ export default {
     methods: {
         createLine() {
             console.log(this.lineData);
+            let lineData = this.lineData;
+            let that = this;
             let chart = this.chart;
             chart = new Chart({
                 container: 'lineChart',
@@ -38,20 +40,19 @@ export default {
                 width: "100%",
                 padding: [60,72,60,72]
             });
-
-            chart.data(this.lineData);
+            chart.data(lineData);
             chart.scale({
                 ICCV: {
-                min: 0,
-                max: 200
+                    min: 0,
+                    max: 0
                 },
                 CVPR: {
-                min: 0,
-                max: 200
+                    min: 0,
+                    max: 0
                 },
                 ECCV: {
-                min: 0,
-                max: 200
+                    min: 0,
+                    max: 0
                 }
             });
 
@@ -77,6 +78,36 @@ export default {
         updatedLine(data) {
             console.log("update line");
             console.log(this.chart);
+            let lineData = this.lineData;
+            console.log(lineData);
+            let maxData = 0;
+            for(let i=0; i<lineData.length; i++) {
+                if(lineData[i].CVPR > maxData) {
+                    maxData = lineData[i].CVPR;
+                }
+                if(lineData[i].ECCV > maxData) {
+                    maxData = lineData[i].ECCV;
+                }
+                if(lineData[i].ICCV > maxData) {
+                    maxData = lineData[i].ICCV;
+                }
+            }
+            maxData = maxData+10;
+            // let maxData = 100;
+            this.chart.scale({
+                ICCV: {
+                    min: 0,
+                    max: maxData
+                },
+                CVPR: {
+                    min: 0,
+                    max: maxData
+                },
+                ECCV: {
+                    min: 0,
+                    max: maxData
+                }
+            });
             this.chart.changeData(data);
         },
     },

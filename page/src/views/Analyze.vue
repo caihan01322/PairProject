@@ -26,7 +26,6 @@
                         v-model="searchKey"
                         placeholder="请输入想要查询的热词"
                         @search="updateKeyTips"
-                        @change="updateKeyTips"
                         :default-active-first-option="false"
                         :show-arrow="false"
                         :filter-option="false"
@@ -134,7 +133,9 @@ export default {
         updateKeyTips(value) {
             // console.log(value);
             let that = this;
-            request.getKeywordTips()
+            request.getKeywordTips({
+                keyword: value
+            })
             .then((res)=>{
                 console.log(res);
                 that.keywordTips = res.result;

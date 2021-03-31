@@ -1,7 +1,9 @@
 <!--  -->
 <template>
     <div class='table'>
+        <a-spin size="large" v-if="loading" :spinning="loading" style="width:100%; margin-top:48px;"/>
         <a-table 
+            v-if="!loading"
             :columns="columns" 
             :data-source="rankData" 
             :pagination="pager"
@@ -43,12 +45,6 @@ export default {
                     align: 'right',
                     width: "25%"
                 },
-                {
-                    title: '年涨幅',
-                    dataIndex: 'riserate',
-                    align: 'right',
-                    width: "25%"
-                },
             ],
             rankData: [
                 {
@@ -61,7 +57,8 @@ export default {
             pager: {
                 current: 1,
                 total: 1,
-            }
+            },
+            loading: true,
         }
     },
     props: {
@@ -72,8 +69,9 @@ export default {
             console.log(a);
             this.pager.current = a.current;
             this.pager.total = a.total;
-            let that = this;
-            this.requestTable(that.pager.current)
+            this.loading = true;
+            // let that = this;
+            this.requestTable(a.current)
         },
         requestTable(page) {
             let that = this;
@@ -85,6 +83,7 @@ export default {
                 console.log(res);
                 that.pager.total = res.total;
                 that.rankData = res.result;
+                that.loading = false;
             })
         }
     },

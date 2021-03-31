@@ -146,7 +146,7 @@ export default {
             };
             this.requestList({
                 title: that.titleValue,
-                keywords: that.keywordValue,
+                keywords: [that.keywordValue],
                 page: 1,
                 status: 0
             })
