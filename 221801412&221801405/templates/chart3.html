@@ -1,0 +1,155 @@
+<div id="container" style="width: 570px;
+		height: 570px;
+		margin: 0 auto;"></div>
+        <script>
+            Highcharts.setOptions({
+    lang: {
+        thousandsSep: ','
+    }
+});
+var data = [{
+    'id': '0.0',
+    'parent': '',
+    'name': '三峰会'
+}, {
+    'id': '1.1',
+    'parent': '0.0',
+    'name': 'ICCV'
+}, {
+    'id': '1.2',
+    'parent': '0.0',
+    'name': 'ECCV'
+}, {
+    'id': '1.3',
+    'parent': '0.0',
+    'name': 'CVPR'
+},{
+'id':'2.11',
+'parent':'1.1',
+'name':'2016年'
+},{
+'id':'2.12',
+'parent':'1.1',
+'name':'2017年'
+},{
+'id':'2.13',
+'parent':'1.1',
+'name':'2018年'
+},{
+'id':'2.14',
+'parent':'1.1',
+'name':'2019年'
+},{
+'id':'2.15',
+'parent':'1.1',
+'name':'2020年'
+},{
+'id':'2.21',
+'parent':'1.2',
+'name':'2016年'
+},{
+'id':'2.22',
+'parent':'1.2',
+'name':'2017年'
+},{
+'id':'2.23',
+'parent':'1.2',
+'name':'2018年'
+},{
+'id':'2.24',
+'parent':'1.2',
+'name':'2019年'
+},{
+'id':'2.25',
+'parent':'1.2',
+'name':'2020年'
+},{
+'id':'2.31',
+'parent':'1.3',
+'name':'2016年'
+},{
+'id':'2.32',
+'parent':'1.3',
+'name':'2017年'
+},{
+'id':'2.33',
+'parent':'1.3',
+'name':'2018年'
+},{
+'id':'2.34',
+'parent':'1.3',
+'name':'2019年'
+},{
+'id':'2.35',
+'parent':'1.3',
+'name':'2020年'
+}{{data|safe}}];
+
+// Splice in transparent for the center circle
+Highcharts.getOptions().colors.splice(0, 0, 'transparent');
+
+
+Highcharts.chart('container', {
+
+    chart: {
+        height: '100%'
+    },
+
+    title: {
+        text: '近五年来各峰会各年间关键词总览                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             '
+    },
+    subtitle: {
+        text: '数据来源:三峰会:ICCV,ECCV,CVPR'
+    },
+    series: [{
+        type: "sunburst",
+        data: data,
+        allowDrillToNode: true,
+        cursor: 'pointer',
+        dataLabels: {
+            /**
+             * A custom formatter that returns the name only if the inner arc
+             * is longer than a certain pixel size, so the shape has place for
+             * the label.
+             */
+            formatter: function () {
+                var shape = this.point.node.shapeArgs;
+
+                var innerArcFraction = (shape.end - shape.start) / (2 * Math.PI);
+                var perimeter = 2 * Math.PI * shape.innerR;
+
+                var innerArcPixels = innerArcFraction * perimeter;
+
+                if (innerArcPixels > 16) {
+                    return this.point.name;
+                }
+            }
+        },
+        levels: [{
+            level: 2,
+            colorByPoint: true,
+            dataLabels: {
+                rotationMode: 'parallel'
+            }
+        },
+        {
+            level: 3,
+            colorVariation: {
+                key: 'brightness',
+                to: -0.5
+            }
+        }, {
+            level: 4,
+            colorVariation: {
+                key: 'brightness',
+                to: 0.5
+            }
+        }]
+
+    }],
+    tooltip: {
+        headerFormat: "",
+        pointFormat: '<b>{point.name}</b>的关键词数量为:<b>{point.value}</b>'
+    }
+});
+</script>
