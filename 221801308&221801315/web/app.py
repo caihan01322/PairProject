@@ -326,7 +326,7 @@ def hot_keywords_trend():
     return render_template("hot_keywords_trend.html")
 
 
-@app.route("/get_trand", methods=["GET"])
+@app.route("/get_trend", methods=["GET"])
 def get_trend():
     """热词走势图获取数据
 
@@ -350,7 +350,7 @@ def get_trend():
         ICCV = [0 for i in range(10)]
 
         for article in key.articles:
-            total += 1
+            # total += 1
             year = int(article.publicationYear)
             if year in range(BEGIN_YEAR, CURRENT_YEAR):
                 if article.meeting == "CVPR":
