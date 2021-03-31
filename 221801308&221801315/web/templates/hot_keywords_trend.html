@@ -11,7 +11,7 @@
     <link rel="stylesheet" href={{url_for("static",filename="css/index.css" )}}>
     <link rel="stylesheet" href={{url_for("static",filename="css/search.css" )}}>
     <link rel="stylesheet" href={{url_for("static",filename="css/keywords.css" )}}>
-    <script src={{url_for("static",filename="js/keyTrend.js")}}></script>
+    <script src={{url_for("static",filename="js/key_trend.js" )}}></script>
     <script src="https://kit.fontawesome.com/cdc72c83b6.js" crossorigin="anonymous"></script>
     <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
@@ -44,6 +44,9 @@
                                 class="fa fa-heart" aria-hidden="true"></i> <span class="nav-title">热词速递</span></a></li>
                     <li class="menu-item"><a href={{url_for("hot_keywords_trend")}} class="nav-href active"><i
                                 class="fa fa-line-chart" aria-hidden="true"></i> <span class="nav-title">热词走势</span></a>
+                    </li>
+                    <li class="menu-item"><a href={{url_for("carousel")}} class="nav-href"><i class="fa fa-picture-o"
+                                aria-hidden="true"></i><span class="nav-title">近日热点</span></a>
                     </li>
                 </ul>
             </div>
