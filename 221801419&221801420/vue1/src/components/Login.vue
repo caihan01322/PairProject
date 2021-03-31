@@ -61,7 +61,6 @@ import axios from 'axios';
     methods: {
   
       login( ){
-
         axios.get('/login'+'?username='+this.user+'&pwd='+this.password).
         then(successResponse =>{
           console.log(successResponse);
@@ -84,8 +83,8 @@ import axios from 'axios';
         }).catch(failResponse =>{
 
         });
-
       }
+
     }
   }
 </script>

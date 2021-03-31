@@ -118,6 +118,30 @@ import icon from "@/assets/vcicon.jpg";
         searchinfo:'',
       }
     },
+    handleSelect(key,keyPath){
+
+      if (key == 1){
+        this.$router.replace({path:'/main'});
+      }
+
+      if (key == 2){
+        if (this.username == '登录/注册'){
+          this.$message.error('登录后才可访论文列表');
+          this.activeIndex='1';
+        }else{
+          this.$router.push({path:'/essaylist',query:{username:this.username}});
+        }
+
+      }
+
+      if (key == 3){
+        this.$router.replace({path:'/hotwords'});
+      }
+
+      if (key == 4){
+        this.$router.replace({path:'/infoview'});
+      }
+    },
     methods: {
       handleClick(tab, event) {
         console.log(tab, event);
