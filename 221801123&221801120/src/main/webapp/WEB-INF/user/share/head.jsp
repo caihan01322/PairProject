@@ -12,6 +12,7 @@
             <li><a href="user/index">首页</a></li>
             <li><a href="user/thesis/list">论文列表</a></li>
             <li><a href="user/statistics">热门分析</a></li>
+            <li><a href="user/trend">趋势</a></li>
             <li><a href="user/mylove">我的收藏</a></li>
         </ul>
     </div>

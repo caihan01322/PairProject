@@ -25,8 +25,7 @@
 <!--中间主体部分-->
 
 <div id="wordcloudDiv"></div>
-<div id="wordchartDiv" style="width: 400px;height: 400px"></div>
-<div id="container" style="width: 600px;height:400px;"></div>
+<div id="wordchartDiv" style="width: 35%;height: 60%;float: right;margin-top:8%;margin-right: 18%"></div>
 <script src="http://cdn.highcharts.com.cn/highcharts/highcharts.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
 <script>
@@ -53,7 +52,7 @@
     var x = [];//X轴
     var y = [];//Y轴
     var xtext = [];//X轴TEXT
-    var color = ["gray","pink","red","blue","yellow","green","#fff","#fff","#666","#222"];
+    var color = ['#21c2ff','#5c9fff','#936dfb','#cf8cfb','#49FBF4','#00ff77','#F774FB','#7D1FFB','#57FBB4','#FBCBF5'];
     $.ajax({
         "url": "user/chart",
         "async": false,

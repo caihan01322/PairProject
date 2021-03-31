@@ -51,4 +51,8 @@ public class UserIndexController {
         return "user/mylove";
     }
 
+    @RequestMapping("/trend")
+    public String trend() {
+        return "user/trend";
+    }
 }
