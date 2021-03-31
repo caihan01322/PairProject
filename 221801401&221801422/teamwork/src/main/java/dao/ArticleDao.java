@@ -31,21 +31,17 @@ public class ArticleDao {
             Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery(sql);
             while(result.next()) {
-                String authors = result.getString("authors").toString();
                 String title = result.getString("formulastrippedarticletitle").toString();
                 String articleNumber = result.getString("articlenumber").toString();
                 String doiLink = result.getString("doilink").toString();
                 String abs = result.getString("abstract");
                 String kwds = result.getString("kwds").toString();
-                String year = result.getString("year").toString();
                 Article art = new Article();
-                art.setAuthors(authors);
                 art.setTitle(title);
                 art.setArticleNumber(articleNumber);
                 art.setDoiLink(doiLink);
                 art.setKwds(kwds);
                 art.setAbs(abs);
-                art.setYear(year);
                 list.add(art);
             }
             result.close();
@@ -75,21 +71,17 @@ public class ArticleDao {
             pre.setString(3, "%" + title + "%");
             ResultSet result = pre.executeQuery();
             while(result.next()) {
-                String authors = result.getString("authors").toString();
                 String titleName = result.getString("formulastrippedarticletitle").toString();
                 String articleNumber = result.getString("articlenumber").toString();
                 String doiLink = result.getString("doilink").toString();
                 String abs = result.getString("abstract").toString();
                 String kwds = result.getString("kwds").toString();
-                String year = result.getString("year").toString();
                 Article art = new Article();
-                art.setAuthors(authors);
                 art.setTitle(titleName);
                 art.setArticleNumber(articleNumber);
                 art.setDoiLink(doiLink);
                 art.setKwds(kwds);
                 art.setAbs(abs);
-                art.setYear(year);
                 list.add(art);
             }
             result.close();
@@ -118,21 +110,17 @@ public class ArticleDao {
             pre.setString(3, number);
             ResultSet result = pre.executeQuery();
             while(result.next()) {
-                String authors = result.getString("authors").toString();
                 String titleName = result.getString("formulastrippedarticletitle").toString();
                 String articleNumber = result.getString("articlenumber").toString();
                 String doiLink = result.getString("doilink").toString();
                 String abs = result.getString("abstract").toString();
                 String kwds = result.getString("kwds").toString();
-                String year = result.getString("year").toString();
                 Article art = new Article();
-                art.setAuthors(authors);
                 art.setTitle(titleName);
                 art.setArticleNumber(articleNumber);
                 art.setDoiLink(doiLink);
                 art.setKwds(kwds);
                 art.setAbs(abs);
-                art.setYear(year);
                 list.add(art);
             }
             result.close();
@@ -160,21 +148,17 @@ public class ArticleDao {
             pre.setString(3, "%" + kwd + "%");
             ResultSet result = pre.executeQuery();
             while(result.next()) {
-                String authors = result.getString("authors").toString();
                 String titleName = result.getString("formulastrippedarticletitle").toString();
                 String articleNumber = result.getString("articlenumber").toString();
                 String doiLink = result.getString("doilink").toString();
                 String abs = result.getString("abstract").toString();
                 String kwds = result.getString("kwds").toString();
-                String year = result.getString("year").toString();
                 Article art = new Article();
-                art.setAuthors(authors);
                 art.setTitle(titleName);
                 art.setArticleNumber(articleNumber);
                 art.setDoiLink(doiLink);
                 art.setKwds(kwds);
                 art.setAbs(abs);
-                art.setYear(year);
                 list.add(art);
             }
             result.close();
@@ -191,7 +175,7 @@ public class ArticleDao {
      * @param year
      * @return article类的List
      * */
-    public List<Article> queryByYear(String year) {
+  /*  public List<Article> queryByYear(String year) {
         String sql = "select * from cvpr where year=? union select * from eccv where year=? "
                 + "union select * from iccv where year=?;";
         System.out.println("s");
@@ -203,20 +187,17 @@ public class ArticleDao {
             pre.setString(3, year);
             ResultSet result = pre.executeQuery();
             while(result.next()) {
-                String authors = result.getString("authors").toString();
                 String titleName = result.getString("formulastrippedarticletitle").toString();
                 String articleNumber = result.getString("articlenumber").toString();
                 String doiLink = result.getString("doilink").toString();
                 String abs = result.getString("abstract").toString();
                 String kwds = result.getString("kwds").toString();
                 Article art = new Article();
-                art.setAuthors(authors);
                 art.setTitle(titleName);
                 art.setArticleNumber(articleNumber);
                 art.setDoiLink(doiLink);
                 art.setKwds(kwds);
                 art.setAbs(abs);
-                art.setYear(year);
                 list.add(art);
             }
             result.close();
@@ -226,7 +207,7 @@ public class ArticleDao {
             e.printStackTrace();
         }
         return list;
-    }
+    }*/
     
     /*
      * 删除指定论文
@@ -305,4 +286,35 @@ public class ArticleDao {
         list = WordCountUtils.sortHashmap(str);
         return list;
     }
+    
+    /*
+     * 根据年份来确定热词
+     * @param year
+     * @return list
+     * */
+ /*   public List<String> findYear(String year) {
+        List<String> list = new ArrayList();
+        String sql = "select kwds from cvpr where year=? union select kwds from eccv where year=?"
+                + " union select kwds from iccv where year=?;";
+
+        String str = "";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setString(1, year);
+            pre.setString(2, year);
+            pre.setString(3, year);
+            ResultSet result = pre.executeQuery();
+            while(result.next()) {
+                String kwds = result.getString("kwds").toString();
+                str += kwds;
+            }
+            result.close();
+            pre.close();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        list = WordCountUtils.sortHashmap(str);
+        return list;
+    }*/
 }

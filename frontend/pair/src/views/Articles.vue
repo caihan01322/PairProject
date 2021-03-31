@@ -49,12 +49,18 @@
       <el-table-column
         prop="title"
         label="标题"
-        width="130">
+        width="130"
+        >
       </el-table-column>
       <el-table-column
         prop="articlenumber"
         label="论文编号"
-        width="120">
+        width="80">
+      </el-table-column>
+      <el-table-column
+        prop="doilink"
+        label="正文链接"
+        width="100">
       </el-table-column>
       <el-table-column
         prop="kwds"
@@ -64,7 +70,7 @@
       <el-table-column
         prop="abstract"
         label="摘要"
-        width="350">
+        width="280">
       </el-table-column>
       <el-table-column>
       <template slot-scope="scope">
@@ -80,13 +86,14 @@
     </el-table>
   </template>
               <div style="margin-top:20px">
-            <template>
             <el-pagination
             background
             layout="prev, pager, next"
-            :total="1000">
+            page-size="7"
+            :total="1000"
+            @current-change="page"
+            >
             </el-pagination>
-            </template>
             </div>
             </div>
           </div>
@@ -159,34 +166,50 @@ export default {
       tab: 0,
       input: '',
       tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
+        title: 'fhajsf',
+        articlenumber: 'dsfajla',
+        doilink: 'fsafjnafjfda',
+        kwds: 'fjalfhjalffa',
+        abstract: 'uiorhtwetnwo'
+      },{
+        title: 'fhajsf',
+        articlenumber: 'dsfajla',
+        doilink: 'fsafjnafjfda',
+        kwds: 'fjalfhjalffa',
+        abstract: 'uiorhtwetnwo'
+      },{
+        title: 'fhajsf',
+        articlenumber: 'dsfajla',
+        doilink: 'fsafjnafjfda',
+        kwds: 'fjalfhjalffa',
+        abstract: 'uiorhtwetnwo'
+      },{
+        title: 'fhajsf',
+        articlenumber: 'dsfajla',
+        doilink: 'fsafjnafjfda',
+        kwds: 'fjalfhjalffa',
+        abstract: 'uiorhtwetnwo'
+      },{
+        title: 'fhajsf',
+        articlenumber: 'dsfajla',
+        doilink: 'fsafjnafjfda',
+        kwds: 'fjalfhjalffa',
+        abstract: 'uiorhtwetnwo'
+      },{
+        title: 'fhajsf',
+        articlenumber: 'dsfajla',
+        doilink: 'fsafjnafjfda',
+        kwds: 'fjalfhjalffa',
+        abstract: 'uiorhtwetnwo'
+      },{
+        title: 'fhajsf',
+        articlenumber: 'dsfajla',
+        doilink: 'fsafjnafjfda',
+        kwds: 'fjalfhjalffa',
+        abstract: 'uiorhtwetnwo'
       }],
+      pageSize:7,
+      currentPage:1,
       options: [{
         value: '选项1',
         label: '论文标题'
@@ -231,6 +254,11 @@ export default {
       }],
       value1: '选项1',
       value2: '选项1'
+    }
+  },
+  methods:{
+    page(currentPage){
+      alert(currentPage)
     }
   }
 }

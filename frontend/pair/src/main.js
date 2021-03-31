@@ -5,9 +5,12 @@ import App from './App'
 import router from './router'
 
 import ElementUI from 'element-ui'
+import axios from 'axios'
+import qs from 'qs'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
-
+axios.defaults.baseURL='/vc'
+Vue.prototype.qs=qs
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

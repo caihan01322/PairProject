@@ -1,11 +1,11 @@
 <template>
 <div>
-  <el-form ref="loginForm" :model="form" :rules="rules" label-width="80px" class="login-box">
+  <el-form ref="form" :model="form" :rules="rules" label-width="80px" class="login-box">
     <h3 class="login-title">登录界面</h3>
     <el-form-item label="账号" prop="username">
       <el-input type="text" placeholder="请输入账号" v-model="account"/>
     </el-form-item>
-    <el-form-item label="密码" prop="password">
+    <el-form-item label="密码" prop="pwd">
       <el-input type="password" placeholder="请输入密码" v-model="password"/>
     </el-form-item>
   <div>
@@ -36,12 +36,12 @@ import axios from 'axios'
         password: '',
         form: {
           username: '',
-          password: ''
+          pwd: ''
         },
         radio: 3,
         // 表单验证，需要在 el-form-item 元素中增加 prop 属性
         rules: {
-          username: [
+          account: [
             {required: true, message: '账号不可为空', trigger: 'blur'}
           ],
           password: [
@@ -52,16 +52,14 @@ import axios from 'axios'
     },
     methods: {
       login () {
-        let obj = {
-          account: this.account,
-          password: this.password
+        if(this.account === 'fzu123' && this.password === 'fzu123'){
+          this.$router.replace({path:'/articles'});
         }
-        axios.post('/api/v1/user/login', obj).then((res) => {
-          let data = res.data
-          if (data.error_code === 0) {
-            this.$router.push('')
-          }
-        })
+        else{
+          this.$message.error('账号或密码错误');
+          this.password='';
+          this.account='';
+        }
       }
     }
   }

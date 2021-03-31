@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,13 +20,13 @@ public class UserDao {
      * @return Boolean类对象
      * */
     public boolean judge(String username, String password) {
-        String sql = "select username, pass from user;";
-        Statement statement;
+        String sql = "select username, pass from user where username=?;";
         String user = "";
         String pass = "";
         try {
-            statement = conn.createStatement();
-            ResultSet result = statement.executeQuery(sql);
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, username);
+            ResultSet result = statement.executeQuery();
             while(result.next()) {
                 user = result.getString("username");
                 pass = result.getString("pass");
