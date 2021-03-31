@@ -19,6 +19,8 @@
 
       <script src="https://unpkg.com/vue/dist/vue.js"></script>
       <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+      <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    
 
     <link rel="stylesheet" type="text/css" href="register_login.css">
 
@@ -123,7 +125,18 @@
          var app = new Vue({
           el:"#main",
           data:{
-              message:"2021"
+              message:"2021",
+              data:[],
+              hotwords:[
+                            {value: 1048, name: '搜索引擎'},
+                            {value: 735, name: '直接访问'},
+                            {value: 580, name: '邮件营销'},
+                            {value: 484, name: '联盟广告'},
+                            {value: 300, name: '视频广告'}
+                        ],
+          },
+          mounted(){
+            this.initChart();
           },
           methods: {
 
@@ -132,76 +145,96 @@
               msg = e.innerHTML;
               
               this.message = msg;
+          },
+          initChart:function(){
+            var that = this;
+            console.log('initchart');
+
+            axios
+            .post('http://127.0.0.1:5000/keyword')
+            .then(function (response) {
+                console.log('hihi');
+                console.log(response.data.data.data);
+                that.data = response.data.data.data;
+            })
+            .catch(function (error) { // 请求失败处理
+                console.log(error);
+            });
+
+
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('echart'));
+
+            myChart.setOption({
+                
+            
+                title: {
+                    text: '论文关键词统计',
+                    subtext: '供参考',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item'
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                },
+                series: [
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        radius: '50%',
+                        data: that.hotwords,
+                        // data: [
+                        //     {value: 1048, name: '搜索引擎'},
+                        //     {value: 735, name: '直接访问'},
+                        //     {value: 580, name: '邮件营销'},
+                        //     {value: 484, name: '联盟广告'},
+                        //     {value: 300, name: '视频广告'}
+                        // ],
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+
+
+            })
+
+            var that = this;
+            myChart.on('click',function(param){
+                // var url = param.data.name;
+                // window.location.href=url;
+                //that.$router.push({path: 'article',query:{ index:'1'}}); 
+                var name = param.data.name;
+                // alert(name);
+
+                
+            const info = {
+                keyword: name,
+            };
+            // localStorage.setItem('keyword', JSON.stringify(info));
+
+
+            //   var data2 = JSON.parse(localStorage.getItem('key'));
+            //         console.log(data2.name);
+
+                    window.location.href = "article.html";
+            //alert(data2);
+            })
           }
+
       }
       })
     </script>
 
 <script type="text/javascript">
-    // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('echart'));
 
-    myChart.setOption({
-        
-       
-        title: {
-            text: '论文关键词统计',
-            subtext: '供参考',
-            left: 'center'
-        },
-        tooltip: {
-            trigger: 'item'
-        },
-        legend: {
-            orient: 'vertical',
-            left: 'left',
-        },
-        series: [
-            {
-                name: '访问来源',
-                type: 'pie',
-                radius: '50%',
-                data: [
-                    {value: 1048, name: '搜索引擎'},
-                    {value: 735, name: '直接访问'},
-                    {value: 580, name: '邮件营销'},
-                    {value: 484, name: '联盟广告'},
-                    {value: 300, name: '视频广告'}
-                ],
-                emphasis: {
-                    itemStyle: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
-            }
-        ]
-
-
-    })
-
-    var that = this;
-    myChart.on('click',function(param){
-        // var url = param.data.name;
-        // window.location.href=url;
-        //that.$router.push({path: 'article',query:{ index:'1'}}); 
-        var name = param.data.name;
-        // alert(name);
-
-        
-    const info = {
-        keyword: name,
-    };
-    localStorage.setItem('keyword', JSON.stringify(info));
-   
-
- //   var data2 = JSON.parse(localStorage.getItem('key'));
-   //         console.log(data2.name);
-
-            window.location.href = "article.html";
-    //alert(data2);
-    })
 </script>
 
 </body>
