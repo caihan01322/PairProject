@@ -23,7 +23,7 @@ public class KeywordController {
     @Autowired
     private KeywordService keywordService;
 
-    @RequestMapping()
+    @RequestMapping("/home")
     public String keywordAnalyze(){
         return "keywordAtlas";
     }
@@ -37,7 +37,7 @@ public class KeywordController {
      * @return
      */
     @ResponseBody
-    @GetMapping("/top")
+    @GetMapping("/top1")
     public Object selectAllTOPKeyword(
             @RequestParam(name= "years" , defaultValue = "5") String years,
             @RequestParam(name= "topNum" , defaultValue = "10") Integer topNum,
@@ -57,7 +57,7 @@ public class KeywordController {
         return "keywordAtlas";*/
 
        Map<String, Object> result= new HashMap<>();
-       result.put("data",mapper.writeValueAsString(keywordVOList));
+       result.put("data",keywordVOList);  //mapper.writeValueAsString(keywordVOList)
        return result;
     }
 
@@ -74,7 +74,7 @@ public class KeywordController {
      * @return
      */
     @ResponseBody
-    @GetMapping("/top/{meeting}")
+    @GetMapping("/top2/{meeting}")
     public Object selectTOPKeywordEveryYear(
             @PathVariable("meeting") String meeting,
             @RequestParam(name= "years" , defaultValue = "5") String years,
@@ -119,6 +119,8 @@ public class KeywordController {
         /*result.put("top"+topNum, keywordVOList);
         result.put("mkList", meeting_kList);*/
         result.put("map", meeting_kList);  //mapper.writeValueAsString(keywordVOList)
+        result.put("code",200);
+        log.info("【分析" + meeting + "的论文，获取 热词top10 成功！】");
         //return AjaxResponse.success(meeting_kList , "【分析("+meeting+":"+yearNum+")内的论文，获取 热词top10 的频率失败！】");
         return result;
     }

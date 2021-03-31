@@ -164,6 +164,7 @@
                                                 <div class="form-group">
                                                     <label for="i5">关键词:</label>
                                                     <select multiple readonly class="form-control" id="i5">
+                                                        <!--<option th:text="${keyword.content}"></option>-->
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
@@ -190,14 +191,14 @@
     </div>
 
     <!--分页fragment-->
-    <!--&lt;!&ndash;将分页的页面包含&ndash;&gt;
-    <div th:replace="page :: page"></div>-->
+    <!--将分页的页面包含-->
+    <!--<div th:replace="page :: page(@{'/paper/list/'})"></div>-->
     <!-- 第一个参数：页码。第二个参数：偏移量。第三个参数：页的总数量。-->
    <!-- <div th:text="${'/paper/search/'} + ${2} + ${'?'} + ${#httpServletRequest.getQueryString()}"
          th:href="@{ ${'/paper/search/'} + ${2} + ${'?'} + ${#httpServletRequest.getQueryString()} }"></div>-->
     <!--<a th:href="@{'/paper/search/'+${4}+${'?'+ #httpServletRequest.getQueryString()} }" th:text="2333"></a>
 -->
-    <div th:replace="page1 :: page_pager(${page.current}, 0, ${page.pages},10,5,@{'/paper/search/'})"></div>
+    <div th:replace="page1 :: page_pager(${page.current}, 0, ${page.pages},10,5,@{'/paper/list/'})"></div>
 </div>
 
 
@@ -294,7 +295,8 @@
             },
             success: function (result) {
                 if (result.code == 200) { //修改成功
-                    alert("ffffffffff")
+                    //layer.msg("修改成功");
+                    //alert(result.paper2.abstractContent);
                     $("#t1").empty();
                     $("#t1").append(result.paper2.title);
 
@@ -313,16 +315,20 @@
                     $("#i6").empty();
                     $("#i6").text(result.paper2.abstractContent);
 
-                    console.log("22333:" + result.paper2.authors);
-                    console.log("5555:" + result.data[0].content);
+                    /*var obj = document.getElementById("i5");
+                    var list = eval("("+keywords+")");
 
-                    obj = document.getElementById("i5");
+                    alert("22333:" + result.keywords[0]['content']);
+                    alert("5555:" + result.keywords[0].content);
+
                     //注意：当data是json字符串时，需要将data转化成json对象
-                    for(var i=0;i<result.data.length;i++){
+                    for(var i=0;i<2;i++){
                         //访问每一个的属性，根据属性拿到值
-                        console.log(result.data[i].content);
-                        obj.add(new Option(result.data[i].content, result.data[i].content));
+                        alert(result.keywords[i].content);
+                        obj.add(new Option("4", "4");
                     }
+*/
+
 
                 } else {
                     //layer.msg("修改失败");

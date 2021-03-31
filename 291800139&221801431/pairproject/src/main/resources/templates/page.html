@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <meta charset="UTF-8">
-<div th:fragment="page"><!--定义用于被显示列表页包含-->
+<div th:fragment="page(url)"><!--定义用于被显示列表页包含-->
     <head>
         <style>
             .page-item {
@@ -21,17 +21,20 @@
             th:text="${page.pages}"></span>页,总记录数<span th:text="${page.total}"></span>
     </div>
     <div style="float: right" th:if="${page.pages>0}">
-        <a th:href="@{1}" th:text="首页" th:if="${page.current>1}" th:class="page-item"></a>
-        <a th:href="@{${page.current-1}}" th:text="上一页" th:class="page-item"
+        <a th:href="@{${url}+${1}(keyword=${param.keyword})}"
+           th:text="首页" th:if="${page.current>1}" th:class="page-item"></a>
+        <a th:href="@{${url}+${page.pre}(keyword=${param.keyword})}" th:text="上一页" th:class="page-item"
            th:if="${page.current>1}"></a>
 
-        <a th:href="@{${i}}"
+        <a th:href="@{${url}+${i}(keyword=${param.keyword})}"
            th:each="i :${#numbers.sequence((page.current)-5, (page.current)+5)}" th:text="${i}"
            th:class="${page.current == i}? 'page-item active' :'page-item' "></a>
 
-        <a th:href="@{${page.current+1}}" th:text="下一页" th:class="page-item"
+        <a th:href="@{${url}+${page.next}(keyword=${param.keyword})}"
+           th:text="下一页" th:class="page-item"
            th:if="${page.current<page.pages}"></a>
-        <a th:href="@{${jumpUrl}+${page.pages}}" th:text="尾页" th:class="page-item"
+        <a th:href="@{${url}+${page.pages}(keyword=${param.keyword})}"
+           th:text="尾页" th:class="page-item"
             th:if="${page.current<page.pages}"></a>
     </div>
 </div>

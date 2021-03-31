@@ -45,7 +45,7 @@
                     <a class="nav-link" href="/">论文检索</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/keyword">数据分析</a>
+                    <a class="nav-link" href="/keyword/home">数据分析</a>
                 </li>
             </ul>
 
@@ -79,30 +79,31 @@
 
 
     <!--动图-->
-    <div class="row">
-        <div class="col-md-10" style="margin-top: 30px">
-            <input type="hidden" id="ListModels" th:value="${data}">
-
+    <div class="row" style="margin: auto">
+        <div class="col-md-12" style="margin-top: 30px">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#tab1">关键词图谱</a>
+                    <a id="chart1" class="nav-link active" data-toggle="tab" href="#tab1">关键词图谱</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " data-toggle="tab" href="#tab2">热词走势</a>
+                    <a id="chart2" class="nav-link " data-toggle="tab" href="#tab2">热词走势</a>
                 </li>
             </ul>
 
 
             <!-- Tab panes -->
-            <div class="tab-content">
+            <div class="tab-content" style="margin: auto">
                 <div id="tab1" class="container tab-pane active">
                     <div class="dropdown" >
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="margin-top: 20px;">
-                            关键词1
+                            关键词
                         </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Link 1</a>
+                        <div class="dropdown-menu" id="dm">
+                            <!--
+                            th:href="@{'/paper/list/'+${page.pre}(title=${param.title},keyword=${param.keyword},pid=${param.pid},sort=${param.sotr})}"
+                            -->
+                            <!--<a class="dropdown-item" th:href="@{'/paper/list/1/'+(keyword=${})}" th:text="${}"></a>
                             <a class="dropdown-item" href="#">Link 2</a>
                             <a class="dropdown-item" href="#">Link 3</a>
                             <a class="dropdown-item" href="#">Link 1</a>
@@ -110,39 +111,46 @@
                             <a class="dropdown-item" href="#">Link 3</a>
                             <a class="dropdown-item" href="#">Link 1</a>
                             <a class="dropdown-item" href="#">Link 2</a>
-                            <a class="dropdown-item" href="#">Link 3</a>
+                            <a class="dropdown-item" href="#">Link 3</a>-->
                         </div>
                     </div>
-                    <div id= "map" style="width: 900px; height:600px; "></div>
+                    <!--<button type="text" class="btn btn-outline-info"
+                            th:onclick="loadTopKeyword()">提 交
+                    </button>-->
+                    <div id= "map" style="width: 1000px; height:550px; "></div>
                 </div>
 
                 <div id= "tab2" class="container tab-pane fade">
-                    <div class="container">
+                    <div class="container" style="padding-top: 10px">
                         <div class="row">
                             <form class="form-check form-inline">
+                                <label class="mx-1 radio-inline">
+                                    <input type="radio" name="meeting"
+                                           th:checked="true" th:value="ICCV">ICCV
+                                </label>
                                 <label class="mx-1 radio-inline ">
-                                    <input type="radio" name="sort" id="sortBYID"
-                                           th:checked="true" th:value="1">ECCV
+                                    <input type="radio" name="meeting"
+                                           th:value="ECCV">ECCV
                                 </label>
                                 <label class="mx-1 radio-inline">
-                                    <input type="radio" name="sort"
-                                           th:value="2">ICCV
+                                    <input type="radio" name="meeting"
+                                           th:value="CVPR">CVPR
                                 </label>
-                                <label class="mx-1 radio-inline">
-                                    <input type="radio" name="sort"
-                                           th:value="2">CVPR
-                                </label>
-                                <label for="title">论文标题:</label>
-                                <input type="text" class="form-control " name="title">
-                                <label for="keyword">关键词:</label>
-                                <input type="text" class="form-control" id="keyword" name="keyword">
-                                <button class="btn btn-info" style="margin-top: 10px;" type="submit">提交</button>
+                                <label for="myears" style="margin-left: 10px;">年数: </label>
+                                <input type="text" class="form-control" id="myears" name="years" style="margin-left: 10px;">
+                                <label for="topNum" style="margin-left: 10px;">top数: </label>
+                                <input type="text" class="form-control px-2" id="topNum" name="topNum" style="margin-left: 10px;">
+                                <!--<button class="btn btn-info" style="margin-left: 10px;" type="submit">提交</button>-->
+                                <!--<button type="text" class="btn btn-outline-info"
+                                        style="margin-left: 10px;"
+                                        th:onclick="selectTOPKeywordEveryYear()">提 交
+                                </button>-->
                             </form>
                         </div>
                     </div>
 
                 </div>
-                <div id="fre" style="width: 1200px; height:500px; margin-top: 50px;"></div>
+                <div id="fre" style="width: 1000px; height:500px; padding-top: 10px;margin: auto"></div>
             </div>
         </div>
 
@@ -189,11 +197,12 @@
                         {
                             name: '出现频数',
                             type: 'pie',
-                            radius: [50, 140],
-                            center: ['75%', '50%'],
+                            //radius: '65%',
+                            radius: [40, 160],
+                            center: ['55%', '50%'],
                             roseType: 'area',
                             itemStyle: {
-                                borderRadius: 5
+                                borderRadius: 15
                             },
                             data: rose
                             //[
@@ -213,32 +222,39 @@
                     ]
                 };
 
+
+
                 $.ajax({
-                    url: encodeURI("/keyword/top"),
+                    url: encodeURI("/keyword/top1"),
                     type: "get",  //请求的方法
                     cache: false, //去除缓存
                     async: false,  //async:false同步。true异步方式
                     dataType: 'JSON',
                     success: function (result) {
-                        json = JSON.parse(result.data);
-                        /*keyword = json.content;
-                        frenquency = json.total;*/
-                        keyword:[];
-                        //rose:[{}]
+                        //console.log("【result.data】："+result.data[0].content);
+                        //json = JSON.parse(result);  //当后端传：//mapper.writeValueAsString(keywordVOList)时
                         for (let i = 0; i < 10; i++) {
-                            keyword.push(json[i].content);
+                            //keyword.push(json[i].content);
+                            keyword.push(result.data[i].content);
+                            //<a class="dropdown-item" th:href="@{'/paper/list/1/'+(keyword=${})}" th:text="${}"></a>
+                            //aStr += '<a class="dropdown-item" th:href="@{\'/paper/list/1/\'+(keyword='+result.data[i].content+')}" th:text="'+result.data[i].content+'"></a>';
                             rose.push({
-                                value: json[i].total,
-                                name: json[i].content
+                                /*value: json[i].total,
+                                name: json[i].content,*/
+                                value: result.data[i].total,
+                                name: result.data[i].content,
                             });
                         }
                         /*console.log("【keyword】"+keyword);
                         console.log("【rose】"+rose);*/
+
+                        //加载a：
+                        //$('#dm').append(aStr);
+
+
                     }
                 })
-
                 option && myChart.setOption(option);
-
             </script>
 
 
@@ -382,10 +398,10 @@
                  console.log(data);
                  console.log("[2333]: " + data[0].content)*/
 
-                var chartDom = document.getElementById('fre');
-                var myChart = echarts.init(chartDom);
+                var chartDom2 = document.getElementById('fre');
+                var myChart2 = echarts.init(chartDom2);
                 var json;
-                var option;
+                var option2;
 
                 var keywords = new Array();
                 var ktotal = new Array();
@@ -393,64 +409,7 @@
                 var years = [];
                 var mySeries = [];
 
-                $.ajax({
-                    url: encodeURI("/keyword/top/ICCV"),
-                    type: "get",  //请求的方法
-                    cache: false, //去除缓存
-                    async: false,  //async:false同步。true异步方式
-                    dataType: 'JSON',
-                    success: function (result) {
-
-                        $.each(result.map, function(i, item) {
-                            years.push(i);
-                            keywords[i] = [];
-                            ktotal[i] = [];
-                            for (let j = 0; j < 10; j++){
-                                keywords[i].push(item[j].content);
-                                ktotal[i].push(item[j].total);
-                            }
-                            console.log("【keywords--"+ i +"】: " + keywords[i]);
-                            console.log("【ktotal--"+ i +"】: " + ktotal[i]);
-                        });
-                        console.log("【years】: " + years);
-
-                        for (let i = 0; i < 10; i++) {
-                            jsontotal[i] = [];
-                            for (let j = 0; j < years.length; j++){
-                                jsontotal[i].push(ktotal[years[j]][i])
-                            }
-                            console.log("【"+keywords[years[0]][i]+"---"+"jsontotal---" +i+ "】" + jsontotal[i]);
-                        }
-
-                        /*  */
-                        for (let i = 0; i < 10; i++){
-                            mySeries.push({
-                                name: keywords[years[0]][i],
-                                type:'line',
-                                stack:'总量',
-                                data: jsontotal[i],
-                            });
-                        }
-
-                        console.log("【mySeries】:" + mySeries);
-
-                       /*
-                        years = []
-                        datas = []
-
-                        for (let i = 0; i < jsons.length; i++) {
-                            datas.push(JSON.parse(json[i]).key);
-                            years.push(JSON.parse(json[i]));
-                            console.log("[years--"+i+"]:"+years[i]);
-                        }
-                        console.log("[datas]: " + datas);*/
-
-                        /*option && myChart.setOption(option);*/
-                    }
-
-                })
-
-                option = {
+                option2 = {
                     title: {
                         text: '顶会热词频数走势'
                     },
@@ -516,7 +475,55 @@
                     ]*/
                 };
 
-                option && myChart.setOption(option);
+                $.ajax({
+                    url: encodeURI("/keyword/top2/ECCV"),
+                    type: "get",  //请求的方法
+                    cache: false, //去除缓存
+                    async: false,  //async:false同步。true异步方式
+                    dataType: 'JSON',
+                    data:{
+                        "years": 10,
+                        "topNum": 15
+                    },
+                    success: function (result) {
+
+                        $.each(result.map, function(i, item) {
+                            years.push(i);
+                            keywords[i] = [];
+                            ktotal[i] = [];
+                            for (let j = 0; j < 10; j++){
+                                keywords[i].push(item[j].content);
+                                ktotal[i].push(item[j].total);
+                            }
+                            //console.log("【keywords--"+ i +"】: " + keywords[i]);
+                            //console.log("【ktotal--"+ i +"】: " + ktotal[i]);
+                        });
+                        //console.log("【years】: " + years);
+
+                        for (let i = 0; i < 10; i++) {
+                            jsontotal[i] = [];
+                            for (let j = 0; j < years.length; j++){
+                                jsontotal[i].push(ktotal[years[j]][i])
+                            }
+                            //console.log("【"+keywords[years[0]][i]+"---"+"jsontotal---" +i+ "】" + jsontotal[i]);
+                        }
+
+                        /*  */
+                        for (let i = 0; i < 10; i++){
+                            mySeries.push({
+                                name: keywords[years[0]][i],
+                                type:'line',
+                                stack:'总量',
+                                data: jsontotal[i],
+                            });
+                        }
+
+                        //console.log("【mySeries】:" + mySeries);
+                    }
+
+                })
+
+                option2 && myChart2.setOption(option2);
 
             </script>
 
@@ -605,10 +612,161 @@
 
 
 </div>
+<script type="text/javascript">
+    function selectTOPKeywordEveryYear() {
+        meetings = document.getElementsByName("meeting");
+        for(var i=0;i < meetings.length;i++) {
+            if(meetings.item(i).checked){
+                meeting = New.item(i).getAttribute("value");
+                break;
+            }else{
+                continue;
+            }
+        }
+        alert("【meeting】：" + meeting)
+       /* $.ajax({
+            url: encodeURI("/keyword/top/" + meeting),
+            type: "get",  //请求的方法
+            cache: false, //去除缓存
+            async: false,  //async:false同步。true异步方式
+            dataType: "json",  //指定响应得到的数据类型：【“list”必须严格为一个json数据！】
+            traditional: true,
+            data: {
+                'years': $('#myears').val(),
+                'topNum':  $('#topNum').val(),
+                //"pids" : JSON.stringify(pids),
+            },
+            success: function (result) {
+                if (result.code == 200) { //修改成功
+                    //layer.msg("修改成功");
+                    alert("查询成功");
+                    $('#chart2').class = 'nav-link active';
+                    $('#tab2').class = 'container tab-pane active';
+
+                } else {
+                    //layer.msg("修改失败");
+                    alert("查询失败");
+                }
+            },
+            error: function () {
+                alert(".......页面出错了.......");
+            }
+        });*/
+
+        $.ajax({
+            url: encodeURI("/keyword/top2/" + meeting),
+            type: "get",  //请求的方法
+            cache: false, //去除缓存
+            async: false,  //async:false同步。true异步方式
+            dataType: "json",  //指定响应得到的数据类型：【“list”必须严格为一个json数据！】
+            traditional: true,
+            data: {
+                'years': $('#myears').val(),
+                'topNum':  $('#topNum').val(),
+                //"pids" : JSON.stringify(pids),
+            },
+            success: function (result) {
+                if (result.code == 200) {
+                    alert("查询成功");
+                    $('#chart2').class = 'nav-link active';
+                    $('#tab2').class = 'container tab-pane active';
+
+
+                    $.each(result.map, function(i, item) {
+                        years.push(i);
+                        keywords[i] = [];
+                        ktotal[i] = [];
+                        for (let j = 0; j < 10; j++){
+                            keywords[i].push(item[j].content);
+                            ktotal[i].push(item[j].total);
+                        }
+                        console.log("【keywords--"+ i +"】: " + keywords[i]);
+                        console.log("【ktotal--"+ i +"】: " + ktotal[i]);
+                    });
+                    console.log("【years】: " + years);
+
+                    for (let i = 0; i < 10; i++) {
+                        jsontotal[i] = [];
+                        for (let j = 0; j < years.length; j++){
+                            jsontotal[i].push(ktotal[years[j]][i])
+                        }
+                        console.log("【"+keywords[years[0]][i]+"---"+"jsontotal---" +i+ "】" + jsontotal[i]);
+                    }
+
+                    /*  */
+                    for (let i = 0; i < 10; i++){
+                        mySeries.push({
+                            name: keywords[years[0]][i],
+                            type:'line',
+                            stack:'总量',
+                            data: jsontotal[i],
+                        });
+                    }
+
+
+
+                }else {
+                    //layer.msg("修改失败");
+                    alert("查询失败");
+                }
+            },
+            error: function () {
+                alert(".......页面出错了.......");
+            }
+        });
+        option2 && myChart2.setOption(option2);
+    }
+
+    function loadTopKeyword() {
+        $.ajax({
+            url: encodeURI("/keyword/top1"),
+            type: "get",  //请求的方法
+            cache: false, //去除缓存
+            async: false,  //async:false同步。true异步方式
+            dataType: 'JSON',
+            success: function (result) {
+                //console.log("【result.data】："+result.data[0].content);
+                //json = JSON.parse(result);  //当后端传：//mapper.writeValueAsString(keywordVOList)时
+                for (let i = 0; i < 10; i++) {
+                    //keyword.push(json[i].content);
+                    keyword.push(result.data[i].content);
+                    rose.push({
+                        /*value: json[i].total,
+                        name: json[i].content,*/
+                        value: result.data[i].total,
+                        name: result.data[i].content,
+                    });
+                }
+                /*console.log("【keyword】"+keyword);
+                console.log("【rose】"+rose);*/
+            }
+        });
+        option && myChart.setOption(option);
+    }
+</script>
+
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="../static/bootstrap/js/bootstrap.min.js"></script>
 </body>
+
+<script>
+    basePath = '[[${ #httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]';
+    aaa = basePath + '/paper/list/1/' + '?keyword='+keyword[0];
+    console.log("【aaa------------】：" + aaa);
+
+    oDiv = document.getElementById('dm');
+    for (let i = 0; i < 10; i++){
+        oA = document.createElement('a');   //创建a标签
+        aaa = basePath + '/paper/list/1/' + '?keyword='+keyword[i];
+        console.log("【aaa】：" + aaa);
+        oA.href = aaa;    //增加a标签的href属性
+        oA.innerHTML = keyword[i];   //给a标签添加内容
+        oA.className = "dropdown-item";
+        oDiv.appendChild(oA);  //将a标签添加到div里面
+        //oDiv.append("</br>");
+    }
+</script>
 </html>

@@ -177,7 +177,7 @@ public class PaperController {
         //return AjaxResponse.success(page, "【查询成功！】");
 
         model.addAttribute("paperList", paperList);
-        model.addAttribute("page",page);
+        model.addAttribute("page", page);
         log.info("【查询到数据--title】： " + title);
         return "paperList";
     }
@@ -296,12 +296,13 @@ public class PaperController {
 
     /**
      * 查询某pid的论文的keyword
+     *
      * @param pid
      * @return
      */
     @ResponseBody
     @GetMapping("/select/{pid}")
-    public Object selectPaper(@PathVariable(name = "pid") int pid,Model model) {
+    public Object selectPaper(@PathVariable(name = "pid") int pid, Model model) {
 
         List<Keyword> keywords = keywordService.selectByPid(pid);
         Paper paper = paperService.selectByPrimaryKey(pid);
@@ -311,12 +312,12 @@ public class PaperController {
             //return AjaxResponse.fail(500, "【查询论文的keywords失败！】");
         }
         log.info("【查询论文的keywords成功！】:");
-        for ( Keyword k: keywords) {
+        for (Keyword k : keywords) {
             System.out.println(k);
         }
 
         Map<String, Object> result = new HashMap<>();
-        result.put("keywords", keywords);
+        result.put("data", keywords);
         result.put("paper2", paper);
         result.put("code", 200);
         return result;
@@ -332,11 +333,11 @@ public class PaperController {
      * @param keyword
      * @return
      */
-    @GetMapping(value = {"/list/{keyword}"})
-    public AjaxResponse GetUser(@PathVariable("keyword") String keyword,
-                                @RequestParam(name = "pageNum", defaultValue = "1") int pageNum,
-                                @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
-                                Model model) {
+    @GetMapping(value = {"/list/{pageNum}"})
+    public String GetUser(@PathVariable("pageNum") int pageNum,
+                          @RequestParam(name = "keyword") String keyword,
+                          @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+                          Model model) {
         if (pageSize <= 0) {
             pageSize = this.pageSize;
         }
@@ -349,10 +350,13 @@ public class PaperController {
 
         if (paperList.isEmpty()) {
             log.error("【查询keyword-->论文列表失败！】");
-            return AjaxResponse.fail(500, "【查询keyword-->论文列表失败！】");
+            //return AjaxResponse.fail(500, "【查询keyword-->论文列表失败！】");
         }
-        return AjaxResponse.success(page, "【查询keyword-->论文列表成功！】");
-
+        //return AjaxResponse.success(page, "【查询keyword-->论文列表成功！】");
+        log.info("【查询keyword-->论文列表成功！】");
+        model.addAttribute("paperList", paperList);
+        model.addAttribute("page", page);
+        return "paperList2";
     }
 
 }
