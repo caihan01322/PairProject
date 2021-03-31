@@ -54,6 +54,7 @@
                 </div>
                 <div id="main"></div>
                 <script type="text/javascript">
+                    var key;
                     $.ajax({
                         url: '/get_trend',
                         type: 'get',
@@ -75,154 +76,122 @@
                                 var options = $("#myselect option:selected");
                                 console.log(options.val());
                                 console.log(options.text());
+                                key = options.text();
+                                //console.log(key);
                             });
                         }
                     });
-                    // var options = $("#myselect option:selected");
-                    // console.log(options.val());
-                    // console.log(options.text());
-                    // // var myChart = echarts.init(document.getElementById('main'));
-                    // // 显示标题，图例和空的坐标轴
-                    // myChart.setOption({
-                    //     title: {
-                    //         text: '热词十年走势'
-                    //     },
-                    //     tooltip: {
-                    //         trigger: 'axis'
-                    //     },
-                    //     legend: {
-                    //         data: ['CVPR', 'ECCV', 'ICCV']
-                    //     },
-                    //     toolbox: {
-                    //         show: true,
-                    //         feature: {
-                    //             mark: { show: true },
-                    //             dataView: { show: true, readOnly: false },
-                    //             magicType: { show: true, type: ['line', 'bar'] },
-                    //             restore: { show: true },
-                    //             saveAsImage: { show: true }
-                    //         }
-                    //     },
-                    //     calculable: true,
-                    //     xAxis: {
-                    //         type: 'Year',
-                    //         boundaryGap: false, //取消左侧的间距
-                    //         data: []
-                    //     },
-                    //     yAxis: {
-                    //         type: 'value',
-                    //         splitLine: { show: false },//去除网格线
-                    //         name: ''
-                    //     },
-                    //     series: [{
-                    //         name: 'CVPR',
-                    //         type: 'line',
-                    //         symbol: 'emptydiamond',    //设置折线图中表示每个坐标点的符号 emptycircle：空心圆；emptyrect：空心矩形；circle：实心圆；emptydiamond：菱形
-                    //         data: []
-                    //     },
-                    //     {
-                    //         name: 'ECCV',
-                    //         type: 'line',
-                    //         symbol: 'emptydiamond',    //设置折线图中表示每个坐标点的符号 emptycircle：空心圆；emptyrect：空心矩形；circle：实心圆；emptydiamond：菱形
-                    //         data: []
-                    //     },
-                    //     {
-                    //         name: 'ICCV',
-                    //         type: 'line',
-                    //         symbol: 'emptydiamond',    //设置折线图中表示每个坐标点的符号 emptycircle：空心圆；emptyrect：空心矩形；circle：实心圆；emptydiamond：菱形
-                    //         data: []
-                    //     }]
-                    // });
-                    // myChart.showLoading();    //数据加载完之前先显示一段简单的loading动画
-                    // var year = [];    //类别数组（实际用来盛放X轴坐标值）    
-                    // var series1 = [];
-                    // var series2 = [];
-                    // var series3 = [];
-                    // $.ajax({
-                    //     type: 'get',
-                    //     url: '/get_trend',//请求数据的地址
-                    //     dataType: "json",        //返回数据形式为json
-                    //     cache: false,
-                    //     success: function (data) {
-                    //         //请求成功时执行该函数内容，result即为服务器返回的json对象           
-                    //         // $.each(result.jinJian, function (index, item) {
-                    //         //     names.push(item.AREA);    //挨个取出类别并填入类别数组
-                    //         //     series1.push(item.LANDNUM);
-                    //         // });
-                    //         // $.each(result.banJie, function (index, item) {
-                    //         //     series2.push(item.LANDNUM);
-                    //         // });
-                    //         // myChart.hideLoading();    //隐藏加载动画
-                    //         // myChart.setOption({        //加载数据图表
-                    //         //     xAxis: {
-                    //         //         data: names
-                    //         //     },
-                    //         //     series: [{
-                    //         //         data: series1
-                    //         //     },
-                    //         //     {
-                    //         //         data: series2
-                    //         //     }]
-                    //         // });
-                    //     },
-                    //     error: function (errorMsg) {
-                    //         //请求失败时执行该函数
-                    //         alert("图表请求数据失败!");
-                    //         myChart.hideLoading();
-                    //     }
-                    // });
-                    // loadTwoLine();
-                    // $("#key").click(function () {
-                    //     var myChart = echarts.init(document.getElementById('main'));
-                    //     // 显示标题，图例和空的坐标轴
-                    //     myChart.setOption({
+                    $('#key').click(function () {
+                        //console.log(key);
+                        var myChart = echarts.init(document.getElementById('main'));
+                        // 显示标题，图例和空的坐标轴
+                        myChart.setOption({
+                            title: {
+                                text: '热词十年走势'
+                            },
+                            tooltip: {
+                                trigger: 'axis'
+                            },
+                            legend: {
+                                data: ['CVPR', 'ECCV', 'ICCV']
+                            },
+                            toolbox: {
+                                show: true,
+                                feature: {
+                                    mark: { show: true },
+                                    dataView: { show: true, readOnly: false },
+                                    magicType: { show: true, type: ['line', 'bar'] },
+                                    restore: { show: true },
+                                    saveAsImage: { show: true }
+                                }
+                            },
+                            calculable: true,
+                            xAxis: {
+                                type: 'category',
+                                boundaryGap: false, //取消左侧的间距
+                                data: []
+                            },
+                            yAxis: {
+                                type: 'value',
+                                splitLine: { show: false },//去除网格线
+                                name: ''
+                            },
+                            series: [{
+                                name: 'CVPR',
+                                type: 'line',
+                                symbol: 'emptydiamond',    //设置折线图中表示每个坐标点的符号 emptycircle：空心圆；emptyrect：空心矩形；circle：实心圆；emptydiamond：菱形
+                                data: []
+                            },
+                            {
+                                name: 'ECCV',
+                                type: 'line',
+                                symbol: 'emptydiamond',    //设置折线图中表示每个坐标点的符号 emptycircle：空心圆；emptyrect：空心矩形；circle：实心圆；emptydiamond：菱形
+                                data: []
+                            },
+                            {
+                                name: 'ICCV',
+                                type: 'line',
+                                symbol: 'emptydiamond',    //设置折线图中表示每个坐标点的符号 emptycircle：空心圆；emptyrect：空心矩形；circle：实心圆；emptydiamond：菱形
+                                data: []
+                            }]
+                        });
+                        myChart.showLoading();    //数据加载完之前先显示一段简单的loading动画
+                        var year = [];    //类别数组（实际用来盛放X轴坐标值）    
+                        var series1 = [];
+                        var series2 = [];
+                        var series3 = [];
+                        $.ajax({
+                            type: 'get',
+                            url: '/get_trend',//请求数据的地址
+                            dataType: "json",        //返回数据形式为json
+                            cache: false,
+                            success: function (data) {
+                                $.each(data.data, function (index, item) {
+                                    console.log(item.keyword);
+                                    console.log(key);
+                                    if(item.keyword == key){
+                                        console.log(item.CVPR)
+                                        $.each(item.CVPR,function(index,i){
+                                            console.log(index + 2011)
+                                            console.log(i);
+                                            year.push(index + 2011);
+                                            series1.push(i);
+                                        });
+                                        $.each(item.ECCV,function(index,i){
+                                            console.log(i);
+                                            series2.push(i);
+                                        });
+                                        $.each(item.ICCV,function(index,i){
+                                            console.log(i);
+                                            series3.push(i);
+                                        })
 
-                    //         tooltip: {
-                    //             trigger: 'item',
-                    //             formatter: "{b}:{c}({d}%)"
-                    //         },
-                    //         series: [{
-                    //             name: '次数',
-                    //             type: 'pie',
-                    //             radius: '55%',
-                    //             label: {
-                    //                 normal: {
-                    //                     show: true,
-                    //                     formatter: "{b}:{c}({d}%)"
-                    //                 }
+                                    }
+                                });
+                                myChart.hideLoading();    //隐藏加载动画
+                                myChart.setOption({        //加载数据图表
+                                    xAxis: {
+                                        data: year
+                                    },
+                                    series: [{
+                                        data: series1
+                                    },
+                                    {
+                                        data: series2
+                                    },
+                                    {
+                                        data: series3
+                                    }]
+                                });    
+                            },
+                            error: function (errorMsg) {
+                                //请求失败时执行该函数
+                                alert("图表请求数据失败!");
+                                myChart.hideLoading();
+                            }
+                        });
 
-                    //             },
-                    //             data: []
-                    //         }]
-                    //     });
-
-                    //     // 异步加载数据
-                    //     $.get('/get_cake').done(function (data) {
-                    //         // 填入数据
-                    //         var words = [];
-                    //         var times = [];
-                    //         var content = [];
-                    //         console.log(data)
-                    //         console.log(data.data)
-                    //         $.each(data.data, function (index, item) {
-                    //             console.log(item.keyword);
-                    //             console.log(item.total);
-                    //             content.push({
-                    //                 value: item.total,
-                    //                 name: item.keyword
-                    //             })
-                    //             // words.push(item.keyword);
-                    //             // times.push(item.total);
-                    //         })
-                    //         myChart.setOption({
-                    //             series: [{
-                    //                 // 根据名字对应到相应的系列
-                    //                 name: '次数',
-                    //                 data: content
-                    //             }]
-                    //         });
-                    //     });
-                    // })
+                    })
                 </script>
             </div>
         </main>
