@@ -39,6 +39,7 @@ def paperNum():
     res = ResponseData(200, "success", paperNum)
     return json.dumps(res.__dict__)
 
+
 @paper.route('/delete', methods=['POST'])
 def delete():
     data = request.form
@@ -49,8 +50,8 @@ def delete():
         return json.dumps(res.__dict__)
     paper_id = data.get("paper_id")
     paper = Paper.query.filter(Paper.paper_id == paper_id).first()
-    session.delete(paper)
-    session.commit()
+    db.session.delete(paper)
+    db.session.commit()
     res = ResponseData(200, "success", "删除成功")
     return json.dumps(res.__dict__)
 
