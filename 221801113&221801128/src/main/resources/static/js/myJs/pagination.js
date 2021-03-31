@@ -56,7 +56,7 @@ $(function(){
     /**
      * 搜索事件
      */
-    $(".searchform button").click(() => {
+    $(".searchform button").eq(0).click(() => {
         let searchInfo = $(".searchform input").val().trim();
         localStorage.setItem("searchInfo", searchInfo);
         if (!isCollectPage()) {
@@ -67,10 +67,71 @@ $(function(){
         }
     })
 
+    let crawlPaperList = [];
+
+    /**
+     *  爬取事件
+     */
+    $(".searchform button").eq(1).click(() => {
+        let searchInfo = $(".searchform input").val().trim();
+        getCrawlPaper(searchInfo);
+    })
+
+    function getCrawlPaper(searchInfo) {
+        $(".searchform button").eq(1).text("爬取中...")
+        $.ajax({
+            type: "GET",
+            contentType: "application/json;charset=UTF-8",
+            url: "/get_crawl_paper",
+            data: {searchInfo: searchInfo},
+            success: function(res) {
+                toastr.success(res.info);
+                $(".searchform button").eq(1).html("<i class=\"fa fa-cloud\"></i>");
+                crawlPaperList = res;
+                crawlPaperPagination(res);
+                renderCard(res.list.slice(0, 4));
+            },
+            //请求失败，包含具体的错误信息
+            error: function(res){
+                toastr.error('好像哪里出了点问题！');
+                $(".searchform button").eq(1).html("<i class=\"fa fa-cloud\"></i>");
+                console.log(res.status);
+                console.log(res.responseText);
+            }
+        });
+    }
+
+    /**
+     * 爬取分页器
+     */
+    function crawlPaperPagination(res) {
+        $(".pagination").pagination({
+            callback: pageCallBack3, //翻页回调函数。
+            totalData: (res.count == 0) ? 1 : res.count,
+            showData: 4,
+            jump: true,
+            coping: true,
+            homePage: '首页',
+            endPage: '末页',
+            prevContent: '上页',
+            nextContent: '下页',
+        })
+    }
+
+    /**
+     * 爬取分页回调
+     * @param api
+     */
+    function pageCallBack3(api) {
+        let start = (api.getCurrent()-1)*4;
+        renderCard(crawlPaperList.list.slice(start, start + 4));
+    }
+
+
     /**
      * 页面初始化
      */
-    $(".searchform button").click();
+    $(".searchform button").eq(0).click();
 
     /**
      * 获取收藏夹的数据

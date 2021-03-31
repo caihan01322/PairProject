@@ -76,6 +76,20 @@ public class PaperListController {
         return pageResponseBody;
     }
 
+    @GetMapping("/get_crawl_paper")
+    @ResponseBody
+    public PageResponseBody getCrawlPaper(@RequestParam(value = "searchInfo") String searchInfo) {
+        PageResponseBody pageResponseBody = new PageResponseBody();
+        pageResponseBody.setCode(200);
+        pageResponseBody.setInfo("爬取成功！");
+        for(Map.Entry<List<Paper>, Integer> vo
+                : paperService.getCrawlPaper(searchInfo).entrySet()) {
+            pageResponseBody.setList(vo.getKey());
+            pageResponseBody.setCount(vo.getValue());
+        }
+        return pageResponseBody;
+    }
+
     /**
      * 收藏功能
      * @param userName 执行收藏的用户

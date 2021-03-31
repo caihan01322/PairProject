@@ -20,6 +20,13 @@ $(function(){
                 $(".searchform button").removeClass("disabled");
             }
         }
+        if (location.pathname == "/paper_collect") {
+            let isLock = $(".searchform button").eq(1).attr("class");
+            isLock = (isLock.indexOf("disabled") == -1) ? false : true;
+            if (!isLock) {
+                $(".searchform button").eq(1).addClass("disabled");
+            }
+        }
     }
 
     /**

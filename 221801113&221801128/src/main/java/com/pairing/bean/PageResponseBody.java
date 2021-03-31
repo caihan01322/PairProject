@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class PageResponseBody {
+    private String info;
     private int code;
     private int count;
     private List<Paper> list = new ArrayList<>();
