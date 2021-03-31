@@ -1,0 +1,75 @@
+<div nz-row>
+    <div nz-col nzSpan="8" nzOffset="8" class="register-logo">用户注册</div>
+</div>
+<div nz-row>
+    <div nz-col nzSpan="8" nzOffset="8" class="register-icon-div">
+        <i nz-icon nzType="profile" nzTheme="outline" class="register-icon"></i>
+    </div>
+</div>
+<div nz-row>
+    <div nz-col nzSpan="12" nzOffset="6" class="register-info-content">
+        <span>成为会员，即可享有专属收藏夹</span>
+    </div>
+</div>
+<div nz-row class="register-form-content">
+    <div nz-col nzSpan="16" nzOffset="4">
+        <nz-input-group 
+        [nzPrefix]="userIconTemplate"  
+        class="userinfo-form"
+        [@inputTrigger]="inputState"
+        (mouseenter)="toggleInputState(true)"
+        (mouseleave)="toggleInputState(false)">
+            <input type="text" nz-input placeholder="请输入用户名" [(ngModel)]="userForm.username" nzSize="large"/>
+          </nz-input-group>
+          <ng-template #userIconTemplate>
+            <i nz-icon nzType="user"></i>
+          </ng-template>   
+    </div>
+
+    <div nz-col nzSpan="16" nzOffset="4">
+        <nz-input-group 
+        [nzPrefix]="passwordIconTemplate"  
+        class="userinfo-form"
+        [@inputTrigger]="inputState"
+        (mouseenter)="toggleInputState(true)"
+        (mouseleave)="toggleInputState(false)">
+            <input type="password" nz-input placeholder="请输入密码" [(ngModel)]="userForm.password1" nzSize="large"/>
+          </nz-input-group>
+          <ng-template #passwordIconTemplate>
+            <i nz-icon nzType="lock"></i>
+          </ng-template>   
+    </div>
+
+    <div nz-col nzSpan="16" nzOffset="4">
+        <nz-input-group 
+        [nzPrefix]="passwordIconTemplate"  
+        class="userinfo-form"
+        [@inputTrigger]="inputState"
+        (mouseenter)="toggleInputState(true)"
+        (mouseleave)="toggleInputState(false)">
+            <input type="password" nz-input placeholder="请确认密码" [(ngModel)]="userForm.password2" nzSize="large"/>
+          </nz-input-group>
+          <ng-template #passwordIconTemplate>
+            <i nz-icon nzType="lock"></i>
+          </ng-template>   
+    </div>
+</div>
+
+<div nz-row class="added-content">
+    <div nz-col nzSpan="8" nzOffset="14">
+        <span>已有账号？去<a [routerLink]="['/auth/login']">登录</a></span>
+    </div>
+</div>
+
+<div nz-row>
+    <div nz-col nzSpan="8" nzOffset="8" class="register-info-content">
+        <button 
+        nz-button 
+        nzType="primary" 
+        class="register-btn" 
+        (click)="registerUser()"
+        [@btnTrigger]="loginBtnState"
+        (mouseenter)="toggleState(true)"
+        (mouseleave)="toggleState(false)">注册</button>
+    </div>
+</div>
