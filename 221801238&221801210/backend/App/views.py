@@ -6,7 +6,6 @@ from flask import request, jsonify, current_app
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 import functools
 
-
 blue = Blueprint('first_blue', __name__)
 
 
@@ -68,7 +67,6 @@ def login_required(view_func):
         return view_func(*args, **kwargs)
 
     return verify_token
-
 
 
 '''
@@ -271,9 +269,10 @@ def user_register():
         db.session.add(user)
         # print(user)
         db.session.commit()
-        return jsonify(code=200, msg="注册成功", data={'token':create_token(user.user_id),'email':user.email, 'name':user.username})
+        return jsonify(code=200, msg="注册成功",
+                       data={'token': create_token(user.user_id), 'email': user.email, 'name': user.username})
 
-    return "注册失败",400
+    return "注册失败", 400
 
 
 @blue.route('/user/login', methods=["POST"])
@@ -282,14 +281,15 @@ def user_login():
     # print(res_dir)
     user = db.session.query(User).filter(User.email == res_dir['email'], User.password == res_dir['password']).first()
     if not user:
-        return "登录失败",400
+        return "登录失败", 400
 
-    return jsonify(code=200, msg="登录成功", data={'token':create_token(user.user_id), 'email':user.email, 'name':user.username})
+    return jsonify(code=200, msg="登录成功",
+                   data={'token': create_token(user.user_id), 'email': user.email, 'name': user.username})
 
 
 @blue.route('/')
 def index():
-    a= request.args.get('abc')
+    a = request.args.get('abc')
     if not a:
         return "not papr"
 
@@ -302,31 +302,32 @@ def paper_getlist():
     page = request.args.get("currentPage")
     # print(k_content)
     # 关键词模糊搜索
-    kwds = db.session.query(Keyword).filter(Keyword.content.like('%'+k_content+'%')).all()
-    paperlist=[]
-    Paper.currentNum=0;
+    kwds = db.session.query(Keyword).filter(Keyword.content.like('%' + k_content + '%')).all()
+    paperlist = []
+    Paper.currentNum = 0
+    Paper.finish = False
     for kkk in kwds:
-        k_id= kkk.keyword_id
-        paper=dict()
+        k_id = kkk.keyword_id
+        paper = dict()
         ktops = db.session.query(KeywordToPaper).filter(KeywordToPaper.keyword_id == k_id).all()
         for ktop in ktops:
-            paper=Paper.getPaperDict(ktop.paper_id)
+            paper = Paper.getPaperDict(ktop.paper_id)
         # print(paper['title'])
         paperlist.append(paper)
-        Paper.currentNum+=1;
+        Paper.currentNum += 1
         print(Paper.currentNum)
     Paper.setCache(paperlist)
-    return jsonify(code=200, msg="返回成功", data={'total':len(paperlist), 'paperList':Paper.getPage(0)})
+    return jsonify(code=200, msg="返回成功", data={'total': len(paperlist), 'paperList': Paper.getPage(0)})
 
 
 @blue.route('/paper/page')
 def paper_getpage():
-    return jsonify(code=200 ,msg="换页成功" ,data={'paperList':Paper.getPage(request.args.get('currentPage'))})
+    return jsonify(code=200, msg="换页成功", data={'paperList': Paper.getPage(request.args.get('currentPage'))})
 
 
 @blue.route('/paper/getProcess')
 def paper_getProgress():
-    return jsonify(code=200, msg="", data={'currentFindNums':Paper.currentNum})
+    return jsonify(code=200, msg="", data={'currentFindNums': Paper.currentNum, 'finish': Paper.finish})
 
 
 @blue.route('/favorites/get')
@@ -334,24 +335,24 @@ def paper_getProgress():
 def favorites_get():
     token = request.headers['Authorization']
     user = verify_token(token)
-    favorite_id_list = db.session.query(Favorite).filter(Favorite.user_id==user.user_id).all()
-    dicts=[]
+    favorite_id_list = db.session.query(Favorite).filter(Favorite.user_id == user.user_id).all()
+    dicts = []
     for i in favorite_id_list:
-        dic= {'favorite_id':i.favorite_id, 'name':i.name}
+        dic = {'favorite_id': i.favorite_id, 'name': i.name}
         dicts.append(dic)
-    return jsonify(code=200, msg="获取成功", data={'favorites':dicts})
+    return jsonify(code=200, msg="获取成功", data={'favorites': dicts})
 
 
 @blue.route('/favorites/getPaperList')
 @login_required
 def favorites_getpaperlist():
     f_id = request.args.get("favorite_id")
-    ptofs = db.session.query(PaperToFavorite).filter(PaperToFavorite.favorite_id==f_id).all()
-    paperlist=[]
+    ptofs = db.session.query(PaperToFavorite).filter(PaperToFavorite.favorite_id == f_id).all()
+    paperlist = []
     for ptof in ptofs:
-        paperlist.append(Paper.getPaperDict())
+        paperlist.append(Paper.getPaperDict(ptof.paper_id))
 
-    return jsonify(code=200, msg="获取成功", data={'paperlist':paperlist})
+    return jsonify(code=200, msg="获取成功", data={'paperlist': paperlist})
 
 
 @blue.route('/favorites/delete', methods=['POST'])
@@ -360,9 +361,9 @@ def favorite_delete():
     token = request.headers['Authorization']
     user = verify_token(token)
     f_id = request.get_json()['favorite_id']
-    ptofs=db.session.query(PaperToFavorite).filter(PaperToFavorite.favorite_id == f_id).all()
+    ptofs = db.session.query(PaperToFavorite).filter(PaperToFavorite.favorite_id == f_id).all()
     db.session.delete(ptofs)
-    fs=db.session.query(Favorite).filter(Favorite.favorite_id==f_id).all()
+    fs = db.session.query(Favorite).filter(Favorite.favorite_id == f_id).all()
     db.session.delete(fs)
     db.session.commit()
     return jsonify(code=200, msg="删除", data={})
@@ -374,21 +375,21 @@ def favorite_insert():
     token = request.headers['Authorization']
     user = verify_token(token)
     rel = request.get_json()
-    f_id= rel['favorite_id']
+    f_id = rel['favorite_id']
     for p_id in rel['paper_ids']:
-        ptof = PaperToFavorite(paper_id= p_id, favorite_id=f_id)
+        ptof = PaperToFavorite(paper_id=p_id, favorite_id=f_id)
         db.session.add(ptof)
     db.session.commit()
     return jsonify(code=200, msg="添加成功", data={})
 
 
-@blue.route('/favorites/create',methods=['POST'])
+@blue.route('/favorites/create', methods=['POST'])
 @login_required
 def favorite_create():
     token = request.headers['Authorization']
     user = verify_token(token)
     rel = request.get_json()
-    f_name=rel['name']
+    f_name = rel['name']
     f = Favorite(name=f_name, user_id=user.user_id)
     db.session.add(f)
     db.session.commit()
@@ -397,17 +398,68 @@ def favorite_create():
 
 @blue.route('/data/getTopTen')
 def get_top_ten():
-    topten_id= KeywordToConference.getTopTen()
-    topten=[]
+    topten_id = KeywordToConference.getTopTen()
+    topten = []
     for i in topten_id:
-        content = db.session.query(Keyword).filter(Keyword.keyword_id==i).first().content
+        content = db.session.query(Keyword).filter(Keyword.keyword_id == i).first().content
         topten.append(content)
-    return jsonify(code=200, msg="添加成功", data={'words_list':topten})
+    return jsonify(code=200, msg="添加成功", data={'words_list': topten})
 
 
 @blue.route('/data/getPaperSource')
 def getPaperSource():
-    # min=request.args['']
-    return jsonify(code=200, msg="返回成功", data={})
-    # pass
+    beg=request.args.get('beg')
+    end=request.args.get('end')
+    # print(beg)
+    # print(end)
+    # papers= db.session.query(Paper).filter(Paper.time<=end, Paper.time>=beg).all()
+    cvpr= db.session.query(func.count('*')).filter(Paper.time<=end, Paper.time>=beg, Paper.conference_id==1).all()
+    eccv= db.session.query(func.count('*')).filter(Paper.time<=end, Paper.time>=beg, Paper.conference_id==2).all()
+    iccv= db.session.query(func.count('*')).filter(Paper.time<=end, Paper.time>=beg, Paper.conference_id==3).all()
+    if not cvpr:
+        cvpr = 0
+    else:
+        cvpr = cvpr[0][0]
+    if not eccv:
+        eccv = 0
+    else:
+        eccv = eccv[0][0]
+    if not iccv:
+        iccv = 0
+    else:
+        iccv = iccv[0][0]
+    return jsonify(code=200, msg="返回成功", data={'CVPR':cvpr, 'ICCV':iccv, 'ECCV':eccv})
 
+
+# @blue.route('/data/getWordsTrend')
+# def getWordsTrend():
+#     limit
+
+@blue.route('data/getWordsTrend')
+def getWordsTrend():
+    limit = request.args.get('limit')
+    beg = request.args.get('beg')
+    end = request.args.get('end')
+    name = request.args.get('conference')
+    conference = db.session.query(Conference).filter(Conference.name == name).first()
+    c_id = 5
+    if conference:
+        c_id = conference.conference_id
+    if end < beg:
+        return jsonify(code=400, msg="年份错误", data={})
+
+    words_list=[]
+    # 单个会议
+    year = beg
+    if c_id != 5:
+        kwd=dict()
+        while year <= end:
+            papers=db.session.query(Paper).filter(Paper.time==year,Paper.conference_id==c_id).all()
+            for paper in papers:
+                ktops=db.session.query(KeywordToPaper).filter(KeywordToPaper.paper_id==paper.paper_id).all()
+                for ktop in ktops:
+                    if
+
+            year += 1
+    return jsonify(code=200, msg="统计成功", data={})
+    pass

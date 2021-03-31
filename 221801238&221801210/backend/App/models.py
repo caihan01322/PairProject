@@ -40,10 +40,12 @@ class Paper(db.Model):
     cache=[]
     PAGE_NUM=5
     currentNum=0
+    finish=False
 
     @staticmethod
     def setCache(paperlist):
         Paper.cache=paperlist
+        Paper.finish=True
 
     @staticmethod
     def getPage(page):

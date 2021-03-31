@@ -2,7 +2,6 @@ from flask_migrate import MigrateCommand
 from flask_script import Manager
 from gevent import monkey
 from App import create_app
-from App.ext import db
 
 monkey.patch_all()
 
