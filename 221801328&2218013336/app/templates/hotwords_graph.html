@@ -28,17 +28,19 @@
 
 
         #main{
-            padding: 100px 300px;
+           margin: 100px 0;
             
         }
 
 
       #graph{
-            border-color: gray;
+            /* border-color: gray;
             border-width: 1px;
-            border-style: solid;
+            border-style: solid; */
             background-color:rgba(ee,ee,ee,50);
             margin-top: 10px;
+
+
         }  
 
     
@@ -52,9 +54,18 @@
       #dropdown{
           margin-left: 100px;
       }
-      #graph h4{
+      /* #graph h4{
           margin-left: 50px;
           margin-top: 40px;
+      } */
+      /* #echart{
+          float:left;
+      } */
+      canvas{
+          float:left;
+      }
+      #jump{
+          margin-left: 300px;
       }
     </style>
 </head>
@@ -85,13 +96,15 @@
                 
         </div>
 
-        <div id="main">
-            <a href="hotwords_graph.html">词谱图</a>
-            <a href="hotwords_analyze.html">热词分析</a>
+        <!-- <div id="main">-->
+            <div id="main">
+                <div id="jump">
+                    <a href="hotwords_graph.html">词谱图</a>
+                    <a href="hotwords_analyze.html">热词分析</a> 
+                </div>
+            <!-- <div id="graph"> -->
 
-            <div id="graph">
-
-                <h4><strong>检索查看近5年词谱图</strong></h4>
+                <!-- <h4><strong>检索查看近5年词谱图</strong></h4>
              
         
                 <div class="dropdown" id="dropdown">
@@ -105,15 +118,19 @@
                         <li><a href="#" @click="showValue($event)">2015-2020</a></li>
                         <li><a href="#"@click="showValue($event)">2010-2015</a></li>
                     </ul>
-                </div>        
+                </div>         -->
                       
 
                 <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-                <div id="echart" style="width: 600px;height:400px;"></div>
+                
                   
-            </div>
+            <!-- </div> -->
+        <!-- </div> -->
+        
+        <div id="graph">
+        <div id="echart" style="width: 1000px;height:400px;"></div>
         </div>
-
+    </div>
     
 
     </div>
@@ -148,20 +165,26 @@
           },
           initChart:function(){
             var that = this;
-            console.log('initchart');
+            console.log('现在输出that.hotwords');
+            console.log(that.hotwords); 
 
             axios
             .post('http://127.0.0.1:5000/keyword')
             .then(function (response) {
                 console.log('hihi');
                 console.log(response.data.data.data);
-                that.data = response.data.data.data;
+                that.hotwords = response.data.data.data;
+                console.log('现在输出that.hotwords');
+                console.log(that.hotwords);
+                that.drawChart();
             })
             .catch(function (error) { // 请求失败处理
                 console.log(error);
             });
-
-
+            console.log('现在输出that.hotwords');
+            console.log(that.hotwords);
+        },
+        drawChart:function(){
             // 基于准备好的dom，初始化echarts实例
             var myChart = echarts.init(document.getElementById('echart'));
 
@@ -185,7 +208,7 @@
                         name: '访问来源',
                         type: 'pie',
                         radius: '50%',
-                        data: that.hotwords,
+                        data: this.hotwords,
                         // data: [
                         //     {value: 1048, name: '搜索引擎'},
                         //     {value: 735, name: '直接访问'},
@@ -208,24 +231,12 @@
 
             var that = this;
             myChart.on('click',function(param){
-                // var url = param.data.name;
-                // window.location.href=url;
-                //that.$router.push({path: 'article',query:{ index:'1'}}); 
+
                 var name = param.data.name;
-                // alert(name);
+                localStorage.setItem('keyword', name);
 
-                
-            const info = {
-                keyword: name,
-            };
-            // localStorage.setItem('keyword', JSON.stringify(info));
-
-
-            //   var data2 = JSON.parse(localStorage.getItem('key'));
-            //         console.log(data2.name);
-
-                    window.location.href = "article.html";
-            //alert(data2);
+               
+                window.location.href = "article.html";
             })
           }
 
