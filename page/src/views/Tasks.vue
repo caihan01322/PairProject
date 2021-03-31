@@ -121,16 +121,9 @@
                         @change="reloadTable"
                         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
                     >
-                        <router-link 
-                            slot="pageTitle" 
-                            :style="{ color: 'rgba(0, 0, 0, 0.65)' }" 
-                            slot-scope="text"
-                            to="detail"
-                        >{{text}}</router-link>
-                        
-                        <span slot="action" slot-scope="pageTitle">
-                            <a @click="deletePerTask(pageTitle)">删除</a>
-                            <a @click="crawlPerTask(pageTitle)" :style="{ marginLeft: '12px' }">爬取</a>
+                        <span slot="action" slot-scope="id">
+                            <a @click="deletePerTask(id)">删除</a>
+                            <a @click="crawlPerTask(id)" :style="{ marginLeft: '12px' }">爬取</a>
                         </span>
 
                     </a-table>
@@ -239,10 +232,6 @@ export default {
                 that.loadingTasks = false;
             })
         },
-        // ???
-        handleChange(value, option) {
-            console.log(option);
-        },
         // 打开批量导入窗口
         openImport() {
             this.showImport = true;
@@ -254,11 +243,11 @@ export default {
             let that = this;
             let keys = [];
             for(let i=0; i<this.selectedRowKeys.length; i++) {
-                keys.push(that.listData[that.selectedRowKeys[i]].title);
+                keys.push(that.listData[that.selectedRowKeys[i]].id);
             }
             // console.log(keys);
             request.runCrawl({
-                titles: keys
+                ids: keys
             })
             .then((res)=>{
                 console.log(res);
@@ -330,12 +319,12 @@ export default {
         exectImportFile() {
             return this.fileList.length>0;
         },
-        // 删除单个爬虫任务
+        // 删除单个爬虫任务 
         deletePerTask(value) {
             // console.log(value.title);
             let that = this;
             request.deleteTask({
-                task: [value.title]
+                task: [value.id]
             })
             .then((res)=>{
                 console.log(res);
@@ -354,14 +343,14 @@ export default {
         deleteTasks() {
             // console.log();
             let keys = this.selectedRowKeys;
-            let titles = [];
+            let ids = [];
             for(let i=0; i<keys.length; i++) {
-                titles.push(this.listData[keys[i]].title);
+                ids.push(this.listData[keys[i]].id);
             }
-            // console.log(titles);
+            // console.log(ids);
             let that = this;
             request.deleteTask({
-                task: titles
+                task: ids
             })
             .then((res)=>{
                 console.log(res);
@@ -386,12 +375,13 @@ export default {
                 page: that.pager.current
             })
         },
+        // 执行单个爬虫任务
         crawlPerTask(value) {
             this.showCrawl = true;
             this.crawling = true;
             let that = this;
             request.runCrawl({
-                task: [value.title]
+                ids: [value.id]
             })
             .then((res)=>{
                 console.log(res);
