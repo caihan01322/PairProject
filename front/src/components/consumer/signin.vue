@@ -33,12 +33,12 @@ export default {
       },
       ruleValidate: {
         account: [
-          { required: true, message: '用户名不能为空', trigger: 'blur' },
-          { pattern: /^[a-zA-Z][a-zA-Z0-9_]{4,15}$/, message: '用户名以字母开头，允许5-16字节，允许字母数字下划线', trigger: 'blur' }
+          { required: true, message: '用户名不能为空', trigger: 'blur' }
+          // { pattern: /^[a-zA-Z][a-zA-Z0-9_]{4,15}$/, message: '用户名以字母开头，允许5-16字节，允许字母数字下划线', trigger: 'blur' }
         ],
         password: [
-          { required: true, message: '密码不能为空', trigger: 'blur' },
-          { pattern: /^[a-zA-Z]\w{5,17}$/, message: '密码以字母开头，长度在6~18之间，只能包含字母、数字和下划线', trigger: 'blur' }
+          { required: true, message: '密码不能为空', trigger: 'blur' }
+          // { pattern: /^[a-zA-Z]\w{5,17}$/, message: '密码以字母开头，长度在6~18之间，只能包含字母、数字和下划线', trigger: 'blur' }
         ]
       }
     }
@@ -47,10 +47,14 @@ export default {
     handleSubmit (name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success('Success!')
-          this.toIndex()
+          if ((this.formValidate.account === 'admin' && this.formValidate.password === 'admin') ||
+          (this.formValidate.account === 'user' && this.formValidate.password === '123456')) {
+            this.toIndex()
+          } else {
+            this.$Message.error('账号或密码错误！')
+          }
         } else {
-          this.$Message.error('Fail!')
+          // this.$Message.error('Fail!')
         }
       })
     },

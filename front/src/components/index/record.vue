@@ -31,9 +31,9 @@
         </div>
       </div>
     </div>
-    <div id="myPage" v-show="searchResult.length !== 0">
-      <Page :total="totle" :page-size="10" @on-change="change()" />
-    </div>
+<!--    <div id="myPage" v-show="searchResult.length !== 0">-->
+<!--      <Page :total="totle" :page-size="10" @on-change="change()" />-->
+<!--    </div>-->
     <div id="recordCover" v-show="showCover">
       <myadd v-show="coverType === 1"></myadd>
       <mydelete v-show="coverType === 2"></mydelete>

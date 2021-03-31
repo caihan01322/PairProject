@@ -19,7 +19,7 @@
         <div>检索结果</div>
       </div>
       <div id="Result">
-        <div class="resultItem" v-for="(item,index) in showResult" :key="index">
+        <div class="resultItem" v-for="(item,index) in searchResult" :key="index">
           <div class="resultTitle">{{item.title}}</div>
           <div class="resultContent"><span>摘要内容：</span>{{item.abstract}}</div>
           <div class="resultInfo">
@@ -32,9 +32,9 @@
           </div>
         </div>
       </div>
-      <div id="myPage">
-        <Page :total="totle" :page-size="10" @on-change="change()" />
-      </div>
+<!--      <div id="myPage">-->
+<!--        <Page :total="totle" :page-size="10" @on-change="change()" />-->
+<!--      </div>-->
       <div class="resultTips" v-show="isSearch === 0">
         <div>无检索内容</div>
       </div>
@@ -52,7 +52,7 @@ export default {
     return {
       text: '',
       isSearch: 1,
-      totle: 0,
+      totle: 100,
       searchResult: [],
       showResult: []
     }
