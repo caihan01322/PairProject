@@ -9,11 +9,6 @@ let instance = axios.create({
 function login() {
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
-    // console.log(username);
-    // console.log(password);
-    // swal("登录成功！", "即将为您跳转至主页……", "success");
-    // window.setTimeout(1000);
-    // window.location.href = 'index.html';
     instance.post('/login', {
             username: username,
             password: password
