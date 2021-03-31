@@ -52,16 +52,14 @@ import axios from 'axios'
     },
     methods: {
       login () {
-        let obj = {
-          account: this.account,
-          password: this.password
+        if(this.account === 'fzu123' && this.password === 'fzu123'){
+          this.$router.replace({path:'/articles'});
         }
-        axios.post('/api/v1/user/login', obj).then((res) => {
-          let data = res.data
-          if (data.error_code === 0) {
-            this.$router.push('')
-          }
-        })
+        else{
+          this.$message.error('账号或密码错误');
+          this.password='';
+          this.account='';
+        }
       }
     }
   }
