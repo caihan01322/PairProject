@@ -32,6 +32,12 @@ router.get('/getArticles', async (ctx) => {
   if (key && (kind == 0)) { // eslint-disable-line
     articles = await Article.getArticleByid(key);
   }
+  if (key && (kind == 2)) { // eslint-disable-line
+    articles = await Article.getArticlesByContent(key, page);
+  }
+  if (key && (kind == 3)) { // eslint-disable-line
+    articles = await Article.getArticlesByTitle(key, page);
+  }
   ctx.body = articles;
 });
 module.exports = router;

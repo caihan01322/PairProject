@@ -22,6 +22,35 @@ class Article extends Model {
     });
   }
 
+  static async getArticlesByContent(key, page) {
+    let arr = await Article.findAll({
+      where: {
+        conclude: {
+          [Op.substring]: key,   
+        }
+      }
+    })
+    let articles = []
+    for (let i = page * 5; i < page * 5 + 5; i++) {
+      articles.push(arr[i]);
+    }
+    return articles
+  }
+
+  static async getArticlesByTitle(key, page) {
+    let arr = await Article.findAll({
+      where: {
+        title: {
+          [Op.substring]: key,   
+        }
+      }
+    })
+    let articles = []
+    for (let i = page * 5; i < page * 5 + 5; i++) {
+      articles.push(arr[i]);
+    }
+    return articles
+  }
   static async getArticleByid(id) {
     let article = await Article.findOne({
       where: {
