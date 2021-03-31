@@ -29,6 +29,6 @@
     </script>
     <!-- 用户 -->
     <div class="user">
-        <img src="" alt="">用户信息</img>
+        <a href="#">注销</a>
     </div>
 </div>

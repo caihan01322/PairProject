@@ -93,19 +93,19 @@
                         <form action="" method="post" onsubmit="return editThesis(this);">
                             <dl>
                                 <dt hidden>论文编号</dt>
-                                <dd hidden><input id="thesis_edit_id" class="eidtText" name="id" type="text" ></dd>
+                                <dd hidden><textarea id="thesis_edit_id" class="eidtText" name="id"></textarea></dd>
                                 <dt><span class="redFont">*</span>论文题目</dt>
-                                <dd><input id="thesis_edit_title" class="eidtText" name="title" type="text" ></dd>
+                                <dd><textarea id="thesis_edit_title" class="eidtText" name="title"></textarea></dd>
                                 <dt><span class="redFont">*</span>来源</dt>
-                                <dd><input id="thesis_edit_meet" class="eidtText" type="text" name="meet" ></dd>
+                                <dd><textarea id="thesis_edit_meet" class="eidtText" name="meet"></textarea></dd>
                                 <dt><span class="redFont">*</span>时间</dt>
-                                <dd><input id="thesis_edit_year" class="eidtText" type="text" name="year"  ></dd>
+                                <dd><textarea id="thesis_edit_year" class="eidtText" name="year"></textarea></dd>
                                 <dt><span class="redFont">*</span>关键词</dt>
-                                <dd><input id="thesis_edit_keyword" class="eidtText" type="text" name="keyword"  ></dd>
+                                <dd><textarea id="thesis_edit_keyword" class="eidtText bigText" name="keyword"></textarea></dd>
                                 <dt><span class="redFont">*</span>论文摘要</dt>
-                                <dd><input id="thesis_edit_abstractContent" class="eidtText" type="text" name="abstract" ></dd>
+                                <dd><textarea id="thesis_edit_abstractContent" class="eidtText bigText" name="abstract" ></textarea></dd>
                                 <dt><span class="redFont">*</span>论文链接</dt>
-                                <dd><input id="thesis_edit_link" class="eidtText" type="text" name="link" ></dd>
+                                <dd><textarea id="thesis_edit_link" class="eidtText" name="link" ></textarea></dd>
                             </dl>
                             <input class="btn-danger middleBtn btn-lg" type="submit" value="确认修改">
                             <span class="error" id="thesis_edit_error">&nbsp;</span>

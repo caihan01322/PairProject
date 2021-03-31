@@ -52,10 +52,7 @@
 		<!-- 出错显示的信息框 -->
 		<div id="login_error">
 			<c:if test="${! empty error}" >
-				<strong>${error}</strong>
-				<button >
-					<span>x</span>
-				</button>
+				<div style="font-size: 16px; color: red; padding: 10px;">${error}</div>
 			</c:if>
 		</div>
 	</div>
