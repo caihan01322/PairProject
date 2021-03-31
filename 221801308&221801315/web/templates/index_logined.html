@@ -1,53 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
     <link rel="stylesheet" href="https://fonts.g.forms.cn/icon?family=Material+Icons">
-    <link rel="stylesheet" href={{url_for("static",filename="css/header.css")}}>
-    <link rel="stylesheet" href={{url_for("static",filename="css/index.css")}}>
+    <link rel="stylesheet" href={{url_for("static",filename="css/header.css" )}}>
+    <link rel="stylesheet" href={{url_for("static",filename="css/index.css" )}}>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <title>After login</title>
 </head>
+
 <body>
     <div class="container">
         <header>
             <nav class="navigater">
                 <div class="logo">
-                    <img src={{url_for("static",filename="images/favicon.png")}} alt="logo" class="image" />
+                    <img src={{url_for("static",filename="images/favicon.png" )}} alt="logo" class="image" />
                     <h3 class="title">iPaper</h3>
                 </div>
                 <ul class=" menu">
                     <li class="nav-item"><a href={{url_for("index")}} class="nav-href active">Home</a></li>
-                <li class="nav-item"><a href={{url_for("search_view")}} class="nav-href">Search</a></li>
-                <li class="nav-item"><a href={{url_for("contact_view")}} class="nav-href">Contact</a></li>
-                <li class="nav-item"> <a href={{url_for("logout")}} class="nav-href">Sign out</a></li>
+                    <li class="nav-item"><a href={{url_for("search_view")}} class="nav-href">Search</a></li>
+                    <li class="nav-item"><a href={{url_for("contact_view")}} class="nav-href">Contact</a></li>
+                    <li class="nav-item"> <a href={{url_for("logout")}} class="nav-href">Sign out</a></li>
                 </ul>
             </nav>
         </header>
         <main>
             <div class="main-left">
                 <h2>Welcom to this Website!</h2>
-                <p class="introduce">To provide a more simple, user-friendly way to login users, access to the field of computer vision from the world's three top conferences CVPR, ICCV, ECCV papers</p>
+                <p class="introduce">To provide a more simple, user-friendly way to login users, access to the field of
+                    computer vision from the world's three top conferences CVPR, ICCV, ECCV papers</p>
             </div>
             <div class="main-right">
-                <img src={{url_for("static",filename="images/right.png")}} alt="picture" class="main-picture"/>
+                <img src={{url_for("static",filename="images/right.png" )}} alt="picture" class="main-picture" />
             </div>
 
         </main>
     </div>
-    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <script>
-                  var messages = {{ messages | safe }};
-                  for (var i=0; i<messages.length; i++) {
-                    alert(messages[i]);
-                  }
-            </script>
+        var messages = {{ messages | safe }};
+        for (var i = 0; i < messages.length; i++) {
+            alert(messages[i]);
+        }
+    </script>
     {% endif %}
     {% endwith %}
 </body>
+
 </html>

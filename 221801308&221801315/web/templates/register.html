@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://fonts.g.forms.cn/icon?family=Material+Icons">
     <link rel="stylesheet" href={{url_for("static",filename="css/header.css" )}}>
     <link rel="stylesheet" href={{url_for("static",filename="css/login.css" )}}>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <title>Sign up</title>
 </head>
@@ -45,7 +46,6 @@
             </form>
         </main>
     </div>
-    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <script>
