@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     getInfo () {
-      this.$axios.post('http://localhost:8080/WordController/getHotWords')
+      this.$axios.post('http://localhost:8081/WordController/getHotWords')
         .then(res => {
           this.frequency = res.data.frequency
           this.hotWord = res.data.hotWord
@@ -43,6 +43,9 @@ export default {
         .finally({
         })
     }
+  },
+  mounted () {
+    this.getInfo()
   }
 }
 </script>

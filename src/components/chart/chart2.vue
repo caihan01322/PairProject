@@ -59,7 +59,7 @@ export default {
       this.chartLine.setOption(option)
     },
     getInfo () {
-      this.$axios.post('http://localhost:8080/WordController/getHotWords')
+      this.$axios.post('http://localhost:8081/WordController/getHotWords')
         .then(res => {
           this.data1 = res.data.frequency
           this.data2 = res.data.hotWord
@@ -75,8 +75,8 @@ export default {
   mounted () {
     // console.log('fdfdsfds')
     // this.$nextTick(this.drawLine())
-    // this.getInfo()
-    this.setdata()
+    this.getInfo()
+    // this.setdata()
   }
 }
 </script>

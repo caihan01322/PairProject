@@ -113,8 +113,8 @@ export default {
         number: item.number,
         abstract: item.abstract,
         link: item.link,
-        year: item.link,
-        keywork: item.keyword
+        year: item.year,
+        keyword: item.keyword
       })
         .then(res => {
           this.$Message.success('成功收藏')

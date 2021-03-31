@@ -76,7 +76,7 @@ export default {
       this.chartLine.setOption(option)
     },
     getInfo () {
-      this.$axios.post('http://localhost:8080/KeywordTrendController/getTrend', {
+      this.$axios.post('http://localhost:8081/KeywordTrendController/getTrend', {
         keyword: this.text
       })
         .then(res => {

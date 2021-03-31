@@ -209,6 +209,9 @@ export default {
   },
   components: {
     wordcloud
+  },
+  mounted () {
+    this.getWord()
   }
 }
 </script>

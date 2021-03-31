@@ -9,7 +9,7 @@
       </div>
       <div>
         <Input v-model="searchContent" placeholder="输入搜索内容" style="width: 500px; margin: 10px 10px" />
-        <Button type="primary" ghost style=" margin: 0 10px">本地搜索</Button>
+        <Button type="primary" ghost style=" margin: 0 10px" @click="searchBtn()">搜索</Button>
 <!--        <Button type="primary" ghost style=" margin: 0 10px">添加</Button>-->
       </div>
 
@@ -100,7 +100,7 @@ export default {
       }
     },
     search1 () {
-      this.$axios.post('http://localhost:80801/PaperOperationController/fuzzyQuery', {
+      this.$axios.post('http://localhost:8081/PaperOperationController/fuzzyQuery', {
         fuzzyTitle: this.searchContent
       })
         .then(res => {
