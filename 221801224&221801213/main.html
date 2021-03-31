@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="./main.css">
+    <title>论文查询系统</title>
+</head>
+
+<body>
+    <div id="wrap">
+
+        <div id="navBar">
+            <div class="logo">
+                logo
+            </div>
+            <button class="logOut" onclick="window.location.href = './login.html'">
+                退出
+            </button>
+        </div>
+
+        <div id="leftsideBar">
+            <button class="button" @click="toSearch">论文查询</button>
+            <!-- <button class="button">收藏列表</button> -->
+            <button class="button" @click="toAnalysis">分析统计</button>
+        </div>
+
+        <div v-cloak id="main" v-if="isSearch">
+            <div id="searchBar">
+                <input type="text" id="textSearch" placeholder="   请输入论文的相关信息" v-model="userInput" @keyup.enter="doSearching">
+                <button id="buttonSearch" @click="doSearching"><span>查询</span></button>
+            </div>
+            <div id="resultBar">
+                <div class="itemBar">
+                    <div v-cloak id="noResult" v-show="isShow2">
+                        没查到...
+                    </div>
+                    <div v-cloak class="resultItem" v-for="item in outputInfo">
+                        <div class="itemHeading">{{ item.title }}</div>
+                        <div class="itemContent">{{ item.abstract }}</div>
+                        <div class="itemOperation">
+                            <button class="keyWord">论文编号：{{ item.paper_id }}</button>
+                            <button class="keyWord">峰会：{{ item.magazine }}</button>
+                            <button class="keyWord">发行时间：{{ item.publication_year }}</button>
+                            <a :href="item.link" target="_blank">
+                                <div class="sourceLink">原文链接</div>
+                            </a>
+                            <div class="operation">修改论文</div>
+                            <div class="deleteArt" @click="deleteArticle(item.paper_id)">删除论文</div>
+                        </div>
+                    </div>
+                </div>
+                <div v-cloak id="pageBar" v-show="isShow">
+                    <button class="pageButtoun" id="prePage" @click="pageUp">上一页</button>
+                    <button class="pageButtoun" id="nextPage" @click="pageDown">下一页</button>
+                    <span class="pageCount">{{ pageNow }}/{{ pageNum }}</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <iframe v-cloak id="main" v-if="isAnalysis" src="./analysis.html"></iframe>
+
+        <div id="rightsideBar">
+            <div id="hotWordRank">
+                热词榜
+            </div>
+            <div v-cloak class="rank" v-for="item in hotWordArr" @click="doSearchingwithHotWord(item.keyword)">
+                {{ item.keyword }}
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- axios在线地址 -->
+    <script src="https:/unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- 引入 echarts.js -->
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+
+    <!--  -->
+    <script src="./main.js"></script>
+</body>
+
+</html>

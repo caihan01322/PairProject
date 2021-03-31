@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="./login.css">
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+</head>
+
+<body>
+    <div id="wrap">
+
+        <div id="main">
+            <div class="title">论 文 查 询 系 统</div>
+            <div class="username" @click="NClick">
+                <img>
+                <input type="text" id="inputText" placeholder="  请输入你的用户名" v-model="username">
+            </div>
+            <div class="password" @click="NClick">
+                <img>
+                <input type="password" id="inputText" placeholder="  请输入你的密码" v-model="password">
+            </div>
+            <div class="tips" v-show="tips">
+                错啦(admin admin)
+            </div>
+            <div class="enter">
+                <button class="button">注册</button>
+                <button class="button" @click="login">登录</button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- axios在线地址 -->
+    <script src="https:/unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!--  -->
+    <script src="./login.js"></script>
+</body>
+
+</html>
