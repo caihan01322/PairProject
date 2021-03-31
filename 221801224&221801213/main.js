@@ -5,7 +5,7 @@ var main = new Vue({
     data() {
         return {
             info: [], //存放接收的论文信息
-            outputInfo: [],
+            outputInfo: [], //存放接收的论文信息修改后用于渲染的论文信息
             hotWordArr: [], //存放接收的top10信息
             pageNum: 10,
             pageNow: 1,
@@ -49,6 +49,14 @@ var main = new Vue({
                             this.isShow2 = false;
                         }
                     })
+
+                // var that = this;
+                // axios.get('https://api.gugudata.com/news/joke/demo')
+                //     .then(function(response) {
+                //         console.log(response);
+
+                //     })
+                //     .catch(function(err) {})
 
             } else {
                 alert("？");

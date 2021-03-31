@@ -27,9 +27,10 @@ html {
 #navBar .logo {
     width: 100px;
     height: 50px;
-    border-style: solid;
-    border-color: rgb(252, 252, 252);
+    /* border-style: solid;
+    border-color: rgb(252, 252, 252); */
     margin: 3px;
+    margin-left: 10px;
     float: left;
     font-size: 40px;
 }
@@ -292,6 +293,10 @@ html {
     border-color: rgb(240, 232, 232);
     border-width: 0 0 1px 0;
     color: #FFFFFF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 17px;
     float: left;
 }
 

@@ -24,9 +24,9 @@
             <button class="button" @click="toAnalysis">分析统计</button>
         </div>
 
-        <div id="main" v-if="isSearch">
+        <div v-cloak id="main" v-if="isSearch">
             <div id="searchBar">
-                <input type="text" id="textSearch" placeholder="   请输入论文的相关信息" v-model="userInput">
+                <input type="text" id="textSearch" placeholder="   请输入论文的相关信息" v-model="userInput" @keyup.enter="doSearching">
                 <button id="buttonSearch" @click="doSearching"><span>查询</span></button>
             </div>
             <div id="resultBar">
@@ -35,12 +35,12 @@
                         没查到...
                     </div>
                     <div v-cloak class="resultItem" v-for="item in outputInfo">
-                        <div class="itemHeading">no.{{ item.paper_id }}: {{ item.title }}</div>
-                        <div class="itemContent">{{ item.summary }}</div>
+                        <div class="itemHeading">{{ item.title }}</div>
+                        <div class="itemContent">{{ item.abstract }}</div>
                         <div class="itemOperation">
-                            <button class="keyWord">关键词</button>
-                            <button class="keyWord">关键词2</button>
-                            <button class="keyWord">关键词3</button>
+                            <button class="keyWord">论文编号：{{ item.paper_id }}</button>
+                            <button class="keyWord">峰会：{{ item.magazine }}</button>
+                            <button class="keyWord">发行时间：{{ item.publication_year }}</button>
                             <a :href="item.link" target="_blank">
                                 <div class="sourceLink">原文链接</div>
                             </a>
@@ -59,14 +59,14 @@
 
         </div>
 
-        <iframe id="main" v-if="isAnalysis" src="./analysis.html"></iframe>
+        <iframe v-cloak id="main" v-if="isAnalysis" src="./analysis.html"></iframe>
 
         <div id="rightsideBar">
             <div id="hotWordRank">
                 热词榜
             </div>
-            <div v-cloak class="rank" v-for="item in hotWordArr" @click="doSearchingwithHotWord(item)">
-                {{ item }}
+            <div v-cloak class="rank" v-for="item in hotWordArr" @click="doSearchingwithHotWord(item.keyword)">
+                {{ item.keyword }}
             </div>
         </div>
 
