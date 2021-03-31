@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div id="search">
-      <input type="text" name="infoInput" id="info" v-model="content" placeholder="请输入要查询的论文题目、ID或关键词"/>
+      <input type="text" name="infoInput" id="info" v-model="keyword" placeholder="请输入要查询的论文题目、ID或关键词"/>
       <el-button type="primary" id="send" @click="getSearchInfo">查询</el-button>
     </div>
     <el-main>
@@ -33,12 +33,14 @@ export default {
     return {
      tableData: '',
      typeandyear:'',
-     selectedObj:''
+     keyword:''
     }
   },
   methods: {
     getSearchInfo () {
-      axios.get('../static/users.json').then((res) => {
+      axios.post('http://localhost:5000/search',
+      {keyword: this.keyword}).then((res) => {
+        console.log(this.keyword)
         this.tableData = res.data
         //console.log(this.tableData)
         this.splitTypeAndYear()
@@ -69,8 +71,9 @@ export default {
     }
   },
 
-  mounted() {
-    //初始返回全部论文,参数应该是1," "
+  created() {
+    this.keyword=JSON.parse(this.$route.query.keyword);
+    console.log(this.keyword)
     this.getSearchInfo()
   }
 }
