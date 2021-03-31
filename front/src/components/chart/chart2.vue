@@ -41,7 +41,7 @@ export default {
         legend: { // 设置区分（哪条线属于什么）
           y: 'bottom',
           x: 'center',
-          data: ['key1', 'key2', 'key3', 'key4', 'key5', 'key6', 'key7', 'key8', 'key9', 'key10']
+          data: this.data2
         },
         color: this.color, // 设置区分（每条线是什么颜色，和 legend 一一对应）
         series: [

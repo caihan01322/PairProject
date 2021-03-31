@@ -31,27 +31,6 @@
             <Button class="btn2" @click="collect(item)">收藏此文</Button>
           </div>
         </div>
-        <div class="resultItem">
-          <div class="resultTitle">Pictorial structures revisited: People detection and articulated pose estimation</div>
-          <div class="resultContent"><span>摘要内容：</span>Non-rigid object detection and articulated pose estimation are two related and
-            challenging problems in computer vision. Numerous models have been proposed over the years and often
-            address different special cases, such as pedestrian detection or upper body pose estimation in TV footage.
-            This paper shows that such specialization may not be necessary, and proposes a generic approach based on
-            the pictorial structures framework. We show that the right selection of components for both appearance and
-            spatial modeling is crucial for general applicability and overall performance of the model. The appearance
-            of body parts is modeled using densely sampled shape context descriptors and discriminatively trained AdaBoost
-            classifiers. Furthermore, we interpret the normalized margin of each classifier as likelihood in a generative
-            model. Non-Gaussian relationships between parts are represented as Gaussians in the coordinate system of the joint between parts.
-            The marginal posterior of each part is inferred using belief propagation. </div>
-          <div class="resultInfo">
-            <div class="resultLink"><div>原文地址</div></div>
-            <div class="resultTime">2009年X月X日</div>
-          </div>
-          <div class="resultOpt">
-            <Button class="btn1">阅读全文</Button>
-            <Button class="btn2">收藏此文</Button>
-          </div>
-        </div>
       </div>
       <div id="myPage">
         <Page :total="totle" :page-size="10" />

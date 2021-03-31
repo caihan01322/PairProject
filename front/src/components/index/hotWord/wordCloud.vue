@@ -44,10 +44,6 @@
             </wordcloud>
           </div>
         </CarouselItem>
-        <CarouselItem>
-          <div class="demo-carousel">
-          </div>
-        </CarouselItem>
       </Carousel>
     </div>
   </div>
