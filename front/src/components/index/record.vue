@@ -14,7 +14,7 @@
       </div>
 
     </div>
-    <div id="recordBody">
+    <div id="recordBody" v-show="searchResult.length !== 0">
       <div class="recordItem" v-for="(item,index) in searchResult" :key="index">
         <div class="recordTitle">{{item.title}}</div>
         <div class="recordCode"><span>论文编号：</span>{{item.number}}</div>
@@ -31,8 +31,8 @@
         </div>
       </div>
     </div>
-    <div id="myPage">
-      <Page :total="totle" :page-size="10" />
+    <div id="myPage" v-show="searchResult.length !== 0">
+      <Page :total="totle" :page-size="10" @on-change="change()" />
     </div>
     <div id="recordCover" v-show="showCover">
       <myadd v-show="coverType === 1"></myadd>
@@ -53,10 +53,11 @@ export default {
     return {
       searchType: '标题',
       searchContent: '',
-      totle: 100,
+      totle: 0,
       showCover: false,
       coverType: 1,
-      searchResult: []
+      searchResult: [],
+      showResult: []
     }
   },
   components: {
@@ -65,6 +66,11 @@ export default {
     myedit
   },
   methods: {
+    change (page) {
+      console.log(page)
+      const start = page * 10 - 10
+      this.showResult = this.searchResult.slice(start, page * 10)
+    },
     searchBtn () {
       if (this.searchType === '标题') {
         this.search1()
@@ -79,6 +85,7 @@ export default {
         .then(res => {
           this.searchResult = res.data.result
           this.totle = res.data.item_num
+          this.showResult = this.searchResult.slice(0, 10)
         })
         .catch(err => {
           console.log(err)
@@ -93,6 +100,7 @@ export default {
         .then(res => {
           this.searchResult = res.data.result
           this.totle = res.data.item_num
+          this.showResult = this.searchResult.slice(0, 10)
         })
         .catch(err => {
           console.log(err)

@@ -8,18 +8,18 @@
         <Input v-model="text" placeholder="输入搜索内容"></Input>
         <div id="searchBtn">
           <Button  class="bcColor1" @click="search()">检索</Button>
-          <Upload action="//jsonplaceholder.typicode.com/posts/">
-            <Button class="bcColor2" icon="ios-cloud-upload-outline">批量上传</Button>
-          </Upload>
+<!--          <Upload action="//jsonplaceholder.typicode.com/posts/">-->
+<!--            <Button class="bcColor2" icon="ios-cloud-upload-outline">批量上传</Button>-->
+<!--          </Upload>-->
         </div>
       </div>
     </div>
-    <div id="essayResult">
+    <div id="essayResult" v-show="searchResult.length !== 0">
       <div class="essayTitle">
         <div>检索结果</div>
       </div>
       <div id="Result">
-        <div class="resultItem" v-for="(item,index) in searchResult" :key="index">
+        <div class="resultItem" v-for="(item,index) in showResult" :key="index">
           <div class="resultTitle">{{item.title}}</div>
           <div class="resultContent"><span>摘要内容：</span>{{item.abstract}}</div>
           <div class="resultInfo">
@@ -33,7 +33,7 @@
         </div>
       </div>
       <div id="myPage">
-        <Page :total="totle" :page-size="10" />
+        <Page :total="totle" :page-size="10" @on-change="change()" />
       </div>
       <div class="resultTips" v-show="isSearch === 0">
         <div>无检索内容</div>
@@ -52,11 +52,17 @@ export default {
     return {
       text: '',
       isSearch: 1,
-      totle: 100,
-      searchResult: []
+      totle: 0,
+      searchResult: [],
+      showResult: []
     }
   },
   methods: {
+    change (page) {
+      console.log(page)
+      const start = page * 10 - 10
+      this.showResult = this.searchResult.slice(start, page * 10)
+    },
     search () {
       console.log('search' + this.text)
       this.$axios.post('http://localhost:8081/PaperOperationController/fuzzyQuery', {
@@ -65,6 +71,7 @@ export default {
         .then(res => {
           this.searchResult = res.data.result
           this.totle = res.data.item_num
+          this.showResult = this.searchResult.slice(0, 10)
         })
         .catch(err => {
           console.log(err)
@@ -79,6 +86,7 @@ export default {
         .then(res => {
           this.searchResult = res.data.result
           this.totle = res.data.item_num
+          this.showResult = this.searchResult.slice(0, 10)
         })
         .catch(err => {
           console.log(err)
