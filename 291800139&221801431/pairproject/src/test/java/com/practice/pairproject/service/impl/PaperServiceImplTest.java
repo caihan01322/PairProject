@@ -16,8 +16,8 @@ class PaperServiceImplTest {
     @Autowired
     private static KeywordServiceImpl keywordService;
 
-    @Test
-    void insertPaper() {
+
+   /* void insertPaper() {
 
         //PaperService ppp = new PaperServiceImpl();
 
@@ -30,18 +30,18 @@ class PaperServiceImplTest {
                 .year("2021")
                 .build();
 
-        /*Paper p = new Paper();
+        *//*Paper p = new Paper();
         p.setAbstractContent("摘要");
         p.setPublicDate("发布时间");
         p.setTitle("论文名称");
         p.setLink("原文链接");
         p.setMeeting("ECCV");
-        p.setYear("2021");*/
+        p.setYear("2021");*//*
         paperService.insertPaper(paper);
-        /*if(paperService.insertPaper(paper) >0 ){
+        *//*if(paperService.insertPaper(paper) >0 ){
             System.out.println("------插入论文成功【+" + "pid" + "+】: " + paper);
-        }*/
-    }
+        }*//*
+    }*/
 
     @Test
     void testInsertPaper() {

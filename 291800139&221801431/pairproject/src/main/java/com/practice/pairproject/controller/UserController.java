@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping({"/test"})
+@RequestMapping({"/user"})
 public class UserController {
 
     @Autowired
@@ -22,5 +22,15 @@ public class UserController {
         System.out.println("[GET]");
         User temp = userService.getUserInfo(Integer.parseInt(uid));
         return temp;
+    }
+
+    @RequestMapping(value = {"/login"})
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping(value = {"/register"})
+    public String register() {
+        return "register";
     }
 }

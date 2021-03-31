@@ -614,13 +614,6 @@
 
 
 </div>
-
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../static/bootstrap/js/bootstrap.min.js"></script>
-</body>
 <script type="text/javascript">
     function selectTOPKeywordEveryYear() {
         meetings = document.getElementsByName("meeting");
@@ -633,34 +626,34 @@
             }
         }
         alert("【meeting】：" + meeting)
-        /*  $.ajax({
-              url: encodeURI("/keyword/top/" + meeting),
-              type: "get",  //请求的方法
-              cache: false, //去除缓存
-              async: false,  //async:false同步。true异步方式
-              dataType: "json",  //指定响应得到的数据类型：【“list”必须严格为一个json数据！】
-              traditional: true,
-              data: {
-                  'years': $('#myears').val(),
-                  'topNum':  $('#topNum').val(),
-                  //"pids" : JSON.stringify(pids),
-              },
-              success: function (result) {
-                  if (result.code == 200) { //修改成功
-                      //layer.msg("修改成功");
-                      alert("查询成功");
-                      $('#chart2').class = 'nav-link active';
-                      $('#tab2').class = 'container tab-pane active';
+       /* $.ajax({
+            url: encodeURI("/keyword/top/" + meeting),
+            type: "get",  //请求的方法
+            cache: false, //去除缓存
+            async: false,  //async:false同步。true异步方式
+            dataType: "json",  //指定响应得到的数据类型：【“list”必须严格为一个json数据！】
+            traditional: true,
+            data: {
+                'years': $('#myears').val(),
+                'topNum':  $('#topNum').val(),
+                //"pids" : JSON.stringify(pids),
+            },
+            success: function (result) {
+                if (result.code == 200) { //修改成功
+                    //layer.msg("修改成功");
+                    alert("查询成功");
+                    $('#chart2').class = 'nav-link active';
+                    $('#tab2').class = 'container tab-pane active';
 
-                  } else {
-                      //layer.msg("修改失败");
-                      alert("查询失败");
-                  }
-              },
-              error: function () {
-                  alert(".......页面出错了.......");
-              }
-          });*/
+                } else {
+                    //layer.msg("修改失败");
+                    alert("查询失败");
+                }
+            },
+            error: function () {
+                alert(".......页面出错了.......");
+            }
+        });*/
 
         $.ajax({
             url: encodeURI("/keyword/top2/" + meeting),
@@ -753,6 +746,13 @@
         option && myChart.setOption(option);
     }
 </script>
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../static/bootstrap/js/bootstrap.min.js"></script>
+</body>
 
 <script>
     basePath = '[[${ #httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]';
