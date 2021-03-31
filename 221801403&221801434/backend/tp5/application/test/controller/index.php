@@ -151,6 +151,52 @@ public function see()
         return $this->fetch('statistic');
         
     }
+     //收藏接口
+     public function collect()
+     {
+         
+         $title = isset($_POST['title']) ? htmlspecialchars($_POST['title']) : '';
+         $abstract = isset($_POST['abstract']) ? htmlspecialchars($_POST['abstract']) : '';
+         $typeandyear = isset($_POST['typeandyear']) ? htmlspecialchars($_POST['typeandyear']) : '';
+         $keywords = isset($_POST['keywords']) ? htmlspecialchars($_POST['keywords']) : '';
+         $releasetime = isset($_POST['releasetime']) ? htmlspecialchars($_POST['releasetime']) : '';
+         $link = isset($_POST['link']) ? htmlspecialchars($_POST['link']) : '';
+         $da=[
+             'title'=>$title,
+             'abstract'=>$abstract,
+             'typeandyear'=>$typeandyear,
+             'keywords'=>$keywords,
+             'releasetime'=>$releasetime,
+             'link'=>$link,
+ 
+         ];
+         collection::insert($da);
+         return "收藏成功";
+ 
+     }
+     //返回收藏数据接口
+
+     public function returncollect()
+    {
+        
+        
+        $data=collection::select();
+        $this->assign('income', $data);
+        return $this->fetch('favorite');
+
+    }
+    
+
+    public function delecollect()
+    {
+        $link = isset($_POST['link']) ? htmlspecialchars($_POST['link']) : '';
+        //$url=isset($_POST['url']) ? htmlspecialchars($_POST['url']) : '';
+        collection::where('link',$link)->delete();
+        //return $data;
+        return '删除成功';
+
+    }
+
 
 
 
