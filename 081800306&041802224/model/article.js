@@ -11,6 +11,9 @@ class Article extends Model {
   static async getArticles(list, page) {
     let ids = [];
     for (let i = page * 5; i < page * 5 + 5; i++) {
+      if (i >= list.length) {
+        break
+      }
       ids.push(list[i].arcid);
     }
     return await Article.findAll({
@@ -32,6 +35,9 @@ class Article extends Model {
     })
     let articles = []
     for (let i = page * 5; i < page * 5 + 5; i++) {
+      if (i >= arr.length) {
+        break
+      }
       articles.push(arr[i]);
     }
     return articles
@@ -47,6 +53,9 @@ class Article extends Model {
     })
     let articles = []
     for (let i = page * 5; i < page * 5 + 5; i++) {
+      if (i >= arr.length) {
+        break
+      }
       articles.push(arr[i]);
     }
     return articles
@@ -62,6 +71,7 @@ class Article extends Model {
 
   static async getIdsByKey(key) {
     let ids = await keywords.getIdByKey(key);
+    console.log(ids);
     return ids;
   }
 

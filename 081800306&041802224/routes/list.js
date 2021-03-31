@@ -27,6 +27,12 @@ router.get('/getArticles', async (ctx) => {
   if (key && (kind == 1)) { // eslint-disable-line
     console.log(key);
     list = await Article.getIdsByKey(key);
+    if (!list) {
+      ctx.body = {
+        msg: '未找到该内容，请搜索其他的',
+        code: 1,
+      };
+    }
     articles = await Article.getArticles(list, page);
   }
   if (key && (kind == 0)) { // eslint-disable-line
