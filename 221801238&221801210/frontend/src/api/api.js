@@ -99,6 +99,13 @@ export class Favorites {
         })
     }
 
+    static deletePaper(favorite_id, paper_id) {
+        return axios.post('/favorites/deletePaper', {
+            favorite_id,
+            paper_id: Number(paper_id)
+        })
+    }
+
 }
 
 /**

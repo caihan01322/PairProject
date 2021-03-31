@@ -18,7 +18,7 @@
         <searchInput />
         <searchOption />
       </div>
-      <searhResultList mode="favorite" class="search_result_list"/>
+      <searhResultList mode="favorite" class="search_result_list" @deletePaper="deletePaper"/>
     </div>
   </div>
 </template>
@@ -32,14 +32,19 @@ export default {
   name: "index",
   data() {
     return {
-      favoriteList: []
+      favoriteList: [],
+      selectId: 0
     }
   },
   created() {
     this.initFavorite()
+    this.$store.state.paperList = []
   },
   methods: {
     selectFolder(index, id) {
+
+
+      this.selectId = id
 
       let elements = document.getElementsByClassName('favorite_list_item')
       for (let i = 0 ; i < this.favoriteList.length ; i ++){
@@ -69,6 +74,14 @@ export default {
     initFavorite() {
       this.$api.Favorites.getList().then(res => {
         this.favoriteList = res.data.data.favorites
+      })
+    },
+    deletePaper(paper_id) {
+      this.$api.Favorites.deletePaper(this.selectId, paper_id).then(res => {
+        this.$message.success('删除成功！')
+        this.$api.Favorites.getPaperList(this.selectId).then(res => {
+          this.$store.commit('setPaperList', res.data.data.paperlist )
+        })
       })
     }
   },
