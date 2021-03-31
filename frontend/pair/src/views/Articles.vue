@@ -55,7 +55,12 @@
       <el-table-column
         prop="articlenumber"
         label="论文编号"
-        width="120">
+        width="80">
+      </el-table-column>
+      <el-table-column
+        prop="doilink"
+        label="正文链接"
+        width="100">
       </el-table-column>
       <el-table-column
         prop="kwds"
@@ -65,7 +70,7 @@
       <el-table-column
         prop="abstract"
         label="摘要"
-        width="350">
+        width="280">
       </el-table-column>
       <el-table-column>
       <template slot-scope="scope">
@@ -157,36 +162,43 @@ export default {
       tableData: [{
         title: 'fhajsf',
         articlenumber: 'dsfajla',
+        doilink: 'fsafjnafjfda',
         kwds: 'fjalfhjalffa',
         abstract: 'uiorhtwetnwo'
       },{
         title: 'fhajsf',
         articlenumber: 'dsfajla',
+        doilink: 'fsafjnafjfda',
         kwds: 'fjalfhjalffa',
         abstract: 'uiorhtwetnwo'
       },{
         title: 'fhajsf',
         articlenumber: 'dsfajla',
+        doilink: 'fsafjnafjfda',
         kwds: 'fjalfhjalffa',
         abstract: 'uiorhtwetnwo'
       },{
         title: 'fhajsf',
         articlenumber: 'dsfajla',
+        doilink: 'fsafjnafjfda',
         kwds: 'fjalfhjalffa',
         abstract: 'uiorhtwetnwo'
       },{
         title: 'fhajsf',
         articlenumber: 'dsfajla',
+        doilink: 'fsafjnafjfda',
         kwds: 'fjalfhjalffa',
         abstract: 'uiorhtwetnwo'
       },{
         title: 'fhajsf',
         articlenumber: 'dsfajla',
+        doilink: 'fsafjnafjfda',
         kwds: 'fjalfhjalffa',
         abstract: 'uiorhtwetnwo'
       },{
         title: 'fhajsf',
         articlenumber: 'dsfajla',
+        doilink: 'fsafjnafjfda',
         kwds: 'fjalfhjalffa',
         abstract: 'uiorhtwetnwo'
       }],

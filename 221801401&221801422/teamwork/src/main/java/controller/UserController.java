@@ -17,13 +17,11 @@ public class UserController {
     }
     
     @RequestMapping(value = "/user/success")
-    public String success(String username, String password) {
+    @ResponseBody
+    public boolean success(String username, String password) {
         UserDao dao = new UserDao();
         dao.setConnection(DatabaseUtils.connectToUser());
         boolean temp = dao.judge(username, password);
-        if(temp) {
-            return "success";
-        }
-        else return "index";
+        return temp;
     }
 }
