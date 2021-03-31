@@ -54,7 +54,7 @@ export default {
     return {
       value: 0,
       myColors: ['#4699f1', '#cb2981', '#9eafb2', '#abe3b7', '#a73774'],
-      defaultWords: [
+      cvpr: [
         {
           name: 'Cat',
           value: 26
@@ -92,7 +92,45 @@ export default {
           value: 6
         }
       ],
-      defaultWords1: [
+      iccv: [
+        {
+          name: 'Cat',
+          value: 26
+        },
+        {
+          name: 'fish',
+          value: 19
+        },
+        {
+          name: 'things',
+          value: 18
+        },
+        {
+          name: 'look',
+          value: 16
+        },
+        {
+          name: 'two',
+          value: 15
+        },
+        {
+          name: 'fun',
+          value: 9
+        },
+        {
+          name: 'know',
+          value: 9
+        },
+        {
+          name: 'good',
+          value: 9
+        },
+        {
+          name: 'play',
+          value: 6
+        }
+      ],
+      eccv: [
         {
           name: 'Cat',
           value: 26
@@ -140,6 +178,19 @@ export default {
   methods: {
     wordClickHandler (name, value, vm) {
       console.log('wordClickHandler', name, value, vm)
+    },
+    getWord () {
+      this.$axios.post('http://localhost:8081/KeywordMapController/getWordMap')
+        .then(res => {
+          this.cvpr = res.data.cvpr
+          this.iccv = res.data.iccv
+          this.eccv = res.data.eccv
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        .finally({
+        })
     }
   },
   components: {

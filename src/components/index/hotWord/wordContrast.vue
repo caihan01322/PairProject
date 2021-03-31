@@ -3,7 +3,7 @@
     <div id="wordContrastTitle">
       <div>热词热度对比</div>
     </div>
-    <div>
+    <div id="chartBody">
       <chart2></chart2>
     </div>
   </div>
@@ -46,5 +46,9 @@ export default {
   }
   #wordContrastBody {
     margin: 10px 0;
+  }
+  #chartBody {
+    width: 90%;
+    height: 100%;
   }
 </style>

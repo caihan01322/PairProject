@@ -1,6 +1,6 @@
 <template>
   <div class="chart2">
-    <div id="myChart2" :style="{width: '500px', height: '300px'}"></div>
+    <div id="myChart2"></div>
   </div>
 </template>
 
@@ -44,15 +44,13 @@ export default {
           data: ['key1', 'key2', 'key3', 'key4', 'key5', 'key6', 'key7', 'key8', 'key9', 'key10']
         },
         color: this.color, // 设置区分（每条线是什么颜色，和 legend 一一对应）
-        xAxis: { // 设置x轴
-        },
-        yAxis: {
-        },
         series: [
           {
             name: '出现次数',
             data: this.datat,
             type: 'pie'
+            // radius: ['50%', '70%']
+            // center: ['50%', '50%']
           }
         ]
       }
@@ -74,5 +72,12 @@ export default {
 </script>
 
 <style scoped lang="less">
+  .chart2 {
+    width:100%;
+  }
+  #myChart2 {
+    width: 800px;
+    height: 600px;
+  }
 
 </style>

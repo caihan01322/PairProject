@@ -5,7 +5,7 @@
         <div>输入搜索内容</div>
       </div>
       <div class="essayForm">
-        <Input v-model="name" placeholder="输入搜索内容"></Input>
+        <Input v-model="text" placeholder="输入搜索内容"></Input>
         <div id="searchBtn">
           <Button  class="bcColor1" @click="search()">检索</Button>
           <Upload action="//jsonplaceholder.typicode.com/posts/">
@@ -19,25 +19,16 @@
         <div>检索结果</div>
       </div>
       <div id="Result">
-        <div class="resultItem">
-          <div class="resultTitle">Pictorial structures revisited: People detection and articulated pose estimation</div>
-          <div class="resultContent"><span>摘要内容：</span>Non-rigid object detection and articulated pose estimation are two related and
-            challenging problems in computer vision. Numerous models have been proposed over the years and often
-            address different special cases, such as pedestrian detection or upper body pose estimation in TV footage.
-            This paper shows that such specialization may not be necessary, and proposes a generic approach based on
-            the pictorial structures framework. We show that the right selection of components for both appearance and
-            spatial modeling is crucial for general applicability and overall performance of the model. The appearance
-            of body parts is modeled using densely sampled shape context descriptors and discriminatively trained AdaBoost
-            classifiers. Furthermore, we interpret the normalized margin of each classifier as likelihood in a generative
-            model. Non-Gaussian relationships between parts are represented as Gaussians in the coordinate system of the joint between parts.
-            The marginal posterior of each part is inferred using belief propagation. </div>
+        <div class="resultItem" v-for="(item,index) in searchResult" :key="index">
+          <div class="resultTitle">{{item.title}}</div>
+          <div class="resultContent"><span>摘要内容：</span>{{item.abstract}}</div>
           <div class="resultInfo">
-            <div resultLink><a href="#">原文地址</a></div>
-            <div resultTime>2009年X月X日</div>
+            <div class="resultLink"><div @click="copy(item.link)">复制原文地址</div></div>
+            <div class="resultTime">{{item.year}}</div>
           </div>
           <div class="resultOpt">
-            <Button class="btn1">阅读全文</Button>
-            <Button class="btn2">收藏此文</Button>
+            <Button class="btn1" @click="openLink(item.link)">阅读全文</Button>
+            <Button class="btn2" @click="collect(item)">收藏此文</Button>
           </div>
         </div>
         <div class="resultItem">
@@ -53,92 +44,8 @@
             model. Non-Gaussian relationships between parts are represented as Gaussians in the coordinate system of the joint between parts.
             The marginal posterior of each part is inferred using belief propagation. </div>
           <div class="resultInfo">
-            <div resultLink><a href="#">原文地址</a></div>
-            <div resultTime>2009年X月X日</div>
-          </div>
-          <div class="resultOpt">
-            <Button class="btn1">阅读全文</Button>
-            <Button class="btn2">收藏此文</Button>
-          </div>
-        </div>
-        <div class="resultItem">
-          <div class="resultTitle">Pictorial structures revisited: People detection and articulated pose estimation</div>
-          <div class="resultContent"><span>摘要内容：</span>Non-rigid object detection and articulated pose estimation are two related and
-            challenging problems in computer vision. Numerous models have been proposed over the years and often
-            address different special cases, such as pedestrian detection or upper body pose estimation in TV footage.
-            This paper shows that such specialization may not be necessary, and proposes a generic approach based on
-            the pictorial structures framework. We show that the right selection of components for both appearance and
-            spatial modeling is crucial for general applicability and overall performance of the model. The appearance
-            of body parts is modeled using densely sampled shape context descriptors and discriminatively trained AdaBoost
-            classifiers. Furthermore, we interpret the normalized margin of each classifier as likelihood in a generative
-            model. Non-Gaussian relationships between parts are represented as Gaussians in the coordinate system of the joint between parts.
-            The marginal posterior of each part is inferred using belief propagation. </div>
-          <div class="resultInfo">
-            <div resultLink><a href="#">原文地址</a></div>
-            <div resultTime>2009年X月X日</div>
-          </div>
-          <div class="resultOpt">
-            <Button class="btn1">阅读全文</Button>
-            <Button class="btn2">收藏此文</Button>
-          </div>
-        </div>
-        <div class="resultItem">
-          <div class="resultTitle">Pictorial structures revisited: People detection and articulated pose estimation</div>
-          <div class="resultContent"><span>摘要内容：</span>Non-rigid object detection and articulated pose estimation are two related and
-            challenging problems in computer vision. Numerous models have been proposed over the years and often
-            address different special cases, such as pedestrian detection or upper body pose estimation in TV footage.
-            This paper shows that such specialization may not be necessary, and proposes a generic approach based on
-            the pictorial structures framework. We show that the right selection of components for both appearance and
-            spatial modeling is crucial for general applicability and overall performance of the model. The appearance
-            of body parts is modeled using densely sampled shape context descriptors and discriminatively trained AdaBoost
-            classifiers. Furthermore, we interpret the normalized margin of each classifier as likelihood in a generative
-            model. Non-Gaussian relationships between parts are represented as Gaussians in the coordinate system of the joint between parts.
-            The marginal posterior of each part is inferred using belief propagation. </div>
-          <div class="resultInfo">
-            <div resultLink><a href="#">原文地址</a></div>
-            <div resultTime>2009年X月X日</div>
-          </div>
-          <div class="resultOpt">
-            <Button class="btn1">阅读全文</Button>
-            <Button class="btn2">收藏此文</Button>
-          </div>
-        </div>
-        <div class="resultItem">
-          <div class="resultTitle">Pictorial structures revisited: People detection and articulated pose estimation</div>
-          <div class="resultContent"><span>摘要内容：</span>Non-rigid object detection and articulated pose estimation are two related and
-            challenging problems in computer vision. Numerous models have been proposed over the years and often
-            address different special cases, such as pedestrian detection or upper body pose estimation in TV footage.
-            This paper shows that such specialization may not be necessary, and proposes a generic approach based on
-            the pictorial structures framework. We show that the right selection of components for both appearance and
-            spatial modeling is crucial for general applicability and overall performance of the model. The appearance
-            of body parts is modeled using densely sampled shape context descriptors and discriminatively trained AdaBoost
-            classifiers. Furthermore, we interpret the normalized margin of each classifier as likelihood in a generative
-            model. Non-Gaussian relationships between parts are represented as Gaussians in the coordinate system of the joint between parts.
-            The marginal posterior of each part is inferred using belief propagation. </div>
-          <div class="resultInfo">
-            <div resultLink><a href="#">原文地址</a></div>
-            <div resultTime>2009年X月X日</div>
-          </div>
-          <div class="resultOpt">
-            <Button class="btn1">阅读全文</Button>
-            <Button class="btn2">收藏此文</Button>
-          </div>
-        </div>
-        <div class="resultItem">
-          <div class="resultTitle">Pictorial structures revisited: People detection and articulated pose estimation</div>
-          <div class="resultContent"><span>摘要内容：</span>Non-rigid object detection and articulated pose estimation are two related and
-            challenging problems in computer vision. Numerous models have been proposed over the years and often
-            address different special cases, such as pedestrian detection or upper body pose estimation in TV footage.
-            This paper shows that such specialization may not be necessary, and proposes a generic approach based on
-            the pictorial structures framework. We show that the right selection of components for both appearance and
-            spatial modeling is crucial for general applicability and overall performance of the model. The appearance
-            of body parts is modeled using densely sampled shape context descriptors and discriminatively trained AdaBoost
-            classifiers. Furthermore, we interpret the normalized margin of each classifier as likelihood in a generative
-            model. Non-Gaussian relationships between parts are represented as Gaussians in the coordinate system of the joint between parts.
-            The marginal posterior of each part is inferred using belief propagation. </div>
-          <div class="resultInfo">
-            <div resultLink><a href="#">原文地址</a></div>
-            <div resultTime>2009年X月X日</div>
+            <div class="resultLink"><div>原文地址</div></div>
+            <div class="resultTime">2009年X月X日</div>
           </div>
           <div class="resultOpt">
             <Button class="btn1">阅读全文</Button>
@@ -161,14 +68,61 @@ export default {
   name: 'search',
   data () {
     return {
-      name: '',
+      text: '',
       isSearch: 1,
-      totle: 100
+      totle: 100,
+      searchResult: []
     }
   },
   methods: {
     search () {
-      console.log('search')
+      console.log('search' + this.text)
+      this.$axios.post('http://localhost:80801/PaperOperationController/fuzzyQuery', {
+        fuzzyTitle: this.text
+      })
+        .then(res => {
+          this.searchResult = res.data.result
+          this.totle = res.data.item_num
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        .finally({
+        })
+    },
+    collect (item) {
+      this.$axios.post('http://localhost:8081/PaperOperationController/collectPaper', {
+        title: item.title,
+        number: item.number,
+        abstract: item.abstract,
+        link: item.link,
+        year: item.link,
+        keywork: item.keyword
+      })
+        .then(res => {
+          this.$Message.success('成功收藏')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        .finally({
+        })
+    },
+    openLink (href) {
+      window.open(href, '_blank')
+    },
+    copy (text) {
+      const transfer = document.createElement('input')
+      document.body.appendChild(transfer)
+      transfer.value = text // 这里表示想要复制的内容
+      transfer.focus()
+      transfer.select()
+      if (document.execCommand('copy')) {
+        document.execCommand('copy')
+      }
+      transfer.blur()
+      this.$Message.info('复制成功')
+      document.body.removeChild(transfer)
     }
   }
 }
@@ -361,6 +315,15 @@ export default {
         background-color: rgba(255, 211, 159, 0.91);
         border-color: rgba(255, 211, 159, 0.91);
         color: white;
+      }
+    }
+    .resultLink {
+      >div{
+        color: #4dcfcf;
+        cursor: pointer;
+      }
+      >div:hover {
+        color: rgba(15, 190, 152, 0.97);
       }
     }
   }
