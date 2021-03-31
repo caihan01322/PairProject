@@ -44,8 +44,9 @@ body {
     height: 60px;
     float: right;
     line-height: 60px;
-    text-align: center;
+    text-align: right;
     font-size: 17px;
+    padding-right: 30px;
 }
 #nav li {
     list-style: none;

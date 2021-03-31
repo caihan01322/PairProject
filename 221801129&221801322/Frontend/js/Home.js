@@ -25,28 +25,27 @@ $(function () {
     $("#loginBtn").click(function(){
         if($("user").val() == ""){
             alert("请输入用户名");
-        }
-        else if($("pw").val() == ""){
+        } else if($("pw").val() == ""){
             alert("请输入密码");
         } else {
             var info = {
                 phonenumber: user.value,
                 password: pw.value
             };
-            var urlStr = " https://mock.mengxuegu.com/mock/60606976f2e38f3a2f6b9c4a/Home";
+            //var urlStr = "https://mock.mengxuegu.com/mock/60634842f2e38f3a2f6ba3ec/example_copy/login";
+            var urlStr = "http://127.0.0.1:8000/login";
             PostHandle(urlStr, JSON.stringify(info), function(data){
-                if(data.code == 1){
-                    alert(data.message);
+                if(data.code == 200){
                     $("#mark").css("display","block");
-                    $("#status").text(data.userName);
+                    $("#status").text(data.data.username);
                     $("#status").css("pointer-events","none");
                     $("#status").css("cursor","none");
-                    localStorage.setItem("username",data.userName);
+                    localStorage.setItem("username",data.data.username);
                     $("#searchBox input").removeAttr("disabled");
                     $("#login").fadeOut("slow");
-                    localStorage.setItem("uid",data.uid);
-                } else if(data.code == 0){
-                    alert(data.message);
+                    localStorage.setItem("uid",data.data.id);
+                } else {
+                    alert(data.code + " " + data.message);
                 }
             });
         }

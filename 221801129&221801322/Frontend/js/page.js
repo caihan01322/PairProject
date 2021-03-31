@@ -15,27 +15,28 @@ var pageBar = new Vue({
                 this.cur = data;
             }
             console.log(this.cur+'页');
-            var urlStr = "/list";
+            //var urlStr = "https://mock.mengxuegu.com/mock/60634842f2e38f3a2f6ba3ec/example_copy/list";
+            var urlStr = "http://127.0.0.1:8000/list";
             var searchVal = {
                 pagenum: this.cur,
                 type: 1,
                 searchval: localStorage.getItem("searchVal")
             };
-            PostHandle(urlStr, JSON.stringify(searchVal), function(data){
-                //论文列表展示
-            });
+            showList(urlStr,searchVal);
         },
         pageClick: function(){
             console.log('现在在'+this.cur+'页');
-            var urlStr = "/list";
+            //var urlStr = "https://mock.mengxuegu.com/mock/60634842f2e38f3a2f6ba3ec/example_copy/list";
+            var urlStr = "http://127.0.0.1:8000/list";
             var searchVal = {
                 pagenum: this.cur,
                 type: 1,
                 searchval: localStorage.getItem("searchVal")
             };
-            PostHandle(urlStr, JSON.stringify(searchVal), function(data){
-                //论文列表展示
-            });
+            showList(urlStr,searchVal);
+        },
+        test: function(index){
+            return "course"+index;
         }
     },
     computed: {

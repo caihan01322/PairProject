@@ -5,32 +5,45 @@ $(function () {
     $("#status").css("cursor","none");
     $("#searchBox input").removeAttr("disabled");
 
-    var urlStr = "/list";
+    //var urlStr = "https://mock.mengxuegu.com/mock/60634842f2e38f3a2f6ba3ec/example_copy/list";
+    var urlStr = "http://127.0.0.1:8000/list";
     var searchVal = {
         pagenum: 1,
         type: 1,
         searchval: localStorage.getItem("searchVal")
     };
-    PostHandle(urlStr, JSON.stringify(searchVal), function(data){
-        var totalPage;
-        localStorage.setItem("totalPage",totalPage);
-        //论文列表展示
-    });
+    showList(urlStr,searchVal);
 
-    var urlStr = "/trend";
-    var trendVal = {
-        type:"trend"
-    };
-    PostHandle(urlStr, JSON.stringify(trendVal), function(data){
-        //趋势图与展示
-    });
-
-    var urlStr = "/rank";
+    //var urlStr = "https://mock.mengxuegu.com/mock/60634842f2e38f3a2f6ba3ec/example_copy/rank";
+    var urlStr = "http://127.0.0.1:8000/rank";
     var rankVal = {
         type:"rank"
     };
     PostHandle(urlStr, JSON.stringify(rankVal), function(data){
-        //排名展示
+        if(data.code == 200){
+            var topList = data.data.top_list;
+            var topRanks = [];
+            for(var i = 0 ; i < 10 ; i++){
+                topRanks[i] = {
+                    name: topList[i].name,
+                    count: topList[i].count,
+                    index: i+1
+                };
+            }
+            var app = new Vue({
+                el: '#rank',
+                data: {
+                    topRanks: topRanks,
+                },
+                methods: {
+                    num: function(index){
+                        return "num" + index;
+                    }
+                }
+            });
+        } else {
+            alert(data.code + " " + data.message);
+        }
     });
 
     $("#trend_nav div").click(function(){
@@ -51,26 +64,27 @@ $(function () {
     $("#searchPaper").on('keypress',function(event){
         if(event.keyCode == 13){
             console.log($("#search option:selected").val());
-            var urlStr = "/list";
+            //var urlStr = "https://mock.mengxuegu.com/mock/60634842f2e38f3a2f6ba3ec/example_copy/list";
+            var urlStr = "http://127.0.0.1:8000/list";
             var searchVal = {
                 pagenum: 1,
                 type: $("#search option:selected").val(),
-                searchval: localStorage.getItem("searchVal")
+                searchval: $("#searchBox input").val()
             };
-            GetHandle(urlStr, searchVal, function(data){
-                //论文列表展示
-            });
+            showList(urlStr,searchVal);
         }
     })
 
     $(".name").click(function(){
-        var urlStr = "/list";
+        //var urlStr = "https://mock.mengxuegu.com/mock/60634842f2e38f3a2f6ba3ec/example_copy/list";
+        var urlStr = "http://127.0.0.1:8000/list";
         var searchVal = {
-            searchVal:$(this).text()
+            pagenum: 1,
+            type: 1,
+            searchval: $(this).text()
         };
-        GetHandle(urlStr, JSON.stringify(searchVal), function(data){
-            //论文列表展示
-        });
+        console.log($(this).text());
+        showList(urlStr,searchVal);
     })
 
     $(".markSvg").click(function(){
