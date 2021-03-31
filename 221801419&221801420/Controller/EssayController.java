@@ -153,4 +153,13 @@ public class EssayController {
 
         return titles;
     }
+    
+    @RequestMapping("/selectCheck")
+    @ResponseBody
+    public boolean selectCheck(String username,String essayName,String essayMeeting) {
+        
+        
+        
+        return essayService.selectCheck(username, essayMeeting, essayName);
+    }
 }

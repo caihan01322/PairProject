@@ -117,4 +117,28 @@ public class EssayService {
        return essays;
    }
    
+   //论文收藏检查
+   public static boolean selectCheck(String username,String essayMeeting,String essayName) {
+       int index=0;
+       boolean flag =false;
+       switch (essayMeeting) {
+           case "cvpr":
+               index = e.selectCheckCVPR(essayName, username);
+               break;
+           case "eccv":
+               index=e.selectCheckECCV(essayName, username);
+               break;
+           case "iccv":
+               index=e.selectCheckICCV(essayName, username);
+               break;
+           default:
+               index=0;
+               break;
+       }
+       if (index != 0) {
+           flag = true;
+       }
+       return flag;
+   }
+   
 }
