@@ -4,6 +4,7 @@ $(function(){
         $(".editCard").css("display","none")
         $(".deleteCard").css("display","none")
         $("td button").css("cursor","pointer")
+        window.location.reload();
         document.getElementById("thesis_edit_error").innerHTML="";
     })
 })
@@ -35,7 +36,7 @@ function DeleteCard(btn){
     /*$(".deleteCard").css("display","block")
     $("td button").css("cursor","not-allowed")*/
     var id = $(btn).parent().prev().prev().prev().prev().prev().prev().prev().html()
-    if (confirm("真的要删除它吗"))
+    if (confirm("Are you sure you want to delete it?"))
         sendDeleteRequest(id);
 }
 
@@ -70,7 +71,7 @@ function editThesis(form) {
             "async": false,
             "dataType": "json",
             "success": function(json) {
-                confirm(json.list);
+                confirm("Edited successfully");
             }
         });
     }
@@ -84,42 +85,42 @@ function _checkThesis(form, error) {
     var title = form.title;
     var titleValue = title.value.trim();
     if(titleValue == "") {
-        error.innerHTML = "请输入论文题目";
+        title.style.border = "1px solid red";
         title.focus();
         return new CheckResult(false);
     }
     var meet = form.meet;
     var meetValue = meet.value.trim();
     if(meetValue == "") {
-        error.innerHTML = "请输入论文来源";
+        meet.style.border = "1px solid red";
         meet.focus();
         return new CheckResult(false);
     }
     var year = form.year;
     var yearValue = year.value.trim();
     if(yearValue == "") {
-        error.innerHTML = "请输入论文年份";
+        yeartitle.style.border = "1px solid red";
         year.focus();
         return new CheckResult(false);
     }
     var keyword = form.keyword;
     var keywordValue = keyword.value.trim();
     if(keywordValue == "") {
-        error.innerHTML = "请输入论文关键词";
+        keywordtitle.style.border = "1px solid red";
         keyword.focus();
         return new CheckResult(false);
     }
     var abstract = form.abstract;
     var abstractValue = abstract.value.trim();
     if(abstractValue == "") {
-        error.innerHTML = "请输入论文摘要";
+        abstracttitle.style.border = "1px solid red";
         abstract.focus();
         return new CheckResult(false);
     }
     var link = form.link;
     var linkValue = link.value.trim();
     if(linkValue == "") {
-        error.innerHTML = "请输入论文原文链接";
+        linktitle.style.border = "1px solid red";
         link.focus();
         return new CheckResult(false);
     }
