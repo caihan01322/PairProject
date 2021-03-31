@@ -1,0 +1,26 @@
+.search{
+    position:absolute;
+    width: 500px;
+    margin: 0 auto;
+    left: 40%;
+    top: 50%;
+}
+
+.drop{
+    position: absolute;
+    left: 35%;
+    top: 50%;
+}
+
+.carousel{
+    position: absolute;
+    left: 40.5%;
+    top: 20%;
+}
+
+.history{
+    position: absolute;
+    left: 35%;
+    top: 70%;
+    width: 580px;
+}
