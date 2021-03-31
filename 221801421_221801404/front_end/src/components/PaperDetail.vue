@@ -40,9 +40,7 @@ export default {
   },
   methods: {
     getObj:function(){
-      //console.log(this.$route.query.selectedObj)
       this.selectedObj=JSON.parse(this.$route.query.selectedObj);
-      //console.log(this.selectedObj)
     },
     goBack:function(){
       this.$router.go(-1)

@@ -40,13 +40,12 @@ export default {
     getSearchInfo () {
       axios.post('http://localhost:5000/search',
       {keyword: this.keyword}).then((res) => {
-        console.log(this.keyword)
         this.tableData = res.data
-        //console.log(this.tableData)
         this.splitTypeAndYear()
       })
     },
 
+    //数据库的字段是typeandyear，所以这里要分隔一下
     splitTypeAndYear(){
       for (var i = 0; i < this.tableData.length; i++) {
         this.typeandyear=this.tableData[i].typeandyear
@@ -77,10 +76,8 @@ export default {
     this.getSearchInfo()
   }
 }
-
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1, h2 {
   font-weight: normal;

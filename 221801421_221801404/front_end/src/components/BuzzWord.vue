@@ -67,30 +67,19 @@ methods: {
     })
   },
   getChartInfo () {
-    //这里需要字符串拼接
     axios.get('http://localhost:5000/chartInfo').then((res) => {
-      //console.log(res.data.length)
       for(var i=0;i<res.data.length;i++){
-        //console.log(res.data[i])
         this.chartData = res.data[i]
         this.draw(this.TYPE[i])
       }
-      //this.chartData = res.data
-      //this.draw(type)
     })
   },
   getyears(){
-    //log(this.chartData)
-    /*let arrnew = this.chartData.map((item,index) => {
-        return Object.assign({},{'year':item.year})
-    })*/
     let arrnew = [];
     this.chartData.forEach(e => {
         arrnew.push(e.year)
     })
-    //console.log(arrnew)
     return arrnew
-
   },
   getCount(){
     let arrnew = this.chartData.map((item,index) => {
@@ -101,16 +90,10 @@ methods: {
   searchKeyword(row, column, event){
     this.selectedObj=row
     let str=JSON.stringify(this.selectedObj.keyword)
-    console.log(str)
     this.$router.push({path:'/',query:{keyword:str}})
   },
   draw(type){
-    //console.log(document.getElementById('myChart'))
-    // 实例化echarts对象
     this.myChart = echarts.init(document.getElementById(type))
-
-    //console.log(this.myChart)
-    // 绘制条形图
     let option = null
     option = {
         title: {
@@ -161,7 +144,6 @@ methods: {
         ]
     }
     this.myChart.setOption(option)
-    //console.log(this.myChart)
   }
 },
 
@@ -181,21 +163,12 @@ mounted() {
   font-weight:bold;
   color:#607D8B;
 }
-.charts{
-  float: left;
-  width: 100%;
-  height: 800px;
-}
+
 .chart{
   width: 500px;
   height: 300px;
   background-color: #0000FF;
   float: left;
-}
-.rank{
-  float: left;
-  width: 300px;
-  height: 800px;
 }
 
 .el-row {
@@ -206,15 +179,7 @@ mounted() {
 .el-col {
   border-radius: 4px;
 }
-.bg-purple-dark {
-  background: #99a9bf;
-}
-.bg-purple {
-  background: #d3dce6;
-}
-.bg-purple-light {
-  background: #e5e9f2;
-}
+
 .grid-chart {
   border-radius: 4px;
   min-height: 400px;
@@ -222,10 +187,6 @@ mounted() {
 
 .grid-table{
     min-height: 800px;
-}
-.row-bg {
-  padding: 10px 0;
-  background-color: #f9fafc;
 }
 
 .myChart {
