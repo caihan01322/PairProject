@@ -1,11 +1,14 @@
 <template>
   <div class="paper_contianer">
     <div v-for="paper in paperList" class="paper_info">
-      <div class="cover"/>
       <div class="paper_detail">
-        <p>{{ paper.title  }}</p>
+        <p class="paper_title">{{ paper.title  }}</p>
         <p>{{ '作者：' + paper.author }}</p>
-        <p>{{ '关键词：' + paper.keywords }}</p>
+        <div>
+          <p>关键词：</p>
+          <el-tag v-for="word in paper.keywords">{{ word }}</el-tag>
+        </div>
+
         <p>{{ '摘要：' + paper.abstract }}</p>
         <p>{{ '原文链接：' + paper.url }}</p>
       </div>
@@ -25,22 +28,16 @@ export default {
   },
   data() {
     return {
-      paperList: [],
       collection: []
     }
   },
-  mounted() {
-    for (let i = 0; i < 5; i++) {
-      this.paperList.push({
-        id: i,
-        title: '论文标题xxxxxxxxxxxxxxxxx',
-        author: 'xxxxxxx',
-        keywords: 'xxxxxxx',
-        abstract: 'xxxxxxx',
-        url: 'xxxxxxx'
-      })
+  created() {
+    console.log(this.$store.state.paperList)
+  },
+  computed: {
+    paperList() {
+      return this.$store.state.paperList
     }
-
   }
 }
 </script>
@@ -59,15 +56,12 @@ export default {
   position: relative;
   width: 850px;
 
-
-  .cover {
-    width: 171px;
-    height: 222px;
-    border: 1px solid black;
-  }
-
   .paper_detail {
     margin-left: 25px;
+
+    .paper_title {
+      font-size: 26px;
+    }
 
     p {
       color: rgba(16, 16, 16, 100);
@@ -83,4 +77,6 @@ export default {
   }
 
 }
+
+
 </style>

@@ -1,5 +1,8 @@
 <template>
-  <div class="full_height" style="width: 100%">
+  <div class="full_height" style="width: 100%" v-loading="loading"
+       :element-loading-text="LoadingText"
+       element-loading-spinner="el-icon-loading"
+       element-loading-background="rgba(0, 0, 0, 0.8)">
     <div class="top_bar_contianer">
       <!--登录按钮-->
       <el-button class="login_button"  @click="openLoginDialog()">登录</el-button>
@@ -8,7 +11,7 @@
     <el-row align="middle" justify="center" type="flex" class="full_height middle">
       <p class="title">论文直达</p>
       <el-row class="full_width" align="middle" justify="center" type="flex">
-        <searchInput @searchEvent="searchKeyword($event)" />
+        <searchInput @searchEvent="searchKeyword" />
       </el-row>
       <div class="batch_input_button">
         <i class="el-icon-upload2 icon" />
@@ -84,7 +87,10 @@ export default {
         email: '',
         password: '',
         confirmPassword: ''
-      }
+      },
+      loading: false,
+      currentFindNums: 0,
+      LoadingText: ''
     }
   },
   methods: {
@@ -112,7 +118,25 @@ export default {
         this.$message.error('注册失败')
       })
     },
-    keyword() {
+    searchKeyword(keyword) {
+      this.loading = true
+      let checkProcessTask
+
+
+      this.$api.Paper.getList(keyword).then(res => {
+        this.loading = false
+        clearInterval(checkProcessTask)
+        this.$store.commit('setPaperList', res.data.data.paperList)
+        this.$router.push('/search')
+      })
+
+      checkProcessTask = setInterval(() => {
+        this.$api.Paper.getProcess().then(res => {
+          this.currentFindNums = res.data.data.currentFindNums
+          this.LoadingText = `已经为您搜索到${this.currentFindNums}条记录，请稍等`
+        })
+      }, 500)
+
 
     }
   }

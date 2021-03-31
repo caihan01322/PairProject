@@ -9,7 +9,8 @@ export default new Vuex.Store({
       name: '',
       email: '',
       token: ''
-    }
+    },
+    paperList: []
   },
   mutations: {
     setUserData(state,payload) {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     getUserData(state) {
       let user = JSON.parse(localStorage.getItem('user'))
       state.user = user || {}
+    },
+    setPaperList(state,payload) {
+      state.paperList = payload
     }
   },
   actions: {

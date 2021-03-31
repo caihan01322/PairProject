@@ -6,8 +6,8 @@
       </div>
     </div>
     <div class="search_input_contianer" >
-      <input type="text" class="input_area" placeholder="请输入关键词"/>
-      <i class="el-icon-search icon" @click="$emit('searchEvent', keyword)"/>
+      <input type="text" class="input_area" v-model="keyword" placeholder="请输入关键词"/>
+      <i class="el-icon-search icon" @click="search()"/>
     </div>
   </el-row>
 </template>
@@ -18,6 +18,11 @@ export default {
   data() {
     return {
       keyword: ''
+    }
+  },
+  methods: {
+    search() {
+      this.$emit('searchEvent', this.keyword)
     }
   }
 }
