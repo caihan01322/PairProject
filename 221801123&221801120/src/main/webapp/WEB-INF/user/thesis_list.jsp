@@ -149,4 +149,5 @@
 <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <script src="<%=basePath%>script/thesis_list.js"></script>
+<script src="<%=basePath%>script/tips.js"></script>
 </html>

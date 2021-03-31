@@ -55,6 +55,11 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 		return jdbcTemplate.queryForObject(sql, clazz);
 	}
 
+	@Override
+	public int[] batchUpdate(String... sqls) {
+		return jdbcTemplate.batchUpdate(sqls);
+	}
+
 	public PageBean<T> pageSearch(int pageCode, int pageSize, int pageNumber,
 								  String where, List<Object> params, HashMap<String, String> orderbys) {
 

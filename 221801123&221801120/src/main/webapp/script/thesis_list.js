@@ -31,12 +31,17 @@ function EditCard(btn){
     $("#thesis_edit_id").val($linkTd.prev().prev().prev().prev().prev().prev().html());
 }
 function DeleteCard(btn){
-    $(".deleteCard").css("display","block")
-    $("td button").css("cursor","not-allowed")
+    /*$(".deleteCard").css("display","block")
+    $("td button").css("cursor","not-allowed")*/
     var id = $(btn).parent().prev().prev().prev().prev().prev().prev().prev().html()
-    sendDeleteRequest(id);
+    if (confirm("真的要删除它吗"))
+        sendDeleteRequest(id);
 }
 
+/**
+ * [[发送删除请求]]
+ * @param {[[String]]} [[请求参数]]
+ */
 function sendDeleteRequest(id) {
     $.ajax({
         "url" : "user/thesis/delete/" + id,
@@ -58,7 +63,7 @@ function editThesis(form) {
     var result = _checkThesis(form, error);
     if(result.result) {
         $.ajax({
-            "url": "admin/teacher/edit",
+            "url": "user/thesis/edit",
             "data": "id=" + result.id + "&name=" + result.name,
             "async": false,
             "dataType": "json",

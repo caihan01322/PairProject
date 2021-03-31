@@ -1,7 +1,12 @@
 package com.pair.util;
 
 
+import com.pair.util.json.JSON;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -77,5 +82,55 @@ public abstract class DataUtil {
 		}
 		Matcher matcher = pattern.matcher(num);
 		return matcher.matches();
+	}
+
+	/**
+	 * 向客户端发送json格式数据
+	 * @param useJSONStyle true --返回类型为application/json;charset=utf-8
+	 * 否则 text/html
+	 * 为了解决json格式跨域无法传送的问题
+	 */
+	public static void writeJSON(JSON json, HttpServletResponse response, boolean useJSONStyle) {
+		if(response == null) {
+			throw new NullPointerException("response为空");
+		}
+		PrintWriter out = null;
+		try {
+			response.setContentType(useJSONStyle ? "application/json;charset=utf-8" : "text/html;charset=utf-8");
+			out = response.getWriter();
+			out.write(json.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			if(out != null) {
+				out.close();
+			}
+		}
+	}
+
+	public static void writeJSON(cn.hutool.json.JSONObject json, HttpServletResponse response, boolean useJSONStyle) {
+		if(response == null) {
+			throw new NullPointerException("response为空");
+		}
+		PrintWriter out = null;
+		try {
+			response.setContentType(useJSONStyle ? "application/json;charset=utf-8" : "text/html;charset=utf-8");
+			out = response.getWriter();
+			out.write(json.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			if(out != null) {
+				out.close();
+			}
+		}
+	}
+
+	public static void writeJSON(JSON json, HttpServletResponse response) {
+		writeJSON(json, response, true);
+	}
+
+	public static void writeJSON(cn.hutool.json.JSONObject json, HttpServletResponse response) {
+		writeJSON(json, response, true);
 	}
 }

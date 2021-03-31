@@ -46,6 +46,12 @@ public interface BaseDao<T> {
 	Object queryForObject(String sql, Class<?> clazz);
 
 	/**
+	 * 批量更新
+	 * @param sqls sql数组
+	 */
+	public int[] batchUpdate(String...sqls);
+
+	/**
 	 * 分页查询
 	 * @param pageCode 需要查询的页码
 	 * @param pageSize 每页的大小

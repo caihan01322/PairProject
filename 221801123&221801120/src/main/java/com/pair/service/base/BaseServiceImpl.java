@@ -16,6 +16,10 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	 */
 	protected abstract void setBaseDao(BaseDao<T> baseDao);
 
+	public void delete(Object id) {
+		throw new UnsupportedOperationException();
+	}
+
 	public PageBean<T> pageSearch(int pageCode, int pageSize, int pageNumber,
 								  String where, List<Object> params, HashMap<String, String> orderbys) {
 		return baseDao.pageSearch(pageCode, pageSize, pageNumber, where, params, orderbys);

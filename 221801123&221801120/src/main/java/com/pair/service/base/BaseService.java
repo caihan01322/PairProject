@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface BaseService<T> {
+
+    public void delete(Object id);
+
     /**
      * 分页查询
      * @param pageCode 需要查询的页码

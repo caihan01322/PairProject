@@ -22,4 +22,15 @@ public class ThesisServiceImpl extends BaseServiceImpl<Thesis> implements Thesis
         super.baseDao = baseDao;
         this.thesisDao = (ThesisDao) baseDao;
     }
+
+    @Override
+    public void delete(Object id) {
+        id = Integer.parseInt(id.toString());
+        String[] sqls = {
+                "delete from thesis where id = " + id + "",
+                //和论文关联
+                "DELETE FROM thesis_keyword WHERE tid = " + id + ""
+        };
+        thesisDao.batchUpdate(sqls);
+    }
 }

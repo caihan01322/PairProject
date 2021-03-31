@@ -18,9 +18,15 @@
     </div>
     <!-- 搜索 -->
     <div class="search">
-        <input type="text" placeholder="请输入关键词">
-        <button>🔍</button>
+        <input id="input_search" type="text" placeholder="请输入关键词">
+        <button onclick="search(this);">🔍</button>
     </div>
+    <script>
+        function search(btn) {
+            var keyword = document.getElementById("input_search");
+            window.location.href = "user/thesis/list?keyword="+(keyword.value);
+        }
+    </script>
     <!-- 用户 -->
     <div class="user">
         <img src="" alt="">用户信息</img>
