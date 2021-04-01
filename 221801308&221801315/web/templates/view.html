@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+    <link rel="stylesheet" href="https://fonts.g.forms.cn/icon?family=Material+Icons">
+    <link rel="stylesheet" href={{url_for("static",filename="css/header.css" )}}>
+    <link rel="stylesheet" href={{url_for("static",filename="css/details.css" )}}>
+    <script src="https://kit.fontawesome.com/cdc72c83b6.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <title>Details</title>
+</head>
+
+<body>
+    <div class="container">
+        <span class="back-btn"><a href={{url_for(pagination_func, page=page, condition=condition,
+                search_way=search_way)}} class="back-href"><i class="fa fa-arrow-left fa-2x"
+                    aria-hidden="true"></i></a></span>
+        <div class="paper">
+            <div class="paper-title">
+                <h3 class="title-item">{{article.title}}</h3>
+            </div>
+            <p class="source-item">Source: {{article.meeting}}&nbsp;&nbsp;{{article.publicationYear}}</p>
+            <p class="people-love">已被{{user_count}}人收藏</p>
+            <div class="paper-source">
+                <div>
+                    <h4 class="key-item">KeyWords:</h4>
+                    <ul class="paper-keyword">
+                        {% for keyword in article.keywords %}
+                        <li class="keyword-list">{{keyword.keyword}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <br />
+                <br />
+                <br />
+                <div>
+                    <h4 class="paper-abstract">Abstract:</h4>
+                    <p class="abstract-item">{{article.abstract}}</p><br />
+                </div>
+                <div>
+                    <h4 class="paper-link">Link:</h4>
+                    <p class="link-item"><a href={{article.doiLink}} target="_blank">{{article.doiLink}}</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

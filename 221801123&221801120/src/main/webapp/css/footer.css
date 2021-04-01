@@ -1,0 +1,9 @@
+/* 页脚 */
+.footer{
+    height: 30px;
+    width: 100%;
+    background-color: #ffffff;
+    bottom: 0;
+    position: fixed;
+    text-align: center;
+}

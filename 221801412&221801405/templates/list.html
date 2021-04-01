@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>爬到了!</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/test.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/warn.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/list.css') }}" type="text/css"/>
+    <link rel="shortcut icon" href="{{url_for('static',filename='bitbug_favicon.ico')}}" type="image/x-icon" />
+</head>
+<body background="{{url_for('static', filename='1.png')}}">
+<script type="text/javascript">
+function display_alert()
+  {
+  alert("爬到了!")
+  }
+</script>
+{% include 'navbar.html' %}
+<div class="grey" align="center">
+    <div class="center">
+        <div class="left">
+            <form method="POST" style="border:0px;width:500px;margin:10px auto;">
+                <input type="text" name="text" placeholder="请输入所查询内容" value={{search_word}}>
+                <input type="submit" name="submit" value="爬标题">
+                <input type="submit" name="submit" value="爬摘要">
+                <input type="submit" name="submit" value="爬关键词">
+                <input type="file" name="file" value="上传" style="margin:10px 0px 0px 0px;">
+            </form>
+            <div style="width:300px;margin:0px;auto;font-size:10px;color:#ff3333" >{{text}}</div>
+            <h2>所得结果如下：</h2>
+            <h5>共有{{all_paper}}条记录</h5>
+            {%for u in paper_map%}
+            <div class="list" align="left">
+                <div class="item">
+                    <div class="main">
+                        <div class="fengmian">
+                            <img src="{{url_for('static',filename='fengmian.jpg')}}" alt="fengmian" width="200px"/>
+                        </div>
+                        <h3>{{u[0].title}}</h3>
+                        <p>{{u[0].meeting}} {{u[0].date}}</p>
+                        <p>关键词:
+                            <b>
+                                {%for k in u[1]%}
+                                    <span id="keyword">{{k.keyword}}</span>
+                                    <span>&nbsp;</span>
+                                {%endfor%}
+                            </b>
+                        </p>
+                        <p class="css-border" style="border-left:6px solid #2196F3;
+                background-color:#ddffff;">
+                            {{u[0].paper_abstract}}</p>
+                        <p>原文链接:<a href={{u[0].url}}>{{u[0].url}}</a></p>
+                    </div>
+                        <form method="post">
+                            <input type="text"
+                                   style="visibility: hidden;"
+                                   name="collect"
+                                   value={{u[0].id}}
+                            />
+                            <input type="submit" name="submit" value="收藏" class="form_float"
+                                   onmouseover="this.style.backgroundPosition='left -36px'"
+                                   onmouseout="this.style.backgroundPosition='left top'"
+                             onclick="display_alert()"/>
+                        </form>
+                </div>
+            </div>
+            {% endfor %}
+            <p>{{page}}</p>
+            <form class="center" method="POST">
+                <select name="select">
+                    {%for u in all_page%}
+                    <OPTION value={{u+1}}>第{{u+1}}页</OPTION>
+                    {%endfor%}
+                </select>
+                <input type="submit" name="submit" value="跳转">
+                <br>
+            </form>
+        </div>
+        <div class="right1" align="center">
+            <a href="http://iccv2021.thecvf.com/">
+                ICCV:
+                <img src={{url_for('static',filename='ICCV.png')}} alt="ICCV">
+            </a>
+            <a href="http://cvpr2020.thecvf.com/">
+                CVPR:
+                <img src={{url_for('static',filename='CVPR.png')}} alt="CVPR">
+            </a>
+            <a href="https://eccv2020.eu/">
+                ECCV:
+                <img src={{url_for('static',filename='ECCV.png')}} alt="ECCV">
+            </a>
+        </div>
+        <div class="right2" align="left">
+            <p>热门关键词:</p>
+        {%for p in key_show_list%}
+            <div style="overflow:hidden;height:20px;text-overflow: ellipsis;margin:5px;">
+                {{p}}
+            </div>
+        {%endfor%}
+        </div>
+    </div>
+</div>
+</body>
+</html>

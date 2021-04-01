@@ -1,0 +1,52 @@
+body {
+    background-color: #2F3D60;
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+    margin-top: 65px;
+    z-index: 2;
+}
+
+.ipt-box {
+    position: relative;
+}
+
+#box {
+    width: 600px;
+    height: 50px;
+    font-size: 28px;
+    background: rgba(21, 23, 40, 0.4);
+    border-radius: 0%;
+    border: none;
+    outline: none;
+}
+
+.button {
+    width: 70px;
+    height: 50px;
+    background-color: #151728;
+    position: relative;
+    cursor: pointer;
+    ;
+}
+
+#searchicon {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+#fileicon {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}

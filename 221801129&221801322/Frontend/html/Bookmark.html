@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookmark</title>
+    <link rel="stylesheet" href="../css/public.css" />
+    <link rel="stylesheet" href="../css/Bookmark.css" />
+</head>
+<body>
+    <div id="nav">
+        <ul>
+            <li id="logo">PaperCrawler</li>
+            <li id="mark">收藏夹</li>
+            <li id="status">登录</li>
+        </ul>
+    </div>
+    <div id="contentWrap" class="list">
+        <div class="markPart" v-for="list in lists">
+            <div class="markContent">
+                <div class="title lineBreak">
+                    <h2 :title="list.title">{{ list.title }}</h2>
+                </div>
+                <div class="abstract">
+                    <span>摘要：</span>
+                    <div>
+                        <p class="wrapBreak" :title="list.abstract">
+                            {{ list.abstract }}
+                        </p>
+                    </div>
+                </div>
+                <div class="listBottom">
+                    <span>关键词：</span>
+                    <div class="keyword lineBreak" v-for="key in list.keyword" :title="key">{{ key }}</div>
+                </div>
+                <img src="../img/Bookmark/marked.svg" class="markedSvg" alt="marked" title="已收藏">
+            </div>
+            <div class="dash"></div>
+            <button id="btn" @click="getLists()" style="border-width: 0;"></button>
+        </div>
+        <div class="page-bar">
+            <ul>
+                <li v-if="cur > 1"><a v-on:click="cur--,pageClick()">上一页</a></li>
+                <li v-if="cur == 1"><a class="banclick">上一页</a></li>
+                <li v-for="index in indexs"  v-bind:class="{ 'active': cur == index }">
+                    <a v-on:click="btnClick(index)">{{ index }}</a>
+                </li>
+                <li v-if="cur < all"><a v-on:click="cur++,pageClick()">下一页</a></li>
+                <li v-if="cur == all"><a class="banclick">下一页</a></li>
+                <li><a>共<i>{{ all }}</i>页</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="../lib/vue.js"></script>
+    <script src="../lib/jquery-3.6.0.min.js"></script>
+    <script src="../js/public.js"></script>
+    <script src="../js/Bookmark.js"></script>
+    <script src="../js/page.js"></script>
+</body>
+</html>
