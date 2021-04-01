@@ -1,0 +1,29 @@
+.scoped {
+  :global {
+    .logo {
+      font-size: 50px;
+      margin-top: 30vh;
+    }
+    .container {
+      position: relative;
+      width: 800px;
+      margin: auto;
+    }
+    .keywords {
+      margin-top: '50px';
+      margin-left: '30px';
+    }
+
+    @media screen and (max-width: 800px) {
+      .container {
+        width: 80vw;
+      }
+      .logo {
+        margin-top: 30vh;
+      }
+      .keywords {
+        display: none;
+      }
+    }
+  }
+}
