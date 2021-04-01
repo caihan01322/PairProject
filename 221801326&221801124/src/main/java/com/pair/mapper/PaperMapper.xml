@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pair.dao.PaperMapper">
+    <insert id="insertPaper" parameterType="Paper">
+        insert into paper(pid,title,abs,publisher,publicationYear,doiLink)
+        values (#{pid},#{title},#{abs},#{publisher},#{publicationYear},#{doiLink});
+    </insert>
+    <resultMap id="PaperKeyword" type="Paper">
+        <result property="pid" column="pid"/>
+        <result property="title" column="ptitle"/>
+        <result property="abs" column="pabs"/>
+        <result property="publisher" column="ppublisher"/>
+        <result property="publicationYear" column="pyear"/>
+        <result property="doiLink" column="plink"/>
+        <collection property="keywords" ofType="Keyword">
+            <result property="kid" column="kid"/>
+            <result property="keyword" column="kkey"/>
+            <result property="publisher" column="ppub"/>
+            <result property="num" column="pnum"/>
+        </collection>
+    </resultMap>
+    <select id="selectAllPapers" resultMap="PaperKeyword">
+        select p.pid pid,p.title ptitle,p.abs pabs,p.publisher ppublisher,
+        p.publicationYear pyear,p.doiLink plink,
+        k.kid kid,k.keyword kkey,k.publisher ppub,k.num pnum
+        from paper p
+        left join paper_keyword pk on p.pid=pk.pid
+        left join keyword k on pk.kid=k.kid
+    </select>
+
+    <select id="selectPaperListWithoutKeywords" resultType="paper">
+        select * from pair.paper
+    </select>
+    <delete id="deletePaperByPid">
+        delete from paper where pid=#{pid};
+    </delete>
+
+
+    <select id="getPapersByPid" resultType="paper" parameterType="String">
+        select * from pair.paper where pid=#{pid}
+    </select>
+    
+
+    <select id="getPaperNum" parameterType="map" resultType="int">
+        select count(*) from paper p
+        left join paper_keyword pk on p.pid=pk.pid
+        where pk.kid=#{kid} and
+            pk.pid=p.pid and
+            p.publicationYear=#{publicationYear}
+    </select>
+
+    <select id="getPapersByKeyword" resultMap="PaperKeyword" parameterType="String">
+        select p.pid pid,p.title ptitle,p.abs pabs,p.publisher ppublisher,
+        p.publicationYear pyear,p.doiLink plink,
+        k.kid kid,k.keyword kkey,k.publisher ppub,k.num pnum
+        from paper p
+        left join paper_keyword pk on p.pid=pk.pid
+        left join keyword k on pk.kid=k.kid
+        where k.keyword=#{keyword}
+    </select>
+    <select id="getPaperIdByFuzzyMode" resultType="String" parameterType="map">
+        select distinct p.pid
+        from paper p
+        left join paper_keyword pk on p.pid=pk.pid
+        left join keyword k on pk.kid=k.kid
+        <where>
+            <if test="title!=NULL">AND title LIKE "%"#{title}"%"</if>
+            <if test="abs!=NULL">AND abs LIKE "%"#{abs}"%"</if>
+            <if test="publisher!=NULL">AND p.publisher LIKE "%"#{publisher}"%"</if>
+            <if test="publicationYear!=NULL">AND publicationYear LIKE "%"#{publicationYear}"%"</if>
+            <if test="keyword!=NULL">AND keyword LIKE "%"#{keyword}"%"</if>
+        </where>
+    </select>
+    <select id="getPaperIdByPreciseMode" resultType="String" parameterType="map">
+        select distinct p.pid
+        from paper p
+        left join paper_keyword pk on p.pid=pk.pid
+        left join keyword k on pk.kid=k.kid
+        <where>
+            <if test="title!=NULL">AND title = #{title}</if>
+            <if test="abs!=NULL">AND abs = #{abs}</if>
+            <if test="publisher!=NULL">AND p.publisher = #{publisher}</if>
+            <if test="publicationYear!=NULL">AND publicationYear = #{publicationYear}</if>
+            <if test="keyword!=NULL">AND keyword = #{keyword}</if>
+        </where>
+    </select>
+
+    <select id="getPaperById" resultMap="PaperKeyword">
+        select p.pid pid,p.title ptitle,p.abs pabs,p.publisher ppublisher,
+        p.publicationYear pyear,p.doiLink plink,
+        k.kid kid,k.keyword kkey,k.publisher ppub,k.num pnum
+        from paper p
+        left join paper_keyword pk on p.pid=pk.pid
+        left join keyword k on pk.kid=k.kid
+        where p.pid=#{pid}
+    </select>
+    
+
+</mapper>
