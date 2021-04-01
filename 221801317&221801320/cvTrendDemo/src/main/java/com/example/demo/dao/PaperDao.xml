@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.PaperDao">
+    <insert id="add">
+        insert into paper (paperID,title,abstractContent,year,authors,meeting,link) values (#{paperID},#{title},#{abstractContent},#{year},#{authors},#{meeting},#{link})
+    </insert>
+
+    <select id="getID" resultType="int">
+        select paperID from paper where title=#{title} and meeting = #{meeting} and link=#{link} and year = #{year}
+    </select>
+
+    <select id="queryByKeyword" resultType="Paper">
+        select * from paper where title like CONCAT('%',#{keyword},'%') or abstractContent like CONCAT('%',#{keyword},'%')
+    </select>
+
+    <select id="queryByKeywordLimit" resultType="Paper">
+        select * from paper
+        where
+        (title like CONCAT('%',#{keyword},'%') or abstractContent like CONCAT('%',#{keyword},'%') )
+        <if test="meeting!=null and meeting!=''">
+            and meeting = #{meeting}
+        </if>
+        limit ${begin},${num};
+    </select>
+
+    <select id="queryByKeywordRezultNum" resultType="int">
+        select count(*) from paper where title like CONCAT('%',#{keyword},'%') or abstractContent like CONCAT('%',#{keyword},'%');
+    </select>
+
+    <select id="query" resultType="Paper">
+        select * from paper
+        <where>
+            <if test="paperID!=null and paperID!=0">
+                and paperID = #{paperID}
+            </if>
+            <if test="abstractContent!=null and abstractContent!=''">
+                and abstractContent like CONCAT('%',#{abstractContent},'%')
+            </if>
+            <if test="title!=null and title!=''">
+                and title like CONCAT('%',#{title},'%')
+            </if>
+            <if test="meeting!=null and meeting!=''">
+                and meeting = #{meeting}
+            </if>
+            <if test="year!=null and year!=''">
+                and year = #{year}
+            </if>
+            <if test="authors!=null and authors!=''">
+                and authors like CONCAT('%',#{authors},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="queryRezultNum" resultType="int">
+        select count(*) from paper
+        <where>
+            <if test="paperID!=null and paperID!=0">
+                and paperID = #{paperID}
+            </if>
+            <if test="title!=null and title!=''">
+                and title like CONCAT('%',#{title},'%')
+            </if>
+            <if test="abstractContent!=null and abstractContent!=''">
+                and abstractContent like CONCAT('%',#{abstractContent},'%')
+            </if>
+            <if test="meeting!=null and meeting!=''">
+                and meeting = #{meeting}
+            </if>
+            <if test="year!=null and year!=''">
+                and year = #{year}
+            </if>
+            <if test="authors!=null and authors!=''">
+                and authors like CONCAT('%',#{authors},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="queryLimit" resultType="Paper">
+        select * from paper
+        <where>
+            <if test="paperID!=null and paperID!=0">
+                and paperID = #{paperID}
+            </if>
+            <if test="title!=null and title!=''">
+                and title like CONCAT('%',#{title},'%')
+            </if>
+            <if test="abstractContent!=null and abstractContent!=''">
+                and abstractContent like CONCAT('%',#{abstractContent},'%')
+            </if>
+            <if test="meeting!=null and meeting!=''">
+                and meeting = #{meeting}
+            </if>
+            <if test="year!=null and year!=''">
+                and year = #{year}
+            </if>
+            <if test="authors!=null and authors!=''">
+                and authors like CONCAT('%',#{authors},'%')
+            </if>
+        </where>
+        limit ${begin},${num};
+    </select>
+
+    <delete id="deleteByID">
+        delete from paper where paperID = #{paperID};
+    </delete>
+</mapper>

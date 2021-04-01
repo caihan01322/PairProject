@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>柱状图</title>
+    <!-- 引入 echarts.js -->
+    <script src="layui/echarts.min.js"></script>
+    <script src="layui/jquery.min.js"></script>
+    <style>
+        #part1 {
+            border: solid 3px #c3cab9;
+            margin-left: 100px;
+            margin-top: 20px;
+            width: 1000px;
+            height: 640px;
+            float: left;
+        }
+
+        #part2 {
+            border: solid 3px #c3cab9;
+            margin-top: 20px;
+            margin-left: 100px;
+            width: 1000px;
+            height: 640px;
+            float: left;
+            clear: left;
+        }
+
+        #part3 {
+
+            border: solid 3px #c3cab9;
+            margin-left: 100px;
+            margin-top: 20px;
+            width: 1000px;
+            height: 640px;
+            float: left;
+            clear: left;
+        }
+
+    </style>
+</head>
+<body style="background-color:#ffffff">
+
+<div style="margin-left: 10px;margin-top: 10px;position: relative">
+    <div id="part1"></div>
+    <div id="part2"></div>
+    <div id="part3"></div>
+</div>
+<script type="text/javascript">
+
+    //折线图1
+    var myChart1 = echarts.init(document.getElementById('part1'));
+    var myChart2 = echarts.init(document.getElementById('part2'));
+    var myChart3 = echarts.init(document.getElementById('part3'));
+    $.get('/keywords/dataTozhuAndzhe31', function (data) {
+        myChart1.setOption({
+            backgroundColor: '#e6ffff',
+            title: {
+                textStyle: {
+                    color: 'rgba(0,0,0,0.8)'
+                },
+                text: 'CVPR柱状图',
+                left: 'center'
+            },
+            label: {
+                textStyle: {
+                    color: 'rgba(0,0,0,0.8)'
+                }
+            },
+            tooltip: {},
+            xAxis: {
+                type: 'value',
+                axisLabel: {
+                    interval: 0,//显示所有x轴标签显示
+                    rotate: 45, //逆时针旋转45度
+                    textStyle: {
+                        color: '#000000'
+                    }
+                }
+            },
+            yAxis: {
+                data: data.x,
+                axisLabel: {
+                    rotate: 30, //代表逆时针旋转45度
+                    textStyle: {
+                        color: '#000000'
+                    }
+                }
+            },
+            series: [{
+                name: '数量',
+                type: 'bar',
+                data: data.y
+            }]
+
+        });
+
+
+    });
+
+    $.get('/keywords/dataTozhuAndzhe32', function (data) {
+        myChart2.setOption({
+            backgroundColor: '#e6ffff',
+            title: {
+                textStyle: {
+                    color: 'rgba(0,0,0,0.8)'
+                },
+                text: 'ICCV柱状图',
+                left: 'center'
+            },
+            label: {
+                textStyle: {
+                    color: 'rgba(0,0,0,0.8)'
+                }
+            },
+            tooltip: {},
+            xAxis: {
+                type: 'value',
+                axisLabel: {
+                    interval: 0,//显示所有x轴标签显示
+                    rotate: 45, //逆时针旋转45度
+                    textStyle: {
+                        color: '#000000'
+                    }
+                }
+            },
+            yAxis: {
+                data: data.x,
+                axisLabel: {
+                    rotate: 30, //逆时针旋转45度
+                    textStyle: {
+                        color: '#000000'
+                    }
+                }
+            },
+            series: [{
+                name: '数量',
+                type: 'bar',
+                data: data.y
+            }]
+        });
+    })
+
+    $.get('/keywords/dataTozhuAndzhe33', function (data) {
+        myChart3.setOption({
+            backgroundColor: '#e6ffff',
+            title: {
+                textStyle: {
+                    color: 'rgba(0,0,0,0.8)'
+                },
+                text: 'ECCV柱状图',
+                left: 'center'
+            },
+            label: {
+                textStyle: {
+                    color: 'rgba(0,0,0,0.8)'
+                }
+            },
+            tooltip: {},
+            xAxis: {
+                type: 'value',
+                axisLabel: {
+                    interval: 0,//显示所有x轴标签显示
+                    rotate: 45, //逆时针旋转45度
+                    textStyle: {
+                        color: '#000000'
+                    }
+                }
+            },
+            yAxis: {
+                data: data.x,
+                axisLabel: {
+                    rotate: 30, //代表逆时针旋转45度
+                    textStyle: {
+                        color: '#000000'
+                    }
+                }
+            },
+            series: [{
+                name: '数量',
+                type: 'bar',
+                data: data.y
+            }]
+        });
+    })
+
+    myChart1.on('click', function (param) {
+        window.open("demo1.html?keyname="+param.name+"")
+
+    })
+
+    myChart2.on('click', function (param) {
+        window.open("demo1.html?keyname="+param.name+"")
+
+    })
+
+    myChart3.on('click', function (param) {
+        window.open("demo1.html?keyname="+param.name+"")
+
+    })
+
+    // 当我们浏览器缩放的时候，图表也等比例缩放
+    window.addEventListener("resize", function () {
+        myChart1.resize();
+        myChart2.resize();
+        myChart3.resize();
+    });
+</script>
+</body>
+</html>

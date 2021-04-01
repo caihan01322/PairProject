@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.PaperKeywordDao">
+
+    <insert id="add">
+        insert into keywordPaper (paperID,keyword,meeting,year,frequency) values (#{paperID},#{keyword},#{meeting},#{year},#{frequency})
+    </insert>
+
+    <delete id="deleteByPaperID">
+        delete from keywordPaper where paperID = #{paperID};
+    </delete>
+
+<!--    返回近五年 前10热词列表-->
+    <resultMap id="hotWord" type="Keyword">
+        <result column="keyword" property="keyword"/>
+        <result column="year" property="year"/>
+        <result column="sum" property="frequency"/>
+    </resultMap>
+    <select id="getOrderedWord" parameterType="Integer" resultMap="hotWord">
+        select keyword,sum(frequency) sum from keywordPaper
+        where year between #{beginYear} and  #{endYear}
+        <if test="meeting != null and meeting != ''">
+            and meeting = #{meeting}
+        </if>
+        group by keyword order by sum desc limit ${size};
+    </select>
+
+<!--    得到某词的趋势-->
+    <select id="getWordTrend" resultMap="hotWord">
+        select keyword,year,sum(frequency) sum from keywordPaper
+        where keyword = #{keyword}
+        <if test="meeting != null and meeting != ''">
+            and meeting = #{meeting}
+        </if>
+        group by year ;
+    </select>
+
+    <select id="getPaperByKeyword" resultType="Paper">
+        select p.paperID ,title,p.year,authors,p.meeting,link,abstractContent from paper p join keywordPaper k on  p.paperID = k.paperID  where keyword = #{keyword};
+    </select>
+
+    <select id="getPaperNumByKeyword" resultType="int">
+        select count(*)
+        from paper p join keywordPaper k on  p.paperID = k.paperID
+        where keyword = #{keyword}
+        <if test="meeting != null and meeting != ''">
+            and p.meeting = #{meeting}
+        </if>;
+    </select>
+
+    <select id="getPaperByKeywordLimit" resultType="Paper">
+        select p.paperID ,title,p.year,authors,p.meeting,link,abstractContent
+        from paper p join keywordPaper k on  p.paperID = k.paperID
+        where keyword = #{keyword}
+        <if test="meeting != null and meeting != ''">
+            and p.meeting = #{meeting}
+        </if>
+        limit ${begin},${num};
+    </select>
+
+    <select id="getKeywordByPaper" resultType="Keyword">
+        select keyword ,frequency,k.year,k.meeting from paper p join keywordPaper k on  p.paperID = k.paperID  where p.paperID = #{paperID};
+    </select>
+
+</mapper>

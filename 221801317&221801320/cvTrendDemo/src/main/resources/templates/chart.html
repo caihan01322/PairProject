@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <title>hotword chart</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/jqcloud/jqcloud.css}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    <script type="text/javascript" th:src="@{/jqcloud/jqcloud-1.0.4.js}"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cn.vuejs.org/js/vue.js"></script>
+
+    <!-- 引入 ECharts 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.0.2/dist/echarts.min.js"></script>
+    <script type="text/javascript">
+        var meeting = ""
+        getQCloud = function(meeting){
+            axios({
+                method:'get',
+                // url:'user/del/'+id,
+                url:'/hotword/trends',
+                params: {
+                    meeting: meeting
+                },
+                // responseType:'stream'
+            }).then(function(response) {
+                console.log(response);
+                var keywords = response.data.keywords;
+                var word_array = [];
+                for (var i=0 ; i < keywords.length ; i++){
+                    word_array.push({
+                        text:keywords[i].keyword,
+                        weight:keywords[i].frequency,
+                        link:"http://localhost:8811/?searchType=hotword&keyword="+keywords[i].keyword+"&meeting="+meeting
+                    })
+                }
+                $('#example').html("");
+                $(function() {
+                    // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
+                    $("#example").jQCloud(word_array);
+                });
+                chart.keywords = keywords;
+                chart.trendMaps = response.data.trends;
+
+                console.log(chart.trendMaps)
+                //console.log(chart.trendMaps[1])
+
+
+                console.log(chart.trends[0])
+                console.log(chart.trends)
+                updateChar()
+            });
+        }
+
+        getQCloud(meeting);
+
+    </script>
+</head>
+<body>
+<button class="hotTreandBtn  ui  button ">
+    <a href="/" style="width: 100%;height: 100%">
+        返回
+    </a>
+</button>
+<form class=" ">
+
+    <div class="">
+        <div  id="meeting-selector" class="field">
+            <label>顶会</label>
+            <select v-model="meeting" class="ui fluid dropdown">
+                <option value="">三大顶会</option>
+                <option value="ICCV">ICCV</option>
+                <option value="ECCV">ECCV</option>
+                <option value="CVPR">CVPR</option>
+            </select>
+        </div>
+    </div>
+
+</form>
+
+
+<!-- You should explicitly specify the dimensions of the container element -->
+<div id="example" style="width: 550px; height: 350px;"></div>
+
+<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+<div id="main" style="width: 1000px;height:700px;"></div>
+
+<script type="text/javascript">
+
+    var chart = new Vue({
+        data: {
+            trendMaps:[],//后端传过来的数据是map的list，需要转换成list以便利使用
+            keywords:[]
+        },
+        computed: {
+            // 计算属性的 getter
+            trends: function () {
+                var tempTrends = [];
+                for (let i = 0; i < this.trendMaps.length ; i++){
+                    var tempTrend = [];//临时参数
+                    for (let j = 2016 ; j < 2021 ; j++){ //利用年份获取需要的数据
+                        tempTrend.push(this.trendMaps[i][j])
+                    }
+                    tempTrends.push(tempTrend);
+                }
+                // console.log(tempTrends)
+                return tempTrends;
+            }
+        }
+
+    })
+
+    updateChar= function () {
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '趋势'
+            },
+            tooltip: {
+                trigger: 'axis',
+                showContent: true
+            },
+
+            dataset:{
+                source:[
+                    ["year","2016","2017","2018","2019","2020"],
+                    [chart.keywords[0].keyword].concat(chart.trends[0]),
+                    [chart.keywords[1].keyword].concat(chart.trends[1]),
+                    [chart.keywords[2].keyword].concat(chart.trends[2]),
+                    [chart.keywords[3].keyword].concat(chart.trends[3]),
+                    [chart.keywords[4].keyword].concat(chart.trends[4]),
+                    [chart.keywords[5].keyword].concat(chart.trends[5]),
+                    [chart.keywords[6].keyword].concat(chart.trends[6]),
+                    [chart.keywords[7].keyword].concat(chart.trends[7]),
+                    [chart.keywords[8].keyword].concat(chart.trends[8]),
+                    [chart.keywords[9].keyword].concat(chart.trends[9]),
+                ]
+            },
+            // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
+            xAxis: {type: 'category'},
+            yAxis: {},
+            grid: {top: '50%'},
+            series: [
+                // {type: 'bar', seriesLayoutBy: 'row'},
+                // {type: 'bar', seriesLayoutBy: 'row'},
+                // {type: 'bar', seriesLayoutBy: 'row'},
+
+                {type: 'line', seriesLayoutBy: 'row',
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: "year",
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 1
+                    }
+                    ,emphasis: {focus: 'series'}},
+                {type: 'line', seriesLayoutBy: 'row',
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: "year",
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 2
+                    }
+                    ,emphasis: {focus: 'series'}},
+                {type: 'line', seriesLayoutBy: 'row',
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: "year",
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 3
+                    }
+                    ,emphasis: {focus: 'series'}},
+                {type: 'line', seriesLayoutBy: 'row',
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: "year",
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 4
+                    }
+                    ,emphasis: {focus: 'series'}},
+                {type: 'line', seriesLayoutBy: 'row',
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: "year",
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 5
+                    }
+                    ,emphasis: {focus: 'series'}},
+                {type: 'line', seriesLayoutBy: 'row',
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: "year",
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 6
+                    }
+                    ,emphasis: {focus: 'series'}},
+                {type: 'line', seriesLayoutBy: 'row',
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: "year",
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 7
+                    }
+                    ,emphasis: {focus: 'series'}},
+                {type: 'line', seriesLayoutBy: 'row',
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: "year",
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 8
+                    }
+                    ,emphasis: {focus: 'series'}},
+                {type: 'line', seriesLayoutBy: 'row',
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: "year",
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 9
+                    }
+                    ,emphasis: {focus: 'series'}},
+                {
+                    type: 'pie',
+                    id: 'pie',
+                    radius: '30%',
+                    center: ['50%', '25%'],
+                    emphasis: {focus: 'data'},
+                    label: {
+                        formatter: '{b}: {@2020} ({d}%)'
+                    },
+                    encode: {
+                        itemName: 'year',
+                        value: '2020',
+                        tooltip: '2020'
+                    }
+                }
+
+            ]
+        };
+
+        myChart.on('updateAxisPointer', function (event) {
+            var xAxisInfo = event.axesInfo[0];
+            if (xAxisInfo) {
+                var dimension = xAxisInfo.value + 1;
+                myChart.setOption({
+                    series: {
+                        id: 'pie',
+                        label: {
+                            formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+                        },
+                        encode: {
+                            value: dimension,
+                            tooltip: dimension
+                        }
+                    }
+                });
+            }
+        });
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    }
+
+
+</script>
+</body>
+<script>
+    var meetingSelector = new Vue({
+        el: "#meeting-selector",
+        data:{
+            meeting:meeting
+        },
+        methods: {
+        },
+        watch:{
+            meeting (cur,pre){
+                console.log(cur)
+                getQCloud(cur);
+            }
+        }
+    })
+</script>
+</html>

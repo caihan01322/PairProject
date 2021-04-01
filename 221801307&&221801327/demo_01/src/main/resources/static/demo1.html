@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>用户表</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+</head>
+
+<body>
+
+<!-- 内容主体区域 -->
+<div style="margin-left: 10px;margin-right: 10px;margin-top: 15px;border: 5px solid rgba(55,55,9,0.57);border-radius: 10px;height: 50px;background-color:#202020">
+    <label style="margin-left: 5px;margin-top: 20px;color: white">搜索条件：</label>
+    <div class="layui-inline">
+        <input class="layui-input" id="uacademicNum" placeholder="id"
+               style="margin-left: 15px;margin-top:5px;width: 150px;border: 2px solid white;border-radius: 5px"
+               autocomplete="off">
+    </div>
+    <div class="layui-inline">
+        <input class="layui-input" id="uauthor" placeholder="作者"
+               style="margin-left: 30px;margin-top:5px;width: 150px;border: 2px solid white;border-radius: 5px"
+               autocomplete="off">
+    </div>
+    <div class="layui-inline">
+        <input class="layui-input" id="utitle" placeholder="标题"
+               style="margin-left: 30px;margin-top:5px;width: 150px;border: 2px solid white;border-radius: 5px"
+               autocomplete="off">
+    </div>
+    <div class="layui-inline">
+        <input class="layui-input" id="ukeyWord" placeholder="关键词"
+               style="margin-left: 30px;margin-top:5px;width: 150px;border: 2px solid white;border-radius: 5px"
+               autocomplete="off">
+    </div>
+    <button type="button" id="qingKong" class="layui-btn layui-btn-sm layui-btn-danger"
+            style="margin-left: 30px;margin-top:5px"><i class="layui-icon">&#xe669;</i>清空
+    </button>
+    <button id="utb" type="button" class="layui-btn layui-btn-sm" data-type="reload"
+            style="margin-left: 30px;margin-top:5px"><i class="layui-icon">&#xe615;</i>搜索
+    </button>
+</div>
+
+<table id="tb-user" lay-filter="tb-user"></table>
+
+
+<!--编辑表单-->
+<div class="layui-row" id="editUser" style="display:none;">
+    <div class="layui-col-md10">
+        <form class="layui-form layui-from-pane" id="saveUser" style="margin-top:30px">
+
+            <input type="hidden" name="academicNum" id="academicNum">
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">作者</label>
+                <div class="layui-input-block">
+                    <input type="text" name="author" id="author" required lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">关键词</label>
+                <div class="layui-input-block">
+                    <input type="text" name="keyword" id="keyword" required lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">标题</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" id="title" required lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">杂志</label>
+                <div class="layui-input-block">
+                    <input type="text" name="magazine" id="magazine" required lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">链接</label>
+                <div class="layui-input-block">
+                    <input type="text" name="link" id="link" required lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">主体</label>
+                <div class="layui-input-block">
+                    <textarea name="abstra" id="abstra" required class="layui-textarea"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item" style="margin-top:40px" id="check">
+                <div class="layui-input-block">
+                    <button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="saveUser">保存</button>
+                    <button type="reset" class="layui-btn layui-btn-danger">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!--编辑表单-->
+<div class="layui-row" id="WatchAcademic" style="display:none;">
+    <div class="layui-col-md10">
+        <form class="layui-form layui-from-pane" id="watchArticle" style="margin-top:30px">
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">标题</label>
+                <div class="layui-input-block">
+                    <input type="text" name="Wtitle" id="Wtitle" required lay-verify="required" autocomplete="off"
+                           class="layui-input" readonly="readonly">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">作者</label>
+                <div class="layui-input-block">
+                    <input type="text" name="Wauthor" id="Wauthor" required lay-verify="required" autocomplete="off"
+                           class="layui-input" readonly="readonly">
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">杂志</label>
+                <div class="layui-input-block">
+                    <input type="text" name="Wmagazine" id="Wmagazine" required lay-verify="required" autocomplete="off"
+                           class="layui-input" readonly="readonly">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">主体</label>
+                <div class="layui-input-block">
+                    <textarea name="Wabstra" id="Wabstra" class="layui-textarea" readonly="readonly"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">链接</label>
+                <div class="layui-input-block">
+                    <input type="text" name="Wlink" id="Wlink" required lay-verify="required" autocomplete="off"
+                           class="layui-input" readonly="readonly">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!--
+新增，删除
+-->
+<script type="text/html" id="toolbarDemo">
+
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon">&#xe608;</i>新增</button>
+        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="remove"><i class="layui-icon">&#xe640;</i>删除
+        </button>
+    </div>
+
+</script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑 </a>
+
+    <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="watch"><i class="layui-icon">&#xe63c;</i>查看 </a>
+</script>
+
+<div class="layui-footer">
+    <!-- 底部固定区域 -->
+</div>
+<script src="layui/jquery.min.js"></script>
+<script src="layui/layui.all.js"></script>
+<script src="layui/layui_exts/excel.js"></script>
+<script>
+    // 使用模块
+    layui.use(['element', 'layer', 'laydate', 'table', 'form'], function () {
+        var layer = layui.layer,//弹层
+            table = layui.table,//表格
+            form = layui.form;//表单
+
+        var userTable = table.render({
+
+            elem: '#tb-user'
+            , title: '用户信息表',
+            height: 515
+            , type: 'post'
+            , url: '/my/list'//数据接口
+            , page: {
+                limits: [5, 10, 20, 10000]
+            }
+            , toolbar: '#toolbarDemo'
+            , cols: [[ //表头
+                {type: 'checkbox', fixed: 'left'}
+                , {field: 'academicNum', title: 'ID', width: 80, sort: true, fixed: 'left'}
+                , {field: 'author', title: '用户名'}
+                , {field: 'title', title: '标题'}
+                , {field: 'keyword', title: '关键词', sort: true}
+                , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 170}
+            ]],
+        });
+        //重载
+        var $ = layui.$, active = {
+            reload: function () {
+                var uacademicNum = $('#uacademicNum');
+                var utitle = $('#utitle');
+                var ukeyWord = $('#ukeyWord');
+                var uauthor = $('#uauthor');
+                //执行重载
+                userTable.reload({
+                    url: '/my/queryByParam',
+                    where: {
+                        title: utitle.val(),//标题
+                        uacademicNum: uacademicNum.val(),//用户id
+                        keyword: ukeyWord.val(),
+                        uauthor: uauthor.val()//用户名
+                    },
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                }, 'data');
+            }
+        };
+
+        $('#utb').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        $('#qingKong').on('click', function () {
+            $('#uacademicNum').val('');
+            $('#utitle').val('');
+            $('#ukeyWord').val('');
+            $('#uauthor').val('')
+
+        });
+        //监听表单提交
+        // 修改
+        form.on('submit(saveUser)', function (data) {
+            layer.alert(JSON.stringify(data.field));
+            $.ajax({
+                url: '/my/save',
+                type: 'POST',
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(data.field),
+                success: function (result) {
+                    if (result.code == 200) {
+                        layer.msg("操作成功！", {icon: 6});
+                        setTimeout(function () {
+                            layer.closeAll();//关闭所有的弹出层
+                            userTable.reload();
+                        }, 300);
+                    } else {
+                        layer.msg("操作失败！", {icon: 5});
+                    }
+                }
+            });
+
+            return false;
+
+        });
+
+        //工具栏事件
+        table.on('toolbar(tb-user)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            var checkData = checkStatus.data;
+            var ids = [];
+            switch (obj.event) {
+                // 新增
+                case 'add':
+                    $("#author").val('');
+                    $("#title").val('');
+                    $("#keyword").val('');
+                    $("#magazine").val('');
+                    $("#abstra").val('');
+                    $("#link").val('');
+                    $("#academicNum").val('');
+
+                    layer.open({
+                        type: 1,
+                        offset: '10px',
+                        title: "新增用户",
+                        area: ['800px', '550px'],
+                        content: $("#editUser")
+                    });
+
+
+                    break;
+                // 删除
+                case 'remove':
+                    if (checkData.length == 0) {
+                        layer.alert('请选择要操作的行');
+                    } else {
+                        layer.confirm('确定要删除吗？', function (index) {
+                            for (var i = 0; i < checkData.length; i++) {
+                                ids.push(checkData[i].academicNum);
+                            }
+                            layer.alert(JSON.stringify(ids));
+                            $.ajax({
+                                url: '/my/remove',
+                                type: 'POST',
+                                contentType: "application/json",
+                                dataType: "json",
+                                data: JSON.stringify(ids),
+                                success: function (result) {
+                                    if (result.code == 200) {
+                                        setTimeout(function () {
+                                            layer.closeAll();//关闭所有的弹出层
+                                            userTable.reload();
+                                        }, 300);
+                                    }
+                                }
+                            });
+                        });
+                    }
+                    break;
+            }
+            ;
+        });
+
+        // 监听工具条
+        table.on('tool(tb-user)', function (obj) {
+            var data = obj.data;
+            // 修改
+            if (obj.event === 'edit') {
+                $("#author").val(data.author);
+                $("#title").val(data.title);
+                $("#keyword").val(data.keyword);
+                $("#magazine").val(data.magazine);
+                $("#abstra").val(data.abstra);
+                $("#link").val(data.link);
+                $("#academicNum").val(data.academicNum);
+
+                layer.open({
+                    type: 1,
+                    offset: '10px',
+                    title: "修改用户",
+                    area: ['800px', '550px'],
+                    content: $("#editUser")
+                });
+            } else if (obj.event === 'watch') {
+                $("#Wauthor").val(data.author);
+                $("#Wtitle").val(data.title);
+                $("#Wmagazine").val(data.magazine);
+                $("#Wabstra").val(data.abstra);
+                $("#Wlink").val(data.link);
+
+                layer.open({
+                    type: 1,
+                    offset: '10px',
+                    title: "查看文章",
+                    area: ['800px', '450px'],
+                    content: $("#WatchAcademic")
+                });
+            }
+        });
+    });
+
+    $(document).ready(function () {
+
+        var str = getQueryString("keyname");
+        $("#u_KeyWord").val(str);
+        $('#u_tb').click();
+    });
+
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+
+</script>
+
+</body>
+
+</html>
