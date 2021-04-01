@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: com.practice.pairproject.util.StoragePaperTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.247 s <<< FAILURE! - in com.practice.pairproject.util.StoragePaperTest
+loadFiles  Time elapsed: 0.203 s  <<< ERROR!
+java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+	at com.practice.pairproject.util.StoragePaperTest.loadFiles(StoragePaperTest.java:91)
+
