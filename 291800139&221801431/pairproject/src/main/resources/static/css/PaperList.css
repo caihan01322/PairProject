@@ -1,0 +1,16 @@
+.navbar-header {
+    padding-left: 60px;
+}
+
+
+.container {
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+.input-group {
+    margin: 10px 0;
+}
+.btn-group {
+    margin-top: 10px;
+}

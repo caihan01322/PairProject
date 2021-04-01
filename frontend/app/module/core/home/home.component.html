@@ -1,0 +1,124 @@
+<div class="core-home-content">
+
+
+    <div nz-row nzJustify="end">
+        <div nz-col nzSpan="10" class="core-home-nav">
+            <div *ngIf="!hasCurrentUser">
+                <a routerLink='/auth/login'>登录</a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a routerLink='/auth/register'>注册</a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a routerLink='/core/data'>统计</a>
+            </div>
+            <div *ngIf="hasCurrentUser">
+                <span nz-typography
+                    style="font-size: 18px;margin-right: 8px;"><code>欢迎，{{  currentUserName}}</code></span>
+                <a [routerLink]="['/core/collections/',currentUserId]" target="_blank">收藏</a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a routerLink='/core/data'>统计</a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a (click)="logout()">登出</a>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div nz-row nzJustify="center">
+
+        <div nz-col nzSpan="10" class="core-home-logo">
+            <span><i nz-icon nzType="desktop" nzTheme="outline"></i>CV论文搜索</span>
+        </div>
+    </div>
+
+    <div nz-row [nzGutter]="12">
+        <div nz-col nzSpan="3">
+            <button nz-button nzType="link" style="margin-top: 52px;font-size: 13px;margin-left: 30px;"
+            [@clearTrigger]="clearState"
+            (click)="clearHistory()">清空记录</button>
+        </div>
+        <div nz-col class="core-home-input" nzSpan="12">
+            <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton" class="paper-input">
+                <input type="text" nz-input placeholder="请输入论文题目" [(ngModel)]="searchValue" [nzAutocomplete]="autoauto"
+                    (focus)="triggerState(true)" (blur)="triggerState(false)"
+                    (ngModelChange)="onChange($event)" />
+                <nz-autocomplete [nzDataSource]="filteredOptions" #autoauto nzBackfill>
+                </nz-autocomplete>
+            </nz-input-group>
+            <ng-template #suffixButton>
+                <button nz-button nzType="primary" nzSize="large" nzSearch (click)="onSearchClick()"
+                    [nzLoading]="searchLoading">搜索</button>
+            </ng-template>
+        </div>
+        <div nz-col nzSpan="2" class="core-home-btns" nzOffset="3">
+            <nz-upload nzAction="http://150.158.191.172:8079/upload"
+                [nzHeaders]="{ authorization: 'authorization-text' }" (nzChange)="handleChange($event)"
+                [nzShowUploadList]="false">
+                <button nz-button nzSize="large" [nzLoading]="uploadBtnLoading"><i nz-icon
+                        nzType="upload"></i>上传</button>
+            </nz-upload>
+        </div>
+    </div>
+
+
+
+    <div nz-row nzJustify="center">
+
+        <div nz-col nzSpan="18" class="core-home-info">
+            <p nz-typography nzType="secondary" style="font-weight: 700;">导入需知</p>
+            <p nz-typography nzType="secondary">1、导入仅支持后缀名为 .xlsx  .txt 的文件。</p>
+            <p nz-typography nzType="secondary">2、导入文件包含要查询的所有论文题目，一次最多导入10个题目。</p>
+            <p nz-typography nzType="secondary">3、
+                <a nz-popover nzPopoverTitle="数据格式" [nzPopoverContent]="SaveForm" class="check-form">
+                    查看
+                </a>保存格式。
+            </p>
+
+            <ng-template #SaveForm>
+
+                <nz-tabset>
+                    <nz-tab nzTitle="Excel导入">
+                        <div nz-row>
+                            <div nz-col style="text-align: center;">
+                                <p nz-typography nzType="secondary">请确保论文题目在<span style="font-weight: 700;">A列</span>排序
+                                </p>
+                                <img src="../../../../assets/imgs/excel.png" style="zoom: 60%;">
+                            </div>
+                        </div>
+                    </nz-tab>
+                    <nz-tab nzTitle="Txt导入">
+                        <div nz-row>
+                            <div nz-col style="text-align: center;">
+                                <p nz-typography nzType="secondary">请确保每个论文题目占<span style="font-weight: 700;">一行</span>
+                                </p>
+                                <img src="../../../../assets/imgs/txt.png" style="zoom: 60%;">
+                            </div>
+                            <br>
+                        </div>
+                    </nz-tab>
+                </nz-tabset>
+            </ng-template>
+        </div>
+    </div>
+</div>
+
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="导入结果" [nzContent]="modalContent" (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
+</nz-modal>
+
+<ng-template #modalContent>
+    <nz-table [nzData]="totalData" nzShowPagination [nzPageSize]="pageSize" [nzTotal]="totalData.length"
+        [nzPageIndex]="currentPage" (nzPageIndexChange)="handlePageIndexChange($event)">
+        <thead>
+            <tr>
+                <th>论文题目</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let title of uploadContent">
+                <td>{{ title }}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+</ng-template>

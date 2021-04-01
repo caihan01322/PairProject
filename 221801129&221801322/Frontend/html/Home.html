@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="../css/public.css" />
+    <link rel="stylesheet" href="../css/Home.css" />
+</head>
+<body>
+    <div id="nav">
+        <ul>
+            <li id="logo">PaperCrawler</li>
+            <li id="mark">收藏夹</li>
+            <li id="status">登录</li>
+        </ul>
+    </div>
+    <div id="contentWrap">
+        <div id="homeLogo">
+            PaperCrawler
+        </div>
+        <div id="search">
+            <div id="searchBox">
+                <img id="searchLogo" src="../img/Home/search.png" alt="搜索" />
+                <input type="text" id="searchPaper" disabled="disabled" />
+                <img id="upload" src="../img/Home/upload.png" alt="上传" />
+            </div>
+        </div>
+        <div id="login">
+            <div id="loginLogo">
+                PaperCrawler
+            </div>
+            <input type="text" id="user" name="用户名" autocomplete="off" placeholder="用户名" />
+            <input type="password" id="pw" name="密码" autocomplete="new-password" placeholder="密码" />
+            <input type="button" id="loginBtn" value="登录" />
+        </div>
+    </div>
+    <script src="../lib/jquery-3.6.0.min.js"></script>
+    <script src="../js/public.js"></script>
+    <script src="../js/Home.js"></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+@charset "UTF-8";
+.title{
+	width: 100%;
+	height: 30%;
+}
+.head{
+	display: flex;
+}
+.head1{
+	font-size: 15px;
+	border: 1px solid #666;
+	border-radius: 30px;
+	padding: 2px 30px 2px;
+	margin-top: 20px;
+	margin-left: 30px;
+}
+.head2{
+	border: 1px solid #666;
+	border-radius: 30px;
+	flex: 1;
+	font-size: 20px;
+	display: flex;
+	margin-left: 30px;
+	flex-direction: row-reverse;
+	align-items: center;
+	margin-top: 20px;
+	margin-right: 30px;
+}
+.head2 a{
+	margin-right: 20px;
+	cursor: pointer;
+}
+.content{
+	height: 550px;
+	margin-top: 30px;
+	margin-left: 30px;
+	margin-right: 30px;
+	border: 1px solid #666;
+	border-radius: 30px;
+	
+}
+.icon{ 
+	list-style-type: none;
+	padding-top: 15px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.icon a{
+	color: #320F0F;
+	text-decoration: none;
+}
+.icon i{
+	padding-right: 10px;
+}
+.titleright{
+	list-style-type: none;
+	padding-top: 15px;
+	margin-left: 30px;
+}
+.contentleft{
+	width: 15%;
+	display: flex;
+	float: left;
+}
+.contentright{
+	width: 80%;
+	float: right;
+	padding: 20px;
+	overflow: hidden;
+}
+.contentright select{
+    background: transparent;
+    border-color: #DCDCDC;
+	border-radius: 15px;
+	padding-left: 15px;
+    padding-right: 20px;
+	padding-top: 9px;
+	padding-bottom: 10px;
+    appearance: none;
+	text-align: center;
+}
+.contentright .pieselect{
+    background: transparent;
+    border-color: #DCDCDC;
+	border-radius: 15px;
+	padding-left: 15px;
+    padding-right: 20px;
+	padding-top: 9px;
+	padding-bottom: 10px;
+    appearance: none;
+	text-align: center;
+	float: left;
+}
+select::-ms-expand { display: none; }
+.contentright .searchInput{
+	width: 40%;	
+	height: 19px;
+	border-color: #DCDCDC;
+	border-radius: 15px;
+	padding: 8px;
+}
+.contentright .searchBtn{
+	background-color: transparent;
+    border-style: none;
+    color: #0080ff;
+    font-size: 15px;
+}
+.contentright .updateBtn{
+	background-color: transparent;
+    border-style: none;
+    color: #0080ff;
+    font-size: 15px;
+    float: right;
+    float: right;
+    margin-right: 40px;
+	margin-top: 14px;
+}
+.contentright p{
+	width: 65%;	
+    font-size: 14px;
+    float: left;
+}
+.contentright .button{
+    color: #0080ff;
+    text-decoration: none;
+}
+.contentright img{
+	float: right;
+}
+.contentright .imgCVPR{
+	width: 20%;
+	padding-top: 30px;
+	padding-right: 66px;
+}
+.contentright .imgICCV{
+	width: 25%;
+	padding-top: 30px;
+	padding-right: 50px;
+}
+.contentright .imgECCV{
+	width: 14%;
+	padding-right:90px;
+}

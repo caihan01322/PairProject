@@ -1,0 +1,76 @@
+#端口号配置
+server:
+  port: 8080
+#  servlet:
+#    # 应用的访问路径
+#    context-path: /
+#    tomcat:
+#      # 存放Tomcat的日志目录
+#      basedir: C:/tomcat
+#      accesslog:
+#        # 开启日志记录
+#        enabled: true
+#        # 访问日志存放目录
+#        directory: logs
+#      # tomcat的URI编码
+#      uri-encoding: UTF-8
+
+spring:
+  #模板引擎配置
+  thymeleaf:
+    #开启thymeleaf视图解析  [启用缓存:建议生产开启]
+    enabled: true
+    check-template-location: true # 检查模版是否存在
+    #excluded-view-names: # 应该从解析中排除的视图名称列表（用逗号分隔）
+    #前缀 模版存放路径
+    prefix: classpath:/templates/
+    #后缀名
+    suffix: .html
+    #严格的HTML语法模式
+    mode: HTML
+    #编码
+    encoding: UTF-8
+    # 禁用缓存 ---改动html即时刷新
+    cache: false
+    servlet:
+      content-type: text/html
+
+  devtools:
+    restart:
+      # 热部署开关
+      enabled: true
+
+  #静态文件配置
+  #  resources:
+  #    static-locations: classpath:/static,classpath:/META-INF/resources,classpath:/templates/
+
+  #jdbc配置   （ localhost : 3306 ）
+  datasource:
+    url: jdbc:mysql://localhost:3306/pairproject?useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=Etc/GMT-8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  #静态文件配置
+  web:
+    resources:
+      static-locations: classpath:/static,classpath:/META-INF/resources,classpath:/templates/
+
+#mybatis配置
+mybatis:
+  #映射文件路径
+  mapper-locations: classpath:mapper/*.xml
+  #模型所在的保命
+  type-aliases-package: com.practice.pair.pairproject.pojo
+
+mybatis-plus:
+  configuration:
+    # 关闭驼峰命名
+    #map-underscore-to-camel-case: false
+  #此处注意classpath后面要加* 表示加载多个jar下的xml
+  mapper-locations: classpath:mapper/*.xml
+
+
+#showSql ???
+logging:
+  level:
+    com.practice.pairproject: debug
