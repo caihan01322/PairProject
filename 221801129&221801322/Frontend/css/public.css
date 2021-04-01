@@ -1,0 +1,76 @@
+/* 公共属性
+------------------------------------------ */
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    width: 1024px;
+    margin: 0 auto;
+    line-height: 1.4;
+    font-family: Arial, sans-serif;
+}
+/* 导航条布局
+------------------------------------------ */
+#nav {
+    width: 1024px;
+    height: 60px;
+    background-color: rgb(102, 153, 204);
+    color: white;
+}
+#logo,#status {
+    cursor: pointer;
+}
+#logo {
+    width: 200px;
+    height: 60px;
+    float: left;
+    line-height: 60px;
+    text-align: center;
+    font-size: 21px;
+}
+#mark {
+    width: 120px;
+    height: 60px;
+    float: left;
+    line-height: 60px;
+    text-align: center;
+    font-size: 17px;
+    display: none;
+    cursor: pointer;
+}
+#status {
+    width: 120px;
+    height: 60px;
+    float: right;
+    line-height: 60px;
+    text-align: right;
+    font-size: 17px;
+    padding-right: 30px;
+}
+#nav li {
+    list-style: none;
+}
+/* 主体布局
+------------------------------------------ */
+#contentWrap{
+    position: relative;
+    width: 1024px;
+    height: 600px;
+    background-color: #fff;
+    clear: both;
+}
+/* 其他共用
+------------------------------------------ */
+.lineBreak {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+}
+.wrapBreak {
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

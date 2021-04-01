@@ -1,0 +1,44 @@
+.register-logo{
+    margin-top : 50px;
+    font-size : 30px;
+    font-weight : 400;
+    text-align: center;
+}
+
+
+.register-icon-div{
+    font-size:40px;
+    text-align: center;
+}
+
+.register-info-content{
+    text-align:center;
+    font-size : 15px;
+    color : rgb(160, 158, 158);
+}
+
+
+.register-form-content{
+    margin-top : 30px;
+}
+
+.userinfo-form{
+    border-radius: 5px;
+}
+.register-form-content > div:nth-child(2){
+    margin-top : 20px;
+}
+
+.register-form-content > div:nth-child(3){
+    margin-top : 20px;
+}
+.register-btn{
+    font-weight:400;
+    border-radius:5px;
+    margin-top:15px;
+    width:100px;
+}
+
+.added-content{
+    margin-top : 10px;
+}

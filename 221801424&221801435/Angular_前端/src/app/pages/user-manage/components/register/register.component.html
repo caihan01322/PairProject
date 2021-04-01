@@ -1,0 +1,47 @@
+<div class="main">
+    <div class="title">
+        <span>注册</span>
+    </div>
+ 
+    <div class="title-msg">
+        <span>请输入注册用户名、账户和密码</span>
+    </div>
+ 
+    <form class="login-form" method="post" novalidate >
+        <!--输入框-->
+        <div class="input-content">
+            <!--autoFocus-->
+            <div>
+                <input type="text" autocomplete="off"
+                       placeholder="用户名" name="name" required [(ngModel)]="userInfo.name"/>
+            </div>
+
+            <div style="margin-top: 16px">
+                <input type="text"
+                       autocomplete="off" placeholder="登录账号" name="account" required maxlength="32" [(ngModel)]="userInfo.account"/>
+            </div>
+ 
+            <div style="margin-top: 16px">
+                <input type="password"
+                       autocomplete="off" placeholder="登录密码" name="password" required maxlength="32" [(ngModel)]="userInfo.password"/>
+            </div>
+
+            <div style="margin-top: 16px">
+                <input type="password"
+                       autocomplete="off" placeholder="重复密码" name="repeatPwd" required maxlength="32" [(ngModel)]="userInfo.repeatPwd"/>
+            </div>
+        </div>
+ 
+        <!--登入按钮-->
+        <div style="text-align: center;margin-top: 120px;">
+            <button type="submit" class="enter-btn" (click)="register()">注册</button>
+        </div>
+
+        <div class="foor" style="margin-top: 16px;">
+            <div class="right"><span><a href="/user/login">返回登录</a></span></div>
+        </div>
+ 
+    </form>
+ 
+</div>
+

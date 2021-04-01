@@ -1,0 +1,10 @@
+.auth-main-content{
+    width:500px;
+    min-height:450px;
+    background-color: rgb(247, 243, 243);
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    box-shadow:0 0 5px #eee;
+}

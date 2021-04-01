@@ -1,0 +1,205 @@
+<div nz-row class="core-list-header">
+
+    <div nz-col nzSpan="4" class="core-list-logo">
+        <p><i nz-icon nzType="desktop" nzTheme="outline" style="margin-right: 5px;"></i>CV论文搜索</p>
+    </div>
+    <div nz-col nzSpan="2" nzOffset="2" style="margin-top: 10px;">
+        <div style="float:right">
+            <nz-select [(ngModel)]="searchType" (ngModelChange)="selectChange($event)">
+                <nz-option nzValue="title" nzLabel="标题"></nz-option>
+                <nz-option nzValue="keyword" nzLabel="关键词"></nz-option>
+            </nz-select>
+        </div>
+    </div>
+    <div nz-col nzSpan="8" class="core-list-search">
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+            <input type="text" nz-input [placeholder]="searchPH" [(ngModel)]="searchValue" [nzAutocomplete]="auto"
+                #inputRef />
+            <nz-autocomplete [nzDataSource]="filteredOptions" #auto></nz-autocomplete>
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+            <button nz-button nzType="default" nzSearch (click)="searchResult()"><i nz-icon
+                    nzType="search"></i></button>
+        </ng-template>
+    </div>
+
+</div>
+
+<div nz-row>
+    <div nz-col nzSpan="18" class="core-list-result">
+        <div nz-row nzJustify="center">
+            <div nz-col nzSpan="20" class="core-list-info">
+                <div style="float:left">
+                    <p nz-typography nzType="secondary" style="margin-bottom: -15px;">
+                        <span *ngIf="hasKeyword" style="font-weight: 600;font-size: 15px;">
+                            <i nz-icon nzType="left" nzTheme="outline" style="font-size: 15px;cursor: pointer;"
+                                nz-tooltip="返回所有结果" (click)="backAll()"></i>
+                            {{searchTip}}
+                            ：{{keyword}}
+                            <nz-divider nzType="vertical"></nz-divider>
+                        </span>
+                        为您找到如下结果(共{{ resultNum }}条<span *ngIf="resultNum > pageSize" style="font-size: 14px;">
+                            ，本页显示第{{currentStart}} ~ {{currentEnd}}条</span>)
+                    </p>
+                </div>
+                <div style="float:right">
+                    <span nz-typography nzType="secondary">没有找到想要的结果？重新<a click-back-home><span>发起搜索</span></a></span>
+                </div>
+                <nz-divider></nz-divider>
+            </div>
+        </div>
+
+        <nz-empty [nzNotFoundContent]="'未找到搜索结果'" *ngIf="currentPageList.length == 0"></nz-empty>
+
+        <div nz-row nzJustify="center" *ngFor="let item of currentPageList">
+            <div nz-col nzSpan="20" class="core-list-item">
+                <div nz-row>
+                    <div nz-col nzSpan="22" class="item-title" nzOffset="1">
+                        <h3 nz-typography nzType="secondary" nz-popover [nzPopoverContent]="titleTempl"
+                            nzPopoverTitle="论文题目">
+                            {{ item.title | truncate}}
+                        </h3>
+                        <ng-template #titleTempl>
+                            <h4 nz-typography nzType="secondary" style="font-weight: 400;">{{item.title}}</h4>
+                        </ng-template>
+                        <nz-divider></nz-divider>
+                    </div>
+
+                    <div nz-col nzSpan="22" nzOffset="1" class="item-note">
+                        <p nz-typography nzExpandable [nzEllipsisRows]="2" nzEllipsis [nzContent]="item.note"
+                            nzType="secondary"></p>
+                        <nz-divider style="margin-top: -3px;"></nz-divider>
+                    </div>
+                </div>
+                <div nz-row class="item-footer">
+                    <!-- 作者 -->
+                    <div nz-col nzSpan="6" nzOffset="1" style="max-height: 400px;">
+                        <span nz-typography nzType="secondary" nz-popover [nzPopoverContent]="anthorListTemplate">作者：{{
+                            item.author | truncateAuthor }}</span>
+                    </div>
+                    <ng-template #anthorListTemplate>
+                        <nz-list nzSize="small" nzHeader="作者列表">
+                            <nz-list-item *ngFor="let author of item.author">
+                                {{ author }}
+                            </nz-list-item>
+                        </nz-list>
+                    </ng-template>
+
+                    <!-- 关键词 -->
+                    <div nz-col nzSpan="10">
+                        <span nz-typography nzType="secondary" nz-popover [nzPopoverContent]="kwdListTemplate">关键字：{{
+                            item.keyword | truncateAuthor }}</span>
+
+                        <ng-template #kwdListTemplate>
+                            <nz-list nzSize="small" nzHeader="关键字列表"
+                                style="overflow-y:auto; overflow-x:auto; min-width:200; max-height:400px;">
+                                <nz-list-item *ngFor="let kwd of item.keyword">
+                                    {{ kwd }}
+                                </nz-list-item>
+                            </nz-list>
+                        </ng-template>
+                    </div>
+                    <!-- 论文编号 -->
+                    <div nz-col nzSpan="3">
+                        <span nz-typography nzType="secondary">论文编号:{{ item.id }}</span>
+                    </div>
+
+                    <!-- 链接 -->
+                    <div nz-col nzSpan="3" class="item-link" nzOffset="1">
+                        <span>
+                            <a [href]="item.link" target="_blank">前往论文</a>
+                            <i nz-icon nzType="copy" nzTheme="outline" class="copy" (click)="copyLink(item.link)"
+                                nz-tooltip nzTooltipTitle="复制链接"></i></span>
+                    </div>
+                </div>
+
+                <!-- 发布者以及发布时间 -->
+                <div nz-row class="item-end">
+                    <div nz-col nzSpan="4" nzOffset="1">
+                        <span nz-typography nzType="secondary">所属会议：{{ item.publisher }}</span>
+                    </div>
+
+                    <div nz-col nzSpan="8" nzOffset="2">
+                        <span nz-typography nzType="secondary">会议日期：{{ item.conferenceDate }}</span>
+                    </div>
+
+                    <div nz-col nzSpan="3" nzOffset="6">
+                        <button nz-button nzType="link" style="margin-left: 10px;font-size: 13px;display: inline;"
+                            (click)="toCollect(item.id)">收藏
+                        </button><i nz-icon nzType="star" nzTheme="outline" style="margin-left: -10px;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div nz-col nzSpan="20">
+                <nz-divider></nz-divider>
+            </div>
+        </div>
+
+        <div nz-row nzJustify="center">
+            <div nz-col nzSpan="16" style="text-align: center;">
+                <nz-pagination [(nzPageIndex)]="currentPage" [nzTotal]="resultNum" [nzPageSize]="pageSize"
+                    (nzPageIndexChange)="handlePageIndexChange($event)"></nz-pagination>
+            </div>
+        </div>
+
+        <div nz-row style="margin-top: 20px;">
+            <div nz-col nzSpan="20" style="background-color: #eee;" nzOffset="2">
+                <div nz-row style="padding: 5px 0px;">
+                    <div nz-col nzOffset="1" nzSpan="23">
+                        <span style="font-size: 13px;">搜索数据由计算机视觉三大顶会
+                            <a src="http://www.informatik.uni-trier.de/~ley/db/conf/iccv/index.html">Informatic
+                                ICCV</a>，
+                            <a src="http://www.informatik.uni-trier.de/~ley/db/conf/cvpr/index.html">Informatic
+                                CVPR</a>，
+                            <a src="http://www.informatik.uni-trier.de/~ley/db/conf/eccv/index.html">Informatic ECCV</a>
+                            提供。</span>
+                    </div>
+
+                    <div nz-col nzOffset="17" nzSpan="7">
+                        <span style="margin-left: 10px;">Created by YangZhenXuan , Pu Run han</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div nz-col nzSpan="6" class="core-list-rank">
+
+
+        <nz-row nzJustify="center">
+            <nz-col nzSpan="20">
+                <h5 nz-typography nzType="secondary" style="margin-top: 10px;margin-bottom: -15px;">热词排行</h5>
+                <nz-divider></nz-divider>
+            </nz-col>
+        </nz-row>
+
+        <div nz-row nzJustify="center" *ngIf="localKwdRank.length == 0">
+            <div nz-col nzSpan="20" style="text-align: center;">
+                <h3 nz-typography nzType="secondary">暂无数据</h3>
+            </div>
+        </div>
+
+        <div nz-row *ngFor="let kwd of localKwdRank;let i = index">
+            <div nz-col nzSpan="19" class="rank-item" nzOffset="1">
+                <p nz-typography nzType="secondary">
+                    <span [class]="'rank-'+i+'-index'" style="font-size: 16px;">{{i+1}}</span>&nbsp;&nbsp;&nbsp;
+                    <a (click)="toKwdSearch(kwd.key)">{{ kwd.key }}</a>
+                </p>
+            </div>
+            <div nz-col nzSpan="4">
+                <span nz-typography nzType="secondary">{{ kwd.value }}次引用</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<input id="copyInput" style="position: fixed;top: 10000px;left: 10000px;opacity: 0;">
+
+<nz-back-top [nzTemplate]="tpl" [nzVisibilityHeight]="100">
+    <ng-template #tpl>
+        <div class="ant-back-top-inner"><i nz-icon nzType="up" nzTheme="outline"></i></div>
+    </ng-template>
+</nz-back-top>

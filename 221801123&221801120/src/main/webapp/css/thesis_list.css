@@ -1,0 +1,121 @@
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #cbcbcb;
+    margin:0 auto;
+    width: 100%;
+    background-color: white;
+}
+
+th, td {
+    padding: 5px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+th{
+    font-size: 18px;
+    padding: 20px;
+}
+
+tr:hover {
+    background-color:#f5f5f5;
+}
+
+a{
+    color: #2f8df0;
+    padding: 5px;
+}
+
+dt{
+    font-family: "微软雅黑","黑体","宋体";
+    font-size: 20px;
+}
+
+dd{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    font-size: 17px;
+}
+
+.list{
+    margin:0 auto;
+    width: 80%;
+}
+
+/* 论文列表 */
+.articleFont{
+    font-weight: bold;
+}
+
+.articleDiv{
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    text-align: center;
+}
+
+.articleDiv p{
+    margin-block-start: 0;
+    margin-block-end: 3px;
+}
+
+.card-show{
+    display: none;
+    position: fixed;
+    z-index: 999999;
+    top: 50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
+
+.card{
+    box-shadow: 5px 8px 5px #888888;
+}
+
+.close{
+    cursor: pointer;
+}
+
+.middleDiv{
+    display: block;
+    margin: 0 auto;
+    padding: 30px;
+    text-align: center;
+}
+
+.middleBtn{
+    display: block;
+    margin: 0 auto;
+}
+
+
+.eidtText{
+    width: 500px;
+    height: 40px;
+    border: 1px solid #1692e5;
+    color: #717173;
+    padding-left: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    outline: none;
+    word-wrap: break-word;
+}
+
+.bigText{
+    height: 200px;
+}
+
+.buleFont{
+    color: #1692e5;
+}
+
+.redFont{
+    color: red;
+}
+
+.alertFont{
+    color: red;
+    font-size: 20px;
+    text-align: center;
+}

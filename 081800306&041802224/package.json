@@ -1,0 +1,29 @@
+{
+    "name": "work",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "eslint src",
+        "lint:create": "eslint --init"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "ejs": "^3.1.6",
+        "eslint-config-airbnb-base": "^14.2.1",
+        "eslint-plugin-import": "^2.22.1",
+        "koa": "^2.13.1",
+        "koa-bodyparser": "^4.3.0",
+        "koa-router": "^10.0.0",
+        "koa-static": "^5.0.0",
+        "koa-views": "^7.0.1",
+        "mysql2": "^2.2.5",
+        "require-directory": "^2.1.1",
+        "sequelize": "^6.6.2"
+    },
+    "devDependencies": {
+        "eslint": "^7.22.0"
+    }
+}
