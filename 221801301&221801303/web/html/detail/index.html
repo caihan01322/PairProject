@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>论文详情</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/init.js"></script>
+		<script src="../data/jquery-3.6.0.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-wide.css" />
+		</noscript>
+		<style>
+		.button {
+		    background-color: #4CAF50; /* Green */
+		    border: none;
+		    color: white;
+		    padding: 15px 32px;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 16px;
+		    margin: 4px 2px;
+		    cursor: pointer;
+		    -webkit-transition-duration: 0.4s; /* Safari */
+		    transition-duration: 0.4s;
+		}
+		
+		.button1:hover {
+		    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+		}
+		</style>
+	</head>
+	<body>
+		<div id="header">
+			<span class="logo icon fa-file-archive-o"></span>
+			<h1 id="title">Hi. This is Directive.</h1>
+			<br />
+			<h2 id="authors">A responsive HTML5 + CSS3 site template designed by HTML5 UP</h2>
+			<h3 id="year">A responsive HTML5 + CSS3 site template designed by HTML5 UP</h3>
+		</div>
+
+		<div id="main">
+			<h2>摘要</h2>
+			<header class="major container 75%">
+				<h3 id="abstract">We conduct experiments that
+				<br />
+				may or may not seriously
+				<br />
+				break the universe</h3>
+			</header>
+			
+			<h2>关键词</h2>
+			<header class="major container 75%">
+				<h3 id="keywords">We conduct experiments that
+				<br />
+				may or may not seriously
+				<br />
+				break the universe</h3>
+			</header>
+			
+			<h2>链接</h2>
+			<header class="major container 75%">
+				<h3><a id="ref" href="" target="_blank"></a></h3>
+			</header>
+
+			<div class="box alt container">
+				<section class="feature left">
+					<a href="http://iccv2021.thecvf.com/" class="image icon fa-signal" target="_blank"><img src="images/ICCV.jpg" alt="" /></a>
+					<div class="content">
+						<h3>ICCV</h3>
+						<p>ICCV 的全称是 IEEE International Conference on Computer Vision，即国际计算机视觉大会，在世界范围内每两年召开一次。ICCV论文录用率非常低，是三大会议中公认级别最高的。ICCV会议时间通常在四到五天，相关领域的专家将会展示最新的研究成果。</p>
+						</div>
+				</section>
+				<section class="feature right">
+					<a href="https://eccv2020.eu/" class="image icon fa-code" target="_blank"><img src="images/ECCV.jpg" alt="" /></a>
+					<div class="content">
+						<h3>ECCV</h3>
+						<p>ECCV的全称是European Conference on Computer Vision(欧洲计算机视觉国际会议) ，两年一次，是计算机视觉三大会议（另外两个是ICCV和CVPR）之一。每次会议在全球范围录用论文300篇左右，主要的录用论文都来自美国、欧洲等顶尖实验室及研究所，。ECCV2010的论文录取率为27%。</p>
+					</div>
+				</section>
+				<section class="feature left">
+					<a href="http://cvpr2021.thecvf.com/" class="image icon fa-mobile" target="_blank"><img src="images/CVPR.jpg" alt="" /></a>
+					<div class="content">
+						<h3>CVPR</h3>
+						<p>CVPR是IEEE Conference on Computer Vision and Pattern Recognition的缩写，即IEEE国际计算机视觉与模式识别会议。该会议是由IEEE举办的计算机视觉和模式识别领域的顶级会议。本会议每年都会有固定的研讨主题，而每一年都会有公司赞助该会议并获得在会场展示的机会。</p>
+					</div>
+				</section>
+			</div>
+		</div>
+		
+		<span id="demo" style="visibility: hidden;">s</span>
+		
+		<div style="text-align: center;padding-bottom: 50px;">
+			<button class="button button1" onclick="window.close()">关闭</button>
+		</div>
+		
+		
+		
+	</body>
+	<script type="text/javascript">
+		function getQueryVariable(variable)
+		{
+		       var query = window.location.search.substring(1);
+		       var vars = query.split("&");
+		       for (var i=0;i<vars.length;i++) {
+		               var pair = vars[i].split("=");
+		               if(pair[0] == variable){return pair[1];}
+		       }
+		       return(false);
+		}
+		document.getElementById("demo").innerHTML = getQueryVariable("id");
+	</script>
+	<script>
+		var id=Number($("#demo").html());
+		$(function(){
+			$.ajax({
+				type:"POST",
+				url:"http://47.111.17.116:8080/getDetail",
+				data:JSON.stringify({
+					"id":id
+				}),
+				dataType:"json",
+				contentType:"application/json",
+				success:function(data){
+					document.getElementById("title").innerHTML = data.name;
+					document.getElementById("authors").innerHTML = (data.author!=""?data.author:"No AUTHOR");
+					document.getElementById("year").innerHTML = data.year;
+					document.getElementById("abstract").innerHTML = data.abstract;
+					document.getElementById("keywords").innerHTML = data.keyword;
+					document.getElementById("ref").href=data.link;
+					document.getElementById("ref").innerHTML=data.link;
+				}
+			})
+		})
+	</script>
+</html>
