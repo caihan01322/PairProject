@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<!--添加命名空间-->
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" th:href="@{/css/index.css}" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cn.vuejs.org/js/vue.js"></script>
+
+    <!-- 引入 ECharts 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.0.2/dist/echarts.min.js"></script>
+
+
+</head>
+
+<body>
+<div class="content">
+    <div class=" head" >
+        <div id="seacher" class="search ui input action">
+            <select v-model="searchType" class="ui compact selection dropdown">
+                <option selected value="keyword">模糊</option>
+                <option selected value="hotword">keyword</option>
+                <option value="title">title</option>
+            </select>
+            <select  v-model="meeting" class="ui compact selection dropdown">
+                <option selected value="">all meeting</option>
+                <option value="CVPR">CVPR</option>
+                <option value="ECCV">ECCV</option>
+                <option value="ICCV">ICCV</option>
+            </select>
+            <input v-model="inputContent" class="inputBox" type="text" placeholder="Search...">
+            <button v-on:click="search" class="searchBtn inline ui primary button ">
+                搜索
+            </button>
+        </div>
+
+        <button class="hotTreandBtn  ui  button ">
+            top热词趋势
+        </button>
+
+    </div>
+
+
+    <div class="" >
+        <table  class=" ui celled padded table" >
+            <thead>
+                <tr>
+                    <th>论文标题</th>
+                    <th>概述</th>
+                    <th>作者</th>
+                    <th>年份</th>
+                    <th>顶会</th>
+                    <th>链接</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="table">
+                <tr v-for="paper in papers">
+                    <td >{{paper.title}}</td>
+                    <td >{{paper.abstractContent}}</td>
+                    <td >{{paper.authors}}</td>
+                    <td >{{paper.year}}</td>
+                    <td >{{paper.meeting}}</td>
+                    <td >
+                        <a class="ui  button" v-bind:href="paper.link">前往原文</a>
+                    </td>
+                    <td>
+                        <button id="delbtn"
+                                @click="del(paper.paperID)"
+                                class="ui red button" >delete</button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr><th  colspan="7">
+                    <div id="pager" class="ui right floated pagination menu">
+                        <template  v-if="curPage != 1">
+                            <a @click="toBegin"  class="icon item">
+                                <i  class="angle double left icon"></i>
+                            </a>
+                            <a @click="toPre"  class="icon item">
+                                <i  class="left chevron icon"></i>
+                            </a>
+                        </template>
+                        <template v-for="pageNum in shownPage">
+                                <template v-if="pageNum == curPage">
+                                    <a @click="toPage(pageNum)" style="background-color: lightgrey" class="item">
+                                        {{pageNum}}</a>
+                                </template>
+                                <template v-else>
+                                    <a @click="toPage(pageNum)" class="item">
+                                        {{pageNum}}</a>
+                                </template>
+
+                        </template>
+                        <template  v-if="curPage != totalPageNum">
+                            <a @click="toNext" class="icon item">
+                                <i  class="right chevron icon"></i>
+                            </a>
+                            <a @click="toEnd"  class="icon item">
+                                <i  class="angle double right icon"></i>
+                            </a>
+                        </template>
+                    </div>
+                </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<script>
+    //
+<!--    解析url数据               -->
+    function getQueryVariable(variable)
+    {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
+    var inputContent="";
+    var meeting='';
+    var searchType="keyword";
+    console.log(inputContent,meeting,searchType)
+    if (getQueryVariable('searchType')!=null && getQueryVariable('searchType')!=""){
+        searchType = getQueryVariable('searchType');
+    }
+    if (getQueryVariable('meeting')!=null && getQueryVariable('meeting')!=""){
+        meeting = getQueryVariable('meeting');
+    }
+    if (getQueryVariable('keyword')!=null && getQueryVariable('keyword')!=""){
+        inputContent = getQueryVariable('keyword');
+    }
+    var flashData = function(response){
+        //window.location.reload(true);
+        console.log(response)
+        //window.location.href="http://localhost:8811/del/"+id
+        table.papers = response.data.papers;
+        pager.curPage = response.data.curPage;
+        curPage = pager.curPage;
+        pager.nextPage = response.data.nextPage;
+        pager.prePage = response.data.prePage;
+        pager.shownPage = response.data.shownPage;
+        pager.totalPageNum = response.data.totalPageNum;
+    }
+
+    var keywordSearch = function(meeting,content,page){
+        console.log("keywordSearch",meeting,content,page)
+        axios({
+            method: 'get',
+            // url:'user/del/'+id,
+            url: '/paper/query/keyword',
+            params: {
+                keyword: content,
+                meeting:meeting,
+                page:page
+            },
+            // responseType:'stream'
+        }).then(function (response) {
+            flashData(response)
+        });
+    }
+    var titleSearch = function(meeting,content,page){
+        console.log("titleSearch",meeting,content,page)
+
+        axios({
+            method: 'get',
+            // url:'user/del/'+id,
+            url: '/paper/query',
+            params: {
+                title: content,
+                meeting:meeting,
+                page:page
+            },
+            // responseType:'stream'
+        }).then(function (response) {
+            flashData(response)
+        });
+    }
+    var hotWordSearch = function(meeting,content,page){
+        console.log("hotWordSearch",meeting,content,page)
+
+        axios({
+            method: 'get',
+            // url:'user/del/'+id,
+            url: '/paper/query/hotwordRelated',
+            params: {
+                keyword: content,
+                meeting:meeting,
+                page:page
+            },
+            // responseType:'stream'
+        }).then(function (response) {
+            flashData(response)
+        });
+    }
+
+    //请求函数--------------------------------------------over
+
+    var searcher = new Vue({
+        el: "#seacher",
+        data:{
+            inputContent:inputContent,
+            meeting:meeting,
+            searchType:searchType
+        },
+        methods: {
+            search: function(event){
+                //alert(this.inputContent);
+                var info = "搜索："+this.inputContent+" 顶会："+this.meeting+" 搜索类别："+this.searchType;
+                console.log(info)
+                if (this.searchType == "keyword" ){
+                    keywordSearch(this.meeting,this.inputContent,1)
+                }else if(this.searchType == "title" ){
+                    titleSearch(this.meeting,this.inputContent,1)
+                }else if(this.searchType == "hotword"){
+                    hotWordSearch(this.meeting,this.inputContent,1)
+                }
+            }
+        }
+    })
+    var pager = new Vue({
+        el: '#pager',
+        data: {
+            curPage: 1,
+            nextPage:0,
+            prePage:0,
+            shownPage:[],
+            totalPageNum:0,
+
+        },
+        methods:{
+            toPre:function(event){
+                console.log(searcher.meeting,searcher.inputContent,this.prePage);
+                if (searcher.searchType == "keyword" ){
+                    keywordSearch(searcher.meeting,searcher.inputContent,this.prePage)
+                }else if(searcher.searchType == "title" ){
+                    titleSearch(searcher.meeting,searcher.inputContent,this.prePage)
+                }else if(searcher.searchType == "hotword"){
+                    hotWordSearch(searcher.meeting,searcher.inputContent,this.prePage)
+                }
+            },
+            toNext:function(event){
+                console.log(searcher.meeting,searcher.inputContent,this.nextPage);
+                if (searcher.searchType == "keyword" ){
+                    keywordSearch(searcher.meeting,searcher.inputContent,this.nextPage)
+                }else if(searcher.searchType == "title" ){
+                    titleSearch(searcher.meeting,searcher.inputContent,this.nextPage)
+                }else if(searcher.searchType == "hotword"){
+                    hotWordSearch(searcher.meeting,searcher.inputContent,this.nextPage)
+                }
+            },
+            toPage:function(pageNum){
+                console.log(pageNum);
+                if (searcher.searchType == "keyword" ){
+                    keywordSearch(searcher.meeting,searcher.inputContent,pageNum)
+                }else if(searcher.searchType == "title" ){
+                    titleSearch(searcher.meeting,searcher.inputContent,pageNum)
+                }else if(searcher.searchType == "hotword"){
+                    hotWordSearch(searcher.meeting,searcher.inputContent,pageNum)
+                }
+            },
+            toBegin:function () {
+                this.toPage(1)
+            },
+            toEnd:function () {
+                this.toPage(this.totalPageNum)
+            }
+        }
+    })
+    //pager.toPre();
+    var table = new Vue({
+        el: '#table',
+        data: {
+            papers: []
+        },
+        methods: {
+            del : function(paperID){
+                console.log(paperID);
+                axios({
+                    method:'get',
+                    // url:'user/del/'+id,
+                    url:'/paper/delete',
+                    params: {
+                        paperID: paperID
+                    },
+                    // responseType:'stream'
+                }).then(function(response) {
+                    if (searcher.searchType == "keyword" ){
+                        keywordSearch(searcher.meeting,searcher.inputContent,pager.curPage)
+                    }else if(searcher.searchType == "title" ){
+                        titleSearch(searcher.meeting,searcher.inputContent,pager.curPage)
+                    }
+                });
+            }
+        }
+    })
+
+
+
+
+    keywordSearch(meeting,inputContent,1);
+</script>
+</body>
+</html>
