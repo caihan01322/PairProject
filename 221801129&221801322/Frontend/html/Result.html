@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+    <link rel="stylesheet" href="../css/public.css" />
+    <link rel="stylesheet" href="../css/Result.css" />
+    <link rel="stylesheet" href="../css/page.css">
+    <script src="../lib/vue.js"></script>
+    <script src="../lib/jquery-3.6.0.min.js"></script>
+    <script src="../js/public.js"></script>
+</head>
+<body>
+    <div id="nav">
+        <ul>
+            <li id="logo">PaperCrawler</li>
+            <li id="mark">收藏夹</li>
+            <li id="status">登录</li>
+        </ul>
+    </div>
+    <div id="contentWrap">
+        <div id="content">
+            <div id="search">
+                <select>
+                    <option class="optionSelect" value="1">&nbsp; 论文题目</option>
+                    <option value="2">&nbsp; 关键词</option>
+                    <option value="3">&nbsp; 论文编号</option>
+                </select>
+                <div id="searchBox">
+                    <img id="searchLogo" src="../img/Home/search.png" alt="搜索" />
+                    <input type="text" id="searchPaper"/>
+                </div>
+            </div>
+            <div class="list">
+                <div class="listContent" v-for="list in lists">
+                    <div class="title lineBreak" :data-paper-uid="list.article_id">
+                        <h2 :title="list.title">{{ list.title }}</h2>
+                    </div>
+                    <div class="abstract">
+                        <span>摘要：</span>
+                        <div>
+                            <p class="wrapBreak" :title="list.abstract">
+                                {{ list.abstract }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="listBottom">
+                        <span>关键词：</span>
+                        <div class="keyword lineBreak" v-for="key in list.keyword" :title="key">{{ key }}</div>
+                    </div>
+                    <img src="../img/Result/delete.svg" class="deleteSvg" :id="delete(index)" alt="delete" title="删除">
+                    <img src="../img/Result/mark.svg" class="markSvg" alt="mark" title="收藏">
+                </div>
+                <button id="btn" @click="getLists()" style="border-width: 0;"></button>
+            </div>
+            <div class="page-bar">
+                <ul>
+                    <li v-if="cur > 1"><a v-on:click="cur--,pageClick()">上一页</a></li>
+                    <li v-if="cur == 1"><a class="banclick">上一页</a></li>
+                    <li v-for="index in indexs"  v-bind:class="{ 'active': cur == index }">
+                        <a v-on:click="btnClick(index)">{{ index }}</a>
+                    </li>
+                    <li v-if="cur < all"><a v-on:click="cur++,pageClick()">下一页</a></li>
+                    <li v-if="cur == all"><a class="banclick">下一页</a></li>
+                    <li><a>共<i>{{ all }}</i>页</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="sidebar">
+            <div id="trend_nav">
+                <div class="nav_selected">CVPR</div>
+                <div>ICCV</div>
+                <div>ECCV</div>
+            </div>
+            <div id="trend">
+                <div class="chart display_chart"></div>
+                <div class="chart content_selected"></div>
+                <div class="chart content_selected"></div>
+                <script type="text/javascript" src="../lib/echarts.min.js"></script>
+                <script type="text/javascript" src="../js/charts.js"></script>
+            </div>
+            <div id="topRank">
+                <h3>
+                    热词标题TOP10
+                </h3>
+                <ul id="rank">
+                    <li v-for="topRank in topRanks">
+                        <div class="num-box">
+                            <span :id="num(topRank.index)">{{ topRank.index }}</span> 
+                        </div>
+                        <div class="name-box lineBreak" :title="topRank.name">
+                            <span :class="name(topRank.index)" @click="rankClick(topRank.name)">{{ topRank.name }}</span>
+                        </div>
+                        <div class="total-box lineBreak" :title="topRank.count">
+                            <span>{{ topRank.count }}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="../js/Result.js"></script>
+    <script src="../js/page.js"></script>
+</body>
+</html>

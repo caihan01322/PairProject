@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("button").click(function(){
+                $.post("http://127.0.0.1:3000/test/users",{},function(data,status){
+                    let apart = document.getElementById("a");
+                    let a = document.getElementById("a");
+                    a.innerHTML = data[0].username;
+                })
+            })
+        })
+            
+        </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th id="a">姓名</th>
+                        <th id="b">年龄</th>
+                        <th id="c">性别</th>
+                        <th id="d">手机号</th>
+                        <th id="2">地址</th>
+                    </tr>
+                </thead>
+                <tbody id="user">
+                    <button>dianji</button>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+
+</html>

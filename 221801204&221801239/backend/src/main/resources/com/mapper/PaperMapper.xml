@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.PaperMapper">
+<select id="getTopWords" resultType="Keyword">
+    select keyword,count from xjbs.keyword_count ORDER BY count DESC limit 0,10;
+</select>
+
+    <select id="getPapers" resultType="Paper">
+        select * from xjbs.paper;
+    </select>
+
+    <select id="getMeetingInfo" resultType="meetinginfo">
+        select magazine,count(*) as number,publication_year from xjbs.paper group by magazine,publication_year ORDER BY publication_year;
+    </select>
+</mapper>

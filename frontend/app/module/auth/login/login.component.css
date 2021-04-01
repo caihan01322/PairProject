@@ -1,0 +1,44 @@
+.login-logo{
+    margin-top : 50px;
+    font-size : 30px;
+    font-weight : 400;
+    text-align: center;
+}
+
+
+.login-icon-div{
+    font-size:40px;
+    text-align: center;
+}
+
+.login-info-content{
+    text-align:center;
+    font-size : 15px;
+    color : rgb(160, 158, 158);
+}
+
+
+.login-form-content{
+    margin-top : 30px;
+}
+
+.userinfo-form{
+    border-radius: 5px;
+}
+.login-form-content > div:nth-child(2){
+    margin-top : 20px;
+}
+.login-btn{
+    font-weight:400;
+    border-radius:5px;
+    margin-top:50px;
+    width:100px;
+}
+
+.added-content{
+    margin-top : 10px;
+}
+
+.login-icon{
+    cursor: pointer;
+}

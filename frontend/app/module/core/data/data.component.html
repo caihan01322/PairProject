@@ -1,0 +1,38 @@
+<div nz-row nzJustify="center">
+    <div nz-col nzSpan="20" style="background-color: #eee;border:2px #ddd dashed;border-top: none;">
+        <h2 nz-typography nzType="secondary" style="font-weight: 500;margin-left: 5px;margin-top: 10px;display: inline;">
+            <i nz-icon nzType="line-chart" nzTheme="outline" style="font-weight: 900;margin-right: 5px;"></i>统计数据</h2>
+            <span style="float: right;margin-top: 15px;margin-right: 5px;" nz-typography nzType="secondary">数据统计来源为CV三大顶会ECCV，CVPR，ICCV</span>
+    </div>
+    <div nz-col nzSpan="20" style="border: 2px #ddd dashed;min-height: 500px;border-top: none;">
+        <nz-spin nzTip="获取统计数据中，首次获取可能需要十几秒的时间..." [nzSpinning]="isSpinning" nzSize="large" style="position:relative;top: 200px;margin-top: 10px;">
+        </nz-spin>
+        <div nz-row style="margin-top: 50px;">
+
+
+            <div nz-col nzSpan="24" style="text-align: center;">
+                <nz-statistic [nzValue]="(paperNum | number)!" [nzTitle]="'共收录论文（篇）'"></nz-statistic>
+            </div>
+
+
+            <div nz-col nzSpan="7">
+                <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"
+                style="width: 100%; height: 200px; display: inline;" [update]="true" #piechart
+                [runOutsideAngular]="true"></highcharts-chart>
+            </div>
+            <div nz-col nzSpan="12" nzOffset="5">
+                <highcharts-chart [Highcharts]="Highcharts" [options]="ieeeOptions"
+                style="width: 300px; height: 200px; display: inline;" [update]="true" #ieeechart
+                [runOutsideAngular]="true"></highcharts-chart>
+            </div>           
+    </div>
+    <div nz-row nzJustify="center">
+        <div nz-col nzSpan="10"  style="align-content: center;">
+            <highcharts-chart 
+            [Highcharts]="Highcharts" 
+            [options]="keywordOptions"
+            #kwdchart>
+      </highcharts-chart>
+        </div>
+    </div>
+</div>

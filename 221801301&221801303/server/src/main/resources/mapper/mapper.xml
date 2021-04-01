@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fzu.server.dao.PaperDao">
+    <insert id="addECCVPaper" parameterType="com.fzu.server.pojo.Paper" useGeneratedKeys="true" keyProperty="ID">
+        insert into ECCV_paper(abstract,
+                               year,
+                               time,
+                               name,
+                               link)
+        values (#{Abstract},
+                #{year},
+                #{time},
+                #{name},
+                #{link})
+    </insert>
+    <insert id="addECCVKeyword">
+        insert into ECCV_keyword(pid,
+                                 keyword)
+        values (#{pID},
+                #{keyword})
+    </insert>
+
+    <insert id="addCVPRPaper" parameterType="com.fzu.server.pojo.Paper" useGeneratedKeys="true" keyProperty="ID">
+        insert into CVPR_paper(abstract,
+                               year,
+                               time,
+                               name,
+                               link)
+        values (#{Abstract},
+                #{year},
+                #{time},
+                #{name},
+                #{link})
+    </insert>
+    <insert id="addCVPRKeyword">
+        insert into CVPR_keyword(pid,
+                                 keyword)
+        values (#{pID},
+                #{keyword})
+    </insert>
+    <insert id="addCVPRAuthor">
+        insert into CVPR_author(pid,
+                                author)
+        VALUES (#{pID},
+                #{author})
+    </insert>
+
+    <insert id="addICCVPaper" parameterType="com.fzu.server.pojo.Paper" useGeneratedKeys="true" keyProperty="ID">
+        insert into ICCV_paper(abstract,
+                               year,
+                               time,
+                               name,
+                               link)
+        values (#{Abstract},
+                #{year},
+                #{time},
+                #{name},
+                #{link})
+    </insert>
+    <insert id="addICCVKeyword">
+        insert into ICCV_keyword(pid,
+                                 keyword)
+        values (#{pID},
+                #{keyword})
+    </insert>
+    <insert id="addICCVAuthor">
+        insert into ICCV_author(pid,
+                                author)
+        VALUES (#{pID},
+                #{author})
+    </insert>
+
+    <insert id="addPaper" parameterType="com.fzu.server.pojo.Paper" useGeneratedKeys="true" keyProperty="ID">
+        insert into paper(abstract,
+                          year,
+                          time,
+                          name,
+                          link,
+                          meeting)
+        values (#{Abstract},
+                #{year},
+                #{time},
+                #{name},
+                #{link},
+                #{meeting})
+    </insert>
+    <insert id="addKeyword">
+        insert into keyword(pid,
+                            keyword)
+        values (#{pID},
+                #{keyword})
+    </insert>
+    <insert id="addAuthor">
+        insert into author(pid,
+                           author)
+        VALUES (#{pID},
+                #{author})
+    </insert>
+
+    <select id="checkKeyword" resultType="java.lang.Integer">
+        select COUNT(*)
+        from keyword
+        where keyword = #{keyword}
+          and pid = #{pID};
+    </select>
+    <select id="checkAuthor" resultType="java.lang.Integer">
+        select COUNT(*)
+        from author
+        where author = #{author}
+          and pid = #{pID};
+    </select>
+
+    <select id="getPaperByName" resultType="com.fzu.server.pojo.Paper">
+        select *
+        from paper
+        where name like CONCAT('%', #{name}, '%')
+        limit #{start},#{lim};
+    </select>
+    <select id="getPaperByAuthor" resultType="com.fzu.server.pojo.Paper">
+        select *
+        from paper
+        where id in (select DISTINCT pid from author where author like CONCAT('%', #{author}, '%'))
+        limit #{start},#{lim};
+    </select>
+    <select id="getPaperByKeyword" resultType="com.fzu.server.pojo.Paper">
+        select *
+        from paper
+        where id in (select DISTINCT pid from keyword where keyword = #{keyword})
+        limit #{start},#{lim};
+    </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        select COUNT(*) from paper where 1=1
+        <if test="state==0">
+            and name like CONCAT('%',#{str},'%');
+        </if>
+        <if test="state==1">
+            and id in (select DISTINCT pid from author where author like CONCAT('%',#{str},'%'));
+        </if>
+        <if test="state==2">
+            and id in (select DISTINCT pid from keyword where keyword = #{str});
+        </if>
+    </select>
+    <select id="getDetail" resultType="com.fzu.server.pojo.Paper">
+        select *
+        from paper
+        where id = #{id};
+    </select>
+    <select id="getKeyword" resultType="java.lang.String">
+        select keyword
+        from keyword
+        where pid = #{id}
+        limit 5;
+    </select>
+    <select id="getAuthor" resultType="java.lang.String">
+        select author
+        from author
+        where pid = #{id}
+        limit 5;
+    </select>
+
+    <select id="getCVPR" resultType="java.util.Map">
+        select keyword, COUNT(*) num
+        from CVPR_keyword
+        group by keyword
+        order by COUNT(*) DESC
+        limit 10;
+    </select>
+    <select id="getECCV" resultType="java.util.Map">
+        select keyword, COUNT(*) num
+        from ECCV_keyword
+        group by keyword
+        order by COUNT(*) DESC
+        limit 10;
+    </select>
+    <select id="getICCV" resultType="java.util.Map">
+        select keyword, COUNT(*) num
+        from ICCV_keyword
+        group by keyword
+        order by COUNT(*) DESC
+        limit 10;
+    </select>
+    <select id="getTOP" resultType="java.util.Map">
+        select keyword, COUNT(*) num
+        from keyword
+        group by keyword
+        order by COUNT(*) DESC
+        limit 10;
+    </select>
+</mapper>

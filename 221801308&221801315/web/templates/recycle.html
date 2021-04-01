@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% import 'macros.html' as macro %}
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+    <link rel="stylesheet" href="https://fonts.g.forms.cn/icon?family=Material+Icons">
+    <link rel="stylesheet" href={{url_for("static",filename="css/header.css" )}}>
+    <link rel="stylesheet" href={{url_for("static",filename="css/index.css" )}}>
+    <link rel="stylesheet" href={{url_for("static",filename="css/search.css" )}}>
+    <link rel="stylesheet" href={{url_for("static",filename="css/list.css" )}}>
+    <script src="https://kit.fontawesome.com/cdc72c83b6.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <title>Recycle</title>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <nav class="navigater">
+                <div class="logo">
+                    <img src={{url_for("static",filename="images/favicon.png" )}} alt="logo" class="image" />
+                    <h3 class="title">iPaper</h3>
+                </div>
+                <ul class="menu">
+                    <li class="nav-item"><a href={{url_for("index_logined")}} class="nav-href">Home</a></li>
+                    <li class="nav-item"><a href={{url_for("search_view")}} class="nav-href active">Search</a></li>
+                    <li class="nav-item"><a href={{url_for("contact_view")}} class="nav-href">Contact</a></li>
+                    <li class="nav-item"> <a href={{url_for("logout")}} class="nav-href">Sign out</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <div class="nav-left">
+                <ul class="anothor-menu">
+                    <li class="menu-item"><a href={{url_for("search_view")}} class="nav-href"><i class="fa fa-list"
+                                aria-hidden="true"></i> <span class="nav-title">论文检索</span></a></li>
+                    <li class="menu-item"><a href={{url_for("hot_keywords_cake")}} class="nav-href"><i
+                                class="fa fa-pie-chart" aria-hidden="true"></i> <span class="nav-title">热词速递</span></a>
+                    </li>
+                    <li class="menu-item"><a href={{url_for("hot_keywords_trend")}} class="nav-href"><i
+                                class="fa fa-line-chart" aria-hidden="true"></i> <span class="nav-title">热词走势</span></a>
+                    </li>
+                    <li class="menu-item"><a href={{url_for("carousel")}} class="nav-href"><i class="fa fa-picture-o"
+                                aria-hidden="true"></i><span class="nav-title">近日热点</span></a>
+                    </li>
+                    <li class="menu-item"><a href={{url_for("favorite_view")}} class="nav-href"><i class="fa fa-heart"
+                                aria-hidden="true"></i> <span class="nav-title">收藏夹</span></a>
+                    </li>
+                    <li class="menu-item"><a href={{url_for("recycle_view")}} class="nav-href active"><i
+                                class="fa fa-recycle" aria-hidden="true"></i><span class="nav-title">回收站</span></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="content">
+                <div class="list">
+                    <table class="list-table">
+                        {% for article in pagination.items %}
+                        <tr class="table-item">
+                            <td class="art-title">{{article.title}}</td>
+                            <td class="art-btn"><a href={{url_for("recycle", title=article.title,
+                                    pagination_func=pagination_func, page=pagination.page)}}
+                                    class="item-href"><i class="fa fa-undo font-icon" aria-hidden="true"></i> </a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <div class="list-foot">
+                        <span class="current-page">当前页数：{{pagination.page}}</span>
+                        {# 如果存在上一页 #}
+                        {% if pagination.has_prev %}
+                        <a href={{url_for(pagination_func, page=pagination.prev_num)}} class="page-choose"><i
+                                class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
+                        {% endif %}
+
+                        {% for i in pagination.iter_pages() %}
+                        {% if i %}
+                        {% if i == pagination.page %}
+                        {{i}}
+                        {% else %}
+                        <a href={{url_for(pagination_func, page=i)}} class="page-href">{{i}}</a>
+                        {% endif %}
+                        {% else %}
+                        <a href="#" class="page-href">&hellip;</a>
+                        {% endif %}
+                        {% endfor %}
+
+                        {# 如果存在下一页 #}
+                        {% if pagination.has_next %}
+                        <a href={{url_for(pagination_func, page=pagination.next_num)}} class="page-choose"><i
+                                class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+                <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <script>
+                    var messages = {{ messages | safe }};
+                    for (var i = 0; i < messages.length; i++) {
+                        alert(messages[i]);
+                    }
+                </script>
+                {% endif %}
+                {% endwith %}
+            </div>
+        </main>
+    </div>
+
+</body>
+
+</html>

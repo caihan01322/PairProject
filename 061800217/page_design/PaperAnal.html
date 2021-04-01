@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="Paper.css">
+    <link rel="shortcut icon" type="image/x-icon" href="antOutline-codepen-circle.svg">
+    <title>Document</title>
+</head>
+<body>
+    <div id="wrap">
+        <div id="nav">  
+            <embed id="sign" src="antOutline-codepen-circle.svg" type="image/svg+xml" >
+            <input class="nav-button" id="findButton" type="button" value="论文检索" onclick="">
+            <input class="nav-button" type="button" value="论文管理" onclick="">
+            <input class="nav-button" type="button" value="论文分析" onclick="">
+            <input class="nav-button" type="button" value="个人中心" onclick="">
+            <input class="nav-button" id="loginOut" type="button" value="注 销" onclick="">
+        </div>
+
+        <div id="main">
+            <div id="userInfo">
+                <div id="face"></div>
+                <div id="personInf">
+                    <div id="name">
+                        <h2>昵称</h2>
+                        <p>id:XXXXXX</p>
+                        <p>我的收藏：<span id="myCol">10</span></p>
+                        <p>我的分享：<span id="myShare">13</span></p>
+                    </div>
+                    <div id="history">
+                        <h4 id="historyTit">历史记录</h4>
+                        <ul>
+                            <li>ICCV 论文题目（一）</li>
+                            <li>ICCV 论文题目（二）</li>
+                            <li>ICCV 论文题目（三）</li>
+                            <li>ICCV 论文题目（四）</li>
+                            <li>ICCV 论文题目（五）</li>
+                            <li>ICCV 论文题目（六）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>   
+            <div id="modular">
+                <div id="hotArea">
+                    <h2>热门领域分析</h2>
+                    <p>根据您的论文列表分析热门领域及热门词汇</p>
+                    <div id="hot">
+                        <h3>热门领域分析</h3>
+                        <div id="areaAnal"></div>
+                        <h3>论文热词分析</h3>
+                        <div id="wordAnal"></div>
+                    </div>
+                </div>
+                <div id="hotAnal">
+                    <div id="hotWord">
+                        <h3>热词分析</h3>
+                        <p>多年间、不同顶会的热词</p>
+                        <div id="words"></div>
+                    </div>
+                    <div id="hotWordGo">
+                        <h3>热词走势</h3>
+                        <p>多年间、不同顶会的最热词呈现热度走势对比</p>
+                        <div id="go"></div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+
+        <div id="footer">
+            <input class="footer-button" id="indexButton" type="button" value="首页官网" onclick="">
+            <input class="footer-button" type="button" value="关于我们" onclick="">
+            <input class="footer-button" type="button" value="联系我们" onclick="">
+            <span id="copyright">Copyright © 2020. All rights reserved.</span>
+        </div>
+    </div>
+</body>
+</html>

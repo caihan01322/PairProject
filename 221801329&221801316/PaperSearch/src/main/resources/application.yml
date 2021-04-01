@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    username: root
+    password: Root1234@
+    url: jdbc:mysql://120.77.84.235:3306/paper_search
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  # 配置Mapper.xml地址
+  mapper-locations: classpath*:*/mapper/*.xml
+  # 配置实体地址
+  type-aliases-package: com.fzu.pojo
+#分页pageHelper
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true

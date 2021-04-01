@@ -1,0 +1,400 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>paperSearch</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-grid.css">
+    <link rel="stylesheet" href="../css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="../css/style.default.css">
+    <script src="../js/echarts.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.15.4/bootstrap-table.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.15.4/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#accurate").click(function(){
+                $('#myTable').bootstrapTable('destroy');
+                $('#myTable').bootstrapTable({
+                    method: 'post',
+                    url: "http://localhost:8080/pairwork/paper/search", // 请求路径
+                    striped: true, // 是否显示行间隔色
+                    pageNumber: 1, // 初始化加载第一页
+                    pagination: true, // 是否分页
+                    sidePagination: 'client', // server:服务器端分页|client：前端分页
+                    sortable: true,
+                    sortName:'论文名称',
+                    sortOrder: 'desc',
+                    pageSize: 10, // 单页记录数
+
+                    search: false,
+                    cache: false,
+                    paginationLoop: false,
+                    //showToggle: false,
+
+                    paginationHAlign: 'left',
+                    paginationDetailHAlign: 'right',
+                    paginationPreText: '上一页',
+                    paginationNextText: '下一页',
+                    // showRefresh : true,// 刷新按钮
+                    queryParams: function(params) { // 上传服务器的参数
+                        var temp = {
+                            string1:$("#title").val(),
+                            string2:"精准查询",
+                            string3:$("#content").val(),
+                        };
+                        console.log(temp)
+                        return temp;
+                    },
+                    columns: [{
+                        checkbox: true
+                    }, {
+                        title: '论文名称',
+                        field: 'title',
+                        searchable:true,
+                        formatter:paramsMatter,
+                    }, {
+                        title: '原文链接',
+                        field: 'link',
+                        searchable:false,
+                        formatter:paramsMatter,
+                    }, {
+                        title: '会议',
+                        field: 'type',
+                        searchable:true,
+                    },{
+                        title: '年份',
+                        field: 'year',
+                        searchable:true,
+                    },{
+                        title: '摘要',
+                        field: 'paperAbstract',
+                        searchable:false,
+                        formatter:paramsMatter,
+                    }, {
+                        title: '关键词',
+                        field: 'keyword',
+                        searchable:true,
+                        formatter:paramsMatter,
+                    }
+                    ]
+                })
+            });
+
+
+            $("#obscure").click(function(){
+                $('#myTable').bootstrapTable('destroy');
+                $('#myTable').bootstrapTable({
+                    method: 'post',
+                    url: "http://localhost:8080/pairwork/paper/search", // 请求路径
+                    striped: true, // 是否显示行间隔色
+                    pageNumber: 1, // 初始化加载第一页
+                    pagination: true, // 是否分页
+                    sidePagination: 'client', // server:服务器端分页|client：前端分页
+                    sortable: true,
+                    sortName:'论文名称',
+                    sortOrder: 'desc',
+                    pageSize: 10, // 单页记录数
+                    search: false,
+                    cache: false,
+                    paginationLoop: false,
+                    paginationHAlign: 'left',
+                    paginationDetailHAlign: 'right',
+                    paginationPreText: '上一页',
+                    paginationNextText: '下一页',
+                    queryParams: function(params) { // 上传服务器的参数
+                        var temp = {
+                            string1:$("#title").val(),
+                            string2:"模糊查询",
+                            string3:$("#content").val(),
+                        };
+                        console.log(temp)
+                        return temp;
+                    },
+                    columns: [{
+                        checkbox: true
+                    }, {
+                        title: '论文名称',
+                        field: 'title',
+                        searchable:true,
+                        formatter:paramsMatter,
+                    }, {
+                        title: '原文链接',
+                        field: 'link',
+                        searchable:false,
+                        formatter:paramsMatter,
+                    }, {
+                        title: '会议',
+                        field: 'type',
+                        searchable:true,
+                    },{
+                        title: '年份',
+                        field: 'year',
+                        searchable:true,
+                    },{
+                        title: '摘要',
+                        field: 'paperAbstract',
+                        searchable:false,
+                        formatter:paramsMatter,
+                    }, {
+                        title: '关键词',
+                        field: 'keyword',
+                        searchable:true,
+                        formatter:paramsMatter,
+                    }
+                    ]
+                })
+            });
+        });
+    </script>
+
+    <script>
+        var keyword=document.cookie.split(";")[0].split("=")[1];
+        $('#myTable').bootstrapTable('destroy');
+        $('#myTable').bootstrapTable({
+            method: 'post',
+            url: "http://localhost:8080/pairwork/paper/search", // 请求路径
+            striped: true, // 是否显示行间隔色
+            pageNumber: 1, // 初始化加载第一页
+            pagination: true, // 是否分页
+            sidePagination: 'client', // server:服务器端分页|client：前端分页
+            sortable: true,
+            sortName:'论文名称',
+            sortOrder: 'desc',
+            pageSize: 10, // 单页记录数
+            search: false,
+            cache: false,
+            paginationLoop: false,
+            paginationHAlign: 'left',
+            paginationDetailHAlign: 'right',
+            paginationPreText: '上一页',
+            paginationNextText: '下一页',
+            queryParams: function(params) { // 上传服务器的参数
+                var temp = {
+                    string1:$("#title").val(),
+                    string2:"模糊查询",
+                    string3:keyword,
+                };
+                console.log(temp)
+                return temp;
+            },
+            columns: [{
+                checkbox: true
+            }, {
+                title: '论文名称',
+                field: 'title',
+                searchable:true,
+                formatter:paramsMatter,
+            }, {
+                title: '原文链接',
+                field: 'link',
+                searchable:false,
+                formatter:paramsMatter,
+            }, {
+                title: '会议',
+                field: 'type',
+                searchable:true,
+            },{
+                title: '年份',
+                field: 'year',
+                searchable:true,
+            },{
+                title: '摘要',
+                field: 'paperAbstract',
+                searchable:false,
+                formatter:paramsMatter,
+            }, {
+                title: '关键词',
+                field: 'keyword',
+                searchable:true,
+                formatter:paramsMatter,
+            }
+            ]
+        })
+    </script>
+</head>
+<body>
+<a class="logoName" href="paperList.html">
+    <img class="logo" src="../img/websiteName.png" alt="Logo"/>
+</a>
+<div class="sidebarArea">
+    <div class="wrapper">
+
+        <nav id="sidebar">
+
+            <div class="sidebar-header">
+                <h3>Welcome</h3>
+            </div>
+            <ul class="list-unstyled components">
+                <li><a href="paperlist">论文列表</a></li>
+                <li class="active"><a href="#">论文检索</a></li>
+                <li><a href="keyword">关键词图谱</a></li>
+                <li><a href="analyse">热词分析</a></li>
+            </ul>
+
+        </nav>
+
+
+    </div>
+</div>
+<div class="contentArea">
+    <div class="dropdown col-md-3">
+        <div class="form-group">
+            <select id="title" class="selectpicker">
+                <option>标题</option>
+                <option>关键词</option>
+            </select>
+        </div>
+    </div>
+    <div class="input-group col-md-6" style=" position: absolute;top:150px;left: 400px;">
+        <input  id="content" type="text" class="form-control"/>
+
+        <span clas="input-group-btn">
+                    <button  id="accurate" class="btn btn-info btn-search" style="margin-left: 5px;">精确查找</button>
+                    <button  id="obscure" class="btn btn-info btn-search" style="margin-left: 5px;">模糊搜索</button>
+                </span>
+    </div>
+
+
+    <div class=" resultArea">
+        <!--<button id="remove" onclick="deleteSelects()">删除</button>-->
+        <button id="add" onclick="addSelects()">增加</button>
+        <table id="myTable" class="table table-hover"></table>
+        <script>
+            $('#myTable').bootstrapTable({
+                method: 'post',
+                url: "http://localhost:8080/pairwork/paper/search", // 请求路径
+                striped: true, // 是否显示行间隔色
+                pageNumber: 1, // 初始化加载第一页
+                pagination: true, // 是否分页
+                sidePagination: 'client', // server:服务器端分页|client：前端分页
+                sortable: true,
+                sortName:'论文名称',
+                sortOrder: 'desc',
+                pageSize: 10, // 单页记录数
+
+                search: false,
+                cache: false,
+                paginationLoop: false,
+                //showToggle: false,
+
+                paginationHAlign: 'left',
+                paginationDetailHAlign: 'right',
+                paginationPreText: '上一页',
+                paginationNextText: '下一页',
+                // showRefresh : true,// 刷新按钮
+                queryParams: function(params) { // 上传服务器的参数
+                    var temp = {
+                        string1:"关键词",
+                        string2:"模糊查询",
+                        string3:document.cookie.split(";")[0].split("=")[1],
+                    };
+                    console.log(temp)
+                    return temp;
+                },
+                columns: [{
+                    checkbox: true
+                }, {
+                    title: '论文名称',
+                    field: 'title',
+                    searchable:true,
+                    formatter:paramsMatter,
+                }, {
+                    title: '原文链接',
+                    field: 'link',
+                    searchable:false,
+                    formatter:paramsMatter,
+                }, {
+                    title: '会议',
+                    field: 'type',
+                    searchable:true,
+                },{
+                    title: '年份',
+                    field: 'year',
+                    searchable:true,
+                },{
+                    title: '摘要',
+                    field: 'paperAbstract',
+                    searchable:false,
+                    formatter:paramsMatter,
+                }, {
+                    title: '关键词',
+                    field: 'keyword',
+                    searchable:true,
+                    formatter:paramsMatter,
+                }
+                ]
+            })
+
+            //删除选中
+            function deleteSelects() {
+                var obj=$('#myTable');
+                var ids = $.map(obj.bootstrapTable('getSelections'), function (row) {
+                    return row.原文链接
+                });
+                obj.bootstrapTable('remove', {field: '原文链接',values: ids });
+            }
+
+
+            //增加选中  将选中论文导入用户论文库
+            function addSelects(){
+                var obj=$('#myTable');
+                var datas = $.map(obj.bootstrapTable('getSelections'), function (row) {
+                    var str1 = '{'+ '"title"'+':' +'"'+row.title+'"'+','+'"link"'+':'+'"'+row.link+'"'+','+'"year"'+':'+'"'+row.year+'"'+','
+                        +'"paperAbstract"'+':'+'"'+row.paperAbstract+'"'+'}'
+                    var data=JSON.parse(str1)
+                    console.log(data)
+                    return data
+                });
+
+
+                let data=datas
+                console.log(data)
+                //以下并不准确
+                $.ajax({
+                    url: "http://localhost:8080/pairwork/paper/addpapertolist",
+                    data: JSON.stringify(data),
+                    type: "post",
+                    cache:false,
+                    contentType:"application/json",
+                    crossDomain:true,
+                    async:false,
+                    success: function (data){
+                    }
+                });
+            }
+
+            //设置默认搜索
+            function selectByKeyword(search) {
+                $("#myTable").bootstrapTable('resetSearch', search);
+            }
+
+            //表格超出宽度鼠标悬停显示td内容
+            function paramsMatter(value, row, index) {
+                var span = document.createElement("span");
+                span.setAttribute("title", value);
+                span.innerHTML = value;
+                return span.outerHTML;
+            }
+            //td宽度以及内容超过宽度隐藏
+            function formatTableUnit(value, row, index) {
+                return {
+                    css: {
+                        "white-space": "nowrap",
+                        "text-overflow": "ellipsis",
+                        "overflow": "hidden",
+                        "max-width": "60px"
+                    }
+                }
+            }
+
+            document.cookie = "keyword=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+
+        </script>
+    </div>
+</div>
+
+
+</body>
+</html>

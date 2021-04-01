@@ -1,0 +1,44 @@
+.list{
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+}
+.list-table{
+    width: 100%;
+    margin: 30px auto;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+}
+.table-item{
+    height: 50px;
+    margin:5px 0 5px;
+}
+.art-title{
+    padding: 0 0 0 20px;
+    border-bottom: 1px solid rgb(180, 180, 180);
+}
+.table-href{
+    color: white;
+}
+.list-foot{ 
+    margin:5px auto;
+    width: max-content;   
+}
+.current-page{
+    display: block;
+    margin: 10px auto;
+    color: #514A4A;
+    text-align: center;
+}
+.page-href{
+    color:rgb(96, 169, 211);    
+}
+.page-choose{
+    color: #514A4A;
+}
+.item-href{
+    color: #394044;
+}
+.font-icon{
+    margin:10px
+}

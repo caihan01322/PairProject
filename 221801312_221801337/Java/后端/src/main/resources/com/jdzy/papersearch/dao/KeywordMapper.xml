@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdzy.papersearch.dao.KeywordDao">
+    <select id="findKeywordIdByName" resultType="com.jdzy.papersearch.pojo.Keyword">
+        select * from keyword where keyword=#{keyword};
+    </select>
+    <select id="findSimilarKeyword" resultType="com.jdzy.papersearch.pojo.Keyword">
+        select *
+        from keyword
+        where keyword like concat("%",concat(#{keyword},"%"))
+        <if test="limit!=null">
+            limit #{limit}
+        </if>
+    </select>
+    <select id="findTopKeyword" resultType="map">
+        select keyword.id as keyword_id, keyword.keyword as keyword_name,pkeyword.keyword_num as keyword_num
+        from
+            (select paper_keyword.keyword_id as keyword_id,count(*) as keyword_num
+             from paper_keyword
+             where paper_id in (select paper.id as paper_id
+                                from paper
+                                where 1=1
+                                  <if test="meetId!=null">
+                                      and meet_id=#{meetId}
+                                  </if>
+                                  <if test="publicationYear!=null">
+                                      and publication_year=#{publicationYear}
+                                  </if>
+                                group by paper_id)
+             group by paper_keyword.keyword_id
+             order by keyword_num desc
+                <if test="limit!=null">
+                    limit #{limit}
+                </if>
+            ) as pkeyword,keyword
+        where pkeyword.keyword_id=keyword.id;
+    </select>
+    <select id="findKeywordByPaperId" resultType="com.jdzy.papersearch.pojo.Keyword">
+        select  keyword.id as id,keyword.keyword as keyword
+        from keyword,paper_keyword
+        where paper_keyword.paper_id=#{paperId}
+            and paper_keyword.keyword_id=keyword.id
+        <if test="limit!=null">
+            limit #{limit}
+        </if>
+    </select>
+</mapper>

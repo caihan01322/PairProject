@@ -1,0 +1,4 @@
+__pycache__
+#过滤整个__pycache__文件夹
+
+logs

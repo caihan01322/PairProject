@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Header</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}"  media="all">
+</head>
+<body>
+
+<div th:fragment="header">
+    <ul class="layui-nav layui-bg-blue">
+        <li class="layui-nav-item">
+            <a th:href="@{/}">
+                <i class="layui-icon">&#xe68e;首页</i>
+            </a>
+        </li>
+        <li class="layui-nav-item" style="margin-left: 15%">
+            <form class="layui-form" th:action="@{/easySearch}" method="post">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <div class="layui-form-mid">
+                            <input type="text" name="title" placeholder="请输入标题（支持模糊查询）"
+                                   id="search" autocomplete="off" required class="layui-input-block" style="margin-top:4px;width: 400px;">
+                        </div>
+                        <div class="layui-input-inline" >
+                            <button type="submit" class="layui-btn">
+                                <i class="layui-icon">&#xe615;</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </li>
+        <li style="display:inline; margin-left: 10%">
+            <img class="layui-nav-img" style="width: 50px;height: 50px" th:src="@{/img/logo.jpg}">
+        </li>
+    </ul>
+</div>
+
+</ul>
+</div>
+
+
+</body>
+</html>

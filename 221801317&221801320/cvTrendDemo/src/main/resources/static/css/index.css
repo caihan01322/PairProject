@@ -1,0 +1,32 @@
+.content{
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 50px;
+    position: relative;
+}
+.search{
+    width: 60%;
+    position: relative;
+}
+.inputBox{
+    /*position: absolute;*/
+    /*width: 15%;*/
+}
+.searchBtn{
+    /*width: 15%;*/
+    /*position: absolute;*/
+    right: 0;
+}
+.hotTreandBtn{
+    width: 25%;
+    position: absolute;
+    right: 0;
+}
+.head{
+    height: 80px;
+    width: 100%;
+    position: relative;
+}
+.inline{
+    display: inline;
+}

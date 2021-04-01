@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <!-- 引入 Bootstrap -->
+     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+     <title>Document</title>
+     <link rel="stylesheet" type="text/css" href="register_login.css">
+ 
+     <style>
+        #wrapper {
+            background-image: none;
+        }
+        th,
+        tr {
+        text-align: center;
+        }
+        #list {
+            margin: 0px 200px;
+        }
+        #dropdownMenu1,
+        #selector li {
+            width: 100px;
+        }
+        .dropdown-menu {
+            min-width: 100px;
+        }
+        #top {
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+
+            <div class="container">
+                <h1 style="display: inline;">
+                    <img alt="" src="../static/icon0.png" id="main_icon"/>
+                    顶会论文爬取平台</h1>
+
+                    <button id="login_btn" type="button" class="btn btn-default">登录</button>
+                <div class="row" style="float: right;">
+                    <div class="span6">
+                        <ul class="nav nav-tabs">
+                            <li><a href="index.html">&nbsp;首&nbsp;&nbsp;页&nbsp;</a></li>
+                            <li><a href="add_articles.html">爬取论文</a></li>
+                            <li class="active"><a href="article.html">论文列表</a></li>
+                            <li><a href="hotwords_graph.html">热词分析</a></li>
+                            <li><a href="personal_page.html">个人中心</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+
+        <div id="article_list" style="text-align:center">
+        
+            <div id="top">
+                <h2 style="display: inline;">已爬取论文列表</h2>
+                是否还有没有检索到的论文？
+                <button type="button" @click="addArticle" class="btn btn-default">添加</button>
+
+                <input id="searchInput" v-model="searchMessage" type="text" style="width: 300px;display: inline" class="form-control" placeholder="查询"/>
+
+                
+                <div class="dropdown" id="dropdown" style="display: inline;">
+                    <button 
+                    class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        {{ message }}
+                        <span class="caret"></span>
+                    </button>
+                    <ul id="selector" class="dropdown-menu" aria-labelledby="dropdownMenu1"
+                    >
+                        <li><a href="#" @click="showValue($event)">论文标题</a></li>
+                        <li><a href="#" @click="showValue($event)">摘要</a></li>
+                        <li><a href="#"@click="showValue($event)">关键词</a></li>
+                    </ul>
+
+                    <button type="button" @click="search" class="btn btn-primary"> 搜 索 </button>
+                </div>    
+
+            </div>
+                
+            <div id="list">
+                <!-- <h1>这里放的是表格</h1> -->
+                <!--用户列表  用户：id 用户名 邮箱 真实姓名 手机号码-->
+                <table class="table" >
+                    <tr>
+                        <th>id</th>
+                        <th>题目</th>
+                        <th>顶会</th>
+                        <th>发表时间</th>
+                        <th>管理</th>
+                    </tr>
+                    <tr v-for="(v,i) in lists">
+                        <td>{{ v.id }}</td>
+                        <td>{{ v.title }}</td>
+                        <td>{{ v.classify }}</td>
+                        <td>{{ v.datetime}}</td>
+                        <td><a @click="gotoDetail(v.id)">详情</a></td>
+                    </tr>
+                </table>
+
+                <ul class="pagination">
+                    <li><a href="#" @click="prePage">&laquo;</a></li>
+            
+                    <li :class="pageNo==index?'active':''" v-for="index in pages" @click="switchPage(index)"><a href="#">{{ index }}</a></li>
+
+                    <li><a href="#" @click="nextPage">&raquo;</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+
+    <script>
+        var app = new Vue({
+        el:"#wrapper",
+        data: {
+            message:"论文标题",
+            searchMessage:"",
+            lists:[],//论文列表，展示表格数据
+            pageTotal:1,//总页数
+            rows:1,//总条数
+            pageNo:1,//页码
+            pageSize:10,//每一页的条数
+            flag:0,//区分上/下 一页的状态
+        },
+        mounted() {
+            this.getData();
+            //再调用一下搜索功能
+            this.getArticles();
+        },
+        computed: {
+            pages() {
+                var start = this.pageNo,end = this.pageTotal;
+                if(end<10) return end;
+                if(start<=5) {
+                    return [1,2,3,4,5,6,'...',end]
+                }
+                else if(start>=end-5) {
+                    return [1,'...',end-5,end-4,end-3,end-2,end-1,end]
+                }
+                else {
+                    return [1,'...',start-1,start,start+1,'...',end]
+                }
+            }
+        },
+        methods: {
+
+            showValue(event) {
+            var e = event.currentTarget;
+            msg = e.innerHTML;
+            if(msg=="关键词") {
+                flag = 1;
+            }else if(msg=="摘要") {
+                flag = 2;
+            }else {
+                flag = 3;
+            }
+            this.message = msg;
+            },
+            search:function() {
+                if(this.message=="关键词"){
+                    this.searchKeyword();
+                    console.log('查关键词');
+                }
+                else if(this.message=="摘要"){
+                    this.searchAbstract();
+                    console.log('查摘要');
+                }
+                else{
+                    this.searchTitle();
+                    console.log('查标题');
+                }
+            },
+            searchTitle:function(i=1){
+                this.flag = 3;
+                this.pageNo = i;
+                var that = this;
+                console.log(this.searchMessage);
+                console.log(this.pageNo);
+                console.log(this.pageSize);
+                axios
+                .post('http://127.0.0.1:5000/paper/search/title',
+                {
+                    'titles':that.searchMessage,
+                    'page':that.pageNo,
+                    'item':that.pageSize
+                })
+                .then(function (response) {
+                    console.log(response.data);
+                    //返回的数据要分页显示
+                    let {count,page,data} = response.data;
+                    that.lists = data;
+                    that.pageTotal = page;
+                    that.rows = count;
+                })
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
+            },
+            searchKeyword:function(i=1){
+                this.flag = 2;
+                this.pageNo = i;
+                var that = this;
+                console.log(this.searchMessage);
+                console.log(this.pageNo);
+                console.log(this.pageSize);
+                axios
+                .post('http://127.0.0.1:5000/paper/search/Keyword',
+                {
+                    'keyword':that.searchMessage,
+                    'page':that.pageNo,
+                    'item':that.pageSize
+                })
+                .then(function (response) {
+                    console.log(response.data);
+                    //返回的数据要分页显示
+                    let {count,page,data} = response.data;
+                    that.lists = data;
+                    that.pageTotal = page;
+                    that.rows = count;
+                })
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });
+            },
+            searchAbstract:function(i=1){
+                this.flag = 1;
+                this.pageNo = i;
+                var that = this;
+                console.log(this.searchMessage);
+                console.log(this.pageNo);
+                console.log(this.pageSize);
+                axios
+                .post('http://127.0.0.1:5000/paper/search/abstract',
+                {
+                    'abstract':that.searchMessage,
+                    'page':that.pageNo,
+                    'item':that.pageSize
+                })
+                .then(function (response) {
+                    console.log(response.data);
+                    //返回的数据要分页显示
+                    let {count,page,data} = response.data;
+                    that.lists = data;
+                    that.pageTotal = page;
+                    that.rows = count;
+                })
+                .catch(function (error) { // 请求失败处理
+                    console.log(error);
+                });      
+            },
+            getData:function() {
+                var data = localStorage.getItem('keyword');
+                if(data!=null) {
+                    this.searchMessage = data;
+                    this.message = "关键词";
+                }
+                localStorage.removeItem('keyword');
+                // console.log(data2.keyword);
+
+                //this.searchKeyword();
+                //this.searchKeyword();
+            } ,
+            addArticle:function() {
+                window.location.href = "add_articles.html";
+            }  ,
+            getArticles:function(i=1) {
+                var flag = this.flag;
+                //alert(flag);
+                if(flag==0) {
+                    var that = this;
+                    if(i!='...')
+                    this.pageNo = i;
+                    axios
+                    .post('http://127.0.0.1:5000/paper/list',
+                    {
+                        'page':i,
+                        'item':this.pageSize
+                    })
+                    .then(function (response) {
+                        //数据要分页显示
+                        console.log(response.data);
+                        let {count,data,page} = response.data;
+                        that.lists = data;
+                        that.pageTotal = page;
+                        that.rows = count;
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });    
+                }
+                else if(flag==1) {
+                    this.searchKeyword(i);
+                }    
+                else if(flag==2) {
+                    this.searchAbstract(i);
+                }
+                else if(flag==3) {
+                    this.searchTitle(i);
+                }    
+            },
+            switchPage:function(i) {
+                this.getArticles(i);
+            },
+            prePage:function() {
+                this.getArticles(--this.pageNo);
+            },
+            nextPage:function() {
+                this.getArticles(++this.pageNo);
+            },
+            gotoDetail:function(articleId) {
+                localStorage.setItem('articleid',articleId);
+                window.location.href="article_detail.html";
+            }
+        
+        }
+    });
+   </script>
+
+</body>
+</html>
