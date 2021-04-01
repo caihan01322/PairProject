@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 多平台显示 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>论文检索</title>
+
+    <!-- 引入外部文件! -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../static/css/PaperList.css">
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+
+    <!--    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">-->
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--nav-->
+<div th:replace="navbar :: navbar"></div>
+
+<div class="container">
+
+
+    <!--论文列表-->
+    <div>
+        <!-- 表单-->
+        <div class="container">
+            <div class="row">
+                <form method="get" action="/paper/search/1">
+                    <div class="form-inline col-md-12 my-3">
+                        <div class="mx-1 form-inline">
+                            <label for="title">论文标题:</label>
+                            <input type="text" class="form-control" id="title" name="title">
+                        </div>
+
+                        <div class="mx-1 form-inline">
+                            <label for="keyword">关键词:</label>
+                            <input type="text" class="form-control" id="keyword" name="keyword">
+                        </div>
+
+                        <div class="mx-1 form-inline">
+                            <label for="pid">ID:</label>
+                            <input type="text" class="form-control" id="pid" name="pid">
+                        </div>
+
+                        <div class="mx-1 form-inline">
+                            <label class="mx-1 radio-inline ">
+                                <input type="radio" name="sort" id="sortBYID"
+                                       th:checked="true" th:value="1">ID
+                            </label>
+                            <label class="mx-1 radio-inline ">
+                                <input type="radio" name="sort" id="sortByYear"
+                                       th:value="2">年份
+                            </label>
+                        </div>
+
+                        <div class="mx-1 form-inline pl-5" style="float:right">
+                            <button class="mx-1 btn btn-info" type="submit">提 交</button>
+                            <button class="mx-1 btn btn-info" type="reset">重 置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- 论文列表2.0 -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <table class="table table-striped">
+                    <THEAD>
+                    <tr>
+                        <th align="center" width="3%">
+                            <input type="checkbox" id="allChecks" onclick="ckAll()"/>
+                        </th>
+                        <th align="center" width="5%">ID</th>
+                        <th align="center" width="5%">会议</th>
+                        <th align="center" width="5%">年份</th>
+                        <th align="center" width="10%">发布时间</th>
+                        <th align="center" width="32%">标题</th>
+                        <th align="center" width="25%">作者</th>
+                        <!--<th>摘要</th>-->
+                        <th style="float: inherit;" align="center" width="15%">
+                            <button th:onclick="delAllPaper()" class="btn btn-outline-danger">删 除</button>
+                        </th>
+                    </tr>
+                    </THEAD>
+                    <TBODY>
+                    <tr th:each="paper:${paperList}">
+                        <td style="CURSOR: hand; HEIGHT: 20px" align="center"
+                            width="3%">
+                            <input type="checkbox" name="check" th:value="${paper.pid}"/>
+                        </td>
+                        <td th:text="${paper.pid}"></td>
+                        <td th:text="${paper.meeting}"></td>
+                        <td th:text="${paper.year}"></td>
+                        <td th:text="${paper.publicDate}"></td>
+                        <td><a th:href="${paper.link}" th:text="${paper.title}"></a></td>
+                        <td th:text="${paper.authors}"></td>
+                        <!-- <td><a th:href="${'/del/'+user.userId}">delete</a></td> -->
+                        <td>
+                            <button type="text" class="btn btn-outline-warning"
+                                    th:text="删除"
+                                    th:onclick="deletePaper([[${paper.pid}]])">
+                            </button>
+                            <!--创建模态框-->
+                            <button type="button" class="btn btn-outline-info" data-toggle="modal"
+                                    data-target="#exampleModal"
+                                    th:text="查看"
+                                    th:onclick="showPaper([[${paper.pid}]])">
+                            </button>
+
+                            <!-- 模态框（Modal）  class="form-control-plaintext" -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="t1"></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="i1">会议:</label>
+                                                    <!--<input type="text" id="i1"
+                                                           readonly class="form-control">-->
+                                                    <div class="alert alert-secondary" role="alert" id="i1">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="i2">年份:</label>
+                                                    <div class="alert alert-secondary" role="alert" id="i2">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="i3">发布时间:</label>
+                                                    <div class="alert alert-secondary" role="alert" id="i3">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="i4">作者:</label>
+                                                    <div class="alert alert-secondary" role="alert" id="i4">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="i5">关键词:</label>
+                                                    <select multiple readonly class="form-control" id="i5">
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="i6">摘要:</label>
+                                                    <div class="alert alert-secondary" role="alert" id="i6">
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal -->
+                        </td>
+                    </tr>
+                    </TBODY>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--分页fragment-->
+    <!--&lt;!&ndash;将分页的页面包含&ndash;&gt;
+    <div th:replace="page :: page"></div>-->
+    <!-- 第一个参数：页码。第二个参数：偏移量。第三个参数：页的总数量。-->
+   <!-- <div th:text="${'/paper/search/'} + ${2} + ${'?'} + ${#httpServletRequest.getQueryString()}"
+         th:href="@{ ${'/paper/search/'} + ${2} + ${'?'} + ${#httpServletRequest.getQueryString()} }"></div>-->
+    <!--<a th:href="@{'/paper/search/'+${4}+${'?'+ #httpServletRequest.getQueryString()} }" th:text="2333"></a>
+-->
+    <div th:replace="page1 :: page_pager(${page.current}, 0, ${page.pages},10,5,@{'/paper/search/'})"></div>
+</div>
+
+
+<script type="text/javascript">
+    function deletePaper(pid) {
+        $.ajax({
+            url: encodeURI("/paper/delete/" + pid),
+            type: "delete",  //请求的方法
+            cache: false, //去除缓存
+            async: false,  //async:false同步。true异步方式
+            dataType: "json",  //指定响应得到的数据类型：【“list”必须严格为一个json数据！】
+            data: {  //data:$(form).serialize(),
+
+            },
+            success: function (result) {
+                if (result.code == 200) { //修改成功
+                    //layer.msg("修改成功");
+                    alert("修改成功");
+                    window.location.reload();
+                } else {
+                    //layer.msg("修改失败");
+                    alert("修改失败");
+                }
+            },
+            error: function () {
+                alert(".......页面出错了.......");
+            }
+        });
+    }
+
+    //全选
+    function ckAll() {
+        var flag = document.getElementById("allChecks").checked;
+        var cks = document.getElementsByName("check");
+        for (var i = 0; i < cks.length; i++) {
+            cks[i].checked = flag;
+        }
+    }
+
+    //批量删除
+    function delAllPaper() {
+        if (!confirm("确定要删除这些论文呢吗？")) {
+            return;
+        }
+        cks = document.getElementsByName("check");
+        pids = [];
+        //var pids = [];
+        //拼接所有的图书id
+        for (var i = 0; i < cks.length; i++) {
+            if (cks[i].checked) {
+                //pids[i] = cks[i].value;
+                //alert(cks[i].value);
+                pids.push(cks[i].value);
+            }
+        }
+        alert(pids);
+
+        $.ajax({
+            url: encodeURI("/paper/deletes"),
+            type: "delete",  //请求的方法
+            cache: false, //去除缓存
+            async: false,  //async:false同步。true异步方式
+            dataType: "json",  //指定响应得到的数据类型：【“list”必须严格为一个json数据！】
+            traditional: true,
+            data: {
+                'pids': pids,
+                //"pids" : JSON.stringify(pids),
+            },
+            success: function (result) {
+                if (result.code == 200) { //修改成功
+                    //layer.msg("修改成功");
+                    alert("修改成功");
+                    window.location.reload();
+                } else {
+                    //layer.msg("修改失败");
+                    alert("删除失败");
+                }
+            },
+            error: function () {
+                alert(".......页面出错了.......");
+            }
+        });
+    }
+
+    function showPaper(pid) {
+        $.ajax({
+            url: encodeURI("/paper/select/" + pid),
+            type: "get",  //请求的方法
+            cache: false, //去除缓存
+            async: false,  //async:false同步。true异步方式
+            dataType: "json",  //指定响应得到的数据类型：【“list”必须严格为一个json数据！】
+            data: {  //data:$(form).serialize(),
+
+            },
+            success: function (result) {
+                if (result.code == 200) { //修改成功
+                    //alert("ffffffffff")
+                    $("#t1").empty();
+                    $("#t1").append(result.paper2.title);
+
+                    $("#i1").empty();
+                    $("#i1").append(result.paper2.meeting);
+
+                    $("#i2").empty();
+                    $("#i2").append(result.paper2.year);
+
+                    $("#i3").empty();
+                    $("#i3").append(result.paper2.publicDate);
+
+                    $("#i4").empty();
+                    $("#i4").append(result.paper2.authors);
+
+                    $("#i6").empty();
+                    $("#i6").text(result.paper2.abstractContent);
+
+                    console.log("22333:" + result.paper2.authors);
+                    console.log("5555:" + result.data[0].content);
+
+                    obj = document.getElementById("i5");
+                    //注意：当data是json字符串时，需要将data转化成json对象
+                    for(var i=0;i<result.data.length;i++){
+                        //访问每一个的属性，根据属性拿到值
+                        console.log(result.data[i].content);
+                        obj.add(new Option(result.data[i].content, result.data[i].content));
+                    }
+
+                } else {
+                    //layer.msg("修改失败");
+                    alert("查看失败");
+                }
+            },
+            error: function () {
+                alert(".......页面出错了.......");
+            }
+        });
+    }
+</script>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../static/bootstrap/js/bootstrap.min.js"></script>
+
+</body>
+</html>

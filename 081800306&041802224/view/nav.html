@@ -1,0 +1,23 @@
+<div class="nav">
+    <div class="logo">
+    </div>
+    <div class="items">
+        <a class="item" index="1">首页</a>
+        <a class="item">论文检索</a>
+        <a class="item">热度分析</a>
+    </div>
+</div>
+<script>
+    let items = document.querySelector('.items')
+    items.addEventListener('click', (e) => {
+        let str = e.target.innerHTML
+        if (str === '首页') {
+            window.location.href = '/'
+        } else if (str === '论文检索') {
+            window.location.href = '/list'
+        } else if (str === '热度分析') {
+            window.location.href = '/hot'
+        }
+        console.log(str === '首页');
+    })
+</script>

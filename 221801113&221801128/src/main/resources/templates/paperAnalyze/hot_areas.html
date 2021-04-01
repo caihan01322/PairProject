@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
+    <link type="text/css" href="css/myCss/hotword.css" rel="stylesheet">
+    <script src="js/echartjs/exporting.js"></script>
+    <script src="js/echartjs/highcharts.js"></script>
+    <script src="js/echartjs/wordcloud.js"></script>
+    <script src="js/echartjs/oldie.js"></script>
+    <script src="js/echartjs/jquery-3.6.0.js"></script>
+
+    <title>热门领域</title>
+
+    <div th:include="common :: commonheader"></div>
+</head>
+
+<body class="sticky-header">
+    <section>
+        <div th:replace="common :: #leftmenu"></div>
+
+        <div class="main-content">
+            <div th:replace="common :: #headermenu"></div>
+
+            <div class="wrapper">
+                <div class="btn-group" role="group" aria-label="...">
+                    <button id="btn-cvpr" type="button" class="btn btn-default">CVPR</button>
+                    <button id="btn-iccv" type="button" class="btn btn-default">ICCV</button>
+                    <button id="btn-eccv" type="button" class="btn btn-default">ECCV</button>
+                </div>
+                <div class="container">
+                    <div class="test">
+                        <div class="test-container" id="container"></div>
+                    </div>
+                    <div class="test">
+                        <div class="test-container" id="container2"></div>
+                    </div>
+                    <div class="test">
+                        <div class="test-container" id="container3"></div>
+                    </div>
+                    <div class="test">
+                        <div class="test-container" id="container4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div th:include="common :: #commonscript"></div>
+    <script src="js/myJs/hotword.js"></script>
+</body>
+
+</html>
