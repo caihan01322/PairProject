@@ -1,0 +1,340 @@
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+}
+
+.block {
+    text-align: center;
+    margin: 0, auto;
+    height: 100%;
+    margin: auto;
+}
+
+.left-bar,
+.right-bar {
+    width: 20%;
+    height: 100%;
+    float: left;
+}
+
+.main-content {
+    width: 60%;
+    height: 100%;
+    float: left;
+}
+
+.top-box {
+    width: 100%;
+    height: 7%;
+    display: flex;
+    align-items: center;
+}
+
+.bottom-box {
+    width: 100%;
+    height: 100%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #efefef;
+}
+
+.main-panel {
+    width: 98%;
+    height: 93%;
+    margin-left: 1%;
+    margin-right: 1%;
+    overflow: auto;
+}
+
+.main-panel::-webkit-scrollbar {
+    width: 10px;
+}
+
+.main-panel::-webkit-scrollbar-track {
+    background: rgb(202, 202, 202);
+    border-radius: 2px;
+}
+
+.main-panel::-webkit-scrollbar-thumb {
+    background: rgb(131, 126, 126);
+    border-radius: 10px;
+}
+
+.main-panel::-webkit-scrollbar-thumb:hover {
+    background: #333;
+}
+
+.main-panel::-webkit-scrollbar-corner {
+    background: #179a16;
+}
+
+.project-title {
+    margin: auto;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.search-box {
+    width: 100%;
+    height: 100%;
+}
+
+.top-bar-img {
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.menu-span {
+    text-align: left;
+    width: 25%;
+    font-family: "微软雅黑 Regular", "微软雅黑, sans-serif";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15px;
+    color: rgb(127, 127, 127);
+    float: left;
+    margin-left: 10%;
+    background-color: #fff;
+    -webkit-transition: -webkit-transform 1s, opacity 1s, background-color 1s, width 1s, height 1s, color 1s;
+    -o-transition-property: width, height, -o-transform, background-color, color, opacity;
+    -o-transition-duration: 1s, 1s, 1s, 1s, 1s, 1s;
+    -moz-transition-property: width, height, -o-transform, background-color, color, opacity;
+    -moz-transition-duration: 1s, 1s, 1s, 1s, 1s, 1s;
+    transition-property: width, height, transform, background-color, color, opacity;
+    transition-duration: 1s, 1s, 1s, 1s, 1s, 1s;
+}
+
+#index :hover {
+    cursor: pointer;
+    color: #fff;
+    width: 84%;
+    background-color: #71B604;
+}
+
+#paper-list :hover {
+    cursor: pointer;
+    color: #fff;
+    width: 84%;
+    background-color: #81D3F8;
+}
+
+#paper-analyse :hover {
+    cursor: pointer;
+    color: #fff;
+    width: 84%;
+    background-color: #EC808D;
+}
+
+#paper-collection :hover {
+    cursor: pointer;
+    color: #fff;
+    width: 84%;
+    background-color: #F59A23;
+}
+
+#search-icon {
+    cursor: pointer;
+}
+
+.menu-title {
+    text-align: left;
+    margin-top: 20px;
+    margin-left: 15%;
+    font-family: "微软雅黑 Bold", "微软雅黑 Regular", "微软雅黑, sans-serif";
+    font-weight: 700;
+    font-style: normal;
+    font-size: 20px;
+    color: rgb(85, 85, 85);
+}
+
+.project-title {
+    text-align: center;
+    font-family: "微软雅黑 Bold", "微软雅黑 Regular", "微软雅黑, sans-serif";
+    font-weight: 700;
+    font-style: normal;
+    font-size: 20px;
+    color: rgb(85, 85, 85);
+}
+
+.menu-item {
+    margin-left: 15%;
+    width: 85%;
+    float: left;
+    margin-top: 5%;
+}
+
+.menu-item-img {
+    float: left;
+    width: 6%;
+}
+
+.my-keyword {
+    width: 100%;
+    min-height: 18%;
+    height: auto;
+    display: block;
+    border-bottom: 1px solid #efefef;
+}
+
+.right-title {
+    margin-top: 20px;
+    margin-left: 6%;
+    font-family: "微软雅黑 Bold", "微软雅黑 Regular", "微软雅黑, sans-serif";
+    font-weight: 700;
+    font-style: normal;
+    font-size: 15px;
+    text-align: left;
+}
+
+.keyowrd-span {
+    display: block;
+    margin-top: 7px;
+    margin-left: 6%;
+    width: 94%;
+    font-family: "微软雅黑 Bold", "微软雅黑 Regular", "微软雅黑, sans-serif";
+    font-weight: 700;
+    font-style: normal;
+    font-size: 15px;
+    color: rgb(85, 85, 85);
+    text-align: left;
+}
+
+.my-keyword-span {
+    margin-top: 15px;
+    margin-left: 6%;
+    font-family: "微软雅黑 Bold", "微软雅黑 Regular", "微软雅黑, sans-serif";
+    font-weight: 700;
+    font-style: normal;
+    font-size: 15px;
+    color: rgb(85, 85, 85);
+    background-color: #F2F2F2;
+    float: left;
+}
+
+.search-checklist {
+    width: 10%;
+    margin-left: 3%;
+}
+
+#search-form {
+    width: 90%;
+}
+
+#search-text {
+    width: 90%;
+    height: 50%;
+    vertical-align: middle;
+    float: left;
+}
+
+#search-box {
+    border-left: 1px solid #efefef;
+    border-right: 1px solid #efefef;
+}
+
+.paper-list {
+    position: relative;
+    margin-top: 20px;
+    margin-left: 5%;
+    width: 90%;
+    text-align: left;
+    border-bottom: 1px solid #efefef;
+    font-size: 15px;
+}
+
+.paper-title {
+    color: #06c;
+    font-size: 18px;
+    text-decoration: none;
+    width: 70%;
+}
+
+.paper-author {
+    color: #666;
+    font-size: 15px;
+}
+
+li {
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background-color: #F2F2F2;
+    text-align: center;
+}
+
+.active {
+    background-color: #1E88DA;
+}
+
+.img-panel {
+    position: relative;
+    margin-top: 50px;
+    width: 40%;
+    margin-left: 5%;
+    margin-right: 5%;
+    height: 30%;
+    overflow: hidden;
+    background-size: contain;
+    float: left;
+}
+
+.img-box {
+    max-width: 100%;
+    height: auto;
+    transition: all 1.5s;
+    cursor: pointer;
+}
+
+.img-box:hover {
+    transform: scale(1.5);
+}
+
+.img-span {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+    position: absolute;
+    top: 68%;
+    left: 5%;
+    color: aliceblue;
+    text-align: left;
+}
+
+.img-keyword {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 12px;
+    padding-left: 3px;
+    padding-right: 3px;
+    position: absolute;
+    background-color: wheat;
+    top: 58%;
+    left: 5%;
+}
+
+#container {
+    min-width: 310px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.like {
+    position: absolute;
+    top: 2%;
+    left: 100%;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
+#race {
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+}
