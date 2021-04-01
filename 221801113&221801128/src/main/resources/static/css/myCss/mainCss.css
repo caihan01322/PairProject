@@ -1,0 +1,78 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-container .card {
+    width: 100%;
+    max-width: 50%;
+    padding: 0 15px;
+    margin-bottom: 30px;
+}
+
+.card-container .card .card-content {
+    position: relative;
+    height: 250px;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #EBEEF5;
+    background-color: white;
+    transition: .3s all;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .15);
+    cursor: pointer;
+    overflow: hidden;
+}
+
+/* 解决overflow:hidden会溢出到padding的问题 */
+.card-container .card .card-content:after {
+    position: absolute;
+    content: ' ';
+    height: 23px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: white;
+}
+
+.paper-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.paper-link {
+    font-size: 12px;
+    color: rgb(101,206,167);
+}
+
+.paper-link a {
+    text-decoration: none;
+}
+
+.paper-link , .paper-keywords , .paper-title {
+    margin-bottom: 7px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+
+.paper-keywords span:nth-of-type(1) , .paper-abstract span:nth-of-type(1) , .paper-title span:nth-of-type(1){
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.card-container .card .card-content:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, .25);
+}
+
+.form-group input {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
