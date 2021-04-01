@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.RegisterMapper">
+    <select id = "getUserByName" parameterType = "string" resultType = "_int">
+        select count(*) from xjbs.user where username = #{username};
+    </select>
+
+    <insert id = "addUser" parameterType = "User">
+        insert into xjbs.user (username, password) VALUES (#{username},#{password});
+    </insert>
+</mapper>
