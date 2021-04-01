@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="commonheader">
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <link href="css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
+    <link href="css/style-responsive.css" th:href="@{/css/style-responsive.css}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+
+<!--    <script src="js/html5shiv.js" th:src="@{/js/html5shiv.js}"></script>-->
+<!--    <script src="js/respond.min.js" th:src="@{/js/respond.min.js}"></script>-->
+
+</head>
+<body>
+
+
+    <div id="leftmenu" class="left-side sticky-left-side">
+
+        <div class="logo">
+            Paper-craw<span style="color: rgb(101,206,167)">ling</span>
+        </div>
+
+
+        <div class="left-side-inner">
+
+            <ul id="left-sidebar" class="nav nav-pills nav-stacked custom-nav">
+                <li class="menu-list nav-active parent-content"><a href="index.html"><i class="fa fa-home"></i> <span>论文列表</span></a>
+                    <ul class="sub-menu-list">
+                        <li class="child-content active"><a th:href="@{/main}"> 论文查询</a></li>
+                        <li class="child-content"><a th:href="@{/paper_collect}"> 收藏夹</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-list parent-content"><a href=""><i class="fa fa-laptop"></i> <span>论文分析</span></a>
+                    <ul class="sub-menu-list">
+                        <li class="child-content"><a th:href="@{/hot_areas}"> 热门领域</a></li>
+                        <li class="child-content"><a th:href="@{/trend_compare}"> 走势对比</a></li>
+                    </ul>
+                </li>
+                <li class="leave"><a th:href="@{/log_off}"><i class="fa fa-sign-in"></i> <span> 登出/注销</span></a></li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div id="headermenu" class="header-section">
+
+        <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+
+        <form class="searchform" action="http://view.jqueryfuns.com/2014/4/10/7_df25ceea231ba5f44f0fc060c943cdae/index.html" method="post">
+            <input type="text" class="form-control" name="keyword" placeholder="请在论文查询或收藏夹页面查询..." />
+            <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+            <button type="button" class="btn btn-primary"><i class="fa fa-cloud"></i></button>
+        </form>
+
+        <div class="menu-right">
+            <ul class="notification-menu">
+                <li>
+                    <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <img src="images/photos/1.png" alt="" />
+                        [[${session.loginUser.userName}]]
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                        <li class="leave"><a th:href="@{/log_off}"><i class="fa fa-sign-out"></i> 登出/注销</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+
+    <div class="card-container">
+        <div class="card">
+            <div class="card-content" data-toggle="modal" data-target="#myModal">
+                <div class="paper-id" style="display: none"></div>
+                <div class="paper-title">好像找不到标题...</div>
+                <div class="paper-link">
+                    <a href="#" target="_blank">好像找不到链接...</a>
+                </div>
+                <div class="paper-keywords">
+                    <span>[keyword]</span>
+                    <span>好像找不到关键词...</span>
+                </div>
+                <div class="paper-abstract">
+                    <span>[abstract]</span>
+                    <span>好像找不到摘要...</span>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content" data-toggle="modal" data-target="#myModal">
+                <div class="paper-id" style="display: none"></div>
+                <div class="paper-title">好像找不到标题...</div>
+                <div class="paper-link">
+                    <a href="#" target="_blank">好像找不到链接...</a>
+                </div>
+                <div class="paper-keywords">
+                    <span>[keyword]</span>
+                    <span>好像找不到关键词...</span>
+                </div>
+                <div class="paper-abstract">
+                    <span>[abstract]</span>
+                    <span>好像找不到摘要...</span>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content" data-toggle="modal" data-target="#myModal">
+                <div class="paper-id" style="display: none"></div>
+                <div class="paper-title">好像找不到标题...</div>
+                <div class="paper-link">
+                    <a href="#" target="_blank">好像找不到链接...</a>
+                </div>
+                <div class="paper-keywords">
+                    <span>[keyword]</span>
+                    <span>好像找不到关键词...</span>
+                </div>
+                <div class="paper-abstract">
+                    <span>[abstract]</span>
+                    <span>好像找不到摘要...</span>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content" data-toggle="modal" data-target="#myModal">
+                <div class="paper-id" style="display: none"></div>
+                <div class="paper-title">好像找不到标题...</div>
+                <div class="paper-link">
+                    <a href="#" target="_blank">好像找不到链接...</a>
+                </div>
+                <div class="paper-keywords">
+                    <span>[keyword]</span>
+                    <span>好像找不到关键词...</span>
+                </div>
+                <div class="paper-abstract">
+                    <span>[abstract]</span>
+                    <span>好像找不到摘要...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            &times;
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+            论文详情
+        </h4>
+    </div>
+    <div class="modal-body">
+        <div id="edit-id" style="display: none"></div>
+        <div class="form-group">
+            <label for="edit-title">论文标题</label>
+            <input type="text" class="form-control" id="edit-title" placeholder="论文标题">
+        </div>
+        <div class="form-group">
+            <label for="edit-link">论文链接</label>
+            <input type="text" class="form-control" id="edit-link" placeholder="论文链接">
+        </div>
+        <div class="form-group">
+            <label for="edit-keywords">关键词</label>
+            <input type="text" class="form-control" id="edit-keywords" placeholder="关键词">
+        </div>
+        <div class="form-group">
+            <label for="edit-abstract">论文摘要</label>
+            <textarea class="form-control" id="edit-abstract" rows="8"></textarea>
+        </div>
+    </div>
+
+
+
+
+
+    <div id="commonscript">
+        <script src="js/jquery-1.10.2.min.js" th:src="@{/js/jquery-1.10.2.min.js}"></script>
+        <script src="js/jquery-ui-1.9.2.custom.min.js" th:src="@{/js/jquery-ui-1.9.2.custom.min.js}"></script>
+        <script src="js/jquery-migrate-1.2.1.min.js" th:src="@{/js/jquery-migrate-1.2.1.min.js}"></script>
+        <script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+        <script src="js/modernizr.min.js" th:src="@{/js/modernizr.min.js}"></script>
+        <script src="js/jquery.nicescroll.js" th:src="@{/js/jquery.nicescroll.js}"></script>
+        <script src="js/scripts.js" th:src="@{/js/scripts.js}"></script>
+        <script src="js/myJs/sidebarStatus.js" th:src="@{/js/myJs/sidebarStatus.js}"></script>
+        <script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+
+
+    </div>
+
+
+</body>
+</html>

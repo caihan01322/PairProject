@@ -1,0 +1,59 @@
+.paper {
+    width: 90%;
+    min-height: 600px;
+    background: #fdccc875;
+    margin: 30px auto;
+}
+.paper-title {
+    min-height: 50px;
+    background: #BDC9FB;
+}
+.back-href{
+    float: left;
+    display: block;
+    margin-left: 2%;
+    color: #394044;
+}
+.title-item {
+    line-height: 50px;
+    width: fit-content;
+    margin: 30px auto 0;
+    color: #3c3c3c;
+}
+.paper-source {
+    width: 90%;
+    min-height: 490px;
+    margin: 0px auto;
+    background: rgba(255, 255, 255, 0.3);
+}
+.source-item {
+    float: right;
+    margin-right: 5%;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 30px;
+}
+.people-love{
+    margin-left:5%;
+}
+.key-item {
+    margin: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.keyword-list {
+    float: left;
+    margin: 0 20px;
+}
+.paper-abstract{
+    margin: 10px 20px;
+}
+.abstract-item{
+    margin: 0 20px;
+}
+.paper-link{
+    margin: 10px 20px;
+}
+.link-item{
+    margin: 0 20px;
+}

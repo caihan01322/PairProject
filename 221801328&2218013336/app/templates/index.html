@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <!-- 引入 Bootstrap -->
+     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+     <title>Document</title>
+     <link rel="stylesheet" type="text/css" href="register_login.css">
+    
+     <style>
+
+        #wrapper {
+            background-image: none;
+        }
+        .english {
+            font: italic 2em Georgia, serif;
+            font-weight: 700;
+            font-style: normal;
+            font-size: 25px;
+            line-height: 35px;
+        }
+
+        .chinese {
+            font-weight: 700;
+            font-style: normal;
+            font-size: 25px;
+            line-height: 30px;
+            margin-left: 55px;
+        }
+
+        #introduction {
+            padding-top: 10px;
+            padding-left: 20px;
+            margin: auto 50px;
+        }
+        .icon {
+            width: 50px;
+            width: 50px;
+        }
+        #picture {
+            margin-top:50px;
+        }
+         
+        #picture img {
+             width: 500px;
+             height: 500px;
+             float: right;
+             margin-right: 80px;
+        }
+        /* #title{
+            margin: 35px 0px;
+        } */
+        #header {
+            margin-bottom: 30px;
+        } 
+     </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            
+            <div class="container">
+                <h1 style="display: inline;">顶会论文爬取平台</h1>
+                <button id="login_btn" @click="signIn()" type="button" class="btn btn-default">登录</button>
+                <div class="row" style="float: right;">
+                    <div class="span6">
+                        <ul class="nav nav-tabs">
+                            
+                            <li class="active"><a href="index.html">&nbsp;首&nbsp;&nbsp;页&nbsp;</a></li>
+                            <li><a href="add_articles.html">爬取论文</a></li>
+                            <li><a href="article.html">论文列表</a></li>
+                            <li><a href="hotwords_graph.html">热词分析</a></li>
+                            <li><a href="personal_page.html">个人中心</a></li>
+
+                        </ul>
+                    </div>
+                    
+                </div>
+               
+            </div>
+                
+        </div>
+
+        <div id="title" style="text-align: center;">
+            <h1 class="english">Statistics of the top meeting hot words</h1>
+            <h1 class="chinese">顶会论文爬取平台</h1>
+        </div>
+
+        <div id="introduction" style="float: left;">
+            <h2 class="english">
+            <img alt="" src="../static/icon1.png" class="icon"/>
+                It allows you to quickly retrieve the paper information
+            </h2>
+            <h2 class="chinese">可以让你快速检索论文信息</h2>
+            <h2 class="english">
+                <img alt="" src="../static/icon2.png" class="icon"/>
+                It allows you to quickly query hot words in recent years
+            </h2>
+            <h2 class="chinese">可以让你快速查询近年热词</h2>
+            <h2 class="english">
+                <img alt="" src="../static/icon1.png" class="icon"/>
+                It can save you time and speed up the trend
+            </h2>
+            <h2 class="chinese">可以让你节约时间 速览趋势</h2>
+            <h2 class="english">
+                <img alt="" src="../static/icon1.png" class="icon"/>
+                Come and use it with us
+            </h2>
+            <h2 class="chinese">快来和我们一起使用吧！</h2>
+        
+        </div>
+
+        <div id="picture">
+            <img src="https://images.cnblogs.com/cnblogs_com/pzyblog/1928975/o_210206043206touxiang.jpg"/>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        var app = new Vue({
+            el:"#wrapper",
+            data: {
+                message:"请先登录"
+            },
+            methods: {
+            doIt:function(){
+              //  alert("请先登录");
+            },
+            signIn:function(){
+                window.location.href="login.html";
+            }       
+            }
+        })
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jdzy.papersearch.dao.PaperDao">
+    <select id="findPaperByKeywordId" resultType="com.jdzy.papersearch.pojo.Paper">
+		select paper.id as id,
+			paper.title as title,
+			paper.url as url,
+			paper.publication_year as publication_year,
+			paper.meet_id as meet_id,
+			paper.abstract as abstract
+		from paper, paper_keyword
+		where paper_keyword.keyword_id=#{keywordId}
+		and paper.id=paper_keyword.paper_id
+		<if test="publicationYear!=null">
+			and paper.publication_year=#{publicationYear}
+		</if>
+		<if test="meetId!=null">
+			and paper.meet_id=#{meetId}
+		</if>
+		<if test="limit!=null">
+			limit #{limit}
+		</if>
+	</select>
+	<select id="findPaperByWord" resultType="com.jdzy.papersearch.pojo.Paper">
+		select * from paper
+		where (title like concat("%",concat(#{searchWord},"%"))
+		or paper.id in (
+		    select paper_id
+		    from author,paper_author
+		    where author.name like concat("%",concat(#{searchWord},"%"))
+		    and author.id=paper_author.author_id
+		)
+		or paper.id in (
+		    select paper_id
+			from keyword,paper_keyword
+			where keyword.keyword like concat("%",concat(#{searchWord},"%"))
+			and keyword.id=paper_keyword.keyword_id
+		))
+		<if test="publicationYears!=null">
+			and publication_year>=#{publicationYears}
+		</if>
+		<if test="meetId!=null">
+			and meet_id=#{meetId}
+		</if>
+		<if test="orderBy==1">
+			order by publication_year desc
+		</if>
+		<if test="page!=null and limit!=null">
+			limit #{page},#{limit}
+		</if>
+	</select>
+	<select id="findPaperCountByWord" resultType="int">
+		select count(*)
+		from paper
+		where (title like concat("%",concat(#{searchWord},"%"))
+		or paper.id in (
+			select paper_id
+			from author,paper_author
+			where author.name like concat("%",concat(#{searchWord},"%"))
+			and author.id=paper_author.author_id
+		)
+		or paper.id in (
+			select paper_id
+			from keyword,paper_keyword
+			where keyword.keyword like concat("%",concat(#{searchWord},"%"))
+			and keyword.id=paper_keyword.keyword_id
+		))
+		<if test="publicationYears!=null">
+			and publication_year>=#{publicationYears}
+		</if>
+		<if test="meetId!=null">
+			and meet_id=#{meetId}
+		</if>
+	</select>
+</mapper>
