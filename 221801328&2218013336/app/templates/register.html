@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="register_login.css">
+
+</head>
+<body>
+    <div id="wrapper">
+    
+        <div id="header">
+            
+            <div class="container">
+                <h1 style="display: inline;">顶会论文爬取平台</h1>
+                <button id="login_btn" @click="signIn()" type="button" class="btn btn-default">登录</button>
+                <div class="row" style="float: right;">
+                    <div class="span6">
+                        <ul class="nav nav-tabs">
+                            
+                            <li><a href="index.html">&nbsp;首&nbsp;&nbsp;页&nbsp;</a></li>
+                            <li class="active"><a @click="doIt" href="#">爬取论文</a></li>
+                            <li><a href="article.html">论文列表</a></li>
+                            <li><a href="hotwords_graph.html">热词分析</a></li>
+                            <li><a href="personal_page.html">个人中心</a></li>
+
+                        </ul>
+                    </div>
+                    
+                </div>
+               
+            </div>
+                
+        </div>
+
+
+        <div id="main">
+            <div id="register_form">
+            <form class="form-inline">
+                <div class="form-group">
+                    <h1 style="text-align: center;margin-bottom: 20px;"><strong>用户注册</strong></h2>
+                    <label for="phone" style="display: inline;">&nbsp; 用户名&nbsp;  </label>
+                    <input type="text" v-model="phone" class="form-control" name="phone" placeholder="请输入您的手机号"><br>
+                    <label for="pwd">&nbsp; 密&nbsp; &nbsp; 码&nbsp;  </label>
+                    <input type="password" v-model="password" class="form-control" name="pwd" placeholder="请输入您的密码"><br>
+                    <label for="pwd_again">确认密码</label>
+                    <input type="password" v-model="passwordAgain" class="form-control" name="pwd_again" placeholder="请再次输入您的密码"/>
+                    <button type="button" @click="register()" class="btn btn-primary btn-lg btn-block">我要注册</button>
+                </div>
+            </form>    
+            </div>
+        </div>
+
+        <div id="footer">
+            
+        </div>
+
+    </div>
+
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+  
+    <script>
+        var app = new Vue({
+            el:"#wrapper",
+            data: {
+                message:"请先登录",
+                phone:'',
+                password:'',
+                passwordAgain:''
+            },
+            methods: {
+            doIt:function() {
+              //  alert("请先登录");
+            },
+            signIn:function() {
+                window.location.href="login.html";
+            },
+            register:function() {
+                
+                if(this.password!=this.passwordAgain)
+                {
+                    alert('两次输入的密码不相同，请重新输入！');
+                    this.password='';
+                    this.passwordAgain='';
+                }
+                else {
+
+                //alert(this.phone);
+                //alert(this.password);
+                 axios
+                 .post('http://127.0.0.1:5000/user/register',
+                 {
+                     telephone: this.phone,        // 参数 telephone
+                     password: this.password,    // 参数 password
+                 })
+                 .then(function (response) {
+                     status = response.data.status;
+                     console.log(status);
+                     window.location.href="login.html";
+                     ///alert('登陆成功！');
+                 })
+                 .catch(function (error) { // 请求失败处理
+                     console.log(error);
+                 });
+                }
+            }
+        }
+        })
+    </script>
+
+</body>    
+</html>

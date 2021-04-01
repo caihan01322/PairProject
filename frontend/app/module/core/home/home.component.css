@@ -1,0 +1,55 @@
+.core-home-content{
+        width:800px;
+        min-height:450px;
+        background-color: rgb(247, 243, 243);
+        position: absolute;
+        left:50%;
+        top:50%;
+        transform: translate(-50%,-50%);
+        box-shadow:0 0 5px #eee;
+}
+
+.core-home-logo{
+    text-align: center;
+    font-size: 40px;
+    margin-top: 20px;
+}
+
+.core-home-logo > span > i{
+    margin-right: 10px;
+}
+
+.core-home-nav{
+    font-size: 15px;
+    font-weight: 500;
+}
+.core-home-nav > div{
+    float:right;
+    margin-right: 30px;
+    margin-top: 30px;
+}
+.core-home-nav > div > a{
+    color:rgb(138, 130, 130)
+}
+
+.core-home-input{
+    margin-top: 50px;
+}
+
+.paper-input{
+    width:506px;
+}
+
+.core-home-btns{
+    float: right;
+    margin-top: 50px;
+}
+
+.core-home-info{
+    height: 150px;
+    border-radius: 5px;
+    border: 1px #ddd solid;
+    margin-top: 20px;
+    padding: 5px 10px;
+}
+

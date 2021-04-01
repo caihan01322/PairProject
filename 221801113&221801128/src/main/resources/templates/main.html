@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="keywords" content="admin, dashboard, bootstrap, template, flat, modern, theme, responsive, fluid, retina, backend, html5, css, css3">
+  <meta name="description" content="">
+  <meta name="author" content="ThemeBucket">
+  <link rel="shortcut icon" href="#" type="image/png">
+    <link rel="stylesheet" type="text/css" href="css/myCss/mainCss.css" />
+  <link rel="stylesheet" type="text/css" href="css/pagination.css" >
+  <title>论文查询</title>
+
+  <div th:include="common :: commonheader"></div>
+</head>
+
+<body class="sticky-header">
+
+<section>
+    <div th:replace="common :: #leftmenu"></div>
+
+    <div class="main-content" >
+
+        <div th:replace="common :: #headermenu"></div>
+
+        <div class="wrapper">
+            <div th:replace="common :: .card-container"></div>
+        </div>
+
+        <div class="setPageDiv m-style">
+            <div class="pagination" id="pagination"></div>
+        </div>
+    </div>
+
+    <!--模态框-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div th:replace="common :: .modal-header"></div>
+                <div th:replace="common :: .modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        关闭
+                    </button>
+                    <button id="btn-collect" type="button" class="btn btn-primary" data-dismiss="modal">
+                        收藏
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</section>
+
+<div th:include="common :: #commonscript"></div>
+<script src="js/jquery.pagination.js"></script>
+<script src="js/myJs/pagination.js"></script>
+</body>
+</html>

@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 多平台显示 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>论文检索</title>
+
+    <!-- 引入外部文件! -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/PaperList.css">
+
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<!--nav-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">不随便</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">论文检索</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/keyword/home">关键词谱</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/keyword/trend">热词走势</a>
+            </li>
+
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0" method="Get" action="/paper/search/1">
+            <input class="form-control mr-sm-2" type="text" id="title" name="title"
+                   placeholder="请输入论文标题" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜 索</button>
+        </form>
+
+        <ul class="navbar-nav pull-right">
+            <li class="nav-item">
+                <a class="nav-link " href="/user/login">登录</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/user/register">注册</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    昵称
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">个人中心</a>
+                    <a class="dropdown-item" href="#">公告栏</a>
+                    <a class="dropdown-item" href="#">问答中心</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+
+
+    <!--动图-->
+    <div class="row" style="margin: auto">
+        <div class="col-md-12" style="margin-top: 30px">
+            <!-- Nav tabs -->
+            <!--                <ul class="nav nav-tabs" role="tablist">-->
+            <!--                    <li class="nav-item">-->
+            <!--                        <a id="chart1" class="nav-link active" data-toggle="tab" href="#tab1">关键词图谱</a>-->
+            <!--                    </li>-->
+            <!--                    <li class="nav-item">-->
+            <!--                        <a id="chart2" class="nav-link " data-toggle="tab" href="#tab2">热词走势</a>-->
+            <!--                    </li>-->
+            <!--                </ul>-->
+
+
+            <!-- Tab panes -->
+            <div class="content" style="margin: auto">
+                <!--                <div id="tab1" class="container tab-pane active">-->
+                <!--                    <div class="dropdown">-->
+                <!--                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"-->
+                <!--                                style="margin-top: 20px;">-->
+                <!--                            关键词-->
+                <!--                        </button>-->
+                <!--                        <div class="dropdown-menu" id="dm">-->
+                <!--                            &lt;!&ndash;-->
+                <!--                            th:href="@{'/paper/list/'+${page.pre}(title=${param.title},keyword=${param.keyword},pid=${param.pid},sort=${param.sotr})}"-->
+                <!--                            &ndash;&gt;-->
+                <!--                            &lt;!&ndash;<a class="dropdown-item" th:href="@{'/paper/list/1/'+(keyword=${})}" th:text="${}"></a>-->
+                <!--                            <a class="dropdown-item" href="#">Link 2</a>-->
+                <!--                            <a class="dropdown-item" href="#">Link 3</a>-->
+                <!--                            <a class="dropdown-item" href="#">Link 1</a>-->
+                <!--                            <a class="dropdown-item" href="#">Link 2</a>-->
+                <!--                            <a class="dropdown-item" href="#">Link 3</a>-->
+                <!--                            <a class="dropdown-item" href="#">Link 1</a>-->
+                <!--                            <a class="dropdown-item" href="#">Link 2</a>-->
+                <!--                            <a class="dropdown-item" href="#">Link 3</a>&ndash;&gt;-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                    &lt;!&ndash;<button type="text" class="btn btn-outline-info"-->
+                <!--                            th:onclick="loadTopKeyword()">提 交-->
+                <!--                    </button>&ndash;&gt;-->
+                <!--                    <div id="map" style="width: 1000px; height:550px; "></div>-->
+                <!--                </div>-->
+
+                <!--                <div id="tab2" class="container tab-pane fade">-->
+                <div class="container" style="padding-top: 10px">
+                    <div class="row">
+                        <form class="form-check form-inline">
+                            <label class="mx-1 radio-inline ">
+                                <input type="radio" name="meeting"
+                                       th:checked="true" th:value="ECCV">ECCV
+                            </label>
+                            <label class="mx-1 radio-inline">
+                                <input type="radio" name="meeting"
+                                       th:value="ICCV">ICCV
+                            </label>
+                            <label class="mx-1 radio-inline">
+                                <input type="radio" name="meeting"
+                                       th:value="CVPR">CVPR
+                            </label>
+                            <label for="myears" style="margin-left: 10px;">年数: </label>
+                            <input type="text" class="form-control" id="myears" name="years"
+                                   style="margin-left: 10px;">
+                            <label for="topNum" style="margin-left: 10px;">top数: </label>
+                            <input type="text" class="form-control px-2" id="topNum" name="topNum"
+                                   style="margin-left: 10px;">
+                            <!--<button class="btn btn-info" style="margin-left: 10px;" type="submit">提交</button>-->
+                            <button type="text" class="btn btn-outline-info"
+                                    style="margin-left: 10px;"
+                                    th:onclick="selectTOPKeywordEveryYear()">提 交
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!--                </div>-->
+                <div id="fre" style="width: 1000px; height:500px; padding-top: 10px;margin: auto"></div>
+            </div>
+        </div>
+
+        <!--ajax: chart1-->
+        <!--        <script th:inline="javascript">-->
+        <!--            var chartDom = document.getElementById('map');-->
+        <!--            var myChart = echarts.init(chartDom);-->
+        <!--            var option;-->
+        <!--            var json;-->
+
+        <!--            var rose = [];-->
+        <!--            var keyword = [];-->
+        <!--            var frenquency = [];-->
+
+
+        <!--            option = {-->
+        <!--                title: {-->
+        <!--                    text: '近五年热词TOP10',-->
+        <!--                    subtext: '计算机三大顶会',-->
+        <!--                    left: 'center'-->
+        <!--                },-->
+        <!--                tooltip: {-->
+        <!--                    trigger: 'item',-->
+        <!--                    formatter: '{a} <br/>{b} : {c} ({d}%)'-->
+        <!--                },-->
+        <!--                legend: {-->
+        <!--                    left: 'center',-->
+        <!--                    top: 'bottom',-->
+        <!--                    data: keyword-->
+        <!--                    // ['feature extraction', 'learning (artificial intelligence)', 'Training',-->
+        <!--                    //     'computer vision', 'object detection', 'Image segmentation', 'Cameras',-->
+        <!--                    //     'Three-dimensional displays','neural nets','Task analysis']-->
+        <!--                },-->
+        <!--                toolbox: {-->
+        <!--                    show: true,-->
+        <!--                    feature: {-->
+        <!--                        mark: {show: true},-->
+        <!--                        dataView: {show: true, readOnly: false},-->
+        <!--                        restore: {show: true},-->
+        <!--                        saveAsImage: {show: true}-->
+        <!--                    }-->
+        <!--                },-->
+        <!--                series: [-->
+        <!--                    {-->
+        <!--                        name: '出现频数',-->
+        <!--                        type: 'pie',-->
+        <!--                        //radius: '65%',-->
+        <!--                        radius: [40, 160],-->
+        <!--                        center: ['55%', '50%'],-->
+        <!--                        roseType: 'area',-->
+        <!--                        itemStyle: {-->
+        <!--                            borderRadius: 15-->
+        <!--                        },-->
+        <!--                        data: rose-->
+        <!--                        //[-->
+        <!--                        // {value: 526, name: 'feature extraction'},-->
+        <!--                        // {value: 501, name: 'learning (artificial intelligence)'},-->
+        <!--                        // {value: 405, name: 'Training'},-->
+        <!--                        // {value: 376, name: 'computer vision'},-->
+        <!--                        // {value: 304, name: 'object detection'},-->
+        <!--                        // {value: 276, name: 'Image segmentation'},-->
+        <!--                        // {value: 241, name: 'Cameras'},-->
+        <!--                        // {value: 236, name: 'Three-dimensional displays'},-->
+        <!--                        // {value: 230, name: 'neural nets'},-->
+        <!--                        // {value: 206, name: 'Task analysis'},analysis-->
+
+        <!--                        //]-->
+        <!--                    }-->
+        <!--                ]-->
+        <!--            };-->
+
+
+        <!--            $.ajax({-->
+        <!--                url: encodeURI("/keyword/top1"),-->
+        <!--                type: "get",  //请求的方法-->
+        <!--                cache: false, //去除缓存-->
+        <!--                async: false,  //async:false同步。true异步方式-->
+        <!--                dataType: 'JSON',-->
+        <!--                success: function (result) {-->
+        <!--                    //console.log("【result.data】："+result.data[0].content);-->
+        <!--                    //json = JSON.parse(result);  //当后端传：//mapper.writeValueAsString(keywordVOList)时-->
+        <!--                    for (let i = 0; i < 10; i++) {-->
+        <!--                        //keyword.push(json[i].content);-->
+        <!--                        keyword.push(result.data[i].content);-->
+        <!--                        //<a class="dropdown-item" th:href="@{'/paper/list/1/'+(keyword=${})}" th:text="${}"></a>-->
+        <!--                        //aStr += '<a class="dropdown-item" th:href="@{\'/paper/list/1/\'+(keyword='+result.data[i].content+')}" th:text="'+result.data[i].content+'"></a>';-->
+        <!--                        rose.push({-->
+        <!--                            /*value: json[i].total,-->
+        <!--                            name: json[i].content,*/-->
+        <!--                            value: result.data[i].total,-->
+        <!--                            name: result.data[i].content,-->
+        <!--                        });-->
+        <!--                    }-->
+        <!--                    /*console.log("【keyword】"+keyword);-->
+        <!--                    console.log("【rose】"+rose);*/-->
+
+        <!--                    //加载a：-->
+        <!--                    //$('#dm').append(aStr);-->
+
+
+        <!--                }-->
+        <!--            })-->
+        <!--            option && myChart.setOption(option);-->
+        <!--        </script>-->
+
+
+        <!--[]:chart1-->
+        <!-- <script th:inline="javascript">
+             var resultList = [[${data}]];
+             var data = JSON.parse(resultList);
+             console.log(data);
+             console.log("[2333]: " + data[0].content)
+             //var dd="&&"+"<";
+
+             /*  alert("2333");
+                   var result = $("#ListModels").val();
+                   var val = eval("("+data+")");
+                   alert("[val]:"+val);
+
+                   var resultList = JSON.parse(result);
+                   alert(resultList[2].content);*/
+
+             var chartDom = document.getElementById('map');
+             var myChart = echarts.init(chartDom);
+             var option;
+
+
+             option = {
+                 title: {
+                     text: '计算机三大顶会热词top10',
+                     subtext: 'ECCV&ICCV&CVPR近五年',
+                     left: 'center'
+                 },
+                 tooltip: {
+                     trigger: 'item',
+                     formatter: '{a} <br/>{b} : {c} ({d}%)'
+                 },
+                 legend: {
+                     left: 'center',
+                     top: 'bottom',
+                     /*data: ['rose1', 'rose2', 'rose3', 'rose4', 'rose5', 'rose6', 'rose7', 'rose8']*/
+                     data: [
+                         data[0].content, data[1].content, data[2].content, data[3].content, data[4].content,
+                         data[5].content, data[6].content, data[7].content, data[8].content, data[9].content,
+                     ]
+                 },
+                 toolbox: {
+                     show: true,
+                     feature: {
+                         mark: {show: true},
+                         dataView: {show: true, readOnly: false},
+                         restore: {show: true},
+                         saveAsImage: {show: true}
+                     }
+                 },
+                 series: [
+                     /*{
+                         name: '半径模式',
+                         type: 'pie',
+                         radius: [20, 140],
+                         center: ['25%', '50%'],
+                         roseType: 'radius',
+                         itemStyle: {
+                             borderRadius: 5
+                         },
+                         label: {
+                             show: false
+                         },
+                         emphasis: {
+                             label: {
+                                 show: true
+                             }
+                         },
+                         data: [
+                             {value: data[0].total, name: data[0].content},
+                             {value: data[1].total, name: data[1].content},
+                             {value: data[2].total, name: data[2].content},
+                             {value: data[3].total, name: data[3].content},
+                             {value: data[4].total, name: data[4].content},
+                             {value: data[5].total, name: data[5].content},
+                             {value: data[6].total, name: data[6].content},
+                             {value: data[7].total, name: data[7].content},
+                             {value: data[8].total, name: data[8].content},
+                             {value: data[9].total, name: data[9].content},
+                         ]
+                         /!*data:
+                             [
+                                 {value: 526, name: 'feature extraction'},
+                                 {value: 501, name: 'learning (artificial intelligence)'},
+                                 {value: 405, name: 'Training'},
+                                 {value: 376, name: 'computer vision'},
+                                 {value: 304, name: 'object detection'},
+                                 {value: 276, name: 'Image segmentation'},
+                                 {value: 241, name: 'Cameras'},
+                                 {value: 236, name: 'Three-dimensional displays'},
+                                 {value: 230, name: 'neural nets'},
+                                 {value: 206, name: 'Task analysis'},
+
+                             ]*!/
+                     },*/
+                     {
+                         name: '关键词频数',
+                         type: 'pie',
+                         radius: [20, 140],
+                         center: ['75%', '50%'],
+                         roseType: 'area',
+                         itemStyle: {
+                             borderRadius: 5
+                         },
+                         /*data: [
+                             {value: 30, name: 'rose 1'},
+                             {value: 28, name: 'rose 2'},
+                             {value: 26, name: 'rose 3'},
+                             {value: 24, name: 'rose 4'},
+                             {value: 22, name: 'rose 5'},
+                             {value: 20, name: 'rose 6'},
+                             {value: 18, name: 'rose 7'},
+                             {value: 16, name: 'rose 8'}
+                         ]*/
+                         data: [
+                             {value: data[0].total, name: data[0].content},
+                             {value: data[1].total, name: data[1].content},
+                             {value: data[2].total, name: data[2].content},
+                             {value: data[3].total, name: data[3].content},
+                             {value: data[4].total, name: data[4].content},
+                             {value: data[5].total, name: data[5].content},
+                             {value: data[6].total, name: data[6].content},
+                             {value: data[7].total, name: data[7].content},
+                             {value: data[8].total, name: data[8].content},
+                             {value: data[9].total, name: data[9].content},
+                         ]
+                     }
+                 ]
+             };
+
+             option && myChart.setOption(option);
+         </script>-->
+
+
+        <!--ajax: chart2-->
+        <script th:inline="javascript">
+            /* var resultList = [[${data}]];
+             var data = JSON.parse(resultList);
+             console.log(data);
+             console.log("[2333]: " + data[0].content)*/
+
+            var chartDom2 = document.getElementById('fre');
+            var myChart2 = echarts.init(chartDom2);
+            var json;
+            var option2;
+
+            var keywords = new Array();
+            var ktotal = new Array();
+            var jsontotal = new Array();
+            var years = [];
+            var mySeries = [];
+
+            option2 = {
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    /* data: [json.content]//图例--所有关键词数组*/
+                    data: keywords[years[0]],
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    /*data: ['2017', '2018', '2019', '2020', '2021']*/
+                    data: years,
+                },
+                yAxis: {
+                    type: 'value',
+                },
+                series: mySeries,
+                /*series: [
+                    {
+                        name: json.content,
+                        type: 'line',
+                        stack: '总量',
+                        data: json.total,
+                    },
+                    {
+                        name: '联盟广告',
+                        type: 'line',
+                        stack: '总量',
+                        data: [220, 182, 191, 234, 290, 330, 310]
+                    },
+                    {
+                        name: '视频广告',
+                        type: 'line',
+                        stack: '总量',
+                        data: [150, 232, 201, 154, 190, 330, 410]
+                    },
+                    {
+                        name: '直接访问',
+                        type: 'line',
+                        stack: '总量',
+                        data: [320, 332, 301, 334, 390, 330, 320]
+                    },
+                    {
+                        name: '搜索引擎',
+                        type: 'line',
+                        stack: '总量',
+                        data: [820, 932, 901, 934, 1290, 1330, 1320]
+                    }
+                ]*/
+            };
+
+            $.ajax({
+                url: encodeURI("/keyword/trend/ECCV"),
+                type: "get",  //请求的方法
+                cache: false, //去除缓存
+                async: false,  //async:false同步。true异步方式
+                dataType: 'JSON',
+                data: {
+                    "years": 10,
+                    "topNum": 15
+                },
+                success: function (result) {
+
+                    $.each(result.map, function (i, item) {
+                        years.push(i);
+                        keywords[i] = [];
+                        ktotal[i] = [];
+                        for (let j = 0; j < 10; j++) {
+                            keywords[i].push(item[j].content);
+                            ktotal[i].push(item[j].total);
+                        }
+                        //console.log("【keywords--"+ i +"】: " + keywords[i]);
+                        //console.log("【ktotal--"+ i +"】: " + ktotal[i]);
+                    });
+                    //console.log("【years】: " + years);
+
+                    for (let i = 0; i < 10; i++) {
+                        jsontotal[i] = [];
+                        for (let j = 0; j < years.length; j++) {
+                            jsontotal[i].push(ktotal[years[j]][i])
+                        }
+                        //console.log("【"+keywords[years[0]][i]+"---"+"jsontotal---" +i+ "】" + jsontotal[i]);
+                    }
+
+                    /*  */
+                    for (let i = 0; i < 10; i++) {
+                        mySeries.push({
+                            name: keywords[years[0]][i],
+                            type: 'line',
+                            stack: '总量',
+                            data: jsontotal[i],
+                        });
+                    }
+
+                    //console.log("【mySeries】:" + mySeries);
+                }
+
+            })
+
+            option2 && myChart2.setOption(option2);
+
+        </script>
+
+        <!--[]:chart2-->
+        <!-- <script th:inline="javascript">
+             /* var resultList = [[${data}]];
+              var data = JSON.parse(resultList);
+              console.log(data);
+              console.log("[2333]: " + data[0].content)*/
+
+
+             var chartDom = document.getElementById('fre');
+             var myChart = echarts.init(chartDom);
+             var option;
+
+             option = {
+                 title: {
+                     text: '折线图堆叠'
+                 },
+                 tooltip: {
+                     trigger: 'axis'
+                 },
+                 legend: {
+                     data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+                 },
+                 grid: {
+                     left: '3%',
+                     right: '4%',
+                     bottom: '3%',
+                     containLabel: true
+                 },
+                 toolbox: {
+                     feature: {
+                         saveAsImage: {}
+                     }
+                 },
+                 xAxis: {
+                     type: 'category',
+                     boundaryGap: false,
+                     data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                 },
+                 yAxis: {
+                     type: 'value'
+                 },
+                 series: [
+                     {
+                         name: '邮件营销',
+                         type: 'line',
+                         stack: '总量',
+                         data: [120, 132, 101, 134, 90, 230, 210]
+                     },
+                     {
+                         name: '联盟广告',
+                         type: 'line',
+                         stack: '总量',
+                         data: [220, 182, 191, 234, 290, 330, 310]
+                     },
+                     {
+                         name: '视频广告',
+                         type: 'line',
+                         stack: '总量',
+                         data: [150, 232, 201, 154, 190, 330, 410]
+                     },
+                     {
+                         name: '直接访问',
+                         type: 'line',
+                         stack: '总量',
+                         data: [320, 332, 301, 334, 390, 330, 320]
+                     },
+                     {
+                         name: '搜索引擎',
+                         type: 'line',
+                         stack: '总量',
+                         data: [820, 932, 901, 934, 1290, 1330, 1320]
+                     }
+                 ]
+             };
+
+             option && myChart.setOption(option);
+
+         </script>-->
+
+
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../static/bootstrap/js/bootstrap.min.js"></script>
+</body>
+<script type="text/javascript">
+    function selectTOPKeywordEveryYear() {
+        meetings = document.getElementsByName("meeting");
+        for (var i = 0; i < meetings.length; i++) {
+            if (meetings.item(i).checked) {
+                meeting = New.item(i).getAttribute("value");
+                break;
+            } else {
+                continue;
+            }
+        }
+        console.log("【meeting】：" + meeting);
+        /* $.ajax({
+             url: encodeURI("/keyword/top/" + meeting),
+             type: "get",  //请求的方法
+             cache: false, //去除缓存
+             async: false,  //async:false同步。true异步方式
+             dataType: "json",  //指定响应得到的数据类型：【“list”必须严格为一个json数据！】
+             traditional: true,
+             data: {
+                 'years': $('#myears').val(),
+                 'topNum':  $('#topNum').val(),
+                 //"pids" : JSON.stringify(pids),
+             },
+             success: function (result) {
+                 if (result.code == 200) { //修改成功
+                     //layer.msg("修改成功");
+                     alert("查询成功");
+                     $('#chart2').class = 'nav-link active';
+                     $('#tab2').class = 'container tab-pane active';
+
+                 } else {
+                     //layer.msg("修改失败");
+                     alert("查询失败");
+                 }
+             },
+             error: function () {
+                 alert(".......页面出错了.......");
+             }
+         });*/
+
+        $.ajax({
+            url: encodeURI("/keyword/trend/" + meeting),
+            type: "get",  //请求的方法
+            cache: false, //去除缓存
+            async: true,  //async:false同步。true异步方式
+            dataType: "json",  //指定响应得到的数据类型：【“list”必须严格为一个json数据！】
+            traditional: true,
+            data: {
+                'years': $('#myears').val(),
+                'topNum': $('#topNum').val(),
+                //"pids" : JSON.stringify(pids),
+            },
+            success: function (result) {
+                if (result.code == 200) {
+                    alert("查询成功");
+                    $('#chart2').class = 'nav-link active';
+                    $('#tab2').class = 'container tab-pane active';
+
+
+                    $.each(result.map, function (i, item) {
+                        years.push(i);
+                        keywords[i] = [];
+                        ktotal[i] = [];
+                        for (let j = 0; j < 10; j++) {
+                            keywords[i].push(item[j].content);
+                            ktotal[i].push(item[j].total);
+                        }
+                        console.log("【keywords--" + i + "】: " + keywords[i]);
+                        console.log("【ktotal--" + i + "】: " + ktotal[i]);
+                    });
+                    console.log("【years】: " + years);
+
+                    for (let i = 0; i < 10; i++) {
+                        jsontotal[i] = [];
+                        for (let j = 0; j < years.length; j++) {
+                            jsontotal[i].push(ktotal[years[j]][i])
+                        }
+                        console.log("【" + keywords[years[0]][i] + "---" + "jsontotal---" + i + "】" + jsontotal[i]);
+                    }
+
+                    /*  */
+                    for (let i = 0; i < 10; i++) {
+                        mySeries.push({
+                            name: keywords[years[0]][i],
+                            type: 'line',
+                            stack: '总量',
+                            data: jsontotal[i],
+                        });
+                    }
+
+
+                } else {
+                    //layer.msg("修改失败");
+                    alert("查询失败");
+                }
+            },
+            error: function () {
+                alert(".......页面出错了.......");
+            }
+        });
+        option2 && myChart2.setOption(option2);
+    }
+
+    /* function loadTopKeyword() {
+         $.ajax({
+             url: encodeURI("/keyword/top1"),
+             type: "get",  //请求的方法
+             cache: false, //去除缓存
+             async: false,  //async:false同步。true异步方式
+             dataType: 'JSON',
+             success: function (result) {
+                 //console.log("【result.data】："+result.data[0].content);
+                 //json = JSON.parse(result);  //当后端传：//mapper.writeValueAsString(keywordVOList)时
+                 for (let i = 0; i < 10; i++) {
+                     //keyword.push(json[i].content);
+                     keyword.push(result.data[i].content);
+                     rose.push({
+                         /!*value: json[i].total,
+                         name: json[i].content,*!/
+                         value: result.data[i].total,
+                         name: result.data[i].content,
+                     });
+                 }
+                 /!*console.log("【keyword】"+keyword);
+                 console.log("【rose】"+rose);*!/
+             }
+         });
+         option && myChart.setOption(option);
+     }*/
+</script>
+
+<!--<script>
+    basePath = '[[${ #httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]';
+    //aaa = basePath + '/paper/list/1/' + '?keyword='+keyword[0];
+    //console.log("【aaa&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;】：" + aaa);
+
+    oDiv = document.getElementById('dm');
+    for (let i = 0; i < 10; i++) {
+        oA = document.createElement('a');   //创建a标签
+        aaa = basePath + '/paper/list/1/' + '?keyword=' + keyword[i];
+        console.log("【aaa】：" + aaa);
+        oA.href = aaa;    //增加a标签的href属性
+        oA.innerHTML = keyword[i];   //给a标签添加内容
+        oA.className = "dropdown-item";
+        oDiv.appendChild(oA);  //将a标签添加到div里面
+        //oDiv.append("</br>");
+    }
+</script>-->
+</html>

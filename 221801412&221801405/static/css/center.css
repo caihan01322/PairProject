@@ -1,0 +1,12 @@
+.center
+{
+    margin:200px auto;
+    top:200px;
+    width:400px;
+    height:250px;
+    background-color: #ddd;
+}
+p.border
+{
+margin:0px auto;
+}

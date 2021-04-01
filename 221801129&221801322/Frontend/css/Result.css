@@ -1,0 +1,269 @@
+#content {
+    width: 624px;
+    height: 600px;
+    float: left;
+}
+#sidebar {
+    width: 400px;
+    height: 600px;
+    float: left;
+}
+#trend_nav {
+    margin: 10px auto;
+}
+#trend > div {
+    width: 300px;
+    height: 250px;
+    margin: 0 auto;
+}
+#trend > div canvas {
+    height: 240px !important;
+}
+/* 搜索
+   ------------------------------------------ */
+#search {
+    width: 624px;
+    height: 50px;
+}
+#search select {
+    display: block;
+    float: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 101px;
+    height: 30px;
+    padding: 2px 2px 2px 2px;
+    font-weight: 700;
+    font-size: 15px;
+    color: rgba(51, 51, 51, 0.803921568627451);
+    border: none;
+    border-radius: 30px;
+    box-shadow: 1px 1px 5px rgb(0 0 0 / 35%);
+}
+#search option {
+    font-weight: 700;
+    font-style: normal;
+    font-size: 15px;
+    color: rgba(51, 51, 51, 0.803921568627451);
+}
+#searchBox {
+    display: block;
+    float: left;
+    width: 447px;
+    height: 27px;
+    margin: 10px 10px;
+    background-color: rgb(255, 255, 255);
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(121, 121, 121, 1);
+    border-radius: 30px;
+    box-shadow: 3px 3px 5px rgb(0 0 0 / 35%);
+}
+#searchBox input {
+    display: block;
+    float: left;
+    width: 373px;
+    height: 24px;
+    border: 0;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 17px;
+    letter-spacing: normal;
+    color: rgb(0, 0, 0);
+    text-transform: none;
+    outline: none;
+    background-color: transparent;
+    border-color: transparent;
+}
+#searchLogo {
+    float: left;
+    margin: -7px 6px;
+    width: 29px;
+    height: 31px;
+}
+/* 论文列表
+   ------------------------------------------ */
+.title,.abstract,.listBottom {
+    margin-left: 10px;
+}
+.list {
+    width: 624px;
+    height: 510px;
+}
+.listContent {
+    border: 1px solid;
+    width: 591px;
+    height: 159px;
+    margin: 20px auto;
+    background-color: rgb(255, 255, 255);
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #797979;
+    border-radius: 10px;
+    box-shadow: rgb(0 0 0 / 35%) 3px 3px 5px;
+}
+.title {
+    width: 570px;
+    height: 35px;
+    line-height: 35px;
+    margin-top: 5px;
+    margin-bottom: 3px;
+    color: #6699CC;
+}
+.abstract {
+    font-size: 13px;
+    width: 591px;
+    height: 60px;
+}
+.abstract div {
+    display: inline-block;
+    width: 500px;
+    height: 55px;
+}
+.abstract p {
+    width: 500px;
+    height: 55px;
+    font-weight: 400;
+    display: -webkit-box;
+    color: #7F7F7F;
+}
+.abstract span{
+    vertical-align: top;
+    font-weight: 700;
+}
+.listBottom {
+    width: 591px;
+    height: 20px;
+    font-size: 14px;
+    text-align: left;
+    font-weight: 700;
+}
+.listBottom span {
+    vertical-align: top;
+    color: #555555;
+}
+.listBottom .keyword {
+    text-align: center;
+    padding: 0 8px;
+    border-right: 1px solid;
+    width: 95px;
+    height: 20px;
+    color: #777777;
+    display: inline-block;
+}
+.listBottom .lastKey {
+    border-right: 0px;
+}
+.deleteSvg,.markSvg {
+    float: right;
+    margin: 0 10px;
+    cursor: pointer;
+}
+.deleteSvg {
+    width: 23px;
+}
+.markSvg {
+    width: 25px;
+}
+/* 排行榜
+   ------------------------------------------ */
+   #topRank h3 {
+    text-align: center;
+}
+#rank {
+    width: 210px;
+    margin: 0 auto;
+}
+#rank a {
+    text-decoration: none;
+}
+#rank li{
+    display: inline-block;
+    width: 210px;
+    height: 30px;
+    font-size: 12px;
+}
+.num-box,.name-box{
+    display: inline-block;
+}
+.num-box{
+    width: 30px;
+    height: 30px;
+    float: left;
+}
+.num-box span{
+    display: block;
+    width: 16px;
+    height: 16px;
+    line-height: 16px; 
+    text-align: center;
+    color: #666;
+    background: #ededed;
+    margin: 6px auto;
+}
+#num1{
+    color: #fff;
+    background: #bf2c24;
+}
+#num2{
+    color: #fff;
+    background: #e67225;
+}
+#num3{
+    color: #fff;
+    background: #e6bf25;
+}
+.name-box{
+    width: 150px;
+    height: 30px;
+    border-bottom: 1px solid #e6e6e6;
+    line-height: 30px;
+    float: left;
+    text-align: left;
+}
+.name1,.name2,.name3,.name4,.name5,.name6,.name7,.name8,.name9,.name10{
+    color: black;
+    cursor: pointer;
+}
+.total-box{
+    float: left;
+    width: 30px;
+    height: 30px;
+    border-bottom: 1px solid #e6e6e6;
+    line-height: 30px;
+    color: #b3b3b3;
+    text-align: left;
+}
+/* 趋势图
+   ------------------------------------------ */
+#trend_nav div {
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    background-color: rgba(102, 153, 204, 1);
+    box-sizing: border-box;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgba(127, 127, 127, 1);
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+}
+#trend_nav .nav_selected {
+    color: rgb(85, 85, 85);
+    background-color: white;
+    font-weight: 700;
+    transition: .5s;
+}
+#trend .content_selected {
+    display: none;
+}
+#trend_nav:first-child {
+    margin-left: 50px;
+}

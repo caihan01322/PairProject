@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="register_login.css">
+ 
+    <style>
+        #main {
+            padding: 50px 200px 100px 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper" style="background-image: none;">
+    
+        <div id="header">
+            
+            <div class="container">
+                <h1 style="display: inline;">顶会论文爬取平台</h1>
+                <button id="login_btn" v-show="isLogin==0" @click="signIn()" type="button" class="btn btn-default">登录</button>
+                <button id="logout_btn" v-show="isLogin==1" @click="signOut()" type="button" class="btn btn-default">退出登录</button>
+           
+                <div class="row" style="float: right;">
+                    <div class="span6">
+                        <ul class="nav nav-tabs">
+                            
+                            <li><a href="index.html">&nbsp;首&nbsp;&nbsp;页&nbsp;</a></li>
+                            <li><a href="add_articles.html">爬取论文</a></li>
+                            <li><a href="article.html">论文列表</a></li>
+                            <li><a href="hotwords_graph.html">热词分析</a></li>
+                            <li class="active"><a href="personal_page.html">个人中心</a></li>
+
+                        </ul>
+                    </div>
+                    
+                </div>
+               
+            </div>
+                
+        </div>
+
+
+        <div id="main" style="text-align: center;">
+            <!--<h1>此功能暂未开放</h1>-->
+        
+
+        <div id="list">
+            <h1>{{ telephone }}的论文收藏夹</h1>
+            <!--用户列表  用户：id 用户名 邮箱 真实姓名 手机号码-->
+            <table class="table" >
+                <tr>
+                    <th>id</th>
+                    <th>题目</th>
+                    <th>顶会</th>
+                    <th>发表时间</th>
+                    <th>管理</th>
+                </tr>
+                <tr v-for="(v,i) in lists">
+                    <td>{{ v.id }}</td>
+                    <td>{{ v.title }}</td>
+                    <td>{{ v.classify }}</td>
+                    <td>{{ v.datetime}}</td>
+                    <td><a @click="gotoDetail(v.id)">详情</a></td>
+                </tr>
+            </table>
+
+            <ul class="pagination">
+                <li><a href="#" @click="prePage">&laquo;</a></li>
+        
+                <li :class="pageNo==index?'active':''" v-for="index in pages" @click="switchPage(index)"><a href="#">{{ index }}</a></li>
+
+                <li><a href="#" @click="nextPage">&raquo;</a></li>
+            </ul>
+
+        </div>
+    </div>
+    </div>
+
+        <div id="footer">
+            
+        </div>
+
+    </div>
+  
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+      
+    <script>
+    var app = new Vue({
+        el:"#wrapper",
+        data:{
+            searchMessage:"",
+            lists:[],//论文列表，展示表格数据
+            pageTotal:1,//总页数
+            rows:1,//总条数
+            pageNo:1,//页码
+            pageSize:10,//每一页的条数
+            flag:0,//区分上/下 一页的状态
+            telephone:0
+        },
+        mounted() {
+        //this.getData();
+        //再调用一下搜索功能
+        this.getArticles();
+        },
+        computed: {
+            pages() {
+                var start = this.pageNo,end = this.pageTotal;
+                if(end<10) return end;
+                if(start<=5) {
+                    return [1,2,3,4,5,6,'...',end]
+                }
+                else if(start>=end-5) {
+                    return [1,'...',end-5,end-4,end-3,end-2,end-1,end]
+                }
+                else {
+                    return [1,'...',start-1,start,start+1,'...',end]
+                }
+            }
+        },
+        methods: {
+        doIt:function() {
+            //  alert("请先登录");
+        },
+        signIn:function() {
+            window.location.href="login.html";
+        },
+        getArticles:function(i=1) {
+        
+        //alert(flag);
+            var data = localStorage.getItem('userid');
+
+            var that = this;
+            if(i!='...')
+            this.pageNo = i;
+            axios
+            .post('http://127.0.0.1:5000/personal',
+            {
+                'user_id':data,
+                'page':i,
+                'item':that.pageSize
+            })
+            .then(function (response) {
+                //数据要分页显示
+                console.log(response.data.data);
+                let {count,data,page,telephone} = response.data.data;
+                that.lists = data;
+                that.pageTotal = page;
+                that.rows = count;
+                that.telephone = telephone;
+            })
+            .catch(function (error) { // 请求失败处理
+                console.log(error);
+            });    
+            },
+            switchPage:function(i) {
+                this.getArticles(i);
+            },
+            prePage:function() {
+                this.getArticles(--this.pageNo);
+            },
+            nextPage:function() {
+                this.getArticles(++this.pageNo);
+            },
+            gotoDetail:function(articleId) {
+            localStorage.setItem('articleid',articleId);
+            window.location.href="article_detail.html";
+            }
+        }
+    })
+    </script>
+</body>    
+</html>
