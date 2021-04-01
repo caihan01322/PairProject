@@ -1,0 +1,26 @@
+{
+  "name": "061800217",
+  "version": "1.0.0",
+  "description": "",
+  "main": "DateRoute.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "bytes": "^3.1.0",
+    "content-type": "^1.0.4",
+    "depd": "^2.0.0",
+    "express": "^4.17.1",
+    "http-errors": "^1.8.0",
+    "inherits": "^2.0.4",
+    "merge-descriptors": "^1.0.1",
+    "mysql": "^2.18.1",
+    "node-schedule": "^2.0.0",
+    "setprototypeof": "^1.2.0",
+    "statuses": "^2.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
