@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>论文检索平台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}"  media="all">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}" media="all">
+    <link rel="stylesheet" th:href="@{/css/intro.css}" media="all">
+</head>
+<body>
+
+    <div>
+        <div>
+            <div th:replace="~{html/header::header}"></div>
+        </div>
+        <div>
+            <div th:replace="~{html/sidebar::sidebar}"></div>
+        </div>
+        <div style="margin-left: 15%; width: 70%; margin-top: 60px;">
+            <div class="layui-carousel" id="intro">
+                <div carousel-item="">
+                    <div class="layui-bg-green">
+                        <div class="intro">
+                            你是否在为不能快速查找论文所烦恼？
+                        </div>
+                    </div>
+                    <div class="layui-bg-red">
+                        <div class="intro">
+                            你是否想要知道某个时间段的论文热词？
+                        </div>
+                    </div>
+                    <div class="layui-bg-cyan">
+                        <div class="intro">
+                            你是否想要了解某个时间段的热词走势？
+                        </div>
+                    </div>
+                    <div class="layui-bg-orange">
+                        <div class="intro">
+                            那么你选择我们的平台，就是最正确的选择！
+                        </div>
+                    </div>
+                    <div class="layui-bg-blue">
+                        <div class="intro">
+                            查论文、看热词、晓走势，我们都能实现！
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+<script th:src="@{/layui/layui.js}" charset="utf-8"></script>
+
+<script>
+    layui.use('element', function(){
+        var element = layui.element;
+        //监听导航点击
+        element.on('nav(demo)', function(elem){
+            layer.msg(elem.text());
+        });
+    });
+    layui.use('carousel', function(){
+        var carousel = layui.carousel;
+        //建造实例
+        carousel.render({
+            elem: '#intro'
+            ,width: '100%' //设置容器宽度
+            ,height: '400px'
+            ,arrow: 'always' //始终显示箭头
+            //,anim: 'updown' //切换动画方式
+        });
+    });
+</script>
+
+</body>
+</html>
