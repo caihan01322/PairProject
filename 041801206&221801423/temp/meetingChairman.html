@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>奇葩天地网</title>
+</head>
+<body>
+<ul class="list2">
+    <li>
+        <img alt="" src="qipa250_1.jpg"/>
+        <div>每日奇葩</div>
+        <a onclick="deleteQipaElement(this)">删除</a>
+    </li>
+    <li>
+        <img alt="" src="qipa250_2.jpg"/>
+        <div>奇葩网</div>
+        <a onclick="deleteQipaElement(this)">删除</a>
+    </li>
+    <li>
+        <img alt="" src="qipa250_3.jpg"/>
+        <div>我是小奇葩</div>
+        <a onclick="deleteQipaElement(this)">删除</a>
+    </li>
+</ul>
+
+<script type="text/javascript">
+    function deleteQipaElement(Obj) {
+        Obj.parentNode.parentNode.removeChild(Obj.parentNode);
+    }
+</script>
+</body>
+</html>
+
