@@ -56,7 +56,7 @@ function GetHandle(url,data,callback) {
   });
 }
 
-function showList(urlStr,searchVal,){
+function showList(urlStr,searchVal){
     PostHandle(urlStr, JSON.stringify(searchVal), function(data){
         if(data.code == 200){
             //console.log(data.data.articlelist[0].article_id);
